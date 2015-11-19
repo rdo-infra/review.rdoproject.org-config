@@ -1,0 +1,117 @@
+# Default configurations
+- defaults:
+    name: global
+    description: |
+      <p>Job is managed by Jenkins Job Builder</a>.</p>
+
+    project-type: freestyle
+    concurrent: true
+
+- builder:
+    name: prepare-workspace
+    builders:
+      - shell: |
+          # If this is called in a periodic job, these will not be set
+          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # In the post pipeline ZUUL_REF is master but does not behave as we want
+          # So fall back on None
+          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
+          echo "Clean workspace"
+          rm -Rf ./*
+          echo "Clone $ZUUL_PROJECT"
+          zuul-cloner http://rpmfactory.beta.rdoproject.org/r $ZUUL_PROJECT
+
+- builder:
+    name: zuul-swift-upload
+    builders:
+      - shell: |
+          # Publish artifacts on a Swift server
+          /usr/local/bin/zuul_swift_upload.py --name artifacts --delete-after 0 artifacts
+
+- publisher:
+    name: zuul-swift-upload
+    publishers:
+      - postbuildscript:
+          builders:
+            - zuul-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
+## Useful job template
+- job-template:
+    name: '{name}-unit-tests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: cd $ZUUL_PROJECT && ./run_tests.sh
+    triggers:
+      - zuul
+    node: '{node}'
+
+- job-template:
+    name: '{name}-functional-tests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: cd $ZUUL_PROJECT && ./run_functional-tests.sh
+    triggers:
+      - zuul
+    node: '{node}'
+
+- job-template:
+    name: '{name}-publish-docs'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: cd $ZUUL_PROJECT && ./publish_docs.sh
+    triggers:
+      - zuul
+    node: '{node}'
+
+# Config repository associated jobs
+- job:
+    name: 'config-check'
+    defaults: global
+    builders:
+      - shell: |
+          set -e
+          rm -Rf config build
+          mkdir build
+          zuul-cloner http://rpmfactory.beta.rdoproject.org/r config
+          cd config
+          sudo jenkins-jobs test jobs/ -o ../build/
+          # concat of layout.yaml and projects.yaml to /etc/zuul/layout.yaml
+          /usr/local/bin/yaml-merger.py zuul | tee ../build/layout.yaml
+          sudo zuul-server -t -l ../build/layout.yaml
+          # Check nodepool configuration
+          /usr/local/bin/sf-nodepool-conf-update.sh
+    triggers:
+      - zuul
+    node: master
+
+- job:
+    name: 'config-update'
+    defaults: global
+    builders:
+      - shell: |
+          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # In the post pipeline ZUUL_REF is master but does not behave as we want
+          # So fall back on None
+          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
+          rm -Rf config
+          zuul-cloner http://rpmfactory.beta.rdoproject.org/r config
+          cd config
+          sudo rm -Rf /var/lib/jenkins/.cache/jenkins_jobs
+          sudo jenkins-jobs -l debug --ignore-cache update --delete-old jobs/
+          # concat of layout.yaml and projects.yaml to /etc/zuul/layout.yaml
+          /usr/local/bin/yaml-merger.py zuul | sudo tee /etc/zuul/layout.yaml
+          sudo service zuul reload
+          # Merge nodepool.yaml configuration
+          /usr/local/bin/sf-nodepool-conf-update.sh apply
+    triggers:
+      - zuul
+    node: master
