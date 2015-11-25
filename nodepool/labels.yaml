@@ -1,7 +1,11 @@
-labels: []
-#labels:
-#  - name: myproject-centos7-slave
-#    image: centos7
-#    min-ready: 5
-#    providers:
-#      - name: default
+labels:
+  - name: bare-centos-7
+    image: bare-centos-7
+    min-ready: 1
+    providers:
+      - name: default
+  - name: sfstack-centos-7
+    image: sfstack-centos-7
+    min-ready: 1
+    providers:
+      - name: default
