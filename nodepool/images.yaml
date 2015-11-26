@@ -6,9 +6,9 @@
       private-key: /var/lib/jenkins/.ssh/id_rsa
       setup: base.sh
       min-ram: 2048
-    - name: sfstack-centos-7
+    - name: koji-centos-7
       base-image: 'CentOS 7.1.1509 x86_64'
       username: centos
       private-key: /var/lib/jenkins/.ssh/id_rsa
-      setup: sf_slave_setup.sh
+      setup: koji_slave_setup.sh
       min-ram: 2048
