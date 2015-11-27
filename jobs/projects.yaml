@@ -3,6 +3,23 @@
 # Jobs
 # ====
 
+- job:
+    name: 'pkg-validate'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          yum install git
+          git clone http://softwarefactory-project.io/r/rpmfactory
+          rpmdev-setuptree
+          cd $ZUUL_PROJECT
+          spectool -g *.spec -C ~/rpmbuild/SOURCES
+          rpmbuild -bs *.spec
+          srpm=$(ls ~/rpmbuild/SRPMS/*.src.rpm)
+          ../rpmfactory/koji-build.sh $srpm
+    triggers:
+      - zuul
+    node: koji-centos-7
 
 
 # Projects

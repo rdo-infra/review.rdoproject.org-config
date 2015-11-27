@@ -1,11 +1,5 @@
 # This file get appended to layout.yaml, thus the lack of
 projects:
-  - name: zuul-demo
+  - name: gear-dist
     check:
-      - zuul-demo-functional-tests
-      - zuul-demo-unit-tests
-    gate:
-      - zuul-demo-functional-tests
-      - zuul-demo-unit-tests
-    periodic:
-      - periodic-zuul-demo
+      - pkg-validate
