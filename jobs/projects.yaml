@@ -9,7 +9,7 @@
     builders:
       - prepare-workspace
       - shell: |
-          yum install git
+          sudo yum install git
           git clone http://softwarefactory-project.io/r/rpmfactory
           rpmdev-setuptree
           cd $ZUUL_PROJECT
