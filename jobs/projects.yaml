@@ -9,9 +9,11 @@
     builders:
       - prepare-workspace
       - shell: |
+          sudo yum install rsync
           git clone http://softwarefactory-project.io/r/rpmfactory
           rpmdev-setuptree
           cd $ZUUL_PROJECT
+          rsync --exclude="*.spec" ./* ~/rpmbuild/SOURCES/
           spectool -g *.spec -C ~/rpmbuild/SOURCES
           rpmbuild -bs *.spec
           srpm=$(ls ~/rpmbuild/SRPMS/*.src.rpm)
