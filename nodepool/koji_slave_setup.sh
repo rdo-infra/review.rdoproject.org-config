@@ -21,8 +21,9 @@ sudo mkdir -p /var/lib/sf/artifacts/logs
 sudo chown -R jenkins:jenkins /var/lib/sf/
 
 # Koji configuration and certs (insecure)
-cat /opt/nodepool-scripts/koji/koji.conf | sudo tee /etc/koji.conf
-sudo tar xvzf /opt/nodepool-scripts/koji/jenkins-koji.tgz -C /home/jenkins/
+sudo wget http://192.168.42.27/conf/koji.conf -O /etc/koji.conf
+sudo wget http://192.168.42.27/conf/jenkins-koji.tgz -O /srv/jenkins-koji.tgz
+sudo tar xvzf /srv/jenkins-koji.tgz -C /home/jenkins/
 sudo chown -R jenkins /home/jenkins/.koji
 
 # Test koji communication
