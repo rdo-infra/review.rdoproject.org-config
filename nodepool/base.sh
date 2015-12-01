@@ -38,6 +38,11 @@ sudo curl -o /usr/local/bin/zuul_swift_upload.py \
     https://raw.githubusercontent.com/openstack-infra/project-config/master/jenkins/scripts/zuul_swift_upload.py
 sudo chmod +x /usr/local/bin/zuul_swift_upload.py
 
+# install ansible for khaleesi jobs
+sudo yum install -y python-pip python-crypto git
+sudo pip install -U ansible==1.9.2
+ansible --version
+
 # sync FS, otherwise there are 0-byte sized files from the yum/pip installations
 sudo sync
 
