@@ -29,6 +29,22 @@ sudo chown -R jenkins /home/jenkins/.koji
 # Test koji communication
 sudo -u jenkins 'koji' 'moshimoshi'
 
+# install ansible
+
+sudo yum install -y epel-release
+sudo yum install -y python-pip python-crypto git
+sudo pip install -U ansible==1.9.2
+ansible --version
+sudo yum remove -y epel-release
+
+# install khaleesi
+git clone https://github.com/redhat-openstack/khaleesi.git
+git clone https://github.com/redhat-openstack/khaleesi-settings.git
+
+pushd khaleesi/tools/ksgen
+sudo python setup.py install
+popd
+
 # sync FS, otherwise there are 0-byte sized files from the yum/pip installations
 sudo sync
 
