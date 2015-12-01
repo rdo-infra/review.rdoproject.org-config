@@ -22,6 +22,17 @@
       - zuul
     node: koji-centos-7
 
+- job:
+    name: 'tox-validate'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          cd $ZUUL_PROJECT
+          tox
+    triggers:
+      - zuul
+    node: koji-centos-7
 
 # Projects
 # ========
