@@ -2,7 +2,9 @@
 
 . base.sh
 
-sudo yum install -y koji wget python-pip
+# install tox and gcc/python-dev to be able to build native python
+# modules
+sudo yum install -y koji wget python-pip python-devel gcc libffi-devel
 sudo pip install -U tox==1.6.1
 
 sudo dd if=/dev/zero of=/srv/swap count=4000 bs=1M
