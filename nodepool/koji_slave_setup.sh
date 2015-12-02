@@ -4,7 +4,8 @@
 
 # install tox and gcc/python-dev to be able to build native python
 # modules
-sudo yum install -y koji wget python-pip python-devel gcc libffi-devel
+sudo yum install -y koji wget rpmdevtools rpm-build redhat-rpm-config
+sudo yum install -y python-pip git python-devel gcc patch libffi-devel
 sudo pip install -U tox==1.6.1
 
 sudo dd if=/dev/zero of=/srv/swap count=4000 bs=1M
@@ -19,8 +20,7 @@ sudo tar xvzf /srv/jenkins-koji.tgz -C /home/jenkins/
 sudo chown -R jenkins /home/jenkins/.koji
 
 # install ansible
-sudo yum install -y epel-release
-sudo yum install -y python-crypto git
+sudo yum install -y epel-release python-crypto
 sudo pip install -U ansible==1.9.2
 ansible --version
 sudo yum remove -y epel-release
