@@ -18,7 +18,9 @@
           spectool -g *.spec -C ~/rpmbuild/SOURCES
           rpmbuild -bs *.spec
           srpm=$(ls ~/rpmbuild/SRPMS/*.src.rpm)
-          ../rpmfactory/koji-build.sh $srpm
+          ~/rpmfactory/koji-build.sh $srpm
+          sudo rpm -i ~/rpmbuild/RPMS/noarch/rdo-temp-release-1.0-1.noarch.rpm
+          sudo yum install $ZUUL_PROJECT
     triggers:
       - zuul
     node: koji-centos-7
