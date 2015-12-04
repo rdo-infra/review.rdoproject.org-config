@@ -9,6 +9,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          env
           sudo yum install rsync
           git clone http://softwarefactory-project.io/r/rpmfactory
           rpmdev-setuptree
