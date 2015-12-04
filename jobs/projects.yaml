@@ -24,6 +24,14 @@
     node: koji-centos-7
 
 - job:
+    name: 'pkg-validate2'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          env
+
+- job:
     name: 'tox-validate'
     defaults: global
     builders:
