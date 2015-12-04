@@ -18,7 +18,12 @@
           spectool -g *.spec -C ~/rpmbuild/SOURCES
           rpmbuild -bs *.spec
           srpm=$(ls ~/rpmbuild/SRPMS/*.src.rpm)
-          ../rpmfactory/koji-build.sh $srpm
+          ~/rpmfactory/koji-build.sh $srpm
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
+           variable: SECRETKEY
     triggers:
       - zuul
     node: koji-centos-7
