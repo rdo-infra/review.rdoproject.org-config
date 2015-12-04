@@ -10,6 +10,7 @@
       - prepare-workspace
       - shell: |
           env
+          chmod 600 $SECRETKEY
           sudo yum install rsync
           git clone http://softwarefactory-project.io/r/rpmfactory
           cd $ZUUL_PROJECT
