@@ -15,4 +15,9 @@ projects:
   - name: openstack-swift
     check:
       - pkg-validate
-      - pkg-validate2
+  - name: keystone
+    check:
+      - tox-validate
+  - name: openstack-keystone
+    check:
+      - pkg-validate
