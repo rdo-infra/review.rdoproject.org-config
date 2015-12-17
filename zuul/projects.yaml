@@ -1,23 +1,26 @@
 # This file get appended to layout.yaml, thus the lack of
 projects:
-  - name: gear-dist
-    check:
-      - pkg-validate
-  - name: horizon-dist
-    check:
-      - pkg-validate
-  - name: horizon
+  - name: ceilometer
     check:
       - tox-validate
-  - name: swift
+  - name: ceilometer-distgit
+    check:
+      - pkg-validate
+  - name: glance
     check:
       - tox-validate
-  - name: openstack-swift
+  - name: glance-distgit
+    check:
+      - pkg-validate
+  - name: ironic
+    check:
+      - tox-validate
+  - name: ironic-distgit
     check:
       - pkg-validate
   - name: keystone
     check:
       - tox-validate
-  - name: openstack-keystone
+  - name: keystone-distgit
     check:
       - pkg-validate
