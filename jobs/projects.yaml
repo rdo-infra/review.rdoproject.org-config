@@ -33,9 +33,19 @@
           # Tox update should be put in the slave preparation script
           sudo pip install -U tox
           cd $ZUUL_PROJECT
-          wget "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/liberty" -O upper-constraints.txt
           [ -f setup.cfg ] && sed 's/^version =.*//' -i setup.cfg
-          run-tox.sh py27
+          case $ZUUL_PROJECT in
+            nova|keystone|neutron|ceilometer )
+              tox -epy27
+            ;;
+            glance )
+              ./run_tests.sh --concurrency 4 -V -P
+            ;;
+            * )
+              wget "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/liberty" -O upper-constraints.txt
+              run-tox.sh py27
+            ;;
+          esac
     triggers:
       - zuul
     node: koji-centos-7

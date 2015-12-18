@@ -36,7 +36,7 @@ sudo cp rpmfactory/slaves/run-tox.sh /usr/local/bin/
 sudo yum install -y mariadb-devel postgresql-devel libjpeg-devel
 sudo yum install -y gcc-c++ zeromq-devel libxslt-devel sqlite-devel
 sudo yum install -y libvirt-devel openldap-devel libxml2-devel
-sudo yum install -y liberasurecode-devel
+sudo yum install -y liberasurecode-devel openssl-devel
 
 # install khaleesi
 git clone https://github.com/redhat-openstack/khaleesi.git
