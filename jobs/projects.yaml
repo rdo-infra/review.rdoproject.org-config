@@ -36,7 +36,13 @@
           cd $ZUUL_PROJECT
           [ -f setup.cfg ] && sed 's/^version =.*//' -i setup.cfg
           case $ZUUL_PROJECT in
-            nova|keystone|neutron|ceilometer )
+            nova|neutron|ceilometer )
+              tox -epy27
+            ;;
+            keystone )
+              # https://bugs.launchpad.net/keystone/+bug/1505374
+              # Yest it's ugly...
+              git fetch https://review.openstack.org/openstack/keystone refs/changes/00/233800/1 && git cherry-pick FETCH_HEAD
               tox -epy27
             ;;
             glance )
