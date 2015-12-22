@@ -44,3 +44,14 @@ projects:
       - pkg-validate
     periodic:
       - upstream-update
+
+  - name: tripleo-heat-templates
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: tripleo-heat-templates-distgit
+    check:
+      - pkg-validate
+    periodic:
+      - upstream-update
