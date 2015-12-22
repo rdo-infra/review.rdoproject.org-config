@@ -59,6 +59,20 @@
       - zuul
     node: koji-centos-7
 
+- job:
+    name: 'upstream-update'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          env
+          echo "===> $ZUUL_PROJECT"
+          git clone http://softwarefactory-project.io/r/rpmfactory
+          ../rpmfactory/sync-upstream.sh
+    triggers:
+      - zuul
+    node: koji-centos-7
+
 # Projects
 # ========
 - project:

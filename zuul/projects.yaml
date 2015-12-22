@@ -3,24 +3,44 @@ projects:
   - name: ceilometer
     check:
       - tox-validate
+    periodic:
+      - upstream-update
   - name: ceilometer-distgit
     check:
       - pkg-validate
+    periodic:
+      - upstream-update
+
   - name: glance
     check:
       - tox-validate
+    periodic:
+      - upstream-update
+
   - name: glance-distgit
     check:
       - pkg-validate
+    periodic:
+      - upstream-update
+
   - name: ironic
     check:
       - tox-validate
+    periodic:
+      - upstream-update
   - name: ironic-distgit
     check:
       - pkg-validate
+    periodic:
+      - upstream-update
+
   - name: keystone
     check:
       - tox-validate
+    periodic:
+      - upstream-update
   - name: keystone-distgit
     check:
       - pkg-validate
+    periodic:
+      - upstream-update
