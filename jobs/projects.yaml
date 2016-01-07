@@ -66,9 +66,13 @@
       - prepare-workspace
       - shell: |
           env
+          # Manage SSH keyring for git+push on rpmfactory
+          chmod 600 $SECRETKEY
+          eval $(ssh-agent)
+          ssh-add $SECRETKEY
           echo "===> $ZUUL_PROJECT"
           git clone http://softwarefactory-project.io/r/rpmfactory
-          ../rpmfactory/sync-upstream.sh
+          ./rpmfactory/sync-upstream.sh
     triggers:
       - zuul
     node: koji-centos-7
