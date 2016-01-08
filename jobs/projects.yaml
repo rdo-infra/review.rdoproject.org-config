@@ -73,6 +73,11 @@
           echo "===> $ZUUL_PROJECT"
           git clone http://softwarefactory-project.io/r/rpmfactory
           ./rpmfactory/sync-upstream.sh
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
+           variable: SECRETKEY
     triggers:
       - zuul
     node: koji-centos-7
