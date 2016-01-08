@@ -5,11 +5,20 @@ projects:
       - tox-validate
     periodic:
       - upstream-update
+
   - name: ceilometer-distgit
     check:
       - pkg-validate
+
+  - name: cinder
+    check:
+      - tox-validate
     periodic:
       - upstream-update
+
+  - name: cinder-distgit
+    check:
+      - pkg-validate
 
   - name: glance
     check:
@@ -20,38 +29,53 @@ projects:
   - name: glance-distgit
     check:
       - pkg-validate
+
+  - name: heat
+    check:
+      - tox-validate
     periodic:
       - upstream-update
+
+  - name: heat-distgit
+    check:
+      - pkg-validate
 
   - name: ironic
     check:
       - tox-validate
     periodic:
       - upstream-update
+
   - name: ironic-distgit
     check:
       - pkg-validate
-    periodic:
-      - upstream-update
 
   - name: keystone
     check:
       - tox-validate
     periodic:
       - upstream-update
+
   - name: keystone-distgit
     check:
       - pkg-validate
-    periodic:
-      - upstream-update
 
   - name: tripleo-heat-templates
     check:
       - tox-validate
     periodic:
       - upstream-update
+
   - name: tripleo-heat-templates-distgit
     check:
       - pkg-validate
+
+  - name: trove
+    check:
+      - tox-validate
     periodic:
       - upstream-update
+
+  - name: trove-distgit
+    check:
+      - pkg-validate
