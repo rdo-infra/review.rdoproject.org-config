@@ -1,74 +1,11 @@
 # This file get appended to layout.yaml, thus the lack of
 projects:
-  - name: ceilometer
+  - name: zuul-demo
     check:
-      - tox-validate
+      - zuul-demo-functional-tests
+      - zuul-demo-unit-tests
+    gate:
+      - zuul-demo-functional-tests
+      - zuul-demo-unit-tests
     periodic:
-      - upstream-update
-  - name: ceilometer-distgit
-    check:
-      - pkg-validate
-
-  - name: cinder
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: cinder-distgit
-    check:
-      - pkg-validate
-
-  - name: glance
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: glance-distgit
-    check:
-      - pkg-validate
-
-  - name: heat
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: heat-distgit
-    check:
-      - pkg-validate
-
-  - name: ironic
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: ironic-distgit
-    check:
-      - pkg-validate
-
-  - name: keystone
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: keystone-distgit
-    check:
-      - pkg-validate
-
-  - name: tripleo-heat-templates
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: tripleo-heat-templates-distgit
-    check:
-      - pkg-validate
-
-  - name: trove
-    check:
-      - tox-validate
-    periodic:
-      - upstream-update
-  - name: trove-distgit
-    check:
-      - pkg-validate
-
+      - periodic-zuul-demo
