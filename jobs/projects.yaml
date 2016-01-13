@@ -71,7 +71,7 @@
           chmod 600 $SECRETKEY
           eval $(ssh-agent)
           ssh-add $SECRETKEY
-          echo "===> $ZUUL_PROJECT"
+          #
           git clone http://softwarefactory-project.io/r/rpmfactory
           ./rpmfactory/sync-upstream.sh
     wrappers:
@@ -79,6 +79,23 @@
         - file:
            credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
            variable: SECRETKEY
+    triggers:
+      - zuul
+    node: koji-centos-7
+
+- job:
+    name: 'delorean-ci'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
+          cd  delorean
+          if [ -n "$GERRIT_REFSPEC" ]; then
+            git fetch https://review.gerrithub.io/openstack-packages/delorean $GERRIT_REFSPEC && git checkout FETCH_HEAD
+          fi
+          mkdir -p logs
+          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
     triggers:
       - zuul
     node: koji-centos-7
