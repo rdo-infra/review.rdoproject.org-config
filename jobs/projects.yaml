@@ -71,7 +71,9 @@
           chmod 600 $SECRETKEY
           eval $(ssh-agent)
           ssh-add $SECRETKEY
-          #
+          echo -e "Host *\n  StrictHostKeyChecking no" > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+          # Run script
           git clone http://softwarefactory-project.io/r/rpmfactory
           ./rpmfactory/sync-upstream.sh
     wrappers:
