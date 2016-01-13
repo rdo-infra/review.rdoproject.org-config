@@ -1,6 +1,54 @@
 # This file get appended to layout.yaml, thus the lack of
 projects:
+  - name: aodh-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: aodh-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: barbican
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: barbican-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: barbican-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: barbicanclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: barbicanclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: barbicanclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: ceilometer
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ceilometer-distgit
     check:
       - tox-validate
     periodic:
@@ -10,7 +58,45 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: ceilometerclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ceilometerclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ceilometerclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: ceilometermiddleware
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ceilometermiddleware-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ceilometermiddleware-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: cinder
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: cinder-distgit
     check:
       - tox-validate
     periodic:
@@ -20,7 +106,113 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: cinderclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: cinderclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: cinderclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: cloudkitty-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: cloudkitty-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: designate
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: designate-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: designate-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: designateclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: designateclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: designateclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: dib-utils-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: dib-utils-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: diskimage-builder
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: diskimage-builder-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: diskimage-builder-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: ec2-api
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ec2-api-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ec2-api-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: glance
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: glance-distgit
     check:
       - tox-validate
     periodic:
@@ -30,7 +222,55 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: glance_store-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: glance_store-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: glanceclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: glanceclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: glanceclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: gnocchi
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: gnocchi-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: gnocchi-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: heat
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: heat-distgit
     check:
       - tox-validate
     periodic:
@@ -40,7 +280,71 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: heat-templates
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: heat-templates-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: heat-templates-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: heatclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: heatclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: heatclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: horizon-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: horizon-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: instack
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: instack-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: instack-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: ironic
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ironic-distgit
     check:
       - tox-validate
     periodic:
@@ -50,7 +354,71 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: ironic-inspector
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ironic-inspector-client
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ironic-inspector-client-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ironic-inspector-client-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: ironic-inspector-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ironic-inspector-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: ironic-python-agent-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ironic-python-agent-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: ironicclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: ironicclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: ironicclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: keystone
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: keystone-distgit
     check:
       - tox-validate
     periodic:
@@ -60,7 +428,325 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: keystoneclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: keystoneclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: keystoneclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: keystonemiddleware
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: keystonemiddleware-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: keystonemiddleware-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: magnumclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: magnumclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: magnumclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: manila
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: manila-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: manila-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: manilaclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: manilaclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: manilaclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: mistral-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: mistral-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: neutron
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: neutron-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: neutron-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: neutron-fwaas
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: neutron-fwaas-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: neutron-fwaas-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: neutron-lbaas
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: neutron-lbaas-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: neutron-lbaas-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: neutron-vpnaas
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: neutron-vpnaas-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: neutron-vpnaas-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: neutronclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: neutronclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: neutronclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: nova
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: nova-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: nova-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: novaclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: novaclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: novaclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: octavia-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: octavia-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: openstackclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: openstackclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: openstackclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: rally
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: rally-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: rally-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: sahara
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: sahara-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: sahara-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: saharaclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: saharaclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: saharaclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: swift-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: swift-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: swiftclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: swiftclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: swiftclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: tempest-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: tempest-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: tripleo-heat-templates
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: tripleo-heat-templates-distgit
     check:
       - tox-validate
     periodic:
@@ -70,12 +756,102 @@ projects:
       - pkg-validate
       - delorean-ci
 
+  - name: tripleo-image-elements
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: tripleo-image-elements-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: tripleo-image-elements-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: tripleo-incubator-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: tripleo-incubator-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: tripleo-puppet-elements
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: tripleo-puppet-elements-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: tripleo-puppet-elements-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
   - name: trove
     check:
       - tox-validate
     periodic:
       - upstream-update
+
   - name: trove-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: trove-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: troveclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: troveclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: troveclient-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: zaqar-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: zaqar-distgit
+    check:
+      - pkg-validate
+      - delorean-ci
+
+  - name: zaqarclient
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+
+  - name: zaqarclient-distgit
+    check:
+      - tox-validate
+    periodic:
+      - upstream-update
+  - name: zaqarclient-distgit
     check:
       - pkg-validate
       - delorean-ci
