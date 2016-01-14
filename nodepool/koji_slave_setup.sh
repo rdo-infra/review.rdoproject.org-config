@@ -11,7 +11,7 @@ ansible --version
 # install tox and gcc/python-dev to be able to build native python
 # modules
 sudo yum install -y koji wget rpmdevtools rpm-build redhat-rpm-config
-sudo yum install -y python-devel gcc patch libffi-devel
+sudo yum install -y python-devel gcc patch libffi-devel mock
 sudo pip install -U tox==1.6.1
 
 # swap
