@@ -73,8 +73,16 @@
           ssh-add $SECRETKEY
           echo -e "Host *\n  StrictHostKeyChecking no" > ~/.ssh/config
           chmod 600 ~/.ssh/config
+          # Prepare sfrdo
+          git clone http://softwarefactory-project.io/r/p/python-sfrdo.git --depth 1
+          pushd python-sfrdo
+            virtualenv ../sfrdo-venv
+            . ../sfrdo-venv/bin/activate
+            pip install -r requirements.txt
+            python setup.py install
+          popd
           # Run script
-          git clone http://softwarefactory-project.io/r/rpmfactory
+          git clone http://softwarefactory-project.io/r/rpmfactory --depth 1
           ./rpmfactory/sync-upstream.sh
     wrappers:
       - credentials-binding:
