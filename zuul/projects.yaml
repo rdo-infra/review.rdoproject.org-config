@@ -37,15 +37,6 @@ projects:
   - delorean-ci
   name: horizon-distgit
 - check:
-  - tox-validate
-  name: ironic-inspector-client
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: ironic-inspector-client-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: ironic-python-agent-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: openstackclient-distgit
+- check:
+  - tox-validate
+  name: ironic-inspector-client
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: ironic-inspector-client-distgit
