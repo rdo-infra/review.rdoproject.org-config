@@ -112,15 +112,6 @@ projects:
   - delorean-ci
   name: openstackclient-distgit
 - check:
-  - tox-validate
-  name: saharaclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: saharaclient-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: swift-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: neutronclient-distgit
+- check:
+  - tox-validate
+  name: saharaclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: saharaclient-distgit
