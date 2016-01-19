@@ -26,15 +26,6 @@ projects:
   name: cloudkitty-distgit
 - check:
   - tox-validate
-  name: designate
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: designate-distgit
-- check:
-  - tox-validate
   name: designateclient
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: neutron-vpnaas-distgit
+- check:
+  - tox-validate
+  name: designate
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: designate-distgit
