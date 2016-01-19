@@ -309,15 +309,6 @@ projects:
   name: tripleo-image-elements-distgit
 - check:
   - tox-validate
-  name: tripleo-heat-templates
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: tripleo-heat-templates-distgit
-- check:
-  - tox-validate
   name: cinderclient
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: trove-distgit
+- check:
+  - tox-validate
+  name: tripleo-heat-templates
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: tripleo-heat-templates-distgit
