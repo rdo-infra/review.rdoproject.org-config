@@ -4,15 +4,6 @@ jobs:
 projects:
 - check:
   - tox-validate
-  name: barbicanclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: barbicanclient-distgit
-- check:
-  - tox-validate
   name: ceilometerclient
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: barbican-distgit
+- check:
+  - tox-validate
+  name: barbicanclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: barbicanclient-distgit
