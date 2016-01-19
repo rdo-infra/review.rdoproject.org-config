@@ -168,15 +168,6 @@ projects:
   name: ironicclient-distgit
 - check:
   - tox-validate
-  name: keystone
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: keystone-distgit
-- check:
-  - tox-validate
   name: keystoneclient
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: nova-distgit
+- check:
+  - tox-validate
+  name: keystone
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: keystone-distgit
