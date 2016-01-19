@@ -16,15 +16,6 @@ projects:
   - delorean-ci
   name: cloudkitty-distgit
 - check:
-  - tox-validate
-  name: designateclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: designateclient-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: dib-utils-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: troveclient-distgit
+- check:
+  - tox-validate
+  name: designateclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: designateclient-distgit
