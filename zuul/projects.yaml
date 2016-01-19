@@ -372,15 +372,6 @@ projects:
   name: ceilometer-distgit
 - check:
   - tox-validate
-  name: nova
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: nova-distgit
-- check:
-  - tox-validate
   name: neutron
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: glance-distgit
+- check:
+  - tox-validate
+  name: nova
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: nova-distgit
