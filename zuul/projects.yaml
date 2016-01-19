@@ -65,15 +65,6 @@ projects:
   - delorean-ci
   name: ec2-api-distgit
 - check:
-  - tox-validate
-  name: glance
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: glance-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: glance_store-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: aodh-distgit
+- check:
+  - tox-validate
+  name: glance
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: glance-distgit
