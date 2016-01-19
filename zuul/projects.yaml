@@ -4,15 +4,6 @@ jobs:
 projects:
 - check:
   - tox-validate
-  name: ceilometerclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: ceilometerclient-distgit
-- check:
-  - tox-validate
   name: ceilometermiddleware
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: swiftclient-distgit
+- check:
+  - tox-validate
+  name: ceilometerclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: ceilometerclient-distgit
