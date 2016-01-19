@@ -372,15 +372,6 @@ projects:
   name: zaqarclient-distgit
 - check:
   - tox-validate
-  name: cinder
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: cinder-distgit
-- check:
-  - tox-validate
   name: ceilometer
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: cinderclient-distgit
+- check:
+  - tox-validate
+  name: cinder
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: cinder-distgit
