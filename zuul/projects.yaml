@@ -435,15 +435,6 @@ projects:
   name: cinder-distgit
 - check:
   - tox-validate
-  name: aodh
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: aodh-distgit
-- check:
-  - tox-validate
   name: nova
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: glance-distgit
+- check:
+  - tox-validate
+  name: aodh
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: aodh-distgit
