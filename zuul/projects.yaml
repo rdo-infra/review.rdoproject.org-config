@@ -161,15 +161,6 @@ projects:
   - delorean-ci
   name: swift-distgit
 - check:
-  - tox-validate
-  name: swiftclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: swiftclient-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: tempest-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: novaclient-distgit
+- check:
+  - tox-validate
+  name: swiftclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: swiftclient-distgit
