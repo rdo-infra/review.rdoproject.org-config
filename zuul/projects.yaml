@@ -449,16 +449,17 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
-  name: cinder
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: cinder-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
   name: ceilometer
 - check:
   - pkg-validate
   - delorean-ci
   name: ceilometer-distgit
+- check:
+  - tox-validate
+  name: cinder
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: cinder-distgit
