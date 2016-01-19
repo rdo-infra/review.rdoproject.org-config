@@ -135,15 +135,6 @@ projects:
   - delorean-ci
   name: neutronclient-distgit
 - check:
-  - tox-validate
-  name: novaclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: novaclient-distgit
-- check:
   - pkg-validate
   - delorean-ci
   name: octavia-distgit
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: glanceclient-distgit
+- check:
+  - tox-validate
+  name: novaclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: novaclient-distgit
