@@ -75,15 +75,6 @@ projects:
   name: zaqar-distgit
 - check:
   - tox-validate
-  name: zaqarclient
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: zaqarclient-distgit
-- check:
-  - tox-validate
   name: nova
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: ironic-inspector-client-distgit
+- check:
+  - tox-validate
+  name: zaqarclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: zaqarclient-distgit
