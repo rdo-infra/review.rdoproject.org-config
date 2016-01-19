@@ -176,15 +176,6 @@ projects:
   name: openstackclient-distgit
 - check:
   - tox-validate
-  name: rally
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: rally-distgit
-- check:
-  - tox-validate
   name: saharaclient
   periodic:
   - upstream-update
@@ -469,3 +460,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: tripleo-puppet-elements-distgit
+- check:
+  - tox-validate
+  name: rally
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: rally-distgit
