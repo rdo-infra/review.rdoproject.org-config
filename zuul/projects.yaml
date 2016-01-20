@@ -880,3 +880,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: mistralclient-distgit
+- check:
+  - tox-validate
+  name: dracclient
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: dracclient-distgit
