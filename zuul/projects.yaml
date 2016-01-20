@@ -5,10 +5,6 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
-  name: cloudkitty-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
   name: dib-utils-distgit
 - check:
   - tox-validate
@@ -838,3 +834,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: reno-distgit
+- check:
+  - tox-validate
+  name: cloudkitty
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: cloudkitty-distgit
