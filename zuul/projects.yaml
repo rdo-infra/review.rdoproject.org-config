@@ -622,3 +622,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: oslo-log-distgit
+- check:
+  - tox-validate
+  name: oslo-policy
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: oslo-policy-distgit
