@@ -988,15 +988,6 @@ projects:
   name: openstack-puppet-modules-distgit
 - check:
   - tox-validate
-  name: osprofiler
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: osprofiler-distgit
-- check:
-  - tox-validate
   name: networking-arista
   periodic:
   - upstream-update
@@ -1004,3 +995,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: networking-arista-distgit
+- check:
+  - tox-validate
+  name: osprofiler
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: osprofiler-distgit
