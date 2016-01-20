@@ -541,3 +541,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: oslo-config-distgit
+- check:
+  - tox-validate
+  name: oslo-concurrency
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: oslo-concurrency-distgit
