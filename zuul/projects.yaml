@@ -39,10 +39,6 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
-  name: octavia-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
   name: swift-distgit
 - check:
   - pkg-validate
@@ -848,3 +844,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: mistral-distgit
+- check:
+  - tox-validate
+  name: octavia
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: octavia-distgit
