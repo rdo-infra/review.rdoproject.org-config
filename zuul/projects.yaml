@@ -71,15 +71,6 @@ projects:
   name: nova-distgit
 - check:
   - tox-validate
-  name: keystone
-  periodic:
-  - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: keystone-distgit
-- check:
-  - tox-validate
   name: glance
   periodic:
   - upstream-update
@@ -843,3 +834,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: cloudkitty-distgit
+- check:
+  - tox-validate
+  name: keystone
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: keystone-distgit
