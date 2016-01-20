@@ -27,10 +27,6 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
-  name: ironic-python-agent-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
   name: tempest-distgit
 - check:
   - pkg-validate
@@ -972,3 +968,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: zaqar-distgit
+- check:
+  - tox-validate
+  name: ironic-python-agent
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: ironic-python-agent-distgit
