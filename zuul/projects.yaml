@@ -604,3 +604,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: oslo-vmware-distgit
+- check:
+  - tox-validate
+  name: oslo-context
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: oslo-context-distgit
