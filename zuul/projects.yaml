@@ -469,3 +469,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: magnumclient-distgit
+- check:
+  - tox-validate
+  name: os-client-config
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: os-client-config-distgit
