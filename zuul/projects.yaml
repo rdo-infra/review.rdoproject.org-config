@@ -496,3 +496,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: oslotest-distgit
+- check:
+  - tox-validate
+  name: oslo-sphinx
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: oslo-sphinx-distgit
