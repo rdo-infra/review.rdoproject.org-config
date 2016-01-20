@@ -505,3 +505,12 @@ projects:
   - pkg-validate
   - delorean-ci
   name: oslo-sphinx-distgit
+- check:
+  - tox-validate
+  name: oslo-i18n
+  periodic:
+  - upstream-update
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: oslo-i18n-distgit
