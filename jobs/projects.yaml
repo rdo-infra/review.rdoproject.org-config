@@ -66,7 +66,6 @@
     builders:
       - prepare-workspace
       - shell: |
-          env
           # Manage SSH keyring for git+push on rpmfactory
           chmod 600 $SECRETKEY
           eval $(ssh-agent)
@@ -84,8 +83,7 @@
             python setup.py install
           popd
           # Run script
-          git clone http://softwarefactory-project.io/r/rpmfactory --depth 1
-          ./rpmfactory/sync-upstream.sh
+          sfrdo sync_repo --type All
     wrappers:
       - credentials-binding:
         - file:
@@ -93,6 +91,7 @@
            variable: SECRETKEY
     triggers:
       - zuul
+    node: koji-centos-7
 
 - job:
     name: 'delorean-ci'
