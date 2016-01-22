@@ -142,12 +142,3 @@
     triggers:
       - zuul
     node: koji-centos-7
-
-# Projects
-# ========
-- project:
-    name: zuul-demo
-    node: master
-    jobs:
-      - '{name}-unit-tests'
-      - '{name}-functional-tests'
