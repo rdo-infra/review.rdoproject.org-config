@@ -2,20 +2,9 @@ jobs:
 - branch: ^master$
   name: ^delorean-ci$
 projects:
-- check:
-  - tox-validate
-  name: diskimage-builder
-  periodic:
+- periodic:
   - upstream-update
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: diskimage-builder-distgit
-- check:
-  - tox-validate
-  name: heat-templates
-  periodic:
-  - upstream-update
+  name: rdo
 - check:
   - pkg-validate
   - delorean-ci
@@ -35,8 +24,6 @@ projects:
 - check:
   - tox-validate
   name: nova
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -44,8 +31,6 @@ projects:
 - check:
   - tox-validate
   name: glance
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -53,8 +38,6 @@ projects:
 - check:
   - tox-validate
   name: ceilometer
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -62,8 +45,6 @@ projects:
 - check:
   - tox-validate
   name: gnocchi
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -71,8 +52,6 @@ projects:
 - check:
   - tox-validate
   name: heat
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -80,8 +59,6 @@ projects:
 - check:
   - tox-validate
   name: cinder
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -89,8 +66,6 @@ projects:
 - check:
   - tox-validate
   name: ironic
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -98,8 +73,6 @@ projects:
 - check:
   - tox-validate
   name: neutron
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -107,8 +80,6 @@ projects:
 - check:
   - tox-validate
   name: neutron-fwaas
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -116,8 +87,6 @@ projects:
 - check:
   - tox-validate
   name: neutron-lbaas
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -125,8 +94,6 @@ projects:
 - check:
   - tox-validate
   name: neutron-vpnaas
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -134,8 +101,6 @@ projects:
 - check:
   - tox-validate
   name: designate
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -143,8 +108,6 @@ projects:
 - check:
   - tox-validate
   name: sahara
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -152,8 +115,6 @@ projects:
 - check:
   - tox-validate
   name: trove
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -161,8 +122,6 @@ projects:
 - check:
   - tox-validate
   name: tripleo-heat-templates
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -170,8 +129,6 @@ projects:
 - check:
   - tox-validate
   name: tripleo-image-elements
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -179,8 +136,6 @@ projects:
 - check:
   - tox-validate
   name: instack
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -188,8 +143,6 @@ projects:
 - check:
   - tox-validate
   name: manila
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -197,8 +150,6 @@ projects:
 - check:
   - tox-validate
   name: ironic-inspector
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -206,8 +157,6 @@ projects:
 - check:
   - tox-validate
   name: barbican
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -215,8 +164,6 @@ projects:
 - check:
   - tox-validate
   name: ec2-api
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -224,8 +171,6 @@ projects:
 - check:
   - tox-validate
   name: tripleo-puppet-elements
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -233,8 +178,6 @@ projects:
 - check:
   - tox-validate
   name: rally
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -242,8 +185,6 @@ projects:
 - check:
   - tox-validate
   name: keystoneclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -251,8 +192,6 @@ projects:
 - check:
   - tox-validate
   name: glanceclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -260,8 +199,6 @@ projects:
 - check:
   - tox-validate
   name: novaclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -269,8 +206,6 @@ projects:
 - check:
   - tox-validate
   name: swiftclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -278,8 +213,6 @@ projects:
 - check:
   - tox-validate
   name: ceilometerclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -287,8 +220,6 @@ projects:
 - check:
   - tox-validate
   name: heatclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -296,8 +227,6 @@ projects:
 - check:
   - tox-validate
   name: cinderclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -305,8 +234,6 @@ projects:
 - check:
   - tox-validate
   name: ironicclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -314,8 +241,6 @@ projects:
 - check:
   - tox-validate
   name: neutronclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -323,8 +248,6 @@ projects:
 - check:
   - tox-validate
   name: saharaclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -332,8 +255,6 @@ projects:
 - check:
   - tox-validate
   name: troveclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -341,8 +262,6 @@ projects:
 - check:
   - tox-validate
   name: designateclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -350,8 +269,6 @@ projects:
 - check:
   - tox-validate
   name: manilaclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -359,8 +276,6 @@ projects:
 - check:
   - tox-validate
   name: barbicanclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -368,8 +283,6 @@ projects:
 - check:
   - tox-validate
   name: keystonemiddleware
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -377,8 +290,6 @@ projects:
 - check:
   - tox-validate
   name: ceilometermiddleware
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -386,8 +297,6 @@ projects:
 - check:
   - tox-validate
   name: openstackclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -395,8 +304,6 @@ projects:
 - check:
   - tox-validate
   name: ironic-inspector-client
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -404,8 +311,6 @@ projects:
 - check:
   - tox-validate
   name: zaqarclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -413,8 +318,6 @@ projects:
 - check:
   - tox-validate
   name: magnumclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -422,8 +325,6 @@ projects:
 - check:
   - tox-validate
   name: os-client-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -431,8 +332,6 @@ projects:
 - check:
   - tox-validate
   name: mox3
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -440,8 +339,6 @@ projects:
 - check:
   - tox-validate
   name: oslotest
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -449,8 +346,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-sphinx
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -458,8 +353,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-i18n
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -467,8 +360,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-messaging
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -476,8 +367,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-cache
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -485,8 +374,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -494,8 +381,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-concurrency
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -503,8 +388,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-rootwrap
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -512,8 +395,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-serialization
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -521,8 +402,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-middleware
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -530,8 +409,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-db
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -539,8 +416,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-utils
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -548,8 +423,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-vmware
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -557,8 +430,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-context
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -566,8 +437,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-log
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -575,8 +444,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-policy
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -584,8 +451,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-versionedobjects
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -593,8 +458,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-service
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -602,8 +465,6 @@ projects:
 - check:
   - tox-validate
   name: oslo-reports
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -611,8 +472,6 @@ projects:
 - check:
   - tox-validate
   name: stevedore
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -620,8 +479,6 @@ projects:
 - check:
   - tox-validate
   name: castellan
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -629,8 +486,6 @@ projects:
 - check:
   - tox-validate
   name: taskflow
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -638,8 +493,6 @@ projects:
 - check:
   - tox-validate
   name: pycadf
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -647,8 +500,6 @@ projects:
 - check:
   - tox-validate
   name: debtcollector
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -656,8 +507,6 @@ projects:
 - check:
   - tox-validate
   name: automaton
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -665,8 +514,6 @@ projects:
 - check:
   - tox-validate
   name: cliff
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -674,8 +521,6 @@ projects:
 - check:
   - tox-validate
   name: futurist
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -683,8 +528,6 @@ projects:
 - check:
   - tox-validate
   name: hacking
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -692,8 +535,6 @@ projects:
 - check:
   - tox-validate
   name: appdirs
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -701,8 +542,6 @@ projects:
 - check:
   - tox-validate
   name: os-brick
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -710,8 +549,6 @@ projects:
 - check:
   - tox-validate
   name: unicodecsv
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -719,8 +556,6 @@ projects:
 - check:
   - tox-validate
   name: hardware
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -728,8 +563,6 @@ projects:
 - check:
   - tox-validate
   name: keystoneauth1
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -737,8 +570,6 @@ projects:
 - check:
   - tox-validate
   name: tempest-lib
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -746,8 +577,6 @@ projects:
 - check:
   - tox-validate
   name: os-testr
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -755,8 +584,6 @@ projects:
 - check:
   - tox-validate
   name: proliantutils
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -764,8 +591,6 @@ projects:
 - check:
   - tox-validate
   name: requestsexceptions
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -773,8 +598,6 @@ projects:
 - check:
   - tox-validate
   name: tooz
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -782,8 +605,6 @@ projects:
 - check:
   - tox-validate
   name: reno
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -791,8 +612,6 @@ projects:
 - check:
   - tox-validate
   name: cloudkitty
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -800,8 +619,6 @@ projects:
 - check:
   - tox-validate
   name: keystone
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -809,8 +626,6 @@ projects:
 - check:
   - tox-validate
   name: mistral
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -818,8 +633,6 @@ projects:
 - check:
   - tox-validate
   name: octavia
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -827,8 +640,6 @@ projects:
 - check:
   - tox-validate
   name: ironic-lib
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -836,8 +647,6 @@ projects:
 - check:
   - tox-validate
   name: os-win
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -845,8 +654,6 @@ projects:
 - check:
   - tox-validate
   name: mistralclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -854,8 +661,6 @@ projects:
 - check:
   - tox-validate
   name: dracclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -863,8 +668,6 @@ projects:
 - check:
   - tox-validate
   name: openstacksdk
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -872,8 +675,6 @@ projects:
 - check:
   - tox-validate
   name: cloudkittyclient
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -881,8 +682,6 @@ projects:
 - check:
   - tox-validate
   name: glance_store
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -890,8 +689,6 @@ projects:
 - check:
   - tox-validate
   name: swift
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -899,8 +696,6 @@ projects:
 - check:
   - tox-validate
   name: dib-utils
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -908,8 +703,6 @@ projects:
 - check:
   - tox-validate
   name: os-apply-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -917,8 +710,6 @@ projects:
 - check:
   - tox-validate
   name: os-collect-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -926,8 +717,6 @@ projects:
 - check:
   - tox-validate
   name: os-net-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -935,8 +724,6 @@ projects:
 - check:
   - tox-validate
   name: os-refresh-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -944,8 +731,6 @@ projects:
 - check:
   - tox-validate
   name: os-cloud-config
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -953,8 +738,6 @@ projects:
 - check:
   - tox-validate
   name: zaqar
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -962,8 +745,6 @@ projects:
 - check:
   - tox-validate
   name: ironic-python-agent
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -971,8 +752,6 @@ projects:
 - check:
   - tox-validate
   name: openstack-puppet-modules
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -980,8 +759,6 @@ projects:
 - check:
   - tox-validate
   name: networking-arista
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -989,8 +766,6 @@ projects:
 - check:
   - tox-validate
   name: osprofiler
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -998,8 +773,6 @@ projects:
 - check:
   - tox-validate
   name: pysaml2
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1007,8 +780,6 @@ projects:
 - check:
   - tox-validate
   name: networking-cisco
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1016,8 +787,6 @@ projects:
 - check:
   - tox-validate
   name: vmware-nsx
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1025,8 +794,6 @@ projects:
 - check:
   - tox-validate
   name: networking-mlnx
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1034,8 +801,6 @@ projects:
 - check:
   - tox-validate
   name: networking-odl
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1043,8 +808,6 @@ projects:
 - check:
   - tox-validate
   name: app-catalog-ui
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1052,8 +815,6 @@ projects:
 - check:
   - tox-validate
   name: UcsSdk
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1061,8 +822,6 @@ projects:
 - check:
   - tox-validate
   name: cachetools
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -1070,8 +829,6 @@ projects:
 - check:
   - tox-validate
   name: aodh
-  periodic:
-  - upstream-update
 - check:
   - pkg-validate
   - delorean-ci
