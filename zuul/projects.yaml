@@ -824,13 +824,6 @@ projects:
   name: aodh-distgit
 - check:
   - tox-validate
-  name: horizon
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: horizon-distgit
-- check:
-  - tox-validate
   name: tempest
 - check:
   - pkg-validate
@@ -850,3 +843,10 @@ projects:
   - pkg-validate
   - delorean-ci
   name: tripleoclient-distgit
+- check:
+  - tox-validate
+  name: horizon
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: horizon-distgit
