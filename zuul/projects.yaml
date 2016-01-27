@@ -11,10 +11,6 @@ projects:
   - delorean-ci
   name: heat-templates-distgit
 - check:
-  - pkg-validate
-  - delorean-ci
-  name: tripleo-incubator-distgit
-- check:
   - tox-validate
   name: nova
 - check:
@@ -847,3 +843,10 @@ projects:
   - pkg-validate
   - delorean-ci
   name: tripleoclient-distgit
+- check:
+  - tox-validate
+  name: tripleo-incubator
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: tripleo-incubator-distgit
