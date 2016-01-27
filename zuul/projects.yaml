@@ -2,18 +2,14 @@ jobs:
 - branch: ^master$
   name: ^delorean-ci$
 projects:
-- periodic:
+- name: rdo
+  periodic:
   - upstream-update
   - distgit-update
-  name: rdo
 - check:
   - pkg-validate
   - delorean-ci
   name: heat-templates-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: horizon-distgit
 - check:
   - pkg-validate
   - delorean-ci
@@ -834,3 +830,10 @@ projects:
   - pkg-validate
   - delorean-ci
   name: aodh-distgit
+- check:
+  - tox-validate
+  name: horizon
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: horizon-distgit
