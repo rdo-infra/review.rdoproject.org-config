@@ -13,10 +13,6 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
-  name: tempest-distgit
-- check:
-  - pkg-validate
-  - delorean-ci
   name: tripleo-incubator-distgit
 - check:
   - tox-validate
@@ -837,3 +833,10 @@ projects:
   - pkg-validate
   - delorean-ci
   name: horizon-distgit
+- check:
+  - tox-validate
+  name: tempest
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: tempest-distgit
