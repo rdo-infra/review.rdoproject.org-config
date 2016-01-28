@@ -12,7 +12,7 @@
       - shell: |
           env
           chmod 600 $SECRETKEY
-          sudo yum install rsync
+          sudo yum install rsync createrepo
           git clone http://softwarefactory-project.io/r/rpmfactory
           cd $ZUUL_PROJECT
           ../rpmfactory/koji-build.sh
