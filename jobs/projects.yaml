@@ -1,24 +1,40 @@
 # This file won't be updated and must be updated manually
 # Test
 
-# Jobs
-# ====
+- builder:
+    name: prepare-rpmfactory-workspace
+    builders:
+      - shell: |
+          # If this is called in a periodic job, these will not be set
+          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # In the post pipeline ZUUL_REF is master but does not behave as we want
+          # So fall back on None
+          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
 
 - job:
     name: 'pkg-validate'
     defaults: global
     builders:
-      - prepare-workspace
+      - prepare-rpmfactory-workspace
       - shell: |
-          #chmod 600 $SECRETKEY
           git clone http://softwarefactory-project.io/r/rpmfactory
           cd rpmfactory/gating
           ./pkg-validate.sh
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
-           variable: SECRETKEY
+    triggers:
+      - zuul
+    node: koji-centos-7
+
+- job:
+    name: 'pkg-export'
+    defaults: global
+    builders:
+      - prepare-rpmfactory-workspace
+      - shell: |
+          git clone http://softwarefactory-project.io/r/rpmfactory
+          cd rpmfactory/gating
+          ./pkg-export.sh
     triggers:
       - zuul
     node: koji-centos-7
