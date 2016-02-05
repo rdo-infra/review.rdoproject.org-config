@@ -11,7 +11,7 @@
           export ZUUL_REF=${ZUUL_REF:-None}
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
-          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
+          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None || true
 
 - job:
     name: 'pkg-validate'
