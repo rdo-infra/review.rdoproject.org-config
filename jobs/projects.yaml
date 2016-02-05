@@ -10,12 +10,9 @@
     builders:
       - prepare-workspace
       - shell: |
-          env
-          chmod 600 $SECRETKEY
-          sudo yum install -y rsync createrepo
+          #chmod 600 $SECRETKEY
           git clone http://softwarefactory-project.io/r/rpmfactory
-          cd $ZUUL_PROJECT
-          ../rpmfactory/koji-build.sh
+          ../rpmfactory/gating/pkg-validate.sh
     wrappers:
       - credentials-binding:
         - file:
