@@ -5,7 +5,6 @@ projects:
 - name: rdo
   periodic:
   - upstream-update
-  - distgit-update
 - check:
   - pkg-validate
   - delorean-ci
@@ -765,6 +764,9 @@ projects:
 - check:
   - pkg-validate
   - delorean-ci
+  gate:
+  - pkg-validate
+  - pkg-export
   name: aodh-distgit
 - check:
   - tox-validate
