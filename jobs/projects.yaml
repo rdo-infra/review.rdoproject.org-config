@@ -12,6 +12,8 @@
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
           [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None || true
+          echo "Clean workspace"
+          rm -Rf ./*
 
 - job:
     name: 'pkg-validate'
