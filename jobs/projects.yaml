@@ -10,15 +10,22 @@
     builders:
       - prepare-workspace
       - shell: |
-          #chmod 600 $SECRETKEY
           git clone http://softwarefactory-project.io/r/rpmfactory
           cd rpmfactory/gating
           ./pkg-validate.sh
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
-           variable: SECRETKEY
+    triggers:
+      - zuul
+    node: koji-centos-7
+
+- job:
+    name: 'pkg-export'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          git clone http://softwarefactory-project.io/r/rpmfactory
+          cd rpmfactory/gating
+          ./pkg-export.sh
     triggers:
       - zuul
     node: koji-centos-7
