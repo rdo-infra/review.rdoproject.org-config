@@ -12,7 +12,7 @@
       - shell: |
           #chmod 600 $SECRETKEY
           git clone http://softwarefactory-project.io/r/rpmfactory
-          ../rpmfactory/gating/pkg-validate.sh
+          ./rpmfactory/gating/pkg-validate.sh
     wrappers:
       - credentials-binding:
         - file:
