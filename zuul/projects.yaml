@@ -21,6 +21,16 @@ projects:
   name: ceilometer-distgit
 - check:
   - tox-validate
+  name: diskimage-builder
+- check:
+  - pkg-validate
+  - delorean-ci
+  gate:
+  - pkg-validate
+  - pkg-export
+  name: diskimage-builder-distgit
+- check:
+  - tox-validate
   name: gnocchi
 - check:
   - pkg-validate
