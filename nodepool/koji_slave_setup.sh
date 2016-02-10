@@ -14,6 +14,9 @@ sudo yum install -y koji wget rpmdevtools rpm-build redhat-rpm-config
 sudo yum install -y python-devel gcc patch libffi-devel mock rsync createrepo
 sudo pip install -U tox==1.6.1
 
+# Add jenkins to the mock group
+sudo usermod -a -G mock jenkins
+
 # swap
 sudo dd if=/dev/zero of=/srv/swap count=4000 bs=1M
 sudo chmod 600 /srv/swap
