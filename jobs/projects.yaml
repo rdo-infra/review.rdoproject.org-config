@@ -9,7 +9,6 @@
           echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
           export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
           export ZUUL_REF=${ZUUL_REF:-None}
-          export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
           [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None || true
@@ -149,6 +148,7 @@
     builders:
       - prepare-rpmfactory-workspace
       - shell: |
+          export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           env
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
