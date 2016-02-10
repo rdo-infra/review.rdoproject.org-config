@@ -157,7 +157,7 @@
           git config user.name "Temporary"
           git fetch https://review.gerrithub.io/openstack-packages/delorean refs/changes/94/262694/1 && git cherry-pick FETCH_HEAD
           sudo usermod -a -G mock jenkins
-          su - jenkins
+          sudo su - jenkins
           id
           # end temporary fix
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
