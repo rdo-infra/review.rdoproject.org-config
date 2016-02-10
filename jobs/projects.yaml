@@ -164,3 +164,178 @@
     triggers:
       - zuul
     node: koji-centos-7
+
+# Gitnetics jobs
+
+- scm:
+    name: gitnetics
+    scm:
+        - git:
+            basedir: gitnetics
+            url: https://github.com/gabrielecerami/gitnetics.git
+            skip-tag: true
+            branches:
+                - master
+
+- trigger:
+    name: upstream-gerrit-merge-event
+    triggers:
+        - gerrit:
+            server-name: Openstack_rdo-ci-service
+            silent: true
+            trigger-on:
+                - change-merged-event
+            projects:
+                - project-compare-type: 'ANT'
+                  project-pattern: openstack/nova
+                  branches:
+                      - branch-compare-type: 'ANT'
+                        branch-pattern: 'stable/*'
+                  skip-vote:
+                      successful: true
+                      failed: true
+                      unstable: true
+                      notbuilt: true
+
+- trigger:
+    name: replica-gerrit-recombination-create-event
+    triggers:
+        - gerrit:
+            server-name: rpmfactory_rdo-ci-service
+            silent: true
+            trigger-on:
+                - patchset-created-event:
+                    exclude-drafts: false
+                    exclude-trivial-rebase: false
+                    exclude-no-code-change: false
+            projects:
+                - project-compare-type: 'ANT'
+                  project-pattern: nova
+                  branches:
+                      - branch-compare-type: 'ANT'
+                        branch-pattern: 'recomb-*'
+                  skip-vote:
+                      successful: true
+                      failed: true
+                      unstable: true
+                      notbuilt: true
+
+- trigger:
+    name: replica-gerrit-recombination-vote-event
+    triggers:
+        - gerrit:
+            server-name: rpmfactory-nonvoting_rdo-ci-service
+            silent: true
+            trigger-on:
+                - comment-added-event:
+                    approval-category: 'Code-Review'
+                    approval-value: 2
+                - comment-added-event:
+                    approval-category: 'Verified'
+                    approval-value: 1
+            projects:
+                - project-compare-type: 'ANT'
+                  project-pattern: nova
+                  branches:
+                      - branch-compare-type: 'ANT'
+                        branch-pattern: 'recomb-original-*'
+                      - branch-compare-type: 'ANT'
+                        branch-pattern: 'recomb-patches-*'
+                  skip-vote:
+                      successful: true
+                      failed: true
+                      unstable: true
+                      notbuilt: true
+
+- trigger:
+    name: daily-once
+    triggers:
+        - timed: '@daily'
+
+- job:
+    name: gitnetics-upstream-changes
+    scm:
+        - gitnetics
+        - opm-gate
+    triggers:
+        - daily-once
+        - upstream-gerrit-merge-event
+    builders:
+        - shell: |
+            PROJECTS_CONF="projects/projects.yaml"
+            PROJECTS_DIR="$WORKSPACE/projects"
+            mkdir -p $PROJECTS_DIR
+
+            base_command="python gitnetics/gitnetics.py --projects-conf $PROJECTS_CONF --base-dir $PROJECTS_DIR"
+            if [ -n "$GERRIT_PROJECT" ]; then
+                # triggered by gerrit event
+                $base_command --projects $GERRIT_PROJECT --watch-branches $GERRIT_BRANCH poll-original
+            else
+                # triggered by timer
+                $base_command poll-original
+            fi
+
+- job:
+    name: gitnetics-merge-recombinations
+    scm:
+        - gitnetics
+        # FIXME: a repo that stores projects configurations is needed
+    triggers:
+        - replica-gerrit-recombination-vote-event
+        - daily-once
+    builders:
+        - shell: |
+            PROJECTS_CONF="projects/projects.yaml"
+            PROJECTS_DIR="$WORKSPACE/projects"
+            mkdir -p $PROJECTS_DIR
+            base_command="python gitnetics/gitnetics.py --projects-conf $PROJECTS_CONF --base-dir $PROJECTS_DIR"
+            if [ -n "$GERRIT_PROJECT" ]; then
+                # triggered by gerrit event
+                $base_command --projects $GERRIT_PROJECT merge-recombinations --recombination-id $GERRIT_CHANGE_NUMBER
+            else
+                # triggered by timer
+                $base_command merge-recombinations
+            fi
+
+- job:
+    name: gitnetics-recombinations-tests
+    scm:
+        - gitnetics
+    triggers:
+        - replica-gerrit-recombination-event
+        - daily-once
+    builders:
+        - shell: |
+            PROJECTS_CONF="projects/projects.yaml"
+            PROJECTS_DIR="$WORKSPACE/projects"
+            mkdir -p $PROJECTS_DIR
+            base_command="python gitnetics/gitnetics.py --projects-conf $PROJECTS_CONF --base-dir $PROJECTS_DIR"
+            if [ -n "$GERRIT_PROJECT" ]; then
+                # triggered by gerrit event
+                $base_command --projects $GERRIT_PROJECT --change-id $GERRIT_CHANGE_NUMBER prepare-tests
+            else
+                # triggered by timer
+               $base_command prepare-tests
+            fi
+
+            # Stub: this shoudl analyze yaml file for tests
+            for dir in tests; do
+                cd $dir
+                tox -epy 2.7
+            done
+
+- job:
+    name: gitnetics-repos-maintenance
+    scm:
+        - gitnetics
+        - opm-gate
+    triggers:
+        - daily-once
+    builders:
+        - shell: |
+            PROJECTS_CONF="projects/projects.yaml"
+            PROJECTS_DIR="$WORKSPACE/projects"
+            mkdir -p $PROJECTS_DIR
+
+            python gitnetics/gitnetics.py --projects-conf $PROJECTS_CONF --base-dir $PROJECTS_DIR cleanup
+
