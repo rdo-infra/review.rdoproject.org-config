@@ -149,16 +149,12 @@
       - prepare-rpmfactory-workspace
       - shell: |
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
-          env
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
           # temporary fix
           git config user.email "you@temporary.com"
           git config user.name "Temporary"
           git fetch https://review.gerrithub.io/openstack-packages/delorean refs/changes/94/262694/1 && git cherry-pick FETCH_HEAD
-          sudo usermod -a -G mock jenkins
-          sudo su - jenkins
-          id
           # end temporary fix
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
     triggers:
