@@ -151,6 +151,7 @@
           env
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
+          git fetch https://review.gerrithub.io/openstack-packages/delorean refs/changes/94/262694/1 && git cherry-pick FETCH_HEAD
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
     triggers:
       - zuul
