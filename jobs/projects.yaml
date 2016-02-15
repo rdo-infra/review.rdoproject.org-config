@@ -82,6 +82,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          date
           # Manage SSH keyring for git+push on rpmfactory
           chmod 600 $SECRETKEY
           eval $(ssh-agent)
@@ -115,6 +116,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          date
           # Manage SSH keyring for git+push on rpmfactory
           chmod 600 $SECRETKEY
           eval $(ssh-agent)
