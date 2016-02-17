@@ -876,13 +876,6 @@ projects:
   name: packstack-distgit
 - check:
   - tox-validate
-  name: puppet-aodh
-- check:
-  - pkg-validate
-  - delorean-ci
-  name: puppet-aodh-distgit
-- check:
-  - tox-validate
   name: puppet-ceilometer
 - check:
   - pkg-validate
@@ -1392,3 +1385,10 @@ projects:
   - pkg-validate
   - delorean-ci
   name: puppet-kmod-distgit
+- check:
+  - tox-validate
+  name: puppet-aodh
+- check:
+  - pkg-validate
+  - delorean-ci
+  name: puppet-aodh-distgit
