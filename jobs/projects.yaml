@@ -178,7 +178,7 @@
     name: 'puppet-lint'
     defaults: global
     builders:
-      - prepare-rpmfactory-workspace
+      - prepare-workspace
       - puppet-prepare-node
       - shell: |
           if [ -f Modulefile -o -f metadata.json ]; then
@@ -212,9 +212,8 @@
     name: 'puppet-syntax'
     defaults: global
     builders:
-      - prepare-rpmfactory-workspace
+      - prepare-workspace
       - puppet-prepare-node
-    builders:
       - shell: |
           find . -iname *.pp | xargs puppet parser validate --modulepath=`pwd`/modules
           for f in `find . -iname *.erb` ; do
@@ -228,9 +227,8 @@
     name: 'puppet-spec'
     defaults: global
     builders:
-      - prepare-rpmfactory-workspace
+      - prepare-workspace
       - puppet-prepare-node
-    builders:
       - shell: |
           export PUPPET_GEM_VERSION='~> 3.8.0'
           mkdir .bundled_gems
