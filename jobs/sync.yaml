@@ -13,8 +13,6 @@
           chmod 600 ~/.ssh/config
           # Prepare sfrdo
           git clone http://softwarefactory-project.io/r/p/python-sfrdo.git --depth 1
-          # python-virtualenv installed in the next relase
-          # http://softwarefactory-project.io/r/gitweb?p=software-factory.git;a=blob_plain;f=image/packages/rpm_centos.txt;hb=HEAD
           pushd python-sfrdo
             virtualenv ../sfrdo-venv
             . ../sfrdo-venv/bin/activate
@@ -26,7 +24,7 @@
     wrappers:
       - credentials-binding:
         - file:
-           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
+           credential-id: ed798492-751c-4aa7-b6c4-143eec5242b5
            variable: SECRETKEY
     triggers:
       - zuul
@@ -47,8 +45,6 @@
           chmod 600 ~/.ssh/config
           # Prepare sfrdo
           git clone http://softwarefactory-project.io/r/p/python-sfrdo.git --depth 1
-          # python-virtualenv installed in the next relase
-          # http://softwarefactory-project.io/r/gitweb?p=software-factory.git;a=blob_plain;f=image/packages/rpm_centos.txt;hb=HEAD
           pushd python-sfrdo
             virtualenv ../sfrdo-venv
             . ../sfrdo-venv/bin/activate
@@ -60,7 +56,7 @@
     wrappers:
       - credentials-binding:
         - file:
-           credential-id: d3e139ef-cd37-4395-b4f0-2d403acbf727
+           credential-id: ed798492-751c-4aa7-b6c4-143eec5242b5
            variable: SECRETKEY
     triggers:
       - zuul
