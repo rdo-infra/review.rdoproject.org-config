@@ -19,15 +19,13 @@
     name: puppet-prepare-node
     builders:
       - shell: |
-          # If this is called in a periodic job, these will not be set
           if [ -f /usr/bin/yum ]; then
-              sudo yum -y remove facter puppet rdo-release
-              sudo yum -y install libxml2-devel libxslt-devel ruby-devel rsync
-              sudo yum -y groupinstall "Development Tools"
-          elif [ -f /usr/bin/apt-get ]; then
-              sudo apt-get remove -y --purge facter puppet puppet-common
-              sudo apt-get update
-              sudo apt-get install -y libxml2-dev libxslt-dev zlib1g-dev rsync
+            sudo yum -y remove facter puppet rdo-release
+            sudo yum -y install libxml2-devel libxslt-devel ruby-devel rsync
+            sudo yum -y groupinstall "Development Tools"
+          else
+            echo 'hum not yum?'
+            exit 1
           fi
 
 - job:
