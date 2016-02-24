@@ -16,7 +16,7 @@
         - file:
            credential-id: 8e2c5be1-c2ef-4290-86be-a3f8a7e466f6
            variable: CLIENTSECRET
-    node: koji-centos-7
+    node: rdo-centos7-liberty
 
 - job:
     name: 'pkg-export'
@@ -33,7 +33,7 @@
         - file:
            credential-id: 8e2c5be1-c2ef-4290-86be-a3f8a7e466f6
            variable: CLIENTSECRET
-    node: koji-centos-7
+    node: rdo-centos7-liberty
 
 - job:
     name: 'upstream-update'
@@ -67,7 +67,7 @@
            variable: SECRETKEY
     triggers:
       - zuul
-    node: koji-centos-7
+    node: rdo-centos7-liberty
 
 - job:
     name: 'distgit-update'
@@ -101,4 +101,4 @@
            variable: SECRETKEY
     triggers:
       - zuul
-    node: koji-centos-7
+    node: rdo-centos7-liberty
