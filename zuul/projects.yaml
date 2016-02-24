@@ -617,6 +617,9 @@ projects:
   - rpmlint-validate
   - pkg-upgrade-validate
   - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
   name: automaton-distgit
 - check:
   - tox-validate
@@ -1006,8 +1009,6 @@ projects:
   - delorean-ci
   gate:
   - packstack-validate
-  - rpmlint-validate
-  - pkg-upgrade-validate
   - pkg-export
   name: aodh-distgit
 - check:
