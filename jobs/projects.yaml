@@ -179,6 +179,7 @@
       - prepare-workspace
       - puppet-prepare-node
       - shell: |
+          cd $ZUUL_PROJECT
           if [ -f Modulefile -o -f metadata.json ]; then
             if [ -f Modulefile ]; then
               MODULE=$(awk '/^name/ {print $NF}' Modulefile |tr -d \"\')
@@ -213,6 +214,7 @@
       - prepare-workspace
       - puppet-prepare-node
       - shell: |
+          cd $ZUUL_PROJECT
           find . -iname *.pp | xargs puppet parser validate --modulepath=`pwd`/modules
           for f in `find . -iname *.erb` ; do
             erb -x -T '-' $f | ruby -c
@@ -228,6 +230,7 @@
       - prepare-workspace
       - puppet-prepare-node
       - shell: |
+          cd $ZUUL_PROJECT
           export PUPPET_GEM_VERSION='~> 3.8.0'
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
