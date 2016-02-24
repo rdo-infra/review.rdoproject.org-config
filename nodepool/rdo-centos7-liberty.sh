@@ -32,11 +32,17 @@ pushd khaleesi/tools/ksgen
 sudo python setup.py install
 popd
 
-# sync FS, otherwise there are 0-byte sized files from the yum/pip installations
-sudo sync
-
 # Remove epel and cloud repo
 sudo yum remove -y epel-release
 sudo rm /etc/yum.repos.d/cloud.repo
+
+# install wait_for_other_jobs
+sudo wget https://raw.githubusercontent.com/redhat-cip/software-factory/master/tools/slaves/wait_for_other_jobs.py -O /usr/local/bin/wait_for_other_jobs.py
+sudo chmod +x /usr/local/bin/wait_for_other_jobs.py
+
+# sync FS, otherwise there are 0-byte sized files from the yum/pip installations
+sudo sync
+
+ls -al /etc/yum.repos.d/
 
 echo "Setup finished. Creating snapshot now, this will take a few minutes"
