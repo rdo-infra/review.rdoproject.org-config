@@ -1,0 +1,13 @@
+- job:
+    name: 'delorean-ci'
+    defaults: global
+    builders:
+      - prepare-rpmfactory-workspace
+      - shell: |
+          export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
+          git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
+          cd delorean
+          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
+    triggers:
+      - zuul
+    node: koji-centos-7
