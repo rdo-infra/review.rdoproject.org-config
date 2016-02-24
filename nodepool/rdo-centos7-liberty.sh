@@ -5,14 +5,19 @@
 # install ansible
 sudo yum install -y epel-release
 sudo yum install -y python-crypto git python-pip
-sudo pip install -U ansible==1.9.2
+sudo pip install -U ansible==1.9.2 virtualenv
 ansible --version
 
-# OpenStack projects configuration (tox+deps)
-# http://docs.openstack.org/developer/requirements/
-git clone http://softwarefactory-project.io/r/rpmfactory
-sudo cp rpmfactory/slaves/cloud.repo /etc/yum.repos.d/
-sudo cp rpmfactory/slaves/run-tox.sh /usr/local/bin/
+cloudrepo="
+[cloud]
+name=CentOS-\$releasever - Cloud
+baseurl=http://mirror.centos.org/centos/7/cloud/x86_64/openstack-liberty/
+gpgcheck=0
+enabled=1
+"
+echo "$cloudrepo" | sudo tee /etc/yum.repos.d/cloud.repo
+sudo cp run-tox.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/run-tox.sh
 
 # https://github.com/openstack-infra/system-config/blob/master/modules/openstack_project/manifests/thick_slave.pp
 sudo yum install -y mariadb-devel postgresql-devel libjpeg-devel
