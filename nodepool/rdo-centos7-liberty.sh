@@ -2,9 +2,8 @@
 
 . rpmfactory-base.sh
 
-# install ansible
 sudo yum install -y epel-release
-sudo yum install -y python-crypto git python-pip
+sudo yum install -y python-crypto git python-pip python-devel gcc patch libffi-devel
 sudo pip install -U ansible==1.9.2 virtualenv
 ansible --version
 
