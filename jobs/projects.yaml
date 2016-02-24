@@ -2,20 +2,6 @@
 # Test
 
 - builder:
-    name: prepare-rpmfactory-workspace
-    builders:
-      - shell: |
-          # If this is called in a periodic job, these will not be set
-          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
-          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
-          export ZUUL_REF=${ZUUL_REF:-None}
-          # In the post pipeline ZUUL_REF is master but does not behave as we want
-          # So fall back on None
-          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None || true
-          echo "Clean workspace"
-          rm -Rf ./*
-
-- builder:
     name: puppet-prepare-node
     builders:
       - shell: |

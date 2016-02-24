@@ -1,0 +1,40 @@
+# This file contains base jobs for rpmfactory
+# Any modification here will be overwritten
+# by an upgrade of rpmfactory
+
+- builder:
+    name: prepare-rpmfactory-workspace
+    builders:
+      - shell: |
+          # If this is called in a periodic job, these will not be set
+          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # In the post pipeline ZUUL_REF is master but does not behave as we want
+          # So fall back on None
+          [ "$ZUUL_REF" = "master" ] && export ZUUL_REF=None || true
+          echo "Clean workspace"
+          rm -Rf ./*
+          # Set koji client identity
+          echo "Set koji client identity"
+          tar -xvzf ${CLIENTSECRET} -C /home/jenkins/
+
+- builder:
+    name: 'base-pkg-validation'
+    defaults: global
+    builders:
+      - prepare-rpmfactory-workspace
+      - shell: |
+          git clone http://rpmfactory.beta.rdoproject.org/r/gating_scripts
+          cd gating_scripts
+          ./pkg-validate.sh {buildtarget}
+
+- builder:
+    name: 'base-pkg-exportation'
+    defaults: global
+    builders:
+      - prepare-rpmfactory-workspace
+      - shell: |
+          git clone http://rpmfactory.beta.rdoproject.org/r/gating_scripts
+          cd gating_scripts
+          ./pkg-export.sh {buildtarget}
