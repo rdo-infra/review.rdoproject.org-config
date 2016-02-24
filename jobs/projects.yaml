@@ -11,6 +11,11 @@
           true
     triggers:
       - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: 8e2c5be1-c2ef-4290-86be-a3f8a7e466f6
+           variable: CLIENTSECRET
     node: koji-centos-7
 
 - job:
@@ -23,6 +28,11 @@
           true
     triggers:
       - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: 8e2c5be1-c2ef-4290-86be-a3f8a7e466f6
+           variable: CLIENTSECRET
     node: koji-centos-7
 
 - job:
