@@ -2,876 +2,1128 @@ jobs:
 - branch: ^rpm-master$
   name: ^delorean-ci$
 - branch: ^rdo-liberty$
-  name: ^pkg-validate$
+  name: ^packstack-validate$
+- branch: ^rdo-liberty$
+  name: ^rpmlint-validate$
+- branch: ^rdo-liberty$
+  name: ^pkg-upgrade-validate$
 projects:
 - name: rdo
   periodic:
   - upstream-update
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: heat-templates-distgit
 - check:
   - tox-validate
   name: ceilometer
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   gate:
-  - pkg-validate
+  - packstack-validate
   - pkg-export
   name: ceilometer-distgit
 - check:
   - tox-validate
   name: diskimage-builder
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   gate:
-  - pkg-validate
+  - packstack-validate
   - pkg-export
   name: diskimage-builder-distgit
 - check:
   - tox-validate
   name: gnocchi
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: gnocchi-distgit
 - check:
   - tox-validate
   name: heat
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: heat-distgit
 - check:
   - tox-validate
   name: cinder
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cinder-distgit
 - check:
   - tox-validate
   name: neutron
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: neutron-distgit
 - check:
   - tox-validate
   name: neutron-fwaas
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: neutron-fwaas-distgit
 - check:
   - tox-validate
   name: neutron-lbaas
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: neutron-lbaas-distgit
 - check:
   - tox-validate
   name: neutron-vpnaas
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: neutron-vpnaas-distgit
 - check:
   - tox-validate
   name: designate
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: designate-distgit
 - check:
   - tox-validate
   name: sahara
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: sahara-distgit
 - check:
   - tox-validate
   name: tripleo-heat-templates
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tripleo-heat-templates-distgit
 - check:
   - tox-validate
   name: tripleo-image-elements
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tripleo-image-elements-distgit
 - check:
   - tox-validate
   name: instack
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: instack-distgit
 - check:
   - tox-validate
   name: manila
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: manila-distgit
 - check:
   - tox-validate
   name: ironic-inspector
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironic-inspector-distgit
 - check:
   - tox-validate
   name: barbican
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: barbican-distgit
 - check:
   - tox-validate
   name: ec2-api
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ec2-api-distgit
 - check:
   - tox-validate
   name: tripleo-puppet-elements
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tripleo-puppet-elements-distgit
 - check:
   - tox-validate
   name: rally
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: rally-distgit
 - check:
   - tox-validate
   name: keystoneclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: keystoneclient-distgit
 - check:
   - tox-validate
   name: glanceclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: glanceclient-distgit
 - check:
   - tox-validate
   name: novaclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: novaclient-distgit
 - check:
   - tox-validate
   name: swiftclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: swiftclient-distgit
 - check:
   - tox-validate
   name: ceilometerclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ceilometerclient-distgit
 - check:
   - tox-validate
   name: heatclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: heatclient-distgit
 - check:
   - tox-validate
   name: cinderclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cinderclient-distgit
 - check:
   - tox-validate
   name: ironicclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironicclient-distgit
 - check:
   - tox-validate
   name: neutronclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: neutronclient-distgit
 - check:
   - tox-validate
   name: saharaclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: saharaclient-distgit
 - check:
   - tox-validate
   name: troveclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: troveclient-distgit
 - check:
   - tox-validate
   name: designateclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: designateclient-distgit
 - check:
   - tox-validate
   name: manilaclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: manilaclient-distgit
 - check:
   - tox-validate
   name: barbicanclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: barbicanclient-distgit
 - check:
   - tox-validate
   name: keystonemiddleware
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: keystonemiddleware-distgit
 - check:
   - tox-validate
   name: ceilometermiddleware
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ceilometermiddleware-distgit
 - check:
   - tox-validate
   name: openstackclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: openstackclient-distgit
 - check:
   - tox-validate
   name: ironic-inspector-client
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironic-inspector-client-distgit
 - check:
   - tox-validate
   name: zaqarclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: zaqarclient-distgit
 - check:
   - tox-validate
   name: magnumclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: magnumclient-distgit
 - check:
   - tox-validate
   name: os-client-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-client-config-distgit
 - check:
   - tox-validate
   name: mox3
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: mox3-distgit
 - check:
   - tox-validate
   name: oslotest
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslotest-distgit
 - check:
   - tox-validate
   name: oslo-sphinx
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-sphinx-distgit
 - check:
   - tox-validate
   name: oslo-i18n
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-i18n-distgit
 - check:
   - tox-validate
   name: oslo-messaging
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-messaging-distgit
 - check:
   - tox-validate
   name: oslo-cache
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-cache-distgit
 - check:
   - tox-validate
   name: oslo-concurrency
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-concurrency-distgit
 - check:
   - tox-validate
   name: oslo-rootwrap
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-rootwrap-distgit
 - check:
   - tox-validate
   name: oslo-serialization
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-serialization-distgit
 - check:
   - tox-validate
   name: oslo-middleware
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-middleware-distgit
 - check:
   - tox-validate
   name: oslo-db
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-db-distgit
 - check:
   - tox-validate
   name: oslo-utils
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-utils-distgit
 - check:
   - tox-validate
   name: oslo-vmware
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-vmware-distgit
 - check:
   - tox-validate
   name: oslo-context
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-context-distgit
 - check:
   - tox-validate
   name: oslo-log
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-log-distgit
 - check:
   - tox-validate
   name: oslo-policy
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-policy-distgit
 - check:
   - tox-validate
   name: oslo-versionedobjects
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-versionedobjects-distgit
 - check:
   - tox-validate
   name: oslo-service
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-service-distgit
 - check:
   - tox-validate
   name: oslo-reports
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-reports-distgit
 - check:
   - tox-validate
   name: stevedore
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: stevedore-distgit
 - check:
   - tox-validate
   name: castellan
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: castellan-distgit
 - check:
   - tox-validate
   name: taskflow
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: taskflow-distgit
 - check:
   - tox-validate
   name: pycadf
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: pycadf-distgit
 - check:
   - tox-validate
   name: debtcollector
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: debtcollector-distgit
 - check:
   - tox-validate
   name: automaton
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: automaton-distgit
 - check:
   - tox-validate
   name: cliff
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cliff-distgit
 - check:
   - tox-validate
   name: futurist
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: futurist-distgit
 - check:
   - tox-validate
   name: hacking
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: hacking-distgit
 - check:
   - tox-validate
   name: appdirs
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: appdirs-distgit
 - check:
   - tox-validate
   name: os-brick
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-brick-distgit
 - check:
   - tox-validate
   name: unicodecsv
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: unicodecsv-distgit
 - check:
   - tox-validate
   name: hardware
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: hardware-distgit
 - check:
   - tox-validate
   name: keystoneauth1
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: keystoneauth1-distgit
 - check:
   - tox-validate
   name: tempest-lib
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tempest-lib-distgit
 - check:
   - tox-validate
   name: os-testr
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-testr-distgit
 - check:
   - tox-validate
   name: proliantutils
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: proliantutils-distgit
 - check:
   - tox-validate
   name: requestsexceptions
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: requestsexceptions-distgit
 - check:
   - tox-validate
   name: tooz
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tooz-distgit
 - check:
   - tox-validate
   name: reno
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: reno-distgit
 - check:
   - tox-validate
   name: cloudkitty
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cloudkitty-distgit
 - check:
   - tox-validate
   name: mistral
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: mistral-distgit
 - check:
   - tox-validate
   name: octavia
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: octavia-distgit
 - check:
   - tox-validate
   name: ironic-lib
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironic-lib-distgit
 - check:
   - tox-validate
   name: os-win
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-win-distgit
 - check:
   - tox-validate
   name: mistralclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: mistralclient-distgit
 - check:
   - tox-validate
   name: dracclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: dracclient-distgit
 - check:
   - tox-validate
   name: openstacksdk
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: openstacksdk-distgit
 - check:
   - tox-validate
   name: cloudkittyclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cloudkittyclient-distgit
 - check:
   - tox-validate
   name: glance_store
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: glance_store-distgit
 - check:
   - tox-validate
   name: dib-utils
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: dib-utils-distgit
 - check:
   - tox-validate
   name: os-apply-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-apply-config-distgit
 - check:
   - tox-validate
   name: os-collect-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-collect-config-distgit
 - check:
   - tox-validate
   name: os-net-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-net-config-distgit
 - check:
   - tox-validate
   name: os-refresh-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-refresh-config-distgit
 - check:
   - tox-validate
   name: os-cloud-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: os-cloud-config-distgit
 - check:
   - tox-validate
   name: zaqar
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: zaqar-distgit
 - check:
   - tox-validate
   name: ironic-python-agent
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironic-python-agent-distgit
 - check:
   - tox-validate
   name: networking-arista
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: networking-arista-distgit
 - check:
   - tox-validate
   name: osprofiler
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: osprofiler-distgit
 - check:
   - tox-validate
   name: pysaml2
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: pysaml2-distgit
 - check:
   - tox-validate
   name: networking-cisco
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: networking-cisco-distgit
 - check:
   - tox-validate
   name: vmware-nsx
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: vmware-nsx-distgit
 - check:
   - tox-validate
   name: networking-mlnx
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: networking-mlnx-distgit
 - check:
   - tox-validate
   name: networking-odl
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: networking-odl-distgit
 - check:
   - tox-validate
   name: app-catalog-ui
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: app-catalog-ui-distgit
 - check:
   - tox-validate
   name: UcsSdk
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: UcsSdk-distgit
 - check:
   - tox-validate
   name: cachetools
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cachetools-distgit
 - check:
   - tox-validate
   name: aodh
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   gate:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - pkg-export
   name: aodh-distgit
 - check:
   - tox-validate
   name: tempest
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tempest-distgit
 - check:
   - tox-validate
   name: tripleo-incubator
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tripleo-incubator-distgit
 - check:
   - tox-validate
   name: tripleoclient
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: tripleoclient-distgit
 - check:
   - tox-validate
   name: horizon
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: horizon-distgit
 - check:
   - tox-validate
   name: oslo-config
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: oslo-config-distgit
 - check:
   - tox-validate
   name: openstack-puppet-modules
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: openstack-puppet-modules-distgit
 - check:
   - tox-validate
   name: swift
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: swift-distgit
 - check:
   - tox-validate
   name: keystone
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: keystone-distgit
 - check:
   - tox-validate
   name: glance
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: glance-distgit
 - check:
   - tox-validate
   name: ironic
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: ironic-distgit
 - check:
   - tox-validate
   name: trove
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: trove-distgit
 - check:
   - tox-validate
   name: nova
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: nova-distgit
 - check:
   - tox-validate
   name: packstack
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: packstack-distgit
 - check:
@@ -880,7 +1132,9 @@ projects:
   - puppet-spec
   name: puppet-ceilometer
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-ceilometer-distgit
 - check:
@@ -889,7 +1143,9 @@ projects:
   - puppet-spec
   name: puppet-cinder
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-cinder-distgit
 - check:
@@ -898,7 +1154,9 @@ projects:
   - puppet-spec
   name: puppet-glance
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-glance-distgit
 - check:
@@ -907,7 +1165,9 @@ projects:
   - puppet-spec
   name: puppet-gnocchi
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-gnocchi-distgit
 - check:
@@ -916,7 +1176,9 @@ projects:
   - puppet-spec
   name: puppet-heat
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-heat-distgit
 - check:
@@ -925,7 +1187,9 @@ projects:
   - puppet-spec
   name: puppet-horizon
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-horizon-distgit
 - check:
@@ -934,7 +1198,9 @@ projects:
   - puppet-spec
   name: puppet-ironic
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-ironic-distgit
 - check:
@@ -943,7 +1209,9 @@ projects:
   - puppet-spec
   name: puppet-keystone
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-keystone-distgit
 - check:
@@ -952,7 +1220,9 @@ projects:
   - puppet-spec
   name: puppet-manila
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-manila-distgit
 - check:
@@ -961,7 +1231,9 @@ projects:
   - puppet-spec
   name: puppet-neutron
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-neutron-distgit
 - check:
@@ -970,7 +1242,9 @@ projects:
   - puppet-spec
   name: puppet-nova
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-nova-distgit
 - check:
@@ -979,7 +1253,9 @@ projects:
   - puppet-spec
   name: puppet-openstack_extras
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-openstack_extras-distgit
 - check:
@@ -988,7 +1264,9 @@ projects:
   - puppet-spec
   name: puppet-openstacklib
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-openstacklib-distgit
 - check:
@@ -997,7 +1275,9 @@ projects:
   - puppet-spec
   name: puppet-sahara
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-sahara-distgit
 - check:
@@ -1006,7 +1286,9 @@ projects:
   - puppet-spec
   name: puppet-swift
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-swift-distgit
 - check:
@@ -1015,7 +1297,9 @@ projects:
   - puppet-spec
   name: puppet-tempest
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-tempest-distgit
 - check:
@@ -1024,7 +1308,9 @@ projects:
   - puppet-spec
   name: puppet-tripleo
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-tripleo-distgit
 - check:
@@ -1033,7 +1319,9 @@ projects:
   - puppet-spec
   name: puppet-trove
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-trove-distgit
 - check:
@@ -1042,7 +1330,9 @@ projects:
   - puppet-spec
   name: puppet-tuskar
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-tuskar-distgit
 - check:
@@ -1051,7 +1341,9 @@ projects:
   - puppet-spec
   name: puppet-vswitch
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-vswitch-distgit
 - check:
@@ -1060,7 +1352,9 @@ projects:
   - puppet-spec
   name: puppet-ceph
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-ceph-distgit
 - check:
@@ -1069,7 +1363,9 @@ projects:
   - puppet-spec
   name: puppet-n1k-vsm
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-n1k-vsm-distgit
 - check:
@@ -1078,7 +1374,9 @@ projects:
   - puppet-spec
   name: puppet-mistral
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-mistral-distgit
 - check:
@@ -1087,7 +1385,9 @@ projects:
   - puppet-spec
   name: puppet-zaqar
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-zaqar-distgit
 - check:
@@ -1096,7 +1396,9 @@ projects:
   - puppet-spec
   name: puppetlabs-apache
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-apache-distgit
 - check:
@@ -1105,7 +1407,9 @@ projects:
   - puppet-spec
   name: puppetlabs-concat
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-concat-distgit
 - check:
@@ -1114,7 +1418,9 @@ projects:
   - puppet-spec
   name: puppetlabs-firewall
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-firewall-distgit
 - check:
@@ -1123,7 +1429,9 @@ projects:
   - puppet-spec
   name: puppetlabs-haproxy
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-haproxy-distgit
 - check:
@@ -1132,7 +1440,9 @@ projects:
   - puppet-spec
   name: puppetlabs-corosync
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-corosync-distgit
 - check:
@@ -1141,7 +1451,9 @@ projects:
   - puppet-spec
   name: puppetlabs-git
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-git-distgit
 - check:
@@ -1150,7 +1462,9 @@ projects:
   - puppet-spec
   name: puppetlabs-inifile
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-inifile-distgit
 - check:
@@ -1159,7 +1473,9 @@ projects:
   - puppet-spec
   name: puppetlabs-mongodb
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-mongodb-distgit
 - check:
@@ -1168,7 +1484,9 @@ projects:
   - puppet-spec
   name: puppetlabs-mysql
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-mysql-distgit
 - check:
@@ -1177,7 +1495,9 @@ projects:
   - puppet-spec
   name: puppetlabs-java
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-java-distgit
 - check:
@@ -1186,7 +1506,9 @@ projects:
   - puppet-spec
   name: puppetlabs-ntp
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-ntp-distgit
 - check:
@@ -1195,7 +1517,9 @@ projects:
   - puppet-spec
   name: puppetlabs-rabbitmq
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-rabbitmq-distgit
 - check:
@@ -1204,7 +1528,9 @@ projects:
   - puppet-spec
   name: puppetlabs-rsync
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-rsync-distgit
 - check:
@@ -1213,7 +1539,9 @@ projects:
   - puppet-spec
   name: puppetlabs-stdlib
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-stdlib-distgit
 - check:
@@ -1222,7 +1550,9 @@ projects:
   - puppet-spec
   name: puppetlabs-sysctl
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-sysctl-distgit
 - check:
@@ -1231,7 +1561,9 @@ projects:
   - puppet-spec
   name: puppetlabs-tomcat
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-tomcat-distgit
 - check:
@@ -1240,7 +1572,9 @@ projects:
   - puppet-spec
   name: puppetlabs-vcsrepo
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-vcsrepo-distgit
 - check:
@@ -1249,7 +1583,9 @@ projects:
   - puppet-spec
   name: puppetlabs-xinetd
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppetlabs-xinetd-distgit
 - check:
@@ -1258,7 +1594,9 @@ projects:
   - puppet-spec
   name: cassandra
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: cassandra-distgit
 - check:
@@ -1267,7 +1605,9 @@ projects:
   - puppet-spec
   name: puppet-certmonger
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-certmonger-distgit
 - check:
@@ -1276,7 +1616,9 @@ projects:
   - puppet-spec
   name: puppet-common
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-common-distgit
 - check:
@@ -1285,7 +1627,9 @@ projects:
   - puppet-spec
   name: puppet-contrail
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-contrail-distgit
 - check:
@@ -1294,7 +1638,9 @@ projects:
   - puppet-spec
   name: puppet-datacat
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-datacat-distgit
 - check:
@@ -1303,7 +1649,9 @@ projects:
   - puppet-spec
   name: puppet-elasticsearch
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-elasticsearch-distgit
 - check:
@@ -1312,7 +1660,9 @@ projects:
   - puppet-spec
   name: puppet-gluster
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-gluster-distgit
 - check:
@@ -1321,7 +1671,9 @@ projects:
   - puppet-spec
   name: puppet-kafka
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-kafka-distgit
 - check:
@@ -1330,7 +1682,9 @@ projects:
   - puppet-spec
   name: konstantin-fluentd
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: konstantin-fluentd-distgit
 - check:
@@ -1339,7 +1693,9 @@ projects:
   - puppet-spec
   name: puppet-module-keepalived
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-module-keepalived-distgit
 - check:
@@ -1348,7 +1704,9 @@ projects:
   - puppet-spec
   name: puppet-kibana3
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-kibana3-distgit
 - check:
@@ -1357,7 +1715,9 @@ projects:
   - puppet-spec
   name: puppet-memcached
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-memcached-distgit
 - check:
@@ -1366,7 +1726,9 @@ projects:
   - puppet-spec
   name: puppet-midonet
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-midonet-distgit
 - check:
@@ -1375,7 +1737,9 @@ projects:
   - puppet-spec
   name: puppet-module-collectd
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-module-collectd-distgit
 - check:
@@ -1384,7 +1748,9 @@ projects:
   - puppet-spec
   name: puppet-module-data
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-module-data-distgit
 - check:
@@ -1393,7 +1759,9 @@ projects:
   - puppet-spec
   name: puppet-nagios-openstack
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-nagios-openstack-distgit
 - check:
@@ -1402,7 +1770,9 @@ projects:
   - puppet-spec
   name: puppet-nssdb
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-nssdb-distgit
 - check:
@@ -1411,7 +1781,9 @@ projects:
   - puppet-spec
   name: puppet-opendaylight
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-opendaylight-distgit
 - check:
@@ -1420,7 +1792,9 @@ projects:
   - puppet-spec
   name: puppet-pacemaker
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-pacemaker-distgit
 - check:
@@ -1429,7 +1803,9 @@ projects:
   - puppet-spec
   name: puppet-puppet
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-puppet-distgit
 - check:
@@ -1438,7 +1814,9 @@ projects:
   - puppet-spec
   name: puppet-qpid
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-qpid-distgit
 - check:
@@ -1447,7 +1825,9 @@ projects:
   - puppet-spec
   name: puppet-redis
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-redis-distgit
 - check:
@@ -1456,7 +1836,9 @@ projects:
   - puppet-spec
   name: puppet-remote
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-remote-distgit
 - check:
@@ -1465,7 +1847,9 @@ projects:
   - puppet-spec
   name: sensu-puppet
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: sensu-puppet-distgit
 - check:
@@ -1474,7 +1858,9 @@ projects:
   - puppet-spec
   name: puppet-ssh
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-ssh-distgit
 - check:
@@ -1483,7 +1869,9 @@ projects:
   - puppet-spec
   name: puppet-staging
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-staging-distgit
 - check:
@@ -1492,7 +1880,9 @@ projects:
   - puppet-spec
   name: puppet-timezone
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-timezone-distgit
 - check:
@@ -1501,7 +1891,9 @@ projects:
   - puppet-spec
   name: puppet-uchiwa
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-uchiwa-distgit
 - check:
@@ -1510,7 +1902,9 @@ projects:
   - puppet-spec
   name: puppet-vlan
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-vlan-distgit
 - check:
@@ -1519,7 +1913,9 @@ projects:
   - puppet-spec
   name: puppet-zookeeper
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-zookeeper-distgit
 - check:
@@ -1528,7 +1924,9 @@ projects:
   - puppet-spec
   name: puppet-kmod
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-kmod-distgit
 - check:
@@ -1537,7 +1935,9 @@ projects:
   - puppet-spec
   name: puppet-aodh
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-aodh-distgit
 - check:
@@ -1546,7 +1946,9 @@ projects:
   - puppet-spec
   name: puppet-snmp
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-snmp-distgit
 - check:
@@ -1555,6 +1957,8 @@ projects:
   - puppet-spec
   name: puppet-sysctl
 - check:
-  - pkg-validate
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
   - delorean-ci
   name: puppet-sysctl-distgit
