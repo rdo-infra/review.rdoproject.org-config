@@ -4,6 +4,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          sudo pip install tox
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
