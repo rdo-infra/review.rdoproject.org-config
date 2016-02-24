@@ -2,7 +2,7 @@
     name: 'delorean-ci'
     defaults: global
     builders:
-      - prepare-rpmfactory-workspace
+      - prepare-workspace
       - shell: |
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
