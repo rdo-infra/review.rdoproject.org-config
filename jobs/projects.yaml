@@ -28,6 +28,13 @@
             exit 1
           fi
 
+- builder:
+    name: puppet-install
+    builders:
+      - shell: |
+          wget https://git.openstack.org/cgit/openstack-infra/system-config/plain/install_puppet.sh
+          sudo bash -xe install_puppet.sh
+
 - job:
     name: 'pkg-validate'
     defaults: global
@@ -213,6 +220,7 @@
     builders:
       - prepare-workspace
       - puppet-prepare-node
+      - puppet-install
       - shell: |
           cd $ZUUL_PROJECT
           find . -iname *.pp | xargs puppet parser validate --modulepath=`pwd`/modules
