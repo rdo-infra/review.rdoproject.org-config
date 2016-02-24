@@ -28,7 +28,8 @@
       - base-pkg-validation:
           buildtarget: "cloud7-openstack-liberty-el7"
       - shell: |
-          true
+          echo "If displayed then package as been published (non-scratch)."
+          echo "Nothing more to do. Exit 0."
     triggers:
       - zuul
     wrappers:
