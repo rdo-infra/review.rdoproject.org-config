@@ -1,0 +1,34 @@
+- job:
+    name: 'tox-validate'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          # Tox update should be put in the slave preparation script
+          env
+          sudo pip install -U tox
+          cd $ZUUL_PROJECT
+          [ -f setup.cfg ] && sed 's/^version =.*//' -i setup.cfg
+          case $ZUUL_PROJECT in
+            nova|neutron|ceilometer )
+              tox -epy27
+            ;;
+            keystone )
+              # https://bugs.launchpad.net/keystone/+bug/1505374
+              # Yest it's ugly...
+              git config user.email "jenkins@localhost.tld"
+              git config user.name "Jenkins"
+              git fetch https://review.openstack.org/openstack/keystone refs/changes/00/233800/1 && git cherry-pick FETCH_HEAD
+              tox -epy27
+            ;;
+            glance )
+              ./run_tests.sh --concurrency 4 -V -P
+            ;;
+            * )
+              wget "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/liberty" -O upper-constraints.txt
+              run-tox.sh py27
+            ;;
+          esac
+    triggers:
+      - zuul
+    node: koji-centos-7
