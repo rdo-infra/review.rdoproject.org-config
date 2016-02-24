@@ -30,7 +30,10 @@
           buildtarget: "cloud7-openstack-liberty-el7"
           kojicmd: "koji"
       - shell: |
-          echo "Please add logic to test rpmlint here."
+          sudo yum install -y rpmlint
+          cd $ZUUL_PROJECT
+          # Simple checks with infos
+          rpmlint -iv *.spec
     triggers:
       - zuul
     wrappers:
