@@ -5,6 +5,9 @@
       <p>Job is managed by Jenkins Job Builder</a>.</p>
 
     project-type: freestyle
+    wrappers:
+      - ansicolor:
+          colormap: gnome-terminal
     concurrent: true
 
 - builder:
@@ -192,6 +195,7 @@
           sudo jenkins-jobs test jobs/ -o ../build/
           # concat of layout.yaml and projects.yaml to /etc/zuul/layout.yaml
           /usr/local/bin/yaml-merger.py zuul | tee ../build/layout.yaml
+          cp zuul/*.py ../build/ || true
           sudo zuul-server -t -l ../build/layout.yaml
           # Check nodepool configuration
           /usr/local/bin/sf-nodepool-conf-update.sh
@@ -213,11 +217,22 @@
           rm -Rf config
           zuul-cloner http://rpmfactory.beta.rdoproject.org/r config
           cd config
+          echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+          git log --simplify-merges -n 1
+          echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+          echo
           sudo rm -Rf /var/lib/jenkins/.cache/jenkins_jobs
           sudo jenkins-jobs -l debug --ignore-cache update --delete-old jobs/
           # concat of layout.yaml and projects.yaml to /etc/zuul/layout.yaml
           /usr/local/bin/yaml-merger.py zuul | sudo tee /etc/zuul/layout.yaml
-          sudo service zuul reload
+          sudo cp zuul/*.py /etc/zuul || true
+          # Trick to dynamically look for nodepool disabled
+          NODEPOOL=$(sudo python -c "import yaml; print not yaml.load(open('/etc/puppet/hiera/sf/sfconfig.yaml').read())['nodepool']['disabled']")
+          if [ "${NODEPOOL}" == "False" ]; then
+              # Make sure node are reused if nodepool isn't enabled
+              sudo sed -i /etc/zuul/layout.yaml -e 's/set_node_options/set_node_reuse/g'
+          fi
+          sudo systemctl reload zuul
           # Merge nodepool.yaml configuration
           /usr/local/bin/sf-nodepool-conf-update.sh apply
     triggers:
