@@ -2015,12 +2015,14 @@ projects:
   - delorean-ci
   name: cisco-ironic-contrib-distgit
 - check:
+  - tox-validate
+  name: magnum
+- check:
   - packstack-validate
   - rpmlint-validate
   - pkg-upgrade-validate
   - delorean-ci
-  name: magnum
-- check:
-  - pkg-validate
-  - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
   name: magnum-distgit
