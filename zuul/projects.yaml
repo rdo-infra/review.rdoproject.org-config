@@ -2444,3 +2444,7 @@ projects:
   - packstack-validate
   - pkg-export
   name: magnumclient-distgit
+
+jobs:
+  - name: ^.*$
+    parameter-function: set_node_options
