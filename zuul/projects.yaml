@@ -2122,18 +2122,6 @@ projects:
   name: oslo-service-distgit
 - check:
   - tox-validate
-  name: magnumclient
-- check:
-  - packstack-validate
-  - rpmlint-validate
-  - pkg-upgrade-validate
-  - delorean-ci
-  gate:
-  - packstack-validate
-  - pkg-export
-  name: magnumclient-distgit
-- check:
-  - tox-validate
   name: osprofiler
 - check:
   - packstack-validate
@@ -2444,3 +2432,15 @@ projects:
   - packstack-validate
   - pkg-export
   name: keystoneclient-distgit
+- check:
+  - tox-validate
+  name: magnumclient
+- check:
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
+  - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
+  name: magnumclient-distgit
