@@ -1,12 +1,13 @@
 jobs:
-- branch: ^rpm-master$
-  name: ^delorean-ci$
-- branch: ^rdo-liberty$
-  name: ^packstack-validate$
-- branch: ^rdo-liberty$
-  name: ^rpmlint-validate$
-- branch: ^rdo-liberty$
-  name: ^pkg-upgrade-validate$
+- name: ^.*$
+  parameter-function: set_node_options
+- name: ^delorean-ci$
+  branch: ^rpm-(master|liberty|kilo)$
+- name: ^packstack-validate$
+  branch: ^rdo-liberty$
+- name: ^(rpmlint|pkg-upgrade)-validate$
+  branch: ^rdo-liberty$
+  voting: false
 projects:
 - name: rdo
   periodic:
@@ -2444,7 +2445,3 @@ projects:
   - packstack-validate
   - pkg-export
   name: magnumclient-distgit
-
-jobs:
-  - name: ^.*$
-    parameter-function: set_node_options
