@@ -5,6 +5,7 @@
       - prepare-workspace
       - shell: |
           sudo pip install pytest
+          cd $ZUUL_PROJECT
           ./run_tests.sh
     triggers:
       - zuul
