@@ -1,0 +1,11 @@
+- job:
+    name: 'rdopkg-unittests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          sudo pip install pytest
+          ./run_tests.sh
+    triggers:
+      - zuul
+    node: rdo-centos7-liberty

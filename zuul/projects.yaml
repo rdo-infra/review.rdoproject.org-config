@@ -8,7 +8,14 @@ jobs:
 - name: ^(rpmlint|pkg-upgrade)-validate$
   branch: ^rdo-liberty$
   voting: false
+- name: ^rdopkg-unittests$
+  voting: false
 projects:
+- name: rdopkg
+  check:
+   - rdopkg-unittests
+  gate:
+   - rdopkg-unittests
 - name: rdo
   periodic:
   - upstream-update
