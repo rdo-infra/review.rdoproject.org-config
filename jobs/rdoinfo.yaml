@@ -1,0 +1,12 @@
+- job:
+    name: 'rdoinfo-unittests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          sudo pip install pyyaml
+          cd $ZUUL_PROJECT
+          python verify.py
+    triggers:
+      - zuul
+    node: rdo-centos7-liberty
