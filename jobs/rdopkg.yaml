@@ -6,6 +6,8 @@
       - shell: |
           sudo pip install pytest
           cd $ZUUL_PROJECT
+          sudo pip install -r requirements.txt
+          sudo python setup.py install
           ./run_tests.sh
     triggers:
       - zuul
