@@ -4,6 +4,8 @@
     builders:
       - prepare-workspace
       - shell: |
+          git config --global user.email "testbot@rpmfactory.beta.rdoproject.org"
+          git config --global user.name "CI Test Bot"
           sudo pip install pytest
           cd $ZUUL_PROJECT
           sudo pip install -r requirements.txt
