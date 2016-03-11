@@ -11,6 +11,9 @@
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
+          cp -v logs/* ../artifacts/
+    publisher:
+      - zuul-swift-upload
     triggers:
       - zuul
     node: rdo-centos7-liberty

@@ -25,6 +25,7 @@
           rm -Rf ./*
           echo "Clone $ZUUL_PROJECT"
           zuul-cloner http://rpmfactory.beta.rdoproject.org/r $ZUUL_PROJECT
+          mkdir artifacts
 
 - builder:
     name: zuul-swift-upload
