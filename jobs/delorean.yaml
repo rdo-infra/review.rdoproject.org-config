@@ -8,7 +8,7 @@
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
-          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
+          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
     triggers:
       - zuul
     node: rdo-centos7-liberty
