@@ -14,9 +14,9 @@
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
           ret=$?
           mkdir artifacts
-          cp -v logs/* artifacts/
+          cp -a logs/* artifacts/
           if [ $ret != 0 ]; then
-              cat data/repos/*/rpmbuild.log
+              cat data/repos/*/*/*/rpmbuild.log
           fi
           exit $ret
     publisher:
