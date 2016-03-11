@@ -4,6 +4,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          set +e
           mkdir -p ~/.rdopkg/conf.d
           echo 'RDOINFO_REPO="http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
           sudo pip install tox
@@ -11,7 +12,13 @@
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
-          cp -v logs/* ../artifacts/
+          ret=$?
+          mkdir artifacts
+          cp -v logs/* artifacts/
+          if [ $ret != 0 ]; then
+              cat data/repos/*/rpmbuild.log
+          fi
+          exit $ret
     publisher:
       - zuul-swift-upload
     triggers:
