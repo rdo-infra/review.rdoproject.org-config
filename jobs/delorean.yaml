@@ -1,6 +1,9 @@
 - job:
     name: 'delorean-ci'
     defaults: global
+    properties:
+      - copyartifact:
+          projects: logs
     builders:
       - prepare-workspace
       - shell: |
