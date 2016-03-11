@@ -4,6 +4,8 @@
     builders:
       - prepare-workspace
       - shell: |
+          mkdir -p ~/.rdopkg/conf.d
+          echo 'RDOINFO_REPO="http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
           sudo pip install tox
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
