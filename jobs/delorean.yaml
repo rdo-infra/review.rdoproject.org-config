@@ -11,6 +11,8 @@
           export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
+          # to fix puppet package builds (temp fix)
+          git fetch https://review.gerrithub.io/openstack-packages/delorean refs/changes/89/265989/1 && git checkout FETCH_HEAD
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
           ret=$?
           mkdir artifacts
