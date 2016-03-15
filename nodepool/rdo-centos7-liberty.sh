@@ -3,7 +3,11 @@
 . rpmfactory-base.sh
 
 sudo yum install -y epel-release
-sudo yum install -y python-crypto git python-pip python-devel gcc patch libffi-devel
+set +e
+# Temp it seems a duplicate file exists already on the FS
+sudo yum install -y python-crypto
+set -e
+sudo yum install -y git python-pip python-devel gcc patch libffi-devel
 sudo pip install -U ansible==1.9.2 virtualenv
 ansible --version
 
