@@ -7,6 +7,7 @@
     builders:
       - base-pkg-validation:
           buildtarget: "cloud7-openstack-liberty-el7"
+          kojicmd: "koji"
       - shell: |
           git clone http://rpmfactory.beta.rdoproject.org/r/rdo_gating_scripts
           cd rdo_gating_scripts
@@ -27,6 +28,7 @@
     builders:
       - base-pkg-validation:
           buildtarget: "cloud7-openstack-liberty-el7"
+          kojicmd: "koji"
       - shell: |
           echo "Please add logic to test rpmlint here."
     triggers:
@@ -44,6 +46,7 @@
     builders:
       - base-pkg-validation:
           buildtarget: "cloud7-openstack-liberty-el7"
+          kojicmd: "koji"
       - shell: |
           echo "Please add logic to test the package can be upgraded."
     triggers:
@@ -61,6 +64,7 @@
     builders:
       - base-pkg-exportation:
           buildtarget: "cloud7-openstack-liberty-el7"
+          kojicmd: "koji"
       - shell: |
           echo "If displayed then package as been published (non-scratch)."
           echo "Nothing more to do. Exit 0."
