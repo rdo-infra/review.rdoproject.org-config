@@ -9,12 +9,16 @@
 . base.sh
 
 # Install minimum for RPM factory jobs
-sudo yum install -y koji wget rpmdevtools rpm-build redhat-rpm-config mock rsync createrepo
+sudo yum install -y koji centos-packager wget rpmdevtools \
+                    rpm-build redhat-rpm-config mock rsync \
+                    createrepo
 
 # Add jenkins to the mock group
 sudo usermod -a -G mock jenkins
 
 # Setup /etc/koji.conf
+# This will be the default configuration when the slave
+# uses the koji command.
 kojiconf="
 ; koji rpmfactory config
 [koji]
@@ -22,13 +26,13 @@ kojiconf="
 ;configuration for koji cli tool
 
 ;url of XMLRPC server
-server = http://koji-rpmfactory.ring.enovance.com/kojihub
+server = http://koji.rpmfactory.sftests.com/kojihub
 
 ;url of web interface
-weburl = http://koji-rpmfactory.ring.enovance.com/koji
+weburl = http://koji.rpmfactory.sftests.com/koji
 
 ;url of package download site
-topurl = http://koji-rpmfactory.ring.enovance.com/kojifiles
+topurl = http://koji.rpmfactory.sftests.com/kojifiles
 
 ;path to the koji top directory
 topdir = /mnt/koji
@@ -46,9 +50,18 @@ serverca = ~/.koji/serverca.crt
 "
 echo "$kojiconf" | sudo tee /etc/koji.conf
 
-# Prepare jenkins user config for koji
+# Prepare jenkins user storage for koji client credentials
+# The following files will need to be installed when
+# a job using CBS will start. Please use Jenkins Credential binding
 sudo mkdir /home/jenkins/.koji
 sudo chown -R jenkins /home/jenkins/.koji
+
+# Here is the default koji config file for CBS
+cat /etc/koji.conf.d/cbs-koji.conf
+# The following files will need to be installed when
+# a job using CBS will start. Please use Jenkins Credential binding
+# /home/jenkins/.centos-server-ca.cert
+# /home/jenkins/.centos.cert
 
 # sync FS, otherwise there are 0-byte sized files from the yum/pip installations
 sudo sync
