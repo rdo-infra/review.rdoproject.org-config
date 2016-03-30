@@ -87,3 +87,49 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job:
+    name: 'puppet-openstack-integration-scenario001'
+    defaults: global
+    scm:
+      name: puppet-openstack-integration
+      scm:
+        - git:
+            basedir: puppet-openstack-integration
+            branch: liberty
+            url: https://git.openstack.org/openstack/puppet-openstack-integration
+            skip-tag: true
+
+    builders:
+      - prepare-workspace
+      - puppet-prepare-node
+      - puppet-install
+      - shell: |
+        #!/bin/bash -xe
+        export SCENARIO=001
+        export MANAGE_PUPPET_MODULES=false
+        export PUPPET_ARGS="--modulepath=/usr/share/openstack-puppet/modules"
+        #export MANAGE_REPOS=false
+        #export PUPPET_GEM_VERSION='~> 3.8.0'
+
+        mkdir -p /usr/share/openstack-puppet/modules
+        pushd /usr/share/openstack-puppet/modules
+            # TODO: Replace this with packages
+            for project in aodh apache cassandra ceilometer ceph certmonger cinder collectd concat contrail corosync datacat elasticsearch firewall fluentd git glance gnocchi haproxy heat horizon inifile ironic java kafka keystone kibana3 kmod manila memcached midonet mistral module-data module-keepalived mongodb mysql n1k-vsm neutron nova nssdb ntp opendaylight openstack_extras openstacklib pacemaker qpid rabbitmq redis rsync sensu snmp ssh staging stdlib swift sysctl tempest timezone tomcat tripleo trove tuskar uchiwa vcsrepo vlan vswitch zaqar zookeeper; do
+                git clone https://rpmfactory.beta.rdoproject.org/r/puppet-${project}
+            done
+
+            # Delete the project in question
+            rm -rf ${GERRIT_PROJECT}
+        popd
+
+        # Copy the new project in
+        cp -rv ${GERRIT_PROJECT} /usr/share/openstack-puppet/modules
+
+        mkdir .bundled_gems
+        export GEM_HOME=`pwd`/.bundled_gems
+        cd puppet-openstack-integration
+        gem install bundler --no-rdoc --no-ri --verbose
+        $GEM_HOME/bin/bundle install --retry 3
+
+        ./run_tests.sh
