@@ -111,23 +111,23 @@
           #export MANAGE_REPOS=false
           #export PUPPET_GEM_VERSION='~> 3.8.0'
 
-          mkdir -p /usr/share/openstack-puppet/modules
+          sudo mkdir -p /usr/share/openstack-puppet/modules
           pushd /usr/share/openstack-puppet/modules
               # TODO: Replace this with packages
               for project in aodh apache cassandra ceilometer ceph certmonger cinder collectd concat contrail corosync datacat elasticsearch firewall fluentd git glance gnocchi haproxy heat horizon inifile ironic java kafka keystone kibana3 kmod manila memcached midonet mistral module-data module-keepalived mongodb mysql n1k-vsm neutron nova nssdb ntp opendaylight openstack_extras openstacklib pacemaker qpid rabbitmq redis rsync sensu snmp ssh staging stdlib swift sysctl tempest timezone tomcat tripleo trove tuskar uchiwa vcsrepo vlan vswitch zaqar zookeeper; do
                   if [ -e $(which zuul-cloner) ]; then
-                      zuul-cloner --workspace /tmp --cache-dir /opt/git git://rpmfactory.beta.rdoproject.org puppet-${project}
+                      sudo zuul-cloner --workspace /tmp --cache-dir /opt/git git://rpmfactory.beta.rdoproject.org puppet-${project}
                   else
-                      git clone https://rpmfactory.beta.rdoproject.org/r/puppet-${project}
+                      sudo git clone https://rpmfactory.beta.rdoproject.org/r/puppet-${project}
                   fi
               done
 
               # Delete the project in question
-              rm -rf ${ZUUL_PROJECT}
+              sudo rm -rf ${ZUUL_PROJECT}
           popd
 
           # Copy the new project in
-          cp -rv ${ZUUL_PROJECT} /usr/share/openstack-puppet/modules
+          sudo cp -rv ${ZUUL_PROJECT} /usr/share/openstack-puppet/modules
 
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
