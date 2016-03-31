@@ -2,6 +2,12 @@
 
 set -xe
 
+# Create swap
+sudo dd if=/dev/zero of=/.swap count=4000 bs=1M
+sudo chmod 0600 /.swap
+sudo mkswap /.swap
+grep swap /etc/fstab || echo "/.swap none swap sw 0 0" | sudo tee -a /etc/fstab
+
 sudo yum update -y > /dev/null
 
 # Base requirements

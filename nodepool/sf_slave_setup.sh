@@ -2,12 +2,6 @@
 
 . base.sh
 
-# Create swap
-sudo dd if=/dev/zero of=/srv/swap count=4000 bs=1M
-sudo chmod 600 /srv/swap
-sudo mkswap /srv/swap
-grep swap /etc/fstab || echo "/srv/swap none swap sw 0 0" | sudo tee -a /etc/fstab
-
 # Disable selinux
 sudo sed -i 's/^.*SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
 
