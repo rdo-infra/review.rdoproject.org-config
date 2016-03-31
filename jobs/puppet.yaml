@@ -99,7 +99,7 @@
       - puppet-install
       - shell: |
           #!/bin/bash -xe
-          export SCENARIO=001
+          export SCENARIO=scenario001
           export MANAGE_PUPPET_MODULES=false
           export PUPPET_ARGS="--modulepath=/usr/share/openstack-puppet/modules"
           #export MANAGE_REPOS=false
@@ -126,7 +126,7 @@
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
 
-          git clone https://git.openstack.org/openstack/puppet-openstack-integration
+          git clone https://git.openstack.org/openstack/puppet-openstack-integration -b stable/liberty
           cd puppet-openstack-integration
           gem install bundler --no-rdoc --no-ri --verbose
           $GEM_HOME/bin/bundle install --retry 3
