@@ -116,8 +116,13 @@
                   fi
               done
 
-              # Delete the project in question
-              sudo rm -rf ${ZUUL_PROJECT}
+              # rename the projects from 'puppet-project' to simply 'project'
+              for i in puppet-*; do
+                  sudo mv $i ${i/puppet-/}
+              done
+
+              # Delete the project being tested
+              sudo rm -rf ${ZUUL_PROJECT/puppet-/}
           popd
 
           # Copy the new project in
@@ -126,10 +131,17 @@
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
 
+          sudo git clone https://git.openstack.org/openstack/puppet-openstack_extras -b stable/liberty /usr/share/openstack-puppet/modules/openstack_extras
           git clone https://git.openstack.org/openstack/puppet-openstack-integration -b stable/liberty
+
+          # Set up the openstack-puppet-modules directory
           sudo cp -rv puppet-openstack-integration /usr/share/openstack-puppet/modules/openstack_integration
+
           cd puppet-openstack-integration
           gem install bundler --no-rdoc --no-ri --verbose
           $GEM_HOME/bin/bundle install --retry 3
+
+          # Remove installation of puppetlabs puppet repository
+          sed -i '/    $SUDO rpm -ivh \/tmp\/puppet.rpm/d' run_tests.sh
 
           ./run_tests.sh
