@@ -116,7 +116,7 @@
               # TODO: Replace this with packages
               for project in aodh apache cassandra ceilometer ceph certmonger cinder collectd concat contrail corosync datacat elasticsearch firewall fluentd git glance gnocchi haproxy heat horizon inifile ironic java kafka keystone kibana3 kmod manila memcached midonet mistral module-data module-keepalived mongodb mysql n1k-vsm neutron nova nssdb ntp opendaylight openstack_extras openstacklib pacemaker qpid rabbitmq redis rsync sensu snmp ssh staging stdlib swift sysctl tempest timezone tomcat tripleo trove tuskar uchiwa vcsrepo vlan vswitch zaqar zookeeper; do
                   if [ -e $(which zuul-cloner) ]; then
-                      sudo zuul-cloner --workspace /tmp --cache-dir /opt/git git://rpmfactory.beta.rdoproject.org puppet-${project}
+                      sudo zuul-cloner --workspace /usr/share/openstack-puppet/modules --cache-dir /opt/git git://rpmfactory.beta.rdoproject.org puppet-${project}
                   else
                       sudo git clone https://rpmfactory.beta.rdoproject.org/r/puppet-${project}
                   fi
