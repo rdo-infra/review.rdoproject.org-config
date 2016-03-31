@@ -127,7 +127,7 @@
           export GEM_HOME=`pwd`/.bundled_gems
 
           git clone https://git.openstack.org/openstack/puppet-openstack-integration -b stable/liberty
-          sudo cp -rv puppet-openstack-integration /usr/share/openstack-puppet/modules/openstack-integration
+          sudo cp -rv puppet-openstack-integration /usr/share/openstack-puppet/modules/openstack_integration
           cd puppet-openstack-integration
           gem install bundler --no-rdoc --no-ri --verbose
           $GEM_HOME/bin/bundle install --retry 3
