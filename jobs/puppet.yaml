@@ -92,12 +92,6 @@
     name: 'puppet-openstack-integration-scenario001'
     node: bare-centos-7
     defaults: global
-    scm:
-      - git:
-          basedir: puppet-openstack-integration
-          branches:
-              - origin/liberty
-          url: https://git.openstack.org/openstack/puppet-openstack-integration
 
     builders:
       - prepare-workspace
@@ -131,6 +125,8 @@
 
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
+
+          git clone https://git.openstack.org/openstack/puppet-openstack-integration
           cd puppet-openstack-integration
           gem install bundler --no-rdoc --no-ri --verbose
           $GEM_HOME/bin/bundle install --retry 3
