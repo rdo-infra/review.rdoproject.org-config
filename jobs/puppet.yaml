@@ -129,7 +129,7 @@
           popd
 
           # Copy the new project in
-          sudo cp -rv ${ZUUL_PROJECT} /usr/share/openstack-puppet/modules
+          sudo cp -rv ${ZUUL_PROJECT} /usr/share/openstack-puppet/modules/${ZUUL_PROJECT/puppet-/}
 
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
