@@ -104,7 +104,8 @@
           #export MANAGE_REPOS=false
           #export PUPPET_GEM_VERSION='~> 3.8.0'
           
-          yum install -y puppet
+          sudo yum install -y epel-release
+          sudo yum install -y puppet
           export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
 
           sudo mkdir -p /usr/share/openstack-puppet/modules
