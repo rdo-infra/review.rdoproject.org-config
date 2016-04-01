@@ -100,10 +100,12 @@
           #!/bin/bash -xe
           export SCENARIO=scenario001
           export MANAGE_PUPPET_MODULES=false
-          export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
           export PUPPET_ARGS="--modulepath=/usr/share/openstack-puppet/modules"
           #export MANAGE_REPOS=false
           #export PUPPET_GEM_VERSION='~> 3.8.0'
+          
+          yum install -y puppet
+          export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
 
           sudo mkdir -p /usr/share/openstack-puppet/modules
           pushd /usr/share/openstack-puppet/modules
