@@ -214,7 +214,7 @@
             echo "providers:"
             echo "  - name: default"
           ) > build/nodepool/nodepool.yaml
-          (for provider in $(awk '/provider: / { print $3 }' nodepool/images.yaml); do echo "  - name: ${provider}"; done) >> build/nodepool/nodepool.yaml; done
+          (for provider in $(awk '/provider: / { print $3 }' config/nodepool/images.yaml); do echo "  - name: ${provider}"; done) >> build/nodepool/nodepool.yaml; done
           cd config
           echo "[+] Checking jobs"
           # JJB needs access to jenkins to test (validate) jobs
