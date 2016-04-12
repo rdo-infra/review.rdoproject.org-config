@@ -83,8 +83,8 @@ pipelines:
         - time: '0 0 * * *'
     failure:
       smtp:
-        from: jenkins@rpmfactory.beta.rdoproject.org
-        to: dev-robot@rpmfactory.beta.rdoproject.org
+        from: jenkins@review.rdoproject.org
+        to: dev-robot@review.rdoproject.org
         subject: 'Stable check of {change.project} failed'
 
   - name: tag
