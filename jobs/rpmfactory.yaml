@@ -25,7 +25,7 @@
     builders:
       - prepare-rpmfactory-workspace
       - shell: |
-          git clone http://rpmfactory.beta.rdoproject.org/r/gating_scripts
+          git clone http://review.rdoproject.org/r/gating_scripts
           cd gating_scripts
           ./pkg-validate.sh {buildtarget} {kojicmd}
 
@@ -35,6 +35,6 @@
     builders:
       - prepare-rpmfactory-workspace
       - shell: |
-          git clone http://rpmfactory.beta.rdoproject.org/r/gating_scripts
+          git clone http://review.rdoproject.org/r/gating_scripts
           cd gating_scripts
           ./pkg-export.sh {buildtarget} {kojicmd}
