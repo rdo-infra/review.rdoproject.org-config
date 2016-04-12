@@ -6,12 +6,12 @@
       - shell: |
           set +e
           mkdir -p ~/.rdopkg/conf.d
-          echo 'RDOINFO_REPO="http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
+          echo 'RDOINFO_REPO="http://review.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
           sudo pip install tox
-          export GERRIT_CLONE_URL="http://rpmfactory.beta.rdoproject.org/r"
+          export GERRIT_CLONE_URL="http://review.rdoproject.org/r"
           git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
           cd delorean
-          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://rpmfactory.beta.rdoproject.org/r/p/rdoinfo.git
+          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
           ret=$?
           mkdir artifacts
           cp -a logs/* artifacts/
