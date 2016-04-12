@@ -9,7 +9,7 @@
           buildtarget: "cloud7-openstack-liberty-el7"
           kojicmd: "koji"
       - shell: |
-          git clone http://rpmfactory.beta.rdoproject.org/r/rdo_gating_scripts
+          git clone http://review.rdoproject.org/r/rdo_gating_scripts
           cd rdo_gating_scripts
           validated="http://koji-rpmfactory.ring.enovance.com/kojifiles/repos/cloud7-openstack-liberty-el7-build/latest/x86_64/"
           ./run_packstack.sh /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm $validated
