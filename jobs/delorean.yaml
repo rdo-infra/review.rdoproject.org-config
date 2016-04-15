@@ -9,8 +9,10 @@
           echo 'RDOINFO_REPO="http://review.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
           sudo pip install tox
           export GERRIT_CLONE_URL="http://review.rdoproject.org/r"
-          git clone https://review.gerrithub.io/openstack-packages/delorean --depth 1
-          cd delorean
+          git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
+          cd DLRN
+	  # temporary hack to use the repo from rpmf delorean to have all the puppet packages
+	  sed -i 's@http://trunk.rdoproject.org/centos7/@http://46.231.133.253/delorean/@' ./scripts/run_tests.sh
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
           ret=$?
           mkdir artifacts
