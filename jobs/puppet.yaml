@@ -116,7 +116,7 @@
           pushd /usr/share/openstack-puppet/modules
               # TODO: Replace this with packages
               for project in aodh apache cassandra ceilometer ceph certmonger cinder module-collectd concat contrail corosync datacat elasticsearch firewall fluentd git glance gnocchi haproxy heat horizon inifile ironic java kafka keystone kibana3 kmod manila memcached midonet mistral module-data module-keepalived mongodb mysql n1k-vsm neutron nova nssdb ntp opendaylight openstack_extras openstacklib pacemaker qpid rabbitmq redis rsync sensu snmp ssh staging stdlib swift sysctl tempest timezone tomcat tripleo trove tuskar uchiwa vcsrepo vlan vswitch zaqar zookeeper; do
-                  REF=$(grep -A1 ":git.*${project}" ~/Puppetfile | tail -1 | cut -f2 --delimiter=\' )
+                  REF=$(grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile | tail -1 | cut -f2 --delimiter=\' )
                   if [ -e $(which zuul-cloner) ]; then
                       sudo zuul-cloner http://review.rdoproject.org/r/puppet puppet-${project}
                   else
