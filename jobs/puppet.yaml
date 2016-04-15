@@ -129,7 +129,26 @@
                   else
                       REF=$(echo $REF | cut -f2 --delimiter=\')
                   fi
-                  sudo git checkout $REF
+                  # Extra debug, 'just in case'
+                  if [ "${REF}z" == "z" ]; then
+                    echo "Couldn't find git ref for project: ${project}"
+                    echo "Puppetfile:"
+                    grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
+                    echo "Tags:"
+                    sudo git tag -l
+                    echo "Branchs:"
+                    sudo git branch -a
+                  fi
+                  sudo git checkout $REF || {
+                    echo "Couldn't find git ref for project: ${project} $REF"
+                    echo "Puppetfile:"
+                    grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
+                    echo "Tags:"
+                    sudo git tag -l
+                    echo "Branchs:"
+                    sudo git branch -a
+                    exit -1
+                  }
                   popd
               done
 
