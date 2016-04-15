@@ -24,3 +24,17 @@
     triggers:
       - zuul
     node: rdo-centos7-liberty
+
+- job:
+    name: 'DLRN-unittests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          #sudo pip install -r test-requirements.txt
+          #timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+    triggers:
+      - zuul
+    node: bare-centos-7
