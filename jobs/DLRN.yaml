@@ -34,6 +34,7 @@
       - prepare-workspace
       - shell: |
           set +e
+          sudo yum -y install mock
           cd $ZUUL_PROJECT
           sudo pip install -r test-requirements.txt
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
