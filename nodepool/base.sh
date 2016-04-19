@@ -5,9 +5,9 @@ set -xe
 sudo yum update -y > /dev/null
 
 # Base requirements
-sudo yum install -y epel-release > /dev/null
-sudo yum install -y python-pip git wget curl patch iproute > /dev/null
-sudo pip install --upgrade 'pip<8'
+sudo yum install -y python-setuptools python-virtualenv git wget curl patch \
+                    iproute gcc libffi-devel
+sudo easy_install pip
 sudo pip install tox
 
 # The jenkins user. Must be able to use sudo without password
@@ -44,7 +44,6 @@ sudo pip install zuul glob2 python-magic
 sudo cp -v /opt/nodepool-scripts/*.py /usr/local/bin/
 
 # sync FS, otherwise there are 0-byte sized files from the yum/pip installations
-sudo sync
 sudo sync
 
 sudo cat /home/jenkins/.ssh/authorized_keys
