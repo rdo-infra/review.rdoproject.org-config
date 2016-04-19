@@ -7,7 +7,6 @@
           set +e
           mkdir -p ~/.rdopkg/conf.d
           echo 'RDOINFO_REPO="http://review.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
-          sudo pip install tox
           export GERRIT_CLONE_URL="http://review.rdoproject.org/r"
           git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
           cd DLRN
