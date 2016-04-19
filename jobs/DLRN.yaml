@@ -34,7 +34,7 @@
       - prepare-workspace
       - shell: |
           set +e
-          sudo yum -y install git createrepo python-virtualenv mock gcc redhat-rpm-config rpmdevtools httpd
+          sudo yum -y install git createrepo python-virtualenv mock gcc redhat-rpm-config rpmdevtools
           cd $ZUUL_PROJECT
           sudo pip install -r test-requirements.txt
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
