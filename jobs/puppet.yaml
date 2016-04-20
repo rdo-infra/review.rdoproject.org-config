@@ -110,7 +110,7 @@
           export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
 
           # Grab puppetfile from integration to get versions for external modules
-          wget https://raw.githubusercontent.com/openstack/puppet-openstack-integration/stable/liberty/Puppetfile
+          wget https://raw.githubusercontent.com/openstack/puppet-openstack-integration/${ZUUL_BRANCH}/Puppetfile
 
           sudo mkdir -p /usr/share/openstack-puppet/modules
           pushd /usr/share/openstack-puppet/modules
@@ -148,7 +148,7 @@
           mkdir .bundled_gems
           export GEM_HOME=`pwd`/.bundled_gems
 
-          git clone https://git.openstack.org/openstack/puppet-openstack-integration -b stable/liberty
+          git clone https://git.openstack.org/openstack/puppet-openstack-integration -b ${ZUUL_BRANCH}
 
           # Set up the openstack-puppet-modules directory
           sudo cp -rv puppet-openstack-integration /usr/share/openstack-puppet/modules/openstack_integration
