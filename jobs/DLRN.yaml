@@ -1,32 +1,4 @@
 - job:
-    name: 'delorean-ci'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          set +e
-          mkdir -p ~/.rdopkg/conf.d
-          echo 'RDOINFO_REPO="http://review.rdoproject.org/r/p/rdoinfo.git"' > ~/.rdopkg/conf.d/myrdoinfo.py
-          export GERRIT_CLONE_URL="http://review.rdoproject.org/r"
-          git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
-          cd DLRN
-          # temporary hack to use the repo from rpmf delorean to have all the puppet packages
-          sed -i 's@http://trunk.rdoproject.org/centos7/@http://46.231.133.253/delorean/@' ./scripts/run_tests.sh
-          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
-          ret=$?
-          mkdir artifacts
-          cp -a logs/* artifacts/
-          if [ $ret != 0 ]; then
-              cat data/repos/*/*/*/rpmbuild.log
-          fi
-          exit $ret
-    publisher:
-      - zuul-swift-upload
-    triggers:
-      - zuul
-    node: rdo-centos7-liberty
-
-- job:
     name: 'DLRN-pep8'
     defaults: global
     builders:
