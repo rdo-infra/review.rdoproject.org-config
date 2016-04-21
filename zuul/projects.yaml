@@ -25,9 +25,13 @@ projects:
    - rdoinfo-unittests
 - name: DLRN
   check:
-   - DLRN-unittests
+   - DLRN-pep8
+   - DLRN-py27
+   - DLRN-rpmbuild
   gate:
-   - DLRN-unittests
+   - DLRN-pep8
+   - DLRN-py27
+   - DLRN-rpmbuild
 - name: rdo
   periodic:
   - upstream-update

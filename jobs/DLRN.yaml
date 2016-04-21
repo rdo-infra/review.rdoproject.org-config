@@ -27,7 +27,33 @@
     node: rdo-centos7-liberty
 
 - job:
-    name: 'DLRN-unittests'
+    name: 'DLRN-pep8'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e pep8
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: 'DLRN-py27'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e py27
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: 'DLRN-rpmbuild'
     defaults: global
     builders:
       - prepare-workspace
@@ -36,6 +62,13 @@
           sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
           cd $ZUUL_PROJECT
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+          ret=$?
+          mkdir artifacts
+          cp -a logs/* artifacts/
+          if [ $ret != 0 ]; then
+              cat logs/centos/repos/*/*/*/rpmbuild.log
+          fi
+          exit $ret
     triggers:
       - zuul
     node: bare-centos-7
