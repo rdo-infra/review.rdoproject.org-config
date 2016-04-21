@@ -1545,6 +1545,18 @@ projects:
   name: openstack/trove-distgit
 - check:
   - tox-validate
+  name: openstack/trove-dashboard
+- check:
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
+  - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
+  name: openstack/trove-dashboard-distgit
+- check:
+  - tox-validate
   name: cachetools
 - check:
   - packstack-validate
@@ -1687,6 +1699,30 @@ projects:
   - packstack-validate
   - pkg-export
   name: openstack/saharaclient-distgit
+- check:
+  - tox-validate
+  name: openstack/sahara-dashboard
+- check:
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
+  - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
+  name: openstack/sahara-dashboard-distgit
+- check:
+  - tox-validate
+  name: openstack/k8sclient
+- check:
+  - packstack-validate
+  - rpmlint-validate
+  - pkg-upgrade-validate
+  - delorean-ci
+  gate:
+  - packstack-validate
+  - pkg-export
+  name: openstack/k8sclient-distgit
 - check:
   - tox-validate
   name: openstack/requestsexceptions
