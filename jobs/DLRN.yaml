@@ -61,15 +61,21 @@
           set +e
           sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
           sudo usermod -a -G mock jenkins
-          cd $ZUUL_PROJECT
+
+          # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
+          [[ ! -e "DLRN" ]] && git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
+          pushd DLRN
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
           ret=$?
+          popd
           mkdir artifacts
-          cp -a logs/* artifacts/
+          cp -a DLRN/logs/* artifacts/
           if [ $ret != 0 ]; then
-              cat logs/centos/repos/*/*/*/rpmbuild.log
+              cat DLRN/logs/centos/repos/*/*/*/rpmbuild.log
           fi
           exit $ret
+    publisher:
+      - zuul-swift-upload
     triggers:
       - zuul
     node: bare-centos-7
