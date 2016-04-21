@@ -60,6 +60,7 @@
       - shell: |
           set +e
           sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
+          sudo sudo usermod -a -G mock jenkins
           cd $ZUUL_PROJECT
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
           ret=$?
