@@ -22,6 +22,30 @@
       "revId": "39b9ffdec20bfc6915124cb131b34bc63c0ab1f6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ef0f212d",
+        "filename": "zuul/projects.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2016-04-25T13:36:34Z",
+      "side": 1,
+      "message": "Before this commit, packstack-validate was set to run on every puppet-distgit projects and puppet-openstack-scenario001 for every puppet projects. This is still the case, just templated to make things manageable.\n\nThis is what the rpmfactory guys have set up for the time being.\n\nI plan on checking how we could use WeIRDO to run jobs \ninstead and run the right scenario for the right package. For example, scenario001 runs cinder -- so it would only run for cinder-related packages, and so on.",
+      "parentUuid": "9adffdf1_2f0e8935",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "39b9ffdec20bfc6915124cb131b34bc63c0ab1f6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
