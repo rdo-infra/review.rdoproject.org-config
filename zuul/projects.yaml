@@ -2,6 +2,12 @@ jobs:
   - name: ^.*$
     parameter-function: set_node_options
 
+  # Test of log exports
+  # (this variable tell zuul to prepare the tempurl key for upload tool)
+  - name: rdopkg-unittests
+    swift:
+      - name: rdoartifacts
+
   - name: ^DLRN-rpmbuild$
     branch: ^rpm-(master|liberty|kilo)$
 

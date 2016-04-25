@@ -4,6 +4,7 @@
     builders:
       - prepare-workspace
       - shell: |
+          mkdir artifcats
           git config --global user.email "testbot@review.rdoproject.org"
           git config --global user.name "CI Test Bot"
           sudo pip install pytest
@@ -11,7 +12,9 @@
           cd $ZUUL_PROJECT
           sudo pip install -r requirements.txt
           sudo python setup.py install
-          ./run_tests.sh
+          ./run_tests.sh | tee ../artifacts/run_tests.console.log
+    publishers:
+      - zuul-swift-upload
     triggers:
       - zuul
     node: rdo-centos7-liberty
