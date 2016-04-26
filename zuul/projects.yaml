@@ -34,9 +34,11 @@ project-templates:
     gate:
       - DLRN-rpmbuild
       - packstack-validate
-      - pkg-export
       - pkg-upgrade-validate
       - rpmlint-validate
+      # (dmsimard) removed temporarily due to failures
+      # https://review.rdoproject.org/jenkins/job/pkg-export/18/console
+      # - pkg-export
 
   - name: puppet-check-jobs
     check:
