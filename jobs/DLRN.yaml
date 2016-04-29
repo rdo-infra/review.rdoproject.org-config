@@ -5,6 +5,7 @@
       - prepare-workspace
       - shell: |
           set +e
+          sudo yum -y install openssl-devel libffi-devel
           cd $ZUUL_PROJECT
           tox -e pep8
     triggers:
@@ -18,6 +19,7 @@
       - prepare-workspace
       - shell: |
           set +e
+          sudo yum -y install openssl-devel libffi-devel
           cd $ZUUL_PROJECT
           tox -e py27
     triggers:
@@ -31,7 +33,7 @@
       - prepare-workspace
       - shell: |
           set +e
-          sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
+          sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools openssl-devel libffi-devel
           sudo usermod -a -G mock jenkins
 
           # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
