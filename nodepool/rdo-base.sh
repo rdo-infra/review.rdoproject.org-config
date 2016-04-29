@@ -7,7 +7,7 @@ sudo yum update -y > /dev/null
 
 # Base requirements
 sudo yum install -y python-setuptools python-virtualenv git wget curl patch \
-                    iproute libffi-devel
+                    iproute libffi-devel openssl-devel
 sudo easy_install pip
 sudo pip install tox
 
