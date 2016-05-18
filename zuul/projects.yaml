@@ -4,6 +4,8 @@ jobs:
 
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty|kilo))$
+    swift:
+      - name: artifacts
 
   - name: ^packstack-validate$
     branch: ^rdo-liberty$
