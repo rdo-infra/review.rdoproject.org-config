@@ -44,9 +44,9 @@
           cp -a DLRN/logs/* artifacts/
           if [ $ret != 0 ]; then
               cat DLRN/logs/centos/repos/*/*/*/rpmbuild.log
-              exit 1
           fi
-    publisher:
+          exit $ret
+    publishers:
       - zuul-swift-upload
     triggers:
       - zuul
