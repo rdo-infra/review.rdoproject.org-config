@@ -139,7 +139,7 @@
                     echo "Branchs:"
                     sudo git branch -a
                   fi
-                  sudo git checkout $REF || {
+                  sudo git checkout $REF || {
                     echo "Couldn't find git ref for project: ${project} $REF"
                     echo "Puppetfile:"
                     grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
