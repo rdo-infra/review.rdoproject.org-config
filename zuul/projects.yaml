@@ -20,6 +20,81 @@ jobs:
   - name: ^puppet-openstack-integration-scenario(001|002|003)$
     voting: false
 
+  ####
+  # WeIRDO job filters
+  ####
+  # Don't run integration tests for docs and other things
+  - name: ^gate-weirdo-integration-.*$
+    swift:
+      - name: artifacts
+    skip-if:
+    - project: rdo-infra/weirdo
+      all-files-match-any:
+        - ^docs/.*$
+        - ^.*README.rst$
+        - ^.gitignore$
+        - ^playbooks/logs-ci-centos.yml$
+    - project: rdo-infra/ansible-role-weirdo-common
+      all-files-match-any:
+        - ^README.rst$
+    - project: rdo-infra/ansible-role-weirdo-kolla
+      all-files-match-any:
+        - ^README.rst$
+    - project: rdo-infra/ansible-role-weirdo-packstack
+      all-files-match-any:
+        - ^README.rst$
+    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
+      all-files-match-any:
+        - ^README.rst$
+
+  # Only run kolla integration jobs for kolla
+  - name: ^gate-weirdo-integration-.*-kolla-.*$
+    skip-if:
+    - project: rdo-infra/weirdo
+      all-files-match-any:
+        - ^playbooks/packstack.*$
+        - ^playbooks/puppet-openstack.*$
+    - project: rdo-infra/ansible-role-weirdo-packstack
+      all-files-match-any:
+        - ^.*$
+    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
+      all-files-match-any:
+        - ^.*$
+
+  # Only run packstack integration jobs for packstack
+  - name: ^gate-weirdo-integration-.*-packstack-.*$
+    skip-if:
+    - project: rdo-infra/weirdo
+      all-files-match-any:
+        - ^playbooks/kolla.*$
+        - ^playbooks/puppet-openstack.*$
+    - project: rdo-infra/ansible-role-weirdo-kolla
+      all-files-match-any:
+        - ^.*$
+    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
+      all-files-match-any:
+        - ^.*$
+
+  # Only run puppet-openstack integration jobs for puppet-openstack
+  - name: ^gate-weirdo-integration-.*-puppet-openstack-.*$
+    skip-if:
+    - project: rdo-infra/weirdo
+      all-files-match-any:
+        - ^playbooks/kolla.*$
+        - ^playbooks/packstack.*$
+    - project: rdo-infra/ansible-role-weirdo-kolla
+      all-files-match-any:
+        - ^.*$
+    - project: rdo-infra/ansible-role-weirdo-packstack
+      all-files-match-any:
+        - ^.*$
+
+  # Only run docs jobs for docs
+  - name: ^gate-weirdo-docs$
+    files:
+      - ^docs/.*$
+      - ^.*\.rst$
+
 project-templates:
   - name: package-check-jobs
     check:
@@ -66,6 +141,38 @@ project-templates:
       - pkg-upgrade-validate
       - DLRN-rpmbuild
 
+  - name: weirdo-gate-jobs
+    check:
+      - gate-weirdo-ansible-lint
+      - gate-weirdo-ansible-docs
+      - gate-weirdo-mitaka-packstack-scenario001
+      - gate-weirdo-mitaka-packstack-scenario002
+      - gate-weirdo-mitaka-packstack-scenario003
+      - gate-weirdo-mitaka-puppet-openstack-scenario001
+      - gate-weirdo-mitaka-puppet-openstack-scenario002
+      - gate-weirdo-mitaka-puppet-openstack-scenario003
+      - gate-weirdo-master-packstack-scenario001
+      - gate-weirdo-master-packstack-scenario002
+      - gate-weirdo-master-packstack-scenario003
+      - gate-weirdo-master-puppet-openstack-scenario001
+      - gate-weirdo-master-puppet-openstack-scenario002
+      - gate-weirdo-master-puppet-openstack-scenario003
+    gate:
+      - gate-weirdo-ansible-lint
+      - gate-weirdo-ansible-docs
+      - gate-weirdo-mitaka-packstack-scenario001
+      - gate-weirdo-mitaka-packstack-scenario002
+      - gate-weirdo-mitaka-packstack-scenario003
+      - gate-weirdo-mitaka-puppet-openstack-scenario001
+      - gate-weirdo-mitaka-puppet-openstack-scenario002
+      - gate-weirdo-mitaka-puppet-openstack-scenario003
+      - gate-weirdo-master-packstack-scenario001
+      - gate-weirdo-master-packstack-scenario002
+      - gate-weirdo-master-packstack-scenario003
+      - gate-weirdo-master-puppet-openstack-scenario001
+      - gate-weirdo-master-puppet-openstack-scenario002
+      - gate-weirdo-master-puppet-openstack-scenario003
+
 projects:
   - name: rdopkg
     check:
@@ -88,6 +195,26 @@ projects:
      - DLRN-pep8
      - DLRN-py27
      - DLRN-rpmbuild
+
+  - name: rdo-infra/weirdo
+    template:
+      - name: weirdo-gate-jobs
+
+  - name: rdo-infra/ansible-role-weirdo-common
+    template:
+      - name: weirdo-gate-jobs
+
+  - name: rdo-infra/ansible-role-weirdo-kolla
+    template:
+      - name: weirdo-gate-jobs
+
+  - name: rdo-infra/ansible-role-weirdo-packstack
+    template:
+      - name: weirdo-gate-jobs
+
+  - name: rdo-infra/ansible-role-weirdo-puppet-openstack
+    template:
+      - name: weirdo-gate-jobs
 
   - name: rdo
     periodic:

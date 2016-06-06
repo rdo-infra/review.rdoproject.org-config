@@ -1,0 +1,91 @@
+- job:
+    name: 'gate-weirdo-ansible-lint'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e pep8
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: 'gate-weirdo-docs'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e docs
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- builder:
+    name: prepare-weirdo
+    builders:
+      - shell: |
+          CLONEMAP=`mktemp`
+          function cleanup {
+              rm -f $CLONEMAP
+          }
+          trap cleanup EXIT
+          cat > $CLONEMAP << EOF
+          clonemap:
+            - name: 'rdo-infra/ansible-role-weirdo-(.*)'
+              dest: 'weirdo-playbooks/roles/\1'
+          EOF
+
+          # Clone WeIRDO if it's not provided by Zuul (ex: commits from WeIRDO roles)
+          [[ ! -e "weirdo" ]] && git clone https://review.rdoproject.org/r/rdo-infra/weirdo.git --depth 1
+
+          # Zuul clone WeIRDO roles at their expected location
+          zuul-cloner -m $CLONEMAP \
+            https://review.rdoproject.org/r \
+            rdo-infra/ansible-role-weirdo-common \
+            rdo-infra/ansible-role-weirdo-kolla \
+            rdo-infra/ansible-role-weirdo-packstack \
+            rdo-infra/ansible-role-weirdo-puppet-openstack
+
+- builder:
+    name: 'weirdo-ansible-playbook-builder'
+    builders:
+        - shell: |
+            if [[ "{openstack_release}" != "master" ]]; then
+                version="stable/{openstack_release}"
+            else
+                version="{openstack_release}"
+            fi
+
+            # WeIRDO uses ARA for ansible-playbook run visualization
+            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
+            pushd weirdo
+            git log -n 5 --oneline
+
+            tox -e ansible-playbook -- -vv -i hosts playbooks/{project}-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
+            status=$?
+            .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara
+            popd
+
+            mkdir artifacts
+            cp -a /var/log/weirdo/* artifacts/
+            exit $status
+
+- job-template:
+    name: 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
+    defaults: global
+    builders:
+        - prepare-workspace
+        - prepare-weirdo
+        - weirdo-ansible-playbook-builder:
+            openstack_release: '{openstack_release}'
+            project: '{project}'
+            scenario: '{scenario}'
+    publishers:
+        - zuul-swift-upload
+    triggers:
+        - zuul
+    node: bare-centos-7
