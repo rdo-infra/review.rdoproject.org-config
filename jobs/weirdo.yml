@@ -10,7 +10,7 @@
           cat > $CLONEMAP << EOF
           clonemap:
             - name: 'rdo-infra/ansible-role-weirdo-(.*)'
-              dest: 'weirdo-playbooks/roles/\1'
+              dest: 'weirdo/playbooks/roles/\1'
           EOF
 
           # Clone WeIRDO if it's not provided by Zuul (ex: commits from WeIRDO roles)
