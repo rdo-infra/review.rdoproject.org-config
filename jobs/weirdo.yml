@@ -91,3 +91,42 @@
     triggers:
         - zuul
     node: bare-centos-7
+
+# Kolla implementation has not yet been fixed
+# - project:
+#     name: gate-weirdo-kolla
+#     project: kolla
+#     openstack_release:
+#       - master
+#       - mitaka
+#     scenario:
+#       - build-centos-binary
+#       - deploy-centos-binary
+#     jobs:
+#       - 'gate-weirdo-integration-{openstack_release}-{kolla}-{scenario}'
+
+- project:
+    name: gate-weirdo-packstack
+    project: packstack
+    openstack_release:
+      - master
+      - mitaka
+    scenario:
+      - scenario001
+      - scenario002
+      - scenario003
+    jobs:
+      - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
+
+- project:
+    name: gate-weirdo-puppet
+    project: puppet
+    openstack_release:
+      - master
+      - mitaka
+    scenario:
+      - scenario001
+      - scenario002
+      - scenario003
+    jobs:
+      - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
