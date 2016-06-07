@@ -47,7 +47,7 @@
             localhost log_destination=/var/log/weirdo
             EOF
 
-            tox -e ansible-playbook -- -vv -i hosts playbooks/{project}-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
+            tox -e ansible-playbook -- -vv -b -i hosts playbooks/{project}-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
             status=$?
             .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara
             popd
