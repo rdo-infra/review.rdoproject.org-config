@@ -51,7 +51,7 @@
             status=$?
 
             # Generate ARA but don't let it fail the job if for some reason it doesn't work
-            sudo .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara || true
+            sudo .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara || true
             popd
 
             mkdir artifacts
