@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -xe
 
 sudo yum update -y > /dev/null
