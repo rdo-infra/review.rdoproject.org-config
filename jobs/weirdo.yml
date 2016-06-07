@@ -28,16 +28,24 @@
     name: weirdo-ansible-playbook-builder
     builders:
         - shell: |
+            # WeIRDO uses ARA for ansible-playbook run visualization
+            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
+
             if [[ "{openstack_release}" != "master" ]]; then
                 version="stable/{openstack_release}"
             else
                 version="{openstack_release}"
             fi
 
-            # WeIRDO uses ARA for ansible-playbook run visualization
-            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
             pushd weirdo
             git log -n 5 --oneline
+
+            # We're provisioning on localhost
+            cat <<EOF >hosts
+            localhost ansible_connection=local
+            [openstack_nodes]
+            localhost log_destination=/var/log/weirdo
+            EOF
 
             tox -e ansible-playbook -- -vv -i hosts playbooks/{project}-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
             status=$?
