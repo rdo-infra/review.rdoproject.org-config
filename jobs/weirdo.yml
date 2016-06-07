@@ -49,7 +49,9 @@
 
             tox -e ansible-playbook -- -vv -b -i hosts playbooks/{project}-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
             status=$?
-            .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara
+
+            # Generate ARA but don't let it fail the job if for some reason it doesn't work
+            sudo .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara || true
             popd
 
             mkdir artifacts
