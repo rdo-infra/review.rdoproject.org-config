@@ -119,12 +119,12 @@
     name: gate-weirdo-packstack
     project: packstack
     openstack_release:
-      - master
+      # - master
       - mitaka
     scenario:
       - scenario001
-      - scenario002
-      - scenario003
+      # - scenario002
+      # - scenario003
     jobs:
       - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
 
@@ -132,11 +132,11 @@
     name: gate-weirdo-puppet
     project: puppet
     openstack_release:
-      - master
+      # - master
       - mitaka
     scenario:
       - scenario001
-      - scenario002
-      - scenario003
+      # - scenario002
+      # - scenario003
     jobs:
       - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
