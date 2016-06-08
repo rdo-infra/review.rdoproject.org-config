@@ -56,6 +56,8 @@
 
             mkdir artifacts
             sudo cp -a /var/log/weirdo/* artifacts/
+            # Ensure permissions allow artifact uploading
+            sudo chown -R "$(id -u).$(id -g)" artifacts
             exit $status
 
 - job:
