@@ -106,7 +106,6 @@
           
           sudo yum install -y epel-release
           sudo yum install -y puppet
-          sudo pip uninstall -y pycrypto # Interferes with python2-crypto RPM
           export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
 
           # Grab puppetfile from integration to get versions for external modules
