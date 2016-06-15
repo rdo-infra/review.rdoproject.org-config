@@ -6,8 +6,11 @@ set -xe
 sudo yum update -y > /dev/null
 
 # Base requirements
-sudo yum install -y python-setuptools python-virtualenv git wget curl patch \
-                    iproute libffi-devel openssl-devel
+sudo yum install -y python-setuptools git wget curl patch iproute \
+                    libffi-devel openssl-devel libxml2-devel \
+                    libxslt-devel ruby-devel redhat-lsb-core \
+                    libselinux-python yum-plugin-priorities \
+                    rubygems net-tools lsof
 sudo easy_install pip
 sudo pip install tox
 
