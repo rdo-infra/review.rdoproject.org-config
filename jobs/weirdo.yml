@@ -1,5 +1,5 @@
 - builder:
-    name: prepare-weirdo
+    name: weirdo-prepare
     builders:
       - shell: |
           CLONEMAP=`mktemp`
@@ -25,7 +25,7 @@
             rdo-infra/ansible-role-weirdo-puppet-openstack
 
 - builder:
-    name: weirdo-ansible-playbook-builder
+    name: weirdo-ansible-playbook
     builders:
         - shell: |
             # WeIRDO uses ARA for ansible-playbook run visualization
@@ -45,10 +45,8 @@
                 version="{openstack_release}"
             fi
 
-            pushd weirdo
-            git log -n 5 --oneline
-
-            # We're provisioning on localhost
+            cd weirdo
+            # Prepare Ansible inventory to use localhost
             cat <<EOF >hosts
             localhost ansible_connection=local
             [openstack_nodes]
@@ -56,24 +54,37 @@
             EOF
 
             tox -e ansible-playbook -- -vv -b -i hosts playbooks/$project-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
-            status=$?
 
-            # Generate ARA but don't let it fail the job if for some reason it doesn't work
-            sudo .tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara || true
-            popd
+- builder:
+    name: weirdo-collect-logs
+    builders:
+      - shell: |
+            # WeIRDO uses ARA for ansible-playbook run visualization
+            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
 
-            mkdir artifacts
+            # Generate ARA playbook analysis
+            sudo -E weirdo/.tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara
+
             sudo cp -a /var/log/weirdo/* artifacts/
             # Ensure permissions allow artifact uploading
             sudo chown -R "$(id -u).$(id -g)" artifacts
-            exit $status
+
+- publisher:
+    name: weirdo-publish-logs
+    publishers:
+      - postbuildscript:
+          builders:
+            - weirdo-collect-logs
+            - zuul-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
 
 - job:
     name: gate-weirdo-ansible-lint
     defaults: global
     builders:
       - prepare-workspace
-      - prepare-weirdo
+      - weirdo-prepare
       - shell: |
           set +e
           cd weirdo
@@ -87,7 +98,7 @@
     defaults: global
     builders:
       - prepare-workspace
-      - prepare-weirdo
+      - weirdo-prepare
       - shell: |
           set +e
           cd weirdo
@@ -101,13 +112,13 @@
     defaults: global
     builders:
         - prepare-workspace
-        - prepare-weirdo
-        - weirdo-ansible-playbook-builder:
+        - weirdo-prepare
+        - weirdo-ansible-playbook:
             openstack_release: '{openstack_release}'
             project: '{project}'
             scenario: '{scenario}'
     publishers:
-        - zuul-swift-upload
+        - weirdo-publish-logs
     triggers:
         - zuul
     node: bare-centos-7
