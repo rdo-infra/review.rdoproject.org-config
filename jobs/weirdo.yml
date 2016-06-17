@@ -65,6 +65,7 @@
             # Generate ARA playbook analysis
             sudo -E weirdo/.tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara
 
+            mkdir artifacts
             sudo cp -a /var/log/weirdo/* artifacts/
             # Ensure permissions allow artifact uploading
             sudo chown -R "$(id -u).$(id -g)" artifacts
