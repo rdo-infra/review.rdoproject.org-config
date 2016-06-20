@@ -108,62 +108,64 @@
           sudo yum install -y puppet
           export PUPPET_GEM_VERSION="~> $(yum -q info puppet|grep ^Version|awk '{ print $3 }')"
 
-          # Grab puppetfile from integration to get versions for external modules
-          wget https://raw.githubusercontent.com/openstack/puppet-openstack-integration/${ZUUL_BRANCH}/Puppetfile
+          # Grab rdoinfo to collect puppet module branch information
+          if [ -e $(which zuul-cloner) ]; then
+            sudo zuul-cloner http://review.rdoproject.org/r/rdoinfo rdoinfo
+          else
+            sudo git clone http://review.rdoproject.org/r/rdoinfo rdoinfo
+          fi
 
           sudo mkdir -p /usr/share/openstack-puppet/modules
           pushd /usr/share/openstack-puppet/modules
-              # TODO: Replace this with packages
-              for project in aodh apache ceilometer ceph cinder collectd concat contrail corosync datacat elasticsearch firewall fluentd glance gnocchi haproxy heat horizon inifile ironic java kafka keystone kibana3 kmod manila memcached midonet mistral module-data keepalived mongodb mysql n1k-vsm neutron nova nssdb ntp opendaylight openstack_extras openstacklib pacemaker qpid rabbitmq redis rsync sensu snmp ssh staging stdlib swift sysctl tempest timezone tomcat tripleo trove tuskar uchiwa vcsrepo vlan vswitch zaqar zookeeper; do
-                  if [ -e $(which zuul-cloner) ]; then
-                      sudo zuul-cloner http://review.rdoproject.org/r/puppet puppet-${project}
-                  else
-                      sudo git clone http://review.rdoproject.org/r/puppet/puppet-${project}
-                  fi
 
-                  pushd puppet-${project}
-                  REF=$(grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile | tail -1)
-                  if [[ "${REF}" =~ ":branch" ]]; then
-                      REF=$(git tag -l | grep "$(echo $REF | sed 's/x/.*/' | cut -f2 --delimiter=\')"|sort -n|tail -1)
-                  else
-                      REF=$(echo $REF | cut -f2 --delimiter=\')
-                  fi
+          # TODO: Replace this with packages
+          for project in $(grep "^- project: puppet-" ${WORKSPACE}/rdoinfo/rdo.yml | awk '{ print $3 }'); do
+            if [ -e $(which zuul-cloner) ]; then
+              sudo zuul-cloner http://review.rdoproject.org/r/puppet ${project}
+            else
+              sudo git clone http://review.rdoproject.org/r/puppet/${project}
+            fi
 
-                  # Handle special ceph case
-                  if [ "${project}" == "ceph" ]; then
-                    REF="master"
-                  fi
+            # Re-enable REF parsing when newton is branched from master
+            
+            #pushd ${project}
 
-                  # Extra debug, 'just in case'
-                  if [ "${REF}z" == "z" ]; then
-                    echo "Couldn't find git ref for project: ${project}"
-                    echo "Puppetfile:"
-                    grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
-                    echo "Tags:"
-                    sudo git tag -l
-                    echo "Branchs:"
-                    sudo git branch -a
-                  fi
-                  sudo git checkout $REF || {
-                    echo "Couldn't find git ref for project: ${project} $REF"
-                    echo "Puppetfile:"
-                    grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
-                    echo "Tags:"
-                    sudo git tag -l
-                    echo "Branchs:"
-                    sudo git branch -a
-                    exit -1
-                  }
-                  popd
-              done
+            #if [[ "${REF}" =~ ":branch" ]]; then
+            #  REF=$(git tag -l | grep "$(echo $REF | sed 's/x/.*/' | cut -f2 --delimiter=\')"|sort -n|tail -1)
+            #else
+            #  REF=$(echo $REF | cut -f2 --delimiter=\')
+            #fi
 
-              # rename the projects from 'puppet-project' to simply 'project'
-              for i in puppet-*; do
-                  sudo mv $i ${i/puppet-/}
-              done
+            # Extra debug, 'just in case'
+            #if [ "${REF}z" == "z" ]; then
+            #  echo "Couldn't find git ref for project: ${project}"
+            #  echo "Puppetfile:"
+            #  grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
+            #  echo "Tags:"
+            #  sudo git tag -l
+            #  echo "Branchs:"
+            #  sudo git branch -a
+            #fi
+            #sudo git checkout $REF || {
+            #  echo "Couldn't find git ref for project: ${project} $REF"
+            #  echo "Puppetfile:"
+            #  grep -A1 ":git.*${project}" ${WORKSPACE}/Puppetfile
+            #  echo "Tags:"
+            #  sudo git tag -l
+            #  echo "Branchs:"
+            #  sudo git branch -a
+            #  exit -1
+            #}
+            #popd
+          done
 
-              # Delete the project being tested
-              sudo rm -rf ${ZUUL_PROJECT/puppet\/puppet-/}
+          # rename the projects from 'puppet-project' to simply 'project'
+          for i in puppet-*; do
+            sudo mv $i ${i/puppet-/}
+          done
+
+          # Delete the project being tested
+          sudo rm -rf ${ZUUL_PROJECT/puppet\/puppet-/}
           popd
 
           # Copy the new project in
