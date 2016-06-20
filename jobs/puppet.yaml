@@ -187,3 +187,13 @@
           sed -i '/^install_puppet$/d' run_tests.sh
 
           ./run_tests.sh
+
+    publishers:
+      - shell: |
+          mkdir -p artifacts/system_logs
+          GET_LOG=${WORKSPACE}/puppet-openstack-integration/copy_logs.sh
+          WORKSPACE=artifacts/system_logs ${GET_LOG}
+          ps aufxww > artifacts/system_logs/ps.txt
+          free -m > artifacts/system_logs/free.txt
+          sudo chown -R ${USER} artifacts/
+      - zuul-swift-upload
