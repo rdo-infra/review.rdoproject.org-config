@@ -184,6 +184,6 @@
           $GEM_HOME/bin/bundle install --retry 3
 
           # Remove installation of puppetlabs puppet repository
-          sed -i '/    $SUDO rpm -ivh \/tmp\/puppet.rpm/d' run_tests.sh
+          sed -i '/^install_puppet$/d' run_tests.sh
 
           ./run_tests.sh
