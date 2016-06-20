@@ -187,3 +187,12 @@
           sed -i '/^install_puppet$/d' run_tests.sh
 
           ./run_tests.sh
+
+    publishers:
+      - shell: |
+          mkdir -p artifacts/system_logs
+          sudo cp -R /var/log/*/ artifacts/system_logs
+          ps aufxww > artifacts/ps.txt
+          free -m > artifacts/free.txt
+          sudo chown -R ${USER} artifacts/
+      - zuul-swift-upload
