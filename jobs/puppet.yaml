@@ -128,6 +128,12 @@
                   else
                       REF=$(echo $REF | cut -f2 --delimiter=\')
                   fi
+
+                  # Handle special ceph case
+                  if [ "${project}" == "puppet-ceph" ]; then
+                    REF="master"
+                  fi
+
                   # Extra debug, 'just in case'
                   if [ "${REF}z" == "z" ]; then
                     echo "Couldn't find git ref for project: ${project}"
