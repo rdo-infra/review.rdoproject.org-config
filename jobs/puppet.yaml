@@ -110,7 +110,7 @@
 
           # Grab rdoinfo to collect puppet module branch information
           if [ -e $(which zuul-cloner) ]; then
-            sudo zuul-cloner http://review.rdoproject.org/r/rdoinfo rdoinfo
+            sudo zuul-cloner http://review.rdoproject.org/r rdoinfo
           else
             sudo git clone http://review.rdoproject.org/r/rdoinfo rdoinfo
           fi
