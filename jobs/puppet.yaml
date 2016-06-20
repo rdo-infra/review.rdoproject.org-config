@@ -18,6 +18,17 @@
           wget https://git.openstack.org/cgit/openstack-infra/system-config/plain/install_puppet.sh
           sudo bash -xe install_puppet.sh
 
+- builder:
+    name: puppet-copy-logs
+    builders:
+      - shell: |
+          cd ${WORKSPACE}
+          mkdir -p artifacts/system_logs
+          WORKSPACE=artifacts/system_logs ./puppet-openstack-integration/copy_logs.sh
+          ps aufxww > artifacts/system_logs/ps.txt
+          free -m > artifacts/system_logs/free.txt
+          sudo chown -R ${USER} artifacts/
+
 - job:
     name: 'puppet-lint'
     defaults: global
@@ -187,3 +198,7 @@
           sed -i '/^install_puppet$/d' run_tests.sh
 
           ./run_tests.sh
+
+    publishers:
+      - puppet-copy-logs
+      - zuul-swift-upload
