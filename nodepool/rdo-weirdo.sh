@@ -5,4 +5,4 @@
 . rdo-rpmfactory-base.sh
 
 # See "rdo-weirdo-get-packages.sh" for package retrieval method
-cat weirdo-packages.txt |xargs yum -y install
+cat weirdo-packages.txt |xargs sudo yum -y install
