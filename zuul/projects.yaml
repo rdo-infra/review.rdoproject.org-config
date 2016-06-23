@@ -129,6 +129,16 @@ project-templates:
       - puppet-syntax
       - puppet-spec
 
+  - name: puppet-basic-check-jobs
+    check:
+      - puppet-lint
+      - puppet-syntax
+      - puppet-spec
+    gate:
+      - puppet-lint
+      - puppet-syntax
+      - puppet-spec
+
   - name: puppet-distgit-check-jobs
     check:
       - packstack-validate
@@ -1996,3 +2006,7 @@ projects:
   - name: openstack/swift3-distgit
     template:
       - name: package-distgit-check-jobs
+
+  - name: rdo-infra/puppet-dlrn
+    template:
+      - name: puppet-basic-check-jobs
