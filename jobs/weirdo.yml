@@ -2,23 +2,23 @@
     name: weirdo-prepare
     builders:
       - shell: |
-          CLONEMAP=`mktemp`
+          CLONEMAP=$(mktemp)
           function cleanup {
               rm -f $CLONEMAP
           }
           trap cleanup EXIT
           cat > $CLONEMAP << EOF
           clonemap:
+            - name: 'rdo-infra/weirdo'
+              dest: 'weirdo'
             - name: 'rdo-infra/ansible-role-weirdo-(.*)'
               dest: 'weirdo/playbooks/roles/\1'
           EOF
 
-          # Clone WeIRDO if it's not provided by Zuul (ex: commits from WeIRDO roles)
-          [[ ! -e "weirdo" ]] && git clone https://review.rdoproject.org/r/rdo-infra/weirdo.git --depth 1
-
-          # Zuul clone WeIRDO roles at their expected location
+          # Zuul clone WeIRDO and it's roles at their expected location
           zuul-cloner -m $CLONEMAP \
             https://review.rdoproject.org/r \
+            rdo-infra/weirdo \
             rdo-infra/ansible-role-weirdo-common \
             rdo-infra/ansible-role-weirdo-kolla \
             rdo-infra/ansible-role-weirdo-packstack \
