@@ -1996,3 +1996,13 @@ projects:
   - name: openstack/swift3-distgit
     template:
       - name: package-distgit-check-jobs
+
+  - name: rdo-infra/puppet-dlrn
+    check:
+      - puppet-lint
+      - puppet-syntax
+      - puppet-spec
+    gate:
+      - puppet-lint
+      - puppet-syntax
+      - puppet-spec
