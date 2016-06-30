@@ -3,6 +3,10 @@
 
 set -xe
 
+# Use google dns by default, that is because rcip-dev
+# qrouter dns doesn't resolv well
+echo nameserver 8.8.8.8 > /etc/resolv.conf
+
 sudo yum update -y > /dev/null
 
 # Base requirements
