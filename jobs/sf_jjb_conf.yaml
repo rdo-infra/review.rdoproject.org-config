@@ -213,9 +213,9 @@
             echo "  - name: default"
             echo "providers:"
             echo "  - name: default"
-            for provider in $(awk '/provider: / { print $3 }' config/nodepool/images.yaml); do
+            for provider in $(awk '/provider: / { print $NF }' config/nodepool/images.yaml); do
                 echo "  - name: ${provider}"
-            done 
+            done
           ) > build/nodepool/nodepool.yaml
           cd config
           echo "[+] Checking jobs"
@@ -229,6 +229,8 @@
           cp nodepool/*.yaml ../build/nodepool/
           WORKDIR=../build/nodepool/ /usr/local/bin/sf-nodepool-conf-merger.py merged.yaml
           nodepool -c ../build/nodepool/merged.yaml config-validate
+          echo "[+] Checking gerrit replication"
+          git config -f gerrit/replication.config -l > /dev/null
     triggers:
       - zuul
     node: master
