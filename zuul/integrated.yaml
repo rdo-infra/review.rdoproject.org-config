@@ -1,0 +1,13 @@
+project-templates:
+  - name: package-distgit-integrated-jobs
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-integration-mitaka-packstack-scenario001
+    gate:
+      - DLRN-rpmbuild:
+        - gate-weirdo-integration-mitaka-packstack-scenario001
+
+projects:
+  - name: openstack/glanceclient-distgit
+    template:
+      - name: package-distgit-integrated-jobs
