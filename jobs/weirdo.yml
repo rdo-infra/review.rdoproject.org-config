@@ -43,9 +43,10 @@
             repository="${artifacts}/centos/repos/${hash}"
 
             # Configure the repository
-            sudo bash -c "cat << EOF > /etc/yum.repos.d/${ZUUL_REF}.repo
-            [delorean]
-            name=delorean-zuul-${ZUUL_REF}
+            name="delorean-zuul-${ZUUL_REF}"
+            sudo bash -c "cat << EOF > /etc/yum.repos.d/${name}.repo
+            [${name}]
+            name=${name}
             baseurl=${repository}
             enabled=1
             gpgcheck=0
