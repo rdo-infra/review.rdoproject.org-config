@@ -24,6 +24,35 @@
             rdo-infra/ansible-role-weirdo-puppet-openstack
 
 - builder:
+    name: weirdo-configure-gate-dlrn-repo
+    builders:
+      - shell: |
+        # If this is a child job of a DLRN-rpmbuild job, we want to use the
+        # uploaded repository artifact to test that particular package that
+        # was just built.
+        # Re-construct the expected repository URL
+        ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+        LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/DLRN-rpmbuild/${ZUUL_REF}"
+        artifacts="${SWIFT_artifacts_LOGSERVER_PREFIX}/${LOG_PATH}/artifacts"
+
+        # If there's no repository to configure, stop here
+        curl -o /dev/null -sIf "${artifacts}" || exit 0
+
+        # Find the repository hash
+        hash=$(curl -s "${artifacts}/centos/repos/report.html" |grep repo |sed 's/.*"\([^"]*\)".*/\1/')
+        repository="${artifacts}/centos/repos/${hash}"
+
+        # Configure the repository
+        sudo bash -c "cat << EOF > /etc/yum.repos.d/${ZUUL_REF}.repo
+        [delorean]
+        name=delorean-zuul-${ZUUL_REF}
+        baseurl=${repository}
+        enabled=1
+        gpgcheck=0
+        priority=1
+        "
+
+- builder:
     name: weirdo-ansible-playbook
     builders:
         - shell: |
@@ -113,6 +142,7 @@
     builders:
         - prepare-workspace
         - weirdo-prepare
+        - weirdo-configure-gate-dlrn-repo
         - weirdo-ansible-playbook:
             openstack_release: '{openstack_release}'
             project: '{project}'
