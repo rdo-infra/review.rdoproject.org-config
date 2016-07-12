@@ -44,7 +44,7 @@
 
             # Configure the repository
             sudo bash -c "cat << EOF > /etc/yum.repos.d/${ZUUL_REF}.repo
-            [delorean]
+            [delorean-zuul-${ZUUL_REF}]
             name=delorean-zuul-${ZUUL_REF}
             baseurl=${repository}
             enabled=1
