@@ -1,3 +1,28 @@
+- builder:
+    name: zuul-ref-swift-upload
+    builders:
+      - shell: |
+          # Override Zuul's LOG_PATH to use ZUUL_REF as unique identifier
+          # instead of ZUUL_UUID. ZUUL_REF is unique across a job build set
+          # while ZUUL_UUID is unique per job. Uploading based on ZUUL_REF
+          # allows child jobs to find parent jobs artifacts easily.
+
+          # Grab the ZUUL_REF uuid
+          ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+          LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/${JOB_NAME}/${ZUUL_REF}"
+
+          # Publish artifacts on a Swift server
+          /usr/local/bin/zuul_swift_upload.py --name artifacts --delete-after 0 artifacts
+
+- publisher:
+    name: zuul-ref-swift-upload
+    publishers:
+      - postbuildscript:
+          builders:
+            - zuul-ref-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
 - job:
     name: 'DLRN-pep8'
     defaults: global
@@ -47,7 +72,7 @@
           fi
           exit $ret
     publishers:
-      - zuul-swift-upload
+      - zuul-ref-swift-upload
     triggers:
       - zuul
     node: bare-centos-7
