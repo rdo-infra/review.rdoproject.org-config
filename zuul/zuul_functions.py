@@ -22,6 +22,6 @@ def set_node_options(item, job, params):
     params['LOG_PATH'] = "{base}/{pipeline}/{job}/{ref}".format(
         base=params['BASE_LOG_PATH'],
         pipeline=params['ZUUL_PIPELINE'],
-        job=params['JOB_NAME'],
+        job=job.name,
         ref=ref_uuid
     )
