@@ -1,3 +1,36 @@
+- builder:
+    name: dlrn-gate-repository
+    builders:
+      - shell: |
+          # This builder, when run from a child job of a DLRN-rpmbuild job,
+          # configures the DLRN repository that was uploaded as an artifact
+          # of the parent DLRN-rpmbuild job.
+          # This allows to install the packages in that repository and test
+          # them.
+          set +e
+          # Re-construct the expected repository URL
+          ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+          LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/DLRN-rpmbuild/${ZUUL_REF}"
+          artifacts="${SWIFT_artifacts_LOGSERVER_PREFIX}/${LOG_PATH}/artifacts"
+
+          # If there's no repository to configure, stop here
+          curl -o /dev/null -sIf "${artifacts}" || exit 1
+
+          # Find the repository hash
+          hash=$(curl -s "${artifacts}/centos/repos/report.html" |grep repo |sed 's/.*"\([^"]*\)".*/\1/')
+          repository="${artifacts}/centos/repos/${hash}"
+
+          # Configure the repository
+          name="delorean-zuul-${ZUUL_REF}"
+          sudo bash -c "cat << EOF > /etc/yum.repos.d/${name}.repo
+          [${name}]
+          name=${name}
+          baseurl=${repository}
+          enabled=1
+          gpgcheck=0
+          priority=1
+          EOF"
+
 - job:
     name: 'DLRN-pep8'
     defaults: global
