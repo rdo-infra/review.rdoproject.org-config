@@ -1,15 +1,331 @@
+jobs:
+  - name: ^gate-weirdo-dlrn-master-.*$
+    voting: false
+    branch: ^rpm-master$
+    swift:
+      - name: artifacts
+
 project-templates:
-  - name: package-distgit-integrated-jobs
+  # Packstack testing matrix:
+  # https://github.com/openstack/packstack#packstack-integration-tests
+  # Puppet testing matrix:
+  # https://github.com/openstack/puppet-openstack-integration#description
+
+  # Projects that have no testing coverage are not integration tested
+  - name: dlrn-default
+    check:
+      - DLRN-rpmbuild
+    gate:
+      - DLRN-rpmbuild
+
+  # A default set of jobs for projects that do not have a specific fit for
+  # any of the testing scenarios
+  - name: weirdo-dlrn-master-default
     check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+        - gate-weirdo-master-integration-packstack-scenario003
+        - gate-weirdo-master-integration-puppet-scenario002
     gate:
+      - DLRN-rpmbuild
+
+  # Templates that provide optimal coverage for a project
+  - name: weirdo-dlrn-master-aodh
+    check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+        - weirdo-dlrn-master-integration-packstack-scenario003
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-ceilometer
+    check:
+      - DLRN-rpmbuild:
+        - weirdo-dlrn-master-integration-packstack-scenario003
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-cinder
+    check:
+      - DLRN-rpmbuild:
+        # iscsi/lvm backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-glance
+    check:
+      - DLRN-rpmbuild:
+        # file backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+        # swift backend
+        - weirdo-dlrn-master-integration-puppet-scenario002
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-gnocchi
+    check:
+      - DLRN-rpmbuild:
+        # file backend
+        - weirdo-dlrn-master-integration-packstack-scenario003
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-heat
+    check:
+      - DLRN-rpmbuild:
+        - weirdo-dlrn-master-integration-packstack-scenario003
+        - weirdo-dlrn-master-integration-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-keystone
+    check:
+      - DLRN-rpmbuild:
+        # uuid backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # fernet backend
+        - weirdo-dlrn-master-integration-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-neutron
+    check:
+      - DLRN-rpmbuild:
+        # ipv4/ovs backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # ipv6/linuxbridge backend
+        - weirdo-dlrn-master-integration-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-nova
+    check:
+      - DLRN-rpmbuild:
+        # on-disk ephemeral
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd ephemeral
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-packstack
+    check:
+      - DLRN-rpmbuild:
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        - weirdo-dlrn-master-integration-packstack-scenario002
+        - weirdo-dlrn-master-integration-packstack-scenario003
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-puppet
+    check:
+      - DLRN-rpmbuild:
+        - weirdo-dlrn-master-integration-puppet-scenario001
+        - weirdo-dlrn-master-integration-puppet-scenario002
+        - weirdo-dlrn-master-integration-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
 
 projects:
+  - name: openstack/aodh-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
+
+  - name: openstack/aodhclient-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
+
+  - name: openstack/ceilometer-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: openstack/ceilometerclient-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: openstack/ceilometermiddleware-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: openstack/cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/cinderclient-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/glance-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
   - name: openstack/glanceclient-distgit
     template:
-      - name: package-distgit-integrated-jobs
+      - name: weirdo-dlrn-master-glance
+
+  - name: openstack/glance_store-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: openstack/gnocchi-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
+
+  - name: openstack/gnocchiclient-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
+
+  - name: openstack/heat-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
+  - name: openstack/heatclient-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
+  - name: openstack/keystone-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystoneauth1-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystoneclient-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystonemiddleware-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/neutron-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutronclient-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lib-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-fwaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lbaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lbaas-dashboard-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-vpnaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: openstack/novaclient-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: openstack/openstack-puppet-modules-distgit
+    template:
+      - name: weirdo-dlrn-master-puppet
+
+  - name: openstack/os-brick-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/packstack-distgit
+    template:
+      - name: weirdo-dlrn-master-packstack
+
+  - name: puppet/puppet-aodh-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
+
+  - name: puppet/puppet-apache-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-ceilometer-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: puppet/puppet-cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: puppet/puppet-concat-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-glance-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-gnocchi-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
+
+  - name: puppet/puppet-heat-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
+  - name: puppet/puppet-keystone-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: puppet/puppet-mysql-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-neutron-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: puppet/puppet-nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: puppet/puppet-openstack_extras-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-openstacklib-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-oslo-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-rabbitmq-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-stdlib-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-sysctl-distgit
+    template:
+      - name: weirdo-dlrn-master-default
+
+  - name: puppet/puppet-tempest-distgit
+    template:
+      - name: weirdo-dlrn-master-default
