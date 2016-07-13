@@ -37,40 +37,19 @@ jobs:
     - project: rdo-infra/ansible-role-weirdo-common
       all-files-match-any:
         - ^README.rst$
-    - project: rdo-infra/ansible-role-weirdo-kolla
-      all-files-match-any:
-        - ^README.rst$
     - project: rdo-infra/ansible-role-weirdo-packstack
       all-files-match-any:
         - ^README.rst$
     - project: rdo-infra/ansible-role-weirdo-puppet-openstack
       all-files-match-any:
         - ^README.rst$
-
-  # Only run kolla integration jobs for kolla
-  - name: ^gate-weirdo-integration-.*-kolla-.*$
-    skip-if:
-    - project: rdo-infra/weirdo
-      all-files-match-any:
-        - ^playbooks/packstack.*$
-        - ^playbooks/puppet.*$
-    - project: rdo-infra/ansible-role-weirdo-packstack
-      all-files-match-any:
-        - ^.*$
-    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
-      all-files-match-any:
-        - ^.*$
 
   # Only run packstack integration jobs for packstack
   - name: ^gate-weirdo-integration-.*-packstack-.*$
     skip-if:
     - project: rdo-infra/weirdo
       all-files-match-any:
-        - ^playbooks/kolla.*$
         - ^playbooks/puppet.*$
-    - project: rdo-infra/ansible-role-weirdo-kolla
-      all-files-match-any:
-        - ^.*$
     - project: rdo-infra/ansible-role-weirdo-puppet-openstack
       all-files-match-any:
         - ^.*$
@@ -80,11 +59,7 @@ jobs:
     skip-if:
     - project: rdo-infra/weirdo
       all-files-match-any:
-        - ^playbooks/kolla.*$
         - ^playbooks/packstack.*$
-    - project: rdo-infra/ansible-role-weirdo-kolla
-      all-files-match-any:
-        - ^.*$
     - project: rdo-infra/ansible-role-weirdo-packstack
       all-files-match-any:
         - ^.*$
@@ -201,10 +176,6 @@ projects:
       - name: weirdo-gate-jobs
 
   - name: rdo-infra/ansible-role-weirdo-common
-    template:
-      - name: weirdo-gate-jobs
-
-  - name: rdo-infra/ansible-role-weirdo-kolla
     template:
       - name: weirdo-gate-jobs
 
