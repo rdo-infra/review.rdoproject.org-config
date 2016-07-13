@@ -1,15 +1,92 @@
+jobs:
+  - name: ^gate-weirdo-dlrn-master-.*$
+    voting: false
+    branch: ^rpm-master$
+    swift:
+      - name: artifacts
+
 project-templates:
-  - name: package-distgit-integrated-jobs
+  # Packstack testing matrix:
+  # https://github.com/openstack/packstack#packstack-integration-tests
+  # Puppet testing matrix:
+  # https://github.com/openstack/puppet-openstack-integration#description
+
+  # A default set of jobs for projects that do not have a specific fit for
+  # any of the testing scenarios
+  - name: weirdo-dlrn-master-default
     check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+        - gate-weirdo-master-integration-packstack-scenario003
+        - gate-weirdo-master-integration-puppet-scenario002
     gate:
+      - DLRN-rpmbuild
+
+  # Templates that provide optimal coverage for a project
+  - name: weirdo-dlrn-master-cinder
+    check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+        # iscsi/lvm backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-glance
+    check:
+      - DLRN-rpmbuild:
+        # file backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+        # swift backend
+        - weirdo-dlrn-master-integration-puppet-scenario002
+    gate:
+      - DLRN-rpmbuild
+
+  - name: weirdo-dlrn-master-nova
+    check:
+      - DLRN-rpmbuild:
+        # on-disk ephemeral
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd ephemeral
+        - weirdo-dlrn-master-integration-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
 
 projects:
+  - name: openstack/cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/cinderclient-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/glance-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
   - name: openstack/glanceclient-distgit
     template:
-      - name: package-distgit-integrated-jobs
+      - name: weirdo-dlrn-master-glance
+
+  - name: openstack/nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: openstack/novaclient-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: puppet/puppet-cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: puppet/puppet-glance-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
