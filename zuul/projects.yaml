@@ -47,20 +47,6 @@ jobs:
       all-files-match-any:
         - ^README.rst$
 
-  # Only run kolla integration jobs for kolla
-  - name: ^gate-weirdo-integration-.*-kolla-.*$
-    skip-if:
-    - project: rdo-infra/weirdo
-      all-files-match-any:
-        - ^playbooks/packstack.*$
-        - ^playbooks/puppet.*$
-    - project: rdo-infra/ansible-role-weirdo-packstack
-      all-files-match-any:
-        - ^.*$
-    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
-      all-files-match-any:
-        - ^.*$
-
   # Only run packstack integration jobs for packstack
   - name: ^gate-weirdo-integration-.*-packstack-.*$
     skip-if:
