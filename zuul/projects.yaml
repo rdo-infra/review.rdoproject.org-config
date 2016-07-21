@@ -384,6 +384,22 @@ projects:
     template:
       - name: puppet-distgit-check-jobs
 
+  - name: puppet/puppet-qpid
+    template:
+      - name: puppet-check-jobs
+
+  - name: puppet/puppet-qpid-distgit
+    template:
+      - name: puppet-distgit-check-jobs
+
+  - name: puppet/puppet-sensu
+    template:
+      - name: puppet-check-jobs
+
+  - name: puppet/puppet-sensu-distgit
+    template:
+      - name: puppet-distgit-check-jobs
+
   - name: puppet/puppet-concat
     template:
       - name: puppet-check-jobs
@@ -1889,6 +1905,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/keystoneclient-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/k8sclient
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/k8sclient-distgit
     template:
       - name: package-distgit-check-jobs
 
