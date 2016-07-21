@@ -1,0 +1,13 @@
+- job:
+    name: 'config-sanity-check'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          sudo pip install -r test-requirements.txt
+          python sanity-check.py
+    triggers:
+      - zuul
+    node: bare-centos-7
