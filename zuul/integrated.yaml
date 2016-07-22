@@ -13,3 +13,11 @@ projects:
   - name: openstack/glanceclient-distgit
     template:
       - name: package-distgit-integrated-jobs
+
+  - name: openstack/swift-distgit
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-integration-master-packstack-scenario002
+        - gate-weirdo-integration-master-puppet-scenario002
+    gate:
+      - DLRN-rpmbuild
