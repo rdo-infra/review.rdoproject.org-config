@@ -1,11 +1,11 @@
 jobs:
   - name: ^.*$
     parameter-function: set_node_options
+    swift:
+      - name: artifacts
 
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty|kilo))$
-    swift:
-      - name: artifacts
 
   - name: ^packstack-validate$
     branch: ^rdo-liberty$
@@ -25,8 +25,6 @@ jobs:
   ####
   # Don't run integration tests for docs and other things
   - name: ^gate-weirdo-integration-.*$
-    swift:
-      - name: artifacts
     skip-if:
     - project: rdo-infra/weirdo
       all-files-match-any:
