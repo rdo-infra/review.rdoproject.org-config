@@ -2,12 +2,10 @@ project-templates:
   - name: package-distgit-integrated-jobs
     check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+        - gate-weirdo-dlrn-master-packstack-scenario001
+        - gate-weirdo-dlrn-master-puppet-scenario001
     gate:
-      - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario001
-        - gate-weirdo-integration-master-puppet-scenario001
+      - DLRN-rpmbuild
 
 projects:
   - name: openstack/glanceclient-distgit
@@ -17,7 +15,7 @@ projects:
   - name: openstack/swift-distgit
     check:
       - DLRN-rpmbuild:
-        - gate-weirdo-integration-master-packstack-scenario002
-        - gate-weirdo-integration-master-puppet-scenario002
+        - gate-weirdo-dlrn-master-packstack-scenario002
+        - gate-weirdo-dlrn-master-puppet-scenario002
     gate:
       - DLRN-rpmbuild
