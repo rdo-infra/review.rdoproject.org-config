@@ -1,18 +1,13 @@
-# This file won't be updated and must be updated manually
-# Test
-
 - job:
     name: 'packstack-validate'
     defaults: global
     builders:
       - base-pkg-validation:
-          buildtarget: "cloud7-openstack-liberty-el7"
-          kojicmd: "koji"
+          buildtarget: "cloud7-openstack-newton-el7"
+          kojicmd: "cbs"
       - shell: |
-          git clone http://review.rdoproject.org/r/rdo_gating_scripts
-          cd rdo_gating_scripts
-          validated="http://koji-rpmfactory.ring.enovance.com/kojifiles/repos/cloud7-openstack-liberty-el7-build/latest/x86_64/"
-          ./run_packstack.sh /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm $validated
+          sudo rpm -i /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm
+          um list --disablerepo=* --enablerepo=rpmfactory-temp-release
     triggers:
       - zuul
     wrappers:
@@ -20,59 +15,59 @@
         - file:
            credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
            variable: CLIENTSECRET
-    node: rdo-centos7-liberty
+    node: rdo-weirdo-centos-7
 
-- job:
-    name: 'rpmlint-validate'
-    defaults: global
-    builders:
-      - base-pkg-validation:
-          buildtarget: "cloud7-openstack-liberty-el7"
-          kojicmd: "koji"
-      - shell: |
-          echo "Please add logic to test rpmlint here."
-    triggers:
-      - zuul
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
-           variable: CLIENTSECRET
-    node: rdo-centos7-liberty
-
-- job:
-    name: 'pkg-upgrade-validate'
-    defaults: global
-    builders:
-      - base-pkg-validation:
-          buildtarget: "cloud7-openstack-liberty-el7"
-          kojicmd: "koji"
-      - shell: |
-          echo "Please add logic to test the package can be upgraded."
-    triggers:
-      - zuul
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
-           variable: CLIENTSECRET
-    node: rdo-centos7-liberty
-
-- job:
-    name: 'pkg-export'
-    defaults: global
-    builders:
-      - base-pkg-exportation:
-          buildtarget: "cloud7-openstack-liberty-el7"
-          kojicmd: "koji"
-      - shell: |
-          echo "If displayed then package as been published (non-scratch)."
-          echo "Nothing more to do. Exit 0."
-    triggers:
-      - zuul
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
-           variable: CLIENTSECRET
-    node: rdo-centos7-liberty
+#- job:
+#    name: 'rpmlint-validate'
+#    defaults: global
+#    builders:
+#      - base-pkg-validation:
+#          buildtarget: "cloud7-openstack-liberty-el7"
+#          kojicmd: "koji"
+#      - shell: |
+#          echo "Please add logic to test rpmlint here."
+#    triggers:
+#      - zuul
+#    wrappers:
+#      - credentials-binding:
+#        - file:
+#           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
+#           variable: CLIENTSECRET
+#    node: rdo-centos7-liberty
+#
+#- job:
+#    name: 'pkg-upgrade-validate'
+#    defaults: global
+#    builders:
+#      - base-pkg-validation:
+#          buildtarget: "cloud7-openstack-liberty-el7"
+#          kojicmd: "koji"
+#      - shell: |
+#          echo "Please add logic to test the package can be upgraded."
+#    triggers:
+#      - zuul
+#    wrappers:
+#      - credentials-binding:
+#        - file:
+#           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
+#           variable: CLIENTSECRET
+#    node: rdo-centos7-liberty
+#
+#- job:
+#    name: 'pkg-export'
+#    defaults: global
+#    builders:
+#      - base-pkg-exportation:
+#          buildtarget: "cloud7-openstack-liberty-el7"
+#          kojicmd: "koji"
+#      - shell: |
+#          echo "If displayed then package as been published (non-scratch)."
+#          echo "Nothing more to do. Exit 0."
+#    triggers:
+#      - zuul
+#    wrappers:
+#      - credentials-binding:
+#        - file:
+#           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
+#           variable: CLIENTSECRET
+#    node: rdo-centos7-liberty
