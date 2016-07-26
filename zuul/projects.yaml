@@ -7,12 +7,10 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty|kilo))$
 
-  - name: ^packstack-validate$
-    branch: ^rdo-liberty$
-
-  - name: ^(rpmlint|pkg-upgrade)-validate$
-    branch: ^rdo-liberty$
-    voting: false
+  - name: ^newton-distgit-cbs-validate$
+    branch: ^newton-rdo$
+    skip-if:
+    - project: ^(?!openstack/keystoneclient-distgit).*$
 
   - name: ^rdopkg-unittests$
     voting: true
@@ -78,17 +76,9 @@ project-templates:
   - name: package-distgit-check-jobs
     check:
       - DLRN-rpmbuild
-      - packstack-validate
-      - pkg-upgrade-validate
-      - rpmlint-validate
+      - newton-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
-      - packstack-validate
-      - pkg-upgrade-validate
-      - rpmlint-validate
-      # (dmsimard) removed temporarily due to failures
-      # https://review.rdoproject.org/jenkins/job/pkg-export/18/console
-      # - pkg-export
 
   - name: weirdo-gate-jobs
     check:
@@ -1884,7 +1874,6 @@ projects:
   - name: rdo
     periodic:
     - upstream-update
-  #  - distgit-update
 
   - name: rdoinfo
     check:
