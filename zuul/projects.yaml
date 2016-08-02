@@ -10,7 +10,7 @@ jobs:
   - name: ^newton-distgit-cbs-validate$
     branch: ^newton-rdo$
     skip-if:
-    - project: ^(?!openstack/keystoneclient-distgit).*$
+    - project: ^(?!openstack/(keystoneclient-distgit|dib-utils-distgit)).*$
 
   - name: ^rdopkg-unittests$
     voting: true
