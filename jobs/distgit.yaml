@@ -6,8 +6,16 @@
           buildtarget: "cloud7-openstack-newton-el7"
           kojicmd: "cbs"
       - shell: |
+          # rpmfactory-temp-release-1.0-1 is built by the base-pkg-validation builder
+          # It defines two repositories: the newton one (from CBS) and the temporary CBS one that contains
+          # packages we freshly built within that Koji task
           sudo rpm -i /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm
-          yum list --disablerepo=* --enablerepo=rpmfactory-temp-release
+          # Packages in the temp repository contained only the packages fetched from CBS
+          # This should list the packages we just build in that Koji task
+          yum --disablerepo='*' --enablerepo='temp' list available
+          pkgs=$(yum --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {print $1}' | tr '\n' ' ')
+          # Here we install locally the kust built packages
+          sudo yum install -y $pkgs
     triggers:
       - zuul
     wrappers:
