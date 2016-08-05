@@ -7,7 +7,7 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty|kilo))$
 
-  - name: ^newton-distgit-cbs-validate$
+  - name: ^newton-distgit-cbs-(validate|final-build)$
     branch: ^newton-rdo$
     skip-if:
     - project: ^(?!openstack/(keystoneclient-distgit|dib-utils-distgit)).*$
@@ -79,6 +79,7 @@ project-templates:
       - newton-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
+      - newton-distgit-cbs-final-build
 
   - name: weirdo-gate-jobs
     check:
