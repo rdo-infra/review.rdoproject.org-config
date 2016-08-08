@@ -5,6 +5,13 @@ labels:
     providers:
       - name: rcip-dev
       # - name: trystack
+  - name: bare-centos-7-2-node
+    image: bare-centos-7
+    ready-script: multinode_setup.sh
+    min-ready: 1
+    subnodes: 1
+    providers:
+      - name: rcip-dev
   - name: rdo-weirdo-centos-7
     image: rdo-weirdo-centos-7
     min-ready: 1
