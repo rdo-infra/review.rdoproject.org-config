@@ -1,0 +1,24 @@
+- job:
+    name: 'multinode-test'
+    defaults: global
+    builders:
+      - shell: |
+        echo "Node role: $(cat /etc/nodepool/role)"
+        echo "Public IP: $(cat /etc/nodepool/node)"
+        echo "Private IP: $(cat /etc/nodepool/node_private)"
+        echo "Sub nodes IP: $(cat /etc/nodepool/sub_nodes)"
+        echo "Sub nodes Private IP: $(cat /etc/nodepool/node)"
+        echo "SSH Public key: $(cat /etc/nodepool/id_rsa.pub)"
+        echo "Provider info: $(cat /etc/nodepool/provider)"
+        for sub in $(cat /etc/nodepool/sub_nodes_private); do
+            echo "======== Testing sub node: $ip ========"
+            echo "Pinging sub node: $ip"
+            ping -c1 $ip
+            echo "Return status: $?"
+            echo "SSHing to sub node: $ip"
+            ssh -v -l jenkins -i /etc/nodepool/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $ip hostname
+        done
+
+    triggers:
+      - zuul
+    node: bare-centos-7-2-node
