@@ -1,3 +1,19 @@
+pipelines:
+  - name: openstack-check
+    description: Newly uploaded patchsets enter this pipeline to receive an initial +/-1 Verified vote from Jenkins.
+    manager: IndependentPipelineManager
+    source: openstack
+    precedence: normal
+    require:
+      open: True
+      current-patchset: True
+    trigger:
+      openstack:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+
 jobs:
   - name: ^.*$
     parameter-function: set_node_options
@@ -1929,3 +1945,8 @@ projects:
       - puppet-lint
       - puppet-syntax
       - puppet-spec
+
+  # review.openstack.org
+  - name: openstack-dev/sandbox
+    openstack-check:
+      - noop
