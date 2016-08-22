@@ -4,6 +4,18 @@ jobs:
     branch: ^rpm-master$
 
 project-templates:
+  - name: weirdo-dlrn-master-cinder
+    check:
+      - DLRN-rpmbuild:
+        # iscsi/lvm backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+        # barbican encrypted volumes
+        - weirdo-dlrn-master-integration-puppet-scenario002
+    gate:
+      - DLRN-rpmbuild
+
   - name: weirdo-dlrn-master-glance
     check:
       - DLRN-rpmbuild:
@@ -17,6 +29,22 @@ project-templates:
       - DLRN-rpmbuild
 
 projects:
+  - name: openstack/barbican-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/barbicanclient-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/cinderclient-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
   - name: openstack/glance-distgit
     template:
       - name: weirdo-dlrn-master-glance
@@ -29,9 +57,21 @@ projects:
     template:
       - name: weirdo-dlrn-master-glance
 
+  - name: openstack/os-brick-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
   - name: openstack/taskflow-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-ceph-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
+
+  - name: puppet/puppet-cinder-distgit
+    template:
+      - name: weirdo-dlrn-master-cinder
 
   - name: puppet/puppet-glance-distgit
     template:
