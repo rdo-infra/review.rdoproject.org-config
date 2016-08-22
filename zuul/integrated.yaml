@@ -4,15 +4,19 @@ jobs:
     branch: ^rpm-master$
 
 project-templates:
-  - name: package-distgit-integrated-jobs
+  - name: weirdo-dlrn-master-glance
     check:
       - DLRN-rpmbuild:
-        - gate-weirdo-dlrn-master-packstack-scenario001
-        - gate-weirdo-dlrn-master-puppet-scenario001
+        # file backend
+        - weirdo-dlrn-master-integration-packstack-scenario001
+        # rbd backend
+        - weirdo-dlrn-master-integration-puppet-scenario001
+        # swift backend
+        - weirdo-dlrn-master-integration-puppet-scenario002
     gate:
       - DLRN-rpmbuild
 
 projects:
   - name: openstack/glanceclient-distgit
     template:
-      - name: package-distgit-integrated-jobs
+      - name: weirdo-dlrn-master-glance
