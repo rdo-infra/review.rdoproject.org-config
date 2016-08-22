@@ -22,6 +22,30 @@
       "revId": "34f9d07058a13e151dfe87c0cfdee281ab7cdc9f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a106d94_cc403e38",
+        "filename": "zuul/integrated.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2016-08-22T15:17:05Z",
+      "side": 1,
+      "message": "Ah, yes -- I guess they were different in my WIP patch but I\u0027ve just added scenario002 to it because Barbican coverage was added upstream just recently.\n\nI think it makes sense to make it explicit by having it\u0027s own template. We can tell easily that the intent is to test iscsi/rbd/encryption.\nThe hard part of the work is matching a particular project (not just cinder, but say, os-brick, barbican, etc.) to a set of tests that will exercise that code path. If upstream scenarios change, we will have to \"fork\" to another template and think about what projects need to be moved where again.",
+      "parentUuid": "1a106d94_cc395eda",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "34f9d07058a13e151dfe87c0cfdee281ab7cdc9f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
