@@ -30,8 +30,8 @@
     name: zuul-swift-upload
     builders:
       - shell: |
-          # Publish artifacts on a Swift server, TTL is set to 365.25 days
-          /usr/local/bin/zuul_swift_upload.py --name artifacts --delete-after 31557600.0 artifacts
+          # Publish artifacts on a Swift server
+          /usr/local/bin/zuul_swift_upload.py --name artifacts --delete-after 0 artifacts
 
 - builder:
     name: rdo-prepare
