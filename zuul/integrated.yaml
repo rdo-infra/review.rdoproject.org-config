@@ -17,6 +17,22 @@ project-templates:
       - DLRN-rpmbuild
 
 projects:
+  - name: openstack/glance-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
   - name: openstack/glanceclient-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: openstack/glance_store-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: openstack/taskflow-distgit
+    template:
+      - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-glance-distgit
     template:
       - name: weirdo-dlrn-master-glance
