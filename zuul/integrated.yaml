@@ -28,6 +28,15 @@ project-templates:
     gate:
       - DLRN-rpmbuild
 
+  - name: weirdo-dlrn-master-nova
+    check:
+      - DLRN-rpmbuild:
+        # on-disk ephemeral
+        - gate-weirdo-dlrn-master-packstack-scenario001
+        # rbd ephemeral
+        - gate-weirdo-dlrn-master-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
 projects:
   - name: openstack/barbican-distgit
     template:
@@ -57,9 +66,21 @@ projects:
     template:
       - name: weirdo-dlrn-master-glance
 
+  - name: openstack/nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
+  - name: openstack/novaclient-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
+
   - name: openstack/os-brick-distgit
     template:
       - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/stevedore-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
 
   - name: openstack/taskflow-distgit
     template:
@@ -76,3 +97,7 @@ projects:
   - name: puppet/puppet-glance-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-nova-distgit
+    template:
+      - name: weirdo-dlrn-master-nova
