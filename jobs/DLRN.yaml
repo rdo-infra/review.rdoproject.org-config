@@ -75,9 +75,6 @@
           popd
           mkdir artifacts
           cp -a DLRN/logs/* artifacts/
-          if [ $ret != 0 ]; then
-              cat DLRN/logs/centos/repos/*/*/*/rpmbuild.log
-          fi
           exit $ret
     publishers:
       - zuul-swift-upload
