@@ -12,7 +12,3 @@ cat weirdo-packages.txt |xargs sudo yum -y install
 mkdir -p ~/cache/files
 wget --tries=10 http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-uec.tar.gz -P ~/cache/files/
 wget --tries=10 http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img -P ~/cache/files/
-
-# Remove pycrypto | https://www.redhat.com/archives/rdo-list/2016-August/msg00182.html
-# TODO: Remove me when fixed
-sudo pip uninstall -y pycrypto
