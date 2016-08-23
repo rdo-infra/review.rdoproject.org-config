@@ -38,6 +38,18 @@ project-templates:
         - experimental-weirdo-dlrn-master-puppet-scenario001
         - experimental-weirdo-dlrn-master-puppet-scenario002
 
+  - name: weirdo-dlrn-master-heat
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-dlrn-master-packstack-scenario003
+        - gate-weirdo-dlrn-master-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario003
+        - experimental-weirdo-dlrn-master-puppet-scenario003
+
   - name: weirdo-dlrn-master-nova
     check:
       - DLRN-rpmbuild:
@@ -80,6 +92,18 @@ projects:
     template:
       - name: weirdo-dlrn-master-glance
 
+  - name: openstack/heat-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
+  - name: openstack/heatclient-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
+  - name: openstack/heat-templates-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
+
   - name: openstack/nova-distgit
     template:
       - name: weirdo-dlrn-master-nova
@@ -111,6 +135,10 @@ projects:
   - name: puppet/puppet-glance-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-heat-distgit
+    template:
+      - name: weirdo-dlrn-master-heat
 
   - name: puppet/puppet-nova-distgit
     template:
