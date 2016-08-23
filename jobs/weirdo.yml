@@ -44,6 +44,13 @@
                 version="{openstack_release}"
             fi
 
+            delorean_deps_url="https://trunk.rdoproject.org/centos7-{openstack_release}/delorean-deps.repo"
+            if [[ "{experimental}" == "true" ]]; then
+                delorean_url="https://trunk.rdoproject.org/centos7-{openstack_release}/consistent/delorean.repo"
+            else
+                delorean_url="https://trunk.rdoproject.org/centos7-{openstack_release}/current-passed-ci/delorean.repo"
+            fi
+
             cd weirdo
             # Prepare Ansible inventory to use localhost
             cat <<EOF >hosts
@@ -52,7 +59,7 @@
             localhost log_destination=/var/log/weirdo
             EOF
 
-            tox -e ansible-playbook -- -vv -b -i hosts playbooks/$project-{scenario}.yml -e openstack_release={openstack_release} -e version=$version
+            tox -e ansible-playbook -- -vv -b -i hosts playbooks/$project-{scenario}.yml -e version=$version -e delorean_url=$delorean_url -e delorean_deps_url=$delorean_deps_url
 
 - builder:
     name: weirdo-collect-logs
@@ -136,6 +143,24 @@
             openstack_release: '{openstack_release}'
             project: '{project}'
             scenario: '{scenario}'
+    publishers:
+        - weirdo-publish-logs
+    triggers:
+        - zuul
+    node: rdo-weirdo-centos-7
+
+- job-template:
+    name: 'experimental-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
+    defaults: global
+    builders:
+        - prepare-workspace
+        - dlrn-gate-repository
+        - weirdo-prepare
+        - weirdo-ansible-playbook:
+            openstack_release: '{openstack_release}'
+            project: '{project}'
+            scenario: '{scenario}'
+            experimental: 'true'
     publishers:
         - weirdo-publish-logs
     triggers:

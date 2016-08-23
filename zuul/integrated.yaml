@@ -15,6 +15,11 @@ project-templates:
         - gate-weirdo-dlrn-master-puppet-scenario002
     gate:
       - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario002
 
   - name: weirdo-dlrn-master-glance
     check:
@@ -27,6 +32,11 @@ project-templates:
         - gate-weirdo-dlrn-master-puppet-scenario002
     gate:
       - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario002
 
   - name: weirdo-dlrn-master-nova
     check:
@@ -37,6 +47,10 @@ project-templates:
         - gate-weirdo-dlrn-master-puppet-scenario001
     gate:
       - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario001
 projects:
   - name: openstack/barbican-distgit
     template:
