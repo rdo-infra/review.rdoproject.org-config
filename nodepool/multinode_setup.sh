@@ -18,18 +18,18 @@
 
 export PATH=$PATH:/usr/local/sbin:/usr/sbin
 
-. rdo-base.sh
-
-echo "" >> /home/jenkins/.ssh/authorized_keys
-cat /etc/nodepool/id_rsa.pub >> /home/jenkins/.ssh/authorized_keys
-echo "" >> /home/jenkins/.ssh/authorized_keys
+(
+    echo ""
+    cat /etc/nodepool/id_rsa.pub
+    echo ""
+) | sudo tee -a /home/jenkins/.ssh/authorized_keys
 
 ROLE=$(cat /etc/nodepool/role)
 if [ $ROLE == "primary" ]; then
-    cp /etc/nodepool/id_rsa /home/jenkins/.ssh/id_rsa
-    chmod 0600 /home/jenkins/.ssh/id_rsa
+    sudo cp /etc/nodepool/id_rsa /home/jenkins/.ssh/id_rsa
+    sudo chmod 0600 /home/jenkins/.ssh/id_rsa
 else
-    rm /etc/nodepool/id_rsa
+    sudo rm /etc/nodepool/id_rsa
 fi
 
 sudo chown -R root:root /etc/nodepool
