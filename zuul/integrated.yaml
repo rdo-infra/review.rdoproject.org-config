@@ -93,6 +93,20 @@ project-templates:
         - experimental-weirdo-dlrn-master-packstack-scenario003
         - experimental-weirdo-dlrn-master-puppet-scenario003
 
+  - name: weirdo-dlrn-master-keystone
+    check:
+      - DLRN-rpmbuild:
+        # uuid backend
+        - gate-weirdo-dlrn-master-packstack-scenario001
+        # fernet backend
+        - gate-weirdo-dlrn-master-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario003
+
   - name: weirdo-dlrn-master-neutron
     check:
       - DLRN-rpmbuild:
@@ -192,6 +206,22 @@ projects:
     template:
       - name: weirdo-dlrn-master-heat
 
+  - name: openstack/keystone-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystoneauth1-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystoneclient-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/keystonemiddleware-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
+
   - name: openstack/neutron-distgit
     template:
       - name: weirdo-dlrn-master-neutron
@@ -267,6 +297,10 @@ projects:
   - name: puppet/puppet-heat-distgit
     template:
       - name: weirdo-dlrn-master-heat
+
+  - name: puppet/puppet-keystone-distgit
+    template:
+      - name: weirdo-dlrn-master-keystone
 
   - name: puppet/puppet-neutron-distgit
     template:
