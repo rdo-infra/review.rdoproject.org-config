@@ -137,6 +137,22 @@ project-templates:
       - DLRN-rpmbuild:
         - experimental-weirdo-dlrn-master-packstack-scenario001
         - experimental-weirdo-dlrn-master-puppet-scenario001
+
+  - name: weirdo-dlrn-master-oslo
+    check:
+      - DLRN-rpmbuild:
+        # Try to get as much general/optimal coverage as possible
+        # Also used for projects that do not fit any particular project tests
+        - gate-weirdo-dlrn-master-packstack-scenario002
+        - gate-weirdo-dlrn-master-puppet-scenario001
+        - gate-weirdo-dlrn-master-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario002
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario003
 projects:
   - name: openstack/aodh-distgit
     template:
@@ -258,9 +274,105 @@ projects:
     template:
       - name: weirdo-dlrn-master-nova
 
+  - name: openstack/openstackclient-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/osc-lib-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
   - name: openstack/os-brick-distgit
     template:
       - name: weirdo-dlrn-master-cinder
+
+  - name: openstack/os-client-config-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/os-cloud-config-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-cache-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-config-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-context-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-concurrency-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-db-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-i18n-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-log-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-messaging-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-middleware-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-policy-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-privsep-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-reports-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-rootwrap-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-serialization-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-service-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-sphinx-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslotest-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-utils-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/oslo-versionedobjects-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/pycadf-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
 
   - name: openstack/stevedore-distgit
     template:
@@ -273,6 +385,14 @@ projects:
   - name: puppet/puppet-aodh-distgit
     template:
       - name: weirdo-dlrn-master-aodh
+
+  - name: puppet/puppet-apache-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-concat-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
 
   - name: puppet/puppet-ceilometer-distgit
     template:
@@ -302,6 +422,10 @@ projects:
     template:
       - name: weirdo-dlrn-master-keystone
 
+  - name: puppet/puppet-mysql-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
   - name: puppet/puppet-neutron-distgit
     template:
       - name: weirdo-dlrn-master-neutron
@@ -309,3 +433,31 @@ projects:
   - name: puppet/puppet-nova-distgit
     template:
       - name: weirdo-dlrn-master-nova
+
+  - name: puppet/puppet-openstack_extras-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-openstacklib-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-oslo-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-rabbitmq-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-stdlib-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-sysctl-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
+
+  - name: puppet/puppet-tempest-distgit
+    template:
+      - name: weirdo-dlrn-master-oslo
