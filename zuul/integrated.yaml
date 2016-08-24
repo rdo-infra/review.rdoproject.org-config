@@ -67,6 +67,20 @@ project-templates:
         - experimental-weirdo-dlrn-master-puppet-scenario001
         - experimental-weirdo-dlrn-master-puppet-scenario002
 
+  - name: weirdo-dlrn-master-gnocchi
+    check:
+      - DLRN-rpmbuild:
+        # file backend
+        - gate-weirdo-dlrn-master-packstack-scenario003
+        # rbd backend
+        - gate-weirdo-dlrn-master-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario003
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+
   - name: weirdo-dlrn-master-heat
     check:
       - DLRN-rpmbuild:
@@ -141,6 +155,14 @@ projects:
     template:
       - name: weirdo-dlrn-master-glance
 
+  - name: openstack/gnocchi-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
+
+  - name: openstack/gnocchiclient-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
+
   - name: openstack/heat-distgit
     template:
       - name: weirdo-dlrn-master-heat
@@ -192,6 +214,10 @@ projects:
   - name: puppet/puppet-glance-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-gnocchi-distgit
+    template:
+      - name: weirdo-dlrn-master-gnocchi
 
   - name: puppet/puppet-heat-distgit
     template:
