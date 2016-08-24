@@ -9,6 +9,18 @@ jobs:
 # Puppet testing matrix:
 # https://github.com/openstack/puppet-openstack-integration#description
 project-templates:
+  - name: weirdo-dlrn-master-aodh
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-dlrn-master-packstack-scenario003
+        - gate-weirdo-dlrn-master-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario003
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+
   - name: weirdo-dlrn-master-cinder
     check:
       - DLRN-rpmbuild:
@@ -69,6 +81,14 @@ project-templates:
         - experimental-weirdo-dlrn-master-packstack-scenario001
         - experimental-weirdo-dlrn-master-puppet-scenario001
 projects:
+  - name: openstack/aodh-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
+
+  - name: openstack/aodhclient-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
+
   - name: openstack/barbican-distgit
     template:
       - name: weirdo-dlrn-master-cinder
@@ -128,6 +148,10 @@ projects:
   - name: openstack/taskflow-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: puppet/puppet-aodh-distgit
+    template:
+      - name: weirdo-dlrn-master-aodh
 
   - name: puppet/puppet-ceph-distgit
     template:
