@@ -93,6 +93,23 @@ project-templates:
         - experimental-weirdo-dlrn-master-packstack-scenario003
         - experimental-weirdo-dlrn-master-puppet-scenario003
 
+  - name: weirdo-dlrn-master-neutron
+    check:
+      - DLRN-rpmbuild:
+        # ipv4/ovs backend
+        - gate-weirdo-dlrn-master-packstack-scenario001
+        # ipv6/ovs backend
+        - gate-weirdo-dlrn-master-puppet-scenario001
+        # ipv6/linuxbridge backend
+        - gate-weirdo-dlrn-master-puppet-scenario003
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+        - experimental-weirdo-dlrn-master-puppet-scenario003
+
   - name: weirdo-dlrn-master-nova
     check:
       - DLRN-rpmbuild:
@@ -175,6 +192,34 @@ projects:
     template:
       - name: weirdo-dlrn-master-heat
 
+  - name: openstack/neutron-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutronclient-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lib-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-fwaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lbaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-lbaas-dashboard-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
+  - name: openstack/neutron-vpnaas-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
+
   - name: openstack/nova-distgit
     template:
       - name: weirdo-dlrn-master-nova
@@ -222,6 +267,10 @@ projects:
   - name: puppet/puppet-heat-distgit
     template:
       - name: weirdo-dlrn-master-heat
+
+  - name: puppet/puppet-neutron-distgit
+    template:
+      - name: weirdo-dlrn-master-neutron
 
   - name: puppet/puppet-nova-distgit
     template:
