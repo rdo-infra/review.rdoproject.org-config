@@ -21,6 +21,18 @@ project-templates:
         - experimental-weirdo-dlrn-master-packstack-scenario003
         - experimental-weirdo-dlrn-master-puppet-scenario001
 
+  - name: weirdo-dlrn-master-ceilometer
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-dlrn-master-packstack-scenario003
+        - gate-weirdo-dlrn-master-puppet-scenario001
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-packstack-scenario003
+        - experimental-weirdo-dlrn-master-puppet-scenario001
+
   - name: weirdo-dlrn-master-cinder
     check:
       - DLRN-rpmbuild:
@@ -97,6 +109,18 @@ projects:
     template:
       - name: weirdo-dlrn-master-cinder
 
+  - name: openstack/ceilometer-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: openstack/ceilometerclient-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
+  - name: openstack/ceilometermiddleware-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
+
   - name: openstack/cinder-distgit
     template:
       - name: weirdo-dlrn-master-cinder
@@ -152,6 +176,10 @@ projects:
   - name: puppet/puppet-aodh-distgit
     template:
       - name: weirdo-dlrn-master-aodh
+
+  - name: puppet/puppet-ceilometer-distgit
+    template:
+      - name: weirdo-dlrn-master-ceilometer
 
   - name: puppet/puppet-ceph-distgit
     template:
