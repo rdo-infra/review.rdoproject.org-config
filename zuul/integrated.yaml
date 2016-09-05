@@ -153,6 +153,17 @@ project-templates:
         - experimental-weirdo-dlrn-master-packstack-scenario002
         - experimental-weirdo-dlrn-master-puppet-scenario001
         - experimental-weirdo-dlrn-master-puppet-scenario003
+
+  - name: weirdo-dlrn-master-zaqar
+    check:
+      - DLRN-rpmbuild:
+        - gate-weirdo-dlrn-master-puppet-scenario002
+    gate:
+      - DLRN-rpmbuild
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-puppet-scenario002
+
 projects:
   - name: openstack/aodh-distgit
     template:
@@ -461,3 +472,7 @@ projects:
   - name: puppet/puppet-tempest-distgit
     template:
       - name: weirdo-dlrn-master-oslo
+
+  - name: openstack/zaqar-distgit
+    template:
+      - name: weirdo-dlrn-master-zaqar
