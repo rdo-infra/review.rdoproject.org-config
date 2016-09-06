@@ -31,6 +31,23 @@
           priority=1
           EOF"
 
+- builder:
+    name: prepare-dlrn
+    builders:
+      - shell: |
+          set +e
+          sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
+          sudo usermod -a -G mock jenkins
+
+          # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
+          if [[ ! -e "DLRN" ]]; then
+            if [ -e $(which zuul-cloner) ]; then
+              zuul-cloner http://review.rdoproject.org/r DLRN
+            else
+              git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
+            fi
+          fi
+
 - job:
     name: 'DLRN-pep8'
     defaults: global
@@ -62,25 +79,17 @@
     defaults: global
     builders:
       - prepare-workspace
+      - prepare-dlrn
       - shell: |
           set +e
-          sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
-          sudo usermod -a -G mock jenkins
-
-          # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
-          if [[ ! -e "DLRN" ]]; then
-            if [ -e $(which zuul-cloner) ]; then
-              zuul-cloner http://review.rdoproject.org/r DLRN
-            else
-              git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
-            fi
-          fi
           pushd DLRN
           timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
           ret=$?
           popd
+
           mkdir artifacts
           cp -a DLRN/logs/* artifacts/
+
           exit $ret
     publishers:
       - zuul-swift-upload
