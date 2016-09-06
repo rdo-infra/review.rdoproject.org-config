@@ -82,11 +82,20 @@
       - prepare-dlrn
       - shell: |
           set +e
+          # This job supports building reviews for both review.rdoproject.org
+          # and review.openstack.org. Builds that are run as third party for
+          # review.o.o are in the Zuul pipelines prefixed by "openstack-".
           pushd DLRN
-          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
-          ret=$?
+          if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
+              timeout --signal=SIGKILL 3600 ./scripts/run_upstream_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              ret=$?
+          else
+              timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              ret=$?
+          fi
           popd
 
+          # Retrieve logs/repositories/packages
           mkdir artifacts
           cp -a DLRN/logs/* artifacts/
 
