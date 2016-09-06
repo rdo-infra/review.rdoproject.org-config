@@ -1,3 +1,11 @@
+- builder:
+    name: setup_multinode
+    builders:
+      - shell: |
+         TRIPLEO_ROOT=${WORKSPACE}/tripleo-ci
+         pushd ${TRIPLEO_ROOT}
+         sudo scripts/tripleo.sh --multinode_setup
+
 - job:
     name: 'multinode-test'
     defaults: global
