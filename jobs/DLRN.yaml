@@ -87,7 +87,7 @@
           # review.o.o are in the Zuul pipelines prefixed by "openstack-".
           pushd DLRN
           if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              timeout --signal=SIGKILL 3600 ./scripts/run_upstream_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              timeout --signal=SIGKILL 3600 ./scripts/run_project_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
               ret=$?
           else
               timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
