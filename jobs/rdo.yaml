@@ -1,3 +1,26 @@
+- builder:
+    name: prepare-rdo-workspace
+    builders:
+      - shell: |
+          # If this is called in a periodic job, these will not be set
+          echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # In the post pipeline ZUUL_REF is master but does not behave as we want
+          # So fall back on None
+          [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
+          echo "Clean workspace"
+          rm -Rf ./*
+          echo "Clone $ZUUL_PROJECT"
+          # We can receive reviews from review.openstack.org. Builds that are
+          # run as third party for review.o.o are in the Zuul pipelines
+          # prefixed by "openstack-".
+          if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
+              zuul-cloner https://git.openstack.org $ZUUL_PROJECT
+          else
+              zuul-cloner http://review.rdoproject.org/r $ZUUL_PROJECT
+          fi
+
 - job:
     name: 'config-sanity-check'
     defaults: global
