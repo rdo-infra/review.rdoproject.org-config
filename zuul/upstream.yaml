@@ -14,7 +14,27 @@ pipelines:
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
 
+  - name: openstack-check-verified
+    description: Patchsets that have been verified from upstream OpenStack (check pipeline).
+    manager: IndependentPipelineManager
+    source: openstack
+    precedence: normal
+    require:
+      open: True
+      current-patchset: True
+      approval:
+        - verified: [1, 2]
+          username: ^(jenkins|zuul)$
+    trigger:
+      openstack:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+        - event: comment-added
+          approval:
+            - verified: 1
+          username: ^(jenkins|zuul)$
+
 projects:
   - name: openstack/python-tripleoclient
-    openstack-check:
+    openstack-check-verified:
       - DLRN-rpmbuild
