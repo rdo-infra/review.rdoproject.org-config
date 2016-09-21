@@ -1,11 +1,7 @@
 jobs:
-  # weirdo-dlrn integrated jobs are temporarily disabled due to large influx
-  # of trivial reviews pending Newton's release
-  # See https://review.rdoproject.org/r/#/q/topic:newton-branching
-  # TODO: Re-enable ASAP.
   - name: ^gate-weirdo-dlrn-master-.*$
     voting: false
-    branch: ^disabled$
+    branch: ^rpm-master$
 
 # Templates that provide optimal coverage for a project
 # Packstack testing matrix:
