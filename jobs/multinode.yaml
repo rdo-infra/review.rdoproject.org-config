@@ -1,0 +1,8 @@
+builder:
+    name: 'setup-multinode'
+    defaults: global
+    builders:
+      - shell: |
+          git clone https://git.openstack.org/openstack-infra/tripleo-ci
+          cd tripleo-ci
+          ./scripts/tripleo.sh --multinode_setup
