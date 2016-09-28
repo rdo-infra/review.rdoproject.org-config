@@ -1,0 +1,85 @@
+- builder:
+    name: 'setup_multinode'
+    defaults: global
+    builders:
+      - shell: |
+          git clone https://git.openstack.org/openstack-infra/tripleo-ci
+          cd tripleo-ci
+          ./scripts/tripleo.sh --multinode_setup
+
+- builder:
+    name: create_multinode_inventory
+    builders:
+      - shell: |
+          mkdir -p ${WORKSPACE}/workdir
+          INVENTORY_FILE="${INVENTORY_FILE:${WORKSPACE}/workdir/hosts}"
+          echo << EOF > ${INVENTORY_FILE}
+          127.0.0.2 ansible_ssh_user=jenkins
+
+          [virthost]
+          127.0.0.2 ansible_ssh_user=jenkins
+
+          [undercloud]
+          127.0.0.2 ansible_ssh_user=jenkins
+
+          [overcloud]
+          EOF
+
+          # TODO: replace sub_nodes with their vxlan addresses
+          # The /etc/nodepool/subnodes file contains a list of IPs that have
+          # been allocated as additional nodes by nodepool for this job run.
+          # These nodes have been set up according to the ready-script listed
+          # in the node definition used for the job.
+          while read sub; do
+            echo ${sub} >> ${INVENTORY_FILE}
+          done < /etc/nodepool/subnodes
+
+- job:
+    name: 'tripleo-quickstart-deploy'
+    defaults: global
+    scm:
+      - git:
+          url: https://git.openstack.org/openstack/tripleo-common
+      - git:
+          url: https://git.openstack.org/openstack/tripleo-quickstart
+
+    builders:
+      - setup_multinode
+      - create_multinode_inventory
+      - shell: |
+          mkdir -p ${WORKSPACE}/workdir
+          cd ${WORKSPACE}/tripleo-quickstart
+          sudo ./quickstart.sh --install-deps
+
+          # FIXME: Some ansible resources don't respect the ssh config
+          echo 'ssh_args="-F ${WORKSPACE}/workdir/ssh.config.local.ansible"' \
+              >> ansible.cfg
+
+          QUICKSTART_ARGS="--no-clone \
+                           --retain-inventory \
+                           --working-dir ${WORKSPACE}/workdir/ \
+                           -t undercloud-scripts,undercloud-install,overcloud-scripts \
+                           -T none \
+                           -v \
+                           -e undercloud_local_interface=br-ex \
+                           -e ssh_user=stack \
+                           -e ansible_ssh_user=stack \
+                           -p quickstart-extras.yml \
+                           -r quickstart-extras-requirements.txt"
+
+          # The Virthost argument uses 127.0.0.2 to run the playbook against
+          # localhost, but avoid Ansible's 'local' connection type
+          sudo ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
+
+          # Finish the installation
+          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./undercloud-install.sh
+
+          # TODO: Modify this to use the multinode heat templates in newton-forward
+          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
+
+          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
+          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-validate.sh
+
+    triggers:
+      - zuul
+    node: bare-centos-7-2-node
