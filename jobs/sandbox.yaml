@@ -1,0 +1,23 @@
+- job:
+    name: no-op-success
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          echo "no-op success"
+          exit 0
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: no-op-failure
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          echo "no-op failure"
+          exit 1
+    triggers:
+      - zuul
+    node: bare-centos-7
