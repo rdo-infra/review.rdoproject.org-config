@@ -40,7 +40,7 @@
           sudo usermod -a -G mock jenkins
 
           # Build packages in a tmpfs so we don't rely on VM I/O performance
-          cat << EOF>/etc/mock/site-defaults.cfg
+          cat << EOF | sudo tee /etc/mock/site-defaults.cfg
           config_opts['plugin_conf']['tmpfs_enable'] = True
           config_opts['plugin_conf']['tmpfs_opts'] = {}
           config_opts['plugin_conf']['tmpfs_opts']['required_ram_mb'] = 2048
