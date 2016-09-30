@@ -34,6 +34,15 @@ pipelines:
             - verified: 1
           username: ^(jenkins|zuul)$
 
+  - name: openstack-post
+    description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
+    manager: IndependentPipelineManager
+    precedence: low
+    trigger:
+      openstack:
+        - event: ref-updated
+          ref: ^(?!refs/).*$
+
 projects:
   - name: openstack/python-tripleoclient
     openstack-check-verified:
