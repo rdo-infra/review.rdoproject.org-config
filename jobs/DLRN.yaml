@@ -36,6 +36,8 @@
     builders:
       - shell: |
           set +e
+          mkdir -p artifacts
+          rpm -qa |sort >artifacts/rpm-before.txt
           sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
           sudo usermod -a -G mock jenkins
 
@@ -96,7 +98,8 @@
           popd
 
           # Retrieve logs/repositories/packages
-          mkdir artifacts
+          mkdir -p artifacts
+          rpm -qa |sort >artifacts/rpm-after.txt
           cp -a DLRN/logs/* artifacts/
 
           exit $ret
