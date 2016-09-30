@@ -39,6 +39,16 @@
           sudo yum -y install createrepo mock redhat-rpm-config rpmdevtools
           sudo usermod -a -G mock jenkins
 
+          # Build packages in a tmpfs so we don't rely on VM I/O performance
+          cat << EOF>/etc/mock/site-defaults.cfg
+config_opts['plugin_conf']['tmpfs_enable'] = True
+config_opts['plugin_conf']['tmpfs_opts'] = {}
+config_opts['plugin_conf']['tmpfs_opts']['required_ram_mb'] = 2048
+config_opts['plugin_conf']['tmpfs_opts']['max_fs_size'] = '4g'
+config_opts['plugin_conf']['tmpfs_opts']['mode'] = '0755'
+config_opts['plugin_conf']['tmpfs_opts']['keep_mounted'] = True
+EOF
+
           # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
           if [[ ! -e "DLRN" ]]; then
             if [ -e $(which zuul-cloner) ]; then
