@@ -1,8 +1,71 @@
 - builder:
+    name: 'oooq_dlrn_build_packages'
+    defaults: global
+    builders:
+      - shell: |
+          # This builder should build DLRN packages and install the repo
+          # on this and all sub_nodes
+              # tripleo-gate needs to cloned into a roles/ directory
+
+              # Install some requirements for DLRN
+              yum install -y python-virtualenv gcc
+              virtualenv venv
+              source venv/bin/activate
+              pip install --upgrade pip
+              pip install ansible
+
+              mkdir roles
+              git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
+
+              # Create config files for ansible
+              cat << EOF > hosts
+              localhost ansible_connection=local
+              EOF
+
+              cat << EOF > build-packages.yaml
+              ---
+              - name: Build custom RPMs
+                hosts: localhost
+                roles:
+                  - { role: tripleo-gate, artg_compressed_gate_repo: '${WORKSPACE}/repo.tar.gz' }
+              EOF
+
+              # Finally tell ansible to run the playbook to create scripts
+              ansible-playbook -i hosts -vvvv build-packages.yaml
+
+              # Untar and create the repo on localhost
+              tar zxvf repo.tar.gz
+              cat << EOF | sudo tee /etc/yum.repos.d/testing.repo
+              [testing]
+              name=Repo for testing change
+              baseurl=file:///${WORKSPACE}/gating_repo
+              gpgcheck=0
+              EOF
+
+              # Copy, untar, and create the repo on each sub_node
+              SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
+
+              while read sub; do
+                scp repo.tar.gz ${sub}:repo.tar.gz
+                ssh ${SSH_ARGS} ${sub} tar zxvf repo.tar.gz
+                # TODO: Make sure this works correctly
+                echo '
+                name=Repo for testing change
+                baseurl=file:///home/${USER}/gating_repo
+                gpgcheck=0' | ssh ${SSH_ARGS} ${sub} sudo tee /etc/yum.repos.d/testing.repo
+              done < /etc/nodepool/sub_nodes
+
+- builder:
     name: 'setup_multinode'
     defaults: global
     builders:
       - shell: |
+          # First we need to install tripleo-ci on each subnode
+          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
+          while read sub; do
+            ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}/tripleo
+            ssh ${SSH_ARGS} ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
+          done < /etc/nodepool/sub_nodes
           # Create tripleo root directory that tripleo.sh expects
           mkdir ${WORKSPACE}/tripleo
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
@@ -29,13 +92,13 @@
           EOF
 
           # TODO: replace sub_nodes with their vxlan addresses
-          # The /etc/nodepool/subnodes file contains a list of IPs that have
+          # The /etc/nodepool/sub_nodes file contains a list of IPs that have
           # been allocated as additional nodes by nodepool for this job run.
           # These nodes have been set up according to the ready-script listed
           # in the node definition used for the job.
           while read sub; do
             echo ${sub} >> ${INVENTORY_FILE}
-          done < /etc/nodepool/subnodes
+          done < /etc/nodepool/sub_nodes
 
 - job:
     name: 'tripleo-quickstart-deploy'
@@ -47,6 +110,7 @@
           url: https://git.openstack.org/openstack/tripleo-quickstart
 
     builders:
+      - oooq_dlrn_build_packages
       - setup_multinode
       - create_multinode_inventory
       - shell: |
