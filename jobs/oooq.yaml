@@ -3,8 +3,11 @@
     defaults: global
     builders:
       - shell: |
+          # Create tripleo root directory that tripleo.sh expects
+          mkdir ${WORKSPACE}/tripleo
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
+          export TRIPLEO_ROOT=${WORKSPACE}/tripleo
           ./scripts/tripleo.sh --multinode-setup
 
 - builder:
