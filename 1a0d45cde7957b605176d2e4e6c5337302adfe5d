@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dacfb570_b053866b",
+        "filename": "zuul/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2016-10-03T18:57:45Z",
+      "side": 1,
+      "message": "We might land in regex land of uncertainty but how about if it make \"rpm-\" optional, add newton and then add an optional \"-rdo\" ?\n\nSomething like this:\n\n    # http://regexr.com/3ec5j\n    ^master|(rpm-)?(master|newton|mitaka|liberty)(-rdo)?$\n\nOtherwise, is there any branch we actually don\u0027t want this job to run where it is configured ?\ni.e, a DLRN-rpmbuild job is configured to run on a project but we don\u0027t want it to run on one of it\u0027s branches.",
+      "revId": "1a0d45cde7957b605176d2e4e6c5337302adfe5d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
