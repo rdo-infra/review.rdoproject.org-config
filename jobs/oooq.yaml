@@ -55,7 +55,7 @@
           EOF
 
           # Copy the repo to each sub_node
-          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
+          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
 
           while read sub; do
             ssh ${SSH_ARGS} ${sub} mkdir ${WORKSPACE}
@@ -69,7 +69,7 @@
     builders:
       - shell: |
           # First we need to install tripleo-ci on each subnode
-          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
+          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
           while read sub; do
             ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}/tripleo
             ssh ${SSH_ARGS} ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
