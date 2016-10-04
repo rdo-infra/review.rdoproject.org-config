@@ -60,7 +60,7 @@
             ssh ${SSH_ARGS} ${sub} mkdir ${WORKSPACE}
             scp -r ${SSH_ARGS} ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
             scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:/etc/yum.repos.d/
-          done < /etc/nodepool/sub_nodes
+          done < /etc/nodepool/sub_nodes_private
 
 - builder:
     name: 'setup_multinode'
@@ -72,7 +72,7 @@
           while read sub; do
             ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}/tripleo
             ssh ${SSH_ARGS} ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
-          done < /etc/nodepool/sub_nodes
+          done < /etc/nodepool/sub_nodes_private
           # Create tripleo root directory that tripleo.sh expects
           mkdir ${WORKSPACE}/tripleo
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
@@ -99,13 +99,13 @@
           EOF
 
           # TODO: replace sub_nodes with their vxlan addresses
-          # The /etc/nodepool/sub_nodes file contains a list of IPs that have
-          # been allocated as additional nodes by nodepool for this job run.
-          # These nodes have been set up according to the ready-script listed
-          # in the node definition used for the job.
+          # The /etc/nodepool/sub_nodes_private file contains a list of IPs that
+          # have been allocated as additional nodes by nodepool for this job
+          # run. These nodes have been set up according to the ready-script
+          # listed in the node definition used for the job.
           while read sub; do
             echo ${sub} >> ${INVENTORY_FILE}
-          done < /etc/nodepool/sub_nodes
+          done < /etc/nodepool/sub_nodes_private
 
 - job:
     name: 'tripleo-quickstart-deploy'
