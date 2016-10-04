@@ -30,6 +30,14 @@
               - { role: tripleo-gate, artg_compressed_gate_repo: '${WORKSPACE}/repo.tar.gz' }
           EOF
 
+          # For now we need some test change of an upstream project to make
+          # this playbook work correctly.
+          # TODO: Delete these, replace with actual changes.
+          export GERRIT_PATCHSET_REVISION=404803ebe0770b31d0e78665ff5b5c64daf9346e
+          export GERRIT_HOST=review.openstack.org
+          export GERRIT_BRANCH=master
+          export GERRIT_CHANGE_ID=369668
+
           # Finally tell ansible to run the playbook to create scripts
           ansible-playbook -i hosts -vvvv build-packages.yaml
 
