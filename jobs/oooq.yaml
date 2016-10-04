@@ -5,55 +5,51 @@
       - shell: |
           # This builder should build DLRN packages and install the repo
           # on this and all sub_nodes
-              # tripleo-gate needs to cloned into a roles/ directory
+          # tripleo-gate needs to cloned into a roles/ directory
 
-              # Install some requirements for DLRN
-              sudo yum install -y python-virtualenv gcc
-              virtualenv venv
-              source venv/bin/activate
-              pip install --upgrade pip
-              pip install ansible
+          # Install some requirements for DLRN
+          sudo yum install -y python-virtualenv gcc
+          virtualenv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install ansible
 
-              mkdir roles
-              git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
+          mkdir roles
+          git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
 
-              # Create config files for ansible
-              cat << EOF > hosts
-              localhost ansible_connection=local
-              EOF
+          # Create config files for ansible
+          cat << EOF > hosts
+            localhost ansible_connection=local
+          EOF
 
-              cat << EOF > build-packages.yaml
-              ---
-              - name: Build custom RPMs
-                hosts: localhost
-                roles:
-                  - { role: tripleo-gate, artg_compressed_gate_repo: '${WORKSPACE}/repo.tar.gz' }
-              EOF
+          cat << EOF > build-packages.yaml
+          ---
+          - name: Build custom RPMs
+            hosts: localhost
+            roles:
+              - { role: tripleo-gate, artg_compressed_gate_repo: '${WORKSPACE}/repo.tar.gz' }
+          EOF
 
-              # Finally tell ansible to run the playbook to create scripts
-              ansible-playbook -i hosts -vvvv build-packages.yaml
+          # Finally tell ansible to run the playbook to create scripts
+          ansible-playbook -i hosts -vvvv build-packages.yaml
 
-              # Untar and create the repo on localhost
-              tar zxvf repo.tar.gz
-              cat << EOF | sudo tee /etc/yum.repos.d/testing.repo
-              [testing]
-              name=Repo for testing change
-              baseurl=file:///${WORKSPACE}/gating_repo
-              gpgcheck=0
-              EOF
+          # Untar and create the repo on localhost
+          tar zxvf repo.tar.gz
+          cat << EOF | sudo tee /etc/yum.repos.d/testing.repo
+          [testing]
+          name=Repo for testing change
+          baseurl=file:///${WORKSPACE}/gating_repo
+          gpgcheck=0
+          EOF
 
-              # Copy, untar, and create the repo on each sub_node
-              SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
+          # Copy the repo to each sub_node
+          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins"
 
-              while read sub; do
-                scp repo.tar.gz ${sub}:repo.tar.gz
-                ssh ${SSH_ARGS} ${sub} tar zxvf repo.tar.gz
-                # TODO: Make sure this works correctly
-                echo '
-                name=Repo for testing change
-                baseurl=file:///home/${USER}/gating_repo
-                gpgcheck=0' | ssh ${SSH_ARGS} ${sub} sudo tee /etc/yum.repos.d/testing.repo
-              done < /etc/nodepool/sub_nodes
+          while read sub; do
+            ssh ${SSH_ARGS} ${sub} mkdir ${WORKSPACE}
+            scp -r ${SSH_ARGS} ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
+            scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:/etc/yum.repos.d/
+          done < /etc/nodepool/sub_nodes
 
 - builder:
     name: 'setup_multinode'
