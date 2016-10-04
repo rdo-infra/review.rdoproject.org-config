@@ -59,7 +59,8 @@
           while read sub; do
             ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}
             scp -r ${SSH_ARGS} ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
-            scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:/etc/yum.repos.d/
+            scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:testing.repo
+            ssh ${SSH_ARGS} "sudo chown root:root testing.repo; sudo mv testing.repo /etc/yum.repos.d/"
           done < /etc/nodepool/sub_nodes_private
 
 - builder:
