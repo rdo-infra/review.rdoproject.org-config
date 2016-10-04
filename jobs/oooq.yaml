@@ -27,7 +27,7 @@
           - name: Build custom RPMs
             hosts: localhost
             roles:
-              - { role: tripleo-gate, artg_compressed_gate_repo: '${WORKSPACE}/repo.tar.gz' }
+              - { role: tripleo-gate, artg_compressed_gating_repo: '${WORKSPACE}/repo.tar.gz' }
           EOF
 
           # For now we need some test change of an upstream project to make
