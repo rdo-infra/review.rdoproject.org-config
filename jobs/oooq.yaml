@@ -57,7 +57,7 @@
           SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
 
           while read sub; do
-            ssh ${SSH_ARGS} ${sub} mkdir ${WORKSPACE}
+            ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}
             scp -r ${SSH_ARGS} ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
             scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:/etc/yum.repos.d/
           done < /etc/nodepool/sub_nodes_private
