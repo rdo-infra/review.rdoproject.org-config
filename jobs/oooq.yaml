@@ -14,9 +14,7 @@
           pip install --upgrade pip
           pip install ansible
 
-          # Git is timing out and causing errors. StackOverflow suggests modifying
-          # http.postBuffer
-          git config --global http.postBuffer 524288000
+          export GIT_CURL_VERBOSE=1
 
           mkdir roles
           git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
