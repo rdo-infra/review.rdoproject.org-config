@@ -82,6 +82,12 @@ jobs:
       - ^.*\.rst$
 
 project-templates:
+  - name: no-op
+    check:
+      - no-op
+    gate:
+      - no-op
+
   - name: package-check-jobs
     check:
       - tox-validate
@@ -1698,6 +1704,32 @@ projects:
      - rdopkg-unittests
     gate:
      - rdopkg-unittests
+
+  - name: rdo-infra/ci-config
+    check:
+      - tox-jjb
+    gate:
+      - tox-jjb
+
+  - name: rdo-infra/rdo-infra-playbooks
+    template:
+      - name: no-op
+
+  - name: rdo-infra/ansible-role-rdobase
+    template:
+      - name: no-op
+
+  - name: rdo-infra/ansible-role-rdomonitoring
+    template:
+      - name: no-op
+
+  - name: rdo-infra/ansible-role-rdobot
+    template:
+      - name: no-op
+
+  - name: rdo-infra/rdobot
+    template:
+      - name: no-op
 
   - name: rdo-infra/weirdo
     template:
