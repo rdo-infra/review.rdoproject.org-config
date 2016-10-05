@@ -81,7 +81,8 @@
           export TRIPLEO_ROOT=${WORKSPACE}/tripleo
 
           # Create a symlink from new/ to . to correctly source devstack
-          ln -sf /opt/stack/ /opt/stack/new
+          sudo mkdir /opt/stack/
+          sudo ln -sf /opt/stack/ /opt/stack/new
 
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
