@@ -70,15 +70,21 @@
       - shell: |
           # First we need to install tripleo-ci on each subnode
           SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
+
           while read sub; do
             ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}/tripleo
             ssh ${SSH_ARGS} ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
           done < /etc/nodepool/sub_nodes_private
+
           # Create tripleo root directory that tripleo.sh expects
           mkdir ${WORKSPACE}/tripleo
+          export TRIPLEO_ROOT=${WORKSPACE}/tripleo
+
+          # Create a symlink from new/ to . to correctly source devstack
+          ln -sf /opt/stack/ /opt/stack/new
+
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
-          export TRIPLEO_ROOT=${WORKSPACE}/tripleo
           ./scripts/tripleo.sh --multinode-setup
 
 - builder:
