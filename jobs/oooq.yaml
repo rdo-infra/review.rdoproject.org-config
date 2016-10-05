@@ -49,7 +49,7 @@
           cat << EOF | sudo tee /etc/yum.repos.d/testing.repo
           [testing]
           name=Repo for testing change
-          baseurl=file:///${WORKSPACE}/gating_repo
+          baseurl=file://${WORKSPACE}/gating_repo
           gpgcheck=0
           EOF
 
