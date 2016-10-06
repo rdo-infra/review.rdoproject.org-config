@@ -14,9 +14,6 @@
           pip install --upgrade pip
           pip install ansible
 
-          export GIT_CURL_VERBOSE=1
-          export GIT_TRACE_CURL=1
-
           mkdir roles
           git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
 
@@ -50,6 +47,7 @@
           [testing]
           name=Repo for testing change
           baseurl=file://${WORKSPACE}/gating_repo
+          priority=15
           gpgcheck=0
           EOF
 
@@ -80,12 +78,13 @@
           mkdir ${WORKSPACE}/tripleo
           export TRIPLEO_ROOT=${WORKSPACE}/tripleo
 
-          # Create a symlink from new/ to . to correctly source devstack
-          sudo mkdir /opt/stack/
-          sudo ln -sf /opt/stack/ /opt/stack/new
+          # Create a 'new' symlink for devstack to use
+          export BASE=${WORKSPACE}/tripleo
+          ln -sf ${WORKSPACE}/tripleo ${WORKSPACE}/tripleo/new
 
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
+          ./scripts/tripleo.sh --repo-setup
           ./scripts/tripleo.sh --multinode-setup
 
 - builder:
@@ -93,7 +92,7 @@
     builders:
       - shell: |
           mkdir -p ${WORKSPACE}/workdir
-          INVENTORY_FILE="${INVENTORY_FILE:${WORKSPACE}/workdir/hosts}"
+          INVENTORY_FILE=${INVENTORY_FILE:-$WORKSPACE/workdir/hosts}
           echo << EOF > ${INVENTORY_FILE}
           127.0.0.2 ansible_ssh_user=jenkins
 
