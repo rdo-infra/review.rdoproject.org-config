@@ -1,4 +1,11 @@
 - builder:
+    name: 'delete_pubkey'
+    defaults: global
+    builders:
+      - shell: |
+          rm -f /home/jenkins/.ssh/id_rsa.pub
+
+- builder:
     name: 'oooq_dlrn_build_packages'
     defaults: global
     builders:
@@ -132,6 +139,7 @@
           url: https://git.openstack.org/openstack/tripleo-quickstart
 
     builders:
+      - delete_pubkey
       - oooq_dlrn_build_packages
       - setup_multinode
       - create_multinode_inventory
