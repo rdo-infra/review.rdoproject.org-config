@@ -13,6 +13,11 @@ pipelines:
         - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in openstack-check pipeline: {change.project}'
 
   - name: openstack-check-verified
     description: Patchsets that have been verified from upstream OpenStack (check pipeline).
@@ -33,6 +38,11 @@ pipelines:
           approval:
             - verified: 1
           username: ^(jenkins|zuul)$
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in openstack-check-verified pipeline: {change.project}'
 
   - name: openstack-post
     description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
@@ -42,6 +52,11 @@ pipelines:
       openstack:
         - event: ref-updated
           ref: ^(?!refs/).*$
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in openstack-post pipeline: {change.project}'
 
 projects:
   - name: openstack/python-tripleoclient

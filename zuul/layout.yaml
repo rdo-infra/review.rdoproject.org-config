@@ -73,6 +73,11 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^(?!(devnull|refs/.*)).*$
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in post pipeline: {change.project}'
 
   - name: periodic
     description: Jobs in this queue are triggered daily.
@@ -84,8 +89,8 @@ pipelines:
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
-        to: dev-robot@review.rdoproject.org
-        subject: 'Stable check of {change.project} failed'
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
 
   - name: tag
     description: This pipeline runs jobs in response to any tag event.
@@ -96,7 +101,11 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^refs/tags/.*$
-
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in tag pipeline: {change.project}'
 
 projects:
   - name: config
