@@ -56,6 +56,10 @@ pipelines:
         subject: '[Zuul] Job failed in openstack-post pipeline: {change.project}'
 
 projects:
+  - name: openstack/python-openstackclient
+    openstack-check-verified:
+      - DLRN-rpmbuild
+
   - name: openstack/python-tripleoclient
     openstack-check-verified:
       - DLRN-rpmbuild
