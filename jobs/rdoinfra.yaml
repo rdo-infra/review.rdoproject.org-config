@@ -22,3 +22,28 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job:
+    name: 'publish-cico-jjb'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          # Ensure that there's no failure before pushing
+          tox -e jjb
+
+          # Update jobs
+          source .tox/jjb/bin/activate
+          pushd jenkins
+          jenkins-jobs --conf $JJB_CONFIG update jobs
+          popd
+    triggers:
+      - zuul
+    node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: b578a3ee-cf49-4250-899a-0bc7f84363c2
+           variable: JJB_CONFIG
