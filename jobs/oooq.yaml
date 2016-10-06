@@ -33,10 +33,10 @@
           # For now we need some test change of an upstream project to make
           # this playbook work correctly.
           # TODO: Delete these, replace with actual changes.
-          export GERRIT_PATCHSET_REVISION=404803ebe0770b31d0e78665ff5b5c64daf9346e
+          export GERRIT_PATCHSET_REVISION=2d54e4652e5fbf38d02db38929ed8498c54056f6
           export GERRIT_HOST=review.openstack.org
           export GERRIT_BRANCH=master
-          export GERRIT_CHANGE_ID=369668
+          export GERRIT_CHANGE_ID=382857
 
           # Finally tell ansible to run the playbook to create scripts
           ansible-playbook -i hosts -vvvv build-packages.yaml
