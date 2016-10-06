@@ -91,7 +91,7 @@
           git clone https://git.openstack.org/openstack-infra/devstack-gate ${TRIPLEO_ROOT}/devstack-gate
           sed -i 's|#!/bin/bash|#!/bin/bash\nset -x|' ${TRIPLEO_ROOT}/devstack-gate/functions.sh
           # TODO: Find out how devstack-gate's remote_command is supposed to work with multinode.
-          sed -i 's|    ssh_opts="-tt|    ssh_opts="-o Username=jenkins -o IdentityFile=/etc/nodepool/id_rsa -tt|' ${TRIPLEO_ROOT}/devstack-gate/functions.sh
+          sed -i 's|    local ssh_opts="-tt|    local ssh_opts="-o Username=jenkins -o IdentityFile=/etc/nodepool/id_rsa -tt|' ${TRIPLEO_ROOT}/devstack-gate/functions.sh
 
           ./scripts/tripleo.sh --multinode-setup
 
