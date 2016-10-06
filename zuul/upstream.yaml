@@ -27,9 +27,6 @@ pipelines:
     require:
       open: True
       current-patchset: True
-      approval:
-        - verified: [1, 2]
-          username: ^(jenkins|zuul)$
     trigger:
       openstack:
         - event: comment-added
