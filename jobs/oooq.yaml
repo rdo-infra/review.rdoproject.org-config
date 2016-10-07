@@ -58,14 +58,11 @@
           gpgcheck=0
           EOF
 
-          # Copy the repo to each sub_node
-          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
-
           while read sub; do
-            ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}
-            scp -r ${SSH_ARGS} ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
-            scp ${SSH_ARGS} /etc/yum.repos.d/testing.repo ${sub}:testing.repo
-            ssh ${SSH_ARGS} ${sub} "sudo chown root:root testing.repo; sudo mv testing.repo /etc/yum.repos.d/"
+            ssh ${sub} mkdir -p ${WORKSPACE}
+            scp -r ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
+            scp /etc/yum.repos.d/testing.repo ${sub}:testing.repo
+            ssh ${sub} "sudo chown root:root testing.repo; sudo mv testing.repo /etc/yum.repos.d/"
           done < /etc/nodepool/sub_nodes_private
 
 - builder:
@@ -74,11 +71,9 @@
     builders:
       - shell: |
           # First we need to install tripleo-ci on each subnode
-          SSH_ARGS="-o IdentityFile=/etc/nodepool/id_rsa -o User=jenkins -o StrictHostKeyChecking=no"
-
           while read sub; do
-            ssh ${SSH_ARGS} ${sub} mkdir -p ${WORKSPACE}/tripleo
-            ssh ${SSH_ARGS} ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
+            ssh ${sub} mkdir -p ${WORKSPACE}/tripleo
+            ssh ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
           done < /etc/nodepool/sub_nodes_private
 
           # Create tripleo root directory that tripleo.sh expects
@@ -92,14 +87,6 @@
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
           ./scripts/tripleo.sh --repo-setup
-
-          # TODO: Remove this debugging statement
-          git clone https://git.openstack.org/openstack-dev/devstack ${TRIPLEO_ROOT}/devstack
-          git clone https://git.openstack.org/openstack-infra/devstack-gate ${TRIPLEO_ROOT}/devstack-gate
-          sed -i 's|#!/bin/bash|#!/bin/bash\nset -x|' ${TRIPLEO_ROOT}/devstack-gate/functions.sh
-          # TODO: Find out how devstack-gate's remote_command is supposed to work with multinode.
-          sed -i 's|    local ssh_opts="-tt|    local ssh_opts="-o User=jenkins -o IdentityFile=/etc/nodepool/id_rsa -tt|' ${TRIPLEO_ROOT}/devstack-gate/functions.sh
-
           ./scripts/tripleo.sh --multinode-setup
 
 - builder:
