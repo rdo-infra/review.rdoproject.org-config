@@ -27,8 +27,6 @@ echo "Defaults   !requiretty" | sudo tee --append /etc/sudoers.d/90-cloud-init-u
 # SSH key for the Jenkins user
 sudo mkdir /home/jenkins/.ssh
 sudo cp /opt/nodepool-scripts/authorized_keys /home/jenkins/.ssh/authorized_keys
-sudo ssh-keygen -N '' -f /home/jenkins/.ssh/id_rsa
-sudo chown -R jenkins /home/jenkins/.ssh
 sudo chmod 700 /home/jenkins/.ssh
 sudo chmod 600 /home/jenkins/.ssh/authorized_keys
 sudo restorecon -R -v /home/jenkins/.ssh/authorized_keys
