@@ -24,6 +24,8 @@ export PATH=$PATH:/usr/local/sbin:/usr/sbin
     echo ""
 ) | sudo tee -a /home/jenkins/.ssh/authorized_keys
 
+cp /etc/nodepool/id_rsa.pub /home/jenkins/.ssh/id_rsa.pub
+
 ROLE=$(cat /etc/nodepool/role)
 if [ $ROLE == "primary" ]; then
     sudo cp /etc/nodepool/id_rsa /home/jenkins/.ssh/id_rsa
