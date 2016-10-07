@@ -24,8 +24,9 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty))|((newton)-rdo)$
 
+  # We don't want cbs jobs running right now
   - name: ^newton-distgit-cbs-(validate|final-build)$
-    branch: ^newton-rdo$
+    branch: ^disabled$
 
   - name: ^rdopkg-unittests$
     voting: true
