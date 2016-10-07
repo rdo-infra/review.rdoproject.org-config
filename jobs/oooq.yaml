@@ -1,8 +1,11 @@
 - builder:
-    name: 'delete_pubkey'
+    name: 'setup_ssh'
     defaults: global
     builders:
       - shell: |
+          # The default nodepool image leaves a public key where our nodepool
+          # keys go. If this pubkey file is left, it will be used for
+          # generating fingerprints, resulting in non-working SSH key exchange.
           rm -f /home/jenkins/.ssh/id_rsa.pub
 
 - builder:
@@ -70,7 +73,16 @@
     defaults: global
     builders:
       - shell: |
-          # First we need to install tripleo-ci on each subnode
+          # The SSH config needs to be set up to ignore HostKeys
+          mkdir -p $HOME/.ssh/
+          cat << EOF | tee ${HOME}/.ssh/config
+          things
+          Host *
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+
+          # tripleo-ci needs to be instalel on each subnode
           while read sub; do
             ssh ${sub} mkdir -p ${WORKSPACE}/tripleo
             ssh ${sub} ln -sf ${WORKSPACE}/tripleo ${WORKSPACE}/tripleo/new
@@ -127,7 +139,7 @@
           url: https://git.openstack.org/openstack/tripleo-quickstart
 
     builders:
-      - delete_pubkey
+      - setup_ssh
       - oooq_dlrn_build_packages
       - setup_multinode
       - create_multinode_inventory
