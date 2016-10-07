@@ -1,16 +1,4 @@
 - job:
-    name: 'no-op'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          echo "This is a no-op job"
-          exit 0
-    triggers:
-      - zuul
-    node: master
-
-- job:
     name: 'tox-jjb'
     defaults: global
     builders:
