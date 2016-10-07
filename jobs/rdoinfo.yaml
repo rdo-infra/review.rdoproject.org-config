@@ -10,3 +10,27 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job:
+    name: rdoinfo-upper-constraints-update
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          sudo pip install ruamel.yaml
+          cd $ZUUL_PROJECT
+          curl -o upper-constraints.txt http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt
+          ./update-uc.py
+          DIFF=$(git diff rdo.yml)
+          if [ ! -n "${DIFF}" ]; then
+            git config user.name "RDO Proposal Bot"
+            git config user.email "jenkins@review.rdoproject.org"
+            git config gitreview.username "proposal-bot"
+            git checkout -b proposal
+            git review -s
+            echo -e "Bump rdoinfo tags to latest upper-constraints"|git commit -F- rdo.yml
+            git review -t "rdoinfo-uc-update" < /dev/null
+          fi
+    triggers:
+      - zuul
+    node: bare-centos-7
