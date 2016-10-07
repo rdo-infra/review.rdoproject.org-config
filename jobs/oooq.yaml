@@ -81,11 +81,13 @@
     defaults: global
     builders:
       - shell: |
-          # tripleo-ci needs to be installed on each subnode
+          # repos need to be installed on each subnode
           while read sub; do
             ssh ${sub} mkdir -p ${WORKSPACE}/tripleo
             ssh ${sub} ln -sf ${WORKSPACE}/tripleo ${WORKSPACE}/tripleo/new
             ssh ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
+            ssh ${sub} git clone https://git.openstack.org/openstack-dev/devstack ${WORKSPACE}/tripleo/devstack
+            ssh ${sub} git clone https://git.openstack.org/openstack-infra/devstack-gate ${WORKSPACE}/tripleo/devstack-gate
           done < /etc/nodepool/sub_nodes_private
 
           # Create tripleo root directory that tripleo.sh expects
