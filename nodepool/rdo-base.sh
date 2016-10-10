@@ -16,7 +16,7 @@ sudo yum install -y python-setuptools git wget curl patch iproute \
                     libselinux-python yum-plugin-priorities \
                     rubygems net-tools lsof
 sudo easy_install pip
-sudo pip install tox
+sudo pip install tox twine
 
 # The jenkins user. Must be able to use sudo without password
 sudo useradd -m jenkins
