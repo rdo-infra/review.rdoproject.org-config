@@ -22,7 +22,7 @@
           curl -o upper-constraints.txt http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt
           ./update-uc.py
           DIFF=$(git diff rdo.yml)
-          if [ ! -n "${DIFF}" ]; then
+          if [ -n "${DIFF}" ]; then
             mkdir -p ~/.ssh
             cat >> ~/.ssh/config << EOF
 
