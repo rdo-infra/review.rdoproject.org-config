@@ -1,4 +1,6 @@
-# Default configurations
+# This file is managed by configuration management, do not edit directly
+# This is the definition of the default jobs
+
 - defaults:
     name: global
     description: |
@@ -130,7 +132,6 @@
           nova add-floating-ip watchdog ${FLOATING}
           ping -c 1 -w 5 ${FLOATING}
 
-
 - publisher:
     name: zuul-swift-upload
     publishers:
@@ -199,50 +200,31 @@
           zuul-cloner http://review.rdoproject.org/r config
           # Prepare a default configuration for zuul and nodepool
           mkdir -p build/nodepool build/zuul
-          (
-            echo "[zuul]"
-            echo
-            echo "[connection gerrit]"
-            echo "driver=gerrit"
-            echo "server=localhost"
-            echo "user=jenkins"
-            echo ""
-            echo "[connection openstack]"
-            echo "driver=gerrit"
-            echo "server=review.openstack.org"
-            echo "user=jenkins"
-            echo ""
-            echo "[connection smtp]"
-            echo "driver=smtp"
-            echo "server=localhost"
-          ) > build/zuul/zuul.conf
-          (
-            echo "script-dir: /etc/nodepool/scripts"
-            echo "images-dir: /opt/nodepool"
-            echo "gearman-servers:"
-            echo "  - host: 127.0.0.1"
-            echo "targets:"
-            echo "  - name: default"
-            echo "providers:"
-            echo "  - name: default"
-            for provider in $(awk '/provider: / { print $NF }' config/nodepool/images.yaml); do
-                echo "  - name: ${provider}"
-            done
-          ) > build/nodepool/nodepool.yaml
+          cp ~jenkins/defconf/zuul.conf build/zuul/
+          cp ~jenkins/defconf/nodepool.yaml build/nodepool/
+
           cd config
           echo "[+] Checking jobs"
-          # JJB needs access to jenkins to test (validate) jobs
-          sudo jenkins-jobs test jobs/ -o ../build/
+          jenkins-jobs test jobs/ -o ../build/
+
           echo "[+] Checking zuul"
           /usr/local/bin/yaml-merger.py zuul | tee ../build/zuul/layout.yaml
           cp zuul/*.py ../build/zuul/ || true
           zuul-server -c ../build/zuul/zuul.conf -l ../build/zuul/layout.yaml -t
+
           echo "[+] Checking nodepool"
           cp nodepool/*.yaml ../build/nodepool/
           WORKDIR=../build/nodepool/ /usr/local/bin/sf-nodepool-conf-merger.py merged.yaml
           nodepool -c ../build/nodepool/merged.yaml config-validate
+
           echo "[+] Checking gerrit replication"
           git config -f gerrit/replication.config -l > /dev/null
+
+          echo "[+] Checking gerrit commentlinks"
+          python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
+
+          echo "[+] Checking syntax errors in policy file"
+          python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
     triggers:
       - zuul
     node: master
@@ -253,7 +235,10 @@
     builders:
       - shell: |
           echo "Updating configuration using $ZUUL_COMMIT"
-          ssh root@managesf.review.rdoproject.org /usr/local/bin/sf-config-update.sh
+          ssh root@managesf.review.rdoproject.org sf_configrepo_update
+    publishers:
+      - email:
+          recipients: root@localhost
     triggers:
       - zuul
     node: master
