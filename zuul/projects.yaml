@@ -16,6 +16,11 @@ pipelines:
       gerrit: {}
 
 jobs:
+  - name: ^.*$
+    parameter-function: set_node_options
+    swift:
+      - name: artifacts
+
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-(master|mitaka|liberty))|((newton)-rdo)$
 
