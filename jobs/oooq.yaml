@@ -150,6 +150,9 @@
           cd ${WORKSPACE}
           git clone https://git.openstack.org/openstack/tripleo-quickstart
 
+          # Install the nodepool-provided SSH key as root on localhost for quickstart.
+          cat ${HOME}/.ssh/id_rsa.pub | sudo tee -a /root/.ssh/authorized_keys
+
           mkdir -p ${WORKSPACE}/workdir
           cd ${WORKSPACE}/tripleo-quickstart
           sudo ./quickstart.sh --install-deps
