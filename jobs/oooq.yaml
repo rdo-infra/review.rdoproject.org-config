@@ -6,7 +6,10 @@
           # The default nodepool image leaves a public key where our nodepool
           # keys go. If this pubkey file is left, it will be used for
           # generating fingerprints, resulting in non-working SSH key exchange.
-          rm -f /home/jenkins/.ssh/id_rsa.pub
+          rm -f /home/jenkins/.ssh/id_rsa*
+          cp /etc/nodepool/id_rsa* ${HOME}/.ssh/
+          chmod 0600 ${HOME}/.ssh/id_rsa
+          chmod 0644 ${HOME}/.ssh/id_rsa.pub
 
           # The SSH config needs to be set up to ignore HostKeys
           cat << EOF | tee ${HOME}/.ssh/config
