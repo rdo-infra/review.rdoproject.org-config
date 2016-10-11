@@ -11,6 +11,12 @@
           chmod 0600 ${HOME}/.ssh/id_rsa
           chmod 0644 ${HOME}/.ssh/id_rsa.pub
 
+          # Install the key for root
+          cat ${HOME}/.ssh/id_rsa.pub | sudo tee -a /root/.ssh/authorized_keys
+
+          # Verify that we can SSH in as root
+          ssh 127.0.0.2 -l root -vvv whoami
+
           # The SSH config needs to be set up to ignore HostKeys
           cat << EOF | tee ${HOME}/.ssh/config
           Host *
