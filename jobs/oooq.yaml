@@ -110,13 +110,13 @@
           mkdir -p ${WORKSPACE}/workdir
           INVENTORY_FILE=${INVENTORY_FILE:-$WORKSPACE/workdir/hosts}
           echo << EOF > ${INVENTORY_FILE}
-          127.0.0.2 ansible_ssh_user=jenkins
+          127.0.0.2
 
           [virthost]
-          127.0.0.2 ansible_ssh_user=jenkins
+          127.0.0.2
 
           [undercloud]
-          127.0.0.2 ansible_ssh_user=jenkins
+          127.0.0.2
 
           [overcloud]
           EOF
@@ -168,8 +168,6 @@
                            -T none \
                            -v \
                            -e undercloud_local_interface=br-ex \
-                           -e ssh_user=stack \
-                           -e ansible_ssh_user=stack \
                            -p quickstart-extras.yml \
                            -r quickstart-extras-requirements.txt"
 
