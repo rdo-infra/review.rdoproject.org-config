@@ -17,7 +17,7 @@
     builders:
       - prepare-workspace
       - shell: |
-          sudo pip install ruamel.yaml
+          sudo pip install ruamel.yaml git-review
           cd $ZUUL_PROJECT
           curl -o upper-constraints.txt http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt
           ./update-uc.py
