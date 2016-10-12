@@ -22,9 +22,6 @@
           EOF
           chmod 0600 ${HOME}/.ssh/config
 
-          # Verify that we can SSH in as root
-          ssh 127.0.0.2 -l root -vvv whoami
-
 - builder:
     name: 'oooq_dlrn_build_packages'
     defaults: global
@@ -139,6 +136,9 @@
             echo ${sub} >> ${INVENTORY_FILE}
           done < /etc/nodepool/sub_nodes_private
 
+          echo '==== Multinode Inventory ===='
+          cat ${INVENTORY_FILE}
+
 - job:
     name: 'tripleo-quickstart-deploy'
     defaults: global
@@ -152,6 +152,7 @@
       - setup_ssh
       - oooq_dlrn_build_packages
       - setup_multinode
+      - create_multinode_inventory
       - shell: |
           # Temporary while we don't have a quickstart project in review.rdoproject.org
           # Remove when we do.
@@ -160,6 +161,9 @@
 
           cd ${WORKSPACE}/tripleo-quickstart
           sudo ./quickstart.sh --install-deps
+
+          ssh root@127.0.0.2 -vvv whoami
+          echo "ssh_args='-vvvv'" >> ansible.cfg
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
