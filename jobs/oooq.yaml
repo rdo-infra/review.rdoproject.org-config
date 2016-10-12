@@ -139,6 +139,26 @@
           echo '==== Multinode Inventory ===='
           cat ${INVENTORY_FILE}
 
+- builder:
+    name: oooq-copy-logs
+    builders:
+      - shell: |
+          cd ${WORKSPACE}
+          mkdir -p artifacts/system_logs
+          cp /home/stack/* artifacts/
+          ps aufxww > artifacts/ps.txt
+          free -m > artifacts/system_logs/free.txt
+          sudo chown -R ${USER} artifacts/
+
+- publisher:
+    name: oooq-copy-logs
+    publishers:
+      - postbuildscript:
+          builders:
+            - oooq-copy-logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
 - job:
     name: 'tripleo-quickstart-deploy'
     defaults: global
@@ -190,3 +210,6 @@
     triggers:
       - zuul
     node: bare-centos-7-2-node
+    publishers:
+      - oooq-copy-logs
+      - zuul-swift-upload
