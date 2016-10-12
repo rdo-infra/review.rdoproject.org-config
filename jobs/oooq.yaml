@@ -115,7 +115,7 @@
       - shell: |
           mkdir -p ${HOME}/.quickstart/
           INVENTORY_FILE=${INVENTORY_FILE:-${HOME}/.quickstart/hosts}
-          echo << EOF > ${INVENTORY_FILE}
+          cat <<EOF > ${INVENTORY_FILE}
           127.0.0.2
 
           [virthost]
