@@ -152,7 +152,6 @@
       - setup_ssh
       - oooq_dlrn_build_packages
       - setup_multinode
-      - create_multinode_inventory
       - shell: |
           # Temporary while we don't have a quickstart project in review.rdoproject.org
           # Remove when we do.
@@ -161,10 +160,6 @@
 
           cd ${WORKSPACE}/tripleo-quickstart
           sudo ./quickstart.sh --install-deps
-
-          # FIXME: Some ansible resources don't respect the ssh config
-          echo 'ssh_args="-vvv"' \
-              >> ansible.cfg
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
