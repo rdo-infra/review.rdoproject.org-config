@@ -116,8 +116,8 @@
     name: create_multinode_inventory
     builders:
       - shell: |
-          mkdir -p ${WORKSPACE}/workdir
-          INVENTORY_FILE=${INVENTORY_FILE:-$WORKSPACE/workdir/hosts}
+          mkdir -p ${HOME}/.quickstart/
+          INVENTORY_FILE=${INVENTORY_FILE:-${HOME}/.quickstart/hosts}
           echo << EOF > ${INVENTORY_FILE}
           127.0.0.2
 
@@ -159,17 +159,15 @@
           cd ${WORKSPACE}
           git clone https://git.openstack.org/openstack/tripleo-quickstart
 
-          mkdir -p ${WORKSPACE}/workdir
           cd ${WORKSPACE}/tripleo-quickstart
           sudo ./quickstart.sh --install-deps
 
           # FIXME: Some ansible resources don't respect the ssh config
-          echo 'ssh_args="-F ${WORKSPACE}/workdir/ssh.config.local.ansible"' \
+          echo 'ssh_args="-vvv"' \
               >> ansible.cfg
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
-                           --working-dir ${WORKSPACE}/workdir/ \
                            -t provision,undercloud-scripts,undercloud-install,overcloud-scripts \
                            -T none \
                            -v \
@@ -183,12 +181,13 @@
 
           # Finish the installation
           ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./undercloud-install.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
 
           # TODO: Modify this to use the multinode heat templates in newton-forward
-          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
 
-          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
-          ssh -F ${WORKSPACE}/workdir/ssh.config.local.ansible undercloud ./overcloud-validate.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
     triggers:
       - zuul
