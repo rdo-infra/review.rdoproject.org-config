@@ -176,7 +176,7 @@
 
           # The Virthost argument uses 127.0.0.2 to run the playbook against
           # localhost, but avoid Ansible's 'local' connection type
-          sudo ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
+          ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
 
           # Finish the installation
           ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
