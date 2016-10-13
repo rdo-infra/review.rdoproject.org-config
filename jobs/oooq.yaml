@@ -145,7 +145,7 @@
       - shell: |
           cd ${WORKSPACE}
           mkdir -p artifacts/system_logs
-          sudo cp -a /home/stack/* artifacts/
+          sudo bash -c "cp -a /home/stack/* artifacts/"
           ps aufxww > artifacts/ps.txt
           free -m > artifacts/system_logs/free.txt
           sudo chown -R ${USER} artifacts/
