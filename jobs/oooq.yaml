@@ -182,8 +182,7 @@
           cd ${WORKSPACE}/tripleo-quickstart
           ./quickstart.sh --install-deps
 
-          ssh root@127.0.0.2 -vvv whoami
-          echo "ssh_args='-vvvv'" >> ansible.cfg
+          sudo yum install -y python-tripleoclient openstack-tempest python-aodh-tests python-ceilometer-tests python-heat-tests python-ironic-tests python-keystone-tests python-manila-tests python-mistral-tests python-neutron-tests python-sahara-tests python-zaqar-tests
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
