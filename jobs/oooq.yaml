@@ -145,6 +145,7 @@
       - shell: |
           cd ${WORKSPACE}
           mkdir -p artifacts/system_logs
+          sudo ls -a /home/stack
           sudo cp /home/stack/* artifacts/
           ps aufxww > artifacts/ps.txt
           free -m > artifacts/system_logs/free.txt
@@ -199,13 +200,11 @@
           ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
 
           # Finish the installation
-          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
-
+          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
           # TODO: Modify this to use the multinode heat templates in newton-forward
-          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
-
-          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
-          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
+          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
+          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
+          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
     triggers:
       - zuul
