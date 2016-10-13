@@ -89,28 +89,28 @@
           pushd DLRN
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
-              timeout --signal=SIGKILL 3600  /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
+              timeout --signal=SIGKILL 3600  ~/job_scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
-              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
+              timeout --signal=SIGKILL 3600 ~/job_scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
           fi
           if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
-              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
+              timeout --signal=SIGKILL 3600 ~/job_scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
           fi
           if [ -n "${PACKAGES_UPDATED_LIBERTY}" ]; then
-              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh liberty "${PACKAGES_UPDATED_LIBERTY}"
+              timeout --signal=SIGKILL 3600 ~/job_scripts/rdoinfo-DLRN.sh liberty "${PACKAGES_UPDATED_LIBERTY}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
