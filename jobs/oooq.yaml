@@ -186,13 +186,21 @@
           sudo yum install -y python-tripleoclient openstack-tempest python-aodh-tests python-ceilometer-tests python-heat-tests python-ironic-tests python-keystone-tests python-manila-tests python-mistral-tests python-neutron-tests python-sahara-tests python-zaqar-tests
           sudo hostnamectl set-hostname --transient $(hostnamectl --static)
 
+          OVERCLOUD_DEPLOY_ARGS="-e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
+                                 -e ${WORKSPACE}/test-environments/worker-config.yaml \
+                                 -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
+                                 --compute-scale 0 \
+                                 --overcloud-ssh-user jenkins \
+                                 --validation-errors-nonfatal \
+                                 --templates"
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
-                           -t provision,undercloud-scripts,undercloud-install,overcloud-scripts \
+                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
                            -T none \
                            -v \
                            --release master \
                            -e undercloud_local_interface=br-ex \
+                           -e ${OVERCLOUD_DEPLOY_ARGS} \
                            -p quickstart-extras.yml \
                            -r quickstart-extras-requirements.txt"
 
@@ -203,7 +211,7 @@
           # Finish the installation
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
           # TODO: Modify this to use the multinode heat templates in newton-forward
-          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
