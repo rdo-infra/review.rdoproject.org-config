@@ -50,3 +50,79 @@
         - file:
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
+
+- job:
+    name: rdoinfo-DLRN-check
+    defaults: global
+    builders:
+      - prepare-workspace
+      - prepare-dlrn
+      - shell: |
+          set -ex
+          pushd $ZUUL_PROJECT
+          sudo pip install rdopkg
+
+          PACKAGES_UPDATED_MASTER=""
+          PACKAGES_UPDATED_NEWTON=""
+          PACKAGES_UPDATED_MITAKA=""
+          PACKAGES_UPDATED_LIBERTY=""
+
+          TAGS_DIFF=$(rdopkg info-tags-diff .)
+
+          while read line; do
+              PKGNAME=$(awk '{print $1}' <<< $line) 
+              if [[ -n $(echo "$line" | grep -w ocata-uc) ]]; then
+                  PACKAGES_UPDATED_MASTER="$PACKAGES_UPDATED_MASTER $PKGNAME"       
+              fi
+              if [[ -n $(echo "$line" | grep -w newton) ]]; then
+                  PACKAGES_UPDATED_NEWTON="$PACKAGES_UPDATED_NEWTON $PKGNAME"
+              fi
+              if [[ -n $(echo "$line" | grep -w mitaka) ]]; then
+                  PACKAGES_UPDATED_MITAKA="$PACKAGES_UPDATED_MITAKA $PKGNAME"
+              fi
+              if [[ -n $(echo "$line" | grep -w liberty) ]]; then
+                  PACKAGES_UPDATED_LIBERTY="$PACKAGES_UPDATED_LIBERTY $PKGNAME"
+              fi
+          done <<< "${TAGS_DIFF}"    
+          popd
+
+          pushd DLRN
+          ret=0
+          if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
+              timeout --signal=SIGKILL 3600  /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+          fi
+          if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
+              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+          fi
+          if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
+              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+          fi
+          if [ -n "${PACKAGES_UPDATED_LIBERTY}" ]; then
+              timeout --signal=SIGKILL 3600 /usr/local/jenkins/slave_scripts/rdoinfo-DLRN.sh liberty "${PACKAGES_UPDATED_LIBERTY}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+          fi
+          popd
+          # Retrieve logs/repositories/packages
+          mkdir artifacts
+          cp -a DLRN/logs/* artifacts/
+          exit $ret
+    publishers:
+      - zuul-swift-upload
+    triggers:
+      - zuul
+    node: bare-centos-7
