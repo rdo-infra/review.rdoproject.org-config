@@ -200,7 +200,7 @@
                            -v \
                            --release master \
                            -e undercloud_local_interface=br-ex \
-                           -e ${OVERCLOUD_DEPLOY_ARGS} \
+                           -e deploy_args='${OVERCLOUD_DEPLOY_ARGS}' \
                            -p quickstart-extras.yml \
                            -r quickstart-extras-requirements.txt"
 
