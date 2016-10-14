@@ -1,4 +1,11 @@
 - builder:
+    name: 'generate_system_logs'
+    defaults: global
+    builders:
+      - shell: |
+          rpm -qa > ${WORKSPACE}/rpm-qa-beginning.txt
+
+- builder:
     name: 'setup_ssh'
     defaults: global
     builders:
@@ -146,8 +153,11 @@
           cd ${WORKSPACE}
           mkdir -p artifacts/system_logs
           sudo bash -c "cp -a /home/stack/* artifacts/"
+          cp ${WORKSPACE}/tripleo-quickstart/deploy_args.yml artifacts/
           ps aufxww > artifacts/ps.txt
           free -m > artifacts/system_logs/free.txt
+          cp ${WORKSPACE}/rpm-qs-beginning.txt artifacts/
+          rpm -qa > artifacts/rpmqa-end.txt
           sudo chown -R ${USER} artifacts/
 
 - publisher:
@@ -169,6 +179,7 @@
           url: https://git.openstack.org/openstack/tripleo-quickstart
 
     builders:
+      - generate_system_logs
       - setup_ssh
       - oooq_dlrn_build_packages
       - setup_multinode
@@ -186,13 +197,15 @@
           sudo yum install -y python-tripleoclient openstack-tempest python-aodh-tests python-ceilometer-tests python-heat-tests python-ironic-tests python-keystone-tests python-manila-tests python-mistral-tests python-neutron-tests python-sahara-tests python-zaqar-tests
           sudo hostnamectl set-hostname --transient $(hostnamectl --static)
 
-          OVERCLOUD_DEPLOY_ARGS="-e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
-                                 -e ${WORKSPACE}/test-environments/worker-config.yaml \
-                                 -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
-                                 --compute-scale 0 \
-                                 --overcloud-ssh-user jenkins \
-                                 --validation-errors-nonfatal \
-                                 --templates"
+          cat <<EOF > deploy_args.yml
+            -e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
+            -e ${WORKSPACE}/test-environments/worker-config.yaml \
+            -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
+            --compute-scale 0 \
+            --overcloud-ssh-user jenkins \
+            --validation-errors-nonfatal \
+            --templates
+          EOF
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
                            -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
@@ -200,7 +213,7 @@
                            -v \
                            --release master \
                            -e undercloud_local_interface=br-ex \
-                           -e deploy_args='${OVERCLOUD_DEPLOY_ARGS}' \
+                           -e @deploy-args.yml
                            -p quickstart-extras.yml \
                            -r quickstart-extras-requirements.txt"
 
