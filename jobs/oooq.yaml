@@ -198,13 +198,13 @@
           sudo hostnamectl set-hostname --transient $(hostnamectl --static)
 
           cat <<EOF > deploy_args.yml
-            -e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
-            -e ${WORKSPACE}/test-environments/worker-config.yaml \
-            -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
-            --compute-scale 0 \
-            --overcloud-ssh-user jenkins \
-            --validation-errors-nonfatal \
-            --templates
+          extra_args: "-e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
+          -e ${WORKSPACE}/test-environments/worker-config.yaml \
+          -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
+          --compute-scale 0 \
+          --overcloud-ssh-user jenkins \
+          --validation-errors-nonfatal \
+          --templates"
           EOF
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
