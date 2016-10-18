@@ -69,7 +69,8 @@
       - prepare-workspace
       - prepare-dlrn
       - shell: |
-          set -ex
+          set +e
+          set -x
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
 
@@ -128,6 +129,7 @@
               fi
           fi
           popd
+
           # Retrieve logs/repositories/packages
           mkdir artifacts
           cp -a DLRN/logs/* artifacts/
