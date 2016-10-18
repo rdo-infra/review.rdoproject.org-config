@@ -16,8 +16,10 @@
           # If there's no repository to configure, stop here
           curl -o /dev/null -sIf "${artifacts}" || exit 1
 
-          # Find the repository hash
-          hash=$(curl -s "${artifacts}/centos/repos/report.html" |grep repo |sed 's/.*"\([^"]*\)".*/\1/')
+          # Find the latest repository hash
+          # If DLRN built multiple packages, there will be multiple repositories.
+          # We want the latest repository which contains all of the packages that were just built.
+          hash=$(curl -s "${artifacts}/centos/repos/report.html" |grep repo |sed 's/.*"\([^"]*\)".*/\1/' |head -n1)
           repository="${artifacts}/centos/repos/${hash}"
 
           # Configure the repository
