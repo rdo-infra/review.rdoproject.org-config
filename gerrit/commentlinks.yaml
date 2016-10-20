@@ -7,3 +7,6 @@ commentlinks:
   - name: Redmine_related
     match: '([Rr]elated|[Rr]elated[ -][Tt]o):\\s+#?(\\d+)'
     html: '$1 <a href=\"/redmine/issues/$2\">$2</a>'
+  - name: upstreamid
+    match: 'Upstream-Id: (I[0-9a-f]{8,40})'
+    html: 'Upstream-Id: <a href=\"http://review.openstack.org/#q,$1,n,z\">$1</a>'
