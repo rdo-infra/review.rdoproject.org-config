@@ -193,7 +193,7 @@
           # TODO Get quickstart to install these locally
           sudo useradd stack
           sudo wget http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
-          sudo tar xvf ipa.tar -C /home/stack/
+          sudo tar xvf /home/stack/ipa.tar -C /home/stack/
           sudo chown -R stack:stack /home/stack
 
           cd ${WORKSPACE}/tripleo-quickstart
