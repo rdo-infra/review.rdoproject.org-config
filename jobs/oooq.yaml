@@ -209,20 +209,20 @@
           - include: quickstart.yml
 
           - name: install the overcloud
-          hosts: undercloud
-          gather_facts: no
-          roles:
-            - tripleo-overcloud
+            hosts: undercloud
+            gather_facts: no
+            roles:
+              - tripleo-overcloud
 
           - name: Add the overcloud nodes to the generated inventory
-          hosts: undercloud
-          gather_facts: yes
-          tags:
-            - overcloud-deploy
-          vars:
-            inventory: all
-          roles:
-            - tripleo-inventory
+            hosts: undercloud
+            gather_facts: yes
+            tags:
+              - overcloud-deploy
+            vars:
+                inventory: all
+            roles:
+              - tripleo-inventory
           EOF
 
           cat <<EOF > deploy_args.yml
