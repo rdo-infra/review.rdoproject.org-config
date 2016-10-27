@@ -205,10 +205,31 @@
           sudo yum install -y python-tripleoclient openstack-tempest python-aodh-tests python-ceilometer-tests python-heat-tests python-ironic-tests python-keystone-tests python-manila-tests python-mistral-tests python-neutron-tests python-sahara-tests python-zaqar-tests
           sudo hostnamectl set-hostname --transient $(hostnamectl --static)
 
+          cat <<EOF > playbooks/quickstart-multinode.yml
+          - include: quickstart.yml
+
+          - name: install the overcloud
+          hosts: undercloud
+          gather_facts: no
+          roles:
+            - tripleo-overcloud
+
+          - name: Add the overcloud nodes to the generated inventory
+          hosts: undercloud
+          gather_facts: yes
+          tags:
+            - overcloud-deploy
+          vars:
+            inventory: all
+          roles:
+            - tripleo-inventory
+          EOF
+
           cat <<EOF > deploy_args.yml
           extra_args: "-e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
           -e ${WORKSPACE}/test-environments/worker-config.yaml \
           -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
+          -e undercloud_local_interface=br-ex \
           --compute-scale 0 \
           --overcloud-ssh-user jenkins \
           --validation-errors-nonfatal \
@@ -220,9 +241,8 @@
                            -T none \
                            -v \
                            --release master \
-                           -e undercloud_local_interface=br-ex \
                            -e @deploy_args.yml
-                           -p quickstart-extras.yml \
+                           -p quickstart-multinode.yml \
                            -r quickstart-extras-requirements.txt"
 
           # The Virthost argument uses 127.0.0.2 to run the playbook against
