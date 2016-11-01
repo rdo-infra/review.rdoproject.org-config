@@ -40,8 +40,8 @@
 
           # Install some requirements for DLRN
           sudo yum install -y python-virtualenv gcc
-          virtualenv venv
-          source venv/bin/activate
+          virtualenv ${HOME}/dlrn-venv
+          source ${HOME}/dlrn-venv/bin/activate
           pip install --upgrade pip
           pip install ansible
 
