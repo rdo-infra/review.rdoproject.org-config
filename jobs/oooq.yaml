@@ -252,7 +252,7 @@
           # Finish the installation
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
           # TODO: Modify this to use the multinode heat templates in newton-forward
-          ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy.sh
+          ssh -F ${HOME}/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
