@@ -40,10 +40,10 @@
 
           # Install some requirements for DLRN
           sudo yum install -y python-virtualenv gcc
-          virtualenv ${HOME}/dlrn-venv
-          source ${HOME}/dlrn-venv/bin/activate
+          virtualenv ${HOME}/venv
+          source ${HOME}/venv/bin/activate
           pip install --upgrade pip
-          pip install ansible
+          pip install 'ansible>=2.1,<2.2'
 
           mkdir roles
           git clone https://github.com/redhat-openstack/ansible-role-tripleo-gate roles/tripleo-gate
