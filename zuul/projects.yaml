@@ -43,6 +43,9 @@ jobs:
     - project: rdo-infra/ansible-role-weirdo-common
       all-files-match-any:
         - ^README.rst$
+    - project: rdo-infra/ansible-role-weirdo-logs
+      all-files-match-any:
+        - ^README.rst$
     - project: rdo-infra/ansible-role-weirdo-packstack
       all-files-match-any:
         - ^README.rst$
@@ -1749,6 +1752,10 @@ projects:
       - name: weirdo-gate-jobs
 
   - name: rdo-infra/ansible-role-weirdo-common
+    template:
+      - name: weirdo-gate-jobs
+
+  - name: rdo-infra/ansible-role-weirdo-logs
     template:
       - name: weirdo-gate-jobs
 
