@@ -198,6 +198,9 @@
           sudo tar xvf /home/stack/overcloud-full.tar -C /home/stack/
           sudo chown -R stack:stack /home/stack
 
+          # Install tripleo-ci into stack's homedir so quickstart can use the heat templates
+          sudo su - stack -c "git clone https://github.com/openstack-infra/tripleo-ci /home/stack/tripleo-ci"
+
           cd ${WORKSPACE}/tripleo-quickstart
           ./quickstart.sh --install-deps
 
@@ -207,6 +210,12 @@
 
           cat <<EOF > playbooks/quickstart-multinode.yml
           - include: quickstart.yml
+
+          - name: Post undercloud install steps
+            hosts: undercloud
+            gather_facts: no
+            roles:
+             - tripleo-undercloud-post
 
           - name: install the overcloud
             hosts: undercloud
@@ -226,8 +235,8 @@
           EOF
 
           cat <<EOF > deploy_args.yml
-          extra_args: "-e ${WORKSPACE}/tripleo-ci/test-environments/multinode.yaml \
-          -e ${WORKSPACE}/test-environments/worker-config.yaml \
+          extra_args: "-e /home/stack/tripleo-ci/tripleo-ci/test-environments/multinode.yaml \
+          -e /home/stack/tripleo-ci/test-environments/worker-config.yaml \
           -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
           --compute-scale 0 \
           --overcloud-ssh-user jenkins \
@@ -236,7 +245,7 @@
           EOF
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
-                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts,overcloud-deploy,overcloud-validate \
+                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
                            -T none \
                            -v \
                            --release master \
@@ -249,10 +258,17 @@
           # localhost, but avoid Ansible's 'local' connection type
           ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
 
+          # Disable the overcloud check in the overcloud-deploy script.
+          # This is necessary because we are using already-deployed hosts with
+          # nodepool.
+          sudo sed -i -e '/Wait until there are/,+6d' /home/stack/overcloud-deploy.sh
+
           # Finish the installation
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
           # TODO: Modify this to use the multinode heat templates in newton-forward
           #ssh -F ${HOME}/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
+          sudo su - stack -c "./overcloud-deploy.sh"
+          sudo su - stack -c "./overcloud-deploy-post.sh"
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
