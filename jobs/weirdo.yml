@@ -179,6 +179,7 @@
     project: packstack
     openstack_release:
       - master
+      - newton
       - mitaka
     scenario:
       - scenario001
@@ -194,11 +195,13 @@
     project: puppet
     openstack_release:
       - master
+      - newton
       - mitaka
     scenario:
       - scenario001
       - scenario002
       - scenario003
+      - scenario004
     jobs:
       - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
       - 'gate-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
