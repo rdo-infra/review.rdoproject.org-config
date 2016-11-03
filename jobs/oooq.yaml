@@ -211,11 +211,12 @@
           cat <<EOF > playbooks/quickstart-multinode.yml
           - include: quickstart.yml
 
-          - name: Post undercloud install steps
+          - name: Run overcloud prep roles
             hosts: undercloud
             gather_facts: no
             roles:
-              - tripleo-undercloud-post
+              - overcloud-prep-flavors
+              - overcloud-prep-images
 
           - name: install the overcloud
             hosts: undercloud
