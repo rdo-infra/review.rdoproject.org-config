@@ -211,12 +211,18 @@
           cat <<EOF > playbooks/quickstart-multinode.yml
           - include: quickstart.yml
 
+          - name: Write instackenv script
+            template:
+              src: "{{ undercloud_instackenv_template }}"
+              dest: "{{ working_dir }}/instackenv.json"
+
           - name: Run overcloud prep roles
             hosts: undercloud
             gather_facts: no
             roles:
               - overcloud-prep-flavors
               - overcloud-prep-network
+              - overcloud-prep-images
 
           - name: install the overcloud
             hosts: undercloud
@@ -242,8 +248,21 @@
           --compute-scale 0 \
           --overcloud-ssh-user jenkins \
           --validation-errors-nonfatal \
-          --templates"
+          --templates" \
+          overcloud_prep_images_script: "/home/stack/overcloud-prep-images.sh.j2 " \
+          undercloud_instackenv_template: "/home/stack/instackenv.json.j2"
           EOF
+
+          cat <<EOF > /home/stack/overcloud-prep-images.sh.j2
+          #!/bin/bash
+          set -eux
+          source {{ working_dir }}/stackrc
+          openstack overcloud image upload {% if bash_deploy_ramdisk %}--old-deploy-image{% endif %}
+          EOF
+
+          # Copy the instackenv template to homedir so it can be used outside libvirt/overcloud role
+          cp /home/jenkins/.quickstart/usr/local/share/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /home/stack/instackenv.json.j2
+
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
                            -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
