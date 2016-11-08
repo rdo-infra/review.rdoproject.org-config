@@ -15,6 +15,8 @@ from six.moves import configparser, StringIO
 
 GERRIT = "https://review.rdoproject.org/r/"
 PROJECT_LIST = GERRIT + "/projects/"
+# Note (dmsimard): centos-opstools might be sent to #centos-devel,
+#                  need to verify with them first.
 IGNORED_PROJECTS = {
     'replication': [
         'All-Users',
@@ -36,7 +38,9 @@ IGNORED_PROJECTS = {
     ],
     'gerritbot': [
         'testbranching',
-        'testproject'
+        'testproject',
+        'centos-opstools/opstools-doc',
+        'centos-opstools/centos-release-opstools'
     ]
 }
 
