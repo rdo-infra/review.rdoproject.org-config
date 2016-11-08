@@ -12,63 +12,6 @@
     node: bare-centos-7
 
 - job:
-    name: rdoinfo-upper-constraints-update
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          set +e -x
-          sudo pip install ruamel.yaml git-review
-          cd $ZUUL_PROJECT
-          curl -o upper-constraints.txt http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt
-          ./update-uc.py
-          DIFF=$(git diff rdo.yml)
-          if [ -n "${DIFF}" ]; then
-            mkdir -p ~/.ssh
-            cat >> ~/.ssh/config << EOF
-
-          Host review.rdoproject.org
-            IdentityFile $SSH_KEY
-          EOF
-            chmod 600 ~/.ssh/config
-            sudo chmod 600 $SSH_KEY
-            sudo chown jenkins:jenkins $SSH_KEY
-            ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
-            chmod 644 ~/.ssh/known_hosts
-            # Check for an open change, if so reuse it
-            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
-            gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
-            topic:rdoinfo-uc-update)
-            previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
-            if [ -n "$previous" ]; then
-                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
-                COMMIT_MSG="Bump rdoinfo tags to latest upper-constraints\n\nChange-Id: $CHANGE_ID\n"
-            else
-                COMMIT_MSG="Bump rdoinfo tags to latest upper-constraints"
-            fi
-            git config user.name "rdo-trunk"
-            git config user.email "javier.pena@redhat.com"
-            git config gitreview.username "rdo-trunk"
-            git checkout -b proposal
-            git review -s -v
-            echo -e $COMMIT_MSG | git commit -F- rdo.yml
-            # Just in case, check if there are changes between this version and the current review
-            curl https://review.rdoproject.org/r/changes/rdoinfo~master~${CHANGE_ID}/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
-            diff rdo.yml rdo_current.yml
-            if [ $? -ne 0 ]; then
-                git review -t "rdoinfo-uc-update" < /dev/null
-            fi
-          fi
-    triggers:
-      - zuul
-    node: bare-centos-7
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
-           variable: SSH_KEY
-
-- job:
     name: rdoinfo-DLRN-check
     defaults: global
     builders:
@@ -144,3 +87,75 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job-template:
+    name: rdoinfo-upper-constraints-update-{branch}
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e -x
+          sudo pip install ruamel.yaml git-review
+          cd $ZUUL_PROJECT
+          if [ "{branch}" != "master" ]; then
+            GIT_SUFFIX="?h=stable/{branch}"
+            UC_BRANCH="{branch}"
+          else
+            UC_BRANCH="ocata-uc"
+            GIT_SUFFIX=""
+          fi
+          curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt${GIT_SUFFIX}"
+          ./update-uc.py ${UC_BRANCH}
+          DIFF=$(git diff rdo.yml)
+          if [ -n "${DIFF}" ]; then
+            mkdir -p ~/.ssh
+            cat >> ~/.ssh/config << EOF
+
+          Host review.rdoproject.org
+            IdentityFile $SSH_KEY
+          EOF
+            chmod 600 ~/.ssh/config
+            sudo chmod 600 $SSH_KEY
+            sudo chown jenkins:jenkins $SSH_KEY
+            ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            # Check for an open change, if so reuse it
+            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
+            gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
+            topic:rdoinfo-uc-update)
+            previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
+            if [ -n "$previous" ]; then
+                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
+                COMMIT_MSG="Bump rdoinfo ${UC_BRANCH} tags to latest upper-constraints\n\nChange-Id: $CHANGE_ID\n"
+            else
+                COMMIT_MSG="Bump rdoinfo ${UC_BRANCH} tags to latest upper-constraints"
+            fi
+            git config user.name "rdo-trunk"
+            git config user.email "javier.pena@redhat.com"
+            git config gitreview.username "rdo-trunk"
+            git checkout -b proposal
+            git review -s -v
+            echo -e $COMMIT_MSG | git commit -F- rdo.yml
+            # Just in case, check if there are changes between this version and the current review
+            curl https://review.rdoproject.org/r/changes/rdoinfo~master~${CHANGE_ID}/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
+            diff rdo.yml rdo_current.yml
+            if [ $? -ne 0 ]; then
+                git review -t "rdoinfo-uc-update" < /dev/null
+            fi
+          fi
+    triggers:
+      - zuul
+    node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
+           variable: SSH_KEY
+
+- project:
+    name: rdoinfo-upper-constraints
+    branch:
+      - master
+      - newton
+    jobs:
+      - 'rdoinfo-upper-constraints-update-{branch}'
