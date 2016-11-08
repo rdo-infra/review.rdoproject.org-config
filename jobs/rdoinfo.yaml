@@ -11,8 +11,8 @@
       - zuul
     node: bare-centos-7
 
-- job:
-    name: rdoinfo-upper-constraints-update
+- job-template:
+    name: rdoinfo-upper-constraints-update-{branch}
     defaults: global
     builders:
       - prepare-workspace
@@ -20,8 +20,14 @@
           set +e -x
           sudo pip install ruamel.yaml git-review
           cd $ZUUL_PROJECT
-          curl -o upper-constraints.txt http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt
-          ./update-uc.py
+          if [ "{branch}" != "master" ]; then
+            GIT_SUFFIX="?h=stable/{branch}"
+            UC_BRANCH="{branch}"
+          else
+            UC_BRANCH="ocata-uc"
+          fi
+          curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt${GIT_SUFFIX}"
+          ./update-uc.py ${UC_BRANCH}
           DIFF=$(git diff rdo.yml)
           if [ -n "${DIFF}" ]; then
             mkdir -p ~/.ssh
@@ -42,9 +48,9 @@
             previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
             if [ -n "$previous" ]; then
                 CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
-                COMMIT_MSG="Bump rdoinfo tags to latest upper-constraints\n\nChange-Id: $CHANGE_ID\n"
+                COMMIT_MSG="Bump rdoinfo ${UC_BRANCH} tags to latest upper-constraints\n\nChange-Id: $CHANGE_ID\n"
             else
-                COMMIT_MSG="Bump rdoinfo tags to latest upper-constraints"
+                COMMIT_MSG="Bump rdoinfo ${UC_BRANCH} tags to latest upper-constraints"
             fi
             git config user.name "rdo-trunk"
             git config user.email "javier.pena@redhat.com"
