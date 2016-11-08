@@ -75,7 +75,7 @@
       - prepare-workspace
       - prepare-dlrn
       - shell: |
-          set -x
+          set +e -x
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
 
