@@ -11,7 +11,7 @@
           gem install asciidoctor
 
           pushd $ZUUL_PROJECT
-          /usr/local/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/artifacts
+          ~/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/artifacts
           popd
     publishers:
       - zuul-swift-upload
