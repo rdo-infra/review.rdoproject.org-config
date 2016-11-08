@@ -124,8 +124,10 @@ project-templates:
 
 projects:
   - name: centos-opstools/opstools-doc
-    template:
-      - name: noop
+    check:
+      - centos-opstools-doc
+    gate:
+      - centos-opstools-doc
 
   - name: centos-opstools/centos-release-opstools
     template:
