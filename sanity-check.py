@@ -41,6 +41,14 @@ IGNORED_PROJECTS = {
         'testproject',
         'centos-opstools/opstools-doc',
         'centos-opstools/centos-release-opstools'
+        'centos-opstools/opstools-ansible',
+        'centos-opstools/osops-tools-monitoring-oschecks',
+        'centos-opstools/rubygem-fluent-plugin-secure-forward',
+        'centos-opstools/rubygem-proxifier',
+        'centos-opstools/rubygem-resolve-hostname',
+        'centos-opstools/kibana',
+        'centos-opstools/rubygem-builder',
+        'centos-opstools/rubygem-introspection'
     ]
 }
 
