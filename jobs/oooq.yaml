@@ -250,7 +250,7 @@
           --validation-errors-nonfatal \
           --templates" \
           overcloud_prep_images_script: "/tmp/overcloud-prep-images.sh.j2 " \
-          undercloud_instackenv_template: "/home/stack/instackenv.json.j2"
+          undercloud_instackenv_template: "/tmp/instackenv.json.j2"
           EOF
 
           cat <<EOF > /tmp/overcloud-prep-images.sh.j2
@@ -261,7 +261,7 @@
           EOF
 
           # Copy the instackenv template to homedir so it can be used outside libvirt/overcloud role
-          cp ${WORKSPACE}/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /home/stack/instackenv.json.j2
+          cp ${WORKSPACE}/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /tmp/instackenv.json.j2
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
