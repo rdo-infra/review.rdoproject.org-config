@@ -222,10 +222,10 @@
             hosts: undercloud
             gather_facts: no
             roles:
+              - overcloud-prep-config
+              - overcloud-prep-images
               - overcloud-prep-flavors
               - overcloud-prep-network
-              - overcloud-prep-images
-              - overcloud-prep-config
 
           - name: install the overcloud
             hosts: undercloud
