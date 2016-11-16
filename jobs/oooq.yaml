@@ -212,9 +212,11 @@
           - include: quickstart.yml
 
           - name: Write instackenv script
-            template:
-              src: "{{ undercloud_instackenv_template }}"
-              dest: "{{ working_dir }}/instackenv.json"
+            hosts: undercloud
+            tasks:
+              - template:
+                  src: "{{ undercloud_instackenv_template }}"
+                  dest: "{{ working_dir }}/instackenv.json"
 
           - name: Run overcloud prep roles
             hosts: undercloud
