@@ -134,8 +134,10 @@ projects:
       - name: noop
 
   - name: centos-opstools/opstools-ansible
-    template:
-      - name: noop
+    check:
+      - centos-opstools-tox
+    gate:
+      - centos-opstools-tox
 
   - name: centos-opstools/osops-tools-monitoring-oschecks
     template:
