@@ -249,11 +249,11 @@
           --overcloud-ssh-user jenkins \
           --validation-errors-nonfatal \
           --templates" \
-          overcloud_prep_images_script: "/home/stack/overcloud-prep-images.sh.j2 " \
+          overcloud_prep_images_script: "/tmp/overcloud-prep-images.sh.j2 " \
           undercloud_instackenv_template: "/home/stack/instackenv.json.j2"
           EOF
 
-          cat <<EOF > /home/stack/overcloud-prep-images.sh.j2
+          cat <<EOF > /tmp/overcloud-prep-images.sh.j2
           #!/bin/bash
           set -eux
           source {{ working_dir }}/stackrc
