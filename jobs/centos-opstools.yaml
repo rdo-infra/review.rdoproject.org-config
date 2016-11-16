@@ -18,3 +18,35 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job:
+    name: 'centos-opstools-tox'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+
+          sudo yum -y install python-tox libffi-dev libssl-dev libyaml-dev
+
+          pushd $ZUUL_PROJECT
+          tox
+          popd
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: 'centos-opstools-runtests'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+
+          pushd $ZUUL_PROJECT
+          sh ./run-tests.sh
+          popd
+    triggers:
+      - zuul
+    node: bare-centos-7
