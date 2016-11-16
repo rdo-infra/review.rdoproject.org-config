@@ -2,7 +2,7 @@
     name: dlrn-gate-repository
     builders:
       - shell: |
-          # This builder, when run from a child job of a DLRN-rpmbuild job,
+          # This builder, when run from a child job of a DLRN based job,
           # configures the DLRN repository that was uploaded as an artifact
           # of the parent DLRN-rpmbuild job.
           # This allows to install the packages in that repository and test
@@ -10,10 +10,20 @@
           set +e
           # Re-construct the expected repository URL
           ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
-          LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/DLRN-rpmbuild/${ZUUL_REF}"
-          artifacts="${SWIFT_artifacts_LOGSERVER_PREFIX}/${LOG_PATH}/artifacts"
 
-          # If there's no repository to configure, stop here
+          # This builder can be shared across different DLRN based jobs.
+          # Try and find the right one
+          jobs="DLRN-rpmbuild rdoinfo-DLRN-check"
+          for job in $jobs;
+          do
+            LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/${job}/${ZUUL_REF}"
+            artifacts="${SWIFT_artifacts_LOGSERVER_PREFIX}/${LOG_PATH}/artifacts"
+
+            curl -o /dev/null -sIf "${artifacts}" || continue
+            break
+          done
+
+          # If we couldn't find a working repository, give up
           curl -o /dev/null -sIf "${artifacts}" || exit 1
 
           # Find the latest repository hash
