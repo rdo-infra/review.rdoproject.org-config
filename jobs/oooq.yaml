@@ -213,10 +213,13 @@
 
           - name: Write instackenv script
             hosts: undercloud
+            gather_facts: no
             tasks:
               - template:
                   src: "{{ undercloud_instackenv_template }}"
                   dest: "{{ working_dir }}/instackenv.json"
+            tags:
+              - overcloud-scripts
 
           - name: Run overcloud prep roles
             hosts: undercloud
@@ -226,12 +229,16 @@
               - overcloud-prep-images
               - overcloud-prep-flavors
               - overcloud-prep-network
+            tags:
+              - overcloud-scripts
 
           - name: install the overcloud
             hosts: undercloud
             gather_facts: no
             roles:
               - tripleo-overcloud
+            tags:
+              - tripleo-deploy
 
           - name: Add the overcloud nodes to the generated inventory
             hosts: undercloud
