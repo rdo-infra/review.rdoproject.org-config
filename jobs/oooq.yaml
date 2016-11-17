@@ -219,7 +219,7 @@
                   src: "{{ undercloud_instackenv_template }}"
                   dest: "{{ working_dir }}/instackenv.json"
             tags:
-              - overcloud-scripts
+              - overcloud-prep
 
           - name: Run overcloud prep roles
             hosts: undercloud
@@ -230,7 +230,7 @@
               - overcloud-prep-flavors
               - overcloud-prep-network
             tags:
-              - overcloud-scripts
+              - overcloud-prep
 
           - name: install the overcloud
             hosts: undercloud
@@ -276,7 +276,7 @@
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
-                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
+                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts,overcloud-prep \
                            -T none \
                            -v \
                            --release master \
