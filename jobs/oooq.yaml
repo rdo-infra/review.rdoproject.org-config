@@ -262,6 +262,7 @@
           overcloud_prep_images_script: "/tmp/overcloud-prep-images.sh.j2"
           undercloud_instackenv_template: "/tmp/instackenv.json.j2"
           network_isolation: true
+          working_dir: /home/stack
           EOF
 
           cat <<EOF > /tmp/overcloud-prep-images.sh.j2
