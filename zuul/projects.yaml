@@ -17,7 +17,7 @@ pipelines:
 
 jobs:
   - name: ^DLRN-rpmbuild$
-    branch: ^master|(rpm-(master|mitaka|liberty))|((newton)-rdo)$
+    branch: ^master|(rpm-)|((newton)-rdo)$
 
   - name: ^newton-distgit-cbs-(validate|final-build)$
     branch: ^newton-rdo$
