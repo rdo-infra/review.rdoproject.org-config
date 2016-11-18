@@ -247,6 +247,8 @@
           --templates"
           overcloud_prep_images_script: "/tmp/overcloud-prep-images.sh.j2"
           undercloud_instackenv_template: "/tmp/instackenv.json.j2"
+          ssl_overcloud: false
+          network_isolation: false
           EOF
 
           cat <<EOF > /tmp/overcloud-prep-images.sh.j2
