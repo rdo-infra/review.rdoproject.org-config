@@ -152,7 +152,7 @@
       - shell: |
           cd ${WORKSPACE}
           mkdir -p artifacts/system_logs
-          sudo bash -c "cp -a /home/stack/*.txt /home/stack/*.yml /home/stack/*.yaml /home/stack/*.conf /home/stack/*.sh /home/stack/*.log artifacts/"
+          sudo bash -c "cp -a /home/stack/*.txt /home/stack/*.yml /home/stack/*.yaml /home/stack/*.conf /home/stack/*.sh /home/stack/*.log artifacts/ || echo 'Failed copying some log files.'"
           cp ${WORKSPACE}/tripleo-quickstart/deploy_args.yml artifacts/
           ps aufxww > artifacts/ps.txt
           free -m > artifacts/system_logs/free.txt
