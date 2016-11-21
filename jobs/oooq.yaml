@@ -240,11 +240,9 @@
           extra_args: "-e /home/stack/tripleo-ci/test-environments/multinode.yaml \
           -e /usr/share/openstack-tripleo-heat-templates/environments/deployed-server-environment.yaml \
           -e /home/stack/tripleo-ci/test-environments/worker-config.yaml \
-          -e /usr/share/openstack-tripleo-heat-templates/environments/low-memory-usage.yaml \
           --compute-scale 0 \
           --overcloud-ssh-user jenkins \
-          --validation-errors-nonfatal \
-          --templates"
+          --validation-errors-nonfatal"
           overcloud_prep_images_script: "/tmp/overcloud-prep-images.sh.j2"
           undercloud_instackenv_template: "/tmp/instackenv.json.j2"
           ssl_overcloud: false
@@ -288,10 +286,10 @@
 
           # Finish the installation
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
-          # TODO: Modify this to use the multinode heat templates in newton-forward
           #ssh -F ${HOME}/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
-          sudo su - stack -c "./overcloud-deploy.sh"
-          sudo su - stack -c "./overcloud-deploy-post.sh"
+          #sudo su - stack -c "./overcloud-deploy.sh"
+          sudo -Eu stack sh -c ./overcloud-deploy.sh
+          sudo -Eu stack sh -c ./overcloud-deploy-post.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
