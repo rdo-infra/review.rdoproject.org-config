@@ -146,26 +146,29 @@
           echo '==== Multinode Inventory ===='
           cat ${INVENTORY_FILE}
 
-- builder:
-    name: oooq-copy-logs
-    builders:
-      - shell: |
-          cd ${WORKSPACE}
-          mkdir -p artifacts/system_logs
-          sudo bash -c "cp -a /home/stack/*.txt /home/stack/*.yml /home/stack/*.yaml /home/stack/*.conf /home/stack/*.sh /home/stack/*.log artifacts/ || echo 'Failed copying some log files.'"
-          cp ${WORKSPACE}/tripleo-quickstart/deploy_args.yml artifacts/
-          ps aufxww > artifacts/ps.txt
-          free -m > artifacts/system_logs/free.txt
-          cp ${WORKSPACE}/rpm-qa-beginning.txt artifacts/
-          rpm -qa > artifacts/rpmqa-end.txt
-          sudo chown -R ${USER} artifacts/
+# "Building remotely" should always be in the build console output
+- publisher:
+    name: 'tripleo-quickstart-cleanup'
+    publishers:
+        - post-tasks:
+            - matches:
+                - log-text: Building remotely
+              escalate-status: false
+              script: |
+                # Collects logs
+                set -eux
+                pushd $WORKSPACE/tripleo-quickstart
+                # We are only interested in output from the collect-logs script if it fails
+                bash ci-scripts/collect-logs.sh minimal &> $WORKSPACE/collect_logs.txt ||
+                    cat $WORKSPACE/collect_logs.txt
+                popd
+          script-only-if-failed: False
 
 - publisher:
-    name: oooq-copy-logs
+    name: 'tripleo-quickstart-full-logs-link'
     publishers:
-      - postbuildscript:
-          builders:
-            - oooq-copy-logs
+      - archive:
+          artifacts: '**/full_logs.html'
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -297,5 +300,5 @@
       - zuul
     node: bare-centos-7-2-node
     publishers:
-      - oooq-copy-logs
-      - zuul-swift-upload
+      - tripleo-quickstart-cleanup
+      - tripleo-quickstart-full-logs-link
