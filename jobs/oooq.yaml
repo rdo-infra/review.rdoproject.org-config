@@ -147,25 +147,51 @@
           cat ${INVENTORY_FILE}
 
 - builder:
-    name: oooq-copy-logs
+    name: 'tripleo-quickstart-collect-logs'
     builders:
       - shell: |
-          cd ${WORKSPACE}
-          mkdir -p artifacts/system_logs
-          sudo bash -c "cp -a /home/stack/*.txt /home/stack/*.yml /home/stack/*.yaml /home/stack/*.conf /home/stack/*.sh /home/stack/*.log artifacts/ || echo 'Failed copying some log files.'"
-          cp ${WORKSPACE}/tripleo-quickstart/deploy_args.yml artifacts/
-          ps aufxww > artifacts/ps.txt
-          free -m > artifacts/system_logs/free.txt
-          cp ${WORKSPACE}/rpm-qa-beginning.txt artifacts/
-          rpm -qa > artifacts/rpmqa-end.txt
-          sudo chown -R ${USER} artifacts/
+          cd ${WORKSPACE}/tripleo-quickstart
+
+          export ANSIBLE_INVENTORY=${ANSIBLE_INVENTORY:-${HOME}/.quickstart/hosts}
+          export ANSIBLE_CONFIG=$WORKSPACE/tripleo-quickstart/ansible.cfg
+          export SSH_CONFIG=${HOME}/.quickstart/ssh.config.ansible
+          export ANSIBLE_SSH_ARGS="-F ${SSH_CONFIG}"
+
+          # The collect-logs playbook doesn't make the logdir, so we should
+          mkdir ${WORKSPACE}/artifacts
+
+          cat << EOF > extra-vars.yml
+          artcl_collect_dir: "{{ lookup('env', 'WORKSPACE') }}/artifacts"
+          artcl_gzip_only: true
+          artcl_publish: false
+          EOF
+
+          cat << EOF > playbooks/collect-logs.yml
+          ---
+          - name: Collect Logs
+            hosts: all!localhost
+            gather_facts: no
+            roles:
+              - tripleo-collect-logs
+          EOF
+
+          bash quickstart.sh \
+            --working-dir ${WORKSPACE}/ \
+            --no-clone \
+            --bootstrap \
+            --retain-inventory \
+            --requirements quickstart-extras-requirements.txt \
+            --config ${WORKSPACE}/config/general_config/${CONFIG}.yml \
+            --extra-vars=@extra-vars.yml
+            --playbook collect-logs.yml \
+            localhost
 
 - publisher:
-    name: oooq-copy-logs
+    name: tripleo-quickstart-collect-logs
     publishers:
       - postbuildscript:
           builders:
-            - oooq-copy-logs
+            - tripleo-quickstart-collect-logs
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -297,5 +323,5 @@
       - zuul
     node: bare-centos-7-2-node
     publishers:
-      - oooq-copy-logs
+      - tripleo-quickstart-collect-logs
       - zuul-swift-upload
