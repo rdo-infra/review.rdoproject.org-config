@@ -157,6 +157,9 @@
           export SSH_CONFIG=${HOME}/.quickstart/ssh.config.ansible
           export ANSIBLE_SSH_ARGS="-F ${SSH_CONFIG}"
 
+          sudo -Eu stack sh -c "source stackrc; heat stack-list; heat resource-list" | tee ${WORKSPACE}/artifacts/heat-stack-resource-list.txt
+          sudo -Eu stack sh -c "source /home/stack/stackrc; for i in \$(heat resource-list overcloud|grep FAILED|awk '{ print \$2 }'); do heat resource-show overcloud \$i; done" | tee ${WORKSPACE}/artifacts/heat-failed-resources.txt
+
           # The collect-logs playbook doesn't make the logdir, so we should
           mkdir ${WORKSPACE}/artifacts
 
