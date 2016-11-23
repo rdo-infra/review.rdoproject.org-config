@@ -41,8 +41,13 @@ PACKAGE_LINE=""
 # Prepare directories
 mkdir -p data/repos
 for PACKAGE in ${PACKAGES_TO_BUILD}; do
-    PROJECT_TO_BUILD_MAPPED=$(./scripts/map-project-name $PACKAGE ../rdoinfo)
-    PROJECT_DISTRO=$(./scripts/map-distgit-name $PACKAGE ../rdoinfo)
+    PROJECT_TO_BUILD_MAPPED=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^name | awk '{print $2}')
+    PROJECT_IN_RDOINFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^project: | awk '{print $2}')
+    if [[ "$PROJECT_IN_RDOINFO" =~ puppet- ]]; then
+        PROJECT_DISTRO="puppet/$PROJECT_IN_RDOINFO-distgit"
+    else
+        PROJECT_DISTRO="openstack/$PROJECT_IN_RDOINFO-distgit"
+    fi
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
     if [ -e /usr/bin/zuul-cloner ]; then
