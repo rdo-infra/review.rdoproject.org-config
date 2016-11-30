@@ -162,7 +162,6 @@
 
           cat << EOF > extra-vars.yml
           artcl_collect_dir: "{{ lookup('env', 'WORKSPACE') }}/artifacts"
-          artcl_gzip_only: true
           artcl_publish: false
           EOF
 
@@ -181,8 +180,8 @@
             --bootstrap \
             --retain-inventory \
             --requirements quickstart-extras-requirements.txt \
-            --config ${WORKSPACE}/config/general_config/${CONFIG}.yml \
-            --extra-vars=@extra-vars.yml
+            --config ${WORKSPACE}/config/general_config/${topology}.yml \
+            --extra-vars @extra-vars.yml
             --playbook collect-logs.yml \
             localhost
 
@@ -191,7 +190,8 @@
     publishers:
       - postbuildscript:
           builders:
-            - tripleo-quickstart-collect-logs
+            - tripleo-quickstart-collect-logs:
+                topology: '{topology}'
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -247,9 +247,9 @@
             hosts: undercloud
             gather_facts: no
             roles:
-              - tripleo-overcloud
+              - overcloud-deploy
             tags:
-              - tripleo-deploy
+              - overcloud-deploy
 
           - name: Add the overcloud nodes to the generated inventory
             hosts: undercloud
@@ -296,6 +296,7 @@
                            -T none \
                            -v \
                            --release master \
+                           --config $WORKSPACE/config/general_config/minimal.yml \
                            -e undercloud_local_interface=br-ex \
                            -e @deploy_args.yml
                            -p quickstart-multinode.yml \
@@ -323,5 +324,6 @@
       - zuul
     node: bare-centos-7-2-node
     publishers:
-      - tripleo-quickstart-collect-logs
+      - tripleo-quickstart-collect-logs:
+          topology: 'minimal'
       - zuul-swift-upload
