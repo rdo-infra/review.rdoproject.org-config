@@ -45,11 +45,15 @@ sudo yum install -y java
 
 # Install zuul_swift_upload and zuul-cloner
 # TODO: replace this section by zuul package
-sudo yum install -y python-requests gcc python-devel python-crypto
-sudo pip install zuul glob2 python-magic
+sudo yum install -y python-requests gcc python-devel python-crypto python-magic
+sudo pip install zuul glob2
 
 # Copy slave tools
 sudo cp -v /opt/nodepool-scripts/*.py /usr/local/bin/
+
+# Install local CA
+sudo cp /opt/nodepool-scripts/*.pem /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
 
 # sync FS, otherwise there are 0-byte sized files from the yum/pip installations
 sudo sync
