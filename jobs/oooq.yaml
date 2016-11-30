@@ -3,7 +3,7 @@
     defaults: global
     builders:
       - shell: |
-          rpm -qa > ${WORKSPACE}/rpm-qa-beginning.txt
+          rpm -qa > $WORKSPACE/rpm-qa-beginning.txt
 
 - builder:
     name: 'setup_ssh'
@@ -14,20 +14,20 @@
           # keys go. If this pubkey file is left, it will be used for
           # generating fingerprints, resulting in non-working SSH key exchange.
           rm -f /home/jenkins/.ssh/id_rsa*
-          cp /etc/nodepool/id_rsa* ${HOME}/.ssh/
-          chmod 0600 ${HOME}/.ssh/id_rsa
-          chmod 0644 ${HOME}/.ssh/id_rsa.pub
+          cp /etc/nodepool/id_rsa* $HOME/.ssh/
+          chmod 0600 $HOME/.ssh/id_rsa
+          chmod 0644 $HOME/.ssh/id_rsa.pub
 
           # Install the key for root
-          cat ${HOME}/.ssh/id_rsa.pub | sudo tee -a /root/.ssh/authorized_keys
+          cat $HOME/.ssh/id_rsa.pub | sudo tee -a /root/.ssh/authorized_keys
 
           # The SSH config needs to be set up to ignore HostKeys
-          cat << EOF | tee ${HOME}/.ssh/config
+          cat << EOF | tee $HOME/.ssh/config
           Host *
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
           EOF
-          chmod 0600 ${HOME}/.ssh/config
+          chmod 0600 $HOME/.ssh/config
 
 - builder:
     name: 'oooq_dlrn_build_packages'
@@ -40,8 +40,8 @@
 
           # Install some requirements for DLRN
           sudo yum install -y python-virtualenv gcc
-          virtualenv ${HOME}/venv
-          source ${HOME}/venv/bin/activate
+          virtualenv $HOME/venv
+          source $HOME/venv/bin/activate
           pip install --upgrade pip
           pip install 'ansible>=2.1,<2.2'
 
@@ -58,7 +58,7 @@
           - name: Build custom RPMs
             hosts: localhost
             roles:
-              - { role: tripleo-gate, artg_compressed_gating_repo: '${WORKSPACE}/repo.tar.gz' }
+              - { role: tripleo-gate, artg_compressed_gating_repo: '$WORKSPACE/repo.tar.gz' }
           EOF
 
           # For now we need some test change of an upstream project to make
@@ -77,16 +77,16 @@
           cat << EOF | sudo tee /etc/yum.repos.d/testing.repo
           [testing]
           name=Repo for testing change
-          baseurl=file://${WORKSPACE}/gating_repo
+          baseurl=file://$WORKSPACE/gating_repo
           priority=15
           gpgcheck=0
           EOF
 
           while read sub; do
-            ssh ${sub} mkdir -p ${WORKSPACE}
-            scp -r ${WORKSPACE}/gating_repo ${sub}:${WORKSPACE}/
-            scp /etc/yum.repos.d/testing.repo ${sub}:testing.repo
-            ssh ${sub} "sudo chown root:root testing.repo; sudo mv testing.repo /etc/yum.repos.d/"
+            ssh $sub mkdir -p $WORKSPACE
+            scp -r $WORKSPACE/gating_repo $sub:$WORKSPACE/
+            scp /etc/yum.repos.d/testing.repo $sub:testing.repo
+            ssh $sub "sudo chown root:root testing.repo; sudo mv testing.repo /etc/yum.repos.d/"
           done < /etc/nodepool/sub_nodes_private
 
 - builder:
@@ -96,20 +96,20 @@
       - shell: |
           # repos need to be installed on each subnode
           while read sub; do
-            ssh ${sub} mkdir -p ${WORKSPACE}/tripleo
-            ssh ${sub} ln -sf ${WORKSPACE}/tripleo ${WORKSPACE}/tripleo/new
-            ssh ${sub} git clone https://git.openstack.org/openstack-infra/tripleo-ci ${WORKSPACE}/tripleo/tripleo-ci
-            ssh ${sub} git clone https://git.openstack.org/openstack-dev/devstack ${WORKSPACE}/tripleo/devstack
-            ssh ${sub} git clone https://git.openstack.org/openstack-infra/devstack-gate ${WORKSPACE}/tripleo/devstack-gate
+            ssh $sub mkdir -p $WORKSPACE/tripleo
+            ssh $sub ln -sf $WORKSPACE/tripleo $WORKSPACE/tripleo/new
+            ssh $sub git clone https://git.openstack.org/openstack-infra/tripleo-ci $WORKSPACE/tripleo/tripleo-ci
+            ssh $sub git clone https://git.openstack.org/openstack-dev/devstack $WORKSPACE/tripleo/devstack
+            ssh $sub git clone https://git.openstack.org/openstack-infra/devstack-gate $WORKSPACE/tripleo/devstack-gate
           done < /etc/nodepool/sub_nodes_private
 
           # Create tripleo root directory that tripleo.sh expects
-          mkdir ${WORKSPACE}/tripleo
-          export TRIPLEO_ROOT=${WORKSPACE}/tripleo
+          mkdir $WORKSPACE/tripleo
+          export TRIPLEO_ROOT=$WORKSPACE/tripleo
 
           # Create a 'new' symlink for devstack to use
-          export BASE=${WORKSPACE}/tripleo
-          ln -sf ${WORKSPACE}/tripleo ${WORKSPACE}/tripleo/new
+          export BASE=$WORKSPACE/tripleo
+          ln -sf $WORKSPACE/tripleo $WORKSPACE/tripleo/new
 
           git clone https://git.openstack.org/openstack-infra/tripleo-ci
           cd tripleo-ci
@@ -120,9 +120,9 @@
     name: create_multinode_inventory
     builders:
       - shell: |
-          mkdir -p ${HOME}/.quickstart/
+          mkdir -p $HOME/.quickstart/
           INVENTORY_FILE=${INVENTORY_FILE:-${HOME}/.quickstart/hosts}
-          cat <<EOF > ${INVENTORY_FILE}
+          cat <<EOF > $INVENTORY_FILE
           127.0.0.2
 
           [virthost]
@@ -140,29 +140,28 @@
           # run. These nodes have been set up according to the ready-script
           # listed in the node definition used for the job.
           while read sub; do
-            echo ${sub} >> ${INVENTORY_FILE}
+            echo $sub >> $INVENTORY_FILE
           done < /etc/nodepool/sub_nodes_private
 
           echo '==== Multinode Inventory ===='
-          cat ${INVENTORY_FILE}
+          cat $INVENTORY_FILE
 
 - builder:
     name: 'tripleo-quickstart-collect-logs'
     builders:
       - shell: |
-          cd ${WORKSPACE}/tripleo-quickstart
+          cd $WORKSPACE/tripleo-quickstart
 
-          export ANSIBLE_INVENTORY=${ANSIBLE_INVENTORY:-${HOME}/.quickstart/hosts}
+          export ANSIBLE_INVENTORY=${{ANSIBLE_INVENTORY:-$HOME/.quickstart/hosts\}}
           export ANSIBLE_CONFIG=$WORKSPACE/tripleo-quickstart/ansible.cfg
-          export SSH_CONFIG=${HOME}/.quickstart/ssh.config.ansible
-          export ANSIBLE_SSH_ARGS="-F ${SSH_CONFIG}"
+          export SSH_CONFIG=$HOME/.quickstart/ssh.config.ansible
+          export ANSIBLE_SSH_ARGS="-F $SSH_CONFIG"
 
           # The collect-logs playbook doesn't make the logdir, so we should
-          mkdir ${WORKSPACE}/artifacts
+          mkdir $WORKSPACE/artifacts
 
           cat << EOF > extra-vars.yml
           artcl_collect_dir: "{{ lookup('env', 'WORKSPACE') }}/artifacts"
-          artcl_gzip_only: true
           artcl_publish: false
           EOF
 
@@ -176,13 +175,13 @@
           EOF
 
           bash quickstart.sh \
-            --working-dir ${WORKSPACE}/ \
+            --working-dir $WORKSPACE/ \
             --no-clone \
             --bootstrap \
             --retain-inventory \
             --requirements quickstart-extras-requirements.txt \
-            --config ${WORKSPACE}/config/general_config/${CONFIG}.yml \
-            --extra-vars=@extra-vars.yml
+            --config $WORKSPACE/config/general_config/{topology}.yml \
+            --extra-vars @extra-vars.yml
             --playbook collect-logs.yml \
             localhost
 
@@ -191,7 +190,8 @@
     publishers:
       - postbuildscript:
           builders:
-            - tripleo-quickstart-collect-logs
+            - tripleo-quickstart-collect-logs:
+                topology: '{topology}'
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -213,7 +213,7 @@
       - shell: |
           # Temporary while we don't have a quickstart project in review.rdoproject.org
           # Remove when we do.
-          cd ${WORKSPACE}
+          cd $WORKSPACE
           git clone https://git.openstack.org/openstack/tripleo-quickstart
 
           # TODO Get quickstart to install these locally
@@ -227,7 +227,7 @@
           # Install tripleo-ci into stack's homedir so quickstart can use the heat templates
           sudo su - stack -c "git clone https://github.com/openstack-infra/tripleo-ci /home/stack/tripleo-ci"
 
-          cd ${WORKSPACE}/tripleo-quickstart
+          cd $WORKSPACE/tripleo-quickstart
           ./quickstart.sh --install-deps
 
           # Do more system setup for the quickstart run
@@ -247,9 +247,7 @@
             hosts: undercloud
             gather_facts: no
             roles:
-              - tripleo-overcloud
-            tags:
-              - tripleo-deploy
+              - overcloud-deploy
 
           - name: Add the overcloud nodes to the generated inventory
             hosts: undercloud
@@ -288,7 +286,7 @@
           export COMPUTE_HOSTS=
 
           # Copy the instackenv template to homedir so it can be used outside libvirt/overcloud role
-          cp ${WORKSPACE}/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /tmp/instackenv.json.j2
+          cp $WORKSPACE/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /tmp/instackenv.json.j2
 
           QUICKSTART_ARGS="--no-clone \
                            --retain-inventory \
@@ -296,6 +294,7 @@
                            -T none \
                            -v \
                            --release master \
+                           --config config/general_config/minimal.yml \
                            -e undercloud_local_interface=br-ex \
                            -e @deploy_args.yml
                            -p quickstart-multinode.yml \
@@ -303,7 +302,7 @@
 
           # The Virthost argument uses 127.0.0.2 to run the playbook against
           # localhost, but avoid Ansible's 'local' connection type
-          ./quickstart.sh ${QUICKSTART_ARGS} 127.0.0.2
+          ./quickstart.sh $QUICKSTART_ARGS 127.0.0.2
 
           # Disable the overcloud check in the overcloud-deploy script.
           # This is necessary because we are using already-deployed hosts with
@@ -311,17 +310,18 @@
           sudo sed -i -e '/Wait until there are/,+6d' /home/stack/overcloud-deploy.sh
 
           # Finish the installation
-          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
-          #ssh -F ${HOME}/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
+          #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
+          #ssh -F $HOME/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
           #sudo su - stack -c "./overcloud-deploy.sh"
           sudo -Eu stack sh -c ./overcloud-deploy.sh
           sudo -Eu stack sh -c ./overcloud-deploy-post.sh
-          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
-          #ssh -F ${HOME}/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
+          #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
+          #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
 
     triggers:
       - zuul
     node: bare-centos-7-2-node
     publishers:
-      - tripleo-quickstart-collect-logs
+      - tripleo-quickstart-collect-logs:
+          topology: 'minimal'
       - zuul-swift-upload
