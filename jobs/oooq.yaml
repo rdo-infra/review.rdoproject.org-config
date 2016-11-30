@@ -1,11 +1,4 @@
 - builder:
-    name: 'generate_system_logs'
-    defaults: global
-    builders:
-      - shell: |
-          rpm -qa > $WORKSPACE/rpm-qa-beginning.txt
-
-- builder:
     name: 'setup_ssh'
     defaults: global
     builders:
@@ -205,7 +198,6 @@
           url: https://git.openstack.org/openstack/tripleo-quickstart
 
     builders:
-      - generate_system_logs
       - setup_ssh
       - oooq_dlrn_build_packages
       - setup_multinode
@@ -313,7 +305,7 @@
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./undercloud-install.sh
           #ssh -F $HOME/.quickstart/ssh.config.ansible undercloud ./overcloud-deploy.sh
           #sudo su - stack -c "./overcloud-deploy.sh"
-          sudo -Eu stack sh -c ./overcloud-deploy.sh
+          sudo -Eu stack sh -c /home/stack/overcloud-deploy.sh
           sudo -Eu stack sh -c ./overcloud-deploy-post.sh
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
