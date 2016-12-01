@@ -113,9 +113,7 @@
     name: create_multinode_inventory
     builders:
       - shell: |
-          mkdir -p $HOME/.quickstart/
-          INVENTORY_FILE=${INVENTORY_FILE:-${HOME}/.quickstart/hosts}
-          cat <<EOF > $INVENTORY_FILE
+          cat <<EOF > $WORKSPACE/hosts
           127.0.0.2
 
           [virthost]
@@ -142,49 +140,19 @@
 - builder:
     name: 'tripleo-quickstart-collect-logs'
     builders:
-      - shell: |
-          cd $WORKSPACE/tripleo-quickstart
-
-          export ANSIBLE_INVENTORY=${{ANSIBLE_INVENTORY:-$HOME/.quickstart/hosts\}}
-          export ANSIBLE_CONFIG=$WORKSPACE/tripleo-quickstart/ansible.cfg
-          export SSH_CONFIG=$HOME/.quickstart/ssh.config.ansible
-          export ANSIBLE_SSH_ARGS="-F $SSH_CONFIG"
-
-          # The collect-logs playbook doesn't make the logdir, so we should
-          mkdir $WORKSPACE/artifacts
-
-          cat << EOF > extra-vars.yml
-          artcl_collect_dir: "$WORKSPACE/artifacts"
-          artcl_publish: false
-          EOF
-
-          cat << EOF > playbooks/collect-logs.yml
-          ---
-          - name: Collect Logs
-            hosts: all!localhost
-            gather_facts: no
-            roles:
-              - collect-logs
-          EOF
-
-          bash quickstart.sh \
-            --working-dir $WORKSPACE/ \
-            --no-clone \
-            --bootstrap \
-            --retain-inventory \
-            --requirements quickstart-extras-requirements.txt \
-            --config $WORKSPACE/config/general_config/{topology}.yml \
-            --extra-vars @extra-vars.yml
-            --playbook collect-logs.yml \
-            localhost
 
 - publisher:
     name: tripleo-quickstart-collect-logs
     publishers:
       - postbuildscript:
           builders:
-            - tripleo-quickstart-collect-logs:
-                topology: '{topology}'
+              - shell: |
+                  set -eux
+
+                  pushd $WORKSPACE/tripleo-quickstart
+                  bash ci-scripts/collect-logs.sh {topology} rdoproject &> $WORKSPACE/collect_logs.txt ||
+                      cat $WORKSPACE/collect_logs.txt
+                  popd
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -192,10 +160,8 @@
     name: 'tripleo-quickstart-deploy'
     defaults: global
     scm:
-      - git:
-          url: https://git.openstack.org/openstack/tripleo-common
-      - git:
-          url: https://git.openstack.org/openstack/tripleo-quickstart
+      - repo-tripleo-common
+      - repo-tripleo-quickstart
 
     builders:
       - setup_ssh
@@ -203,11 +169,6 @@
       - setup_multinode
       - create_multinode_inventory
       - shell: |
-          # Temporary while we don't have a quickstart project in review.rdoproject.org
-          # Remove when we do.
-          cd $WORKSPACE
-          git clone https://git.openstack.org/openstack/tripleo-quickstart
-
           # TODO Get quickstart to install these locally
           sudo useradd stack
           sudo wget http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
@@ -219,7 +180,7 @@
           # Install tripleo-ci into stack's homedir so quickstart can use the heat templates
           sudo su - stack -c "git clone https://github.com/openstack-infra/tripleo-ci /home/stack/tripleo-ci"
 
-          cd $WORKSPACE/tripleo-quickstart
+          pushd $WORKSPACE/tripleo-quickstart
           ./quickstart.sh --install-deps
 
           # Do more system setup for the quickstart run
@@ -280,21 +241,20 @@
           # Copy the instackenv template to homedir so it can be used outside libvirt/overcloud role
           cp $WORKSPACE/tripleo-quickstart/roles/libvirt/setup/overcloud/templates/instackenv.json.j2 /tmp/instackenv.json.j2
 
-          QUICKSTART_ARGS="--no-clone \
-                           --retain-inventory \
-                           -t provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
-                           -T none \
-                           -v \
-                           --release master \
-                           --config config/general_config/minimal.yml \
-                           -e undercloud_local_interface=br-ex \
-                           -e @deploy_args.yml
-                           -p quickstart-multinode.yml \
-                           -r quickstart-extras-requirements.txt"
-
-          # The Virthost argument uses 127.0.0.2 to run the playbook against
-          # localhost, but avoid Ansible's 'local' connection type
-          ./quickstart.sh $QUICKSTART_ARGS 127.0.0.2
+          ./quickstart.sh \
+                  --working-dir $WORKSPACE/ \
+                  --no-clone \
+                  --retain-inventory \
+                  --tags provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
+                  --teardown none \
+                  --ansible-debug \
+                  --release master \
+                  --config config/general_config/minimal.yml \
+                  --extra-vars undercloud_local_interface=br-ex \
+                  --extra-vars @deploy_args.yml
+                  --playbook quickstart-multinode.yml \
+                  --requirements quickstart-extras-requirements.txt \
+                  127.0.0.2
 
           # Disable the overcloud check in the overcloud-deploy script.
           # This is necessary because we are using already-deployed hosts with
@@ -309,11 +269,9 @@
           sudo -Eu stack sh -c /home/stack/overcloud-deploy-post.sh
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-deploy-post.sh
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
-
     triggers:
       - zuul
     node: bare-centos-7-2-node
     publishers:
       - tripleo-quickstart-collect-logs:
           topology: 'minimal'
-      - zuul-swift-upload
