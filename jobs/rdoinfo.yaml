@@ -122,7 +122,7 @@
             # Check for an open change, if so reuse it
             change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
             gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
-            topic:rdoinfo-uc-update)
+            topic:rdoinfo-uc-update-"{branch}")
             previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
             if [ -n "$previous" ]; then
                 CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
@@ -140,7 +140,7 @@
             curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
             diff rdo.yml rdo_current.yml
             if [ $? -ne 0 ]; then
-                git review -t "rdoinfo-uc-update" < /dev/null
+                git review -t "rdoinfo-uc-update-{branch}" < /dev/null
             fi
           fi
     triggers:
