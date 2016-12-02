@@ -151,6 +151,9 @@
                   set -eux
 
                   pushd $WORKSPACE/tripleo-quickstart
+                  # This is a hack to override Zuul's timeout.
+                  # TODO: figure out how to change the timeout in Zuul.
+                  export SWIFT_artifacts_HMAC_BODY=$(echo "SWIFT_artifacts_HMAC_BODY"| sed '5s/.*/2000000000/')
                   bash ci-scripts/collect-logs.sh {topology} rdoproject &> $WORKSPACE/collect_logs.txt ||
                       cat $WORKSPACE/collect_logs.txt
                   popd
@@ -170,11 +173,7 @@
       - setup_multinode
       - create_multinode_inventory
       - shell: |
-          # Temporary while we don't have a quickstart project in review.rdoproject.org
-          # Remove when we do.
           pushd $WORKSPACE
-          git clone https://git.openstack.org/openstack/tripleo-quickstart
-
           # TODO Get quickstart to install these locally
           sudo useradd stack
           sudo wget --progress=dot:giga http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
