@@ -115,7 +115,7 @@
       - shell: |
           INVENTORY_FILE="$WORKSPACE/hosts"
           cat <<EOF > $INVENTORY_FILE
-          127.0.0.2
+          127.0.0.2 ansible_user=stack
 
           [virthost]
           127.0.0.2
@@ -177,8 +177,8 @@
 
           # TODO Get quickstart to install these locally
           sudo useradd stack
-          sudo wget http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
-          sudo wget http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/overcloud-full.tar -O /home/stack/overcloud-full.tar
+          sudo wget --progress=dot:giga http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
+          sudo wget --progress=dot:giga http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/overcloud-full.tar -O /home/stack/overcloud-full.tar
           sudo tar xvf /home/stack/ipa.tar -C /home/stack/
           sudo tar xvf /home/stack/overcloud-full.tar -C /home/stack/
           sudo chown -R stack:stack /home/stack
@@ -257,7 +257,7 @@
                   --release master \
                   --config config/general_config/minimal.yml \
                   --extra-vars undercloud_local_interface=br-ex \
-                  --extra-vars @deploy_args.yml
+                  --extra-vars @deploy_args.yml \
                   --playbook quickstart-multinode.yml \
                   --requirements quickstart-extras-requirements.txt \
                   127.0.0.2
