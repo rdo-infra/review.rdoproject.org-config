@@ -113,7 +113,8 @@
     name: create_multinode_inventory
     builders:
       - shell: |
-          cat <<EOF > $WORKSPACE/hosts
+          INVENTORY_FILE="$WORKSPACE/hosts"
+          cat <<EOF > $INVENTORY_FILE
           127.0.0.2
 
           [virthost]
@@ -169,6 +170,11 @@
       - setup_multinode
       - create_multinode_inventory
       - shell: |
+          # Temporary while we don't have a quickstart project in review.rdoproject.org
+          # Remove when we do.
+          pushd $WORKSPACE
+          git clone https://git.openstack.org/openstack/tripleo-quickstart
+
           # TODO Get quickstart to install these locally
           sudo useradd stack
           sudo wget http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
