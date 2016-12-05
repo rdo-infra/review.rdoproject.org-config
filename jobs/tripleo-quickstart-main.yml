@@ -153,9 +153,9 @@
                   pushd $WORKSPACE/tripleo-quickstart
                   # This is a hack to override Zuul's timeout.
                   # TODO: figure out how to change the timeout in Zuul.
-                  export SWIFT_artifacts_HMAC_BODY=$(echo "SWIFT_artifacts_HMAC_BODY"| sed '5s/.*/2000000000/')
-                  bash ci-scripts/collect-logs.sh {topology} rdoproject &> $WORKSPACE/collect_logs.txt ||
-                      cat $WORKSPACE/collect_logs.txt
+                  export SWIFT_artifacts_HMAC_BODY=$(python -c "import os; l = os.environ['SWIFT_artifacts_HMAC_BODY'].split('\n'); l[4]='2000000000'; print '\n'.join(l)")
+                  bash ci-scripts/collect-logs.sh {topology} rdoproject &> $WORKSPACE/collect_logs.txt
+                  cat $WORKSPACE/collect_logs.txt
                   popd
           script-only-if-succeeded: False
           script-only-if-failed: False
