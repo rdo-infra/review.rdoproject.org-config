@@ -187,7 +187,7 @@
             extension=$(echo $filename | awk -F. '{print $NF}')
             if [ "$extension" = "j2" ]; then
                 # Remove the .spec.j2 extension
-                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD --package-name $(echo $filename | awk 'BEGIN{FS=OFS="."}{NF--; NF--; print}'"
+                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD --package-name $(echo $filename | awk 'BEGIN{FS=OFS="."}{NF--; NF--; print}')"
             fi
           done
           popd
