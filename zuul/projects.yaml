@@ -58,6 +58,7 @@ jobs:
 
   # Only run kolla integration jobs for kolla
   - name: ^gate-weirdo-integration-.*-kolla-.*$
+    voting: false
     skip-if:
     - project: rdo-infra/weirdo
       all-files-match-any:
