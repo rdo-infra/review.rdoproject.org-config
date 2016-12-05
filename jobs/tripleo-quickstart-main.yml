@@ -163,10 +163,6 @@
 - job:
     name: 'tripleo-quickstart-deploy'
     defaults: global
-    scm:
-      - repo-tripleo-common
-      - repo-tripleo-quickstart
-
     builders:
       - setup_ssh
       - oooq_dlrn_build_packages
@@ -174,6 +170,7 @@
       - create_multinode_inventory
       - shell: |
           pushd $WORKSPACE
+          git clone https://git.openstack.org/openstack/tripleo-quickstart
           # TODO Get quickstart to install these locally
           sudo useradd stack
           sudo wget --progress=dot:giga http://buildlogs.centos.org/centos/7/cloud/x86_64/tripleo_images/master/delorean/ironic-python-agent.tar -O /home/stack/ipa.tar
