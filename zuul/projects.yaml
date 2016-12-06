@@ -87,6 +87,10 @@ jobs:
       all-files-match-any:
         - ^.*$
 
+  # scenario004 is not ready to gate yet
+  - name: gate-weirdo-integration-master-puppet-scenario004
+    voting: false
+
   # Only run docs jobs for docs
   - name: ^gate-weirdo-docs$
     files:
