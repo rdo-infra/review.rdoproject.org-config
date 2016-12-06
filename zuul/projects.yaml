@@ -63,7 +63,10 @@ jobs:
     - project: rdo-infra/weirdo
       all-files-match-any:
         - ^playbooks/kolla.*$
-    - project: rdo-infra/ansible-role-weirdo-kolla
+    - project: rdo-infra/ansible-role-weirdo-packstack
+      all-files-match-any:
+        - ^.*$
+    - project: rdo-infra/ansible-role-weirdo-puppet-openstack
       all-files-match-any:
         - ^.*$
 
@@ -73,6 +76,9 @@ jobs:
     - project: rdo-infra/weirdo
       all-files-match-any:
         - ^playbooks/puppet.*$
+    - project: rdo-infra/ansible-role-weirdo-kolla
+      all-files-match-any:
+        - ^.*$
     - project: rdo-infra/ansible-role-weirdo-puppet-openstack
       all-files-match-any:
         - ^.*$
@@ -83,6 +89,9 @@ jobs:
     - project: rdo-infra/weirdo
       all-files-match-any:
         - ^playbooks/packstack.*$
+    - project: rdo-infra/ansible-role-weirdo-kolla
+      all-files-match-any:
+        - ^.*$
     - project: rdo-infra/ansible-role-weirdo-packstack
       all-files-match-any:
         - ^.*$
