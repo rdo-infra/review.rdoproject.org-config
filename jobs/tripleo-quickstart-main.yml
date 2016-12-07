@@ -132,7 +132,8 @@
           # run. These nodes have been set up according to the ready-script
           # listed in the node definition used for the job.
           while read sub; do
-            echo $sub >> $INVENTORY_FILE
+            echo -n $sub >> $INVENTORY_FILE
+            echo " ansible_user=jenkins" >> $INVENTORY_FILE
           done < /etc/nodepool/sub_nodes_private
 
           echo '==== Multinode Inventory ===='
