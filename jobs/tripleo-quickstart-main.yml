@@ -147,17 +147,17 @@
               - shell: |
                   set -eux
 
-                  # use experimental quickstart-extras change
-                  cd $WORKSPACE
-                  git clone https://git.openstack.org/openstack/tripleo-quickstart-extras || true
-                  cd tripleo-quickstart-extras
-                  git fetch https://git.openstack.org/openstack/tripleo-quickstart-extras refs/changes/34/409134/1 && git checkout FETCH_HEAD || true
-                  cd $WORKSPACE/tripleo-quickstart
-                  sed -i 's|git+https://git.openstack.org/openstack|file:..|' quickstart-extras-requirements.txt
+                  pushd $WORKSPACE/tripleo-quickstart
                   # This is a hack to override Zuul's timeout.
                   # TODO: figure out how to change the timeout in Zuul.
                   export SWIFT_artifacts_HMAC_BODY=$(python -c "import os; l = os.environ['SWIFT_artifacts_HMAC_BODY'].split('\n'); l[4]='2000000000'; print '\n'.join(l)")
                   bash ci-scripts/collect-logs.sh {topology} rdoproject
+                  # trying to upload the logs in different ways
+                  /usr/local/bin/zuul_swift_upload.py --verbose --name artifacts --delete-after 2678400 /home/jenkins/workspace/tripleo-quickstart-deploy/tripleo-quickstart/collected_files/*
+                  /usr/local/bin/zuul_swift_upload.py --verbose --name artifacts --delete-after 2678400 collected_files/*
+                  mv collected_files artifacts
+                  /usr/local/bin/zuul_swift_upload.py --verbose --name artifacts --delete-after 2678400 artifacts
+                  popd
           script-only-if-succeeded: False
           script-only-if-failed: False
 
