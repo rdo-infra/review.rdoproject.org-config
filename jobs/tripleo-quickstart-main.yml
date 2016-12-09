@@ -153,7 +153,7 @@
                   cd tripleo-quickstart-extras
                   git fetch https://git.openstack.org/openstack/tripleo-quickstart-extras refs/changes/34/409134/1 && git checkout FETCH_HEAD || true
                   cd $WORKSPACE/tripleo-quickstart
-                  sed 's|git+https://git.openstack.org/openstack|file:..|' quickstart-extras-requirements.txt
+                  sed -i 's|git+https://git.openstack.org/openstack|file:..|' quickstart-extras-requirements.txt
                   # This is a hack to override Zuul's timeout.
                   # TODO: figure out how to change the timeout in Zuul.
                   export SWIFT_artifacts_HMAC_BODY=$(python -c "import os; l = os.environ['SWIFT_artifacts_HMAC_BODY'].split('\n'); l[4]='2000000000'; print '\n'.join(l)")
@@ -248,7 +248,7 @@
                   --working-dir $WORKSPACE/ \
                   --no-clone \
                   --retain-inventory \
-                  --tags provision,undercloud-scripts,undercloud-install,undercloud-post-install,overcloud-scripts \
+                  --tags provision,undercloud-scripts \
                   --teardown none \
                   --ansible-debug \
                   --release master \
