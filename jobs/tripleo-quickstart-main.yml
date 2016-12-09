@@ -155,6 +155,8 @@
                   # This is a hack to override Zuul's timeout.
                   # TODO: figure out how to change the timeout in Zuul.
                   export SWIFT_artifacts_HMAC_BODY=$(python -c "import os; l = os.environ['SWIFT_artifacts_HMAC_BODY'].split('\n'); l[4]='2000000000'; print '\n'.join(l)")
+                  # experiment with the zuul upload script
+                  sed -i 's|{{ artcl_swift_delete_after }} {{ artcl_collect_dir }}|{{ artcl_swift_delete_after }} {{ artcl_collect_dir }}/\*|' $WORKSPACE/usr/local/share/ansible/roles/collect-logs/tasks/publish.yml
                   bash ci-scripts/collect-logs.sh {topology} rdoproject
                   popd
           script-only-if-succeeded: False
