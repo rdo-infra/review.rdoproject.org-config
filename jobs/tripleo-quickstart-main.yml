@@ -139,10 +139,6 @@
           echo '==== Multinode Inventory ===='
           cat $INVENTORY_FILE
 
-- builder:
-    name: 'tripleo-quickstart-collect-logs'
-    builders:
-
 - publisher:
     name: tripleo-quickstart-collect-logs
     publishers:
@@ -151,14 +147,17 @@
               - shell: |
                   set -eux
 
-                  pushd $WORKSPACE/tripleo-quickstart
+                  # use experimental quickstart-extras change
+                  cd $WORKSPACE
+                  git clone https://git.openstack.org/openstack/tripleo-quickstart-extras || true
+                  cd tripleo-quickstart-extras
+                  git fetch https://git.openstack.org/openstack/tripleo-quickstart-extras refs/changes/34/409134/1 && git checkout FETCH_HEAD || true
+                  cd $WORKSPACE/tripleo-quickstart
+                  sed 's|git+https://git.openstack.org/openstack|file:..|' quickstart-extras-requirements.txt
                   # This is a hack to override Zuul's timeout.
                   # TODO: figure out how to change the timeout in Zuul.
                   export SWIFT_artifacts_HMAC_BODY=$(python -c "import os; l = os.environ['SWIFT_artifacts_HMAC_BODY'].split('\n'); l[4]='2000000000'; print '\n'.join(l)")
-                  # experiment with the zuul upload script
-                  sed -i 's|{{ artcl_swift_delete_after }} {{ artcl_collect_dir }}|{{ artcl_swift_delete_after }} {{ artcl_collect_dir }}/\*|' $WORKSPACE/usr/local/share/ansible/roles/collect-logs/tasks/publish.yml
                   bash ci-scripts/collect-logs.sh {topology} rdoproject
-                  popd
           script-only-if-succeeded: False
           script-only-if-failed: False
 
