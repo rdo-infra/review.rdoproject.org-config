@@ -13,7 +13,12 @@ pipelines:
         - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify|check-rdo|verify-rdo)
+    success:
+      gerrit:
+        verified: 1
     failure:
+      gerrit:
+        verified: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
@@ -65,5 +70,5 @@ projects:
       - DLRN-rpmbuild
 
   - name: openstack/rpm-packaging
-    openstack-check-verified:
+    openstack-check:
       - DLRN-rpmbuild-rpm-packaging
