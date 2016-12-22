@@ -209,6 +209,14 @@ projects:
     experimental:
      - DLRN-rpmbuild-tripleo-ci
 
+  - name: openstack/ansible-pacemaker-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/ansible-pacemaker
+    template:
+      - name: package-check-jobs
+
   - name: openstack/aodhclient
     template:
       - name: package-check-jobs
