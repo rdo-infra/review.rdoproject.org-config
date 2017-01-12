@@ -19,6 +19,9 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-)|((\w+)-rdo)$
 
+  - name: ^ocata-distgit-cbs-(validate|final-build)$
+    branch: ^ocata-rdo$
+
   - name: ^newton-distgit-cbs-(validate|final-build)$
     branch: ^newton-rdo$
 
@@ -123,9 +126,11 @@ project-templates:
     check:
       - DLRN-rpmbuild
       - newton-distgit-cbs-validate
+      - ocata-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
       - newton-distgit-cbs-final-build
+      - ocata-distgit-cbs-final-build
 
   - name: weirdo-gate-jobs
     check:
