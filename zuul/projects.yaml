@@ -22,6 +22,9 @@ jobs:
   - name: ^newton-distgit-cbs-(validate|final-build)$
     branch: ^newton-rdo$
 
+  - name: ^mitaka-distgit-cbs-(validate|final-build)$
+    branch: ^mitaka-rdo$
+
   - name: ^rdopkg-unittests$
     voting: true
 
@@ -122,9 +125,11 @@ project-templates:
   - name: package-distgit-check-jobs
     check:
       - DLRN-rpmbuild
+      - mitaka-distgit-cbs-validate
       - newton-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
+      - mitaka-distgit-cbs-final-build
       - newton-distgit-cbs-final-build
 
   - name: weirdo-gate-jobs

@@ -1,9 +1,9 @@
-- job:
-    name: 'newton-distgit-cbs-validate'
+- job-template:
+    name: '{openstack_release}-distgit-cbs-validate'
     defaults: global
     builders:
       - base-pkg-validation:
-          buildtarget: "cloud7-openstack-newton-el7"
+          buildtarget: "cloud7-openstack-{openstack_release}-el7"
           kojicmd: "cbs"
       - shell: |
           # rpmfactory-temp-release-1.0-1 is built by the base-pkg-validation builder
@@ -13,7 +13,7 @@
           # Packages in the temp repository contained only the packages fetched from CBS
           # This should list the packages we just build in that Koji task
           yum --disablerepo='*' --enablerepo='temp' list available
-          pkgs=$(yum --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
+          pkgs=$(yum --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {{printf "%s ", $1}}')
           # Here we install locally the kust built packages
           sudo yum install -y $pkgs
     triggers:
@@ -24,6 +24,14 @@
            credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
            variable: CLIENTSECRET
     node: rdo-weirdo-centos-7
+
+- project:
+    name: distgit-cbs-validate
+    openstack_release:
+      - newton
+      - mitaka
+    jobs:
+      - '{openstack_release}-distgit-cbs-validate'
 
 #- job:
 #    name: 'rpmlint-validate'
@@ -61,12 +69,12 @@
 #           variable: CLIENTSECRET
 #    node: rdo-centos7-liberty
 #
-- job:
-    name: 'newton-distgit-cbs-final-build'
+- job-template:
+    name: '{openstack_release}-distgit-cbs-final-build'
     defaults: global
     builders:
       - base-pkg-exportation:
-          buildtarget: "cloud7-openstack-newton-el7"
+          buildtarget: "cloud7-openstack-{openstack_release}-el7"
           kojicmd: "cbs"
       - shell: |
           echo "Nothing more to do. Exit 0."
@@ -78,3 +86,11 @@
            credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
            variable: CLIENTSECRET
     node: rdo-weirdo-centos-7
+
+- project:
+    name: distgit-cbs-final-build
+    openstack_release:
+      - newton
+      - mitaka
+    jobs:
+      - '{openstack_release}-distgit-cbs-final-build'
