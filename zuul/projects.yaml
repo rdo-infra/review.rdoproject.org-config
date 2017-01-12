@@ -17,10 +17,10 @@ pipelines:
 
 jobs:
   - name: ^DLRN-rpmbuild$
-    branch: ^master|(rpm-)|((newton)-rdo)$
+    branch: ^master|(rpm-)|((mitaka|newton)-rdo)$
 
   - name: ^newton-distgit-cbs-(validate|final-build)$
-    branch: ^newton-rdo$
+    branch: ^(mitaka|newton)-rdo$
 
   - name: ^rdopkg-unittests$
     voting: true
