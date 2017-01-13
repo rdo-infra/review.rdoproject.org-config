@@ -27,7 +27,9 @@
       - shell: |
           set -e
 
-          sudo yum -y install python-tox libffi-dev libssl-dev libyaml-dev
+          sudo yum -y install centos-release-openstack-newton
+
+          sudo yum -y install python-tox libffi-devel openssl-devel libyaml-devel
 
           pushd $ZUUL_PROJECT
           tox
