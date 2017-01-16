@@ -25,7 +25,6 @@
           PACKAGES_UPDATED_MASTER=""
           PACKAGES_UPDATED_NEWTON=""
           PACKAGES_UPDATED_MITAKA=""
-          PACKAGES_UPDATED_LIBERTY=""
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
 
@@ -39,9 +38,6 @@
               fi
               if [[ -n $(echo "$line" | grep -w mitaka) ]]; then
                   PACKAGES_UPDATED_MITAKA="$PACKAGES_UPDATED_MITAKA $PKGNAME"
-              fi
-              if [[ -n $(echo "$line" | grep -w liberty) ]]; then
-                  PACKAGES_UPDATED_LIBERTY="$PACKAGES_UPDATED_LIBERTY $PKGNAME"
               fi
           done <<< "${TAGS_DIFF}"
           popd
@@ -74,13 +70,6 @@
               fi
               # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
               rm -f DLRN/data/repos/current
-          fi
-          if [ -n "${PACKAGES_UPDATED_LIBERTY}" ]; then
-              timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh liberty "${PACKAGES_UPDATED_LIBERTY}"
-              ret1=$?
-              if [ $ret1 -ne 0 ]; then
-                  ret=$ret1
-              fi
           fi
           popd
 
