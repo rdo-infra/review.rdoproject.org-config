@@ -1,53 +1,35 @@
-- job:
-    name: 'centos-opstools-doc'
+- builder:
+    name: 'centos-opstools-virtualenv'
     defaults: global
     builders:
-      - prepare-workspace
       - shell: |
-          set +e
-          mkdir $WORKSPACE/artifacts
+          set -e
+          sudo yum -y install python-virtualenv
+          virtualenv $ZUUL_PROJECT/venv
+          source $ZUUL_PROJECT/venv/bin/activate
+          pip install --upgrade pip tox
 
-          sudo yum -y install rubygems
-          gem install asciidoctor
-
-          pushd $ZUUL_PROJECT
-          ~/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/artifacts
-          popd
-    publishers:
-      - zuul-swift-upload
-    triggers:
-      - zuul
-    node: bare-centos-7
+- builder:
+    name: 'centos-opstools-bindeps'
+    defaults: global
+    builders:
+      - shell: |
+          set -e
+          sudo yum -y install centos-release-openstack-newton
+          sudo yum -y install libffi-devel openssl-devel libyaml-devel
 
 - job:
     name: 'centos-opstools-tox'
     defaults: global
     builders:
       - prepare-workspace
+      - centos-opstools-bindeps
+      - centos-opstools-virtualenv
       - shell: |
           set -e
-
-          sudo yum -y install centos-release-openstack-newton
-
-          sudo yum -y install python-tox libffi-devel openssl-devel libyaml-devel
-
           pushd $ZUUL_PROJECT
+          source $ZUUL_PROJECT/venv/bin/activate
           tox
-          popd
-    triggers:
-      - zuul
-    node: bare-centos-7
-
-- job:
-    name: 'centos-opstools-runtests'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          set +e
-
-          pushd $ZUUL_PROJECT
-          sh ./run-tests.sh
           popd
     triggers:
       - zuul
