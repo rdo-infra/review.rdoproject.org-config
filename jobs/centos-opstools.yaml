@@ -27,8 +27,8 @@
       - centos-opstools-virtualenv
       - shell: |
           set -e
-          pushd $ZUUL_PROJECT
           source $ZUUL_PROJECT/venv/bin/activate
+          pushd $ZUUL_PROJECT
           tox
           popd
     triggers:
