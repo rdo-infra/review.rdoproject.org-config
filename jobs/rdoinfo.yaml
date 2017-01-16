@@ -54,6 +54,8 @@
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
+              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
+              rm -f DLRN/data/repos/current
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
               timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
@@ -61,6 +63,8 @@
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
+              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
+              rm -f DLRN/data/repos/current
           fi
           if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
               timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
@@ -68,6 +72,8 @@
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
+              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
+              rm -f DLRN/data/repos/current
           fi
           if [ -n "${PACKAGES_UPDATED_LIBERTY}" ]; then
               timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh liberty "${PACKAGES_UPDATED_LIBERTY}"
