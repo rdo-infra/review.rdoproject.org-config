@@ -45,31 +45,31 @@
           pushd DLRN
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
-              timeout --signal=SIGKILL 3600  /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
+              timeout --signal=SIGKILL 5400  /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
-              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
-              rm -f DLRN/data/repos/current
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -f DLRN/data
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
-              timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
+              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
-              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
-              rm -f DLRN/data/repos/current
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -f DLRN/data
           fi
           if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
-              timeout --signal=SIGKILL 3600 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
+              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
               fi
-              # Make sure the current/ symlink is removed, to avoid issues when building for multiple branches
-              rm -f DLRN/data/repos/current
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -f DLRN/data
           fi
           popd
 
