@@ -51,7 +51,7 @@
                   ret=$ret1
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
-              rm -f DLRN/data
+              rm -rf DLRN/data
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
               timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
@@ -60,7 +60,7 @@
                   ret=$ret1
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
-              rm -f DLRN/data
+              rm -rf DLRN/data
           fi
           if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
               timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
@@ -69,7 +69,7 @@
                   ret=$ret1
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
-              rm -f DLRN/data
+              rm -rf DLRN/data
           fi
           popd
 
