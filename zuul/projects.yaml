@@ -2131,8 +2131,11 @@ projects:
       - name: weirdo-gate-jobs
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
-    template:
-      - name: noop
+    check:
+      - gate-rdo-kolla-build-ansible-lint
+      - gate-rdo-kolla-build-containers
+    gate:
+      - gate-rdo-kolla-build-ansible-lint
 
   - name: rdo-infra/ansible-role-weirdo-common
     template:
