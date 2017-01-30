@@ -35,3 +35,66 @@
         - file:
            credential-id: b578a3ee-cf49-4250-899a-0bc7f84363c2
            variable: JJB_CONFIG
+
+- job:
+    name: gate-rdo-kolla-build-ansible-lint
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e
+          virtualenv $WORKSPACE/ansible-lint
+          source $WORKSPACE/ansible-lint/bin/activate
+          pip install ansible-lint
+          find $WORKSPACE/$ZUUL_PROJECT -type f -regex '.*.y[a]?ml' -print0 | xargs -t -n1 -0 ansible-lint -x ANSIBLE0006,ANSIBLE0010,ANSIBLE0012,ANSIBLE0013,ANSIBLE0014
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: gate-rdo-kolla-build-containers
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e
+          mkdir $WORKSPACE/roles
+          ln -s $WORKSPACE/$ZUUL_PROJECT $WORKSPACE/roles/
+
+          sudo yum -y install python-docker-py
+          virtualenv $WORKSPACE/ansible
+          source $WORKSPACE/ansible/bin/activate
+          # Unpin when https://github.com/ansible/ansible/issues/20400 is addressed
+          pip install ansible==2.2.0.0 ara
+
+          export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+          export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
+          export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
+          export ANSIBLE_LIBRARY=$ara_location/plugins/modules
+          export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
+
+          export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+
+          cat << EOF > ${WORKSPACE}/playbook.yml
+          ---
+          - name: Build Kolla images
+            hosts: localhost
+            tasks:
+              - include_role:
+                  name: "kolla-build"
+          EOF
+          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "build"
+    triggers:
+      - zuul
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/artifacts
+                  export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+                  sudo -E $WORKSPACE/ansible/bin/ara generate $WORKSPACE/artifacts/ara
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" artifacts
+            - zuul-swift-upload
+    node: bare-centos-7
