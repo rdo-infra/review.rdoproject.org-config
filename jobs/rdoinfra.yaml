@@ -61,8 +61,9 @@
           mkdir $WORKSPACE/roles
           ln -s $WORKSPACE/$ZUUL_PROJECT/ $WORKSPACE/roles/kolla-build
 
-          sudo yum -y install python-docker-py
-          virtualenv $WORKSPACE/ansible
+          sudo yum -y install python-docker-py libselinux-python
+          # Need to inherit system-site-packages for libselinux-python and python-yum
+          virtualenv --system-site-packages $WORKSPACE/ansible
           source $WORKSPACE/ansible/bin/activate
           # Unpin when https://github.com/ansible/ansible/issues/20400 is addressed
           pip install ansible==2.2.0.0 ara
