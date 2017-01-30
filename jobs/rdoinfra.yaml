@@ -59,7 +59,7 @@
       - shell: |
           set -e
           mkdir $WORKSPACE/roles
-          ln -s $WORKSPACE/$ZUUL_PROJECT $WORKSPACE/roles/
+          ln -s $WORKSPACE/$ZUUL_PROJECT/ $WORKSPACE/roles/kolla-build
 
           sudo yum -y install python-docker-py
           virtualenv $WORKSPACE/ansible
@@ -79,6 +79,12 @@
           ---
           - name: Build Kolla images
             hosts: localhost
+            become: yes
+            become_user: root
+            vars:
+              kolla_rdo_images:
+                - openstack-base
+                - nova
             tasks:
               - include_role:
                   name: "kolla-build"
