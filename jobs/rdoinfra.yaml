@@ -90,7 +90,7 @@
               - include_role:
                   name: "kolla-build"
           EOF
-          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "build"
+          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
     triggers:
       - zuul
     publishers:
