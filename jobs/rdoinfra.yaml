@@ -102,6 +102,8 @@
                   sudo -E $WORKSPACE/ansible/bin/ara generate $WORKSPACE/artifacts/ara
 
                   # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" artifacts
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
             - zuul-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
     node: bare-centos-7
