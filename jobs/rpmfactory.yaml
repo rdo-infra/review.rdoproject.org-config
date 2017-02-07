@@ -16,6 +16,7 @@
     builders:
       - prepare-rpmfactory-workspace
       - shell: |
+          sudo yum -y install centos-packager
           git clone http://review.rdoproject.org/r/gating_scripts
           cd gating_scripts
           ./pkg-validate.sh {buildtarget} {kojicmd}
