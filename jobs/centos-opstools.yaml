@@ -7,7 +7,7 @@
           sudo yum -y install python-virtualenv
           virtualenv $ZUUL_PROJECT/venv
           source $ZUUL_PROJECT/venv/bin/activate
-          pip install --upgrade pip tox virtualenv
+          pip install --upgrade pip tox
 
 - builder:
     name: 'centos-opstools-bindeps'
