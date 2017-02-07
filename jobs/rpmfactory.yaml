@@ -27,6 +27,7 @@
     builders:
       - prepare-rpmfactory-workspace
       - shell: |
+          sudo yum -y install centos-packager createrepo
           git clone http://review.rdoproject.org/r/gating_scripts
           cd gating_scripts
           ./pkg-export.sh {buildtarget} {kojicmd}
