@@ -4,7 +4,7 @@
     builders:
       - shell: |
           set -e
-          sudo yum -y install python-virtualenv
+          sudo -H pip install -U virtualenv
           virtualenv $ZUUL_PROJECT/venv
           source $ZUUL_PROJECT/venv/bin/activate
           pip install --upgrade pip tox virtualenv
