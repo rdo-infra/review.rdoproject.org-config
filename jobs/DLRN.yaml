@@ -143,6 +143,8 @@
           # Setup virtualenv with tox and use it
           tox -epy27 --notest
           . .tox/py27/bin/activate
+          # Use latest pymod2pkg from Git, to avoid waiting for new releases
+          pip install --upgrade git+https://github.com/openstack/pymod2pkg
           # Prepare config
           baseurl=http://rpm-packaging-ci.rdoproject.org/repos/
           repo="http://github.com/openstack/rpm-packaging"
