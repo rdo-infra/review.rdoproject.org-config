@@ -146,7 +146,18 @@
           # Use latest pymod2pkg from Git, to avoid waiting for new releases
           pip install --upgrade git+https://github.com/openstack/pymod2pkg
           # Prepare config
-          baseurl=http://rpm-packaging-ci.rdoproject.org/repos/
+          if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then    # stable branch
+              repo_branch=$(sed "s#stable/##" <<< "${ZUUL_BRANCH}")
+              # We only support Ocata and later as stable repos
+              if [ "{$repo_branch}" = "newton" ]; then
+                exit 0
+              fi
+              baseurl=http://rpm-packaging-ci.rdoproject.org/${repo_branch}/repos/
+          else
+              # master
+              baseurl=http://rpm-packaging-ci.rdoproject.org/repos/
+          fi
+
           repo="http://github.com/openstack/rpm-packaging"
           directory="/openstack"
           skip="openstack-macros"
@@ -162,6 +173,7 @@
           sed -i "s%pkginfo_driver=.*%pkginfo_driver=${pkginfo_driver}%" projects.ini
           sed -i "s%baseurl=.*%baseurl=${baseurl}%" projects.ini
           sed -i "s%source=.*%source=${branch}%" projects.ini
+          sed -i "s%distro=.*%distro=${branch}%" projects.ini
 
           # Prepare directories
           mkdir -p data/repos
