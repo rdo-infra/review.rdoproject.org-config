@@ -75,7 +75,7 @@
             export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
 
             # Generate ARA playbook analysis (don't fail job if generation fails)
-            sudo -E weirdo/.tox/ansible-playbook/bin/ara generate /var/log/weirdo/ara || true
+            sudo -E weirdo/.tox/ansible-playbook/bin/ara generate html /var/log/weirdo/ara || true
 
             mkdir artifacts
             sudo cp -a /var/log/weirdo/* artifacts/
