@@ -25,13 +25,17 @@
           PACKAGES_UPDATED_MASTER=""
           PACKAGES_UPDATED_NEWTON=""
           PACKAGES_UPDATED_MITAKA=""
+          PACKAGES_UPDATED_OCATA=""
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
 
           while read line; do
               PKGNAME=$(awk '{print $1}' <<< $line)
-              if [[ -n $(echo "$line" | grep -w ocata-uc) ]]; then
+              if [[ -n $(echo "$line" | grep -w pike-uc) ]]; then
                   PACKAGES_UPDATED_MASTER="$PACKAGES_UPDATED_MASTER $PKGNAME"
+              fi
+              if [[ -n $(echo "$line" | grep -w ocata) ]]; then
+                  PACKAGES_UPDATED_OCATA="$PACKAGES_UPDATED_OCATA $PKGNAME"
               fi
               if [[ -n $(echo "$line" | grep -w newton) ]]; then
                   PACKAGES_UPDATED_NEWTON="$PACKAGES_UPDATED_NEWTON $PKGNAME"
@@ -45,7 +49,16 @@
           pushd DLRN
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
-              timeout --signal=SIGKILL 5400  /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata-uc "${PACKAGES_UPDATED_MASTER}"
+              timeout --signal=SIGKILL 5400  /opt/nodepool-scripts/rdoinfo-DLRN.sh pike-uc "${PACKAGES_UPDATED_MASTER}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -rf data
+          fi
+          if [ -n "${PACKAGES_UPDATED_OCATA}" ]; then
+              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata "${PACKAGES_UPDATED_OCATA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -151,6 +164,7 @@
     name: rdoinfo-upper-constraints
     branch:
       - master
+      - ocata
       - newton
     jobs:
       - 'rdoinfo-upper-constraints-update-{branch}'
