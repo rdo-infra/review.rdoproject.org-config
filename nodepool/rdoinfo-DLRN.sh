@@ -3,7 +3,7 @@ set -ex
 
 # Simple script to test several DLRN packages
 GIT_BASE_URL="https://review.rdoproject.org/r/p"
-TAG="${1:-ocata-uc}"
+TAG="${1:-pike-uc}"
 PACKAGES_TO_BUILD="${2:-python-glanceclient}"
 PROJECT_DISTRO_BRANCH="rpm-master"
 
@@ -16,18 +16,18 @@ target="centos"
 baseurl="http://trunk.rdoproject.org/centos7/"
 src="master"
 branch=""
-tag="ocata-uc"
+tag="pike-uc"
 
 # If we're testing a commit on a specific branch, make sure we're using it
-if [[ "${TAG}" != "ocata-uc" ]]; then
+if [[ "${TAG}" != "pike-uc" ]]; then
     branch=$(echo $TAG | awk -F- '{print $1}')
     tag=$TAG
     baseurl="http://trunk.rdoproject.org/${branch}/centos7/"
     src="stable/${branch}"
-    if [ $TAG = "newton" ]; then
-        PROJECT_DISTRO_BRANCH='newton-rdo'
-    else
+    if [ $TAG = "mitaka" ]; then
         PROJECT_DISTRO_BRANCH="rpm-${TAG}"
+    else
+        PROJECT_DISTRO_BRANCH="${TAG}-rdo"
     fi
 fi
 
