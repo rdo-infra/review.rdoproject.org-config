@@ -10,3 +10,6 @@ commentlinks:
   - name: upstreamid
     match: 'Upstream-Id: (I[0-9a-f]{8,40})'
     html: 'Upstream-Id: <a href=\"http://review.openstack.org/#q,$1,n,z\">$1</a>'
+  - name: rhbz
+    match: 'rhbz#(\\d+)'
+    html: '<a href=\"https://bugzilla.redhat.com/show_bug.cgi?id=$1\">rhbz#$1</a>'
