@@ -1,10 +1,10 @@
 labels:
   - name: bare-centos-7
     image: bare-centos-7
-    min-ready: 2
+    min-ready: 4
     providers:
-      - name: rcip-dev
       - name: trystack
+      - name: trystack-temp
   - name: bare-centos-7-2-node
     image: bare-centos-7
     ready-script: multinode_setup.sh
