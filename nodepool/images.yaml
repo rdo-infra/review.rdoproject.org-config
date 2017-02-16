@@ -1,21 +1,21 @@
  - provider: rcip-dev
    images:
     - name: bare-centos-7
-      base-image: 'CentOS 7 (1605) x86_64'
+      base-image: 'CentOS 7 (1701) x86_64'
       username: centos
       private-key: /var/lib/nodepool/.ssh/id_rsa
       setup: rdo-base.sh
       min-ram: 8192
       name-filter: m1.rdo-ci
     - name: rdo-weirdo-centos-7
-      base-image: 'CentOS 7 (1605) x86_64'
+      base-image: 'CentOS 7 (1701) x86_64'
       username: centos
       private-key: /var/lib/nodepool/.ssh/id_rsa
       setup: rdo-weirdo.sh
       min-ram: 8192
       name-filter: m1.rdo-ci
     - name: rdo-centos7-liberty
-      base-image: 'CentOS 7 (1605) x86_64'
+      base-image: 'CentOS 7 (1701) x86_64'
       username: centos
       private-key: /var/lib/nodepool/.ssh/id_rsa
       setup: rdo-centos7-liberty.sh
@@ -24,14 +24,14 @@
  - provider: trystack
    images:
     - name: bare-centos-7
-      base-image: 'CentOS 7 (1605) x86_64'
+      base-image: 'CentOS 7 (1701) x86_64'
       username: centos
       private-key: /var/lib/nodepool/.ssh/id_rsa
       setup: rdo-base.sh
       min-ram: 8192
       name-filter: m1.rdo-ci
     - name: rdo-centos7-liberty
-      base-image: 'CentOS 7 (1605) x86_64'
+      base-image: 'CentOS 7 (1701) x86_64'
       username: centos
       private-key: /var/lib/nodepool/.ssh/id_rsa
       setup: rdo-centos7-liberty.sh
