@@ -209,7 +209,7 @@
             exit 0
           fi
 
-          timeout --signal=SIGKILL 3600 dlrn --config-file projects.ini --head-only $PACKAGES_TO_BUILD --dev --local --verbose-mock
+          timeout --signal=SIGKILL 5400 dlrn --config-file projects.ini --head-only $PACKAGES_TO_BUILD --dev --local --verbose-mock
           ret=$?
 
           mkdir -p logs
