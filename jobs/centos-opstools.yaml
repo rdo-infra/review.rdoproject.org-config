@@ -34,3 +34,24 @@
     triggers:
       - zuul
     node: bare-centos-7
+
+- job:
+    name: 'centos-opstools-doc'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          mkdir $WORKSPACE/artifacts
+
+          sudo yum -y install rubygems
+          gem install asciidoctor
+
+          pushd $ZUUL_PROJECT
+          ~/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/artifacts
+          popd
+    publishers:
+      - zuul-swift-upload
+    triggers:
+      - zuul
+    node: bare-centos-7
