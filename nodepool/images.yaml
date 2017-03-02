@@ -37,15 +37,6 @@
       setup: rdo-centos7-liberty.sh
       min-ram: 8192
       name-filter: m1.rdo-ci
- - provider: trystack-temp
-   images:
-    - name: bare-centos-7
-      base-image: 'CentOS 7 (1701) x86_64'
-      username: centos
-      private-key: /var/lib/nodepool/.ssh/id_rsa
-      setup: rdo-base.sh
-      min-ram: 4096
-      name-filter: m1.rdo-ci
  - provider: rdo-cloud-beta
    images:
     - name: bare-centos-7
