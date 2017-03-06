@@ -51,7 +51,14 @@ for PACKAGE in ${PACKAGES_TO_BUILD}; do
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
     if [ -e /usr/bin/zuul-cloner ]; then
+        set +e
         zuul-cloner --workspace data/ $GIT_BASE_URL $PROJECT_DISTRO --branch $PROJECT_DISTRO_BRANCH
+        if [ $? -ne 0]; then
+            set -e
+            # zuul-cloner cannot fallback to rpm-master, so we simulate that
+            zuul-cloner --workspace data/ $GIT_BASE_URL $PROJECT_DISTRO --branch rpm-master
+        fi
+        set -e
         mv data/$PROJECT_DISTRO data/$PROJECT_DISTRO_DIR
     else
         # We're outside the gate, just do a regular git clone
