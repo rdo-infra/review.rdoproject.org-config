@@ -21,6 +21,10 @@
           set +e -x
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
+          # FIXME(jpena): patch zuul-cloner according to https://review.openstack.org/442370
+          pushd /usr/lib/python2.7/site-packages
+          curl 'https://review.openstack.org/gitweb?p=openstack-infra/zuul.git;a=patch;h=a733b766c728ecc01a3471031b9e1ac2c2e72a66' | patch -p1
+          popd
 
           CURRENT_MASTER_TAG="pike-uc"
 
