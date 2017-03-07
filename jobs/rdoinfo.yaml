@@ -21,6 +21,8 @@
           set +e -x
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
+          # FIXME(jpena): patch zuul-cloner according to https://review.openstack.org/442370
+          sudo sed -i "s/fallback_branch = 'master'/fallback_branch = repo.createRepoObject\(\).heads\[0\].name/g" /usr/lib/python2.7/site-packages/zuul/lib/cloner.py
 
           CURRENT_MASTER_TAG="pike-uc"
 
