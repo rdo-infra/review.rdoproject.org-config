@@ -1,0 +1,101 @@
+resources:
+  projects:
+    RDO:
+      description: OpenStack packaged by the RDO Community for the Enterprise Linux communities
+      website: https://www.rdoproject.org/
+      documentation: https://www.rdoproject.org/documentation/
+      mailing-lists:
+      - rdo-list@redhat.com
+      source-repositories: []
+  groups:
+    rdo-provenpackagers:
+      description: ''
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - dms@redhat.com
+      - emilien@redhat.com
+      - flepied@redhat.com
+      - jruzicka@redhat.com
+      - jpena@redhat.com
+      - mrunge@redhat.com
+      - admin@review.rdoproject.org
+      - hguemar@fedoraproject.org
+      - trown@redhat.com
+    rdo-superusers:
+      description: ''
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - dms@redhat.com
+      - jpena@redhat.com
+      - admin@review.rdoproject.org
+      - hguemar@fedoraproject.org
+      - trown@redhat.com
+  acls:
+    rdo-upstream-mirror:
+      file: |
+        [access "refs/*"]
+            read = group rdo-provenpackagers
+            owner = group rdo-superusers
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-provenpackagers
+            label-Code-Review = -2..+2 group rdo-superusers
+            submit = group rdo-superusers
+            read = group Registered Users
+            read = group rdo-provenpackagers
+            label-Verified = -2..+0 group rdo-superusers
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+0 group rdo-provenpackagers
+            label-Workflow = -1..+0 group rdo-superusers
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-provenpackagers
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = fast forward only
+      groups:
+      - rdo-superusers
+      - rdo-provenpackagers
+    rdo-distgit:
+      file: |
+        [access "refs/*"]
+            read = group rdo-provenpackagers
+            owner = group rdo-superusers
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-provenpackagers
+            label-Code-Review = -2..+2 group rdo-superusers
+            label-Verified = -2..+2 group rdo-superusers
+            label-Workflow = -1..+1 group rdo-provenpackagers
+            label-Workflow = -1..+1 group rdo-superusers
+            label-Workflow = -1..+0 group Registered Users
+            submit = group rdo-superusers
+            read = group Registered Users
+            read = group rdo-provenpackagers
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-provenpackagers
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-superusers
+      - rdo-provenpackagers
+  repos:
+    openstack/barbicanclient:
+      acl: rdo-upstream-mirror
+      description: Mirror of upstream barbicanclient (mirror + patches)
+    openstack/barbicanclient-distgit:
+      acl: rdo-distgit
+      description: Packaging of upstream barbicanclient
+    openstack/barbican:
+      acl: rdo-upstream-mirror
+      description: Mirror of upstream barbican (mirror + patches)
+    openstack/barbican-distgit:
+      acl: rdo-distgit
+      description: Packaging of upstream barbican

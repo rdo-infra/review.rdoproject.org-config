@@ -8170,38 +8170,6 @@ resources:
       groups:
       - puppet/puppet-midonet_openstack-distgit-core
       - puppet/puppet-midonet_openstack-distgit-ptl
-    7fa58f802338c97c1cb8efe83e7f9836:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/barbicanclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/barbicanclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/barbicanclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/barbicanclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/barbicanclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/barbicanclient-distgit-core
-            label-Workflow = -1..+1 group openstack/barbicanclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/barbicanclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/barbicanclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/barbicanclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/barbicanclient-distgit-ptl
-      - rdo-core
     81a6ca67ffe13c4ce5652940d7cd78d2:
       file: |
         [access "refs/*"]
@@ -9754,38 +9722,6 @@ resources:
       groups:
       - openstack/networking-l2gw-core
       - openstack/networking-l2gw-ptl
-    9990adbb68131e1df6080a0984286e43:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/barbican-distgit-core
-          read = group rdo-core
-          owner = group openstack/barbican-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/barbican-distgit-core
-            label-Code-Review = -2..+2 group openstack/barbican-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/barbican-distgit-ptl
-            label-Workflow = -1..+1 group openstack/barbican-distgit-core
-            label-Workflow = -1..+1 group openstack/barbican-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/barbican-distgit-ptl
-            read = group Registered Users
-            read = group openstack/barbican-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/barbican-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/barbican-distgit-ptl
-      - rdo-core
     99f667777aee0f759310784cee7fe5c6:
       file: |
         [project]
@@ -12135,32 +12071,6 @@ resources:
       groups:
       - openstack/zaqar-core
       - openstack/zaqar-ptl
-    bb9356aa26552980b6b9347de8be1c8b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/barbicanclient-core
-          owner = group openstack/barbicanclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/barbicanclient-core
-            label-Code-Review = -2..+2 group openstack/barbicanclient-ptl
-            submit = group openstack/barbicanclient-ptl
-            read = group Registered Users
-            read = group openstack/barbicanclient-core
-            label-Verified = -2..+0 group openstack/barbicanclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/barbicanclient-core
-            label-Workflow = -1..+0 group openstack/barbicanclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/barbicanclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/barbicanclient-core
-      - openstack/barbicanclient-ptl
     bbda2f2094784502da79dfe19cc133a6:
       file: |
         [project]
@@ -13586,32 +13496,6 @@ resources:
       groups:
       - openstack/neutron-lib-distgit-ptl
       - rdo-core
-    d580bbc2e8ea969752030c152a32486a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/barbican-core
-          owner = group openstack/barbican-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/barbican-core
-            label-Code-Review = -2..+2 group openstack/barbican-ptl
-            submit = group openstack/barbican-ptl
-            read = group Registered Users
-            read = group openstack/barbican-core
-            label-Verified = -2..+0 group openstack/barbican-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/barbican-core
-            label-Workflow = -1..+0 group openstack/barbican-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/barbican-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/barbican-ptl
-      - openstack/barbican-core
     d5e0159f0eafbce5a68b54ed5118de59:
       file: |
         [access "refs/*"]
@@ -16613,58 +16497,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/automaton-ptl:
       description: Project team lead for project automaton
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/barbican-core:
-      description: Core developers for project barbican
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-      - msm@redhat.com
-      - greg.swift@rackspace.net
-    openstack/barbican-distgit-core:
-      description: Core developers for project barbican-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-      - msm@redhat.com
-      - greg.swift@rackspace.net
-    openstack/barbican-distgit-ptl:
-      description: Project team lead for project barbican-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/barbican-ptl:
-      description: Project team lead for project barbican
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/barbicanclient-core:
-      description: Core developers for project barbicanclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - msm@redhat.com
-      - greg.swift@rackspace.net
-    openstack/barbicanclient-distgit-core:
-      description: Core developers for project barbicanclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - msm@redhat.com
-      - greg.swift@rackspace.net
-    openstack/barbicanclient-distgit-ptl:
-      description: Project team lead for project barbicanclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/barbicanclient-ptl:
-      description: Project team lead for project barbicanclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -23410,35 +23242,10 @@ resources:
       members:
       - dms@redhat.com
       - admin@review.rdoproject.org
-    rdo-provenpackagers:
-      description: ''
-      members:
-      - alan.pevec@redhat.com
-      - amoralej@redhat.com
-      - dms@redhat.com
-      - emilien@redhat.com
-      - flepied@redhat.com
-      - jruzicka@redhat.com
-      - jpena@redhat.com
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - trown@redhat.com
     rdo-ptl:
       description: Project team lead for project rdo
       members:
       - admin@review.rdoproject.org
-    rdo-superusers:
-      description: ''
-      members:
-      - alan.pevec@redhat.com
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dms@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - trown@redhat.com
     rdo_gating_scripts-core:
       description: Core developers for project rdo_gating_scripts
       members:
@@ -23557,16 +23364,6 @@ resources:
       description: Mirror of upstream automaton (mirror + patches)
     openstack/automaton-distgit:
       acl: 4b551bf361dafb7df8957c68867c5874
-    openstack/barbican:
-      acl: d580bbc2e8ea969752030c152a32486a
-      description: Mirror of upstream barbican (mirror + patches)
-    openstack/barbican-distgit:
-      acl: 9990adbb68131e1df6080a0984286e43
-    openstack/barbicanclient:
-      acl: bb9356aa26552980b6b9347de8be1c8b
-      description: Mirror of upstream barbicanclient (mirror + patches)
-    openstack/barbicanclient-distgit:
-      acl: 7fa58f802338c97c1cb8efe83e7f9836
     openstack/castellan:
       acl: c1acfa026758e06867a2d6902ca653fa
       description: Mirror of upstream castellan (mirror + patches)
