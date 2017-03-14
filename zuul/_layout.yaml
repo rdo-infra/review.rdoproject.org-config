@@ -7,8 +7,6 @@ includes:
 jobs:
   - name: ^.*$
     parameter-function: set_node_options
-    swift:
-      - name: artifacts
 
 pipelines:
   - name: check
@@ -82,11 +80,6 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^(?!(devnull|refs/.*)).*$
-    failure:
-      smtp:
-        from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in post pipeline: {change.project}'
 
   - name: periodic
     description: Jobs in this queue are triggered daily.
@@ -95,11 +88,6 @@ pipelines:
     trigger:
       timer:
         - time: '0 0 * * *'
-    failure:
-      smtp:
-        from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
 
   - name: tag
     description: This pipeline runs jobs in response to any tag event.
@@ -110,19 +98,13 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^refs/tags/.*$
-    failure:
-      smtp:
-        from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in tag pipeline: {change.project}'
+
 
 projects:
   - name: config
     check:
       - config-check
-      - config-sanity-check
     gate:
       - config-check
-      - config-sanity-check
     post:
       - config-update
