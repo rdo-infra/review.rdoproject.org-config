@@ -1,0 +1,58 @@
+resources:
+  groups:
+    openstack/barbicanclient-core:
+      description: Core developers for project barbicanclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+      - chkumar@redhat.com
+      - msm@redhat.com
+      - greg.swift@rackspace.net
+    openstack/barbicanclient-ptl:
+      description: Project team lead for project barbicanclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-barbicanclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/barbicanclient-core
+          owner = group openstack/barbicanclient-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/barbicanclient-core
+          label-Code-Review = -2..+2 group openstack/barbicanclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/barbicanclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/barbicanclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/barbicanclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/barbicanclient-core
+          label-Workflow = -1..+1 group openstack/barbicanclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/barbicanclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = fast forward only
+      groups:
+      - openstack/barbicanclient-core
+      - openstack/barbicanclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/barbicanclient:
+      acl: openstack-barbicanclient
+      description: Mirror of upstream barbicanclient (mirror + patches)
+    openstack/barbicanclient-distgit:
+      acl: openstack-barbicanclient
+      description: Packaging of upstream barbicanclient
