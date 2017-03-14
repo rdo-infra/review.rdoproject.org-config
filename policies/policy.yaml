@@ -33,6 +33,12 @@ managesf.membership:create: rule:admin_api or rule:ptl_api or (rule:core_api and
 managesf.membership:delete: rule:admin_api or rule:ptl_api or (rule:core_api and (target.group:core-group
   or target.group:dev-group)) or (rule:dev_api and target.group:dev-group)
 managesf.membership:get: rule:any
+managesf.node:add_authorized_key: rule:admin_or_service
+managesf.node:delete: rule:admin_or_service
+managesf.node:get: rule:any
+managesf.node:hold: rule:admin_or_service
+managesf.node:image-get: rule:any
+managesf.node:image-update: rule:admin_or_service
 managesf.pages:create: rule:admin_api or rule:ptl_api
 managesf.pages:delete: rule:admin_api or rule:ptl_api
 managesf.pages:get: rule:admin_api or rule:ptl_api
