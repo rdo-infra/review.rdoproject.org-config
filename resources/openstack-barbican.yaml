@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/barbican-core:
+      description: Core developers for project barbican
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+      - msm@redhat.com
+      - greg.swift@rackspace.net
+    openstack/barbican-ptl:
+      description: Project team lead for project barbican
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-barbican-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/barbican-core
+          owner = group openstack/barbican-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/barbican-core
+          label-Code-Review = -2..+2 group openstack/barbican-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/barbican-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/barbican-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/barbican-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/barbican-core
+          label-Workflow = -1..+1 group openstack/barbican-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/barbican-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/barbican-core
+      - openstack/barbican-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-barbican:
+      file: |
+        [access "refs/*"]
+          read = group openstack/barbican-core
+          owner = group openstack/barbican-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/barbican-core
+          label-Code-Review = -2..+2 group openstack/barbican-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/barbican-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/barbican-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/barbican-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/barbican-core
+          label-Workflow = -1..+0 group openstack/barbican-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/barbican-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/barbican-core
+      - openstack/barbican-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/barbican:
+      acl: openstack-barbican
+      description: Mirror of upstream barbican (mirror + patches)
+    openstack/barbican-distgit:
+      acl: openstack-barbican-distgit
+      description: Packaging of upstream barbican
