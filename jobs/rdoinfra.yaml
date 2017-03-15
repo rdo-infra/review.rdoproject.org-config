@@ -107,3 +107,16 @@
           script-only-if-succeeded: False
           script-only-if-failed: False
     node: bare-centos-7
+
+- job:
+    name: 'tox-flake8'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e flake8
+    triggers:
+      - zuul
+    node: bare-centos-7

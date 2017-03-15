@@ -2218,8 +2218,10 @@ projects:
       - puppet-syntax
       - puppet-spec
   - name: rdo-infra/releng
-    template:
-      - name: noop
+    check:
+     - tox-flake8
+    gate:
+     - tox-flake8
 
 
   # review.openstack.org
