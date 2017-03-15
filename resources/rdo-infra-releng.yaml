@@ -1,0 +1,42 @@
+resources:
+  groups:
+    rdo-infra/releng:
+      description: 'Core developers for project releng'
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - dms@redhat.com
+      - jruzicka@redhat.com
+      - jpena@redhat.com
+      - hguemar@fedoraproject.org
+      - admin@review.rdoproject.org
+  acls:
+    rdo-infra/releng:
+      file: |
+        [access "refs/*"]
+            read = group rdo-infra/releng
+            owner = group rdo-infra/releng
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra/releng
+            label-Code-Review = -2..+2 group rdo-infra/releng
+            submit = group rdo-infra/releng
+            read = group Registered Users
+            read = group rdo-infra/releng
+            label-Verified = -2..+0 group rdo-infra/releng
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+0 group rdo-infra/releng
+            label-Workflow = -1..+0 group rdo-infra/releng
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-infra/releng
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-infra/releng
+  repos:
+    rdo-infra/releng:
+      acl: rdo-infra/releng
+      description: "Release engineering tools repo"
