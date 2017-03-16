@@ -98,6 +98,41 @@
       - zuul
     node: bare-centos-7
 
+- job:
+    name: rdoinfo-create-project
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e -x
+          sudo pip install git-review rdopkg
+          cd $ZUUL_PROJECT
+
+          TAGS_DIFF=$(rdopkg info-tags-diff .)
+          NEW_PROJECTS=""
+
+          while read line; do
+            PKGNAME=$(awk '{print $1}' <<< $line)
+            if [[ -n $(echo "$line" | grep -w under-review) ]]; then
+                NEW_PROJECTS="$NEW_PROJECTS $PKGNAME"
+            fi
+          done <<< "${TAGS_DIFF}"
+
+          echo "New projects: ${NEW_PROJECTS}"
+  
+          for PKG in ${NEW_PROJECTS}; do
+            /opt/nodepool-scripts/add-project-from-rdoinfo.sh $PKG $PWD
+          done
+    triggers:
+      - zuul
+    node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
+           variable: SSH_KEY
+
+
 - job-template:
     name: rdoinfo-upper-constraints-update-{branch}
     defaults: global
