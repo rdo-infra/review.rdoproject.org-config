@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa98f980_75bbc272",
+        "filename": "resources/openstack-barbican.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 112
+      },
+      "writtenOn": "2017-03-16T13:09:37Z",
+      "side": 1,
+      "message": "I think we can remove Matthieu, that\u0027s an artifact we the platform has been initialized :)",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "bb41262e26640905d0a349e3d5fce8e565b9208f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_b5ac4a37",
+        "filename": "resources/openstack-barbican.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 112
+      },
+      "writtenOn": "2017-03-16T13:09:37Z",
+      "side": 1,
+      "message": "I\u0027m wondering if having the barbican-ptl really make sense. ptl group is usually defined as owner so members of ptl group inherit so high power like force push, +2 Verified to by pass the CI ...\nSo I think having just barbican-core make sense so they will have the power to +2CR and +1W.\nAnd in that case rdo-superusers can be project owner.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "bb41262e26640905d0a349e3d5fce8e565b9208f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa98f980_d519ce23",
         "filename": "resources/openstack-barbican.yaml",
         "patchSetId": 5
@@ -37,6 +83,30 @@
       "side": 1,
       "message": "Right, I did it on purpose. In general, I can\u0027t remember of any case where we had different ACLs for distgit and patches repos, so that\u0027s why I proposed a single one.",
       "parentUuid": "fa98f980_d519ce23",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 7
+      },
+      "revId": "bb41262e26640905d0a349e3d5fce8e565b9208f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_35c13ae5",
+        "filename": "resources/openstack-barbican.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 112
+      },
+      "writtenOn": "2017-03-16T13:09:37Z",
+      "side": 1,
+      "message": "I think the reason was to avoid merging of patches on mirror upstream projects. If you look at the patchset 1, you\u0027ll see nobody have can workflow +1.",
+      "parentUuid": "fa98f980_35bf7ad2",
       "range": {
         "startLine": 16,
         "startChar": 2,
