@@ -14,7 +14,7 @@ sudo yum install -y python-setuptools git wget curl patch iproute \
                     libffi-devel openssl-devel libxml2-devel \
                     libxslt-devel ruby-devel redhat-lsb-core \
                     libselinux-python yum-plugin-priorities \
-                    rubygems net-tools lsof
+                    rubygems net-tools lsof rpmlint sqlite
 sudo easy_install pip
 sudo pip install tox twine
 

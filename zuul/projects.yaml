@@ -34,6 +34,9 @@ jobs:
   - name: ^puppet-openstack-integration-scenario(001|002|003)$
     voting: false
 
+  - name: ^gate-rpmlint$
+    voting: false
+
   ####
   # WeIRDO job filters
   ####
@@ -127,7 +130,8 @@ project-templates:
 
   - name: package-distgit-check-jobs
     check:
-      - DLRN-rpmbuild
+      - DLRN-rpmbuild:
+        - gate-rpmlint
       - mitaka-distgit-cbs-validate
       - newton-distgit-cbs-validate
       - ocata-distgit-cbs-validate
