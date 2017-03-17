@@ -1,0 +1,11 @@
+# To use rpmlint jobs to check new packages built by DLRN (i.e, distgit reviews)
+- job:
+    name: gate-rpmlint
+    defaults: global
+    builders:
+        - prepare-workspace
+        - dlrn-gate-rpmlint
+    triggers:
+        - zuul
+    node: bare-centos-7
+
