@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa98f980_987bfd28",
+        "filename": "jobs/DLRN.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-03-17T13:03:00Z",
+      "side": 1,
+      "message": "The logic down to here is the exact same one as the \"dlrn-gate-repository\" just above.\n\nIs it a problem if the repository ends up being configured ?\nOtherwise, you could just get the repository url from the configured .repo file rather than duplicating code so your job would have two builders:\n- dlrn-gate-repository\n- dlrn-gate-rpmlint",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 56
+      },
+      "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_188f0d25",
+        "filename": "jobs/DLRN.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-03-17T13:03:00Z",
+      "side": 1,
+      "message": "This is hard to read and understand. Can you add a comment for context ?\nDoing readable multi-line python can be done this way:\n\n    https://github.com/openstack/ara/blob/master/run_tests.sh#L19-L25",
+      "range": {
+        "startLine": 87,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 227
+      },
+      "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_98a21d99",
+        "filename": "jobs/rpmlint.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-03-17T13:03:00Z",
+      "side": 1,
+      "message": "Unless we are expecting this to run for CBS jobs, I\u0027d fold this back into the DLRN.yml jobs file. The \"dlrn-gate\" stuff is too delorean specific, though.",
+      "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa98f980_d89e6563",
         "filename": "nodepool/rdo-base.sh",
         "patchSetId": 3
@@ -43,6 +106,47 @@
         "endLine": 17,
         "endChar": 58
       },
+      "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_b89fe14f",
+        "filename": "nodepool/rdo-base.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-03-17T13:03:00Z",
+      "side": 1,
+      "message": "If packages are required for just one job, we usually put their installation in the job itself -- if they happen to be required for multiple jobs, it becomes worthwhile to pre-install them, not just for reliability but for execution speed.",
+      "parentUuid": "fa98f980_f8724948",
+      "range": {
+        "startLine": 17,
+        "startChar": 44,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_f8a9697c",
+        "filename": "zuul/projects.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-03-17T13:03:00Z",
+      "side": 1,
+      "message": "This would only run for packages that are not in the \"integrated\" dlrn-weirdo jobs. So, for example, like this it wouldn\u0027t run for nova-distgit.\n\nYou can look at https://review.rdoproject.org/r/gitweb?p\u003dconfig.git;a\u003dblob;f\u003dzuul/integrated.yaml;h\u003d6e017031e6235da6de65bbba6d1bc30d279c8543;hb\u003dHEAD for examples -- you\u0027d need to add the gate-rpmlint job there as well.",
       "revId": "7d629e44ce1362ec180dd690b83456fe13f39c8a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
