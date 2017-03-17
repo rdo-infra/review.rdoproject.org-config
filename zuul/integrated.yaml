@@ -12,6 +12,7 @@ project-templates:
   - name: weirdo-dlrn-master-aodh
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         - gate-weirdo-dlrn-master-packstack-scenario003
         - gate-weirdo-dlrn-master-puppet-scenario001
       - mitaka-distgit-cbs-validate
@@ -30,6 +31,7 @@ project-templates:
   - name: weirdo-dlrn-master-ceilometer
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         - gate-weirdo-dlrn-master-packstack-scenario003
         - gate-weirdo-dlrn-master-puppet-scenario001
       - mitaka-distgit-cbs-validate
@@ -48,6 +50,7 @@ project-templates:
   - name: weirdo-dlrn-master-cinder
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # iscsi/lvm backend
         - gate-weirdo-dlrn-master-packstack-scenario001
         # rbd backend
@@ -71,6 +74,7 @@ project-templates:
   - name: weirdo-dlrn-master-glance
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # file backend
         - gate-weirdo-dlrn-master-packstack-scenario001
         # rbd backend
@@ -97,6 +101,7 @@ project-templates:
   - name: weirdo-dlrn-master-gnocchi
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # file backend
         - gate-weirdo-dlrn-master-packstack-scenario003
         # rbd backend
@@ -117,6 +122,7 @@ project-templates:
   - name: weirdo-dlrn-master-heat
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         - gate-weirdo-dlrn-master-packstack-scenario003
         - gate-weirdo-dlrn-master-puppet-scenario003
       - mitaka-distgit-cbs-validate
@@ -135,6 +141,7 @@ project-templates:
   - name: weirdo-dlrn-master-keystone
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # uuid backend
         - gate-weirdo-dlrn-master-packstack-scenario001
         # fernet backend
@@ -155,6 +162,7 @@ project-templates:
   - name: weirdo-dlrn-master-neutron
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # ipv4/ovs backend
         - gate-weirdo-dlrn-master-packstack-scenario001
         # ipv6/ovs backend
@@ -178,6 +186,7 @@ project-templates:
   - name: weirdo-dlrn-master-nova
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # on-disk ephemeral
         - gate-weirdo-dlrn-master-packstack-scenario001
         # rbd ephemeral
@@ -198,6 +207,7 @@ project-templates:
   - name: weirdo-dlrn-master-oslo
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # Try to get as much general/optimal coverage as possible
         # Also used for projects that do not fit any particular project tests
         - gate-weirdo-dlrn-master-packstack-scenario002
@@ -220,6 +230,7 @@ project-templates:
   - name: weirdo-dlrn-master-zaqar
     check:
       - DLRN-rpmbuild:
+        - gate-rpmlint
         # zaqar with mongodb
         - gate-weirdo-dlrn-master-puppet-scenario002
       - mitaka-distgit-cbs-validate
