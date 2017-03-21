@@ -88,6 +88,12 @@
               curl -o old/$pkgfile $baseurl/$pkgfile
           done
 
+          # check that we have the same number of packages else we
+          # cannot really compare and we just exit gracefully
+          if [ $(ls *.rpm|wc -l) != $(ls old/*.rpm|wc -l) ]; then
+              exit 0
+          fi
+
           # run rpmlint on old and new packages
           rpmlint *.rpm | tee rpmlint.new.txt
           rpmlint old/*.rpm | tee rpmlint.old.txt
