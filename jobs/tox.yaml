@@ -24,8 +24,7 @@
               ./run_tests.sh --concurrency 4 -V -P
             ;;
             * )
-              wget "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/liberty" -O upper-constraints.txt
-              run-tox.sh py27
+              tox -epy27
             ;;
           esac
     triggers:
