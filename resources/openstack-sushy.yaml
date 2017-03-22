@@ -1,0 +1,90 @@
+resources:
+  groups:
+    openstack/sushy-core:
+      description: Core developers for project sushy
+      members:
+      - lucasagomes@gmail.com
+      - dtantsur@redhat.com
+    openstack/sushy-ptl:
+      description: Project team lead for project sushy
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sushy-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-core
+          owner = group openstack/sushy-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-core
+          label-Code-Review = -2..+2 group openstack/sushy-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/sushy-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sushy-core
+          label-Workflow = -1..+1 group openstack/sushy-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = fast forward only
+      groups:
+      - openstack/sushy-core
+      - openstack/sushy-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sushy:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-core
+          owner = group openstack/sushy-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-core
+          label-Code-Review = -2..+2 group openstack/sushy-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sushy-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sushy-core
+          label-Workflow = -1..+0 group openstack/sushy-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = fast forward only
+      groups:
+      - openstack/sushy-core
+      - openstack/sushy-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sushy:
+      acl: openstack-sushy
+      description: Mirror of upstream sushy (mirror + patches)
+    openstack/sushy-distgit:
+      acl: openstack-sushy
+      description: Packaging of upstream sushy
