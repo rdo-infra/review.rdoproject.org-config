@@ -101,12 +101,26 @@
               exit 0
           fi
 
+          # our rpmlint config
+          cat > $HOME/.rpmlintrc <<EOF
+          from Config import *
+
+          addFilter("no-changelogname-tag")
+          addFilter("no-manual-page-for-binary")
+          addFilter("no-documentation")
+
+          # ironic exceptions
+          addFilter("openstack-ironic-common.noarch: E: non-standard-dir-perm /var/log/ironic 0?750L?")
+          addFilter("python-ironic-tests.noarch: E: wrong-script-interpreter /usr/lib/python2.7/site-packages/ironic/tests/.* ipxe")
+          addFilter("python-ironic-tests.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/ironic/tests/.* 0?644L? ipxe")
+          EOF
           # run rpmlint on old and new packages
-          rpmlint *.rpm | tee rpmlint.new.txt
-          rpmlint old/*.rpm | tee rpmlint.old.txt
+          rpmlint *.rpm | sort | tee rpmlint.new.txt
+          rpmlint old/*.rpm | sort | tee rpmlint.old.txt
 
           # compare if we have more reports with the new packages
           if [ $(wc -l < rpmlint.new.txt) -gt $(wc -l < rpmlint.old.txt) ]; then
+              diff -u rpmlint.old.txt rpmlint.new.txt
               exit 1
           fi
 
