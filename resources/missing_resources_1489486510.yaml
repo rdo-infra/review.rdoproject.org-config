@@ -4437,38 +4437,6 @@ resources:
       groups:
       - openstack/openstack-selinux-ptl
       - openstack/openstack-selinux-core
-    4b2e09a3a0cbe34a24832024871486b0:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/novaclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/novaclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/novaclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/novaclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/novaclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/novaclient-distgit-core
-            label-Workflow = -1..+1 group openstack/novaclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/novaclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/novaclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/novaclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/novaclient-distgit-ptl
-      - rdo-core
     4b551bf361dafb7df8957c68867c5874:
       file: |
         [project]
@@ -4658,33 +4626,6 @@ resources:
       groups:
       - openstack/tempest-horizon-ptl
       - openstack/tempest-horizon-core
-    4f5e3ef17a5c6c3765c9ae51c0d33558:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/novajoin-distgit-core
-          owner = group openstack/novajoin-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/novajoin-distgit-core
-            label-Code-Review = -2..+2 group openstack/novajoin-distgit-ptl
-            label-Verified = -2..+2 group openstack/novajoin-distgit-ptl
-            label-Workflow = -1..+1 group openstack/novajoin-distgit-core
-            label-Workflow = -1..+1 group openstack/novajoin-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/novajoin-distgit-ptl
-            read = group Registered Users
-            read = group openstack/novajoin-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/novajoin-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/novajoin-distgit-ptl
-      - openstack/novajoin-distgit-core
     505641b9b3a1c08e2bc6e780a34fca7a:
       file: |
         [project]
@@ -11580,32 +11521,6 @@ resources:
       groups:
       - puppet/puppet-nssdb-distgit-ptl
       - rdo-core
-    b98c3ac924492d0de20c9adb7930feaf:
-      file: |
-        [access "refs/*"]
-          read = group openstack/novaclient-core
-          owner = group openstack/novaclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/novaclient-core
-            label-Code-Review = -2..+2 group openstack/novaclient-ptl
-            submit = group openstack/novaclient-ptl
-            read = group Registered Users
-            read = group openstack/novaclient-core
-            label-Verified = -2..+0 group openstack/novaclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/novaclient-core
-            label-Workflow = -1..+0 group openstack/novaclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/novaclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/novaclient-core
-      - openstack/novaclient-ptl
     b996db8e028dc3f4b4e8f32ce6227de2:
       file: |
         [project]
@@ -13148,32 +13063,6 @@ resources:
       groups:
       - puppet/puppet-pacemaker-core
       - puppet/puppet-pacemaker-ptl
-    d4660f5c90b447c646a59da191cec287:
-      file: |
-        [access "refs/*"]
-          read = group openstack/nova-core
-          owner = group openstack/nova-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/nova-core
-            label-Code-Review = -2..+2 group openstack/nova-ptl
-            submit = group openstack/nova-ptl
-            read = group Registered Users
-            read = group openstack/nova-core
-            label-Verified = -2..+0 group openstack/nova-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/nova-core
-            label-Workflow = -1..+0 group openstack/nova-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/nova-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/nova-core
-      - openstack/nova-ptl
     d54bc4c6d746ffd613c88d966c8ccdc1:
       file: |
         [project]
@@ -13892,32 +13781,6 @@ resources:
       groups:
       - puppet/puppet-keepalived-distgit-ptl
       - rdo-core
-    df90c0aeeb29dc262e3c395f33a88877:
-      file: |
-        [access "refs/*"]
-          read = group openstack/novajoin-core
-          owner = group openstack/novajoin-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/novajoin-core
-            label-Code-Review = -2..+2 group openstack/novajoin-ptl
-            submit = group openstack/novajoin-ptl
-            read = group openstack/novajoin-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/novajoin-ptl
-            label-Workflow = -1..+0 group openstack/novajoin-ptl
-            label-Workflow = -1..+0 group openstack/novajoin-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/novajoin-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/novajoin-ptl
-      - openstack/novajoin-core
     dfb6f033d15de3ff95016ee4d0718afa:
       file: |
         [access "refs/*"]
@@ -14722,38 +14585,6 @@ resources:
       groups:
       - openstack/designate-distgit-ptl
       - rdo-core
-    e8e340428af43150f50db2b527d55c4c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/nova-distgit-core
-          read = group rdo-core
-          owner = group openstack/nova-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/nova-distgit-core
-            label-Code-Review = -2..+2 group openstack/nova-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/nova-distgit-ptl
-            label-Workflow = -1..+1 group openstack/nova-distgit-core
-            label-Workflow = -1..+1 group openstack/nova-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/nova-distgit-ptl
-            read = group Registered Users
-            read = group openstack/nova-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/nova-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/nova-distgit-ptl
     e9186c096a11b519d8a64c444420ea9c:
       file: |
         [project]
@@ -18269,80 +18100,6 @@ resources:
       description: Project team lead for project neutronclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/nova-core:
-      description: Core developers for project nova
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sahid.ferdjaoui@redhat.com
-    openstack/nova-distgit-core:
-      description: Core developers for project nova-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sahid.ferdjaoui@redhat.com
-    openstack/nova-distgit-ptl:
-      description: Project team lead for project nova-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/nova-ptl:
-      description: Project team lead for project nova
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/novaclient-core:
-      description: Core developers for project novaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/novaclient-distgit-core:
-      description: Core developers for project novaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/novaclient-distgit-ptl:
-      description: Project team lead for project novaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/novaclient-ptl:
-      description: Project team lead for project novaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/novajoin-core:
-      description: Core developers for project openstack/novajoin
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - rcritten@redhat.com
-      - admin@review.rdoproject.org
-      - alee@redhat.com
-    openstack/novajoin-distgit-core:
-      description: Core developers for project openstack/novajoin-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - rcritten@redhat.com
-      - admin@review.rdoproject.org
-      - alee@redhat.com
-    openstack/novajoin-distgit-ptl:
-      description: Project team lead for project openstack/novajoin-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/novajoin-ptl:
-      description: Project team lead for project openstack/novajoin
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
       - admin@review.rdoproject.org
     openstack/octavia-core:
       description: Core developers for project octavia
@@ -23382,21 +23139,6 @@ resources:
       description: Mirror of upstream neutronclient (mirror + patches)
     openstack/neutronclient-distgit:
       acl: f03e9ae786a25ad039abf64f23298153
-    openstack/nova:
-      acl: d4660f5c90b447c646a59da191cec287
-      description: Mirror of upstream nova (mirror + patches)
-    openstack/nova-distgit:
-      acl: e8e340428af43150f50db2b527d55c4c
-    openstack/novaclient:
-      acl: b98c3ac924492d0de20c9adb7930feaf
-      description: Mirror of upstream novaclient (mirror + patches)
-    openstack/novaclient-distgit:
-      acl: 4b2e09a3a0cbe34a24832024871486b0
-    openstack/novajoin:
-      acl: df90c0aeeb29dc262e3c395f33a88877
-      description: Mirror of upstream openstack/novajoin (mirror + patches)
-    openstack/novajoin-distgit:
-      acl: 4f5e3ef17a5c6c3765c9ae51c0d33558
     openstack/octavia:
       acl: d1b4ef3657bbbc3cead4a5de06a85d15
       description: Mirror of upstream octavia (mirror + patches)
