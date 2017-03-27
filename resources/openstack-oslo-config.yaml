@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-config-core:
+      description: Core developers for project oslo-config
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-config-ptl:
+      description: Project team lead for project oslo-config
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-config-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-config-core
+          owner = group openstack/oslo-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-config-core
+          label-Code-Review = -2..+2 group openstack/oslo-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-config-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-config-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-config-core
+          label-Workflow = -1..+1 group openstack/oslo-config-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-config-core
+      - openstack/oslo-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-config:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-config-core
+          owner = group openstack/oslo-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-config-core
+          label-Code-Review = -2..+2 group openstack/oslo-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-config-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-config-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-config-core
+          label-Workflow = -1..+0 group openstack/oslo-config-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-config-core
+      - openstack/oslo-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-config:
+      acl: openstack-oslo-config
+      description: Mirror of upstream oslo-config (mirror + patches)
+    openstack/oslo-config-distgit:
+      acl: openstack-oslo-config-distgit
+      description: Packaging of upstream oslo-config

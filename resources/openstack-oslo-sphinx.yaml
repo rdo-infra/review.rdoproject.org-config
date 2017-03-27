@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-sphinx-core:
+      description: Core developers for project oslo-sphinx
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-sphinx-ptl:
+      description: Project team lead for project oslo-sphinx
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-sphinx-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-sphinx-core
+          owner = group openstack/oslo-sphinx-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-sphinx-core
+          label-Code-Review = -2..+2 group openstack/oslo-sphinx-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-sphinx-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-sphinx-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-sphinx-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-sphinx-core
+          label-Workflow = -1..+1 group openstack/oslo-sphinx-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-sphinx-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-sphinx-core
+      - openstack/oslo-sphinx-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-sphinx:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-sphinx-core
+          owner = group openstack/oslo-sphinx-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-sphinx-core
+          label-Code-Review = -2..+2 group openstack/oslo-sphinx-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-sphinx-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-sphinx-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-sphinx-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-sphinx-core
+          label-Workflow = -1..+0 group openstack/oslo-sphinx-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-sphinx-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-sphinx-core
+      - openstack/oslo-sphinx-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-sphinx:
+      acl: openstack-oslo-sphinx
+      description: Mirror of upstream oslo-sphinx (mirror + patches)
+    openstack/oslo-sphinx-distgit:
+      acl: openstack-oslo-sphinx-distgit
+      description: Packaging of upstream oslo-sphinx

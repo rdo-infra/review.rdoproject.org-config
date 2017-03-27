@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-vmware-core:
+      description: Core developers for project oslo-vmware
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-vmware-ptl:
+      description: Project team lead for project oslo-vmware
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-vmware-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-vmware-core
+          owner = group openstack/oslo-vmware-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-vmware-core
+          label-Code-Review = -2..+2 group openstack/oslo-vmware-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-vmware-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-vmware-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-vmware-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-vmware-core
+          label-Workflow = -1..+1 group openstack/oslo-vmware-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-vmware-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-vmware-core
+      - openstack/oslo-vmware-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-vmware:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-vmware-core
+          owner = group openstack/oslo-vmware-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-vmware-core
+          label-Code-Review = -2..+2 group openstack/oslo-vmware-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-vmware-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-vmware-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-vmware-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-vmware-core
+          label-Workflow = -1..+0 group openstack/oslo-vmware-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-vmware-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-vmware-core
+      - openstack/oslo-vmware-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-vmware:
+      acl: openstack-oslo-vmware
+      description: Mirror of upstream oslo-vmware (mirror + patches)
+    openstack/oslo-vmware-distgit:
+      acl: openstack-oslo-vmware-distgit
+      description: Packaging of upstream oslo-vmware
