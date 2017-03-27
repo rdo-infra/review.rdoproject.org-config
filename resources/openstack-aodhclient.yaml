@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/aodhclient-core:
+      description: Core developers for project aodhclient
+      members:
+      - pkilambi@redhat.com
+    openstack/aodhclient-ptl:
+      description: Project team lead for project aodhclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-aodhclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aodhclient-core
+          owner = group openstack/aodhclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aodhclient-core
+          label-Code-Review = -2..+2 group openstack/aodhclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aodhclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aodhclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/aodhclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/aodhclient-core
+          label-Workflow = -1..+1 group openstack/aodhclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aodhclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/aodhclient-core
+      - openstack/aodhclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-aodhclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aodhclient-core
+          owner = group openstack/aodhclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aodhclient-core
+          label-Code-Review = -2..+2 group openstack/aodhclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aodhclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aodhclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/aodhclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/aodhclient-core
+          label-Workflow = -1..+0 group openstack/aodhclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aodhclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/aodhclient-core
+      - openstack/aodhclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/aodhclient:
+      acl: openstack-aodhclient
+      description: Mirror of upstream aodhclient (mirror + patches)
+    openstack/aodhclient-distgit:
+      acl: openstack-aodhclient-distgit
+      description: Packaging of upstream aodhclient

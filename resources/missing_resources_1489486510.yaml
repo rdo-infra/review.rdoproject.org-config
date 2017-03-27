@@ -161,33 +161,6 @@ resources:
       groups:
       - rdopkg-ptl
       - rdopkg-core
-    0992906f4078481f2960d71511e23613:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/aodh-distgit-core
-          owner = group openstack/aodh-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/aodh-distgit-core
-            label-Code-Review = -2..+2 group openstack/aodh-distgit-ptl
-            label-Verified = -2..+2 group openstack/aodh-distgit-ptl
-            label-Workflow = -1..+1 group openstack/aodh-distgit-core
-            label-Workflow = -1..+1 group openstack/aodh-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/aodh-distgit-ptl
-            read = group Registered Users
-            read = group openstack/aodh-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/aodh-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/aodh-distgit-ptl
-      - openstack/aodh-distgit-core
     0a4171f1b36ff40a64966e83097cac27:
       file: |
         [project]
@@ -2615,32 +2588,6 @@ resources:
       groups:
       - openstack/ansible-pacemaker-distgit-core
       - openstack/ansible-pacemaker-distgit-ptl
-    3cd26ecd6dfe290f421d85ad2cb3d87b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/aodhclient-core
-          owner = group openstack/aodhclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/aodhclient-core
-            label-Code-Review = -2..+2 group openstack/aodhclient-ptl
-            submit = group openstack/aodhclient-ptl
-            read = group openstack/aodhclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/aodhclient-ptl
-            label-Workflow = -1..+0 group openstack/aodhclient-ptl
-            label-Workflow = -1..+0 group openstack/aodhclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/aodhclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/aodhclient-ptl
-      - openstack/aodhclient-core
     3d42fa164f5b4034152dad7862cbd688:
       file: |
         [access "refs/*"]
@@ -4907,33 +4854,6 @@ resources:
       groups:
       - openstack/manila-ui-distgit-ptl
       - rdo-core
-    62f4be99eeb460e88852786b01f07ad1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/aodhclient-distgit-core
-          owner = group openstack/aodhclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/aodhclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/aodhclient-distgit-ptl
-            label-Verified = -2..+2 group openstack/aodhclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/aodhclient-distgit-core
-            label-Workflow = -1..+1 group openstack/aodhclient-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/aodhclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/aodhclient-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/aodhclient-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/aodhclient-distgit-ptl
-      - openstack/aodhclient-distgit-core
     6342781eae83762ea91be5079951ed6a:
       file: |
         [project]
@@ -12348,32 +12268,6 @@ resources:
       groups:
       - openstack/oslo-utils-distgit-ptl
       - rdo-core
-    e6c8f007d87532ee9d334a4fd327c0b8:
-      file: |
-        [access "refs/*"]
-          read = group openstack/aodh-core
-          owner = group openstack/aodh-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/aodh-core
-            label-Code-Review = -2..+2 group openstack/aodh-ptl
-            submit = group openstack/aodh-ptl
-            read = group Registered Users
-            read = group openstack/aodh-core
-            label-Verified = -2..+0 group openstack/aodh-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/aodh-core
-            label-Workflow = -1..+0 group openstack/aodh-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/aodh-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/aodh-ptl
-      - openstack/aodh-core
     e6f2fe5044506b45ebee5ff25ab41155:
       file: |
         [project]
@@ -13642,55 +13536,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/aodh-core:
-      description: Core developers for project aodh
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - sileht@sileht.net
-    openstack/aodh-distgit-core:
-      description: Core developers for project aodh-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - sileht@sileht.net
-    openstack/aodh-distgit-ptl:
-      description: Project team lead for project aodh-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/aodh-ptl:
-      description: Project team lead for project aodh
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/aodhclient-core:
-      description: Core developers for project openstack/aodhclient
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/aodhclient-distgit-core:
-      description: Core developers for project openstack/aodhclient-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-    openstack/aodhclient-distgit-ptl:
-      description: Project team lead for project openstack/aodhclient-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/aodhclient-ptl:
-      description: Project team lead for project openstack/aodhclient
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
     openstack/app-catalog-ui-core:
       description: Core developers for project app-catalog-ui
@@ -19407,16 +19252,6 @@ resources:
       description: Mirror of upstream openstack/ansible-pacemaker (mirror + patches)
     openstack/ansible-pacemaker-distgit:
       acl: 3c57d4c96aa5fa621cd341b524050c3f
-    openstack/aodh:
-      acl: e6c8f007d87532ee9d334a4fd327c0b8
-      description: Mirror of upstream aodh (mirror + patches)
-    openstack/aodh-distgit:
-      acl: 0992906f4078481f2960d71511e23613
-    openstack/aodhclient:
-      acl: 3cd26ecd6dfe290f421d85ad2cb3d87b
-      description: Mirror of upstream openstack/aodhclient (mirror + patches)
-    openstack/aodhclient-distgit:
-      acl: 62f4be99eeb460e88852786b01f07ad1
     openstack/app-catalog-ui:
       acl: 1cc7b9d7c44b0e45e349da63bbbe7a2c
       description: Mirror of upstream app-catalog-ui (mirror + patches)
