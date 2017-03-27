@@ -362,38 +362,6 @@ resources:
       groups:
       - testproject-core
       - testproject-ptl
-    1180acd23486e0f54460f83c075f2013:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/trove-distgit-core
-          read = group rdo-core
-          owner = group openstack/trove-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/trove-distgit-core
-            label-Code-Review = -2..+2 group openstack/trove-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/trove-distgit-ptl
-            label-Workflow = -1..+1 group openstack/trove-distgit-core
-            label-Workflow = -1..+1 group openstack/trove-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/trove-distgit-ptl
-            read = group Registered Users
-            read = group openstack/trove-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/trove-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/trove-distgit-ptl
-      - rdo-core
     11844921162ed82926fd3ee8cebd6779:
       file: |
         [project]
@@ -1619,32 +1587,6 @@ resources:
       groups:
       - puppet/puppet-auditd-core
       - puppet/puppet-auditd-ptl
-    2d2d92dc6a2abdff160f67f6359ba959:
-      file: |
-        [access "refs/*"]
-          read = group openstack/troveclient-core
-          owner = group openstack/troveclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/troveclient-core
-            label-Code-Review = -2..+2 group openstack/troveclient-ptl
-            submit = group openstack/troveclient-ptl
-            read = group Registered Users
-            read = group openstack/troveclient-core
-            label-Verified = -2..+0 group openstack/troveclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/troveclient-core
-            label-Workflow = -1..+0 group openstack/troveclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/troveclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/troveclient-core
-      - openstack/troveclient-ptl
     2d902c284d049cbae7c832922fe754e5:
       file: |
         [access "refs/*"]
@@ -4126,38 +4068,6 @@ resources:
       groups:
       - openstack/magnumclient-ptl
       - openstack/magnumclient-core
-    66ba7145982e1802a2351620d1fd238d:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/troveclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/troveclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/troveclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/troveclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/troveclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/troveclient-distgit-core
-            label-Workflow = -1..+1 group openstack/troveclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/troveclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/troveclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/troveclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/troveclient-distgit-ptl
     66e4435f4fce1727ca6712ee3a92356c:
       file: |
         [project]
@@ -5888,32 +5798,6 @@ resources:
       groups:
       - openstack/osprofiler-ptl
       - openstack/osprofiler-core
-    8c2281416343481900823d44f66e3734:
-      file: |
-        [access "refs/*"]
-          read = group openstack/trove-dashboard-core
-          owner = group openstack/trove-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/trove-dashboard-core
-            label-Code-Review = -2..+2 group openstack/trove-dashboard-ptl
-            label-Verified = -2..+2 group openstack/trove-dashboard-ptl
-            label-Workflow = -1..+1 group openstack/trove-dashboard-core
-            label-Workflow = -1..+1 group openstack/trove-dashboard-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/trove-dashboard-ptl
-            read = group openstack/trove-dashboard-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/trove-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/trove-dashboard-core
-      - openstack/trove-dashboard-ptl
     8c2c5728909e163fa3d58121a3e70146:
       file: |
         [access "refs/*"]
@@ -7725,33 +7609,6 @@ resources:
       groups:
       - openstack/ec2-api-core
       - openstack/ec2-api-ptl
-    b04c0a2c1ba90cc63128d68a5ccd769b:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/trove-dashboard-distgit-core
-          owner = group openstack/trove-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/trove-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/trove-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/trove-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/trove-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/trove-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/trove-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/trove-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/trove-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/trove-dashboard-distgit-core
-      - openstack/trove-dashboard-distgit-ptl
     b06e382fb943d5908efadf05e4dff263:
       file: |
         [project]
@@ -9105,32 +8962,6 @@ resources:
       groups:
       - puppet/puppet-certmonger-core
       - puppet/puppet-certmonger-ptl
-    d05bdaa6d1c7bcb30632f15f68600f7b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/trove-core
-          owner = group openstack/trove-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/trove-core
-            label-Code-Review = -2..+2 group openstack/trove-ptl
-            submit = group openstack/trove-ptl
-            read = group Registered Users
-            read = group openstack/trove-core
-            label-Verified = -2..+0 group openstack/trove-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/trove-core
-            label-Workflow = -1..+0 group openstack/trove-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/trove-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/trove-core
-      - openstack/trove-ptl
     d0b69eb9725056476575f292acc6e3af:
       file: |
         [project]
@@ -14066,74 +13897,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/trove-core:
-      description: Core developers for project trove
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/trove-dashboard-core:
-      description: Core developers for project openstack/trove-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/trove-dashboard-distgit-core:
-      description: Core developers for project openstack/trove-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/trove-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/trove-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/trove-dashboard-ptl:
-      description: Project team lead for project openstack/trove-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/trove-distgit-core:
-      description: Core developers for project trove-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/trove-distgit-ptl:
-      description: Project team lead for project trove-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/trove-ptl:
-      description: Project team lead for project trove
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/troveclient-core:
-      description: Core developers for project troveclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/troveclient-distgit-core:
-      description: Core developers for project troveclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/troveclient-distgit-ptl:
-      description: Project team lead for project troveclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/troveclient-ptl:
-      description: Project team lead for project troveclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/virtualbmc-core:
       description: Core developers for project openstack/virtualbmc
       members:
@@ -17037,21 +16800,6 @@ resources:
       description: Mirror of upstream tooz (mirror + patches)
     openstack/tooz-distgit:
       acl: b6b5a26c6356c079a72a0633b1817bd9
-    openstack/trove:
-      acl: d05bdaa6d1c7bcb30632f15f68600f7b
-      description: Mirror of upstream trove (mirror + patches)
-    openstack/trove-dashboard:
-      acl: 8c2281416343481900823d44f66e3734
-      description: Mirror of upstream openstack/trove-dashboard (mirror + patches)
-    openstack/trove-dashboard-distgit:
-      acl: b04c0a2c1ba90cc63128d68a5ccd769b
-    openstack/trove-distgit:
-      acl: 1180acd23486e0f54460f83c075f2013
-    openstack/troveclient:
-      acl: 2d2d92dc6a2abdff160f67f6359ba959
-      description: Mirror of upstream troveclient (mirror + patches)
-    openstack/troveclient-distgit:
-      acl: 66ba7145982e1802a2351620d1fd238d
     openstack/virtualbmc:
       acl: c73810c821a4b80ab793dd7118ad9c07
       description: Mirror of upstream openstack/virtualbmc (mirror + patches)
