@@ -113,7 +113,7 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
       acl: openstack-${PROJECT_NAME}
       description: Mirror of upstream ${PROJECT_NAME} (mirror + patches)
     ${PREFIX}/${PROJECT_NAME}-distgit:
-      acl: openstack-${PROJECT_NAME}
+      acl: openstack-${PROJECT_NAME}-distgit
       description: Packaging of upstream ${PROJECT_NAME}
 EOF2
 
