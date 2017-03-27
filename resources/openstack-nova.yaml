@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/nova-core:
+      description: Core developers for project nova
+      members:
+      - sferdjao@redhat.com
+    openstack/nova-ptl:
+      description: Project team lead for project nova
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-nova-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/nova-core
+          owner = group openstack/nova-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/nova-core
+          label-Code-Review = -2..+2 group openstack/nova-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/nova-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/nova-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/nova-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/nova-core
+          label-Workflow = -1..+1 group openstack/nova-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/nova-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/nova-core
+      - openstack/nova-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-nova:
+      file: |
+        [access "refs/*"]
+          read = group openstack/nova-core
+          owner = group openstack/nova-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/nova-core
+          label-Code-Review = -2..+2 group openstack/nova-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/nova-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/nova-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/nova-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/nova-core
+          label-Workflow = -1..+0 group openstack/nova-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/nova-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/nova-core
+      - openstack/nova-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/nova:
+      acl: openstack-nova
+      description: Mirror of upstream nova (mirror + patches)
+    openstack/nova-distgit:
+      acl: openstack-nova
+      description: Packaging of upstream nova
