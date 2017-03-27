@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/swift3-core:
+      description: Core developers for project swift3
+      members:
+      - jruzicka@redhat.com
+      - hguemar@redhat.com
+    openstack/swift3-ptl:
+      description: Project team lead for project swift3
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-swift3-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/swift3-core
+          owner = group openstack/swift3-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/swift3-core
+          label-Code-Review = -2..+2 group openstack/swift3-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/swift3-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/swift3-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/swift3-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/swift3-core
+          label-Workflow = -1..+1 group openstack/swift3-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/swift3-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/swift3-core
+      - openstack/swift3-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-swift3:
+      file: |
+        [access "refs/*"]
+          read = group openstack/swift3-core
+          owner = group openstack/swift3-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/swift3-core
+          label-Code-Review = -2..+2 group openstack/swift3-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/swift3-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/swift3-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/swift3-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/swift3-core
+          label-Workflow = -1..+0 group openstack/swift3-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/swift3-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/swift3-core
+      - openstack/swift3-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/swift3:
+      acl: openstack-swift3
+      description: Mirror of upstream swift3 (mirror + patches)
+    openstack/swift3-distgit:
+      acl: openstack-swift3-distgit
+      description: Packaging of upstream swift3
