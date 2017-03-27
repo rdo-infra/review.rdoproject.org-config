@@ -420,38 +420,6 @@ resources:
       groups:
       - openstack/aodh-distgit-ptl
       - openstack/aodh-distgit-core
-    09a2f44bc5041eae6c6516190cc432b3:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/glance_store-distgit-core
-          read = group rdo-core
-          owner = group openstack/glance_store-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glance_store-distgit-core
-            label-Code-Review = -2..+2 group openstack/glance_store-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/glance_store-distgit-ptl
-            label-Workflow = -1..+1 group openstack/glance_store-distgit-core
-            label-Workflow = -1..+1 group openstack/glance_store-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/glance_store-distgit-ptl
-            read = group Registered Users
-            read = group openstack/glance_store-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glance_store-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/glance_store-distgit-ptl
-      - rdo-core
     09dd815f89e2bebb570f88a2d4f670af:
       file: |
         [project]
@@ -2228,38 +2196,6 @@ resources:
       groups:
       - puppet/puppet-vitrage-distgit-ptl
       - puppet/puppet-vitrage-distgit-core
-    23f2cef95c89b450ac7ec1daec405a75:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/glance-distgit-core
-          read = group rdo-core
-          owner = group openstack/glance-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glance-distgit-core
-            label-Code-Review = -2..+2 group openstack/glance-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/glance-distgit-ptl
-            label-Workflow = -1..+1 group openstack/glance-distgit-core
-            label-Workflow = -1..+1 group openstack/glance-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/glance-distgit-ptl
-            read = group Registered Users
-            read = group openstack/glance-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glance-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/glance-distgit-ptl
     246b8ecb9e86e590b5f6907ef5be8755:
       file: |
         [project]
@@ -3970,32 +3906,6 @@ resources:
       groups:
       - puppet/puppet-panko-distgit-core
       - puppet/puppet-panko-distgit-ptl
-    44e143bac166827902d12c76a361b489:
-      file: |
-        [access "refs/*"]
-          read = group openstack/glanceclient-core
-          owner = group openstack/glanceclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glanceclient-core
-            label-Code-Review = -2..+2 group openstack/glanceclient-ptl
-            submit = group openstack/glanceclient-ptl
-            read = group Registered Users
-            read = group openstack/glanceclient-core
-            label-Verified = -2..+0 group openstack/glanceclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/glanceclient-core
-            label-Workflow = -1..+0 group openstack/glanceclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glanceclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/glanceclient-core
-      - openstack/glanceclient-ptl
     45b001338329b292484d10cca7b6e8a9:
       file: |
         [project]
@@ -5132,32 +5042,6 @@ resources:
       groups:
       - openstack/shaker-core
       - openstack/shaker-ptl
-    55f6fd3970cd578b4636e033b16b0173:
-      file: |
-        [access "refs/*"]
-          read = group openstack/glance-core
-          owner = group openstack/glance-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glance-core
-            label-Code-Review = -2..+2 group openstack/glance-ptl
-            submit = group openstack/glance-ptl
-            read = group Registered Users
-            read = group openstack/glance-core
-            label-Verified = -2..+0 group openstack/glance-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/glance-core
-            label-Workflow = -1..+0 group openstack/glance-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glance-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/glance-ptl
-      - openstack/glance-core
     56007256f4799a33b52c524db7bf0abd:
       file: |
         [project]
@@ -7266,38 +7150,6 @@ resources:
       groups:
       - openstack/ironic-inspector-client-core
       - openstack/ironic-inspector-client-ptl
-    71f757002614a77dfbcb38e12803347c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/glanceclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/glanceclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glanceclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/glanceclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/glanceclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/glanceclient-distgit-core
-            label-Workflow = -1..+1 group openstack/glanceclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/glanceclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/glanceclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glanceclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/glanceclient-distgit-ptl
-      - rdo-core
     7252063098c1724532f3e00ce8375eec:
       file: |
         [access "refs/*"]
@@ -11257,32 +11109,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdobase-core
       - rdo-infra/ansible-role-rdobase-ptl
-    afd3f5c7fe221b5dc61a043ad843aa4c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/glance_store-core
-          owner = group openstack/glance_store-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/glance_store-core
-            label-Code-Review = -2..+2 group openstack/glance_store-ptl
-            submit = group openstack/glance_store-ptl
-            read = group Registered Users
-            read = group openstack/glance_store-core
-            label-Verified = -2..+0 group openstack/glance_store-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/glance_store-core
-            label-Workflow = -1..+0 group openstack/glance_store-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/glance_store-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/glance_store-ptl
-      - openstack/glance_store-core
     afeac7af6d119093aef99cb7d98bd7f8:
       file: |
         [access "refs/*"]
@@ -16905,78 +16731,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/futurist-ptl:
       description: Project team lead for project futurist
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glance-core:
-      description: Core developers for project glance
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - cyril@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/glance-distgit-core:
-      description: Core developers for project glance-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - cyril@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/glance-distgit-ptl:
-      description: Project team lead for project glance-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glance-ptl:
-      description: Project team lead for project glance
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glance_store-core:
-      description: Core developers for project glance_store
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - cyril@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/glance_store-distgit-core:
-      description: Core developers for project glance_store-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - cyril@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/glance_store-distgit-ptl:
-      description: Project team lead for project glance_store-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glance_store-ptl:
-      description: Project team lead for project glance_store
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glanceclient-core:
-      description: Core developers for project glanceclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/glanceclient-distgit-core:
-      description: Core developers for project glanceclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/glanceclient-distgit-ptl:
-      description: Project team lead for project glanceclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/glanceclient-ptl:
-      description: Project team lead for project glanceclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -23319,21 +23073,6 @@ resources:
       description: Mirror of upstream futurist (mirror + patches)
     openstack/futurist-distgit:
       acl: effb246db2f3d269439f0640618469f9
-    openstack/glance:
-      acl: 55f6fd3970cd578b4636e033b16b0173
-      description: Mirror of upstream glance (mirror + patches)
-    openstack/glance-distgit:
-      acl: 23f2cef95c89b450ac7ec1daec405a75
-    openstack/glance_store:
-      acl: afd3f5c7fe221b5dc61a043ad843aa4c
-      description: Mirror of upstream glance_store (mirror + patches)
-    openstack/glance_store-distgit:
-      acl: 09a2f44bc5041eae6c6516190cc432b3
-    openstack/glanceclient:
-      acl: 44e143bac166827902d12c76a361b489
-      description: Mirror of upstream glanceclient (mirror + patches)
-    openstack/glanceclient-distgit:
-      acl: 71f757002614a77dfbcb38e12803347c
     openstack/gnocchi:
       acl: 941d6c9a632add8504a17111dd45017a
       description: Mirror of upstream gnocchi (mirror + patches)
