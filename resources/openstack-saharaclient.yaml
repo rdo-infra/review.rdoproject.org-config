@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/saharaclient-core:
+      description: Core developers for project saharaclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@redhat.com
+    openstack/saharaclient-ptl:
+      description: Project team lead for project saharaclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-saharaclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/saharaclient-core
+          owner = group openstack/saharaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/saharaclient-core
+          label-Code-Review = -2..+2 group openstack/saharaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/saharaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/saharaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/saharaclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/saharaclient-core
+          label-Workflow = -1..+1 group openstack/saharaclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/saharaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/saharaclient-core
+      - openstack/saharaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-saharaclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/saharaclient-core
+          owner = group openstack/saharaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/saharaclient-core
+          label-Code-Review = -2..+2 group openstack/saharaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/saharaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/saharaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/saharaclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/saharaclient-core
+          label-Workflow = -1..+0 group openstack/saharaclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/saharaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/saharaclient-core
+      - openstack/saharaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/saharaclient:
+      acl: openstack-saharaclient
+      description: Mirror of upstream saharaclient (mirror + patches)
+    openstack/saharaclient-distgit:
+      acl: openstack-saharaclient-distgit
+      description: Packaging of upstream saharaclient
