@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/os-refresh-config-core:
+      description: Core developers for project os-refresh-config
+      members:
+      - jruzicka@redhat.com
+    openstack/os-refresh-config-ptl:
+      description: Project team lead for project os-refresh-config
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-refresh-config-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-refresh-config-core
+          owner = group openstack/os-refresh-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-refresh-config-core
+          label-Code-Review = -2..+2 group openstack/os-refresh-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-refresh-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-refresh-config-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/os-refresh-config-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-refresh-config-core
+          label-Workflow = -1..+1 group openstack/os-refresh-config-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-refresh-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-refresh-config-core
+      - openstack/os-refresh-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-refresh-config:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-refresh-config-core
+          owner = group openstack/os-refresh-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-refresh-config-core
+          label-Code-Review = -2..+2 group openstack/os-refresh-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-refresh-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-refresh-config-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-refresh-config-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-refresh-config-core
+          label-Workflow = -1..+0 group openstack/os-refresh-config-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-refresh-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-refresh-config-core
+      - openstack/os-refresh-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-refresh-config:
+      acl: openstack-os-refresh-config
+      description: Mirror of upstream os-refresh-config (mirror + patches)
+    openstack/os-refresh-config-distgit:
+      acl: openstack-os-refresh-config-distgit
+      description: Packaging of upstream os-refresh-config

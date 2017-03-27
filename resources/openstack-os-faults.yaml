@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/os-faults-core:
+      description: Core developers for project os-faults
+      members:
+      - chkumar@redhat.com
+    openstack/os-faults-ptl:
+      description: Project team lead for project os-faults
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-faults-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-faults-core
+          owner = group openstack/os-faults-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-faults-core
+          label-Code-Review = -2..+2 group openstack/os-faults-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-faults-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-faults-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/os-faults-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-faults-core
+          label-Workflow = -1..+1 group openstack/os-faults-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-faults-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-faults-core
+      - openstack/os-faults-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-faults:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-faults-core
+          owner = group openstack/os-faults-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-faults-core
+          label-Code-Review = -2..+2 group openstack/os-faults-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-faults-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-faults-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-faults-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-faults-core
+          label-Workflow = -1..+0 group openstack/os-faults-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-faults-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-faults-core
+      - openstack/os-faults-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-faults:
+      acl: openstack-os-faults
+      description: Mirror of upstream os-faults (mirror + patches)
+    openstack/os-faults-distgit:
+      acl: openstack-os-faults-distgit
+      description: Packaging of upstream os-faults
