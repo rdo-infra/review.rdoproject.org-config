@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/aodh-core:
+      description: Core developers for project aodh
+      members:
+      - pkilambi@redhat.com
+      - mabaakou@redhat.com
+    openstack/aodh-ptl:
+      description: Project team lead for project aodh
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-aodh-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aodh-core
+          owner = group openstack/aodh-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aodh-core
+          label-Code-Review = -2..+2 group openstack/aodh-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aodh-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aodh-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/aodh-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/aodh-core
+          label-Workflow = -1..+1 group openstack/aodh-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aodh-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/aodh-core
+      - openstack/aodh-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-aodh:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aodh-core
+          owner = group openstack/aodh-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aodh-core
+          label-Code-Review = -2..+2 group openstack/aodh-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aodh-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aodh-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/aodh-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/aodh-core
+          label-Workflow = -1..+0 group openstack/aodh-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aodh-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/aodh-core
+      - openstack/aodh-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/aodh:
+      acl: openstack-aodh
+      description: Mirror of upstream aodh (mirror + patches)
+    openstack/aodh-distgit:
+      acl: openstack-aodh-distgit
+      description: Packaging of upstream aodh
