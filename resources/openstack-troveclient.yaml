@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/troveclient-core:
+      description: Core developers for project troveclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/troveclient-ptl:
+      description: Project team lead for project troveclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-troveclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/troveclient-core
+          owner = group openstack/troveclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/troveclient-core
+          label-Code-Review = -2..+2 group openstack/troveclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/troveclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/troveclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/troveclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/troveclient-core
+          label-Workflow = -1..+1 group openstack/troveclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/troveclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/troveclient-core
+      - openstack/troveclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-troveclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/troveclient-core
+          owner = group openstack/troveclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/troveclient-core
+          label-Code-Review = -2..+2 group openstack/troveclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/troveclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/troveclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/troveclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/troveclient-core
+          label-Workflow = -1..+0 group openstack/troveclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/troveclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/troveclient-core
+      - openstack/troveclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/troveclient:
+      acl: openstack-troveclient
+      description: Mirror of upstream troveclient (mirror + patches)
+    openstack/troveclient-distgit:
+      acl: openstack-troveclient-distgit
+      description: Packaging of upstream troveclient
