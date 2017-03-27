@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/cisco-ironic-contrib-core:
+      description: Core developers for project cisco-ironic-contrib
+      members:
+      - sam@code-smash.net
+    openstack/cisco-ironic-contrib-ptl:
+      description: Project team lead for project cisco-ironic-contrib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cisco-ironic-contrib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cisco-ironic-contrib-core
+          owner = group openstack/cisco-ironic-contrib-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-core
+          label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cisco-ironic-contrib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cisco-ironic-contrib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/cisco-ironic-contrib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cisco-ironic-contrib-core
+          label-Workflow = -1..+1 group openstack/cisco-ironic-contrib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cisco-ironic-contrib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cisco-ironic-contrib-core
+      - openstack/cisco-ironic-contrib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cisco-ironic-contrib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cisco-ironic-contrib-core
+          owner = group openstack/cisco-ironic-contrib-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-core
+          label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cisco-ironic-contrib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cisco-ironic-contrib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cisco-ironic-contrib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cisco-ironic-contrib-core
+          label-Workflow = -1..+0 group openstack/cisco-ironic-contrib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cisco-ironic-contrib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cisco-ironic-contrib-core
+      - openstack/cisco-ironic-contrib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cisco-ironic-contrib:
+      acl: openstack-cisco-ironic-contrib
+      description: Mirror of upstream cisco-ironic-contrib (mirror + patches)
+    openstack/cisco-ironic-contrib-distgit:
+      acl: openstack-cisco-ironic-contrib-distgit
+      description: Packaging of upstream cisco-ironic-contrib
