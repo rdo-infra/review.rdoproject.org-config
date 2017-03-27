@@ -161,32 +161,6 @@ resources:
       groups:
       - rdopkg-ptl
       - rdopkg-core
-    095e526434deb294888abd83c580b304:
-      file: |
-        [access "refs/*"]
-          read = group openstack/instack-core
-          owner = group openstack/instack-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/instack-core
-            label-Code-Review = -2..+2 group openstack/instack-ptl
-            submit = group openstack/instack-ptl
-            read = group Registered Users
-            read = group openstack/instack-core
-            label-Verified = -2..+0 group openstack/instack-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/instack-core
-            label-Workflow = -1..+0 group openstack/instack-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/instack-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/instack-core
-      - openstack/instack-ptl
     0992906f4078481f2960d71511e23613:
       file: |
         [project]
@@ -993,38 +967,6 @@ resources:
       groups:
       - openstack/panko-distgit-ptl
       - openstack/panko-distgit-core
-    1702479d8442b8d0754dc88befe1c7de:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/instack-distgit-core
-          read = group rdo-core
-          owner = group openstack/instack-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/instack-distgit-core
-            label-Code-Review = -2..+2 group openstack/instack-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/instack-distgit-ptl
-            label-Workflow = -1..+1 group openstack/instack-distgit-core
-            label-Workflow = -1..+1 group openstack/instack-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/instack-distgit-ptl
-            read = group Registered Users
-            read = group openstack/instack-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/instack-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/instack-distgit-ptl
     172d799b794de53d46a63df3662dbdfb:
       file: |
         [project]
@@ -1368,38 +1310,6 @@ resources:
       groups:
       - openstack/app-catalog-ui-ptl
       - openstack/app-catalog-ui-core
-    1d4cc4cd27f65a6dc64f67302ba332f7:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/instack-undercloud-distgit-core
-          read = group rdo-core
-          owner = group openstack/instack-undercloud-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/instack-undercloud-distgit-core
-            label-Code-Review = -2..+2 group openstack/instack-undercloud-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/instack-undercloud-distgit-ptl
-            label-Workflow = -1..+1 group openstack/instack-undercloud-distgit-core
-            label-Workflow = -1..+1 group openstack/instack-undercloud-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/instack-undercloud-distgit-ptl
-            read = group Registered Users
-            read = group openstack/instack-undercloud-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/instack-undercloud-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/instack-undercloud-distgit-ptl
-      - rdo-core
     1d53fa9067505b6f859bdcca3af1c8dc:
       file: |
         [access "refs/*"]
@@ -5729,32 +5639,6 @@ resources:
       groups:
       - openstack/neutron-lib-ptl
       - openstack/neutron-lib-core
-    6f67ca611e50910f4a849ce7791677d5:
-      file: |
-        [access "refs/*"]
-          read = group openstack/instack-undercloud-core
-          owner = group openstack/instack-undercloud-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/instack-undercloud-core
-            label-Code-Review = -2..+2 group openstack/instack-undercloud-ptl
-            submit = group openstack/instack-undercloud-ptl
-            read = group Registered Users
-            read = group openstack/instack-undercloud-core
-            label-Verified = -2..+0 group openstack/instack-undercloud-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/instack-undercloud-core
-            label-Workflow = -1..+0 group openstack/instack-undercloud-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/instack-undercloud-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/instack-undercloud-core
-      - openstack/instack-undercloud-ptl
     6fca34e6dfc70080ff7c3c715f48fd4f:
       file: |
         [project]
@@ -14592,50 +14476,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/instack-core:
-      description: Core developers for project instack
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/instack-distgit-core:
-      description: Core developers for project instack-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/instack-distgit-ptl:
-      description: Project team lead for project instack-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/instack-ptl:
-      description: Project team lead for project instack
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/instack-undercloud-core:
-      description: Core developers for project instack-undercloud
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/instack-undercloud-distgit-core:
-      description: Core developers for project instack-undercloud-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/instack-undercloud-distgit-ptl:
-      description: Project team lead for project instack-undercloud-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/instack-undercloud-ptl:
-      description: Project team lead for project instack-undercloud
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/k8sclient-core:
       description: Core developers for project openstack/k8sclient
       members:
@@ -19743,16 +19583,6 @@ resources:
       description: Mirror of upstream horizon (mirror + patches)
     openstack/horizon-distgit:
       acl: 6415ef0302618677398c26e2bdb8750f
-    openstack/instack:
-      acl: 095e526434deb294888abd83c580b304
-      description: Mirror of upstream instack (mirror + patches)
-    openstack/instack-distgit:
-      acl: 1702479d8442b8d0754dc88befe1c7de
-    openstack/instack-undercloud:
-      acl: 6f67ca611e50910f4a849ce7791677d5
-      description: Mirror of upstream instack-undercloud (mirror + patches)
-    openstack/instack-undercloud-distgit:
-      acl: 1d4cc4cd27f65a6dc64f67302ba332f7
     openstack/k8sclient:
       acl: 19dafd4bae191061874b051e52932e75
       description: Mirror of upstream openstack/k8sclient (mirror + patches)

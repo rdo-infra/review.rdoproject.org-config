@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/instack-undercloud-core:
+      description: Core developers for project instack-undercloud
+      members:
+      - jslagle@redhat.com
+    openstack/instack-undercloud-ptl:
+      description: Project team lead for project instack-undercloud
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-instack-undercloud-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/instack-undercloud-core
+          owner = group openstack/instack-undercloud-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/instack-undercloud-core
+          label-Code-Review = -2..+2 group openstack/instack-undercloud-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/instack-undercloud-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/instack-undercloud-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/instack-undercloud-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/instack-undercloud-core
+          label-Workflow = -1..+1 group openstack/instack-undercloud-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/instack-undercloud-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/instack-undercloud-core
+      - openstack/instack-undercloud-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-instack-undercloud:
+      file: |
+        [access "refs/*"]
+          read = group openstack/instack-undercloud-core
+          owner = group openstack/instack-undercloud-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/instack-undercloud-core
+          label-Code-Review = -2..+2 group openstack/instack-undercloud-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/instack-undercloud-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/instack-undercloud-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/instack-undercloud-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/instack-undercloud-core
+          label-Workflow = -1..+0 group openstack/instack-undercloud-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/instack-undercloud-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/instack-undercloud-core
+      - openstack/instack-undercloud-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/instack-undercloud:
+      acl: openstack-instack-undercloud
+      description: Mirror of upstream instack-undercloud (mirror + patches)
+    openstack/instack-undercloud-distgit:
+      acl: openstack-instack-undercloud-distgit
+      description: Packaging of upstream instack-undercloud
