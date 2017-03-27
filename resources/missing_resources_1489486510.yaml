@@ -252,32 +252,6 @@ resources:
       groups:
       - puppet/puppet-keystone-distgit-ptl
       - rdo-core
-    0e9e96d974862f04b7ba0f4460848e95:
-      file: |
-        [access "refs/*"]
-          read = group openstack/manilaclient-core
-          owner = group openstack/manilaclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manilaclient-core
-            label-Code-Review = -2..+2 group openstack/manilaclient-ptl
-            submit = group openstack/manilaclient-ptl
-            read = group Registered Users
-            read = group openstack/manilaclient-core
-            label-Verified = -2..+0 group openstack/manilaclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/manilaclient-core
-            label-Workflow = -1..+0 group openstack/manilaclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manilaclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/manilaclient-core
-      - openstack/manilaclient-ptl
     0f34a80aa5ab7ee794aebb3e5df023ea:
       file: |
         [access "refs/*"]
@@ -1123,38 +1097,6 @@ resources:
       groups:
       - openstack/heat-agents-core
       - openstack/heat-agents-ptl
-    1dff65990f648dd2731aacad19141112:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/manila-distgit-core
-          read = group rdo-core
-          owner = group openstack/manila-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manila-distgit-core
-            label-Code-Review = -2..+2 group openstack/manila-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/manila-distgit-ptl
-            label-Workflow = -1..+1 group openstack/manila-distgit-core
-            label-Workflow = -1..+1 group openstack/manila-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/manila-distgit-ptl
-            read = group Registered Users
-            read = group openstack/manila-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manila-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/manila-distgit-ptl
     1e28b00f3d22b1f39a6f4221f54f24cb:
       file: |
         [project]
@@ -1981,32 +1923,6 @@ resources:
       groups:
       - openstack/congress-core
       - openstack/congress-ptl
-    35d82055060d87cbc6fee3f9447a4c7f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/manila-core
-          owner = group openstack/manila-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manila-core
-            label-Code-Review = -2..+2 group openstack/manila-ptl
-            submit = group openstack/manila-ptl
-            read = group Registered Users
-            read = group openstack/manila-core
-            label-Verified = -2..+0 group openstack/manila-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/manila-core
-            label-Workflow = -1..+0 group openstack/manila-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manila-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/manila-ptl
-      - openstack/manila-core
     370dd64257410095bd3e24483e5d15be:
       file: |
         [project]
@@ -2449,32 +2365,6 @@ resources:
       groups:
       - openstack/monascaclient-core
       - openstack/monascaclient-ptl
-    4211880131144212e074fa3efdaf1d5d:
-      file: |
-        [access "refs/*"]
-          read = group openstack/manila-ui-core
-          owner = group openstack/manila-ui-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manila-ui-core
-            label-Code-Review = -2..+2 group openstack/manila-ui-ptl
-            submit = group openstack/manila-ui-ptl
-            read = group Registered Users
-            read = group openstack/manila-ui-core
-            label-Verified = -2..+0 group openstack/manila-ui-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/manila-ui-core
-            label-Workflow = -1..+0 group openstack/manila-ui-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manila-ui-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/manila-ui-core
-      - openstack/manila-ui-ptl
     423fd9f417747f7225607927f025b4b3:
       file: |
         [project]
@@ -4068,38 +3958,6 @@ resources:
       groups:
       - openstack/UcsSdk-core
       - openstack/UcsSdk-ptl
-    62133db9e5530d2d028e1ac44fe9d60f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/manila-ui-distgit-core
-          read = group rdo-core
-          owner = group openstack/manila-ui-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manila-ui-distgit-core
-            label-Code-Review = -2..+2 group openstack/manila-ui-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/manila-ui-distgit-ptl
-            label-Workflow = -1..+1 group openstack/manila-ui-distgit-core
-            label-Workflow = -1..+1 group openstack/manila-ui-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/manila-ui-distgit-ptl
-            read = group Registered Users
-            read = group openstack/manila-ui-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manila-ui-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/manila-ui-distgit-ptl
-      - rdo-core
     6342781eae83762ea91be5079951ed6a:
       file: |
         [project]
@@ -6622,38 +6480,6 @@ resources:
       groups:
       - openstack/networking-l2gw-core
       - openstack/networking-l2gw-ptl
-    99f667777aee0f759310784cee7fe5c6:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/manilaclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/manilaclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/manilaclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/manilaclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/manilaclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/manilaclient-distgit-core
-            label-Workflow = -1..+1 group openstack/manilaclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/manilaclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/manilaclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/manilaclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/manilaclient-distgit-ptl
-      - rdo-core
     9afb7bc027afc82a3824527e1114349a:
       file: |
         [access "refs/*"]
@@ -12725,76 +12551,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/manila-core:
-      description: Core developers for project manila
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - zaitcev@redhat.com
-    openstack/manila-distgit-core:
-      description: Core developers for project manila-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - zaitcev@redhat.com
-    openstack/manila-distgit-ptl:
-      description: Project team lead for project manila-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/manila-ptl:
-      description: Project team lead for project manila
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/manila-ui-core:
-      description: Core developers for project manila-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/manila-ui-distgit-core:
-      description: Core developers for project manila-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/manila-ui-distgit-ptl:
-      description: Project team lead for project manila-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/manila-ui-ptl:
-      description: Project team lead for project manila-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/manilaclient-core:
-      description: Core developers for project manilaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/manilaclient-distgit-core:
-      description: Core developers for project manilaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/manilaclient-distgit-ptl:
-      description: Project team lead for project manilaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/manilaclient-ptl:
-      description: Project team lead for project manilaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/microversion-parse-core:
       description: Core developers for project openstack/microversion-parse
       members:
@@ -17033,21 +16789,6 @@ resources:
       description: Mirror of upstream magnumclient (mirror + patches)
     openstack/magnumclient-distgit:
       acl: bd8cedacfc3d523a981344647234a061
-    openstack/manila:
-      acl: 35d82055060d87cbc6fee3f9447a4c7f
-      description: Mirror of upstream manila (mirror + patches)
-    openstack/manila-distgit:
-      acl: 1dff65990f648dd2731aacad19141112
-    openstack/manila-ui:
-      acl: 4211880131144212e074fa3efdaf1d5d
-      description: Mirror of upstream manila-ui (mirror + patches)
-    openstack/manila-ui-distgit:
-      acl: 62133db9e5530d2d028e1ac44fe9d60f
-    openstack/manilaclient:
-      acl: 0e9e96d974862f04b7ba0f4460848e95
-      description: Mirror of upstream manilaclient (mirror + patches)
-    openstack/manilaclient-distgit:
-      acl: 99f667777aee0f759310784cee7fe5c6
     openstack/microversion-parse:
       acl: dab822e52e1d8a9d3c7f46043dba959e
       description: Mirror of upstream openstack/microversion-parse (mirror + patches)

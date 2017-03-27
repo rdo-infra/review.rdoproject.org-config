@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/manilaclient-core:
+      description: Core developers for project manilaclient
+      members:
+      - hguemar@redhat.com
+#      - tbarron@redhat.com
+    openstack/manilaclient-ptl:
+      description: Project team lead for project manilaclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-manilaclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/manilaclient-core
+          owner = group openstack/manilaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/manilaclient-core
+          label-Code-Review = -2..+2 group openstack/manilaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/manilaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/manilaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/manilaclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/manilaclient-core
+          label-Workflow = -1..+1 group openstack/manilaclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/manilaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/manilaclient-core
+      - openstack/manilaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-manilaclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/manilaclient-core
+          owner = group openstack/manilaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/manilaclient-core
+          label-Code-Review = -2..+2 group openstack/manilaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/manilaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/manilaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/manilaclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/manilaclient-core
+          label-Workflow = -1..+0 group openstack/manilaclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/manilaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/manilaclient-core
+      - openstack/manilaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/manilaclient:
+      acl: openstack-manilaclient
+      description: Mirror of upstream manilaclient (mirror + patches)
+    openstack/manilaclient-distgit:
+      acl: openstack-manilaclient-distgit
+      description: Packaging of upstream manilaclient
