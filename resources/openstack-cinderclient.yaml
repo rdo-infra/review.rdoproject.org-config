@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/cinderclient-core:
+      description: Core developers for project cinderclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@redhat.com
+    openstack/cinderclient-ptl:
+      description: Project team lead for project cinderclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cinderclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cinderclient-core
+          owner = group openstack/cinderclient-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cinderclient-core
+          label-Code-Review = -2..+2 group openstack/cinderclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cinderclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cinderclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/cinderclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cinderclient-core
+          label-Workflow = -1..+1 group openstack/cinderclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cinderclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cinderclient-core
+      - openstack/cinderclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cinderclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cinderclient-core
+          owner = group openstack/cinderclient-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cinderclient-core
+          label-Code-Review = -2..+2 group openstack/cinderclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cinderclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cinderclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cinderclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cinderclient-core
+          label-Workflow = -1..+0 group openstack/cinderclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cinderclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cinderclient-core
+      - openstack/cinderclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cinderclient:
+      acl: openstack-cinderclient
+      description: Mirror of upstream cinderclient (mirror + patches)
+    openstack/cinderclient-distgit:
+      acl: openstack-cinderclient-distgit
+      description: Packaging of upstream cinderclient
