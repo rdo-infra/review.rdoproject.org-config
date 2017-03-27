@@ -108,32 +108,6 @@ resources:
       groups:
       - puppet/puppet-fdio-distgit-ptl
       - puppet/puppet-fdio-distgit-core
-    05f6d66867643e8609344a8e97f3f273:
-      file: |
-        [access "refs/*"]
-          read = group openstack/swift3-core
-          owner = group openstack/swift3-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swift3-core
-            label-Code-Review = -2..+2 group openstack/swift3-ptl
-            submit = group openstack/swift3-ptl
-            read = group openstack/swift3-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/swift3-ptl
-            label-Workflow = -1..+0 group openstack/swift3-ptl
-            label-Workflow = -1..+0 group openstack/swift3-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/swift3-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/swift3-ptl
-      - openstack/swift3-core
     06eb72f47f02a5118dd2cd40251ac694:
       file: |
         [access "refs/*"]
@@ -2640,33 +2614,6 @@ resources:
       groups:
       - openstack/requestsexceptions-ptl
       - openstack/requestsexceptions-core
-    340fa664b03ad1fa9ef963e6c5dc6f0c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/swift3-distgit-core
-          owner = group openstack/swift3-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swift3-distgit-core
-            label-Code-Review = -2..+2 group openstack/swift3-distgit-ptl
-            label-Verified = -2..+2 group openstack/swift3-distgit-ptl
-            label-Workflow = -1..+1 group openstack/swift3-distgit-core
-            label-Workflow = -1..+1 group openstack/swift3-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/swift3-distgit-ptl
-            read = group Registered Users
-            read = group openstack/swift3-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/swift3-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/swift3-distgit-core
-      - openstack/swift3-distgit-ptl
     356742c995ac306f6d23b0f72be31441:
       file: |
         [access "refs/*"]
@@ -3783,32 +3730,6 @@ resources:
       groups:
       - puppet/puppet-apache-core
       - puppet/puppet-apache-ptl
-    48c16a0e064268da25f7a6cb04c8436b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/swift-core
-          owner = group openstack/swift-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swift-core
-            label-Code-Review = -2..+2 group openstack/swift-ptl
-            submit = group openstack/swift-ptl
-            read = group Registered Users
-            read = group openstack/swift-core
-            label-Verified = -2..+0 group openstack/swift-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/swift-core
-            label-Workflow = -1..+0 group openstack/swift-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/swift-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/swift-core
-      - openstack/swift-ptl
     48e464eea89b3d579e2fc8e298622f3c:
       file: |
         [access "refs/*"]
@@ -4841,32 +4762,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    5b24a6697bd7051ac2de53eb22c1cad4:
-      file: |
-        [access "refs/*"]
-          read = group openstack/swiftclient-core
-          owner = group openstack/swiftclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swiftclient-core
-            label-Code-Review = -2..+2 group openstack/swiftclient-ptl
-            submit = group openstack/swiftclient-ptl
-            read = group Registered Users
-            read = group openstack/swiftclient-core
-            label-Verified = -2..+0 group openstack/swiftclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/swiftclient-core
-            label-Workflow = -1..+0 group openstack/swiftclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/swiftclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/swiftclient-core
-      - openstack/swiftclient-ptl
     5b29d6ba5ed73b29f90c47c3c0c4a878:
       file: |
         [project]
@@ -7339,38 +7234,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/heat-templates-distgit-ptl
-      - rdo-core
-    86cf03300f3b335b0b73969657b95ee7:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/swiftclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/swiftclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swiftclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/swiftclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/swiftclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/swiftclient-distgit-core
-            label-Workflow = -1..+1 group openstack/swiftclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/swiftclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/swiftclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/swiftclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/swiftclient-distgit-ptl
       - rdo-core
     86db27632fe53182ae377d3720199056:
       file: |
@@ -10624,38 +10487,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-openstack_extras-distgit-ptl
-      - rdo-core
-    b9e295e4452660a5fb5154c76746e245:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/swift-distgit-core
-          read = group rdo-core
-          owner = group openstack/swift-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/swift-distgit-core
-            label-Code-Review = -2..+2 group openstack/swift-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/swift-distgit-ptl
-            label-Workflow = -1..+1 group openstack/swift-distgit-core
-            label-Workflow = -1..+1 group openstack/swift-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/swift-distgit-ptl
-            read = group Registered Users
-            read = group openstack/swift-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/swift-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/swift-distgit-ptl
       - rdo-core
     ba4b3c2b22f3e0a22faa6f81c5306777:
       file: |
@@ -17827,77 +17658,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/swift-core:
-      description: Core developers for project swift
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - zaitcev@redhat.com
-    openstack/swift-distgit-core:
-      description: Core developers for project swift-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - cschwede@redhat.com
-      - admin@review.rdoproject.org
-      - zaitcev@redhat.com
-    openstack/swift-distgit-ptl:
-      description: Project team lead for project swift-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/swift-ptl:
-      description: Project team lead for project swift
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/swift3-core:
-      description: Core developers for project openstack/swift3
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swift3-distgit-core:
-      description: Core developers for project openstack/swift3-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swift3-distgit-ptl:
-      description: Project team lead for project openstack/swift3-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swift3-ptl:
-      description: Project team lead for project openstack/swift3
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swiftclient-core:
-      description: Core developers for project swiftclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swiftclient-distgit-core:
-      description: Core developers for project swiftclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/swiftclient-distgit-ptl:
-      description: Project team lead for project swiftclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/swiftclient-ptl:
-      description: Project team lead for project swiftclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/tacker-core:
       description: Core developers for project openstack/tacker
       members:
@@ -21395,21 +21155,6 @@ resources:
       description: Mirror of upstream stevedore (mirror + patches)
     openstack/stevedore-distgit:
       acl: 5b29d6ba5ed73b29f90c47c3c0c4a878
-    openstack/swift:
-      acl: 48c16a0e064268da25f7a6cb04c8436b
-      description: Mirror of upstream swift (mirror + patches)
-    openstack/swift-distgit:
-      acl: b9e295e4452660a5fb5154c76746e245
-    openstack/swift3:
-      acl: 05f6d66867643e8609344a8e97f3f273
-      description: Mirror of upstream openstack/swift3 (mirror + patches)
-    openstack/swift3-distgit:
-      acl: 340fa664b03ad1fa9ef963e6c5dc6f0c
-    openstack/swiftclient:
-      acl: 5b24a6697bd7051ac2de53eb22c1cad4
-      description: Mirror of upstream swiftclient (mirror + patches)
-    openstack/swiftclient-distgit:
-      acl: 86cf03300f3b335b0b73969657b95ee7
     openstack/tacker:
       acl: cb0118541ba2b53623e8397cbb039c22
       description: Mirror of upstream openstack/tacker (mirror + patches)
