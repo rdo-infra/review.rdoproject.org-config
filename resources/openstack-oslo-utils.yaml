@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-utils-core:
+      description: Core developers for project oslo-utils
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-utils-ptl:
+      description: Project team lead for project oslo-utils
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-utils-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-utils-core
+          owner = group openstack/oslo-utils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-utils-core
+          label-Code-Review = -2..+2 group openstack/oslo-utils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-utils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-utils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-utils-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-utils-core
+          label-Workflow = -1..+1 group openstack/oslo-utils-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-utils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-utils-core
+      - openstack/oslo-utils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-utils:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-utils-core
+          owner = group openstack/oslo-utils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-utils-core
+          label-Code-Review = -2..+2 group openstack/oslo-utils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-utils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-utils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-utils-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-utils-core
+          label-Workflow = -1..+0 group openstack/oslo-utils-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-utils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-utils-core
+      - openstack/oslo-utils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-utils:
+      acl: openstack-oslo-utils
+      description: Mirror of upstream oslo-utils (mirror + patches)
+    openstack/oslo-utils-distgit:
+      acl: openstack-oslo-utils-distgit
+      description: Packaging of upstream oslo-utils

@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-serialization-core:
+      description: Core developers for project oslo-serialization
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-serialization-ptl:
+      description: Project team lead for project oslo-serialization
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-serialization-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-serialization-core
+          owner = group openstack/oslo-serialization-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-serialization-core
+          label-Code-Review = -2..+2 group openstack/oslo-serialization-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-serialization-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-serialization-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-serialization-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-serialization-core
+          label-Workflow = -1..+1 group openstack/oslo-serialization-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-serialization-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-serialization-core
+      - openstack/oslo-serialization-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-serialization:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-serialization-core
+          owner = group openstack/oslo-serialization-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-serialization-core
+          label-Code-Review = -2..+2 group openstack/oslo-serialization-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-serialization-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-serialization-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-serialization-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-serialization-core
+          label-Workflow = -1..+0 group openstack/oslo-serialization-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-serialization-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-serialization-core
+      - openstack/oslo-serialization-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-serialization:
+      acl: openstack-oslo-serialization
+      description: Mirror of upstream oslo-serialization (mirror + patches)
+    openstack/oslo-serialization-distgit:
+      acl: openstack-oslo-serialization-distgit
+      description: Packaging of upstream oslo-serialization
