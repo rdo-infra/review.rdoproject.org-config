@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/glance-core:
+      description: Core developers for project glance
+      members:
+      - hguemar@redhat.com
+      - cyril@redhat.com
+    openstack/glance-ptl:
+      description: Project team lead for project glance
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-glance-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/glance-core
+          owner = group openstack/glance-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/glance-core
+          label-Code-Review = -2..+2 group openstack/glance-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/glance-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/glance-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/glance-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/glance-core
+          label-Workflow = -1..+1 group openstack/glance-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/glance-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/glance-core
+      - openstack/glance-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-glance:
+      file: |
+        [access "refs/*"]
+          read = group openstack/glance-core
+          owner = group openstack/glance-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/glance-core
+          label-Code-Review = -2..+2 group openstack/glance-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/glance-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/glance-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/glance-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/glance-core
+          label-Workflow = -1..+0 group openstack/glance-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/glance-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/glance-core
+      - openstack/glance-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/glance:
+      acl: openstack-glance
+      description: Mirror of upstream glance (mirror + patches)
+    openstack/glance-distgit:
+      acl: openstack-glance
+      description: Packaging of upstream glance
