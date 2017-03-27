@@ -41,7 +41,7 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
         [access "refs/*"]
           read = group ${PREFIX}/${PROJECT_NAME}-core
           owner = group ${PREFIX}/${PROJECT_NAME}-ptl
-          owner = rdo-superusers
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-core
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-ptl
@@ -77,7 +77,7 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
         [access "refs/*"]
           read = group ${PREFIX}/${PROJECT_NAME}-core
           owner = group ${PREFIX}/${PROJECT_NAME}-ptl
-          owner = rdo-superusers
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-core
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-ptl
