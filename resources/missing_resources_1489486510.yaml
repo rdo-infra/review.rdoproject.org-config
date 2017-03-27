@@ -28,38 +28,6 @@ resources:
       groups:
       - centos-opstools/core
       - centos-opstools/ptl
-    017ba8c4727f1e6c0fe45493a8483840:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/openstackclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/openstackclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstackclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/openstackclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/openstackclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/openstackclient-distgit-core
-            label-Workflow = -1..+1 group openstack/openstackclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/openstackclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/openstackclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/openstackclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/openstackclient-distgit-ptl
-      - rdo-core
     02886158a5d59ccd082aa23580157068:
       file: |
         [access "refs/*"]
@@ -13652,32 +13620,6 @@ resources:
       groups:
       - puppet/puppet-sensu-core
       - puppet/puppet-sensu-ptl
-    e7a330e0f89157bbc36f026049d41d0e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/openstackclient-core
-          owner = group openstack/openstackclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstackclient-core
-            label-Code-Review = -2..+2 group openstack/openstackclient-ptl
-            submit = group openstack/openstackclient-ptl
-            read = group Registered Users
-            read = group openstack/openstackclient-core
-            label-Verified = -2..+0 group openstack/openstackclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/openstackclient-core
-            label-Workflow = -1..+0 group openstack/openstackclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/openstackclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/openstackclient-core
-      - openstack/openstackclient-ptl
     e7bbfde915deac24b0d7c4e157742afd:
       file: |
         [access "refs/*"]
@@ -17030,30 +16972,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/openstack/heat-agents-ptl:
       description: Project team lead for project openstack/openstack/heat-agents
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/openstackclient-core:
-      description: Core developers for project openstackclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstackclient-distgit-core:
-      description: Core developers for project openstackclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstackclient-distgit-ptl:
-      description: Project team lead for project openstackclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/openstackclient-ptl:
-      description: Project team lead for project openstackclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -21657,11 +21575,6 @@ resources:
     openstack/openstack-selinux-distgit:
       acl: 7c6eaa6c14a7041309d211a771dc8380
       description: Packaging content for openstack/openstack-selinux (distgit)
-    openstack/openstackclient:
-      acl: e7a330e0f89157bbc36f026049d41d0e
-      description: Mirror of upstream openstackclient (mirror + patches)
-    openstack/openstackclient-distgit:
-      acl: 017ba8c4727f1e6c0fe45493a8483840
     openstack/openstacksdk:
       acl: 5c6813cd95a36f5eae70a0f9c946fb87
       description: Mirror of upstream openstacksdk (mirror + patches)
