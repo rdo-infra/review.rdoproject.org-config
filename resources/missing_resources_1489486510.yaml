@@ -161,38 +161,6 @@ resources:
       groups:
       - rdopkg-ptl
       - rdopkg-core
-    0a6ef67358cb28c9f4a1acdbcb8c2006:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/django_openstack_auth-distgit-core
-          read = group rdo-core
-          owner = group openstack/django_openstack_auth-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/django_openstack_auth-distgit-core
-            label-Code-Review = -2..+2 group openstack/django_openstack_auth-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/django_openstack_auth-distgit-ptl
-            label-Workflow = -1..+1 group openstack/django_openstack_auth-distgit-core
-            label-Workflow = -1..+1 group openstack/django_openstack_auth-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/django_openstack_auth-distgit-ptl
-            read = group Registered Users
-            read = group openstack/django_openstack_auth-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/django_openstack_auth-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/django_openstack_auth-distgit-ptl
-      - rdo-core
     0ab1de9ca2e7f6b29f84dabea677ef64:
       file: |
         [project]
@@ -484,32 +452,6 @@ resources:
       groups:
       - puppet/puppet-staging-distgit-ptl
       - rdo-core
-    0fc511a2caea09ccd6a0a72807768aa3:
-      file: |
-        [access "refs/*"]
-          read = group openstack/horizon-core
-          owner = group openstack/horizon-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/horizon-core
-            label-Code-Review = -2..+2 group openstack/horizon-ptl
-            submit = group openstack/horizon-ptl
-            read = group Registered Users
-            read = group openstack/horizon-core
-            label-Verified = -2..+0 group openstack/horizon-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/horizon-core
-            label-Workflow = -1..+0 group openstack/horizon-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/horizon-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/horizon-core
-      - openstack/horizon-ptl
     114003826b2ab750d95d25667a3a8218:
       file: |
         [access "refs/*"]
@@ -3672,32 +3614,6 @@ resources:
       groups:
       - openstack/designateclient-core
       - openstack/designateclient-ptl
-    4f2501c07a734e94657196c198b44022:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tempest-horizon-core
-          owner = group openstack/tempest-horizon-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-horizon-core
-            label-Code-Review = -2..+2 group openstack/tempest-horizon-ptl
-            submit = group openstack/tempest-horizon-ptl
-            read = group openstack/tempest-horizon-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tempest-horizon-ptl
-            label-Workflow = -1..+0 group openstack/tempest-horizon-ptl
-            label-Workflow = -1..+0 group openstack/tempest-horizon-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tempest-horizon-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tempest-horizon-ptl
-      - openstack/tempest-horizon-core
     505641b9b3a1c08e2bc6e780a34fca7a:
       file: |
         [project]
@@ -4686,32 +4602,6 @@ resources:
       groups:
       - puppet/puppet-manila-distgit-ptl
       - rdo-core
-    608d412e8c564d8d61dafca00025cc21:
-      file: |
-        [access "refs/*"]
-          read = group openstack/django_openstack_auth-core
-          owner = group openstack/django_openstack_auth-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/django_openstack_auth-core
-            label-Code-Review = -2..+2 group openstack/django_openstack_auth-ptl
-            submit = group openstack/django_openstack_auth-ptl
-            read = group Registered Users
-            read = group openstack/django_openstack_auth-core
-            label-Verified = -2..+0 group openstack/django_openstack_auth-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/django_openstack_auth-core
-            label-Workflow = -1..+0 group openstack/django_openstack_auth-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/django_openstack_auth-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/django_openstack_auth-core
-      - openstack/django_openstack_auth-ptl
     613ce87894c9e7d7d9abdaf7a9d92ac2:
       file: |
         [access "refs/*"]
@@ -4853,38 +4743,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/murano-agent-distgit-ptl
-      - rdo-core
-    6415ef0302618677398c26e2bdb8750f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/horizon-distgit-core
-          read = group rdo-core
-          owner = group openstack/horizon-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/horizon-distgit-core
-            label-Code-Review = -2..+2 group openstack/horizon-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/horizon-distgit-ptl
-            label-Workflow = -1..+1 group openstack/horizon-distgit-core
-            label-Workflow = -1..+1 group openstack/horizon-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/horizon-distgit-ptl
-            read = group Registered Users
-            read = group openstack/horizon-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/horizon-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/horizon-distgit-ptl
       - rdo-core
     64266fd32243bc97742ecc06713b83c6:
       file: |
@@ -9854,33 +9712,6 @@ resources:
       groups:
       - puppet/puppet-remote-ptl
       - puppet/puppet-remote-core
-    bf4f88a4892e1a21f9ff8d1bb516d489:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tempest-horizon-distgit-core
-          owner = group openstack/tempest-horizon-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-horizon-distgit-core
-            label-Code-Review = -2..+2 group openstack/tempest-horizon-distgit-ptl
-            label-Verified = -2..+2 group openstack/tempest-horizon-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tempest-horizon-distgit-core
-            label-Workflow = -1..+1 group openstack/tempest-horizon-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tempest-horizon-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tempest-horizon-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempest-horizon-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tempest-horizon-distgit-ptl
-      - openstack/tempest-horizon-distgit-core
     bf772fb7f4824055d4b927d293e82a64:
       file: |
         [access "refs/*"]
@@ -13935,28 +13766,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/django_openstack_auth-core:
-      description: Core developers for project django_openstack_auth
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/django_openstack_auth-distgit-core:
-      description: Core developers for project django_openstack_auth-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/django_openstack_auth-distgit-ptl:
-      description: Project team lead for project django_openstack_auth-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/django_openstack_auth-ptl:
-      description: Project team lead for project django_openstack_auth
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/dracclient-core:
       description: Core developers for project dracclient
       members:
@@ -14238,28 +14047,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/heatclient-ptl:
       description: Project team lead for project heatclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/horizon-core:
-      description: Core developers for project horizon
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/horizon-distgit-core:
-      description: Core developers for project horizon-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/horizon-distgit-ptl:
-      description: Project team lead for project horizon-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/horizon-ptl:
-      description: Project team lead for project horizon
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -16396,31 +16183,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/tempest-horizon-core:
-      description: Core developers for project openstack/tempest-horizon
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tempest-horizon-distgit-core:
-      description: Core developers for project openstack/tempest-horizon-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/tempest-horizon-distgit-ptl:
-      description: Project team lead for project openstack/tempest-horizon-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tempest-horizon-ptl:
-      description: Project team lead for project openstack/tempest-horizon
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/tempest-lib-core:
       description: Core developers for project tempest-lib
       members:
@@ -19266,11 +19028,6 @@ resources:
       description: Mirror of upstream diskimage-builder (mirror + patches)
     openstack/diskimage-builder-distgit:
       acl: a4baeeda9d30d375c97db7234678faf8
-    openstack/django_openstack_auth:
-      acl: 608d412e8c564d8d61dafca00025cc21
-      description: Mirror of upstream django_openstack_auth (mirror + patches)
-    openstack/django_openstack_auth-distgit:
-      acl: 0a6ef67358cb28c9f4a1acdbcb8c2006
     openstack/dracclient:
       acl: fe29c2f474cecd344ecb939a0696589a
       description: Mirror of upstream dracclient (mirror + patches)
@@ -19331,11 +19088,6 @@ resources:
       description: Mirror of upstream heatclient (mirror + patches)
     openstack/heatclient-distgit:
       acl: ab1723cf6e344a2335101ec01ddcd5bf
-    openstack/horizon:
-      acl: 0fc511a2caea09ccd6a0a72807768aa3
-      description: Mirror of upstream horizon (mirror + patches)
-    openstack/horizon-distgit:
-      acl: 6415ef0302618677398c26e2bdb8750f
     openstack/k8sclient:
       acl: 19dafd4bae191061874b051e52932e75
       description: Mirror of upstream openstack/k8sclient (mirror + patches)
@@ -19730,11 +19482,6 @@ resources:
       description: Mirror of upstream tempest (mirror + patches)
     openstack/tempest-distgit:
       acl: f530b638deca742b92a46126aef89ba6
-    openstack/tempest-horizon:
-      acl: 4f2501c07a734e94657196c198b44022
-      description: Mirror of upstream openstack/tempest-horizon (mirror + patches)
-    openstack/tempest-horizon-distgit:
-      acl: bf4f88a4892e1a21f9ff8d1bb516d489
     openstack/tempest-lib:
       acl: 56531313f879b9a4343c1f8b0edfc70b
       description: Mirror of upstream tempest-lib (mirror + patches)
