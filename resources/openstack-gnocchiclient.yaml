@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/gnocchiclient-core:
+      description: Core developers for project gnocchiclient
+      members:
+      - pkilambi@redhat.com
+    openstack/gnocchiclient-ptl:
+      description: Project team lead for project gnocchiclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-gnocchiclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/gnocchiclient-core
+          owner = group openstack/gnocchiclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/gnocchiclient-core
+          label-Code-Review = -2..+2 group openstack/gnocchiclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/gnocchiclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/gnocchiclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/gnocchiclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/gnocchiclient-core
+          label-Workflow = -1..+1 group openstack/gnocchiclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/gnocchiclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/gnocchiclient-core
+      - openstack/gnocchiclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-gnocchiclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/gnocchiclient-core
+          owner = group openstack/gnocchiclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/gnocchiclient-core
+          label-Code-Review = -2..+2 group openstack/gnocchiclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/gnocchiclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/gnocchiclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/gnocchiclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/gnocchiclient-core
+          label-Workflow = -1..+0 group openstack/gnocchiclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/gnocchiclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/gnocchiclient-core
+      - openstack/gnocchiclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/gnocchiclient:
+      acl: openstack-gnocchiclient
+      description: Mirror of upstream gnocchiclient (mirror + patches)
+    openstack/gnocchiclient-distgit:
+      acl: openstack-gnocchiclient-distgit
+      description: Packaging of upstream gnocchiclient
