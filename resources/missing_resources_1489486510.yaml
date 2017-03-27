@@ -193,38 +193,6 @@ resources:
       groups:
       - rdo-core
       - puppet/puppet-mongodb-distgit-ptl
-    0ae192a86861a8dd1de2ae6251728c38:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/gnocchi-distgit-core
-          read = group rdo-core
-          owner = group openstack/gnocchi-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/gnocchi-distgit-core
-            label-Code-Review = -2..+2 group openstack/gnocchi-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/gnocchi-distgit-ptl
-            label-Workflow = -1..+1 group openstack/gnocchi-distgit-core
-            label-Workflow = -1..+1 group openstack/gnocchi-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/gnocchi-distgit-ptl
-            read = group Registered Users
-            read = group openstack/gnocchi-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/gnocchi-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/gnocchi-distgit-ptl
-      - rdo-core
     0cbf8b59c21d3c2b5c87e430aedf61cf:
       file: |
         [project]
@@ -7330,64 +7298,6 @@ resources:
       groups:
       - puppet/puppet-module-data-ptl
       - puppet/puppet-module-data-core
-    941d6c9a632add8504a17111dd45017a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/gnocchi-core
-          owner = group openstack/gnocchi-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/gnocchi-core
-            label-Code-Review = -2..+2 group openstack/gnocchi-ptl
-            submit = group openstack/gnocchi-ptl
-            read = group Registered Users
-            read = group openstack/gnocchi-core
-            label-Verified = -2..+0 group openstack/gnocchi-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/gnocchi-core
-            label-Workflow = -1..+0 group openstack/gnocchi-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/gnocchi-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/gnocchi-core
-      - openstack/gnocchi-ptl
-    9497bc109e5a00fee95a3277f4fe1310:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/gnocchiclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/gnocchiclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/gnocchiclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/gnocchiclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/gnocchiclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/gnocchiclient-distgit-core
-            label-Workflow = -1..+1 group openstack/gnocchiclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/gnocchiclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/gnocchiclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/gnocchiclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/gnocchiclient-distgit-ptl
-      - rdo-core
     95de5b07415fe7332391cf577ce64af3:
       file: |
         [project]
@@ -12306,32 +12216,6 @@ resources:
       groups:
       - puppet/puppet-collectd-distgit-ptl
       - rdo-core
-    ed28d1093f6d3eb957e96346bba9461e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/gnocchiclient-core
-          owner = group openstack/gnocchiclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/gnocchiclient-core
-            label-Code-Review = -2..+2 group openstack/gnocchiclient-ptl
-            submit = group openstack/gnocchiclient-ptl
-            read = group Registered Users
-            read = group openstack/gnocchiclient-core
-            label-Verified = -2..+0 group openstack/gnocchiclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/gnocchiclient-core
-            label-Workflow = -1..+0 group openstack/gnocchiclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/gnocchiclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/gnocchiclient-ptl
-      - openstack/gnocchiclient-core
     edc65b0548d6e56b46d5513549aea3d3:
       file: |
         [access "refs/*"]
@@ -13835,52 +13719,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/futurist-ptl:
       description: Project team lead for project futurist
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/gnocchi-core:
-      description: Core developers for project gnocchi
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - sileht@sileht.net
-    openstack/gnocchi-distgit-core:
-      description: Core developers for project gnocchi-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - sileht@sileht.net
-    openstack/gnocchi-distgit-ptl:
-      description: Project team lead for project gnocchi-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/gnocchi-ptl:
-      description: Project team lead for project gnocchi
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/gnocchiclient-core:
-      description: Core developers for project gnocchiclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-    openstack/gnocchiclient-distgit-core:
-      description: Core developers for project gnocchiclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-    openstack/gnocchiclient-distgit-ptl:
-      description: Project team lead for project gnocchiclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/gnocchiclient-ptl:
-      description: Project team lead for project gnocchiclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -19043,16 +18881,6 @@ resources:
       description: Mirror of upstream futurist (mirror + patches)
     openstack/futurist-distgit:
       acl: effb246db2f3d269439f0640618469f9
-    openstack/gnocchi:
-      acl: 941d6c9a632add8504a17111dd45017a
-      description: Mirror of upstream gnocchi (mirror + patches)
-    openstack/gnocchi-distgit:
-      acl: 0ae192a86861a8dd1de2ae6251728c38
-    openstack/gnocchiclient:
-      acl: ed28d1093f6d3eb957e96346bba9461e
-      description: Mirror of upstream gnocchiclient (mirror + patches)
-    openstack/gnocchiclient-distgit:
-      acl: 9497bc109e5a00fee95a3277f4fe1310
     openstack/hacking:
       acl: 6fe90bb30e4b6e6b0c707951ef391dfb
       description: Mirror of upstream hacking (mirror + patches)
