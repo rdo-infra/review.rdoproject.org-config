@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/os-testr-core:
+      description: Core developers for project os-testr
+      members:
+      - chkumar@redhat.com
+      - afazekas@redhat.com
+      - dmellado@redhat.com
+    openstack/os-testr-ptl:
+      description: Project team lead for project os-testr
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-testr-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-testr-core
+          owner = group openstack/os-testr-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-testr-core
+          label-Code-Review = -2..+2 group openstack/os-testr-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-testr-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-testr-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/os-testr-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-testr-core
+          label-Workflow = -1..+1 group openstack/os-testr-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-testr-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-testr-core
+      - openstack/os-testr-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-testr:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-testr-core
+          owner = group openstack/os-testr-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-testr-core
+          label-Code-Review = -2..+2 group openstack/os-testr-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-testr-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-testr-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-testr-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-testr-core
+          label-Workflow = -1..+0 group openstack/os-testr-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-testr-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-testr-core
+      - openstack/os-testr-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-testr:
+      acl: openstack-os-testr
+      description: Mirror of upstream os-testr (mirror + patches)
+    openstack/os-testr-distgit:
+      acl: openstack-os-testr-distgit
+      description: Packaging of upstream os-testr
