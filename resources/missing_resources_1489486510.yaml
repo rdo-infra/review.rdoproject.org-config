@@ -1,31 +1,5 @@
 resources:
   acls:
-    004522e8ff7949b5af1ba925d6883127:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cinderclient-core
-          owner = group openstack/cinderclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cinderclient-core
-            label-Code-Review = -2..+2 group openstack/cinderclient-ptl
-            submit = group openstack/cinderclient-ptl
-            read = group Registered Users
-            read = group openstack/cinderclient-core
-            label-Verified = -2..+0 group openstack/cinderclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cinderclient-core
-            label-Workflow = -1..+0 group openstack/cinderclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cinderclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cinderclient-core
-      - openstack/cinderclient-ptl
     00943607dc4b755de0c74a10c6d3a1b7:
       file: |
         [access "refs/*"]
@@ -2202,38 +2176,6 @@ resources:
       groups:
       - openstack/os-faults-ptl
       - openstack/os-faults-core
-    21a2a4997f57493c742cdbd6a55c43a9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cinderclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/cinderclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cinderclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/cinderclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cinderclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cinderclient-distgit-core
-            label-Workflow = -1..+1 group openstack/cinderclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cinderclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cinderclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cinderclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/cinderclient-distgit-ptl
     21d14fdabb319d2419ca5872c4f0eac7:
       file: |
         [access "refs/*"]
@@ -2286,38 +2228,6 @@ resources:
       groups:
       - puppet/puppet-vitrage-distgit-ptl
       - puppet/puppet-vitrage-distgit-core
-    2345d514913573dd0af61ba8e055cd6a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cinder-distgit-core
-          read = group rdo-core
-          owner = group openstack/cinder-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cinder-distgit-core
-            label-Code-Review = -2..+2 group openstack/cinder-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cinder-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cinder-distgit-core
-            label-Workflow = -1..+1 group openstack/cinder-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cinder-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cinder-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cinder-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cinder-distgit-ptl
-      - rdo-core
     23f2cef95c89b450ac7ec1daec405a75:
       file: |
         [project]
@@ -11618,32 +11528,6 @@ resources:
       groups:
       - openstack/pycadf-distgit-ptl
       - rdo-core
-    b4d9761342cab514783d7dfc4765a218:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cinder-core
-          owner = group openstack/cinder-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cinder-core
-            label-Code-Review = -2..+2 group openstack/cinder-ptl
-            submit = group openstack/cinder-ptl
-            read = group Registered Users
-            read = group openstack/cinder-core
-            label-Verified = -2..+0 group openstack/cinder-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cinder-core
-            label-Workflow = -1..+0 group openstack/cinder-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cinder-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cinder-core
-      - openstack/cinder-ptl
     b4dbbd6d7dda8f7ed8febfee540e9383:
       file: |
         [project]
@@ -16597,56 +16481,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/ceilometermiddleware-ptl:
       description: Project team lead for project ceilometermiddleware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cinder-core:
-      description: Core developers for project cinder
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eharney@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cinder-distgit-core:
-      description: Core developers for project cinder-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eharney@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cinder-distgit-ptl:
-      description: Project team lead for project cinder-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cinder-ptl:
-      description: Project team lead for project cinder
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cinderclient-core:
-      description: Core developers for project cinderclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cinderclient-distgit-core:
-      description: Core developers for project cinderclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cinderclient-distgit-ptl:
-      description: Project team lead for project cinderclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cinderclient-ptl:
-      description: Project team lead for project cinderclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -23394,16 +23228,6 @@ resources:
       description: Mirror of upstream ceilometermiddleware (mirror + patches)
     openstack/ceilometermiddleware-distgit:
       acl: d6fa52a6bbbff302949cf5e8dc23a66f
-    openstack/cinder:
-      acl: b4d9761342cab514783d7dfc4765a218
-      description: Mirror of upstream cinder (mirror + patches)
-    openstack/cinder-distgit:
-      acl: 2345d514913573dd0af61ba8e055cd6a
-    openstack/cinderclient:
-      acl: 004522e8ff7949b5af1ba925d6883127
-      description: Mirror of upstream cinderclient (mirror + patches)
-    openstack/cinderclient-distgit:
-      acl: 21a2a4997f57493c742cdbd6a55c43a9
     openstack/cisco-ironic-contrib:
       acl: bc146f28d302d8f471224cc0f702de7f
       description: Mirror of upstream cisco-ironic-contrib (mirror + patches)
