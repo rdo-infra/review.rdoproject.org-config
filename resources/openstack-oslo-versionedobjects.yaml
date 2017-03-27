@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-versionedobjects-core:
+      description: Core developers for project oslo-versionedobjects
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-versionedobjects-ptl:
+      description: Project team lead for project oslo-versionedobjects
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-versionedobjects-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-versionedobjects-core
+          owner = group openstack/oslo-versionedobjects-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-versionedobjects-core
+          label-Code-Review = -2..+2 group openstack/oslo-versionedobjects-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-versionedobjects-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-versionedobjects-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-versionedobjects-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-versionedobjects-core
+          label-Workflow = -1..+1 group openstack/oslo-versionedobjects-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-versionedobjects-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-versionedobjects-core
+      - openstack/oslo-versionedobjects-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-versionedobjects:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-versionedobjects-core
+          owner = group openstack/oslo-versionedobjects-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-versionedobjects-core
+          label-Code-Review = -2..+2 group openstack/oslo-versionedobjects-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-versionedobjects-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-versionedobjects-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-versionedobjects-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-versionedobjects-core
+          label-Workflow = -1..+0 group openstack/oslo-versionedobjects-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-versionedobjects-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-versionedobjects-core
+      - openstack/oslo-versionedobjects-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-versionedobjects:
+      acl: openstack-oslo-versionedobjects
+      description: Mirror of upstream oslo-versionedobjects (mirror + patches)
+    openstack/oslo-versionedobjects-distgit:
+      acl: openstack-oslo-versionedobjects-distgit
+      description: Packaging of upstream oslo-versionedobjects

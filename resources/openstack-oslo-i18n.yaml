@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/oslo-i18n-core:
+      description: Core developers for project oslo-i18n
+      members:
+      - apevec@redhat.com
+      - hguemar@redhat.com
+      - lbezdick@redhat.com
+    openstack/oslo-i18n-ptl:
+      description: Project team lead for project oslo-i18n
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-i18n-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-i18n-core
+          owner = group openstack/oslo-i18n-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-i18n-core
+          label-Code-Review = -2..+2 group openstack/oslo-i18n-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-i18n-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-i18n-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/oslo-i18n-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-i18n-core
+          label-Workflow = -1..+1 group openstack/oslo-i18n-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-i18n-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-i18n-core
+      - openstack/oslo-i18n-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-i18n:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-i18n-core
+          owner = group openstack/oslo-i18n-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-i18n-core
+          label-Code-Review = -2..+2 group openstack/oslo-i18n-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-i18n-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-i18n-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-i18n-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-i18n-core
+          label-Workflow = -1..+0 group openstack/oslo-i18n-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-i18n-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-i18n-core
+      - openstack/oslo-i18n-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-i18n:
+      acl: openstack-oslo-i18n
+      description: Mirror of upstream oslo-i18n (mirror + patches)
+    openstack/oslo-i18n-distgit:
+      acl: openstack-oslo-i18n-distgit
+      description: Packaging of upstream oslo-i18n
