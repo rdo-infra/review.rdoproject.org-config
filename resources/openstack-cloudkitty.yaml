@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/cloudkitty-core:
+      description: Core developers for project cloudkitty
+      members:
+      - gauvain.pocentek@objectif-libre.com
+    openstack/cloudkitty-ptl:
+      description: Project team lead for project cloudkitty
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cloudkitty-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkitty-core
+          owner = group openstack/cloudkitty-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkitty-core
+          label-Code-Review = -2..+2 group openstack/cloudkitty-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkitty-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkitty-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/cloudkitty-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cloudkitty-core
+          label-Workflow = -1..+1 group openstack/cloudkitty-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkitty-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkitty-core
+      - openstack/cloudkitty-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cloudkitty:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkitty-core
+          owner = group openstack/cloudkitty-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkitty-core
+          label-Code-Review = -2..+2 group openstack/cloudkitty-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkitty-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkitty-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cloudkitty-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cloudkitty-core
+          label-Workflow = -1..+0 group openstack/cloudkitty-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkitty-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkitty-core
+      - openstack/cloudkitty-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cloudkitty:
+      acl: openstack-cloudkitty
+      description: Mirror of upstream cloudkitty (mirror + patches)
+    openstack/cloudkitty-distgit:
+      acl: openstack-cloudkitty-distgit
+      description: Packaging of upstream cloudkitty

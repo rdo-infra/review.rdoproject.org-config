@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/cloudkittyclient-core:
+      description: Core developers for project cloudkittyclient
+      members:
+      - gauvain.pocentek@objectif-libre.com
+    openstack/cloudkittyclient-ptl:
+      description: Project team lead for project cloudkittyclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cloudkittyclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkittyclient-core
+          owner = group openstack/cloudkittyclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkittyclient-core
+          label-Code-Review = -2..+2 group openstack/cloudkittyclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkittyclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkittyclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/cloudkittyclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cloudkittyclient-core
+          label-Workflow = -1..+1 group openstack/cloudkittyclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkittyclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkittyclient-core
+      - openstack/cloudkittyclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cloudkittyclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkittyclient-core
+          owner = group openstack/cloudkittyclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkittyclient-core
+          label-Code-Review = -2..+2 group openstack/cloudkittyclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkittyclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkittyclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cloudkittyclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cloudkittyclient-core
+          label-Workflow = -1..+0 group openstack/cloudkittyclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkittyclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkittyclient-core
+      - openstack/cloudkittyclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cloudkittyclient:
+      acl: openstack-cloudkittyclient
+      description: Mirror of upstream cloudkittyclient (mirror + patches)
+    openstack/cloudkittyclient-distgit:
+      acl: openstack-cloudkittyclient-distgit
+      description: Packaging of upstream cloudkittyclient
