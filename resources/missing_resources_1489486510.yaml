@@ -81,38 +81,6 @@ resources:
       groups:
       - puppet/puppet-auditd-distgit-core
       - puppet/puppet-auditd-distgit-ptl
-    02baf6484e2abaedf1e3bb6737790b32:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/saharaclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/saharaclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/saharaclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/saharaclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/saharaclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/saharaclient-distgit-core
-            label-Workflow = -1..+1 group openstack/saharaclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/saharaclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/saharaclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/saharaclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/saharaclient-distgit-ptl
-      - rdo-core
     05e750fbcb4e601954b6b02ba28ecdf5:
       file: |
         [project]
@@ -3451,32 +3419,6 @@ resources:
       groups:
       - openstack/oslo-versionedobjects-core
       - openstack/oslo-versionedobjects-ptl
-    43be3562dcad9cc0c7e9f6a11f31203e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/sahara-core
-          owner = group openstack/sahara-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-core
-            label-Code-Review = -2..+2 group openstack/sahara-ptl
-            submit = group openstack/sahara-ptl
-            read = group Registered Users
-            read = group openstack/sahara-core
-            label-Verified = -2..+0 group openstack/sahara-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/sahara-core
-            label-Workflow = -1..+0 group openstack/sahara-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/sahara-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/sahara-ptl
-      - openstack/sahara-core
     445de68e90697fbb8b543badebf0e47e:
       file: |
         [project]
@@ -3647,33 +3589,6 @@ resources:
       groups:
       - openstack/os-client-config-core
       - openstack/os-client-config-ptl
-    462e8d10e42e5f869347061343ece9cf:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/sahara-tests-distgit-core
-          owner = group openstack/sahara-tests-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-tests-distgit-core
-            label-Code-Review = -2..+2 group openstack/sahara-tests-distgit-ptl
-            label-Verified = -2..+2 group openstack/sahara-tests-distgit-ptl
-            label-Workflow = -1..+1 group openstack/sahara-tests-distgit-core
-            label-Workflow = -1..+1 group openstack/sahara-tests-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/sahara-tests-distgit-ptl
-            read = group Registered Users
-            read = group openstack/sahara-tests-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/sahara-tests-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/sahara-tests-distgit-core
-      - openstack/sahara-tests-distgit-ptl
     462f45f358030041900ce7a345b95ee6:
       file: |
         [project]
@@ -5900,33 +5815,6 @@ resources:
       groups:
       - openstack/oslo-sphinx-core
       - openstack/oslo-sphinx-ptl
-    688efd184203dd4ec616d20af126e9b7:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/sahara-image-elements-distgit-core
-          owner = group openstack/sahara-image-elements-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-image-elements-distgit-core
-            label-Code-Review = -2..+2 group openstack/sahara-image-elements-distgit-ptl
-            label-Verified = -2..+2 group openstack/sahara-image-elements-distgit-ptl
-            label-Workflow = -1..+1 group openstack/sahara-image-elements-distgit-core
-            label-Workflow = -1..+1 group openstack/sahara-image-elements-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/sahara-image-elements-distgit-ptl
-            read = group Registered Users
-            read = group openstack/sahara-image-elements-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/sahara-image-elements-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/sahara-image-elements-distgit-core
-      - openstack/sahara-image-elements-distgit-ptl
     694973546048ddfe31bb6e7809c1c167:
       file: |
         [access "refs/*"]
@@ -6754,33 +6642,6 @@ resources:
       groups:
       - openstack/networking-ovn-ptl
       - openstack/networking-ovn-core
-    771f4b629370da956f875395f92d24e0:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/sahara-dashboard-distgit-core
-          owner = group openstack/sahara-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/sahara-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/sahara-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/sahara-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/sahara-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/sahara-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/sahara-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/sahara-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/sahara-dashboard-distgit-core
-      - openstack/sahara-dashboard-distgit-ptl
     773c617fc8b4acaeaeda0c9246922987:
       file: |
         [project]
@@ -7447,32 +7308,6 @@ resources:
       groups:
       - openstack/networking-mlnx-distgit-ptl
       - rdo-core
-    8619cceb286ab882e8632b75697d79b8:
-      file: |
-        [access "refs/*"]
-          read = group openstack/sahara-dashboard-core
-          owner = group openstack/sahara-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-dashboard-core
-            label-Code-Review = -2..+2 group openstack/sahara-dashboard-ptl
-            label-Verified = -2..+2 group openstack/sahara-dashboard-ptl
-            label-Workflow = -1..+1 group openstack/sahara-dashboard-core
-            label-Workflow = -1..+1 group openstack/sahara-dashboard-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/sahara-dashboard-ptl
-            read = group openstack/sahara-dashboard-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/sahara-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/sahara-dashboard-core
-      - openstack/sahara-dashboard-ptl
     86b53d8ebd23c8bd923fc0ba15d98416:
       file: |
         [project]
@@ -8720,32 +8555,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdo-kolla-build-core
       - rdo-infra/ansible-role-rdo-kolla-build-ptl
-    98aea95103b74805fc6c4c8a6f1fe4fc:
-      file: |
-        [access "refs/*"]
-          read = group openstack/sahara-image-elements-core
-          owner = group openstack/sahara-image-elements-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-image-elements-core
-            label-Code-Review = -2..+2 group openstack/sahara-image-elements-ptl
-            submit = group openstack/sahara-image-elements-ptl
-            read = group openstack/sahara-image-elements-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/sahara-image-elements-ptl
-            label-Workflow = -1..+0 group openstack/sahara-image-elements-ptl
-            label-Workflow = -1..+0 group openstack/sahara-image-elements-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/sahara-image-elements-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/sahara-image-elements-ptl
-      - openstack/sahara-image-elements-core
     997360a307467bb54a868424feedfb1d:
       file: |
         [access "refs/*"]
@@ -9464,32 +9273,6 @@ resources:
       groups:
       - openstack/os-net-config-core
       - openstack/os-net-config-ptl
-    a63693ed45cdc4c62eb7daa84039698a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/saharaclient-core
-          owner = group openstack/saharaclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/saharaclient-core
-            label-Code-Review = -2..+2 group openstack/saharaclient-ptl
-            submit = group openstack/saharaclient-ptl
-            read = group Registered Users
-            read = group openstack/saharaclient-core
-            label-Verified = -2..+0 group openstack/saharaclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/saharaclient-core
-            label-Workflow = -1..+0 group openstack/saharaclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/saharaclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/saharaclient-ptl
-      - openstack/saharaclient-core
     a654ac68fa88d1a7b632575241cf6485:
       file: |
         [project]
@@ -10285,38 +10068,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-sysctl-distgit-ptl
-      - rdo-core
-    ae98cf5c06b0b3275492eaa11f7a5613:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/sahara-distgit-core
-          read = group rdo-core
-          owner = group openstack/sahara-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-distgit-core
-            label-Code-Review = -2..+2 group openstack/sahara-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/sahara-distgit-ptl
-            label-Workflow = -1..+1 group openstack/sahara-distgit-core
-            label-Workflow = -1..+1 group openstack/sahara-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/sahara-distgit-ptl
-            read = group Registered Users
-            read = group openstack/sahara-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/sahara-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/sahara-distgit-ptl
       - rdo-core
     aed804b7f51836b62cbc06239fa8e2dd:
       file: |
@@ -12757,32 +12508,6 @@ resources:
       groups:
       - openstack/keystonemiddleware-core
       - openstack/keystonemiddleware-ptl
-    dd71dbde8b4588acd8a732d58d38194e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/sahara-tests-core
-          owner = group openstack/sahara-tests-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/sahara-tests-core
-            label-Code-Review = -2..+2 group openstack/sahara-tests-ptl
-            submit = group openstack/sahara-tests-ptl
-            read = group openstack/sahara-tests-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/sahara-tests-ptl
-            label-Workflow = -1..+0 group openstack/sahara-tests-ptl
-            label-Workflow = -1..+0 group openstack/sahara-tests-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/sahara-tests-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/sahara-tests-core
-      - openstack/sahara-tests-ptl
     dd9d1f18315b80227686f5997b001655:
       file: |
         [project]
@@ -18050,126 +17775,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/sahara-core:
-      description: Core developers for project sahara
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - egafford@redhat.com
-      - admin@review.rdoproject.org
-    openstack/sahara-dashboard-core:
-      description: Core developers for project openstack/sahara-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/sahara-dashboard-distgit-core:
-      description: Core developers for project openstack/sahara-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/sahara-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/sahara-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/sahara-dashboard-ptl:
-      description: Project team lead for project openstack/sahara-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/sahara-distgit-core:
-      description: Core developers for project sahara-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - egafford@redhat.com
-      - admin@review.rdoproject.org
-    openstack/sahara-distgit-ptl:
-      description: Project team lead for project sahara-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/sahara-image-elements-core:
-      description: Core developers for project openstack/sahara-image-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - egafford@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-image-elements-distgit-core:
-      description: Core developers for project openstack/sahara-image-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - egafford@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-image-elements-distgit-ptl:
-      description: Project team lead for project openstack/sahara-image-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-image-elements-ptl:
-      description: Project team lead for project openstack/sahara-image-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-ptl:
-      description: Project team lead for project sahara
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/sahara-tests-core:
-      description: Core developers for project openstack/sahara-tests
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-tests-distgit-core:
-      description: Core developers for project openstack/sahara-tests-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ltoscano@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/sahara-tests-distgit-ptl:
-      description: Project team lead for project openstack/sahara-tests-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/sahara-tests-ptl:
-      description: Project team lead for project openstack/sahara-tests
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/saharaclient-core:
-      description: Core developers for project saharaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/saharaclient-distgit-core:
-      description: Core developers for project saharaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/saharaclient-distgit-ptl:
-      description: Project team lead for project saharaclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/saharaclient-ptl:
-      description: Project team lead for project saharaclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/shaker-core:
       description: Core developers for project openstack/shaker
       members:
@@ -21780,31 +21385,6 @@ resources:
       description: Mirror of upstream requestsexceptions (mirror + patches)
     openstack/requestsexceptions-distgit:
       acl: 30fa76b71feca7215c839550846f9d1b
-    openstack/sahara:
-      acl: 43be3562dcad9cc0c7e9f6a11f31203e
-      description: Mirror of upstream sahara (mirror + patches)
-    openstack/sahara-dashboard:
-      acl: 8619cceb286ab882e8632b75697d79b8
-      description: Mirror of upstream openstack/sahara-dashboard (mirror + patches)
-    openstack/sahara-dashboard-distgit:
-      acl: 771f4b629370da956f875395f92d24e0
-    openstack/sahara-distgit:
-      acl: ae98cf5c06b0b3275492eaa11f7a5613
-    openstack/sahara-image-elements:
-      acl: 98aea95103b74805fc6c4c8a6f1fe4fc
-      description: Mirror of upstream openstack/sahara-image-elements (mirror + patches)
-    openstack/sahara-image-elements-distgit:
-      acl: 688efd184203dd4ec616d20af126e9b7
-    openstack/sahara-tests:
-      acl: dd71dbde8b4588acd8a732d58d38194e
-      description: Mirror of upstream openstack/sahara-tests (mirror + patches)
-    openstack/sahara-tests-distgit:
-      acl: 462e8d10e42e5f869347061343ece9cf
-    openstack/saharaclient:
-      acl: a63693ed45cdc4c62eb7daa84039698a
-      description: Mirror of upstream saharaclient (mirror + patches)
-    openstack/saharaclient-distgit:
-      acl: 02baf6484e2abaedf1e3bb6737790b32
     openstack/shaker:
       acl: 54e96cab7417754341b0fdbd8c6ee6cc
       description: Mirror of upstream openstack/shaker (mirror + patches)

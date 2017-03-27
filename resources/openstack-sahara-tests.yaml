@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/sahara-tests-core:
+      description: Core developers for project sahara-tests
+      members:
+      - chkumar@redhat.com
+      - ltoscano@redhat.com
+    openstack/sahara-tests-ptl:
+      description: Project team lead for project sahara-tests
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sahara-tests-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-tests-core
+          owner = group openstack/sahara-tests-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-tests-core
+          label-Code-Review = -2..+2 group openstack/sahara-tests-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-tests-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-tests-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/sahara-tests-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sahara-tests-core
+          label-Workflow = -1..+1 group openstack/sahara-tests-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-tests-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-tests-core
+      - openstack/sahara-tests-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sahara-tests:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-tests-core
+          owner = group openstack/sahara-tests-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-tests-core
+          label-Code-Review = -2..+2 group openstack/sahara-tests-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-tests-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-tests-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sahara-tests-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sahara-tests-core
+          label-Workflow = -1..+0 group openstack/sahara-tests-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-tests-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-tests-core
+      - openstack/sahara-tests-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sahara-tests:
+      acl: openstack-sahara-tests
+      description: Mirror of upstream sahara-tests (mirror + patches)
+    openstack/sahara-tests-distgit:
+      acl: openstack-sahara-tests-distgit
+      description: Packaging of upstream sahara-tests

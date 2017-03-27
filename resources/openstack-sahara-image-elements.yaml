@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/sahara-image-elements-core:
+      description: Core developers for project sahara-image-elements
+      members:
+      - egafford@redhat.com
+    openstack/sahara-image-elements-ptl:
+      description: Project team lead for project sahara-image-elements
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sahara-image-elements-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-image-elements-core
+          owner = group openstack/sahara-image-elements-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-image-elements-core
+          label-Code-Review = -2..+2 group openstack/sahara-image-elements-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-image-elements-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-image-elements-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/sahara-image-elements-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sahara-image-elements-core
+          label-Workflow = -1..+1 group openstack/sahara-image-elements-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-image-elements-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-image-elements-core
+      - openstack/sahara-image-elements-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sahara-image-elements:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-image-elements-core
+          owner = group openstack/sahara-image-elements-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-image-elements-core
+          label-Code-Review = -2..+2 group openstack/sahara-image-elements-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-image-elements-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-image-elements-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sahara-image-elements-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sahara-image-elements-core
+          label-Workflow = -1..+0 group openstack/sahara-image-elements-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-image-elements-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-image-elements-core
+      - openstack/sahara-image-elements-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sahara-image-elements:
+      acl: openstack-sahara-image-elements
+      description: Mirror of upstream sahara-image-elements (mirror + patches)
+    openstack/sahara-image-elements-distgit:
+      acl: openstack-sahara-image-elements-distgit
+      description: Packaging of upstream sahara-image-elements
