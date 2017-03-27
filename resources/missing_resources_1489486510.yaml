@@ -134,32 +134,6 @@ resources:
       groups:
       - puppet/puppet-zaqar-ptl
       - puppet/puppet-zaqar-core
-    0847b36f8a2b0d91c96ee78283990001:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-brick-core
-          owner = group openstack/os-brick-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-brick-core
-            label-Code-Review = -2..+2 group openstack/os-brick-ptl
-            submit = group openstack/os-brick-ptl
-            read = group Registered Users
-            read = group openstack/os-brick-core
-            label-Verified = -2..+0 group openstack/os-brick-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-brick-core
-            label-Workflow = -1..+0 group openstack/os-brick-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-brick-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-brick-ptl
-      - openstack/os-brick-core
     08afde9926788f0cfbf64f6b14f55305:
       file: |
         [access "refs/*"]
@@ -1542,32 +1516,6 @@ resources:
       groups:
       - openstack/openstacksdk-distgit-ptl
       - rdo-core
-    1e797a26fba60bd890d6219c963b83f9:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-collect-config-core
-          owner = group openstack/os-collect-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-collect-config-core
-            label-Code-Review = -2..+2 group openstack/os-collect-config-ptl
-            submit = group openstack/os-collect-config-ptl
-            read = group Registered Users
-            read = group openstack/os-collect-config-core
-            label-Verified = -2..+0 group openstack/os-collect-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-collect-config-core
-            label-Workflow = -1..+0 group openstack/os-collect-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-collect-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-collect-config-core
-      - openstack/os-collect-config-ptl
     1f3d1a3d938cb67c7f1dc31b4f0de3f3:
       file: |
         [project]
@@ -1790,32 +1738,6 @@ resources:
       groups:
       - openstack/oslo-cache-ptl
       - openstack/oslo-cache-core
-    2175bc5ebab2853a351995f01f2c6a00:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-faults-core
-          owner = group openstack/os-faults-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-faults-core
-            label-Code-Review = -2..+2 group openstack/os-faults-ptl
-            submit = group openstack/os-faults-ptl
-            read = group openstack/os-faults-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/os-faults-ptl
-            label-Workflow = -1..+0 group openstack/os-faults-ptl
-            label-Workflow = -1..+0 group openstack/os-faults-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/os-faults-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-faults-ptl
-      - openstack/os-faults-core
     21d14fdabb319d2419ca5872c4f0eac7:
       file: |
         [access "refs/*"]
@@ -2052,32 +1974,6 @@ resources:
       groups:
       - openstack/mistral-ptl
       - openstack/mistral-core
-    2b58f30a5455b65a78228dba0d030e37:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-vif-core
-          owner = group openstack/os-vif-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-vif-core
-            label-Code-Review = -2..+2 group openstack/os-vif-ptl
-            submit = group openstack/os-vif-ptl
-            read = group openstack/os-vif-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/os-vif-ptl
-            label-Workflow = -1..+0 group openstack/os-vif-ptl
-            label-Workflow = -1..+0 group openstack/os-vif-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/os-vif-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-vif-ptl
-      - openstack/os-vif-core
     2b8c401d82ae9692ada721005872ef11:
       file: |
         [project]
@@ -3452,32 +3348,6 @@ resources:
       groups:
       - openstack/oslo-config-distgit-ptl
       - rdo-core
-    462359066dd2f8fd6cbd1389ffc20b39:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-client-config-core
-          owner = group openstack/os-client-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-client-config-core
-            label-Code-Review = -2..+2 group openstack/os-client-config-ptl
-            submit = group openstack/os-client-config-ptl
-            read = group Registered Users
-            read = group openstack/os-client-config-core
-            label-Verified = -2..+0 group openstack/os-client-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-client-config-core
-            label-Workflow = -1..+0 group openstack/os-client-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-client-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-client-config-core
-      - openstack/os-client-config-ptl
     462f45f358030041900ce7a345b95ee6:
       file: |
         [project]
@@ -4302,38 +4172,6 @@ resources:
       groups:
       - puppet/puppet-vcsrepo-distgit-ptl
       - rdo-core
-    547cacef02c787e0b5faf35332dcd532:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-cloud-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-cloud-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-cloud-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-cloud-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-cloud-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-cloud-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-cloud-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-cloud-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-cloud-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-cloud-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-cloud-config-distgit-ptl
-      - rdo-core
     54e96cab7417754341b0fdbd8c6ee6cc:
       file: |
         [access "refs/*"]
@@ -4736,38 +4574,6 @@ resources:
       groups:
       - rdo-core
       - openstack/stevedore-distgit-ptl
-    5be5d9ee0b162b3edf5cfbc46c7dd64e:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-testr-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-testr-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-testr-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-testr-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-testr-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-testr-distgit-core
-            label-Workflow = -1..+1 group openstack/os-testr-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-testr-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-testr-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-testr-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-testr-distgit-ptl
-      - rdo-core
     5bee65a15645edd99b63c3556b55dd52:
       file: |
         [access "refs/*"]
@@ -4964,33 +4770,6 @@ resources:
       groups:
       - openstack/oslo-service-distgit-ptl
       - rdo-core
-    5e4b7a7c9a1b69f293780ea377c0f26b:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-vif-distgit-core
-          owner = group openstack/os-vif-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-vif-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-vif-distgit-ptl
-            label-Verified = -2..+2 group openstack/os-vif-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-vif-distgit-core
-            label-Workflow = -1..+1 group openstack/os-vif-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-vif-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-vif-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-vif-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-vif-distgit-ptl
-      - openstack/os-vif-distgit-core
     5e9d2093cfe30a75601f235051a15dcd:
       file: |
         [project]
@@ -5217,38 +4996,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/manila-ui-distgit-ptl
-      - rdo-core
-    623b9c6d7d1579102b46b0dfb12c7008:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-collect-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-collect-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-collect-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-collect-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-collect-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-collect-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-collect-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-collect-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-collect-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-collect-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-collect-config-distgit-ptl
       - rdo-core
     62f4be99eeb460e88852786b01f07ad1:
       file: |
@@ -5541,38 +5288,6 @@ resources:
       groups:
       - rdo-core
       - openstack/troveclient-distgit-ptl
-    66d09513af8d4803de55333aa128e7ba:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-net-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-net-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-net-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-net-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-net-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-net-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-net-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-net-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-net-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-net-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-net-config-distgit-ptl
-      - rdo-core
     66e4435f4fce1727ca6712ee3a92356c:
       file: |
         [project]
@@ -6067,38 +5782,6 @@ resources:
       groups:
       - puppet/puppet-qdr-distgit-core
       - puppet/puppet-qdr-distgit-ptl
-    6fd1089836e93dcf6153be13fa4c239e:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-win-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-win-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-win-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-win-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-win-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-win-distgit-core
-            label-Workflow = -1..+1 group openstack/os-win-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-win-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-win-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-win-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-win-distgit-ptl
-      - rdo-core
     6fe90bb30e4b6e6b0c707951ef391dfb:
       file: |
         [access "refs/*"]
@@ -6221,32 +5904,6 @@ resources:
       groups:
       - puppet/puppet-zaqar-distgit-ptl
       - rdo-core
-    71d99df0c9eec4ea3d79e7f89b92ed3d:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-refresh-config-core
-          owner = group openstack/os-refresh-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-refresh-config-core
-            label-Code-Review = -2..+2 group openstack/os-refresh-config-ptl
-            submit = group openstack/os-refresh-config-ptl
-            read = group Registered Users
-            read = group openstack/os-refresh-config-core
-            label-Verified = -2..+0 group openstack/os-refresh-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-refresh-config-core
-            label-Workflow = -1..+0 group openstack/os-refresh-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-refresh-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-refresh-config-core
-      - openstack/os-refresh-config-ptl
     7252063098c1724532f3e00ce8375eec:
       file: |
         [access "refs/*"]
@@ -7412,32 +7069,6 @@ resources:
       groups:
       - openstack/mox3-ptl
       - openstack/mox3-core
-    89d72642f8a2d5235a37ffc18ba7ac0f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-testr-core
-          owner = group openstack/os-testr-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-testr-core
-            label-Code-Review = -2..+2 group openstack/os-testr-ptl
-            submit = group openstack/os-testr-ptl
-            read = group Registered Users
-            read = group openstack/os-testr-core
-            label-Verified = -2..+0 group openstack/os-testr-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-testr-core
-            label-Workflow = -1..+0 group openstack/os-testr-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-testr-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-testr-ptl
-      - openstack/os-testr-core
     8a3e42aafcf8dcbebc1a41268298cb8b:
       file: |
         [project]
@@ -7523,38 +7154,6 @@ resources:
       groups:
       - openstack/osprofiler-ptl
       - openstack/osprofiler-core
-    8b4d88b5ee3df0c188be47d106bb1874:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-refresh-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-refresh-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-refresh-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-refresh-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-refresh-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-refresh-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-refresh-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-refresh-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-refresh-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-refresh-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-refresh-config-distgit-ptl
-      - rdo-core
     8c09e7eb4e12cda82e72e48b75d1bdd8:
       file: |
         [project]
@@ -7865,38 +7464,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/keystonemiddleware-distgit-ptl
-      - rdo-core
-    907247f7438bbe0366112493bd1b7d68:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-brick-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-brick-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-brick-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-brick-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-brick-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-brick-distgit-core
-            label-Workflow = -1..+1 group openstack/os-brick-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-brick-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-brick-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-brick-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-brick-distgit-ptl
       - rdo-core
     90c768865eea2fe1951f8167ae6a22e1:
       file: |
@@ -8534,38 +8101,6 @@ resources:
       groups:
       - openstack/tooz-core
       - openstack/tooz-ptl
-    9be94e2671f35a2020f3f1cedd9aef6a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-apply-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-apply-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-apply-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-apply-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-apply-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-apply-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-apply-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-apply-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-apply-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-apply-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-apply-config-distgit-ptl
-      - rdo-core
     9bebe4081c9348a83fb7fa105fb3b5e5:
       file: |
         [access "refs/*"]
@@ -8793,32 +8328,6 @@ resources:
       groups:
       - openstack/magnum-ui-distgit-core
       - openstack/magnum-ui-distgit-ptl
-    9f858ebc76246d36743e2f04db69093b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-win-core
-          owner = group openstack/os-win-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-win-core
-            label-Code-Review = -2..+2 group openstack/os-win-ptl
-            submit = group openstack/os-win-ptl
-            read = group Registered Users
-            read = group openstack/os-win-core
-            label-Verified = -2..+0 group openstack/os-win-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-win-core
-            label-Workflow = -1..+0 group openstack/os-win-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-win-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-win-core
-      - openstack/os-win-ptl
     a0aa3d92bd8259b8e49f38a4a028bb62:
       file: |
         [access "refs/*"]
@@ -9052,32 +8561,6 @@ resources:
       groups:
       - puppet/puppet-ironic-distgit-ptl
       - rdo-core
-    a5e6ff11e75b78d95b6767890fafc356:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-net-config-core
-          owner = group openstack/os-net-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-net-config-core
-            label-Code-Review = -2..+2 group openstack/os-net-config-ptl
-            submit = group openstack/os-net-config-ptl
-            read = group Registered Users
-            read = group openstack/os-net-config-core
-            label-Verified = -2..+0 group openstack/os-net-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-net-config-core
-            label-Workflow = -1..+0 group openstack/os-net-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-net-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-net-config-core
-      - openstack/os-net-config-ptl
     a654ac68fa88d1a7b632575241cf6485:
       file: |
         [project]
@@ -10007,38 +9490,6 @@ resources:
       groups:
       - puppet/puppet-logstash-distgit-core
       - puppet/puppet-logstash-distgit-ptl
-    b0989f61d47459ebbc7e48836ee22330:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-client-config-distgit-core
-          read = group rdo-core
-          owner = group openstack/os-client-config-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-client-config-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-client-config-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-client-config-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-client-config-distgit-core
-            label-Workflow = -1..+1 group openstack/os-client-config-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-client-config-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-client-config-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-client-config-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-client-config-distgit-ptl
-      - rdo-core
     b0dd39055374b02af1bdeb75e7ca7112:
       file: |
         [project]
@@ -12903,32 +12354,6 @@ resources:
       groups:
       - openstack/oslotest-ptl
       - openstack/oslotest-core
-    e5671619010a1b654b4abaeb715c4224:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-cloud-config-core
-          owner = group openstack/os-cloud-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-cloud-config-core
-            label-Code-Review = -2..+2 group openstack/os-cloud-config-ptl
-            submit = group openstack/os-cloud-config-ptl
-            read = group Registered Users
-            read = group openstack/os-cloud-config-core
-            label-Verified = -2..+0 group openstack/os-cloud-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-cloud-config-core
-            label-Workflow = -1..+0 group openstack/os-cloud-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-cloud-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-cloud-config-core
-      - openstack/os-cloud-config-ptl
     e5a86441ca83ae25441632dfc73e3521:
       file: |
         [access "refs/*"]
@@ -13118,32 +12543,6 @@ resources:
       groups:
       - puppet/puppet-sensu-core
       - puppet/puppet-sensu-ptl
-    e7bbfde915deac24b0d7c4e157742afd:
-      file: |
-        [access "refs/*"]
-          read = group openstack/os-apply-config-core
-          owner = group openstack/os-apply-config-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-apply-config-core
-            label-Code-Review = -2..+2 group openstack/os-apply-config-ptl
-            submit = group openstack/os-apply-config-ptl
-            read = group Registered Users
-            read = group openstack/os-apply-config-core
-            label-Verified = -2..+0 group openstack/os-apply-config-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/os-apply-config-core
-            label-Workflow = -1..+0 group openstack/os-apply-config-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-apply-config-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/os-apply-config-core
-      - openstack/os-apply-config-ptl
     e80ae32ae17e4792197be6d9e92bd7ed:
       file: |
         [project]
@@ -13796,38 +13195,6 @@ resources:
       groups:
       - openstack/osc-lib-ptl
       - openstack/osc-lib-core
-    f5d588f881ff8dfbe99dc9381990eec8:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/os-faults-distgit-core
-            read = group rdo-core
-          owner = group openstack/os-faults-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/os-faults-distgit-core
-            label-Code-Review = -2..+2 group openstack/os-faults-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/os-faults-distgit-ptl
-            label-Workflow = -1..+1 group openstack/os-faults-distgit-core
-            label-Workflow = -1..+1 group openstack/os-faults-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/os-faults-distgit-ptl
-            read = group Registered Users
-            read = group openstack/os-faults-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/os-faults-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/os-faults-distgit-ptl
-      - rdo-core
     f6a890b65660648d5bedacc38cef19db:
       file: |
         [access "refs/*"]
@@ -16494,256 +15861,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/openstacksdk-ptl:
       description: Project team lead for project openstacksdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-apply-config-core:
-      description: Core developers for project os-apply-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-apply-config-distgit-core:
-      description: Core developers for project os-apply-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-apply-config-distgit-ptl:
-      description: Project team lead for project os-apply-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-apply-config-ptl:
-      description: Project team lead for project os-apply-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-brick-core:
-      description: Core developers for project os-brick
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eharney@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-brick-distgit-core:
-      description: Core developers for project os-brick-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eharney@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-brick-distgit-ptl:
-      description: Project team lead for project os-brick-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-brick-ptl:
-      description: Project team lead for project os-brick
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-client-config-core:
-      description: Core developers for project os-client-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-client-config-distgit-core:
-      description: Core developers for project os-client-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-client-config-distgit-ptl:
-      description: Project team lead for project os-client-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-client-config-ptl:
-      description: Project team lead for project os-client-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-cloud-config-core:
-      description: Core developers for project os-cloud-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-cloud-config-distgit-core:
-      description: Core developers for project os-cloud-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-cloud-config-distgit-ptl:
-      description: Project team lead for project os-cloud-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-cloud-config-ptl:
-      description: Project team lead for project os-cloud-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-collect-config-core:
-      description: Core developers for project os-collect-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-collect-config-distgit-core:
-      description: Core developers for project os-collect-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-collect-config-distgit-ptl:
-      description: Project team lead for project os-collect-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-collect-config-ptl:
-      description: Project team lead for project os-collect-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-faults-core:
-      description: Core developers for project openstack/os-faults
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/os-faults-distgit-core:
-      description: Core developers for project openstack/os-faults-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/os-faults-distgit-ptl:
-      description: Project team lead for project openstack/os-faults-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-faults-ptl:
-      description: Project team lead for project openstack/os-faults
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-net-config-core:
-      description: Core developers for project os-net-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - dprince@redhat.com
-    openstack/os-net-config-distgit-core:
-      description: Core developers for project os-net-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - dprince@redhat.com
-    openstack/os-net-config-distgit-ptl:
-      description: Project team lead for project os-net-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-net-config-ptl:
-      description: Project team lead for project os-net-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-refresh-config-core:
-      description: Core developers for project os-refresh-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-refresh-config-distgit-core:
-      description: Core developers for project os-refresh-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/os-refresh-config-distgit-ptl:
-      description: Project team lead for project os-refresh-config-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-refresh-config-ptl:
-      description: Project team lead for project os-refresh-config
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-testr-core:
-      description: Core developers for project os-testr
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - admin@review.rdoproject.org
-      - afazekas@redhat.com
-      - chkumar@redhat.com
-    openstack/os-testr-distgit-core:
-      description: Core developers for project os-testr-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - admin@review.rdoproject.org
-      - afazekas@redhat.com
-      - chkumar@redhat.com
-    openstack/os-testr-distgit-ptl:
-      description: Project team lead for project os-testr-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-testr-ptl:
-      description: Project team lead for project os-testr
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-vif-core:
-      description: Core developers for project openstack/os-vif
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/os-vif-distgit-core:
-      description: Core developers for project openstack/os-vif-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/os-vif-distgit-ptl:
-      description: Project team lead for project openstack/os-vif-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/os-vif-ptl:
-      description: Project team lead for project openstack/os-vif
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/os-win-core:
-      description: Core developers for project os-win
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-win-distgit-core:
-      description: Core developers for project os-win-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-win-distgit-ptl:
-      description: Project team lead for project os-win-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/os-win-ptl:
-      description: Project team lead for project os-win
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -20865,61 +19982,6 @@ resources:
       description: Mirror of upstream openstacksdk (mirror + patches)
     openstack/openstacksdk-distgit:
       acl: 1e28b00f3d22b1f39a6f4221f54f24cb
-    openstack/os-apply-config:
-      acl: e7bbfde915deac24b0d7c4e157742afd
-      description: Mirror of upstream os-apply-config (mirror + patches)
-    openstack/os-apply-config-distgit:
-      acl: 9be94e2671f35a2020f3f1cedd9aef6a
-    openstack/os-brick:
-      acl: 0847b36f8a2b0d91c96ee78283990001
-      description: Mirror of upstream os-brick (mirror + patches)
-    openstack/os-brick-distgit:
-      acl: 907247f7438bbe0366112493bd1b7d68
-    openstack/os-client-config:
-      acl: 462359066dd2f8fd6cbd1389ffc20b39
-      description: Mirror of upstream os-client-config (mirror + patches)
-    openstack/os-client-config-distgit:
-      acl: b0989f61d47459ebbc7e48836ee22330
-    openstack/os-cloud-config:
-      acl: e5671619010a1b654b4abaeb715c4224
-      description: Mirror of upstream os-cloud-config (mirror + patches)
-    openstack/os-cloud-config-distgit:
-      acl: 547cacef02c787e0b5faf35332dcd532
-    openstack/os-collect-config:
-      acl: 1e797a26fba60bd890d6219c963b83f9
-      description: Mirror of upstream os-collect-config (mirror + patches)
-    openstack/os-collect-config-distgit:
-      acl: 623b9c6d7d1579102b46b0dfb12c7008
-    openstack/os-faults:
-      acl: 2175bc5ebab2853a351995f01f2c6a00
-      description: Mirror of upstream openstack/os-faults (mirror + patches)
-    openstack/os-faults-distgit:
-      acl: f5d588f881ff8dfbe99dc9381990eec8
-    openstack/os-net-config:
-      acl: a5e6ff11e75b78d95b6767890fafc356
-      description: Mirror of upstream os-net-config (mirror + patches)
-    openstack/os-net-config-distgit:
-      acl: 66d09513af8d4803de55333aa128e7ba
-    openstack/os-refresh-config:
-      acl: 71d99df0c9eec4ea3d79e7f89b92ed3d
-      description: Mirror of upstream os-refresh-config (mirror + patches)
-    openstack/os-refresh-config-distgit:
-      acl: 8b4d88b5ee3df0c188be47d106bb1874
-    openstack/os-testr:
-      acl: 89d72642f8a2d5235a37ffc18ba7ac0f
-      description: Mirror of upstream os-testr (mirror + patches)
-    openstack/os-testr-distgit:
-      acl: 5be5d9ee0b162b3edf5cfbc46c7dd64e
-    openstack/os-vif:
-      acl: 2b58f30a5455b65a78228dba0d030e37
-      description: Mirror of upstream openstack/os-vif (mirror + patches)
-    openstack/os-vif-distgit:
-      acl: 5e4b7a7c9a1b69f293780ea377c0f26b
-    openstack/os-win:
-      acl: 9f858ebc76246d36743e2f04db69093b
-      description: Mirror of upstream os-win (mirror + patches)
-    openstack/os-win-distgit:
-      acl: 6fd1089836e93dcf6153be13fa4c239e
     openstack/osc-lib:
       acl: f5a12cae59f714b8c0aff796b6c51a8f
       description: Mirror of upstream openstack/osc-lib (mirror + patches)
