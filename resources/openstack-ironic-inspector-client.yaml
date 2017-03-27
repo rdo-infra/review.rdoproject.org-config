@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/ironic-inspector-client-core:
+      description: Core developers for project ironic-inspector-client
+      members:
+      - dtantsur@redhat.com
+    openstack/ironic-inspector-client-ptl:
+      description: Project team lead for project ironic-inspector-client
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ironic-inspector-client-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-inspector-client-core
+          owner = group openstack/ironic-inspector-client-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-inspector-client-core
+          label-Code-Review = -2..+2 group openstack/ironic-inspector-client-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-inspector-client-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-inspector-client-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/ironic-inspector-client-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ironic-inspector-client-core
+          label-Workflow = -1..+1 group openstack/ironic-inspector-client-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-inspector-client-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-inspector-client-core
+      - openstack/ironic-inspector-client-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ironic-inspector-client:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-inspector-client-core
+          owner = group openstack/ironic-inspector-client-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-inspector-client-core
+          label-Code-Review = -2..+2 group openstack/ironic-inspector-client-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-inspector-client-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-inspector-client-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ironic-inspector-client-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ironic-inspector-client-core
+          label-Workflow = -1..+0 group openstack/ironic-inspector-client-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-inspector-client-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-inspector-client-core
+      - openstack/ironic-inspector-client-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ironic-inspector-client:
+      acl: openstack-ironic-inspector-client
+      description: Mirror of upstream ironic-inspector-client (mirror + patches)
+    openstack/ironic-inspector-client-distgit:
+      acl: openstack-ironic-inspector-client-distgit
+      description: Packaging of upstream ironic-inspector-client
