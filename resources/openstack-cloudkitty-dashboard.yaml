@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/cloudkitty-dashboard-core:
+      description: Core developers for project cloudkitty-dashboard
+      members:
+      - gauvain.pocentek@objectif-libre.com
+    openstack/cloudkitty-dashboard-ptl:
+      description: Project team lead for project cloudkitty-dashboard
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cloudkitty-dashboard-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkitty-dashboard-core
+          owner = group openstack/cloudkitty-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-core
+          label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkitty-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkitty-dashboard-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/cloudkitty-dashboard-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cloudkitty-dashboard-core
+          label-Workflow = -1..+1 group openstack/cloudkitty-dashboard-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkitty-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkitty-dashboard-core
+      - openstack/cloudkitty-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cloudkitty-dashboard:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cloudkitty-dashboard-core
+          owner = group openstack/cloudkitty-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-core
+          label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cloudkitty-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cloudkitty-dashboard-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cloudkitty-dashboard-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cloudkitty-dashboard-core
+          label-Workflow = -1..+0 group openstack/cloudkitty-dashboard-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cloudkitty-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cloudkitty-dashboard-core
+      - openstack/cloudkitty-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cloudkitty-dashboard:
+      acl: openstack-cloudkitty-dashboard
+      description: Mirror of upstream cloudkitty-dashboard (mirror + patches)
+    openstack/cloudkitty-dashboard-distgit:
+      acl: openstack-cloudkitty-dashboard-distgit
+      description: Packaging of upstream cloudkitty-dashboard

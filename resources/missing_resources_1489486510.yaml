@@ -220,32 +220,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    0d81a90eef69a3470d6e543988d56613:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cloudkitty-core
-          owner = group openstack/cloudkitty-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkitty-core
-            label-Code-Review = -2..+2 group openstack/cloudkitty-ptl
-            submit = group openstack/cloudkitty-ptl
-            read = group Registered Users
-            read = group openstack/cloudkitty-core
-            label-Verified = -2..+0 group openstack/cloudkitty-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cloudkitty-core
-            label-Workflow = -1..+0 group openstack/cloudkitty-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cloudkitty-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cloudkitty-core
-      - openstack/cloudkitty-ptl
     0e28f276dab213e53706c46e6ab3c99b:
       file: |
         [project]
@@ -2570,38 +2544,6 @@ resources:
       groups:
       - puppet/puppet-ovn-core
       - puppet/puppet-ovn-ptl
-    3e2fcc802c9df48b891d5163e4cbffd4:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cloudkittyclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/cloudkittyclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkittyclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/cloudkittyclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cloudkittyclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cloudkittyclient-distgit-core
-            label-Workflow = -1..+1 group openstack/cloudkittyclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cloudkittyclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cloudkittyclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cloudkittyclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cloudkittyclient-distgit-ptl
-      - rdo-core
     3ef59843649e48ddd25d54c2725860ee:
       file: |
         [access "refs/*"]
@@ -3823,32 +3765,6 @@ resources:
       groups:
       - rdo_gating_scripts-ptl
       - rdo_gating_scripts-core
-    52cc0d02f51980d35a944278ec97118f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cloudkitty-dashboard-core
-          owner = group openstack/cloudkitty-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-core
-            label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-ptl
-            submit = group openstack/cloudkitty-dashboard-ptl
-            read = group openstack/cloudkitty-dashboard-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/cloudkitty-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/cloudkitty-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/cloudkitty-dashboard-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/cloudkitty-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cloudkitty-dashboard-ptl
-      - openstack/cloudkitty-dashboard-core
     52fa4a4503d932172ab75b0df0ffbc63:
       file: |
         [project]
@@ -6752,33 +6668,6 @@ resources:
       groups:
       - openstack/osprofiler-ptl
       - openstack/osprofiler-core
-    8c09e7eb4e12cda82e72e48b75d1bdd8:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cloudkitty-dashboard-distgit-core
-          owner = group openstack/cloudkitty-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/cloudkitty-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/cloudkitty-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cloudkitty-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/cloudkitty-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cloudkitty-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cloudkitty-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cloudkitty-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cloudkitty-dashboard-distgit-ptl
-      - openstack/cloudkitty-dashboard-distgit-core
     8c2281416343481900823d44f66e3734:
       file: |
         [access "refs/*"]
@@ -7815,32 +7704,6 @@ resources:
       groups:
       - openstack/oslotest-distgit-ptl
       - rdo-core
-    9d92545d2ce28dcb748716ce1f9c6e85:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cloudkittyclient-core
-          owner = group openstack/cloudkittyclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkittyclient-core
-            label-Code-Review = -2..+2 group openstack/cloudkittyclient-ptl
-            submit = group openstack/cloudkittyclient-ptl
-            read = group Registered Users
-            read = group openstack/cloudkittyclient-core
-            label-Verified = -2..+0 group openstack/cloudkittyclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cloudkittyclient-core
-            label-Workflow = -1..+0 group openstack/cloudkittyclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cloudkittyclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cloudkittyclient-ptl
-      - openstack/cloudkittyclient-core
     9f632548489d2bdc33765653eb0bafde:
       file: |
         [project]
@@ -8593,38 +8456,6 @@ resources:
       groups:
       - puppet/puppet-haproxy-ptl
       - puppet/puppet-haproxy-core
-    ab3376f736f388b667467a2966e4e76c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cloudkitty-distgit-core
-          read = group rdo-core
-          owner = group openstack/cloudkitty-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cloudkitty-distgit-core
-            label-Code-Review = -2..+2 group openstack/cloudkitty-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cloudkitty-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cloudkitty-distgit-core
-            label-Workflow = -1..+1 group openstack/cloudkitty-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cloudkitty-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cloudkitty-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cloudkitty-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cloudkitty-distgit-ptl
-      - rdo-core
     ab9c7c8605c90fac8c2527d73dbbbeb0:
       file: |
         [project]
@@ -13365,74 +13196,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/cliff-ptl:
       description: Project team lead for project cliff
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cloudkitty-core:
-      description: Core developers for project cloudkitty
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - gauvain.pocentek@objectif-libre.com
-    openstack/cloudkitty-dashboard-core:
-      description: Core developers for project openstack/cloudkitty-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cloudkitty-dashboard-distgit-core:
-      description: Core developers for project openstack/cloudkitty-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cloudkitty-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/cloudkitty-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cloudkitty-dashboard-ptl:
-      description: Project team lead for project openstack/cloudkitty-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cloudkitty-distgit-core:
-      description: Core developers for project cloudkitty-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - gauvain.pocentek@objectif-libre.com
-    openstack/cloudkitty-distgit-ptl:
-      description: Project team lead for project cloudkitty-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cloudkitty-ptl:
-      description: Project team lead for project cloudkitty
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cloudkittyclient-core:
-      description: Core developers for project cloudkittyclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - gauvain.pocentek@objectif-libre.com
-    openstack/cloudkittyclient-distgit-core:
-      description: Core developers for project cloudkittyclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - gauvain.pocentek@objectif-libre.com
-    openstack/cloudkittyclient-distgit-ptl:
-      description: Project team lead for project cloudkittyclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cloudkittyclient-ptl:
-      description: Project team lead for project cloudkittyclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -18805,21 +18568,6 @@ resources:
       description: Mirror of upstream cliff (mirror + patches)
     openstack/cliff-distgit:
       acl: aa5fae39ea9dc463af58d1f8fdfeec4f
-    openstack/cloudkitty:
-      acl: 0d81a90eef69a3470d6e543988d56613
-      description: Mirror of upstream cloudkitty (mirror + patches)
-    openstack/cloudkitty-dashboard:
-      acl: 52cc0d02f51980d35a944278ec97118f
-      description: Mirror of upstream openstack/cloudkitty-dashboard (mirror + patches)
-    openstack/cloudkitty-dashboard-distgit:
-      acl: 8c09e7eb4e12cda82e72e48b75d1bdd8
-    openstack/cloudkitty-distgit:
-      acl: ab3376f736f388b667467a2966e4e76c
-    openstack/cloudkittyclient:
-      acl: 9d92545d2ce28dcb748716ce1f9c6e85
-      description: Mirror of upstream cloudkittyclient (mirror + patches)
-    openstack/cloudkittyclient-distgit:
-      acl: 3e2fcc802c9df48b891d5163e4cbffd4
     openstack/congress:
       acl: 356742c995ac306f6d23b0f72be31441
       description: Mirror of upstream openstack/congress (mirror + patches)
