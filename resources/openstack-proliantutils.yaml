@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/proliantutils-core:
+      description: Core developers for project proliantutils
+      members:
+      - ifarkas@redhat.com
+      - trown@redhat.com
+    openstack/proliantutils-ptl:
+      description: Project team lead for project proliantutils
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-proliantutils-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/proliantutils-core
+          owner = group openstack/proliantutils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/proliantutils-core
+          label-Code-Review = -2..+2 group openstack/proliantutils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/proliantutils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/proliantutils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/proliantutils-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/proliantutils-core
+          label-Workflow = -1..+1 group openstack/proliantutils-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/proliantutils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/proliantutils-core
+      - openstack/proliantutils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-proliantutils:
+      file: |
+        [access "refs/*"]
+          read = group openstack/proliantutils-core
+          owner = group openstack/proliantutils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/proliantutils-core
+          label-Code-Review = -2..+2 group openstack/proliantutils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/proliantutils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/proliantutils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/proliantutils-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/proliantutils-core
+          label-Workflow = -1..+0 group openstack/proliantutils-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/proliantutils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/proliantutils-core
+      - openstack/proliantutils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/proliantutils:
+      acl: openstack-proliantutils
+      description: Mirror of upstream proliantutils (mirror + patches)
+    openstack/proliantutils-distgit:
+      acl: openstack-proliantutils-distgit
+      description: Packaging of upstream proliantutils
