@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/ironic-lib-core:
+      description: Core developers for project ironic-lib
+      members:
+      - trown@redhat.com
+      - dtantsur@redhat.com
+    openstack/ironic-lib-ptl:
+      description: Project team lead for project ironic-lib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ironic-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-lib-core
+          owner = group openstack/ironic-lib-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-lib-core
+          label-Code-Review = -2..+2 group openstack/ironic-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/ironic-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ironic-lib-core
+          label-Workflow = -1..+1 group openstack/ironic-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-lib-core
+      - openstack/ironic-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ironic-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-lib-core
+          owner = group openstack/ironic-lib-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-lib-core
+          label-Code-Review = -2..+2 group openstack/ironic-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ironic-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ironic-lib-core
+          label-Workflow = -1..+0 group openstack/ironic-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-lib-core
+      - openstack/ironic-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ironic-lib:
+      acl: openstack-ironic-lib
+      description: Mirror of upstream ironic-lib (mirror + patches)
+    openstack/ironic-lib-distgit:
+      acl: openstack-ironic-lib-distgit
+      description: Packaging of upstream ironic-lib

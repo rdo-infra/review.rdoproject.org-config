@@ -1,31 +1,5 @@
 resources:
   acls:
-    00943607dc4b755de0c74a10c6d3a1b7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-python-agent-core
-          owner = group openstack/ironic-python-agent-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-python-agent-core
-            label-Code-Review = -2..+2 group openstack/ironic-python-agent-ptl
-            submit = group openstack/ironic-python-agent-ptl
-            read = group Registered Users
-            read = group openstack/ironic-python-agent-core
-            label-Verified = -2..+0 group openstack/ironic-python-agent-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironic-python-agent-core
-            label-Workflow = -1..+0 group openstack/ironic-python-agent-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-python-agent-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-python-agent-core
-      - openstack/ironic-python-agent-ptl
     00fa7b66ed804b1c80cb4f0e9f30b9f3:
       file: |
         [project]
@@ -420,38 +394,6 @@ resources:
       groups:
       - openstack/aodh-distgit-ptl
       - openstack/aodh-distgit-core
-    09dd815f89e2bebb570f88a2d4f670af:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironic-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironic-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironic-distgit-ptl
-      - rdo-core
     0a4171f1b36ff40a64966e83097cac27:
       file: |
         [project]
@@ -801,38 +743,6 @@ resources:
       groups:
       - puppet/puppet-nagios-openstack-core
       - puppet/puppet-nagios-openstack-ptl
-    0f4976350b91379a21ae8cc30ec287b9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cisco-ironic-contrib-distgit-core
-          read = group rdo-core
-          owner = group openstack/cisco-ironic-contrib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-distgit-core
-            label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cisco-ironic-contrib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cisco-ironic-contrib-distgit-core
-            label-Workflow = -1..+1 group openstack/cisco-ironic-contrib-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cisco-ironic-contrib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cisco-ironic-contrib-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cisco-ironic-contrib-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cisco-ironic-contrib-distgit-ptl
-      - rdo-core
     0f758f69e1c8cbfc78b9304b19f7ea04:
       file: |
         [project]
@@ -891,32 +801,6 @@ resources:
       groups:
       - openstack/horizon-core
       - openstack/horizon-ptl
-    10cb3c93b19f29c228bad42452db833f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-core
-          owner = group openstack/ironic-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-core
-            label-Code-Review = -2..+2 group openstack/ironic-ptl
-            submit = group openstack/ironic-ptl
-            read = group Registered Users
-            read = group openstack/ironic-core
-            label-Verified = -2..+0 group openstack/ironic-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironic-core
-            label-Workflow = -1..+0 group openstack/ironic-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-ptl
-      - openstack/ironic-core
     114003826b2ab750d95d25667a3a8218:
       file: |
         [access "refs/*"]
@@ -1315,38 +1199,6 @@ resources:
       groups:
       - openstack/panko-distgit-ptl
       - openstack/panko-distgit-core
-    16423a114c404dbc12251e722f5d4b28:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironicclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironicclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironicclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironicclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironicclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironicclient-distgit-core
-            label-Workflow = -1..+1 group openstack/ironicclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironicclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironicclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironicclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironicclient-distgit-ptl
-      - rdo-core
     1702479d8442b8d0754dc88befe1c7de:
       file: |
         [project]
@@ -2406,32 +2258,6 @@ resources:
       groups:
       - puppet/puppet-lib-file_concat-ptl
       - puppet/puppet-lib-file_concat-core
-    27daeb8c896e05c98b2c0dbe9136e3a8:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-staging-drivers-core
-          owner = group openstack/ironic-staging-drivers-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-staging-drivers-core
-            label-Code-Review = -2..+2 group openstack/ironic-staging-drivers-ptl
-            submit = group openstack/ironic-staging-drivers-ptl
-            read = group openstack/ironic-staging-drivers-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/ironic-staging-drivers-ptl
-            label-Workflow = -1..+0 group openstack/ironic-staging-drivers-ptl
-            label-Workflow = -1..+0 group openstack/ironic-staging-drivers-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/ironic-staging-drivers-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-staging-drivers-core
-      - openstack/ironic-staging-drivers-ptl
     28079ddaeb603f19783ee1d21a24c727:
       file: |
         [project]
@@ -5036,38 +4862,6 @@ resources:
       groups:
       - puppet/puppet-concat-core
       - puppet/puppet-concat-ptl
-    5641e3f7fbac681460d6ce08be5e64df:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-python-agent-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironic-python-agent-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-python-agent-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-python-agent-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironic-python-agent-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-python-agent-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-python-agent-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-python-agent-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-python-agent-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-python-agent-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironic-python-agent-distgit-ptl
-      - rdo-core
     56531313f879b9a4343c1f8b0edfc70b:
       file: |
         [access "refs/*"]
@@ -6248,32 +6042,6 @@ resources:
       groups:
       - openstack/magnumclient-ptl
       - openstack/magnumclient-core
-    668e22a564f5dd2e05c5ac7c41711c82:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-ui-core
-          owner = group openstack/ironic-ui-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-ui-core
-            label-Code-Review = -2..+2 group openstack/ironic-ui-ptl
-            submit = group openstack/ironic-ui-ptl
-            read = group openstack/ironic-ui-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/ironic-ui-ptl
-            label-Workflow = -1..+0 group openstack/ironic-ui-ptl
-            label-Workflow = -1..+0 group openstack/ironic-ui-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/ironic-ui-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-ui-ptl
-      - openstack/ironic-ui-core
     66ba7145982e1802a2351620d1fd238d:
       file: |
         [project]
@@ -6624,32 +6392,6 @@ resources:
       groups:
       - puppet/puppet-vitrage-ptl
       - puppet/puppet-vitrage-core
-    6ba5b058acba149a6ccccbb2121f426f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-lib-core
-          owner = group openstack/ironic-lib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-lib-core
-            label-Code-Review = -2..+2 group openstack/ironic-lib-ptl
-            submit = group openstack/ironic-lib-ptl
-            read = group Registered Users
-            read = group openstack/ironic-lib-core
-            label-Verified = -2..+0 group openstack/ironic-lib-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironic-lib-core
-            label-Workflow = -1..+0 group openstack/ironic-lib-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-lib-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-lib-ptl
-      - openstack/ironic-lib-core
     6c0053b6cbd5060864901ccd237ccb42:
       file: |
         [access "refs/*"]
@@ -7065,32 +6807,6 @@ resources:
       groups:
       - openstack/os-refresh-config-core
       - openstack/os-refresh-config-ptl
-    71f6123c04e2e247a6a1a75fd4d9477b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-inspector-client-core
-          owner = group openstack/ironic-inspector-client-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-client-core
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-client-ptl
-            submit = group openstack/ironic-inspector-client-ptl
-            read = group Registered Users
-            read = group openstack/ironic-inspector-client-core
-            label-Verified = -2..+0 group openstack/ironic-inspector-client-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironic-inspector-client-core
-            label-Workflow = -1..+0 group openstack/ironic-inspector-client-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-inspector-client-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-inspector-client-core
-      - openstack/ironic-inspector-client-ptl
     7252063098c1724532f3e00ce8375eec:
       file: |
         [access "refs/*"]
@@ -7984,38 +7700,6 @@ resources:
       groups:
       - puppet/puppet-elasticsearch-ptl
       - puppet/puppet-elasticsearch-core
-    85015ee6223ca10a0e4c90ee820518c3:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-inspector-client-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironic-inspector-client-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-client-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-client-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironic-inspector-client-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-inspector-client-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-inspector-client-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-inspector-client-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-inspector-client-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-inspector-client-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironic-inspector-client-distgit-ptl
-      - rdo-core
     858cd1dbcd40a72ef3cc65bdece2a9b9:
       file: |
         [project]
@@ -8347,32 +8031,6 @@ resources:
       groups:
       - puppet/puppet-zookeeper-core
       - puppet/puppet-zookeeper-ptl
-    89c75040396c11ab8e805e413170375b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-inspector-core
-          owner = group openstack/ironic-inspector-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-core
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-ptl
-            submit = group openstack/ironic-inspector-ptl
-            read = group Registered Users
-            read = group openstack/ironic-inspector-core
-            label-Verified = -2..+0 group openstack/ironic-inspector-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironic-inspector-core
-            label-Workflow = -1..+0 group openstack/ironic-inspector-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-inspector-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-inspector-ptl
-      - openstack/ironic-inspector-core
     89d4bf165b60a45c790c61ec8385ae62:
       file: |
         [access "refs/*"]
@@ -10803,32 +10461,6 @@ resources:
       groups:
       - puppet/puppet-dns-ptl
       - puppet/puppet-dns-core
-    ac3a199109513ac6984502d2ef0cb49e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironicclient-core
-          owner = group openstack/ironicclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironicclient-core
-            label-Code-Review = -2..+2 group openstack/ironicclient-ptl
-            submit = group openstack/ironicclient-ptl
-            read = group Registered Users
-            read = group openstack/ironicclient-core
-            label-Verified = -2..+0 group openstack/ironicclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ironicclient-core
-            label-Workflow = -1..+0 group openstack/ironicclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironicclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironicclient-ptl
-      - openstack/ironicclient-core
     ac57d45d1ca19e7615139b94cbf2ba1c:
       file: |
         [access "refs/*"]
@@ -11728,32 +11360,6 @@ resources:
       groups:
       - puppet/puppet-kmod-distgit-ptl
       - rdo-core
-    bc146f28d302d8f471224cc0f702de7f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cisco-ironic-contrib-core
-          owner = group openstack/cisco-ironic-contrib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-core
-            label-Code-Review = -2..+2 group openstack/cisco-ironic-contrib-ptl
-            submit = group openstack/cisco-ironic-contrib-ptl
-            read = group Registered Users
-            read = group openstack/cisco-ironic-contrib-core
-            label-Verified = -2..+0 group openstack/cisco-ironic-contrib-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cisco-ironic-contrib-core
-            label-Workflow = -1..+0 group openstack/cisco-ironic-contrib-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cisco-ironic-contrib-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cisco-ironic-contrib-core
-      - openstack/cisco-ironic-contrib-ptl
     bd7db92a1bf62ce88c46df9bcc8beaaf:
       file: |
         [access "refs/*"]
@@ -12100,33 +11706,6 @@ resources:
       groups:
       - openstack/networking-bigswitch-ptl
       - openstack/networking-bigswitch-core
-    c2f5079eab0fa5b751e503ee05998a26:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-staging-drivers-distgit-core
-          owner = group openstack/ironic-staging-drivers-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-staging-drivers-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-staging-drivers-distgit-ptl
-            label-Verified = -2..+2 group openstack/ironic-staging-drivers-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-staging-drivers-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-staging-drivers-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-staging-drivers-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-staging-drivers-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-staging-drivers-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironic-staging-drivers-distgit-core
-      - openstack/ironic-staging-drivers-distgit-ptl
     c2faaf5d20680d49e7ccd80bcb5f27ed:
       file: |
         [access "refs/*"]
@@ -12705,38 +12284,6 @@ resources:
       groups:
       - puppet/puppet-certmonger-core
       - puppet/puppet-certmonger-ptl
-    cffa1f90950b376283c8600041730263:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-inspector-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironic-inspector-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-inspector-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironic-inspector-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-inspector-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-inspector-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-inspector-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-inspector-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-inspector-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ironic-inspector-distgit-ptl
-      - rdo-core
     d05bdaa6d1c7bcb30632f15f68600f7b:
       file: |
         [access "refs/*"]
@@ -14617,32 +14164,6 @@ resources:
       groups:
       - openstack/designate-tempest-plugin-distgit-ptl
       - rdo-core
-    e99bc71ffbbd1bff5f78faa37efc1962:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ironic-ui-distgit-core
-          owner = group openstack/ironic-ui-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-ui-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-ui-distgit-ptl
-            label-Verified = -2..+2 group openstack/ironic-ui-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-ui-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-ui-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-ui-distgit-ptl
-            read = group openstack/ironic-ui-distgit-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/ironic-ui-distgit-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ironic-ui-distgit-core
-      - openstack/ironic-ui-distgit-ptl
     ea1461cb7c5653cbac9ab21cbb97ea44:
       file: |
         [access "refs/*"]
@@ -15322,38 +14843,6 @@ resources:
       groups:
       - openstack/os-faults-distgit-ptl
       - rdo-core
-    f65bbc2fc8d1e9a0e2ab706e63077264:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ironic-lib-distgit-core
-          read = group rdo-core
-          owner = group openstack/ironic-lib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ironic-lib-distgit-core
-            label-Code-Review = -2..+2 group openstack/ironic-lib-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ironic-lib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ironic-lib-distgit-core
-            label-Workflow = -1..+1 group openstack/ironic-lib-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ironic-lib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ironic-lib-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ironic-lib-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/ironic-lib-distgit-ptl
     f6a890b65660648d5bedacc38cef19db:
       file: |
         [access "refs/*"]
@@ -16141,28 +15630,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/cisco-ironic-contrib-core:
-      description: Core developers for project cisco-ironic-contrib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/cisco-ironic-contrib-distgit-core:
-      description: Core developers for project cisco-ironic-contrib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/cisco-ironic-contrib-distgit-ptl:
-      description: Project team lead for project cisco-ironic-contrib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cisco-ironic-contrib-ptl:
-      description: Project team lead for project cisco-ironic-contrib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/cliff-core:
       description: Core developers for project cliff
       members:
@@ -16840,204 +16307,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/instack-undercloud-ptl:
       description: Project team lead for project instack-undercloud
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-core:
-      description: Core developers for project ironic
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/ironic-distgit-core:
-      description: Core developers for project ironic-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/ironic-distgit-ptl:
-      description: Project team lead for project ironic-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-inspector-client-core:
-      description: Core developers for project ironic-inspector-client
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-    openstack/ironic-inspector-client-distgit-core:
-      description: Core developers for project ironic-inspector-client-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-    openstack/ironic-inspector-client-distgit-ptl:
-      description: Project team lead for project ironic-inspector-client-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-inspector-client-ptl:
-      description: Project team lead for project ironic-inspector-client
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-inspector-core:
-      description: Core developers for project ironic-inspector
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-inspector-distgit-core:
-      description: Core developers for project ironic-inspector-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-inspector-distgit-ptl:
-      description: Project team lead for project ironic-inspector-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-inspector-ptl:
-      description: Project team lead for project ironic-inspector
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-lib-core:
-      description: Core developers for project ironic-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-lib-distgit-core:
-      description: Core developers for project ironic-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-lib-distgit-ptl:
-      description: Project team lead for project ironic-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-lib-ptl:
-      description: Project team lead for project ironic-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-ptl:
-      description: Project team lead for project ironic
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-python-agent-core:
-      description: Core developers for project ironic-python-agent
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-python-agent-distgit-core:
-      description: Core developers for project ironic-python-agent-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-python-agent-distgit-ptl:
-      description: Project team lead for project ironic-python-agent-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-python-agent-ptl:
-      description: Project team lead for project ironic-python-agent
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironic-staging-drivers-core:
-      description: Core developers for project openstack/ironic-staging-drivers
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lucasagomes@gmail.com
-      - admin@review.rdoproject.org
-    openstack/ironic-staging-drivers-distgit-core:
-      description: Core developers for project openstack/ironic-staging-drivers-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lucasagomes@gmail.com
-      - admin@review.rdoproject.org
-    openstack/ironic-staging-drivers-distgit-ptl:
-      description: Project team lead for project openstack/ironic-staging-drivers-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/ironic-staging-drivers-ptl:
-      description: Project team lead for project openstack/ironic-staging-drivers
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/ironic-ui-core:
-      description: Core developers for project openstack/ironic-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-ui-distgit-core:
-      description: Core developers for project openstack/ironic-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - trown@redhat.com
-    openstack/ironic-ui-distgit-ptl:
-      description: Project team lead for project openstack/ironic-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/ironic-ui-ptl:
-      description: Project team lead for project openstack/ironic-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/ironicclient-core:
-      description: Core developers for project ironicclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/ironicclient-distgit-core:
-      description: Core developers for project ironicclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - divius.inside@gmail.com
-      - hguemar@fedoraproject.org
-    openstack/ironicclient-distgit-ptl:
-      description: Project team lead for project ironicclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ironicclient-ptl:
-      description: Project team lead for project ironicclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -22739,11 +22008,6 @@ resources:
       description: Mirror of upstream ceilometermiddleware (mirror + patches)
     openstack/ceilometermiddleware-distgit:
       acl: d6fa52a6bbbff302949cf5e8dc23a66f
-    openstack/cisco-ironic-contrib:
-      acl: bc146f28d302d8f471224cc0f702de7f
-      description: Mirror of upstream cisco-ironic-contrib (mirror + patches)
-    openstack/cisco-ironic-contrib-distgit:
-      acl: 0f4976350b91379a21ae8cc30ec287b9
     openstack/cliff:
       acl: d85de99d2a937b7f624115ab43466d4c
       description: Mirror of upstream cliff (mirror + patches)
@@ -22890,47 +22154,6 @@ resources:
       description: Mirror of upstream instack-undercloud (mirror + patches)
     openstack/instack-undercloud-distgit:
       acl: 1d4cc4cd27f65a6dc64f67302ba332f7
-    openstack/ironic:
-      acl: 10cb3c93b19f29c228bad42452db833f
-      description: Mirror of upstream ironic (mirror + patches)
-    openstack/ironic-distgit:
-      acl: 09dd815f89e2bebb570f88a2d4f670af
-    openstack/ironic-inspector:
-      acl: 89c75040396c11ab8e805e413170375b
-      description: Mirror of upstream ironic-inspector (mirror + patches)
-    openstack/ironic-inspector-client:
-      acl: 71f6123c04e2e247a6a1a75fd4d9477b
-      description: Mirror of upstream ironic-inspector-client (mirror + patches)
-    openstack/ironic-inspector-client-distgit:
-      acl: 85015ee6223ca10a0e4c90ee820518c3
-    openstack/ironic-inspector-distgit:
-      acl: cffa1f90950b376283c8600041730263
-    openstack/ironic-lib:
-      acl: 6ba5b058acba149a6ccccbb2121f426f
-      description: Mirror of upstream ironic-lib (mirror + patches)
-    openstack/ironic-lib-distgit:
-      acl: f65bbc2fc8d1e9a0e2ab706e63077264
-    openstack/ironic-python-agent:
-      acl: 00943607dc4b755de0c74a10c6d3a1b7
-      description: Mirror of upstream ironic-python-agent (mirror + patches)
-    openstack/ironic-python-agent-distgit:
-      acl: 5641e3f7fbac681460d6ce08be5e64df
-    openstack/ironic-staging-drivers:
-      acl: 27daeb8c896e05c98b2c0dbe9136e3a8
-      description: Mirror of upstream openstack/ironic-staging-drivers (mirror + patches)
-    openstack/ironic-staging-drivers-distgit:
-      acl: c2f5079eab0fa5b751e503ee05998a26
-    openstack/ironic-ui:
-      acl: 668e22a564f5dd2e05c5ac7c41711c82
-      description: Mirror of upstream openstack/ironic-ui (mirror + patches)
-    openstack/ironic-ui-distgit:
-      acl: e99bc71ffbbd1bff5f78faa37efc1962
-      description: Packaging content for openstack/ironic-ui (distgit)
-    openstack/ironicclient:
-      acl: ac3a199109513ac6984502d2ef0cb49e
-      description: Mirror of upstream ironicclient (mirror + patches)
-    openstack/ironicclient-distgit:
-      acl: 16423a114c404dbc12251e722f5d4b28
     openstack/k8sclient:
       acl: 19dafd4bae191061874b051e52932e75
       description: Mirror of upstream openstack/k8sclient (mirror + patches)
