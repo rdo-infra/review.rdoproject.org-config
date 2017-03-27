@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/tripleo-common-core:
+      description: Core developers for project tripleo-common
+      members:
+      - trown@redhat.com
+      - mburns@redhat.com
+    openstack/tripleo-common-ptl:
+      description: Project team lead for project tripleo-common
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-common-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-common-core
+          owner = group openstack/tripleo-common-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-common-core
+          label-Code-Review = -2..+2 group openstack/tripleo-common-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-common-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-common-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tripleo-common-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-common-core
+          label-Workflow = -1..+1 group openstack/tripleo-common-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-common-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-common-core
+      - openstack/tripleo-common-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-common:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-common-core
+          owner = group openstack/tripleo-common-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-common-core
+          label-Code-Review = -2..+2 group openstack/tripleo-common-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-common-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-common-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-common-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-common-core
+          label-Workflow = -1..+0 group openstack/tripleo-common-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-common-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-common-core
+      - openstack/tripleo-common-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-common:
+      acl: openstack-tripleo-common
+      description: Mirror of upstream tripleo-common (mirror + patches)
+    openstack/tripleo-common-distgit:
+      acl: openstack-tripleo-common-distgit
+      description: Packaging of upstream tripleo-common
