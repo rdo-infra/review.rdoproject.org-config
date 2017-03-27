@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/django_openstack_auth-core:
+      description: Core developers for project django_openstack_auth
+      members:
+      - mrunge@redhat.com
+      - rdopiera@redhat.com
+    openstack/django_openstack_auth-ptl:
+      description: Project team lead for project django_openstack_auth
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-django_openstack_auth-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/django_openstack_auth-core
+          owner = group openstack/django_openstack_auth-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/django_openstack_auth-core
+          label-Code-Review = -2..+2 group openstack/django_openstack_auth-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/django_openstack_auth-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/django_openstack_auth-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/django_openstack_auth-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/django_openstack_auth-core
+          label-Workflow = -1..+1 group openstack/django_openstack_auth-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/django_openstack_auth-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/django_openstack_auth-core
+      - openstack/django_openstack_auth-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-django_openstack_auth:
+      file: |
+        [access "refs/*"]
+          read = group openstack/django_openstack_auth-core
+          owner = group openstack/django_openstack_auth-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/django_openstack_auth-core
+          label-Code-Review = -2..+2 group openstack/django_openstack_auth-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/django_openstack_auth-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/django_openstack_auth-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/django_openstack_auth-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/django_openstack_auth-core
+          label-Workflow = -1..+0 group openstack/django_openstack_auth-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/django_openstack_auth-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/django_openstack_auth-core
+      - openstack/django_openstack_auth-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/django_openstack_auth:
+      acl: openstack-django_openstack_auth
+      description: Mirror of upstream django_openstack_auth (mirror + patches)
+    openstack/django_openstack_auth-distgit:
+      acl: openstack-django_openstack_auth-distgit
+      description: Packaging of upstream django_openstack_auth
