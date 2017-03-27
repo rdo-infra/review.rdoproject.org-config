@@ -134,38 +134,6 @@ resources:
       groups:
       - puppet/puppet-zaqar-ptl
       - puppet/puppet-zaqar-core
-    07fdf23fee9c570f5fda1fbdaaeaf5e1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/reno-distgit-core
-          read = group rdo-core
-          owner = group openstack/reno-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/reno-distgit-core
-            label-Code-Review = -2..+2 group openstack/reno-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/reno-distgit-ptl
-            label-Workflow = -1..+1 group openstack/reno-distgit-core
-            label-Workflow = -1..+1 group openstack/reno-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/reno-distgit-ptl
-            read = group Registered Users
-            read = group openstack/reno-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/reno-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/reno-distgit-ptl
     0847b36f8a2b0d91c96ee78283990001:
       file: |
         [access "refs/*"]
@@ -427,32 +395,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    0d68e5e774e8e58be948620fd5a8a240:
-      file: |
-        [access "refs/*"]
-          read = group openstack/reno-core
-          owner = group openstack/reno-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/reno-core
-            label-Code-Review = -2..+2 group openstack/reno-ptl
-            submit = group openstack/reno-ptl
-            read = group Registered Users
-            read = group openstack/reno-core
-            label-Verified = -2..+0 group openstack/reno-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/reno-core
-            label-Workflow = -1..+0 group openstack/reno-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/reno-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/reno-core
-      - openstack/reno-ptl
     0d81a90eef69a3470d6e543988d56613:
       file: |
         [access "refs/*"]
@@ -17564,28 +17506,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/reno-core:
-      description: Core developers for project reno
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/reno-distgit-core:
-      description: Core developers for project reno-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/reno-distgit-ptl:
-      description: Project team lead for project reno-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/reno-ptl:
-      description: Project team lead for project reno
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/requestsexceptions-core:
       description: Core developers for project requestsexceptions
       members:
@@ -21135,11 +21055,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/reno:
-      acl: 0d68e5e774e8e58be948620fd5a8a240
-      description: Mirror of upstream reno (mirror + patches)
-    openstack/reno-distgit:
-      acl: 07fdf23fee9c570f5fda1fbdaaeaf5e1
     openstack/requestsexceptions:
       acl: 33da6aa5c3e19f9d280be0cd06cb10c0
       description: Mirror of upstream requestsexceptions (mirror + patches)
