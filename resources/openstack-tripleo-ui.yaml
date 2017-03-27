@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/tripleo-ui-core:
+      description: Core developers for project tripleo-ui
+      members:
+      - honza@redhat.com
+    openstack/tripleo-ui-ptl:
+      description: Project team lead for project tripleo-ui
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-ui-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ui-core
+          owner = group openstack/tripleo-ui-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ui-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ui-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ui-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ui-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tripleo-ui-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-ui-core
+          label-Workflow = -1..+1 group openstack/tripleo-ui-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ui-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ui-core
+      - openstack/tripleo-ui-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-ui:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ui-core
+          owner = group openstack/tripleo-ui-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ui-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ui-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ui-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ui-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-ui-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-ui-core
+          label-Workflow = -1..+0 group openstack/tripleo-ui-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ui-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ui-core
+      - openstack/tripleo-ui-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-ui:
+      acl: openstack-tripleo-ui
+      description: Mirror of upstream tripleo-ui (mirror + patches)
+    openstack/tripleo-ui-distgit:
+      acl: openstack-tripleo-ui-distgit
+      description: Packaging of upstream tripleo-ui

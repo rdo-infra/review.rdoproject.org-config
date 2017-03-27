@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/tripleoclient-core:
+      description: Core developers for project tripleoclient
+      members:
+      - brad@redhat.com
+    openstack/tripleoclient-ptl:
+      description: Project team lead for project tripleoclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleoclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleoclient-core
+          owner = group openstack/tripleoclient-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleoclient-core
+          label-Code-Review = -2..+2 group openstack/tripleoclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleoclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleoclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tripleoclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleoclient-core
+          label-Workflow = -1..+1 group openstack/tripleoclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleoclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleoclient-core
+      - openstack/tripleoclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleoclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleoclient-core
+          owner = group openstack/tripleoclient-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleoclient-core
+          label-Code-Review = -2..+2 group openstack/tripleoclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleoclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleoclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleoclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleoclient-core
+          label-Workflow = -1..+0 group openstack/tripleoclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleoclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleoclient-core
+      - openstack/tripleoclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleoclient:
+      acl: openstack-tripleoclient
+      description: Mirror of upstream tripleoclient (mirror + patches)
+    openstack/tripleoclient-distgit:
+      acl: openstack-tripleoclient-distgit
+      description: Packaging of upstream tripleoclient
