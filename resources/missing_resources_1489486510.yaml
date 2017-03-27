@@ -60,38 +60,6 @@ resources:
       groups:
       - openstack/openstackclient-distgit-ptl
       - rdo-core
-    020f7f90e9a0c1db73d9ecc2116b6743:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleoclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleoclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleoclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleoclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleoclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleoclient-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleoclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleoclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleoclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleoclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleoclient-distgit-ptl
-      - rdo-core
     02886158a5d59ccd082aa23580157068:
       file: |
         [access "refs/*"]
@@ -2154,32 +2122,6 @@ resources:
       groups:
       - puppet/puppet-octavia-distgit-core
       - puppet/puppet-octavia-distgit-ptl
-    2654ddb5d66c0243af6a48711ec56ba7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-heat-templates-core
-          owner = group openstack/tripleo-heat-templates-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-core
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-ptl
-            submit = group openstack/tripleo-heat-templates-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-core
-            label-Verified = -2..+0 group openstack/tripleo-heat-templates-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleo-heat-templates-core
-            label-Workflow = -1..+0 group openstack/tripleo-heat-templates-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-heat-templates-ptl
-      - openstack/tripleo-heat-templates-core
     2738afa342eac447d90adb209ff73042:
       file: |
         [access "refs/*"]
@@ -2206,32 +2148,6 @@ resources:
       groups:
       - puppet/puppet-kafka-core
       - puppet/puppet-kafka-ptl
-    2750307158a8506a96a1bdb3ecf855a3:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-common-core
-          owner = group openstack/tripleo-common-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-common-core
-            label-Code-Review = -2..+2 group openstack/tripleo-common-ptl
-            submit = group openstack/tripleo-common-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-common-core
-            label-Verified = -2..+0 group openstack/tripleo-common-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleo-common-core
-            label-Workflow = -1..+0 group openstack/tripleo-common-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-common-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-common-core
-      - openstack/tripleo-common-ptl
     2781141c8259a13dca73674d192e9e16:
       file: |
         [access "refs/*"]
@@ -2258,33 +2174,6 @@ resources:
       groups:
       - puppet/puppet-lib-file_concat-ptl
       - puppet/puppet-lib-file_concat-core
-    28079ddaeb603f19783ee1d21a24c727:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-validations-distgit-core
-          owner = group openstack/tripleo-validations-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-validations-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-validations-distgit-ptl
-            label-Verified = -2..+2 group openstack/tripleo-validations-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-validations-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-validations-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-validations-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-validations-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-validations-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-validations-distgit-core
-      - openstack/tripleo-validations-distgit-ptl
     2952923f6770e3b64cf63852c83e07a2:
       file: |
         [access "refs/*"]
@@ -2868,38 +2757,6 @@ resources:
       groups:
       - openstack/congress-core
       - openstack/congress-ptl
-    356e1e6be459fa8326b03b00427b582d:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-puppet-elements-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleo-puppet-elements-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-puppet-elements-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-puppet-elements-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleo-puppet-elements-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-puppet-elements-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-puppet-elements-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-puppet-elements-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-puppet-elements-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-puppet-elements-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-puppet-elements-distgit-ptl
-      - rdo-core
     35d82055060d87cbc6fee3f9447a4c7f:
       file: |
         [access "refs/*"]
@@ -3315,32 +3172,6 @@ resources:
       groups:
       - openstack/oslo-config-core
       - openstack/oslo-config-ptl
-    3f51f15d6feeb4b853f9622632a087ec:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-incubator-core
-          owner = group openstack/tripleo-incubator-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-incubator-core
-            label-Code-Review = -2..+2 group openstack/tripleo-incubator-ptl
-            submit = group openstack/tripleo-incubator-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-incubator-core
-            label-Verified = -2..+0 group openstack/tripleo-incubator-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleo-incubator-core
-            label-Workflow = -1..+0 group openstack/tripleo-incubator-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-incubator-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-incubator-core
-      - openstack/tripleo-incubator-ptl
     3fe1a56e61fc55f8d4586e08045b29d9:
       file: |
         [access "refs/*"]
@@ -4374,32 +4205,6 @@ resources:
       groups:
       - puppet/puppet-congress-core
       - puppet/puppet-congress-ptl
-    4dd6ebb5ab2612a356a8f3d130b38a33:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-image-elements-core
-          owner = group openstack/tripleo-image-elements-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-image-elements-core
-            label-Code-Review = -2..+2 group openstack/tripleo-image-elements-ptl
-            submit = group openstack/tripleo-image-elements-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-image-elements-core
-            label-Verified = -2..+0 group openstack/tripleo-image-elements-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleo-image-elements-core
-            label-Workflow = -1..+0 group openstack/tripleo-image-elements-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-image-elements-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-image-elements-core
-      - openstack/tripleo-image-elements-ptl
     4ef583630bdca3ea50660cdd641a0a9e:
       file: |
         [access "refs/*"]
@@ -4919,38 +4724,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-snmp-distgit-ptl
-      - rdo-core
-    568788407cb145962039a7be6a98ca52:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-incubator-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleo-incubator-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-incubator-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-incubator-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleo-incubator-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-incubator-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-incubator-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-incubator-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-incubator-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-incubator-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-incubator-distgit-ptl
       - rdo-core
     56ef94618499a9ed1f422c4761484892:
       file: |
@@ -5816,32 +5589,6 @@ resources:
       groups:
       - openstack/murano-agent-distgit-ptl
       - rdo-core
-    635cf286c6bc2a25fe1a89a6fe92ea58:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-puppet-elements-core
-          owner = group openstack/tripleo-puppet-elements-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-puppet-elements-core
-            label-Code-Review = -2..+2 group openstack/tripleo-puppet-elements-ptl
-            submit = group openstack/tripleo-puppet-elements-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-puppet-elements-core
-            label-Verified = -2..+0 group openstack/tripleo-puppet-elements-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleo-puppet-elements-core
-            label-Workflow = -1..+0 group openstack/tripleo-puppet-elements-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-puppet-elements-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-puppet-elements-core
-      - openstack/tripleo-puppet-elements-ptl
     6415ef0302618677398c26e2bdb8750f:
       file: |
         [project]
@@ -8836,32 +8583,6 @@ resources:
       groups:
       - openstack/gnocchiclient-distgit-ptl
       - rdo-core
-    9527ec232e71bb3d6cf8cb03d07f3d84:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-ui-core
-          owner = group openstack/tripleo-ui-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-ui-core
-            label-Code-Review = -2..+2 group openstack/tripleo-ui-ptl
-            submit = group openstack/tripleo-ui-ptl
-            read = group openstack/tripleo-ui-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tripleo-ui-ptl
-            label-Workflow = -1..+0 group openstack/tripleo-ui-ptl
-            label-Workflow = -1..+0 group openstack/tripleo-ui-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tripleo-ui-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-ui-core
-      - openstack/tripleo-ui-ptl
     95de5b07415fe7332391cf577ce64af3:
       file: |
         [project]
@@ -12231,33 +11952,6 @@ resources:
       groups:
       - puppet/puppet-designate-core
       - puppet/puppet-designate-ptl
-    cdc03772164e70f23f118b88e5b8d6c1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-heat-templates-compat-distgit-core
-          owner = group openstack/tripleo-heat-templates-compat-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-compat-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-compat-distgit-ptl
-            label-Verified = -2..+2 group openstack/tripleo-heat-templates-compat-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-heat-templates-compat-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-heat-templates-compat-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-heat-templates-compat-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-compat-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-compat-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-heat-templates-compat-distgit-ptl
-      - openstack/tripleo-heat-templates-compat-distgit-core
     cebf65264f99c96cb9f7d7ab71f11edb:
       file: |
         [access "refs/*"]
@@ -12822,38 +12516,6 @@ resources:
       groups:
       - openstack/cliff-core
       - openstack/cliff-ptl
-    d875495a5c7e856201b2087b10a00631:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-image-elements-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleo-image-elements-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-image-elements-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-image-elements-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleo-image-elements-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-image-elements-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-image-elements-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-image-elements-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-image-elements-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-image-elements-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-image-elements-distgit-ptl
-      - rdo-core
     d8d99db68b93fc8097ff3db71baab8f9:
       file: |
         [access "refs/*"]
@@ -13627,38 +13289,6 @@ resources:
       groups:
       - puppet/puppet-aodh-ptl
       - puppet/puppet-aodh-core
-    e3e5f7dcf7c16af49afa581e9bbf7d23:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-heat-templates-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleo-heat-templates-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-heat-templates-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleo-heat-templates-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-heat-templates-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-heat-templates-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-heat-templates-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-heat-templates-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/tripleo-heat-templates-distgit-ptl
     e44018f2ce36c469b86a1554469d293c:
       file: |
         [access "refs/*"]
@@ -13833,32 +13463,6 @@ resources:
       groups:
       - openstack/os-cloud-config-core
       - openstack/os-cloud-config-ptl
-    e59144a945e4c8ee4b9f92577c58951b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleo-validations-core
-          owner = group openstack/tripleo-validations-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-validations-core
-            label-Code-Review = -2..+2 group openstack/tripleo-validations-ptl
-            submit = group openstack/tripleo-validations-ptl
-            read = group openstack/tripleo-validations-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tripleo-validations-ptl
-            label-Workflow = -1..+0 group openstack/tripleo-validations-ptl
-            label-Workflow = -1..+0 group openstack/tripleo-validations-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tripleo-validations-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleo-validations-core
-      - openstack/tripleo-validations-ptl
     e5a86441ca83ae25441632dfc73e3521:
       file: |
         [access "refs/*"]
@@ -14248,38 +13852,6 @@ resources:
       groups:
       - openstack/neutron-vpnaas-distgit-ptl
       - rdo-core
-    eb8532062646f9068407b193ee01271c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-common-distgit-core
-          read = group rdo-core
-          owner = group openstack/tripleo-common-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-common-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-common-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tripleo-common-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-common-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-common-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-common-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-common-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-common-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-common-distgit-ptl
-      - rdo-core
     ec6faff36ea130278c5cd6d7d89895b8:
       file: |
         [project]
@@ -14344,33 +13916,6 @@ resources:
       groups:
       - puppet/puppet-collectd-distgit-ptl
       - rdo-core
-    ece779ce9c43943ac1ebc97ad1f140ae:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tripleo-ui-distgit-core
-          owner = group openstack/tripleo-ui-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleo-ui-distgit-core
-            label-Code-Review = -2..+2 group openstack/tripleo-ui-distgit-ptl
-            label-Verified = -2..+2 group openstack/tripleo-ui-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tripleo-ui-distgit-core
-            label-Workflow = -1..+1 group openstack/tripleo-ui-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tripleo-ui-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tripleo-ui-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleo-ui-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tripleo-ui-distgit-core
-      - openstack/tripleo-ui-distgit-ptl
     ed28d1093f6d3eb957e96346bba9461e:
       file: |
         [access "refs/*"]
@@ -14869,32 +14414,6 @@ resources:
       groups:
       - openstack/networking-sfc-core
       - openstack/networking-sfc-ptl
-    f7411c4a7ffc08858d175824ae27cfeb:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tripleoclient-core
-          owner = group openstack/tripleoclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tripleoclient-core
-            label-Code-Review = -2..+2 group openstack/tripleoclient-ptl
-            submit = group openstack/tripleoclient-ptl
-            read = group Registered Users
-            read = group openstack/tripleoclient-core
-            label-Verified = -2..+0 group openstack/tripleoclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tripleoclient-core
-            label-Workflow = -1..+0 group openstack/tripleoclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tripleoclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tripleoclient-core
-      - openstack/tripleoclient-ptl
     f75f6f1a1efee2efdb171ea5817e5a3c:
       file: |
         [access "refs/*"]
@@ -17504,30 +17023,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
       - admin@review.rdoproject.org
-    openstack/openstack-tripleo-ui-core:
-      description: Core developers for project openstack/openstack-tripleo-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-tripleo-ui-distgit-core:
-      description: Core developers for project openstack/openstack-tripleo-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-tripleo-ui-distgit-ptl:
-      description: Project team lead for project openstack/openstack-tripleo-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-tripleo-ui-ptl:
-      description: Project team lead for project openstack/openstack-tripleo-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/openstack/heat-agents-core:
       description: Core developers for project openstack/openstack/heat-agents
       members:
@@ -19203,222 +18698,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/tooz-ptl:
       description: Project team lead for project tooz
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-common-core:
-      description: Core developers for project tripleo-common
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mburns@redhat.com
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/tripleo-common-distgit-core:
-      description: Core developers for project tripleo-common-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mburns@redhat.com
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/tripleo-common-distgit-ptl:
-      description: Project team lead for project tripleo-common-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-common-ptl:
-      description: Project team lead for project tripleo-common
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-heat-templates-compat-core:
-      description: Core developers for project openstack/tripleo-heat-templates-compat
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-heat-templates-compat-distgit-core:
-      description: Core developers for project openstack/tripleo-heat-templates-compat-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - mburns@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - jslagle@redhat.com
-    openstack/tripleo-heat-templates-compat-distgit-ptl:
-      description: Project team lead for project openstack/tripleo-heat-templates-compat-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-heat-templates-compat-ptl:
-      description: Project team lead for project openstack/tripleo-heat-templates-compat
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-heat-templates-core:
-      description: Core developers for project tripleo-heat-templates
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - dprince@redhat.com
-      - jslagle@redhat.com
-    openstack/tripleo-heat-templates-distgit-core:
-      description: Core developers for project tripleo-heat-templates-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - dprince@redhat.com
-      - jslagle@redhat.com
-    openstack/tripleo-heat-templates-distgit-ptl:
-      description: Project team lead for project tripleo-heat-templates-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-heat-templates-ptl:
-      description: Project team lead for project tripleo-heat-templates
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-image-elements-core:
-      description: Core developers for project tripleo-image-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tripleo-image-elements-distgit-core:
-      description: Core developers for project tripleo-image-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tripleo-image-elements-distgit-ptl:
-      description: Project team lead for project tripleo-image-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-image-elements-ptl:
-      description: Project team lead for project tripleo-image-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-incubator-core:
-      description: Core developers for project tripleo-incubator
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/tripleo-incubator-distgit-core:
-      description: Core developers for project tripleo-incubator-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/tripleo-incubator-distgit-ptl:
-      description: Project team lead for project tripleo-incubator-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-incubator-ptl:
-      description: Project team lead for project tripleo-incubator
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-puppet-elements-core:
-      description: Core developers for project tripleo-puppet-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/tripleo-puppet-elements-distgit-core:
-      description: Core developers for project tripleo-puppet-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - jslagle@redhat.com
-    openstack/tripleo-puppet-elements-distgit-ptl:
-      description: Project team lead for project tripleo-puppet-elements-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-puppet-elements-ptl:
-      description: Project team lead for project tripleo-puppet-elements
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleo-ui-core:
-      description: Core developers for project openstack/tripleo-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - me@honza.ca
-      - jpichon@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-ui-distgit-core:
-      description: Core developers for project openstack/tripleo-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - me@honza.ca
-      - jpichon@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-ui-distgit-ptl:
-      description: Project team lead for project openstack/tripleo-ui-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-ui-ptl:
-      description: Project team lead for project openstack/tripleo-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-validations-core:
-      description: Core developers for project openstack/tripleo-validations
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-validations-distgit-core:
-      description: Core developers for project openstack/tripleo-validations-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-validations-distgit-ptl:
-      description: Project team lead for project openstack/tripleo-validations-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleo-validations-ptl:
-      description: Project team lead for project openstack/tripleo-validations
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/tripleoclient-core:
-      description: Core developers for project tripleoclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - brad@redhat.com
-    openstack/tripleoclient-distgit-core:
-      description: Core developers for project tripleoclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - brad@redhat.com
-    openstack/tripleoclient-distgit-ptl:
-      description: Project team lead for project tripleoclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tripleoclient-ptl:
-      description: Project team lead for project tripleoclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -22678,48 +21957,6 @@ resources:
       description: Mirror of upstream tooz (mirror + patches)
     openstack/tooz-distgit:
       acl: b6b5a26c6356c079a72a0633b1817bd9
-    openstack/tripleo-common:
-      acl: 2750307158a8506a96a1bdb3ecf855a3
-      description: Mirror of upstream tripleo-common (mirror + patches)
-    openstack/tripleo-common-distgit:
-      acl: eb8532062646f9068407b193ee01271c
-    openstack/tripleo-heat-templates:
-      acl: 2654ddb5d66c0243af6a48711ec56ba7
-      description: Mirror of upstream tripleo-heat-templates (mirror + patches)
-    openstack/tripleo-heat-templates-compat-distgit:
-      acl: cdc03772164e70f23f118b88e5b8d6c1
-    openstack/tripleo-heat-templates-distgit:
-      acl: e3e5f7dcf7c16af49afa581e9bbf7d23
-    openstack/tripleo-image-elements:
-      acl: 4dd6ebb5ab2612a356a8f3d130b38a33
-      description: Mirror of upstream tripleo-image-elements (mirror + patches)
-    openstack/tripleo-image-elements-distgit:
-      acl: d875495a5c7e856201b2087b10a00631
-    openstack/tripleo-incubator:
-      acl: 3f51f15d6feeb4b853f9622632a087ec
-      description: Mirror of upstream tripleo-incubator (mirror + patches)
-    openstack/tripleo-incubator-distgit:
-      acl: 568788407cb145962039a7be6a98ca52
-    openstack/tripleo-puppet-elements:
-      acl: 635cf286c6bc2a25fe1a89a6fe92ea58
-      description: Mirror of upstream tripleo-puppet-elements (mirror + patches)
-    openstack/tripleo-puppet-elements-distgit:
-      acl: 356e1e6be459fa8326b03b00427b582d
-    openstack/tripleo-ui:
-      acl: 9527ec232e71bb3d6cf8cb03d07f3d84
-      description: Mirror of upstream openstack/tripleo-ui (mirror + patches)
-    openstack/tripleo-ui-distgit:
-      acl: ece779ce9c43943ac1ebc97ad1f140ae
-    openstack/tripleo-validations:
-      acl: e59144a945e4c8ee4b9f92577c58951b
-      description: Mirror of upstream openstack/tripleo-validations (mirror + patches)
-    openstack/tripleo-validations-distgit:
-      acl: 28079ddaeb603f19783ee1d21a24c727
-    openstack/tripleoclient:
-      acl: f7411c4a7ffc08858d175824ae27cfeb
-      description: Mirror of upstream tripleoclient (mirror + patches)
-    openstack/tripleoclient-distgit:
-      acl: 020f7f90e9a0c1db73d9ecc2116b6743
     openstack/trove:
       acl: d05bdaa6d1c7bcb30632f15f68600f7b
       description: Mirror of upstream trove (mirror + patches)
