@@ -5924,38 +5924,6 @@ resources:
       groups:
       - puppet/puppet-xinetd-ptl
       - puppet/puppet-xinetd-core
-    ec6faff36ea130278c5cd6d7d89895b8:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/dracclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/dracclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/dracclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/dracclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/dracclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/dracclient-distgit-core
-            label-Workflow = -1..+1 group openstack/dracclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/dracclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/dracclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/dracclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/dracclient-distgit-ptl
-      - rdo-core
     ecb7b29cb74ae2c8b7d8366f553e4228:
       file: |
         [project]
@@ -6391,32 +6359,6 @@ resources:
       groups:
       - openstack/packstack-ptl
       - openstack/packstack-core
-    fe29c2f474cecd344ecb939a0696589a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/dracclient-core
-          owner = group openstack/dracclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/dracclient-core
-            label-Code-Review = -2..+2 group openstack/dracclient-ptl
-            submit = group openstack/dracclient-ptl
-            read = group Registered Users
-            read = group openstack/dracclient-core
-            label-Verified = -2..+0 group openstack/dracclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/dracclient-core
-            label-Workflow = -1..+0 group openstack/dracclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/dracclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/dracclient-core
-      - openstack/dracclient-ptl
   groups:
     DLRN-core:
       description: Core developers for project DLRN
@@ -6567,30 +6509,6 @@ resources:
     openstack/-ptl:
       description: Project team lead for project openstack/
       members:
-      - admin@review.rdoproject.org
-    openstack/dracclient-core:
-      description: Core developers for project dracclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - ifarkas@redhat.com
-      - trown@redhat.com
-    openstack/dracclient-distgit-core:
-      description: Core developers for project dracclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - ifarkas@redhat.com
-      - trown@redhat.com
-    openstack/dracclient-distgit-ptl:
-      description: Project team lead for project dracclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/dracclient-ptl:
-      description: Project team lead for project dracclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
     openstack/ec2-api-core:
       description: Core developers for project ec2-api
@@ -9227,11 +9145,6 @@ resources:
     gating_scripts:
       acl: b8942be7f036ae5cf800a93e70875b38
       description: ''
-    openstack/dracclient:
-      acl: fe29c2f474cecd344ecb939a0696589a
-      description: Mirror of upstream dracclient (mirror + patches)
-    openstack/dracclient-distgit:
-      acl: ec6faff36ea130278c5cd6d7d89895b8
     openstack/ec2-api:
       acl: afeac7af6d119093aef99cb7d98bd7f8
       description: Mirror of upstream ec2-api (mirror + patches)
