@@ -3278,32 +3278,6 @@ resources:
       groups:
       - puppet/puppet-barbican-distgit-ptl
       - puppet/puppet-barbican-distgit-core
-    8c2c5728909e163fa3d58121a3e70146:
-      file: |
-        [access "refs/*"]
-          read = group openstack/kolla-core
-          owner = group openstack/kolla-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/kolla-core
-            label-Code-Review = -2..+2 group openstack/kolla-ptl
-            submit = group openstack/kolla-ptl
-            read = group openstack/kolla-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/kolla-ptl
-            label-Workflow = -1..+0 group openstack/kolla-ptl
-            label-Workflow = -1..+0 group openstack/kolla-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/kolla-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/kolla-core
-      - openstack/kolla-ptl
     8cec1c71a402347fc376e3be37cf74f5:
       file: |
         [access "refs/*"]
@@ -5904,32 +5878,6 @@ resources:
       groups:
       - openstack/ec2-api-distgit-ptl
       - rdo-core
-    e155d710082a13ef10d322708ed00f49:
-      file: |
-        [access "refs/*"]
-          read = group openstack/kolla-distgit-core
-          owner = group openstack/kolla-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/kolla-distgit-core
-            label-Code-Review = -2..+2 group openstack/kolla-distgit-ptl
-            label-Verified = -2..+2 group openstack/kolla-distgit-ptl
-            label-Workflow = -1..+1 group openstack/kolla-distgit-core
-            label-Workflow = -1..+1 group openstack/kolla-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/kolla-distgit-ptl
-            read = group openstack/kolla-distgit-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/kolla-distgit-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/kolla-distgit-ptl
-      - openstack/kolla-distgit-core
     e318890fbeab7c54e6b7af57526261d9:
       file: |
         [project]
@@ -6909,28 +6857,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/kolla-core:
-      description: Core developers for project openstack/kolla
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sbaker@redhat.com
-    openstack/kolla-distgit-core:
-      description: Core developers for project openstack/kolla-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sbaker@redhat.com
-    openstack/kolla-distgit-ptl:
-      description: Project team lead for project openstack/kolla-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/kolla-ptl:
-      description: Project team lead for project openstack/kolla
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
       members:
@@ -9564,12 +9490,6 @@ resources:
       description: Mirror of upstream ec2-api (mirror + patches)
     openstack/ec2-api-distgit:
       acl: e14cec4c74dcf39e724e9ce427829ee5
-    openstack/kolla:
-      acl: 8c2c5728909e163fa3d58121a3e70146
-      description: Mirror of upstream openstack/kolla (mirror + patches)
-    openstack/kolla-distgit:
-      acl: e155d710082a13ef10d322708ed00f49
-      description: Packaging content for openstack/kolla (distgit)
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
