@@ -1253,32 +1253,6 @@ resources:
       groups:
       - puppet/puppet-auditd-core
       - puppet/puppet-auditd-ptl
-    2d902c284d049cbae7c832922fe754e5:
-      file: |
-        [access "refs/*"]
-          read = group openstack/keystone-core
-          owner = group openstack/keystone-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystone-core
-            label-Code-Review = -2..+2 group openstack/keystone-ptl
-            submit = group openstack/keystone-ptl
-            read = group Registered Users
-            read = group openstack/keystone-core
-            label-Verified = -2..+0 group openstack/keystone-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/keystone-core
-            label-Workflow = -1..+0 group openstack/keystone-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystone-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/keystone-ptl
-      - openstack/keystone-core
     2dd36bbf9b09f45464b0b93c3f5f9315:
       file: |
         [access "refs/*"]
@@ -1790,32 +1764,6 @@ resources:
       groups:
       - openstack/castellan-distgit-ptl
       - rdo-core
-    40a130c5b5745297d588b0907bb8f915:
-      file: |
-        [access "refs/*"]
-          read = group openstack/keystoneauth1-core
-          owner = group openstack/keystoneauth1-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystoneauth1-core
-            label-Code-Review = -2..+2 group openstack/keystoneauth1-ptl
-            submit = group openstack/keystoneauth1-ptl
-            read = group Registered Users
-            read = group openstack/keystoneauth1-core
-            label-Verified = -2..+0 group openstack/keystoneauth1-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/keystoneauth1-core
-            label-Workflow = -1..+0 group openstack/keystoneauth1-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystoneauth1-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/keystoneauth1-core
-      - openstack/keystoneauth1-ptl
     40ebd1629886dd7ed40e49c082e6480b:
       file: |
         [project]
@@ -5060,38 +5008,6 @@ resources:
       groups:
       - puppet/puppet-kibana3-core
       - puppet/puppet-kibana3-ptl
-    906d2f86f61d52ce69abf907d4f279a4:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/keystonemiddleware-distgit-core
-          read = group rdo-core
-          owner = group openstack/keystonemiddleware-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystonemiddleware-distgit-core
-            label-Code-Review = -2..+2 group openstack/keystonemiddleware-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/keystonemiddleware-distgit-ptl
-            label-Workflow = -1..+1 group openstack/keystonemiddleware-distgit-core
-            label-Workflow = -1..+1 group openstack/keystonemiddleware-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/keystonemiddleware-distgit-ptl
-            read = group Registered Users
-            read = group openstack/keystonemiddleware-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystonemiddleware-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/keystonemiddleware-distgit-ptl
-      - rdo-core
     90c768865eea2fe1951f8167ae6a22e1:
       file: |
         [access "refs/*"]
@@ -6463,38 +6379,6 @@ resources:
       groups:
       - puppet/puppet-logstash-distgit-core
       - puppet/puppet-logstash-distgit-ptl
-    b0dd39055374b02af1bdeb75e7ca7112:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/keystoneclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/keystoneclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystoneclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/keystoneclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/keystoneclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/keystoneclient-distgit-core
-            label-Workflow = -1..+1 group openstack/keystoneclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/keystoneclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/keystoneclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystoneclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/keystoneclient-distgit-ptl
-      - rdo-core
     b23d5df08804e1149cbd3cfceb266d44:
       file: |
         [project]
@@ -7180,32 +7064,6 @@ resources:
       groups:
       - openstack/castellan-core
       - openstack/castellan-ptl
-    c2faaf5d20680d49e7ccd80bcb5f27ed:
-      file: |
-        [access "refs/*"]
-          read = group openstack/keystoneclient-core
-          owner = group openstack/keystoneclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystoneclient-core
-            label-Code-Review = -2..+2 group openstack/keystoneclient-ptl
-            submit = group openstack/keystoneclient-ptl
-            read = group Registered Users
-            read = group openstack/keystoneclient-core
-            label-Verified = -2..+0 group openstack/keystoneclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/keystoneclient-core
-            label-Workflow = -1..+0 group openstack/keystoneclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystoneclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/keystoneclient-ptl
-      - openstack/keystoneclient-core
     c3b65b7969dab11fb5ead0403c51f940:
       file: |
         [project]
@@ -8289,32 +8147,6 @@ resources:
       groups:
       - openstack/microversion-parse-core
       - openstack/microversion-parse-ptl
-    dd29ea85ce0042789074cabd7463b88d:
-      file: |
-        [access "refs/*"]
-          read = group openstack/keystonemiddleware-core
-          owner = group openstack/keystonemiddleware-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystonemiddleware-core
-            label-Code-Review = -2..+2 group openstack/keystonemiddleware-ptl
-            submit = group openstack/keystonemiddleware-ptl
-            read = group Registered Users
-            read = group openstack/keystonemiddleware-core
-            label-Verified = -2..+0 group openstack/keystonemiddleware-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/keystonemiddleware-core
-            label-Workflow = -1..+0 group openstack/keystonemiddleware-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystonemiddleware-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/keystonemiddleware-core
-      - openstack/keystonemiddleware-ptl
     dd9d1f18315b80227686f5997b001655:
       file: |
         [project]
@@ -8374,38 +8206,6 @@ resources:
       groups:
       - puppet/puppet-powerdns-distgit-ptl
       - puppet/puppet-powerdns-distgit-core
-    de80bd3a80e40ae88a78af088bb895f1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/keystone-distgit-core
-          read = group rdo-core
-          owner = group openstack/keystone-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystone-distgit-core
-            label-Code-Review = -2..+2 group openstack/keystone-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/keystone-distgit-ptl
-            label-Workflow = -1..+1 group openstack/keystone-distgit-core
-            label-Workflow = -1..+1 group openstack/keystone-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/keystone-distgit-ptl
-            read = group Registered Users
-            read = group openstack/keystone-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystone-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/keystone-distgit-ptl
-      - rdo-core
     deb802a146d069c5ff94dd38d31a34b7:
       file: |
         [access "refs/*"]
@@ -9555,38 +9355,6 @@ resources:
       groups:
       - puppet/puppet-trove-distgit-ptl
       - rdo-core
-    fbdbc177970bc3b663fca440c04c1cdc:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/keystoneauth1-distgit-core
-          read = group rdo-core
-          owner = group openstack/keystoneauth1-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/keystoneauth1-distgit-core
-            label-Code-Review = -2..+2 group openstack/keystoneauth1-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/keystoneauth1-distgit-ptl
-            label-Workflow = -1..+1 group openstack/keystoneauth1-distgit-core
-            label-Workflow = -1..+1 group openstack/keystoneauth1-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/keystoneauth1-distgit-ptl
-            read = group Registered Users
-            read = group openstack/keystoneauth1-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/keystoneauth1-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/keystoneauth1-distgit-ptl
-      - rdo-core
     fdb884f9d20a9bed8a3edcec8bac14c7:
       file: |
         [access "refs/*"]
@@ -10462,102 +10230,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/keystone-core:
-      description: Core developers for project keystone
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystone-distgit-core:
-      description: Core developers for project keystone-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystone-distgit-ptl:
-      description: Project team lead for project keystone-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystone-ptl:
-      description: Project team lead for project keystone
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystoneauth1-core:
-      description: Core developers for project keystoneauth1
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/keystoneauth1-distgit-core:
-      description: Core developers for project keystoneauth1-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/keystoneauth1-distgit-ptl:
-      description: Project team lead for project keystoneauth1-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystoneauth1-ptl:
-      description: Project team lead for project keystoneauth1
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystoneclient-core:
-      description: Core developers for project keystoneclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/keystoneclient-distgit-core:
-      description: Core developers for project keystoneclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/keystoneclient-distgit-ptl:
-      description: Project team lead for project keystoneclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystoneclient-ptl:
-      description: Project team lead for project keystoneclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystonemiddleware-core:
-      description: Core developers for project keystonemiddleware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/keystonemiddleware-distgit-core:
-      description: Core developers for project keystonemiddleware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/keystonemiddleware-distgit-ptl:
-      description: Project team lead for project keystonemiddleware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/keystonemiddleware-ptl:
-      description: Project team lead for project keystonemiddleware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/kolla-core:
       description: Core developers for project openstack/kolla
       members:
@@ -14008,26 +13680,6 @@ resources:
       description: Mirror of upstream openstack/k8sclient (mirror + patches)
     openstack/k8sclient-distgit:
       acl: d14d4dd69c780e7d70436443d5b5f25f
-    openstack/keystone:
-      acl: 2d902c284d049cbae7c832922fe754e5
-      description: Mirror of upstream keystone (mirror + patches)
-    openstack/keystone-distgit:
-      acl: de80bd3a80e40ae88a78af088bb895f1
-    openstack/keystoneauth1:
-      acl: 40a130c5b5745297d588b0907bb8f915
-      description: Mirror of upstream keystoneauth1 (mirror + patches)
-    openstack/keystoneauth1-distgit:
-      acl: fbdbc177970bc3b663fca440c04c1cdc
-    openstack/keystoneclient:
-      acl: c2faaf5d20680d49e7ccd80bcb5f27ed
-      description: Mirror of upstream keystoneclient (mirror + patches)
-    openstack/keystoneclient-distgit:
-      acl: b0dd39055374b02af1bdeb75e7ca7112
-    openstack/keystonemiddleware:
-      acl: dd29ea85ce0042789074cabd7463b88d
-      description: Mirror of upstream keystonemiddleware (mirror + patches)
-    openstack/keystonemiddleware-distgit:
-      acl: 906d2f86f61d52ce69abf907d4f279a4
     openstack/kolla:
       acl: 8c2c5728909e163fa3d58121a3e70146
       description: Mirror of upstream openstack/kolla (mirror + patches)
