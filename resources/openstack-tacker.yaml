@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/tacker-core:
+      description: Core developers for project tacker
+      members:
+      - dradez@redhat.com
+    openstack/tacker-ptl:
+      description: Project team lead for project tacker
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tacker-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tacker-core
+          owner = group openstack/tacker-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tacker-core
+          label-Code-Review = -2..+2 group openstack/tacker-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tacker-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tacker-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tacker-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tacker-core
+          label-Workflow = -1..+1 group openstack/tacker-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tacker-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tacker-core
+      - openstack/tacker-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tacker:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tacker-core
+          owner = group openstack/tacker-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tacker-core
+          label-Code-Review = -2..+2 group openstack/tacker-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tacker-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tacker-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tacker-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tacker-core
+          label-Workflow = -1..+0 group openstack/tacker-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tacker-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tacker-core
+      - openstack/tacker-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tacker:
+      acl: openstack-tacker
+      description: Mirror of upstream tacker (mirror + patches)
+    openstack/tacker-distgit:
+      acl: openstack-tacker-distgit
+      description: Packaging of upstream tacker

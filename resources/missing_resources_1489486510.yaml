@@ -1331,33 +1331,6 @@ resources:
       groups:
       - puppet/puppet-ovn-core
       - puppet/puppet-ovn-ptl
-    40ebd1629886dd7ed40e49c082e6480b:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tackerclient-distgit-core
-          owner = group openstack/tackerclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tackerclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/tackerclient-distgit-ptl
-            label-Verified = -2..+2 group openstack/tackerclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tackerclient-distgit-core
-            label-Workflow = -1..+1 group openstack/tackerclient-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tackerclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tackerclient-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tackerclient-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tackerclient-distgit-core
-      - openstack/tackerclient-distgit-ptl
     4124d4608b1b811596a60ccac0d9f463:
       file: |
         [access "refs/*"]
@@ -3290,33 +3263,6 @@ resources:
       groups:
       - puppet/puppet-tomcat-distgit-ptl
       - rdo-core
-    773c617fc8b4acaeaeda0c9246922987:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tacker-distgit-core
-          owner = group openstack/tacker-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tacker-distgit-core
-            label-Code-Review = -2..+2 group openstack/tacker-distgit-ptl
-            label-Verified = -2..+2 group openstack/tacker-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tacker-distgit-core
-            label-Workflow = -1..+1 group openstack/tacker-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tacker-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tacker-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tacker-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tacker-distgit-core
-      - openstack/tacker-distgit-ptl
     77ffda06b5673a0cd8aae6e0a2855c71:
       file: |
         [project]
@@ -5282,32 +5228,6 @@ resources:
       groups:
       - puppet/puppet-midonet-core
       - puppet/puppet-midonet-ptl
-    ac178dbb06e89dff549e298423d04ca1:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tackerclient-core
-          owner = group openstack/tackerclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tackerclient-core
-            label-Code-Review = -2..+2 group openstack/tackerclient-ptl
-            submit = group openstack/tackerclient-ptl
-            read = group openstack/tackerclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tackerclient-ptl
-            label-Workflow = -1..+0 group openstack/tackerclient-ptl
-            label-Workflow = -1..+0 group openstack/tackerclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tackerclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tackerclient-ptl
-      - openstack/tackerclient-core
     ac1a03a2c40aa19d723301effe7c2c1c:
       file: |
         [access "refs/*"]
@@ -6384,32 +6304,6 @@ resources:
       groups:
       - rdo-core
       - openstack/vmware-nsxlib-distgit-ptl
-    cb0118541ba2b53623e8397cbb039c22:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tacker-core
-          owner = group openstack/tacker-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tacker-core
-            label-Code-Review = -2..+2 group openstack/tacker-ptl
-            submit = group openstack/tacker-ptl
-            read = group openstack/tacker-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tacker-ptl
-            label-Workflow = -1..+0 group openstack/tacker-ptl
-            label-Workflow = -1..+0 group openstack/tacker-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tacker-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tacker-core
-      - openstack/tacker-ptl
     cbec5fe234845ff53374f14edaaeabd0:
       file: |
         [access "refs/*"]
@@ -9133,58 +9027,6 @@ resources:
       description: Project team lead for project stevedore
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tacker-core:
-      description: Core developers for project openstack/tacker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tacker-distgit-core:
-      description: Core developers for project openstack/tacker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tacker-distgit-ptl:
-      description: Project team lead for project openstack/tacker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tacker-ptl:
-      description: Project team lead for project openstack/tacker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tackerclient-core:
-      description: Core developers for project openstack/tackerclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tackerclient-distgit-core:
-      description: Core developers for project openstack/tackerclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tackerclient-distgit-ptl:
-      description: Project team lead for project openstack/tackerclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tackerclient-ptl:
-      description: Project team lead for project openstack/tackerclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
       - admin@review.rdoproject.org
     openstack/taskflow-core:
       description: Core developers for project taskflow
@@ -12030,16 +11872,6 @@ resources:
       description: Mirror of upstream stevedore (mirror + patches)
     openstack/stevedore-distgit:
       acl: 5b29d6ba5ed73b29f90c47c3c0c4a878
-    openstack/tacker:
-      acl: cb0118541ba2b53623e8397cbb039c22
-      description: Mirror of upstream openstack/tacker (mirror + patches)
-    openstack/tacker-distgit:
-      acl: 773c617fc8b4acaeaeda0c9246922987
-    openstack/tackerclient:
-      acl: ac178dbb06e89dff549e298423d04ca1
-      description: Mirror of upstream openstack/tackerclient (mirror + patches)
-    openstack/tackerclient-distgit:
-      acl: 40ebd1629886dd7ed40e49c082e6480b
     openstack/taskflow:
       acl: 7d6d7e0f6e4133b49c8377a771ddd519
       description: Mirror of upstream taskflow (mirror + patches)
