@@ -3278,32 +3278,6 @@ resources:
       groups:
       - puppet/puppet-barbican-distgit-ptl
       - puppet/puppet-barbican-distgit-core
-    8addea38245f29f8f867a9fc84a87d31:
-      file: |
-        [access "refs/*"]
-          read = group openstack/osprofiler-core
-          owner = group openstack/osprofiler-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/osprofiler-core
-            label-Code-Review = -2..+2 group openstack/osprofiler-ptl
-            submit = group openstack/osprofiler-ptl
-            read = group Registered Users
-            read = group openstack/osprofiler-core
-            label-Verified = -2..+0 group openstack/osprofiler-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/osprofiler-core
-            label-Workflow = -1..+0 group openstack/osprofiler-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/osprofiler-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/osprofiler-ptl
-      - openstack/osprofiler-core
     8c2c5728909e163fa3d58121a3e70146:
       file: |
         [access "refs/*"]
@@ -4487,38 +4461,6 @@ resources:
       groups:
       - puppet/puppet-logstash-distgit-core
       - puppet/puppet-logstash-distgit-ptl
-    b23d5df08804e1149cbd3cfceb266d44:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/osprofiler-distgit-core
-          read = group rdo-core
-          owner = group openstack/osprofiler-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/osprofiler-distgit-core
-            label-Code-Review = -2..+2 group openstack/osprofiler-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/osprofiler-distgit-ptl
-            label-Workflow = -1..+1 group openstack/osprofiler-distgit-core
-            label-Workflow = -1..+1 group openstack/osprofiler-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/osprofiler-distgit-ptl
-            read = group Registered Users
-            read = group openstack/osprofiler-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/osprofiler-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/osprofiler-distgit-ptl
-      - rdo-core
     b3c0ebd7ad1e548eaf9c1bf2ca819f37:
       file: |
         [project]
@@ -7045,28 +6987,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/osprofiler-core:
-      description: Core developers for project osprofiler
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/osprofiler-distgit-core:
-      description: Core developers for project osprofiler-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/osprofiler-distgit-ptl:
-      description: Project team lead for project osprofiler-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/osprofiler-ptl:
-      description: Project team lead for project osprofiler
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/packstack-core:
       description: Core developers for project packstack
       members:
@@ -9660,11 +9580,6 @@ resources:
       description: Mirror of upstream openstack/osc-lib (mirror + patches)
     openstack/osc-lib-distgit:
       acl: a0e8d65739cd9bbfee04a6525fa0a574
-    openstack/osprofiler:
-      acl: 8addea38245f29f8f867a9fc84a87d31
-      description: Mirror of upstream osprofiler (mirror + patches)
-    openstack/osprofiler-distgit:
-      acl: b23d5df08804e1149cbd3cfceb266d44
     openstack/packstack:
       acl: fdb884f9d20a9bed8a3edcec8bac14c7
       description: Mirror of upstream packstack (mirror + patches)
