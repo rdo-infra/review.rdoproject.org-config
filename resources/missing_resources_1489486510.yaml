@@ -4324,32 +4324,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdobase-core
       - rdo-infra/ansible-role-rdobase-ptl
-    afeac7af6d119093aef99cb7d98bd7f8:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ec2-api-core
-          owner = group openstack/ec2-api-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ec2-api-core
-            label-Code-Review = -2..+2 group openstack/ec2-api-ptl
-            submit = group openstack/ec2-api-ptl
-            read = group Registered Users
-            read = group openstack/ec2-api-core
-            label-Verified = -2..+0 group openstack/ec2-api-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ec2-api-core
-            label-Workflow = -1..+0 group openstack/ec2-api-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ec2-api-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ec2-api-core
-      - openstack/ec2-api-ptl
     b06e382fb943d5908efadf05e4dff263:
       file: |
         [project]
@@ -5704,38 +5678,6 @@ resources:
       groups:
       - puppet/puppet-octavia-core
       - puppet/puppet-octavia-ptl
-    e14cec4c74dcf39e724e9ce427829ee5:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ec2-api-distgit-core
-          read = group rdo-core
-          owner = group openstack/ec2-api-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ec2-api-distgit-core
-            label-Code-Review = -2..+2 group openstack/ec2-api-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ec2-api-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ec2-api-distgit-core
-            label-Workflow = -1..+1 group openstack/ec2-api-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ec2-api-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ec2-api-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ec2-api-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ec2-api-distgit-ptl
-      - rdo-core
     e318890fbeab7c54e6b7af57526261d9:
       file: |
         [project]
@@ -6509,28 +6451,6 @@ resources:
     openstack/-ptl:
       description: Project team lead for project openstack/
       members:
-      - admin@review.rdoproject.org
-    openstack/ec2-api-core:
-      description: Core developers for project ec2-api
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - lobo@lukos.org
-    openstack/ec2-api-distgit-core:
-      description: Core developers for project ec2-api-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - lobo@lukos.org
-    openstack/ec2-api-distgit-ptl:
-      description: Project team lead for project ec2-api-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ec2-api-ptl:
-      description: Project team lead for project ec2-api
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
     openstack/karbor-core:
       description: Core developers for project openstack/karbor
@@ -9145,11 +9065,6 @@ resources:
     gating_scripts:
       acl: b8942be7f036ae5cf800a93e70875b38
       description: ''
-    openstack/ec2-api:
-      acl: afeac7af6d119093aef99cb7d98bd7f8
-      description: Mirror of upstream ec2-api (mirror + patches)
-    openstack/ec2-api-distgit:
-      acl: e14cec4c74dcf39e724e9ce427829ee5
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
