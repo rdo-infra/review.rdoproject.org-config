@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/openstack-selinux-core:
+      description: Core developers for project openstack-selinux
+      members:
+      - lhh@redhat.com
+      - lon@metamorphism.com
+      - rhallise@redhat.com
+    openstack/openstack-selinux-ptl:
+      description: Project team lead for project openstack-selinux
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-openstack-selinux-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openstack-selinux-core
+          owner = group openstack/openstack-selinux-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openstack-selinux-core
+          label-Code-Review = -2..+2 group openstack/openstack-selinux-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openstack-selinux-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openstack-selinux-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/openstack-selinux-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/openstack-selinux-core
+          label-Workflow = -1..+1 group openstack/openstack-selinux-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openstack-selinux-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openstack-selinux-core
+      - openstack/openstack-selinux-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-openstack-selinux:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openstack-selinux-core
+          owner = group openstack/openstack-selinux-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openstack-selinux-core
+          label-Code-Review = -2..+2 group openstack/openstack-selinux-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openstack-selinux-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openstack-selinux-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/openstack-selinux-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/openstack-selinux-core
+          label-Workflow = -1..+0 group openstack/openstack-selinux-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openstack-selinux-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openstack-selinux-core
+      - openstack/openstack-selinux-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/openstack-selinux:
+      acl: openstack-openstack-selinux
+      description: Mirror of upstream openstack-selinux (mirror + patches)
+    openstack/openstack-selinux-distgit:
+      acl: openstack-openstack-selinux-distgit
+      description: Packaging of upstream openstack-selinux

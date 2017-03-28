@@ -1622,32 +1622,6 @@ resources:
       groups:
       - puppet/puppet-horizon-ptl
       - puppet/puppet-horizon-core
-    4adcbff457bd0528a164386fc45ba187:
-      file: |
-        [access "refs/*"]
-          read = group openstack/openstack-selinux-core
-          owner = group openstack/openstack-selinux-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstack-selinux-core
-            label-Code-Review = -2..+2 group openstack/openstack-selinux-ptl
-            submit = group openstack/openstack-selinux-ptl
-            read = group openstack/openstack-selinux-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/openstack-selinux-ptl
-            label-Workflow = -1..+0 group openstack/openstack-selinux-ptl
-            label-Workflow = -1..+0 group openstack/openstack-selinux-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/openstack-selinux-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/openstack-selinux-ptl
-      - openstack/openstack-selinux-core
     4b551bf361dafb7df8957c68867c5874:
       file: |
         [project]
@@ -3176,32 +3150,6 @@ resources:
       groups:
       - openstack/shaker-distgit-core
       - openstack/shaker-distgit-ptl
-    7c6eaa6c14a7041309d211a771dc8380:
-      file: |
-        [access "refs/*"]
-          read = group openstack/openstack-selinux-distgit-core
-          owner = group openstack/openstack-selinux-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstack-selinux-distgit-core
-            label-Code-Review = -2..+2 group openstack/openstack-selinux-distgit-ptl
-            label-Verified = -2..+2 group openstack/openstack-selinux-distgit-ptl
-            label-Workflow = -1..+1 group openstack/openstack-selinux-distgit-core
-            label-Workflow = -1..+1 group openstack/openstack-selinux-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/openstack-selinux-distgit-ptl
-            read = group openstack/openstack-selinux-distgit-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/openstack-selinux-distgit-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/openstack-selinux-distgit-core
-      - openstack/openstack-selinux-distgit-ptl
     7c72055c07f6bbc6a010a756b80019b7:
       file: |
         [project]
@@ -8227,34 +8175,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/openstack-selinux-core:
-      description: Core developers for project openstack/openstack-selinux
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lon@metamorphism.com
-      - rhallise@redhat.com
-      - admin@review.rdoproject.org
-    openstack/openstack-selinux-distgit-core:
-      description: Core developers for project openstack/openstack-selinux-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lon@metamorphism.com
-      - rhallise@redhat.com
-      - admin@review.rdoproject.org
-    openstack/openstack-selinux-distgit-ptl:
-      description: Project team lead for project openstack/openstack-selinux-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/openstack-selinux-ptl:
-      description: Project team lead for project openstack/openstack-selinux
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
     openstack/osc-lib-core:
       description: Core developers for project openstack/osc-lib
       members:
@@ -11097,12 +11017,6 @@ resources:
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
     openstack/openstack-puppet-modules-distgit:
       acl: 8812c30df4a27d9cb53bf689d1140e77
-    openstack/openstack-selinux:
-      acl: 4adcbff457bd0528a164386fc45ba187
-      description: Mirror of upstream openstack/openstack-selinux (mirror + patches)
-    openstack/openstack-selinux-distgit:
-      acl: 7c6eaa6c14a7041309d211a771dc8380
-      description: Packaging content for openstack/openstack-selinux (distgit)
     openstack/osc-lib:
       acl: f5a12cae59f714b8c0aff796b6c51a8f
       description: Mirror of upstream openstack/osc-lib (mirror + patches)
