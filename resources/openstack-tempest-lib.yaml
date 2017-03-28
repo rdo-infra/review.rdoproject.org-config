@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/tempest-lib-core:
+      description: Core developers for project tempest-lib
+      members:
+      - chkumar@redhat.com
+      - slinaber@redhat.com
+      - dmellado@redhat.com
+    openstack/tempest-lib-ptl:
+      description: Project team lead for project tempest-lib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tempest-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tempest-lib-core
+          owner = group openstack/tempest-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tempest-lib-core
+          label-Code-Review = -2..+2 group openstack/tempest-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tempest-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tempest-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tempest-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tempest-lib-core
+          label-Workflow = -1..+1 group openstack/tempest-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tempest-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tempest-lib-core
+      - openstack/tempest-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tempest-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tempest-lib-core
+          owner = group openstack/tempest-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tempest-lib-core
+          label-Code-Review = -2..+2 group openstack/tempest-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tempest-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tempest-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tempest-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tempest-lib-core
+          label-Workflow = -1..+0 group openstack/tempest-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tempest-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tempest-lib-core
+      - openstack/tempest-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tempest-lib:
+      acl: openstack-tempest-lib
+      description: Mirror of upstream tempest-lib (mirror + patches)
+    openstack/tempest-lib-distgit:
+      acl: openstack-tempest-lib-distgit
+      description: Packaging of upstream tempest-lib

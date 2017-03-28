@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/tempest-core:
+      description: Core developers for project tempest
+      members:
+      - chkumar@redhat.com
+      - slinaber@redhat.com
+      - dmellado@redhat.com
+      - ltoscano@redhat.com
+    openstack/tempest-ptl:
+      description: Project team lead for project tempest
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tempest-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tempest-core
+          owner = group openstack/tempest-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tempest-core
+          label-Code-Review = -2..+2 group openstack/tempest-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tempest-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tempest-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/tempest-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tempest-core
+          label-Workflow = -1..+1 group openstack/tempest-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tempest-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tempest-core
+      - openstack/tempest-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tempest:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tempest-core
+          owner = group openstack/tempest-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tempest-core
+          label-Code-Review = -2..+2 group openstack/tempest-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tempest-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tempest-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tempest-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tempest-core
+          label-Workflow = -1..+0 group openstack/tempest-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tempest-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tempest-core
+      - openstack/tempest-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tempest:
+      acl: openstack-tempest
+      description: Mirror of upstream tempest (mirror + patches)
+    openstack/tempest-distgit:
+      acl: openstack-tempest-distgit
+      description: Packaging of upstream tempest

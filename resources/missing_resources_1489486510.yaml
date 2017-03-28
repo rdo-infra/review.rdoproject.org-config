@@ -1622,38 +1622,6 @@ resources:
       groups:
       - puppet/puppet-horizon-ptl
       - puppet/puppet-horizon-core
-    49f6d8f85500b25057cdd4ca025678a0:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tempest-lib-distgit-core
-          read = group rdo-core
-          owner = group openstack/tempest-lib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-lib-distgit-core
-            label-Code-Review = -2..+2 group openstack/tempest-lib-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tempest-lib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tempest-lib-distgit-core
-            label-Workflow = -1..+1 group openstack/tempest-lib-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tempest-lib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tempest-lib-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempest-lib-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tempest-lib-distgit-ptl
-      - rdo-core
     4adcbff457bd0528a164386fc45ba187:
       file: |
         [access "refs/*"]
@@ -2004,32 +1972,6 @@ resources:
       groups:
       - puppet/puppet-concat-core
       - puppet/puppet-concat-ptl
-    56531313f879b9a4343c1f8b0edfc70b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tempest-lib-core
-          owner = group openstack/tempest-lib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-lib-core
-            label-Code-Review = -2..+2 group openstack/tempest-lib-ptl
-            submit = group openstack/tempest-lib-ptl
-            read = group Registered Users
-            read = group openstack/tempest-lib-core
-            label-Verified = -2..+0 group openstack/tempest-lib-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tempest-lib-core
-            label-Workflow = -1..+0 group openstack/tempest-lib-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempest-lib-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tempest-lib-ptl
-      - openstack/tempest-lib-core
     5685d0ea9575f33db0fdf26f901a128e:
       file: |
         [project]
@@ -6359,32 +6301,6 @@ resources:
       groups:
       - puppet/puppet-pacemaker-core
       - puppet/puppet-pacemaker-ptl
-    d5e0159f0eafbce5a68b54ed5118de59:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tempest-core
-          owner = group openstack/tempest-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-core
-            label-Code-Review = -2..+2 group openstack/tempest-ptl
-            submit = group openstack/tempest-ptl
-            read = group Registered Users
-            read = group openstack/tempest-core
-            label-Verified = -2..+0 group openstack/tempest-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tempest-core
-            label-Workflow = -1..+0 group openstack/tempest-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempest-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tempest-ptl
-      - openstack/tempest-core
     d5e96043e700b218ae56d042f6199e31:
       file: |
         [project]
@@ -7312,32 +7228,6 @@ resources:
       groups:
       - puppet/puppet-corosync-distgit-ptl
       - rdo-core
-    ef4e6848d32be12da10f9fb0c69695dc:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tempestconf-core
-          owner = group openstack/tempestconf-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempestconf-core
-            label-Code-Review = -2..+2 group openstack/tempestconf-ptl
-            submit = group openstack/tempestconf-ptl
-            read = group openstack/tempestconf-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/tempestconf-ptl
-            label-Workflow = -1..+0 group openstack/tempestconf-ptl
-            label-Workflow = -1..+0 group openstack/tempestconf-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/tempestconf-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tempestconf-ptl
-      - openstack/tempestconf-core
     effb246db2f3d269439f0640618469f9:
       file: |
         [project]
@@ -7492,65 +7382,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-openstacklib-distgit-ptl
-      - rdo-core
-    f469b8e87fe015323e1333f482c5b5b7:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tempestconf-distgit-core
-          owner = group openstack/tempestconf-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempestconf-distgit-core
-            label-Code-Review = -2..+2 group openstack/tempestconf-distgit-ptl
-            label-Verified = -2..+2 group openstack/tempestconf-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tempestconf-distgit-core
-            label-Workflow = -1..+1 group openstack/tempestconf-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tempestconf-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tempestconf-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempestconf-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tempestconf-distgit-ptl
-      - openstack/tempestconf-distgit-core
-    f530b638deca742b92a46126aef89ba6:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tempest-distgit-core
-          read = group rdo-core
-          owner = group openstack/tempest-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tempest-distgit-core
-            label-Code-Review = -2..+2 group openstack/tempest-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tempest-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tempest-distgit-core
-            label-Workflow = -1..+1 group openstack/tempest-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tempest-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tempest-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tempest-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tempest-distgit-ptl
       - rdo-core
     f5427da164b0af4804b1cb2c0e9710d3:
       file: |
@@ -8668,85 +8499,6 @@ resources:
       description: Project team lead for project taskflow
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tempest-core:
-      description: Core developers for project tempest
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - admin@review.rdoproject.org
-      - slinaber@redhat.com
-    openstack/tempest-distgit-core:
-      description: Core developers for project tempest-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - ltoscano@redhat.com
-      - admin@review.rdoproject.org
-      - slinaber@redhat.com
-    openstack/tempest-distgit-ptl:
-      description: Project team lead for project tempest-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tempest-lib-core:
-      description: Core developers for project tempest-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - admin@review.rdoproject.org
-      - slinaber@redhat.com
-    openstack/tempest-lib-distgit-core:
-      description: Core developers for project tempest-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - admin@review.rdoproject.org
-      - slinaber@redhat.com
-    openstack/tempest-lib-distgit-ptl:
-      description: Project team lead for project tempest-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tempest-lib-ptl:
-      description: Project team lead for project tempest-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tempest-ptl:
-      description: Project team lead for project tempest
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tempestconf-core:
-      description: Core developers for project openstack/tempestconf
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - jpena@redhat.com
-      - ltoscano@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/tempestconf-distgit-core:
-      description: Core developers for project openstack/tempestconf-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dmellado@redhat.com
-      - jpena@redhat.com
-      - ltoscano@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/tempestconf-distgit-ptl:
-      description: Project team lead for project openstack/tempestconf-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tempestconf-ptl:
-      description: Project team lead for project openstack/tempestconf
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
       - admin@review.rdoproject.org
     openstack/test-core:
       description: Core developers for project openstack/test
@@ -11386,21 +11138,6 @@ resources:
       description: Mirror of upstream taskflow (mirror + patches)
     openstack/taskflow-distgit:
       acl: 7c72055c07f6bbc6a010a756b80019b7
-    openstack/tempest:
-      acl: d5e0159f0eafbce5a68b54ed5118de59
-      description: Mirror of upstream tempest (mirror + patches)
-    openstack/tempest-distgit:
-      acl: f530b638deca742b92a46126aef89ba6
-    openstack/tempest-lib:
-      acl: 56531313f879b9a4343c1f8b0edfc70b
-      description: Mirror of upstream tempest-lib (mirror + patches)
-    openstack/tempest-lib-distgit:
-      acl: 49f6d8f85500b25057cdd4ca025678a0
-    openstack/tempestconf:
-      acl: ef4e6848d32be12da10f9fb0c69695dc
-      description: Mirror of upstream openstack/tempestconf (mirror + patches)
-    openstack/tempestconf-distgit:
-      acl: f469b8e87fe015323e1333f482c5b5b7
     openstack/tooz:
       acl: 9bcf41689752a66aad25ea4674003c46
       description: Mirror of upstream tooz (mirror + patches)
