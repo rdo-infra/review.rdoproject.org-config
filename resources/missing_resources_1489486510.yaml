@@ -759,38 +759,6 @@ resources:
       groups:
       - puppet/puppet-staging-core
       - puppet/puppet-staging-ptl
-    1e28b00f3d22b1f39a6f4221f54f24cb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/openstacksdk-distgit-core
-          read = group rdo-core
-          owner = group openstack/openstacksdk-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstacksdk-distgit-core
-            label-Code-Review = -2..+2 group openstack/openstacksdk-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/openstacksdk-distgit-ptl
-            label-Workflow = -1..+1 group openstack/openstacksdk-distgit-core
-            label-Workflow = -1..+1 group openstack/openstacksdk-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/openstacksdk-distgit-ptl
-            read = group Registered Users
-            read = group openstack/openstacksdk-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/openstacksdk-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/openstacksdk-distgit-ptl
-      - rdo-core
     1fa9faf3d959a0805cb3dcb71a5e3507:
       file: |
         [project]
@@ -2848,32 +2816,6 @@ resources:
       groups:
       - openstack/ceilometer-core
       - openstack/ceilometer-ptl
-    5c6813cd95a36f5eae70a0f9c946fb87:
-      file: |
-        [access "refs/*"]
-          read = group openstack/openstacksdk-core
-          owner = group openstack/openstacksdk-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/openstacksdk-core
-            label-Code-Review = -2..+2 group openstack/openstacksdk-ptl
-            submit = group openstack/openstacksdk-ptl
-            read = group Registered Users
-            read = group openstack/openstacksdk-core
-            label-Verified = -2..+0 group openstack/openstacksdk-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/openstacksdk-core
-            label-Workflow = -1..+0 group openstack/openstacksdk-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/openstacksdk-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/openstacksdk-ptl
-      - openstack/openstacksdk-core
     5d0396ff2228df8d1c39569e6c1530db:
       file: |
         [project]
@@ -9923,30 +9865,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
       - admin@review.rdoproject.org
-    openstack/openstacksdk-core:
-      description: Core developers for project openstacksdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstacksdk-distgit-core:
-      description: Core developers for project openstacksdk-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstacksdk-distgit-ptl:
-      description: Project team lead for project openstacksdk-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/openstacksdk-ptl:
-      description: Project team lead for project openstacksdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/osc-lib-core:
       description: Core developers for project openstack/osc-lib
       members:
@@ -13129,11 +13047,6 @@ resources:
     openstack/openstack-selinux-distgit:
       acl: 7c6eaa6c14a7041309d211a771dc8380
       description: Packaging content for openstack/openstack-selinux (distgit)
-    openstack/openstacksdk:
-      acl: 5c6813cd95a36f5eae70a0f9c946fb87
-      description: Mirror of upstream openstacksdk (mirror + patches)
-    openstack/openstacksdk-distgit:
-      acl: 1e28b00f3d22b1f39a6f4221f54f24cb
     openstack/osc-lib:
       acl: f5a12cae59f714b8c0aff796b6c51a8f
       description: Mirror of upstream openstack/osc-lib (mirror + patches)

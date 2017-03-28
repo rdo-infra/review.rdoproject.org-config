@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/openstacksdk-core:
+      description: Core developers for project openstacksdk
+      members:
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/openstacksdk-ptl:
+      description: Project team lead for project openstacksdk
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-openstacksdk-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openstacksdk-core
+          owner = group openstack/openstacksdk-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openstacksdk-core
+          label-Code-Review = -2..+2 group openstack/openstacksdk-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openstacksdk-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openstacksdk-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/openstacksdk-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/openstacksdk-core
+          label-Workflow = -1..+1 group openstack/openstacksdk-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openstacksdk-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openstacksdk-core
+      - openstack/openstacksdk-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-openstacksdk:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openstacksdk-core
+          owner = group openstack/openstacksdk-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openstacksdk-core
+          label-Code-Review = -2..+2 group openstack/openstacksdk-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openstacksdk-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openstacksdk-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/openstacksdk-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/openstacksdk-core
+          label-Workflow = -1..+0 group openstack/openstacksdk-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openstacksdk-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openstacksdk-core
+      - openstack/openstacksdk-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/openstacksdk:
+      acl: openstack-openstacksdk
+      description: Mirror of upstream openstacksdk (mirror + patches)
+    openstack/openstacksdk-distgit:
+      acl: openstack-openstacksdk-distgit
+      description: Packaging of upstream openstacksdk
