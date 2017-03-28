@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/magnum-core:
+      description: Core developers for project magnum
+      members:
+      - chkumar@redhat.com
+#      - mathieu.velten@cern.ch
+    openstack/magnum-ptl:
+      description: Project team lead for project magnum
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-magnum-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/magnum-core
+          owner = group openstack/magnum-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/magnum-core
+          label-Code-Review = -2..+2 group openstack/magnum-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/magnum-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/magnum-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/magnum-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/magnum-core
+          label-Workflow = -1..+1 group openstack/magnum-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/magnum-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/magnum-core
+      - openstack/magnum-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-magnum:
+      file: |
+        [access "refs/*"]
+          read = group openstack/magnum-core
+          owner = group openstack/magnum-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/magnum-core
+          label-Code-Review = -2..+2 group openstack/magnum-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/magnum-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/magnum-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/magnum-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/magnum-core
+          label-Workflow = -1..+0 group openstack/magnum-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/magnum-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/magnum-core
+      - openstack/magnum-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/magnum:
+      acl: openstack-magnum
+      description: Mirror of upstream magnum (mirror + patches)
+    openstack/magnum-distgit:
+      acl: openstack-magnum-distgit
+      description: Packaging of upstream magnum
