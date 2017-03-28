@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/ec2-api-core:
+      description: Core developers for project ec2-api
+      members:
+      - marcos.fermin.lobo@cern.ch
+    openstack/ec2-api-ptl:
+      description: Project team lead for project ec2-api
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ec2-api-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ec2-api-core
+          owner = group openstack/ec2-api-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ec2-api-core
+          label-Code-Review = -2..+2 group openstack/ec2-api-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ec2-api-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ec2-api-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/ec2-api-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ec2-api-core
+          label-Workflow = -1..+1 group openstack/ec2-api-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ec2-api-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ec2-api-core
+      - openstack/ec2-api-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ec2-api:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ec2-api-core
+          owner = group openstack/ec2-api-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ec2-api-core
+          label-Code-Review = -2..+2 group openstack/ec2-api-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ec2-api-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ec2-api-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ec2-api-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ec2-api-core
+          label-Workflow = -1..+0 group openstack/ec2-api-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ec2-api-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ec2-api-core
+      - openstack/ec2-api-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ec2-api:
+      acl: openstack-ec2-api
+      description: Mirror of upstream ec2-api (mirror + patches)
+    openstack/ec2-api-distgit:
+      acl: openstack-ec2-api-distgit
+      description: Packaging of upstream ec2-api
