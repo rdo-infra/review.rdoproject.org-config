@@ -3702,32 +3702,6 @@ resources:
       groups:
       - puppet/puppet-stdlib-distgit-ptl
       - rdo-core
-    9bcf41689752a66aad25ea4674003c46:
-      file: |
-        [access "refs/*"]
-          read = group openstack/tooz-core
-          owner = group openstack/tooz-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tooz-core
-            label-Code-Review = -2..+2 group openstack/tooz-ptl
-            submit = group openstack/tooz-ptl
-            read = group Registered Users
-            read = group openstack/tooz-core
-            label-Verified = -2..+0 group openstack/tooz-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/tooz-core
-            label-Workflow = -1..+0 group openstack/tooz-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tooz-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/tooz-core
-      - openstack/tooz-ptl
     9bebe4081c9348a83fb7fa105fb3b5e5:
       file: |
         [access "refs/*"]
@@ -4530,38 +4504,6 @@ resources:
       groups:
       - puppet/puppet-trove-core
       - puppet/puppet-trove-ptl
-    b6b5a26c6356c079a72a0633b1817bd9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/tooz-distgit-core
-          read = group rdo-core
-          owner = group openstack/tooz-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/tooz-distgit-core
-            label-Code-Review = -2..+2 group openstack/tooz-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/tooz-distgit-ptl
-            label-Workflow = -1..+1 group openstack/tooz-distgit-core
-            label-Workflow = -1..+1 group openstack/tooz-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/tooz-distgit-ptl
-            read = group Registered Users
-            read = group openstack/tooz-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/tooz-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/tooz-distgit-ptl
-      - rdo-core
     b8942be7f036ae5cf800a93e70875b38:
       file: |
         [access "refs/*"]
@@ -7152,30 +7094,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/tooz-core:
-      description: Core developers for project tooz
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tooz-distgit-core:
-      description: Core developers for project tooz-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-    openstack/tooz-distgit-ptl:
-      description: Project team lead for project tooz-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/tooz-ptl:
-      description: Project team lead for project tooz
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/virtualbmc-core:
       description: Core developers for project openstack/virtualbmc
       members:
@@ -9510,11 +9428,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/tooz:
-      acl: 9bcf41689752a66aad25ea4674003c46
-      description: Mirror of upstream tooz (mirror + patches)
-    openstack/tooz-distgit:
-      acl: b6b5a26c6356c079a72a0633b1817bd9
     openstack/virtualbmc:
       acl: c73810c821a4b80ab793dd7118ad9c07
       description: Mirror of upstream openstack/virtualbmc (mirror + patches)
