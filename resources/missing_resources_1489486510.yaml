@@ -3042,38 +3042,6 @@ resources:
       groups:
       - puppet/puppet-congress-distgit-core
       - puppet/puppet-congress-distgit-ptl
-    82b0393964c7be4e589832ab8261cf95:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/microversion-parse-distgit-core
-          read = group rdo-core
-          owner = group openstack/microversion-parse-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/microversion-parse-distgit-core
-            label-Code-Review = -2..+2 group openstack/microversion-parse-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/microversion-parse-distgit-ptl
-            label-Workflow = -1..+1 group openstack/microversion-parse-distgit-core
-            label-Workflow = -1..+1 group openstack/microversion-parse-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/microversion-parse-distgit-ptl
-            read = group Registered Users
-            read = group openstack/microversion-parse-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/microversion-parse-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/microversion-parse-distgit-ptl
-      - rdo-core
     83f955de81bac150321ba531f97a78f0:
       file: |
         [access "refs/*"]
@@ -5824,32 +5792,6 @@ resources:
       groups:
       - openstack/cursive-core
       - openstack/cursive-ptl
-    dab822e52e1d8a9d3c7f46043dba959e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/microversion-parse-core
-          owner = group openstack/microversion-parse-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/microversion-parse-core
-            label-Code-Review = -2..+2 group openstack/microversion-parse-ptl
-            submit = group openstack/microversion-parse-ptl
-            read = group openstack/microversion-parse-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/microversion-parse-ptl
-            label-Workflow = -1..+0 group openstack/microversion-parse-ptl
-            label-Workflow = -1..+0 group openstack/microversion-parse-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/microversion-parse-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/microversion-parse-core
-      - openstack/microversion-parse-ptl
     ddc849f9f0873ee5db0765309a736587:
       file: |
         [project]
@@ -7044,28 +6986,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/kolla-ptl:
       description: Project team lead for project openstack/kolla
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/microversion-parse-core:
-      description: Core developers for project openstack/microversion-parse
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/microversion-parse-distgit-core:
-      description: Core developers for project openstack/microversion-parse-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/microversion-parse-distgit-ptl:
-      description: Project team lead for project openstack/microversion-parse-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/microversion-parse-ptl:
-      description: Project team lead for project openstack/microversion-parse
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -9730,11 +9650,6 @@ resources:
     openstack/kolla-distgit:
       acl: e155d710082a13ef10d322708ed00f49
       description: Packaging content for openstack/kolla (distgit)
-    openstack/microversion-parse:
-      acl: dab822e52e1d8a9d3c7f46043dba959e
-      description: Mirror of upstream openstack/microversion-parse (mirror + patches)
-    openstack/microversion-parse-distgit:
-      acl: 82b0393964c7be4e589832ab8261cf95
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)

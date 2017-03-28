@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/microversion-parse-core:
+      description: Core developers for project microversion-parse
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/microversion-parse-ptl:
+      description: Project team lead for project microversion-parse
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-microversion-parse-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/microversion-parse-core
+          owner = group openstack/microversion-parse-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/microversion-parse-core
+          label-Code-Review = -2..+2 group openstack/microversion-parse-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/microversion-parse-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/microversion-parse-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/microversion-parse-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/microversion-parse-core
+          label-Workflow = -1..+1 group openstack/microversion-parse-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/microversion-parse-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/microversion-parse-core
+      - openstack/microversion-parse-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-microversion-parse:
+      file: |
+        [access "refs/*"]
+          read = group openstack/microversion-parse-core
+          owner = group openstack/microversion-parse-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/microversion-parse-core
+          label-Code-Review = -2..+2 group openstack/microversion-parse-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/microversion-parse-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/microversion-parse-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/microversion-parse-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/microversion-parse-core
+          label-Workflow = -1..+0 group openstack/microversion-parse-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/microversion-parse-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/microversion-parse-core
+      - openstack/microversion-parse-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/microversion-parse:
+      acl: openstack-microversion-parse
+      description: Mirror of upstream microversion-parse (mirror + patches)
+    openstack/microversion-parse-distgit:
+      acl: openstack-microversion-parse-distgit
+      description: Packaging of upstream microversion-parse
