@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/heat-templates-core:
+      description: Core developers for project heat-templates
+      members:
+      - sbaker@redhat.com
+    openstack/heat-templates-ptl:
+      description: Project team lead for project heat-templates
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-heat-templates-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-templates-core
+          owner = group openstack/heat-templates-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-templates-core
+          label-Code-Review = -2..+2 group openstack/heat-templates-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-templates-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-templates-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/heat-templates-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/heat-templates-core
+          label-Workflow = -1..+1 group openstack/heat-templates-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-templates-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-templates-core
+      - openstack/heat-templates-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-heat-templates:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-templates-core
+          owner = group openstack/heat-templates-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-templates-core
+          label-Code-Review = -2..+2 group openstack/heat-templates-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-templates-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-templates-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/heat-templates-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/heat-templates-core
+          label-Workflow = -1..+0 group openstack/heat-templates-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-templates-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-templates-core
+      - openstack/heat-templates-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/heat-templates:
+      acl: openstack-heat-templates
+      description: Mirror of upstream heat-templates (mirror + patches)
+    openstack/heat-templates-distgit:
+      acl: openstack-heat-templates-distgit
+      description: Packaging of upstream heat-templates

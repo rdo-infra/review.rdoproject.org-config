@@ -811,32 +811,6 @@ resources:
       groups:
       - puppet/puppet-staging-core
       - puppet/puppet-staging-ptl
-    1d9c08d4db8c3b3de11acd5c18b208d0:
-      file: |
-        [access "refs/*"]
-          read = group openstack/heat-agents-core
-          owner = group openstack/heat-agents-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-agents-core
-            label-Code-Review = -2..+2 group openstack/heat-agents-ptl
-            submit = group openstack/heat-agents-ptl
-            read = group openstack/heat-agents-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/heat-agents-ptl
-            label-Workflow = -1..+0 group openstack/heat-agents-ptl
-            label-Workflow = -1..+0 group openstack/heat-agents-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/heat-agents-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/heat-agents-core
-      - openstack/heat-agents-ptl
     1e28b00f3d22b1f39a6f4221f54f24cb:
       file: |
         [project]
@@ -953,38 +927,6 @@ resources:
       groups:
       - puppet/puppet-nssdb-core
       - puppet/puppet-nssdb-ptl
-    20d33b201e5e7f32ff990b4c8a5c55aa:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/heat-distgit-core
-          read = group rdo-core
-          owner = group openstack/heat-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-distgit-core
-            label-Code-Review = -2..+2 group openstack/heat-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/heat-distgit-ptl
-            label-Workflow = -1..+1 group openstack/heat-distgit-core
-            label-Workflow = -1..+1 group openstack/heat-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/heat-distgit-ptl
-            read = group Registered Users
-            read = group openstack/heat-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/heat-distgit-ptl
-      - rdo-core
     221fa1d6962b5af95353052bf9af11e3:
       file: |
         [access "refs/*"]
@@ -2134,32 +2076,6 @@ resources:
       groups:
       - puppet/puppet-kafka-distgit-ptl
       - rdo-core
-    488bb06115a91382b7d70537219f0d74:
-      file: |
-        [access "refs/*"]
-          read = group openstack/heatclient-core
-          owner = group openstack/heatclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heatclient-core
-            label-Code-Review = -2..+2 group openstack/heatclient-ptl
-            submit = group openstack/heatclient-ptl
-            read = group Registered Users
-            read = group openstack/heatclient-core
-            label-Verified = -2..+0 group openstack/heatclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/heatclient-core
-            label-Workflow = -1..+0 group openstack/heatclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heatclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/heatclient-core
-      - openstack/heatclient-ptl
     48bb1913e187e29d4ac0fc66e7be1428:
       file: |
         [access "refs/*"]
@@ -2705,33 +2621,6 @@ resources:
       groups:
       - openstack/shaker-core
       - openstack/shaker-ptl
-    56007256f4799a33b52c524db7bf0abd:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/heat-translator-distgit-core
-          owner = group openstack/heat-translator-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-translator-distgit-core
-            label-Code-Review = -2..+2 group openstack/heat-translator-distgit-ptl
-            label-Verified = -2..+2 group openstack/heat-translator-distgit-ptl
-            label-Workflow = -1..+1 group openstack/heat-translator-distgit-core
-            label-Workflow = -1..+1 group openstack/heat-translator-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/heat-translator-distgit-ptl
-            read = group Registered Users
-            read = group openstack/heat-translator-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-translator-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/heat-translator-distgit-ptl
-      - openstack/heat-translator-distgit-core
     5629890ce3ac92d4dfacc37d356bb980:
       file: |
         [access "refs/*"]
@@ -2901,32 +2790,6 @@ resources:
       groups:
       - openstack/watcher-distgit-ptl
       - openstack/watcher-distgit-core
-    5a7900f773a7c0eb75c143214c58e380:
-      file: |
-        [access "refs/*"]
-          read = group openstack/heat-templates-core
-          owner = group openstack/heat-templates-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-templates-core
-            label-Code-Review = -2..+2 group openstack/heat-templates-ptl
-            submit = group openstack/heat-templates-ptl
-            read = group Registered Users
-            read = group openstack/heat-templates-core
-            label-Verified = -2..+0 group openstack/heat-templates-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/heat-templates-core
-            label-Workflow = -1..+0 group openstack/heat-templates-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-templates-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/heat-templates-core
-      - openstack/heat-templates-ptl
     5af830f17f44516b11f1f77e31ea70f5:
       file: |
         [access "refs/*"]
@@ -4546,38 +4409,6 @@ resources:
       groups:
       - puppet/puppet-elasticsearch-ptl
       - puppet/puppet-elasticsearch-core
-    86b53d8ebd23c8bd923fc0ba15d98416:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/heat-templates-distgit-core
-          read = group rdo-core
-          owner = group openstack/heat-templates-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-templates-distgit-core
-            label-Code-Review = -2..+2 group openstack/heat-templates-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/heat-templates-distgit-ptl
-            label-Workflow = -1..+1 group openstack/heat-templates-distgit-core
-            label-Workflow = -1..+1 group openstack/heat-templates-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/heat-templates-distgit-ptl
-            read = group Registered Users
-            read = group openstack/heat-templates-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-templates-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/heat-templates-distgit-ptl
-      - rdo-core
     86db27632fe53182ae377d3720199056:
       file: |
         [access "refs/*"]
@@ -4703,32 +4534,6 @@ resources:
       - openstack/openstack-puppet-modules-distgit-core
       - openstack/openstack-puppet-modules-distgit-ptl
       - rdo-core
-    88885f902c7af7dfd751412c9b768fdc:
-      file: |
-        [access "refs/*"]
-          read = group openstack/heat-translator-core
-          owner = group openstack/heat-translator-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-translator-core
-            label-Code-Review = -2..+2 group openstack/heat-translator-ptl
-            submit = group openstack/heat-translator-ptl
-            read = group openstack/heat-translator-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/heat-translator-ptl
-            label-Workflow = -1..+0 group openstack/heat-translator-ptl
-            label-Workflow = -1..+0 group openstack/heat-translator-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/heat-translator-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/heat-translator-core
-      - openstack/heat-translator-ptl
     88d137495ac16a4699a38be80b3d1eca:
       file: |
         [project]
@@ -5871,33 +5676,6 @@ resources:
       groups:
       - puppet/puppet-stdlib-core
       - puppet/puppet-stdlib-ptl
-    a9435a7f0f4fee55b59da3b576a485a4:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/heat-agents-distgit-core
-          owner = group openstack/heat-agents-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-agents-distgit-core
-            label-Code-Review = -2..+2 group openstack/heat-agents-distgit-ptl
-            label-Verified = -2..+2 group openstack/heat-agents-distgit-ptl
-            label-Workflow = -1..+1 group openstack/heat-agents-distgit-core
-            label-Workflow = -1..+1 group openstack/heat-agents-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/heat-agents-distgit-ptl
-            read = group Registered Users
-            read = group openstack/heat-agents-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-agents-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/heat-agents-distgit-core
-      - openstack/heat-agents-distgit-ptl
     aa440cce6c1870440c92abfc9fb258e6:
       file: |
         [project]
@@ -6020,38 +5798,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/virtualbmc-distgit-ptl
-      - rdo-core
-    ab1723cf6e344a2335101ec01ddcd5bf:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/heatclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/heatclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heatclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/heatclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/heatclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/heatclient-distgit-core
-            label-Workflow = -1..+1 group openstack/heatclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/heatclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/heatclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heatclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/heatclient-distgit-ptl
       - rdo-core
     ab21c6c9cf6c5eb744e96d789ab1c555:
       file: |
@@ -7202,32 +6948,6 @@ resources:
       groups:
       - puppet/puppet-firewall-ptl
       - puppet/puppet-firewall-core
-    c6380972d2e98277c87b05467b80bcc1:
-      file: |
-        [access "refs/*"]
-          read = group openstack/heat-core
-          owner = group openstack/heat-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/heat-core
-            label-Code-Review = -2..+2 group openstack/heat-ptl
-            submit = group openstack/heat-ptl
-            read = group Registered Users
-            read = group openstack/heat-core
-            label-Verified = -2..+0 group openstack/heat-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/heat-core
-            label-Workflow = -1..+0 group openstack/heat-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/heat-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/heat-ptl
-      - openstack/heat-core
     c73810c821a4b80ab793dd7118ad9c07:
       file: |
         [access "refs/*"]
@@ -10066,124 +9786,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/heat-agents-core:
-      description: Core developers for project openstack/heat-agents
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sbaker@redhat.com
-      - therve@gmail.com
-      - zbitter@redhat.com
-    openstack/heat-agents-distgit-core:
-      description: Core developers for project openstack/heat-agents-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sbaker@redhat.com
-      - therve@gmail.com
-      - zbitter@redhat.com
-    openstack/heat-agents-distgit-ptl:
-      description: Project team lead for project openstack/heat-agents-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-agents-ptl:
-      description: Project team lead for project openstack/heat-agents
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-core:
-      description: Core developers for project heat
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - zbitter@redhat.com
-    openstack/heat-distgit-core:
-      description: Core developers for project heat-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - zbitter@redhat.com
-    openstack/heat-distgit-ptl:
-      description: Project team lead for project heat-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-ptl:
-      description: Project team lead for project heat
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-templates-core:
-      description: Core developers for project heat-templates
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-templates-distgit-core:
-      description: Core developers for project heat-templates-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-templates-distgit-ptl:
-      description: Project team lead for project heat-templates-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-templates-ptl:
-      description: Project team lead for project heat-templates
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heat-translator-core:
-      description: Core developers for project openstack/heat-translator
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/heat-translator-distgit-core:
-      description: Core developers for project openstack/heat-translator-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/heat-translator-distgit-ptl:
-      description: Project team lead for project openstack/heat-translator-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/heat-translator-ptl:
-      description: Project team lead for project openstack/heat-translator
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/heatclient-core:
-      description: Core developers for project heatclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/heatclient-distgit-core:
-      description: Core developers for project heatclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/heatclient-distgit-ptl:
-      description: Project team lead for project heatclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/heatclient-ptl:
-      description: Project team lead for project heatclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/k8sclient-core:
       description: Core developers for project openstack/k8sclient
       members:
@@ -10475,16 +10077,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/openstack/heat-agents-core:
-      description: Core developers for project openstack/openstack/heat-agents
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/openstack/heat-agents-ptl:
-      description: Project team lead for project openstack/openstack/heat-agents
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
     openstack/openstacksdk-core:
       description: Core developers for project openstacksdk
@@ -13650,31 +13242,6 @@ resources:
       description: Mirror of upstream hardware (mirror + patches)
     openstack/hardware-distgit:
       acl: 2e36ca4020702d9218f16dff54d66362
-    openstack/heat:
-      acl: c6380972d2e98277c87b05467b80bcc1
-      description: Mirror of upstream heat (mirror + patches)
-    openstack/heat-agents:
-      acl: 1d9c08d4db8c3b3de11acd5c18b208d0
-      description: Mirror of upstream openstack/heat-agents (mirror + patches)
-    openstack/heat-agents-distgit:
-      acl: a9435a7f0f4fee55b59da3b576a485a4
-    openstack/heat-distgit:
-      acl: 20d33b201e5e7f32ff990b4c8a5c55aa
-    openstack/heat-templates:
-      acl: 5a7900f773a7c0eb75c143214c58e380
-      description: Mirror of upstream heat-templates (mirror + patches)
-    openstack/heat-templates-distgit:
-      acl: 86b53d8ebd23c8bd923fc0ba15d98416
-    openstack/heat-translator:
-      acl: 88885f902c7af7dfd751412c9b768fdc
-      description: Mirror of upstream openstack/heat-translator (mirror + patches)
-    openstack/heat-translator-distgit:
-      acl: 56007256f4799a33b52c524db7bf0abd
-    openstack/heatclient:
-      acl: 488bb06115a91382b7d70537219f0d74
-      description: Mirror of upstream heatclient (mirror + patches)
-    openstack/heatclient-distgit:
-      acl: ab1723cf6e344a2335101ec01ddcd5bf
     openstack/k8sclient:
       acl: 19dafd4bae191061874b051e52932e75
       description: Mirror of upstream openstack/k8sclient (mirror + patches)
