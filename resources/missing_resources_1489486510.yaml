@@ -1622,32 +1622,6 @@ resources:
       groups:
       - puppet/puppet-horizon-ptl
       - puppet/puppet-horizon-core
-    493373a68e06fcf3a23d6e8bac299d10:
-      file: |
-        [access "refs/*"]
-          read = group openstack/wsme-core
-          owner = group openstack/wsme-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/wsme-core
-            label-Code-Review = -2..+2 group openstack/wsme-ptl
-            submit = group openstack/wsme-ptl
-            read = group openstack/wsme-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/wsme-ptl
-            label-Workflow = -1..+0 group openstack/wsme-ptl
-            label-Workflow = -1..+0 group openstack/wsme-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/wsme-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/wsme-core
-      - openstack/wsme-ptl
     49f6d8f85500b25057cdd4ca025678a0:
       file: |
         [project]
@@ -4889,33 +4863,6 @@ resources:
       groups:
       - puppet/puppet-stdlib-core
       - puppet/puppet-stdlib-ptl
-    aa440cce6c1870440c92abfc9fb258e6:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/wsme-distgit-core
-          owner = group openstack/wsme-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/wsme-distgit-core
-            label-Code-Review = -2..+2 group openstack/wsme-distgit-ptl
-            label-Verified = -2..+2 group openstack/wsme-distgit-ptl
-            label-Workflow = -1..+1 group openstack/wsme-distgit-core
-            label-Workflow = -1..+1 group openstack/wsme-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/wsme-distgit-ptl
-            read = group Registered Users
-            read = group openstack/wsme-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/wsme-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/wsme-distgit-ptl
-      - openstack/wsme-distgit-core
     aa5fae39ea9dc463af58d1f8fdfeec4f:
       file: |
         [project]
@@ -9211,30 +9158,6 @@ resources:
       - amoralej@redhat.com
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/wsme-core:
-      description: Core developers for project openstack/wsme
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/wsme-distgit-core:
-      description: Core developers for project openstack/wsme-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/wsme-distgit-ptl:
-      description: Project team lead for project openstack/wsme-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/wsme-ptl:
-      description: Project team lead for project openstack/wsme
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/zaqar-core:
       description: Core developers for project zaqar
       members:
@@ -11677,11 +11600,6 @@ resources:
       description: Mirror of upstream openstack/vmware-nsxlib (mirror + patches)
     openstack/vmware-nsxlib-distgit:
       acl: c8de9e8af4f22be13750cb53298cf647
-    openstack/wsme:
-      acl: 493373a68e06fcf3a23d6e8bac299d10
-      description: Mirror of upstream openstack/wsme (mirror + patches)
-    openstack/wsme-distgit:
-      acl: aa440cce6c1870440c92abfc9fb258e6
     openstack/zaqar:
       acl: bb5ef0979f6e10480385a89332ede1ff
       description: Mirror of upstream zaqar (mirror + patches)

@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/wsme-core:
+      description: Core developers for project wsme
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/wsme-ptl:
+      description: Project team lead for project wsme
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-wsme-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/wsme-core
+          owner = group openstack/wsme-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/wsme-core
+          label-Code-Review = -2..+2 group openstack/wsme-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/wsme-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/wsme-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/wsme-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/wsme-core
+          label-Workflow = -1..+1 group openstack/wsme-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/wsme-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/wsme-core
+      - openstack/wsme-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-wsme:
+      file: |
+        [access "refs/*"]
+          read = group openstack/wsme-core
+          owner = group openstack/wsme-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/wsme-core
+          label-Code-Review = -2..+2 group openstack/wsme-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/wsme-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/wsme-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/wsme-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/wsme-core
+          label-Workflow = -1..+0 group openstack/wsme-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/wsme-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/wsme-core
+      - openstack/wsme-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/wsme:
+      acl: openstack-wsme
+      description: Mirror of upstream wsme (mirror + patches)
+    openstack/wsme-distgit:
+      acl: openstack-wsme-distgit
+      description: Packaging of upstream wsme
