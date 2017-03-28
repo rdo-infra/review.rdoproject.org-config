@@ -388,38 +388,6 @@ resources:
       groups:
       - config-ptl
       - config-core
-    129a74a55e755aeb1eb623e7edb63b3f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/congressclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/congressclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/congressclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/congressclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/congressclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/congressclient-distgit-core
-            label-Workflow = -1..+1 group openstack/congressclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/congressclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/congressclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/congressclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/congressclient-distgit-ptl
-      - rdo-core
     12df3119baf5bbbcccbe6c25a6900023:
       file: |
         [access "refs/*"]
@@ -1674,32 +1642,6 @@ resources:
       groups:
       - openstack/requestsexceptions-ptl
       - openstack/requestsexceptions-core
-    356742c995ac306f6d23b0f72be31441:
-      file: |
-        [access "refs/*"]
-          read = group openstack/congress-core
-          owner = group openstack/congress-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/congress-core
-            label-Code-Review = -2..+2 group openstack/congress-ptl
-            submit = group openstack/congress-ptl
-            read = group openstack/congress-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/congress-ptl
-            label-Workflow = -1..+0 group openstack/congress-ptl
-            label-Workflow = -1..+0 group openstack/congress-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/congress-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/congress-core
-      - openstack/congress-ptl
     370dd64257410095bd3e24483e5d15be:
       file: |
         [project]
@@ -2212,33 +2154,6 @@ resources:
       groups:
       - puppet/puppet-firewall-distgit-ptl
       - rdo-core
-    445de68e90697fbb8b543badebf0e47e:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/congress-distgit-core
-          owner = group openstack/congress-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/congress-distgit-core
-            label-Code-Review = -2..+2 group openstack/congress-distgit-ptl
-            label-Verified = -2..+2 group openstack/congress-distgit-ptl
-            label-Workflow = -1..+1 group openstack/congress-distgit-core
-            label-Workflow = -1..+1 group openstack/congress-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/congress-distgit-ptl
-            read = group Registered Users
-            read = group openstack/congress-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/congress-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/congress-distgit-core
-      - openstack/congress-distgit-ptl
     44a874066b92c7349e1d0bca93d0f29a:
       file: |
         [project]
@@ -6405,32 +6320,6 @@ resources:
       groups:
       - openstack/heat-agents-distgit-core
       - openstack/heat-agents-distgit-ptl
-    a9d1e97551aeee209c861becd15144ea:
-      file: |
-        [access "refs/*"]
-          read = group openstack/congressclient-core
-          owner = group openstack/congressclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/congressclient-core
-            label-Code-Review = -2..+2 group openstack/congressclient-ptl
-            submit = group openstack/congressclient-ptl
-            read = group openstack/congressclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/congressclient-ptl
-            label-Workflow = -1..+0 group openstack/congressclient-ptl
-            label-Workflow = -1..+0 group openstack/congressclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/congressclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/congressclient-core
-      - openstack/congressclient-ptl
     aa440cce6c1870440c92abfc9fb258e6:
       file: |
         [project]
@@ -10572,54 +10461,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/congress-core:
-      description: Core developers for project openstack/congress
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/congress-distgit-core:
-      description: Core developers for project openstack/congress-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - dradez@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/congress-distgit-ptl:
-      description: Project team lead for project openstack/congress-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/congress-ptl:
-      description: Project team lead for project openstack/congress
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/congressclient-core:
-      description: Core developers for project openstack/congressclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/congressclient-distgit-core:
-      description: Core developers for project openstack/congressclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/congressclient-distgit-ptl:
-      description: Project team lead for project openstack/congressclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/congressclient-ptl:
-      description: Project team lead for project openstack/congressclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/cursive-core:
       description: Core developers for project openstack/cursive
       members:
@@ -14741,16 +14582,6 @@ resources:
       description: Mirror of upstream cliff (mirror + patches)
     openstack/cliff-distgit:
       acl: aa5fae39ea9dc463af58d1f8fdfeec4f
-    openstack/congress:
-      acl: 356742c995ac306f6d23b0f72be31441
-      description: Mirror of upstream openstack/congress (mirror + patches)
-    openstack/congress-distgit:
-      acl: 445de68e90697fbb8b543badebf0e47e
-    openstack/congressclient:
-      acl: a9d1e97551aeee209c861becd15144ea
-      description: Mirror of upstream openstack/congressclient (mirror + patches)
-    openstack/congressclient-distgit:
-      acl: 129a74a55e755aeb1eb623e7edb63b3f
     openstack/cursive:
       acl: da9c485b68e0a18c03c6c531ebddd64b
       description: Mirror of upstream openstack/cursive (mirror + patches)
