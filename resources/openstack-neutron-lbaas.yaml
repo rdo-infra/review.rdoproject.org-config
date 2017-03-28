@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/neutron-lbaas-core:
+      description: Core developers for project neutron-lbaas
+      members:
+      - ihrachys@redhat.com
+      - majopela@redhat.com
+      - jlibosva@redhat.com
+      - nmagnezi@redhat.com
+      - twilson@redhat.com
+    openstack/neutron-lbaas-ptl:
+      description: Project team lead for project neutron-lbaas
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutron-lbaas-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-lbaas-core
+          owner = group openstack/neutron-lbaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-lbaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-lbaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-lbaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-lbaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/neutron-lbaas-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutron-lbaas-core
+          label-Workflow = -1..+1 group openstack/neutron-lbaas-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-lbaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-lbaas-core
+      - openstack/neutron-lbaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutron-lbaas:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-lbaas-core
+          owner = group openstack/neutron-lbaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-lbaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-lbaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-lbaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-lbaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutron-lbaas-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutron-lbaas-core
+          label-Workflow = -1..+0 group openstack/neutron-lbaas-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-lbaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-lbaas-core
+      - openstack/neutron-lbaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutron-lbaas:
+      acl: openstack-neutron-lbaas
+      description: Mirror of upstream neutron-lbaas (mirror + patches)
+    openstack/neutron-lbaas-distgit:
+      acl: openstack-neutron-lbaas-distgit
+      description: Packaging of upstream neutron-lbaas

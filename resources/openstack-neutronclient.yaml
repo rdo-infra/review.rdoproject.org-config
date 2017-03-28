@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/neutronclient-core:
+      description: Core developers for project neutronclient
+      members:
+      - ihrachys@redhat.com
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/neutronclient-ptl:
+      description: Project team lead for project neutronclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutronclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutronclient-core
+          owner = group openstack/neutronclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutronclient-core
+          label-Code-Review = -2..+2 group openstack/neutronclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutronclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutronclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/neutronclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutronclient-core
+          label-Workflow = -1..+1 group openstack/neutronclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutronclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutronclient-core
+      - openstack/neutronclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutronclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutronclient-core
+          owner = group openstack/neutronclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutronclient-core
+          label-Code-Review = -2..+2 group openstack/neutronclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutronclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutronclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutronclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutronclient-core
+          label-Workflow = -1..+0 group openstack/neutronclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutronclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutronclient-core
+      - openstack/neutronclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutronclient:
+      acl: openstack-neutronclient
+      description: Mirror of upstream neutronclient (mirror + patches)
+    openstack/neutronclient-distgit:
+      acl: openstack-neutronclient-distgit
+      description: Packaging of upstream neutronclient

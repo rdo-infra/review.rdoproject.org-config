@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/neutron-vpnaas-core:
+      description: Core developers for project neutron-vpnaas
+      members:
+      - ihrachys@redhat.com
+      - majopela@redhat.com
+      - jlibosva@redhat.com
+      - nmagnezi@redhat.com
+      - twilson@redhat.com
+    openstack/neutron-vpnaas-ptl:
+      description: Project team lead for project neutron-vpnaas
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutron-vpnaas-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-vpnaas-core
+          owner = group openstack/neutron-vpnaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-vpnaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-vpnaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-vpnaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-vpnaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/neutron-vpnaas-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutron-vpnaas-core
+          label-Workflow = -1..+1 group openstack/neutron-vpnaas-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-vpnaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-vpnaas-core
+      - openstack/neutron-vpnaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutron-vpnaas:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-vpnaas-core
+          owner = group openstack/neutron-vpnaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-vpnaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-vpnaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-vpnaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-vpnaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutron-vpnaas-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutron-vpnaas-core
+          label-Workflow = -1..+0 group openstack/neutron-vpnaas-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-vpnaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-vpnaas-core
+      - openstack/neutron-vpnaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutron-vpnaas:
+      acl: openstack-neutron-vpnaas
+      description: Mirror of upstream neutron-vpnaas (mirror + patches)
+    openstack/neutron-vpnaas-distgit:
+      acl: openstack-neutron-vpnaas-distgit
+      description: Packaging of upstream neutron-vpnaas
