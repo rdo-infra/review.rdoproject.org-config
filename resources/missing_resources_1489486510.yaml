@@ -1331,32 +1331,6 @@ resources:
       groups:
       - puppet/puppet-ovn-core
       - puppet/puppet-ovn-ptl
-    4124d4608b1b811596a60ccac0d9f463:
-      file: |
-        [access "refs/*"]
-          read = group openstack/watcher-core
-          owner = group openstack/watcher-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/watcher-core
-            label-Code-Review = -2..+2 group openstack/watcher-ptl
-            submit = group openstack/watcher-ptl
-            read = group openstack/watcher-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/watcher-ptl
-            label-Workflow = -1..+0 group openstack/watcher-ptl
-            label-Workflow = -1..+0 group openstack/watcher-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/watcher-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/watcher-ptl
-      - openstack/watcher-core
     4125377bce17b7dceeacd269fbeb5269:
       file: |
         [access "refs/*"]
@@ -2251,33 +2225,6 @@ resources:
       groups:
       - puppet/puppet-n1k-vsm-distgit-ptl
       - rdo-core
-    5a3a9d5351226502a24d0543d603acc5:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/watcher-distgit-core
-          owner = group openstack/watcher-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/watcher-distgit-core
-            label-Code-Review = -2..+2 group openstack/watcher-distgit-ptl
-            label-Verified = -2..+2 group openstack/watcher-distgit-ptl
-            label-Workflow = -1..+1 group openstack/watcher-distgit-core
-            label-Workflow = -1..+1 group openstack/watcher-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/watcher-distgit-ptl
-            read = group Registered Users
-            read = group openstack/watcher-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/watcher-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/watcher-distgit-ptl
-      - openstack/watcher-distgit-core
     5af830f17f44516b11f1f77e31ea70f5:
       file: |
         [access "refs/*"]
@@ -9427,30 +9374,6 @@ resources:
       - amoralej@redhat.com
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/watcher-core:
-      description: Core developers for project openstack/watcher
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/watcher-distgit-core:
-      description: Core developers for project openstack/watcher-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/watcher-distgit-ptl:
-      description: Project team lead for project openstack/watcher-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/watcher-ptl:
-      description: Project team lead for project openstack/watcher
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/wsme-core:
       description: Core developers for project openstack/wsme
       members:
@@ -11927,11 +11850,6 @@ resources:
       description: Mirror of upstream openstack/vmware-nsxlib (mirror + patches)
     openstack/vmware-nsxlib-distgit:
       acl: c8de9e8af4f22be13750cb53298cf647
-    openstack/watcher:
-      acl: 4124d4608b1b811596a60ccac0d9f463
-      description: Mirror of upstream openstack/watcher (mirror + patches)
-    openstack/watcher-distgit:
-      acl: 5a3a9d5351226502a24d0543d603acc5
     openstack/wsme:
       acl: 493373a68e06fcf3a23d6e8bac299d10
       description: Mirror of upstream openstack/wsme (mirror + patches)

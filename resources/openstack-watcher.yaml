@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/watcher-core:
+      description: Core developers for project watcher
+      members:
+      - mpryc@redhat.com
+      - daniel.pawlik@corp.ovh.com
+      - jpena@redhat.com
+    openstack/watcher-ptl:
+      description: Project team lead for project watcher
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-watcher-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/watcher-core
+          owner = group openstack/watcher-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/watcher-core
+          label-Code-Review = -2..+2 group openstack/watcher-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/watcher-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/watcher-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/watcher-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/watcher-core
+          label-Workflow = -1..+1 group openstack/watcher-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/watcher-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/watcher-core
+      - openstack/watcher-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-watcher:
+      file: |
+        [access "refs/*"]
+          read = group openstack/watcher-core
+          owner = group openstack/watcher-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/watcher-core
+          label-Code-Review = -2..+2 group openstack/watcher-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/watcher-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/watcher-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/watcher-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/watcher-core
+          label-Workflow = -1..+0 group openstack/watcher-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/watcher-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/watcher-core
+      - openstack/watcher-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/watcher:
+      acl: openstack-watcher
+      description: Mirror of upstream watcher (mirror + patches)
+    openstack/watcher-distgit:
+      acl: openstack-watcher-distgit
+      description: Packaging of upstream watcher
