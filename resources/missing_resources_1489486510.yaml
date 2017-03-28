@@ -643,32 +643,6 @@ resources:
       groups:
       - puppet/puppet-swift-distgit-ptl
       - rdo-core
-    19dafd4bae191061874b051e52932e75:
-      file: |
-        [access "refs/*"]
-          read = group openstack/k8sclient-core
-          owner = group openstack/k8sclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/k8sclient-core
-            label-Code-Review = -2..+2 group openstack/k8sclient-ptl
-            label-Verified = -2..+2 group openstack/k8sclient-ptl
-            label-Workflow = -1..+1 group openstack/k8sclient-core
-            label-Workflow = -1..+1 group openstack/k8sclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/k8sclient-ptl
-            read = group openstack/k8sclient-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/k8sclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/k8sclient-ptl
-      - openstack/k8sclient-core
     1a09d2ba585a21f841c243f5fe0cd9cc:
       file: |
         [access "refs/*"]
@@ -7284,33 +7258,6 @@ resources:
       groups:
       - openstack/mistral-dashboard-distgit-ptl
       - openstack/mistral-dashboard-distgit-core
-    d14d4dd69c780e7d70436443d5b5f25f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/k8sclient-distgit-core
-          owner = group openstack/k8sclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/k8sclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/k8sclient-distgit-ptl
-            label-Verified = -2..+2 group openstack/k8sclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/k8sclient-distgit-core
-            label-Workflow = -1..+1 group openstack/k8sclient-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/k8sclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/k8sclient-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/k8sclient-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/k8sclient-distgit-core
-      - openstack/k8sclient-distgit-ptl
     d2012bd3fcf1b9997dc76ca6988843eb:
       file: |
         [access "refs/*"]
@@ -9783,28 +9730,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/hardware-ptl:
       description: Project team lead for project hardware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/k8sclient-core:
-      description: Core developers for project openstack/k8sclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/k8sclient-distgit-core:
-      description: Core developers for project openstack/k8sclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
-    openstack/k8sclient-distgit-ptl:
-      description: Project team lead for project openstack/k8sclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/k8sclient-ptl:
-      description: Project team lead for project openstack/k8sclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -13242,11 +13167,6 @@ resources:
       description: Mirror of upstream hardware (mirror + patches)
     openstack/hardware-distgit:
       acl: 2e36ca4020702d9218f16dff54d66362
-    openstack/k8sclient:
-      acl: 19dafd4bae191061874b051e52932e75
-      description: Mirror of upstream openstack/k8sclient (mirror + patches)
-    openstack/k8sclient-distgit:
-      acl: d14d4dd69c780e7d70436443d5b5f25f
     openstack/kolla:
       acl: 8c2c5728909e163fa3d58121a3e70146
       description: Mirror of upstream openstack/kolla (mirror + patches)
