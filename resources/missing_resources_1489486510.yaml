@@ -1105,32 +1105,6 @@ resources:
       groups:
       - puppet/puppet-heat-ptl
       - puppet/puppet-heat-core
-    2fe14f45106fbde2c794e352bcd8c4a2:
-      file: |
-        [access "refs/*"]
-          read = group openstack/pycadf-core
-          owner = group openstack/pycadf-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/pycadf-core
-            label-Code-Review = -2..+2 group openstack/pycadf-ptl
-            submit = group openstack/pycadf-ptl
-            read = group Registered Users
-            read = group openstack/pycadf-core
-            label-Verified = -2..+0 group openstack/pycadf-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/pycadf-core
-            label-Workflow = -1..+0 group openstack/pycadf-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/pycadf-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/pycadf-core
-      - openstack/pycadf-ptl
     30fa76b71feca7215c839550846f9d1b:
       file: |
         [project]
@@ -5878,38 +5852,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-logserver-core
       - rdo-infra/ansible-role-logserver-ptl
-    b3e537ac1cae1afa395d4b24605b312e:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/pycadf-distgit-core
-          read = group rdo-core
-          owner = group openstack/pycadf-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/pycadf-distgit-core
-            label-Code-Review = -2..+2 group openstack/pycadf-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/pycadf-distgit-ptl
-            label-Workflow = -1..+1 group openstack/pycadf-distgit-core
-            label-Workflow = -1..+1 group openstack/pycadf-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/pycadf-distgit-ptl
-            read = group Registered Users
-            read = group openstack/pycadf-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/pycadf-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/pycadf-distgit-ptl
-      - rdo-core
     b4dbbd6d7dda8f7ed8febfee540e9383:
       file: |
         [project]
@@ -9666,32 +9608,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/pycadf-core:
-      description: Core developers for project pycadf
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/pycadf-distgit-core:
-      description: Core developers for project pycadf-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/pycadf-distgit-ptl:
-      description: Project team lead for project pycadf-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/pycadf-ptl:
-      description: Project team lead for project pycadf
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/rally-core:
       description: Core developers for project rally
       members:
@@ -12701,11 +12617,6 @@ resources:
       description: Mirror of upstream packstack (mirror + patches)
     openstack/packstack-distgit:
       acl: c844967f7af60dfda8c7788692783cf7
-    openstack/pycadf:
-      acl: 2fe14f45106fbde2c794e352bcd8c4a2
-      description: Mirror of upstream pycadf (mirror + patches)
-    openstack/pycadf-distgit:
-      acl: b3e537ac1cae1afa395d4b24605b312e
     openstack/rally:
       acl: bf772fb7f4824055d4b927d293e82a64
       description: Mirror of upstream rally (mirror + patches)
