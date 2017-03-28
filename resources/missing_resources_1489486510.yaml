@@ -1079,38 +1079,6 @@ resources:
       groups:
       - puppet/puppet-ntp-core
       - puppet/puppet-ntp-ptl
-    2e36ca4020702d9218f16dff54d66362:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/hardware-distgit-core
-          read = group rdo-core
-          owner = group openstack/hardware-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/hardware-distgit-core
-            label-Code-Review = -2..+2 group openstack/hardware-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/hardware-distgit-ptl
-            label-Workflow = -1..+1 group openstack/hardware-distgit-core
-            label-Workflow = -1..+1 group openstack/hardware-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/hardware-distgit-ptl
-            read = group Registered Users
-            read = group openstack/hardware-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/hardware-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/hardware-distgit-ptl
-      - rdo-core
     2fdcae9fea4473063cbe981008fe5c3e:
       file: |
         [access "refs/*"]
@@ -5541,32 +5509,6 @@ resources:
       groups:
       - openstack/virtualbmc-distgit-ptl
       - rdo-core
-    ab21c6c9cf6c5eb744e96d789ab1c555:
-      file: |
-        [access "refs/*"]
-          read = group openstack/hardware-core
-          owner = group openstack/hardware-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/hardware-core
-            label-Code-Review = -2..+2 group openstack/hardware-ptl
-            submit = group openstack/hardware-ptl
-            read = group Registered Users
-            read = group openstack/hardware-core
-            label-Verified = -2..+0 group openstack/hardware-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/hardware-core
-            label-Workflow = -1..+0 group openstack/hardware-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/hardware-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/hardware-ptl
-      - openstack/hardware-core
     ab2364ec2c8af0fd7e802ae015473700:
       file: |
         [access "refs/*"]
@@ -9404,28 +9346,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/hardware-core:
-      description: Core developers for project hardware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/hardware-distgit-core:
-      description: Core developers for project hardware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - trown@redhat.com
-    openstack/hardware-distgit-ptl:
-      description: Project team lead for project hardware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/hardware-ptl:
-      description: Project team lead for project hardware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/karbor-core:
       description: Core developers for project openstack/karbor
       members:
@@ -12734,11 +12654,6 @@ resources:
       description: Mirror of upstream hacking (mirror + patches)
     openstack/hacking-distgit:
       acl: e0e52dfa24d55ba3d6fac79f2d77f59c
-    openstack/hardware:
-      acl: ab21c6c9cf6c5eb744e96d789ab1c555
-      description: Mirror of upstream hardware (mirror + patches)
-    openstack/hardware-distgit:
-      acl: 2e36ca4020702d9218f16dff54d66362
     openstack/kolla:
       acl: 8c2c5728909e163fa3d58121a3e70146
       description: Mirror of upstream openstack/kolla (mirror + patches)
