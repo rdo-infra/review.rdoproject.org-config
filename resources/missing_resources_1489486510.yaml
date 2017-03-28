@@ -4856,38 +4856,6 @@ resources:
       groups:
       - puppet/puppet-n1k-vsm-ptl
       - puppet/puppet-n1k-vsm-core
-    c8de9e8af4f22be13750cb53298cf647:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/vmware-nsxlib-distgit-core
-            read = group rdo-core
-          owner = group openstack/vmware-nsxlib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vmware-nsxlib-distgit-core
-            label-Code-Review = -2..+2 group openstack/vmware-nsxlib-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/vmware-nsxlib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/vmware-nsxlib-distgit-core
-            label-Workflow = -1..+1 group openstack/vmware-nsxlib-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/vmware-nsxlib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/vmware-nsxlib-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vmware-nsxlib-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/vmware-nsxlib-distgit-ptl
     cbec5fe234845ff53374f14edaaeabd0:
       file: |
         [access "refs/*"]
@@ -5108,64 +5076,6 @@ resources:
       groups:
       - puppet/puppet-aodh-distgit-ptl
       - rdo-core
-    d30dd71408a489abdb485a5ec47c5087:
-      file: |
-        [access "refs/*"]
-          read = group openstack/vmware-nsx-core
-          owner = group openstack/vmware-nsx-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vmware-nsx-core
-            label-Code-Review = -2..+2 group openstack/vmware-nsx-ptl
-            submit = group openstack/vmware-nsx-ptl
-            read = group Registered Users
-            read = group openstack/vmware-nsx-core
-            label-Verified = -2..+0 group openstack/vmware-nsx-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/vmware-nsx-core
-            label-Workflow = -1..+0 group openstack/vmware-nsx-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vmware-nsx-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/vmware-nsx-ptl
-      - openstack/vmware-nsx-core
-    d3cc5b11031076b9a08386e14eda5331:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/vmware-nsx-distgit-core
-          read = group rdo-core
-          owner = group openstack/vmware-nsx-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vmware-nsx-distgit-core
-            label-Code-Review = -2..+2 group openstack/vmware-nsx-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/vmware-nsx-distgit-ptl
-            label-Workflow = -1..+1 group openstack/vmware-nsx-distgit-core
-            label-Workflow = -1..+1 group openstack/vmware-nsx-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/vmware-nsx-distgit-ptl
-            read = group Registered Users
-            read = group openstack/vmware-nsx-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vmware-nsx-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/vmware-nsx-distgit-ptl
     d3dac7c06c5f247eb7b67be4a6d1db9e:
       file: |
         [access "refs/*"]
@@ -5550,32 +5460,6 @@ resources:
       groups:
       - puppet/puppet-aodh-ptl
       - puppet/puppet-aodh-core
-    e44018f2ce36c469b86a1554469d293c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/vmware-nsxlib-core
-          owner = group openstack/vmware-nsxlib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vmware-nsxlib-core
-            label-Code-Review = -2..+2 group openstack/vmware-nsxlib-ptl
-            submit = group openstack/vmware-nsxlib-ptl
-            read = group openstack/vmware-nsxlib-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/vmware-nsxlib-ptl
-            label-Workflow = -1..+0 group openstack/vmware-nsxlib-ptl
-            label-Workflow = -1..+0 group openstack/vmware-nsxlib-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/vmware-nsxlib-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/vmware-nsxlib-ptl
-      - openstack/vmware-nsxlib-core
     e45cf35ee1debbd3e4ca75d066b1fd2e:
       file: |
         [project]
@@ -6466,52 +6350,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/vmware-nsx-core:
-      description: Core developers for project vmware-nsx
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vmware-nsx-distgit-core:
-      description: Core developers for project vmware-nsx-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vmware-nsx-distgit-ptl:
-      description: Project team lead for project vmware-nsx-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vmware-nsx-ptl:
-      description: Project team lead for project vmware-nsx
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vmware-nsxlib-core:
-      description: Core developers for project openstack/vmware-nsxlib
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vmware-nsxlib-distgit-core:
-      description: Core developers for project openstack/vmware-nsxlib-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vmware-nsxlib-distgit-ptl:
-      description: Project team lead for project openstack/vmware-nsxlib-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vmware-nsxlib-ptl:
-      description: Project team lead for project openstack/vmware-nsxlib
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     opm-packagers:
       description: ''
       members: []
@@ -8739,16 +8577,6 @@ resources:
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
     openstack/openstack-puppet-modules-distgit:
       acl: 8812c30df4a27d9cb53bf689d1140e77
-    openstack/vmware-nsx:
-      acl: d30dd71408a489abdb485a5ec47c5087
-      description: Mirror of upstream vmware-nsx (mirror + patches)
-    openstack/vmware-nsx-distgit:
-      acl: d3cc5b11031076b9a08386e14eda5331
-    openstack/vmware-nsxlib:
-      acl: e44018f2ce36c469b86a1554469d293c
-      description: Mirror of upstream openstack/vmware-nsxlib (mirror + patches)
-    openstack/vmware-nsxlib-distgit:
-      acl: c8de9e8af4f22be13750cb53298cf647
     puppet/puppet-aodh:
       acl: e387836b69963438ee9ac43cbc1a61ba
       description: Mirror of upstream puppet-aodh (mirror + patches)

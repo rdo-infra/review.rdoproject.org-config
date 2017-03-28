@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/vmware-nsxlib-core:
+      description: Core developers for project vmware-nsxlib
+      members:
+      - jpena@redhat.com
+    openstack/vmware-nsxlib-ptl:
+      description: Project team lead for project vmware-nsxlib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-vmware-nsxlib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vmware-nsxlib-core
+          owner = group openstack/vmware-nsxlib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vmware-nsxlib-core
+          label-Code-Review = -2..+2 group openstack/vmware-nsxlib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vmware-nsxlib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vmware-nsxlib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/vmware-nsxlib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/vmware-nsxlib-core
+          label-Workflow = -1..+1 group openstack/vmware-nsxlib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vmware-nsxlib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vmware-nsxlib-core
+      - openstack/vmware-nsxlib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-vmware-nsxlib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vmware-nsxlib-core
+          owner = group openstack/vmware-nsxlib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vmware-nsxlib-core
+          label-Code-Review = -2..+2 group openstack/vmware-nsxlib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vmware-nsxlib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vmware-nsxlib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/vmware-nsxlib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/vmware-nsxlib-core
+          label-Workflow = -1..+0 group openstack/vmware-nsxlib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vmware-nsxlib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vmware-nsxlib-core
+      - openstack/vmware-nsxlib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/vmware-nsxlib:
+      acl: openstack-vmware-nsxlib
+      description: Mirror of upstream vmware-nsxlib (mirror + patches)
+    openstack/vmware-nsxlib-distgit:
+      acl: openstack-vmware-nsxlib-distgit
+      description: Packaging of upstream vmware-nsxlib
