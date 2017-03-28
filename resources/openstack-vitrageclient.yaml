@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/vitrageclient-core:
+      description: Core developers for project vitrageclient
+      members:
+      - mrunge@redhat.com
+    openstack/vitrageclient-ptl:
+      description: Project team lead for project vitrageclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-vitrageclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vitrageclient-core
+          owner = group openstack/vitrageclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vitrageclient-core
+          label-Code-Review = -2..+2 group openstack/vitrageclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vitrageclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vitrageclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/vitrageclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/vitrageclient-core
+          label-Workflow = -1..+1 group openstack/vitrageclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vitrageclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vitrageclient-core
+      - openstack/vitrageclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-vitrageclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vitrageclient-core
+          owner = group openstack/vitrageclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vitrageclient-core
+          label-Code-Review = -2..+2 group openstack/vitrageclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vitrageclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vitrageclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/vitrageclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/vitrageclient-core
+          label-Workflow = -1..+0 group openstack/vitrageclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vitrageclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vitrageclient-core
+      - openstack/vitrageclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/vitrageclient:
+      acl: openstack-vitrageclient
+      description: Mirror of upstream vitrageclient (mirror + patches)
+    openstack/vitrageclient-distgit:
+      acl: openstack-vitrageclient-distgit
+      description: Packaging of upstream vitrageclient

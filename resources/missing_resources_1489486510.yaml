@@ -2452,32 +2452,6 @@ resources:
       groups:
       - puppet/puppet-inifile-core
       - puppet/puppet-inifile-ptl
-    6eed5db2d25f2cfd9b185560bf304352:
-      file: |
-        [access "refs/*"]
-          read = group openstack/vitrageclient-core
-          owner = group openstack/vitrageclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrageclient-core
-            label-Code-Review = -2..+2 group openstack/vitrageclient-ptl
-            submit = group openstack/vitrageclient-ptl
-            read = group openstack/vitrageclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/vitrageclient-ptl
-            label-Workflow = -1..+0 group openstack/vitrageclient-ptl
-            label-Workflow = -1..+0 group openstack/vitrageclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/vitrageclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/vitrageclient-core
-      - openstack/vitrageclient-ptl
     6fca34e6dfc70080ff7c3c715f48fd4f:
       file: |
         [project]
@@ -4733,32 +4707,6 @@ resources:
       groups:
       - puppet/puppet-cassandra-distgit-ptl
       - rdo-core
-    b58f29ebce7af1d368a40d50beece8ca:
-      file: |
-        [access "refs/*"]
-          read = group openstack/vitrage-dashboard-core
-          owner = group openstack/vitrage-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrage-dashboard-core
-            label-Code-Review = -2..+2 group openstack/vitrage-dashboard-ptl
-            submit = group openstack/vitrage-dashboard-ptl
-            read = group openstack/vitrage-dashboard-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/vitrage-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/vitrage-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/vitrage-dashboard-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/vitrage-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/vitrage-dashboard-core
-      - openstack/vitrage-dashboard-ptl
     b67ee22d7f5a02ee3600e4632ffef477:
       file: |
         [access "refs/*"]
@@ -4907,33 +4855,6 @@ resources:
       groups:
       - puppet/puppet-openstack_extras-distgit-ptl
       - rdo-core
-    ba4b3c2b22f3e0a22faa6f81c5306777:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/vitrage-distgit-core
-          owner = group openstack/vitrage-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrage-distgit-core
-            label-Code-Review = -2..+2 group openstack/vitrage-distgit-ptl
-            label-Verified = -2..+2 group openstack/vitrage-distgit-ptl
-            label-Workflow = -1..+1 group openstack/vitrage-distgit-core
-            label-Workflow = -1..+1 group openstack/vitrage-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/vitrage-distgit-ptl
-            read = group Registered Users
-            read = group openstack/vitrage-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vitrage-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/vitrage-distgit-core
-      - openstack/vitrage-distgit-ptl
     ba6b2cdc36eef16149bc91c8790edee9:
       file: |
         [project]
@@ -6043,32 +5964,6 @@ resources:
       groups:
       - puppet/puppet-powerdns-distgit-ptl
       - puppet/puppet-powerdns-distgit-core
-    deb802a146d069c5ff94dd38d31a34b7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/vitrage-core
-          owner = group openstack/vitrage-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrage-core
-            label-Code-Review = -2..+2 group openstack/vitrage-ptl
-            submit = group openstack/vitrage-ptl
-            read = group openstack/vitrage-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/vitrage-ptl
-            label-Workflow = -1..+0 group openstack/vitrage-ptl
-            label-Workflow = -1..+0 group openstack/vitrage-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/vitrage-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/vitrage-core
-      - openstack/vitrage-ptl
     df604c22255be67f28147713ac9c5ff6:
       file: |
         [project]
@@ -6660,38 +6555,6 @@ resources:
       groups:
       - centos-opstools/core
       - centos-opstools/ptl
-    f0a7b658f66dbe8985c56a2feed401d6:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/vitrageclient-distgit-core
-            read = group rdo-core
-          owner = group openstack/vitrageclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrageclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/vitrageclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/vitrageclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/vitrageclient-distgit-core
-            label-Workflow = -1..+1 group openstack/vitrageclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/vitrageclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/vitrageclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vitrageclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/vitrageclient-distgit-ptl
-      - rdo-core
     f3ab56ca63d842c705fce63f88ed6f2b:
       file: |
         [project]
@@ -6899,33 +6762,6 @@ resources:
       groups:
       - puppet/puppet-logstash-core
       - puppet/puppet-logstash-ptl
-    f8dce75859e6ded045e59302ed1a0d79:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/vitrage-dashboard-distgit-core
-          owner = group openstack/vitrage-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/vitrage-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/vitrage-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/vitrage-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/vitrage-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/vitrage-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/vitrage-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/vitrage-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/vitrage-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/vitrage-dashboard-distgit-core
-      - openstack/vitrage-dashboard-distgit-ptl
     fa03b47ce751563448ee0c09ab97d821:
       file: |
         [project]
@@ -7767,84 +7603,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/virtualbmc-ptl:
       description: Project team lead for project openstack/virtualbmc
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-core:
-      description: Core developers for project openstack/vitrage
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eyalb1@gmail.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-dashboard-core:
-      description: Core developers for project openstack/vitrage-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eyalb1@gmail.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-dashboard-distgit-core:
-      description: Core developers for project openstack/vitrage-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eyalb1@gmail.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/vitrage-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-dashboard-ptl:
-      description: Project team lead for project openstack/vitrage-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-distgit-core:
-      description: Core developers for project openstack/vitrage-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - eyalb1@gmail.com
-      - admin@review.rdoproject.org
-    openstack/vitrage-distgit-ptl:
-      description: Project team lead for project openstack/vitrage-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vitrage-ptl:
-      description: Project team lead for project openstack/vitrage
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/vitrageclient-core:
-      description: Core developers for project openstack/vitrageclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrageclient-distgit-core:
-      description: Core developers for project openstack/vitrageclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - mrunge@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrageclient-distgit-ptl:
-      description: Project team lead for project openstack/vitrageclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/vitrageclient-ptl:
-      description: Project team lead for project openstack/vitrageclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
@@ -10193,21 +9951,6 @@ resources:
       description: Mirror of upstream openstack/virtualbmc (mirror + patches)
     openstack/virtualbmc-distgit:
       acl: ab0baa214bc52cf481bc958898211a10
-    openstack/vitrage:
-      acl: deb802a146d069c5ff94dd38d31a34b7
-      description: Mirror of upstream openstack/vitrage (mirror + patches)
-    openstack/vitrage-dashboard:
-      acl: b58f29ebce7af1d368a40d50beece8ca
-      description: Mirror of upstream openstack/vitrage-dashboard (mirror + patches)
-    openstack/vitrage-dashboard-distgit:
-      acl: f8dce75859e6ded045e59302ed1a0d79
-    openstack/vitrage-distgit:
-      acl: ba4b3c2b22f3e0a22faa6f81c5306777
-    openstack/vitrageclient:
-      acl: 6eed5db2d25f2cfd9b185560bf304352
-      description: Mirror of upstream openstack/vitrageclient (mirror + patches)
-    openstack/vitrageclient-distgit:
-      acl: f0a7b658f66dbe8985c56a2feed401d6
     openstack/vmware-nsx:
       acl: d30dd71408a489abdb485a5ec47c5087
       description: Mirror of upstream vmware-nsx (mirror + patches)
