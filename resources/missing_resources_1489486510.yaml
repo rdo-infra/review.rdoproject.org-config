@@ -3870,33 +3870,6 @@ resources:
       groups:
       - puppet/puppet-panko-core
       - puppet/puppet-panko-ptl
-    a0e8d65739cd9bbfee04a6525fa0a574:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/osc-lib-distgit-core
-          owner = group openstack/osc-lib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/osc-lib-distgit-core
-            label-Code-Review = -2..+2 group openstack/osc-lib-distgit-ptl
-            label-Verified = -2..+2 group openstack/osc-lib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/osc-lib-distgit-core
-            label-Workflow = -1..+1 group openstack/osc-lib-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/osc-lib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/osc-lib-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/osc-lib-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/osc-lib-distgit-ptl
-      - openstack/osc-lib-distgit-core
     a3d2b33fe7987383833327cf5cb5c54e:
       file: |
         [project]
@@ -6105,32 +6078,6 @@ resources:
       groups:
       - puppet/puppet-sahara-distgit-ptl
       - rdo-core
-    f5a12cae59f714b8c0aff796b6c51a8f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/osc-lib-core
-          owner = group openstack/osc-lib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/osc-lib-core
-            label-Code-Review = -2..+2 group openstack/osc-lib-ptl
-            submit = group openstack/osc-lib-ptl
-            read = group openstack/osc-lib-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/osc-lib-ptl
-            label-Workflow = -1..+0 group openstack/osc-lib-ptl
-            label-Workflow = -1..+0 group openstack/osc-lib-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/osc-lib-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/osc-lib-ptl
-      - openstack/osc-lib-core
     f8069179286b96809293908309467034:
       file: |
         [project]
@@ -6506,32 +6453,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/osc-lib-core:
-      description: Core developers for project openstack/osc-lib
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/osc-lib-distgit-core:
-      description: Core developers for project openstack/osc-lib-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/osc-lib-distgit-ptl:
-      description: Project team lead for project openstack/osc-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/osc-lib-ptl:
-      description: Project team lead for project openstack/osc-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/packstack-core:
       description: Core developers for project packstack
       members:
@@ -9070,11 +8991,6 @@ resources:
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
     openstack/openstack-puppet-modules-distgit:
       acl: 8812c30df4a27d9cb53bf689d1140e77
-    openstack/osc-lib:
-      acl: f5a12cae59f714b8c0aff796b6c51a8f
-      description: Mirror of upstream openstack/osc-lib (mirror + patches)
-    openstack/osc-lib-distgit:
-      acl: a0e8d65739cd9bbfee04a6525fa0a574
     openstack/packstack:
       acl: fdb884f9d20a9bed8a3edcec8bac14c7
       description: Mirror of upstream packstack (mirror + patches)
