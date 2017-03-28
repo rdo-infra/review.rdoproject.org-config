@@ -5566,32 +5566,6 @@ resources:
       groups:
       - puppet/puppet-neutron-ptl
       - puppet/puppet-neutron-core
-    da9c485b68e0a18c03c6c531ebddd64b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cursive-core
-          owner = group openstack/cursive-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cursive-core
-            label-Code-Review = -2..+2 group openstack/cursive-ptl
-            submit = group openstack/cursive-ptl
-            read = group openstack/cursive-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/cursive-ptl
-            label-Workflow = -1..+0 group openstack/cursive-ptl
-            label-Workflow = -1..+0 group openstack/cursive-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/cursive-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cursive-core
-      - openstack/cursive-ptl
     ddc849f9f0873ee5db0765309a736587:
       file: |
         [project]
@@ -5898,33 +5872,6 @@ resources:
       groups:
       - puppet/puppet-mysql-core
       - puppet/puppet-mysql-ptl
-    e6f2fe5044506b45ebee5ff25ab41155:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cursive-distgit-core
-          owner = group openstack/cursive-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cursive-distgit-core
-            label-Code-Review = -2..+2 group openstack/cursive-distgit-ptl
-            label-Verified = -2..+2 group openstack/cursive-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cursive-distgit-core
-            label-Workflow = -1..+1 group openstack/cursive-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cursive-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cursive-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cursive-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cursive-distgit-core
-      - openstack/cursive-distgit-ptl
     e718399630aa91b84f4e2154c912276a:
       file: |
         [access "refs/*"]
@@ -6621,30 +6568,6 @@ resources:
       description: Project team lead for project openstack/
       members:
       - admin@review.rdoproject.org
-    openstack/cursive-core:
-      description: Core developers for project openstack/cursive
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cursive-distgit-core:
-      description: Core developers for project openstack/cursive-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cursive-distgit-ptl:
-      description: Project team lead for project openstack/cursive-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/cursive-ptl:
-      description: Project team lead for project openstack/cursive
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/dracclient-core:
       description: Core developers for project dracclient
       members:
@@ -9304,11 +9227,6 @@ resources:
     gating_scripts:
       acl: b8942be7f036ae5cf800a93e70875b38
       description: ''
-    openstack/cursive:
-      acl: da9c485b68e0a18c03c6c531ebddd64b
-      description: Mirror of upstream openstack/cursive (mirror + patches)
-    openstack/cursive-distgit:
-      acl: e6f2fe5044506b45ebee5ff25ab41155
     openstack/dracclient:
       acl: fe29c2f474cecd344ecb939a0696589a
       description: Mirror of upstream dracclient (mirror + patches)
