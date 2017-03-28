@@ -4071,38 +4071,6 @@ resources:
       groups:
       - puppet/puppet-stdlib-core
       - puppet/puppet-stdlib-ptl
-    aa5fae39ea9dc463af58d1f8fdfeec4f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/cliff-distgit-core
-          read = group rdo-core
-          owner = group openstack/cliff-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cliff-distgit-core
-            label-Code-Review = -2..+2 group openstack/cliff-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/cliff-distgit-ptl
-            label-Workflow = -1..+1 group openstack/cliff-distgit-core
-            label-Workflow = -1..+1 group openstack/cliff-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/cliff-distgit-ptl
-            read = group Registered Users
-            read = group openstack/cliff-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cliff-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/cliff-distgit-ptl
-      - rdo-core
     ab0baa214bc52cf481bc958898211a10:
       file: |
         [project]
@@ -5488,32 +5456,6 @@ resources:
       groups:
       - puppet/puppet-tempest-distgit-ptl
       - rdo-core
-    d85de99d2a937b7f624115ab43466d4c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/cliff-core
-          owner = group openstack/cliff-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/cliff-core
-            label-Code-Review = -2..+2 group openstack/cliff-ptl
-            submit = group openstack/cliff-ptl
-            read = group Registered Users
-            read = group openstack/cliff-core
-            label-Verified = -2..+0 group openstack/cliff-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/cliff-core
-            label-Workflow = -1..+0 group openstack/cliff-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/cliff-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/cliff-core
-      - openstack/cliff-ptl
     d8d99db68b93fc8097ff3db71baab8f9:
       file: |
         [access "refs/*"]
@@ -6678,32 +6620,6 @@ resources:
     openstack/-ptl:
       description: Project team lead for project openstack/
       members:
-      - admin@review.rdoproject.org
-    openstack/cliff-core:
-      description: Core developers for project cliff
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/cliff-distgit-core:
-      description: Core developers for project cliff-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/cliff-distgit-ptl:
-      description: Project team lead for project cliff-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/cliff-ptl:
-      description: Project team lead for project cliff
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
     openstack/cursive-core:
       description: Core developers for project openstack/cursive
@@ -9388,11 +9304,6 @@ resources:
     gating_scripts:
       acl: b8942be7f036ae5cf800a93e70875b38
       description: ''
-    openstack/cliff:
-      acl: d85de99d2a937b7f624115ab43466d4c
-      description: Mirror of upstream cliff (mirror + patches)
-    openstack/cliff-distgit:
-      acl: aa5fae39ea9dc463af58d1f8fdfeec4f
     openstack/cursive:
       acl: da9c485b68e0a18c03c6c531ebddd64b
       description: Mirror of upstream openstack/cursive (mirror + patches)
