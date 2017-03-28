@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/osc-lib-core:
+      description: Core developers for project osc-lib
+      members:
+      - amoralej@redhat.com
+    openstack/osc-lib-ptl:
+      description: Project team lead for project osc-lib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-osc-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/osc-lib-core
+          owner = group openstack/osc-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/osc-lib-core
+          label-Code-Review = -2..+2 group openstack/osc-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/osc-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/osc-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/osc-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/osc-lib-core
+          label-Workflow = -1..+1 group openstack/osc-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/osc-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/osc-lib-core
+      - openstack/osc-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-osc-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/osc-lib-core
+          owner = group openstack/osc-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/osc-lib-core
+          label-Code-Review = -2..+2 group openstack/osc-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/osc-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/osc-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/osc-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/osc-lib-core
+          label-Workflow = -1..+0 group openstack/osc-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/osc-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/osc-lib-core
+      - openstack/osc-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/osc-lib:
+      acl: openstack-osc-lib
+      description: Mirror of upstream osc-lib (mirror + patches)
+    openstack/osc-lib-distgit:
+      acl: openstack-osc-lib-distgit
+      description: Packaging of upstream osc-lib
