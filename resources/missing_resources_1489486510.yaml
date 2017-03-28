@@ -1305,32 +1305,6 @@ resources:
       groups:
       - puppet/puppet-powerdns-ptl
       - puppet/puppet-powerdns-core
-    3d60ed5dbd3a0ea023b50e27d2bdfa4b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/designate-core
-          owner = group openstack/designate-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designate-core
-            label-Code-Review = -2..+2 group openstack/designate-ptl
-            submit = group openstack/designate-ptl
-            read = group Registered Users
-            read = group openstack/designate-core
-            label-Verified = -2..+0 group openstack/designate-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/designate-core
-            label-Workflow = -1..+0 group openstack/designate-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/designate-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/designate-core
-      - openstack/designate-ptl
     3e1c8c7e64d2bbedb6afa9f6c1d0358a:
       file: |
         [access "refs/*"]
@@ -1785,38 +1759,6 @@ resources:
       groups:
       - puppet/puppet-horizon-ptl
       - puppet/puppet-horizon-core
-    48f93917321c68bef2ec74a2702bc3fb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/designateclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/designateclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designateclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/designateclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/designateclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/designateclient-distgit-core
-            label-Workflow = -1..+1 group openstack/designateclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/designateclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/designateclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/designateclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/designateclient-distgit-ptl
     493373a68e06fcf3a23d6e8bac299d10:
       file: |
         [access "refs/*"]
@@ -1985,32 +1927,6 @@ resources:
       groups:
       - puppet/puppet-congress-core
       - puppet/puppet-congress-ptl
-    4ef583630bdca3ea50660cdd641a0a9e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/designateclient-core
-          owner = group openstack/designateclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designateclient-core
-            label-Code-Review = -2..+2 group openstack/designateclient-ptl
-            submit = group openstack/designateclient-ptl
-            read = group Registered Users
-            read = group openstack/designateclient-core
-            label-Verified = -2..+0 group openstack/designateclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/designateclient-core
-            label-Workflow = -1..+0 group openstack/designateclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/designateclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/designateclient-core
-      - openstack/designateclient-ptl
     505641b9b3a1c08e2bc6e780a34fca7a:
       file: |
         [project]
@@ -7166,32 +7082,6 @@ resources:
       groups:
       - puppet/puppet-neutron-ptl
       - puppet/puppet-neutron-core
-    da62e5f119d92703e55e92dfb26a03c8:
-      file: |
-        [access "refs/*"]
-          read = group openstack/designate-tempest-plugin-core
-          owner = group openstack/designate-tempest-plugin-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designate-tempest-plugin-core
-            label-Code-Review = -2..+2 group openstack/designate-tempest-plugin-ptl
-            submit = group openstack/designate-tempest-plugin-ptl
-            read = group openstack/designate-tempest-plugin-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/designate-tempest-plugin-ptl
-            label-Workflow = -1..+0 group openstack/designate-tempest-plugin-ptl
-            label-Workflow = -1..+0 group openstack/designate-tempest-plugin-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/designate-tempest-plugin-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/designate-tempest-plugin-core
-      - openstack/designate-tempest-plugin-ptl
     da9c485b68e0a18c03c6c531ebddd64b:
       file: |
         [access "refs/*"]
@@ -7745,70 +7635,6 @@ resources:
       groups:
       - puppet/puppet-sensu-core
       - puppet/puppet-sensu-ptl
-    e80ae32ae17e4792197be6d9e92bd7ed:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/designate-distgit-core
-          read = group rdo-core
-          owner = group openstack/designate-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designate-distgit-core
-            label-Code-Review = -2..+2 group openstack/designate-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/designate-distgit-ptl
-            label-Workflow = -1..+1 group openstack/designate-distgit-core
-            label-Workflow = -1..+1 group openstack/designate-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/designate-distgit-ptl
-            read = group Registered Users
-            read = group openstack/designate-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/designate-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/designate-distgit-ptl
-      - rdo-core
-    e9186c096a11b519d8a64c444420ea9c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/designate-tempest-plugin-distgit-core
-            read = group rdo-core
-          owner = group openstack/designate-tempest-plugin-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/designate-tempest-plugin-distgit-core
-            label-Code-Review = -2..+2 group openstack/designate-tempest-plugin-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/designate-tempest-plugin-distgit-ptl
-            label-Workflow = -1..+1 group openstack/designate-tempest-plugin-distgit-core
-            label-Workflow = -1..+1 group openstack/designate-tempest-plugin-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/designate-tempest-plugin-distgit-ptl
-            read = group Registered Users
-            read = group openstack/designate-tempest-plugin-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/designate-tempest-plugin-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/designate-tempest-plugin-distgit-ptl
-      - rdo-core
     eabac0d6a971cafee7dc05a2ed8d9bfb:
       file: |
         [access "refs/*"]
@@ -8876,78 +8702,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/debtcollector-ptl:
       description: Project team lead for project debtcollector
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/designate-core:
-      description: Core developers for project designate
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-    openstack/designate-distgit-core:
-      description: Core developers for project designate-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-    openstack/designate-distgit-ptl:
-      description: Project team lead for project designate-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/designate-ptl:
-      description: Project team lead for project designate
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/designate-tempest-plugin-core:
-      description: Core developers for project openstack/designate-tempest-plugin
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designate-tempest-plugin-distgit-core:
-      description: Core developers for project openstack/designate-tempest-plugin-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designate-tempest-plugin-distgit-ptl:
-      description: Project team lead for project openstack/designate-tempest-plugin-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designate-tempest-plugin-ptl:
-      description: Project team lead for project openstack/designate-tempest-plugin
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designateclient-core:
-      description: Core developers for project designateclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designateclient-distgit-core:
-      description: Core developers for project designateclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/designateclient-distgit-ptl:
-      description: Project team lead for project designateclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/designateclient-ptl:
-      description: Project team lead for project designateclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -12278,22 +12032,6 @@ resources:
       description: Mirror of upstream debtcollector (mirror + patches)
     openstack/debtcollector-distgit:
       acl: dd9d1f18315b80227686f5997b001655
-    openstack/designate:
-      acl: 3d60ed5dbd3a0ea023b50e27d2bdfa4b
-      description: Mirror of upstream designate (mirror + patches)
-    openstack/designate-distgit:
-      acl: e80ae32ae17e4792197be6d9e92bd7ed
-    openstack/designate-tempest-plugin:
-      acl: da62e5f119d92703e55e92dfb26a03c8
-      description: Mirror of upstream openstack/designate-tempest-plugin (mirror +
-        patches)
-    openstack/designate-tempest-plugin-distgit:
-      acl: e9186c096a11b519d8a64c444420ea9c
-    openstack/designateclient:
-      acl: 4ef583630bdca3ea50660cdd641a0a9e
-      description: Mirror of upstream designateclient (mirror + patches)
-    openstack/designateclient-distgit:
-      acl: 48f93917321c68bef2ec74a2702bc3fb
     openstack/dib-utils:
       acl: 6df3fd3b0b1ad9f11596d6bf551856d1
       description: Mirror of upstream dib-utils (mirror + patches)

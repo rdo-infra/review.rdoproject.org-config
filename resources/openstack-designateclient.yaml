@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/designateclient-core:
+      description: Core developers for project designateclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/designateclient-ptl:
+      description: Project team lead for project designateclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-designateclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designateclient-core
+          owner = group openstack/designateclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designateclient-core
+          label-Code-Review = -2..+2 group openstack/designateclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designateclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designateclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/designateclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/designateclient-core
+          label-Workflow = -1..+1 group openstack/designateclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designateclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designateclient-core
+      - openstack/designateclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-designateclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designateclient-core
+          owner = group openstack/designateclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designateclient-core
+          label-Code-Review = -2..+2 group openstack/designateclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designateclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designateclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/designateclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/designateclient-core
+          label-Workflow = -1..+0 group openstack/designateclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designateclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designateclient-core
+      - openstack/designateclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/designateclient:
+      acl: openstack-designateclient
+      description: Mirror of upstream designateclient (mirror + patches)
+    openstack/designateclient-distgit:
+      acl: openstack-designateclient-distgit
+      description: Packaging of upstream designateclient
