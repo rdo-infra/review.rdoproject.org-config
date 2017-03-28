@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/dracclient-core:
+      description: Core developers for project dracclient
+      members:
+      - ifarkas@redhat.com
+      - trown@redhat.com
+    openstack/dracclient-ptl:
+      description: Project team lead for project dracclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-dracclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/dracclient-core
+          owner = group openstack/dracclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/dracclient-core
+          label-Code-Review = -2..+2 group openstack/dracclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/dracclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/dracclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/dracclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/dracclient-core
+          label-Workflow = -1..+1 group openstack/dracclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/dracclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/dracclient-core
+      - openstack/dracclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-dracclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/dracclient-core
+          owner = group openstack/dracclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/dracclient-core
+          label-Code-Review = -2..+2 group openstack/dracclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/dracclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/dracclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/dracclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/dracclient-core
+          label-Workflow = -1..+0 group openstack/dracclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/dracclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/dracclient-core
+      - openstack/dracclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/dracclient:
+      acl: openstack-dracclient
+      description: Mirror of upstream dracclient (mirror + patches)
+    openstack/dracclient-distgit:
+      acl: openstack-dracclient-distgit
+      description: Packaging of upstream dracclient
