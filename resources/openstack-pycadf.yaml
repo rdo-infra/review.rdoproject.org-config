@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/pycadf-core:
+      description: Core developers for project pycadf
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/pycadf-ptl:
+      description: Project team lead for project pycadf
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-pycadf-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/pycadf-core
+          owner = group openstack/pycadf-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/pycadf-core
+          label-Code-Review = -2..+2 group openstack/pycadf-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/pycadf-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/pycadf-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/pycadf-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/pycadf-core
+          label-Workflow = -1..+1 group openstack/pycadf-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/pycadf-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/pycadf-core
+      - openstack/pycadf-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-pycadf:
+      file: |
+        [access "refs/*"]
+          read = group openstack/pycadf-core
+          owner = group openstack/pycadf-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/pycadf-core
+          label-Code-Review = -2..+2 group openstack/pycadf-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/pycadf-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/pycadf-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/pycadf-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/pycadf-core
+          label-Workflow = -1..+0 group openstack/pycadf-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/pycadf-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/pycadf-core
+      - openstack/pycadf-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/pycadf:
+      acl: openstack-pycadf
+      description: Mirror of upstream pycadf (mirror + patches)
+    openstack/pycadf-distgit:
+      acl: openstack-pycadf-distgit
+      description: Packaging of upstream pycadf
