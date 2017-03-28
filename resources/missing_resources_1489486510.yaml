@@ -1331,32 +1331,6 @@ resources:
       groups:
       - puppet/puppet-ovn-core
       - puppet/puppet-ovn-ptl
-    4125377bce17b7dceeacd269fbeb5269:
-      file: |
-        [access "refs/*"]
-          read = group openstack/monascaclient-core
-          owner = group openstack/monascaclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/monascaclient-core
-            label-Code-Review = -2..+2 group openstack/monascaclient-ptl
-            submit = group openstack/monascaclient-ptl
-            read = group openstack/monascaclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/monascaclient-ptl
-            label-Workflow = -1..+0 group openstack/monascaclient-ptl
-            label-Workflow = -1..+0 group openstack/monascaclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/monascaclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/monascaclient-core
-      - openstack/monascaclient-ptl
     423fd9f417747f7225607927f025b4b3:
       file: |
         [project]
@@ -1842,33 +1816,6 @@ resources:
       groups:
       - puppet/puppet-congress-core
       - puppet/puppet-congress-ptl
-    505641b9b3a1c08e2bc6e780a34fca7a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/monascaclient-distgit-core
-          owner = group openstack/monascaclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/monascaclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/monascaclient-distgit-ptl
-            label-Verified = -2..+2 group openstack/monascaclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/monascaclient-distgit-core
-            label-Workflow = -1..+1 group openstack/monascaclient-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/monascaclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/monascaclient-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/monascaclient-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/monascaclient-distgit-ptl
-      - openstack/monascaclient-distgit-core
     50f7dc04950a0d15e2f5e1c6c94dae5d:
       file: |
         [access "refs/*"]
@@ -8672,32 +8619,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/monascaclient-core:
-      description: Core developers for project openstack/monascaclient
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/monascaclient-distgit-core:
-      description: Core developers for project openstack/monascaclient-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/monascaclient-distgit-ptl:
-      description: Project team lead for project openstack/monascaclient-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/monascaclient-ptl:
-      description: Project team lead for project openstack/monascaclient
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
       members:
@@ -11749,11 +11670,6 @@ resources:
       description: Mirror of upstream openstack/microversion-parse (mirror + patches)
     openstack/microversion-parse-distgit:
       acl: 82b0393964c7be4e589832ab8261cf95
-    openstack/monascaclient:
-      acl: 4125377bce17b7dceeacd269fbeb5269
-      description: Mirror of upstream openstack/monascaclient (mirror + patches)
-    openstack/monascaclient-distgit:
-      acl: 505641b9b3a1c08e2bc6e780a34fca7a
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)

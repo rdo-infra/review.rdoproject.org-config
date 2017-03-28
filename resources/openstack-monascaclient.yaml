@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/monascaclient-core:
+      description: Core developers for project monascaclient
+      members:
+      - jpena@redhat.com
+    openstack/monascaclient-ptl:
+      description: Project team lead for project monascaclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-monascaclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/monascaclient-core
+          owner = group openstack/monascaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/monascaclient-core
+          label-Code-Review = -2..+2 group openstack/monascaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/monascaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/monascaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/monascaclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/monascaclient-core
+          label-Workflow = -1..+1 group openstack/monascaclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/monascaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/monascaclient-core
+      - openstack/monascaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-monascaclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/monascaclient-core
+          owner = group openstack/monascaclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/monascaclient-core
+          label-Code-Review = -2..+2 group openstack/monascaclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/monascaclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/monascaclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/monascaclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/monascaclient-core
+          label-Workflow = -1..+0 group openstack/monascaclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/monascaclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/monascaclient-core
+      - openstack/monascaclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/monascaclient:
+      acl: openstack-monascaclient
+      description: Mirror of upstream monascaclient (mirror + patches)
+    openstack/monascaclient-distgit:
+      acl: openstack-monascaclient-distgit
+      description: Packaging of upstream monascaclient
