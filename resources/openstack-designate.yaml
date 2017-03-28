@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/designate-core:
+      description: Core developers for project designate
+      members:
+      - ihrachys@redhat.com
+      - majopela@redhat.com
+    openstack/designate-ptl:
+      description: Project team lead for project designate
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-designate-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designate-core
+          owner = group openstack/designate-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designate-core
+          label-Code-Review = -2..+2 group openstack/designate-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designate-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designate-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/designate-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/designate-core
+          label-Workflow = -1..+1 group openstack/designate-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designate-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designate-core
+      - openstack/designate-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-designate:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designate-core
+          owner = group openstack/designate-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designate-core
+          label-Code-Review = -2..+2 group openstack/designate-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designate-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designate-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/designate-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/designate-core
+          label-Workflow = -1..+0 group openstack/designate-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designate-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designate-core
+      - openstack/designate-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/designate:
+      acl: openstack-designate
+      description: Mirror of upstream designate (mirror + patches)
+    openstack/designate-distgit:
+      acl: openstack-designate-distgit
+      description: Packaging of upstream designate
