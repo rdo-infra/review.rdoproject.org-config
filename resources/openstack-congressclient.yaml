@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/congressclient-core:
+      description: Core developers for project congressclient
+      members:
+      - dradez@redhat.com
+#      - mathieu.velten@cern.ch
+#      - asteroid566@gmail.com
+    openstack/congressclient-ptl:
+      description: Project team lead for project congressclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-congressclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/congressclient-core
+          owner = group openstack/congressclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/congressclient-core
+          label-Code-Review = -2..+2 group openstack/congressclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/congressclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/congressclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/congressclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/congressclient-core
+          label-Workflow = -1..+1 group openstack/congressclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/congressclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/congressclient-core
+      - openstack/congressclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-congressclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/congressclient-core
+          owner = group openstack/congressclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/congressclient-core
+          label-Code-Review = -2..+2 group openstack/congressclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/congressclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/congressclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/congressclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/congressclient-core
+          label-Workflow = -1..+0 group openstack/congressclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/congressclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/congressclient-core
+      - openstack/congressclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/congressclient:
+      acl: openstack-congressclient
+      description: Mirror of upstream congressclient (mirror + patches)
+    openstack/congressclient-distgit:
+      acl: openstack-congressclient-distgit
+      description: Packaging of upstream congressclient
