@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/heat-agents-core:
+      description: Core developers for project heat-agents
+      members:
+      - therve@redhat.com
+      - sbaker@redhat.com
+      - zbitter@redhat.com
+    openstack/heat-agents-ptl:
+      description: Project team lead for project heat-agents
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-heat-agents-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-agents-core
+          owner = group openstack/heat-agents-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-agents-core
+          label-Code-Review = -2..+2 group openstack/heat-agents-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-agents-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-agents-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/heat-agents-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/heat-agents-core
+          label-Workflow = -1..+1 group openstack/heat-agents-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-agents-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-agents-core
+      - openstack/heat-agents-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-heat-agents:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-agents-core
+          owner = group openstack/heat-agents-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-agents-core
+          label-Code-Review = -2..+2 group openstack/heat-agents-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-agents-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-agents-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/heat-agents-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/heat-agents-core
+          label-Workflow = -1..+0 group openstack/heat-agents-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-agents-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-agents-core
+      - openstack/heat-agents-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/heat-agents:
+      acl: openstack-heat-agents
+      description: Mirror of upstream heat-agents (mirror + patches)
+    openstack/heat-agents-distgit:
+      acl: openstack-heat-agents-distgit
+      description: Packaging of upstream heat-agents

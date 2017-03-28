@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/heat-translator-core:
+      description: Core developers for project heat-translator
+      members:
+      - dradez@redhat.com
+    openstack/heat-translator-ptl:
+      description: Project team lead for project heat-translator
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-heat-translator-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-translator-core
+          owner = group openstack/heat-translator-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-translator-core
+          label-Code-Review = -2..+2 group openstack/heat-translator-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-translator-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-translator-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/heat-translator-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/heat-translator-core
+          label-Workflow = -1..+1 group openstack/heat-translator-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-translator-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-translator-core
+      - openstack/heat-translator-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-heat-translator:
+      file: |
+        [access "refs/*"]
+          read = group openstack/heat-translator-core
+          owner = group openstack/heat-translator-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/heat-translator-core
+          label-Code-Review = -2..+2 group openstack/heat-translator-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/heat-translator-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/heat-translator-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/heat-translator-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/heat-translator-core
+          label-Workflow = -1..+0 group openstack/heat-translator-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/heat-translator-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-translator-core
+      - openstack/heat-translator-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/heat-translator:
+      acl: openstack-heat-translator
+      description: Mirror of upstream heat-translator (mirror + patches)
+    openstack/heat-translator-distgit:
+      acl: openstack-heat-translator-distgit
+      description: Packaging of upstream heat-translator
