@@ -702,33 +702,6 @@ resources:
       groups:
       - puppet/puppet-ssh-distgit-ptl
       - rdo-core
-    180ded8dc2b2f88b8782389327d71bc3:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-l2gw-distgit-core
-          owner = group openstack/networking-l2gw-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-l2gw-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-l2gw-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-l2gw-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-l2gw-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-l2gw-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-l2gw-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-l2gw-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-l2gw-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-l2gw-distgit-core
-      - openstack/networking-l2gw-distgit-ptl
     1874e63e283a10404f3d3dfa2c067de4:
       file: |
         [project]
@@ -1065,59 +1038,6 @@ resources:
       groups:
       - openstack/openstacksdk-distgit-ptl
       - rdo-core
-    1f3d1a3d938cb67c7f1dc31b4f0de3f3:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-vsphere-distgit-core
-          owner = group openstack/networking-vsphere-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-vsphere-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-vsphere-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-vsphere-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-vsphere-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-vsphere-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-vsphere-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-vsphere-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-vsphere-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-vsphere-distgit-core
-      - openstack/networking-vsphere-distgit-ptl
-    1f84cf93aa311872e300d3947b29d8f0:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-bgpvpn-core
-          owner = group openstack/networking-bgpvpn-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bgpvpn-core
-            label-Code-Review = -2..+2 group openstack/networking-bgpvpn-ptl
-            submit = group openstack/networking-bgpvpn-ptl
-            read = group openstack/networking-bgpvpn-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-bgpvpn-ptl
-            label-Workflow = -1..+0 group openstack/networking-bgpvpn-ptl
-            label-Workflow = -1..+0 group openstack/networking-bgpvpn-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-bgpvpn-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-bgpvpn-core
-      - openstack/networking-bgpvpn-ptl
     1fa9faf3d959a0805cb3dcb71a5e3507:
       file: |
         [project]
@@ -1234,33 +1154,6 @@ resources:
       groups:
       - openstack/heat-distgit-ptl
       - rdo-core
-    20e44e3839dba4af72472ce4ea324e3a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-bagpipe-distgit-core
-          owner = group openstack/networking-bagpipe-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bagpipe-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-bagpipe-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-bagpipe-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-bagpipe-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-bagpipe-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-bagpipe-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-bagpipe-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-bagpipe-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-bagpipe-distgit-ptl
-      - openstack/networking-bagpipe-distgit-core
     21d14fdabb319d2419ca5872c4f0eac7:
       file: |
         [access "refs/*"]
@@ -1639,32 +1532,6 @@ resources:
       groups:
       - openstack/hardware-distgit-ptl
       - rdo-core
-    2f731588f2a4d1b89185826722ec974d:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-bagpipe-core
-          owner = group openstack/networking-bagpipe-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bagpipe-core
-            label-Code-Review = -2..+2 group openstack/networking-bagpipe-ptl
-            submit = group openstack/networking-bagpipe-ptl
-            read = group openstack/networking-bagpipe-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-bagpipe-ptl
-            label-Workflow = -1..+0 group openstack/networking-bagpipe-ptl
-            label-Workflow = -1..+0 group openstack/networking-bagpipe-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-bagpipe-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-bagpipe-core
-      - openstack/networking-bagpipe-ptl
     2fdcae9fea4473063cbe981008fe5c3e:
       file: |
         [access "refs/*"]
@@ -2086,32 +1953,6 @@ resources:
       groups:
       - openstack/designate-core
       - openstack/designate-ptl
-    3db991b871dc310f869ae54df61cbedf:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-sfc-distgit-core
-          owner = group openstack/networking-sfc-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-sfc-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-sfc-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-sfc-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-sfc-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-sfc-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-sfc-distgit-ptl
-            read = group openstack/networking-sfc-distgit-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-sfc-distgit-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-sfc-distgit-ptl
-      - openstack/networking-sfc-distgit-core
     3e1c8c7e64d2bbedb6afa9f6c1d0358a:
       file: |
         [access "refs/*"]
@@ -3386,38 +3227,6 @@ resources:
       groups:
       - openstack/heat-templates-core
       - openstack/heat-templates-ptl
-    5ac7ea6d4698fc9f96da3700f93f6c38:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-odl-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-odl-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-odl-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-odl-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-odl-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-odl-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-odl-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-odl-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-odl-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-odl-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-odl-distgit-ptl
-      - rdo-core
     5af830f17f44516b11f1f77e31ea70f5:
       file: |
         [access "refs/*"]
@@ -3554,65 +3363,6 @@ resources:
       groups:
       - openstack/openstacksdk-ptl
       - openstack/openstacksdk-core
-    5c6de6474424049fd0d1f2ee63367f6e:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-bgpvpn-distgit-core
-          owner = group openstack/networking-bgpvpn-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bgpvpn-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-bgpvpn-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-bgpvpn-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-bgpvpn-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-bgpvpn-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-bgpvpn-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-bgpvpn-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-bgpvpn-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-bgpvpn-distgit-ptl
-      - openstack/networking-bgpvpn-distgit-core
-    5cb9d355d9b17eeec7c6748e7c87e9e1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-ovn-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-ovn-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-ovn-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-ovn-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-ovn-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-ovn-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-ovn-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-ovn-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-ovn-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-ovn-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-ovn-distgit-ptl
-      - rdo-core
     5d0396ff2228df8d1c39569e6c1530db:
       file: |
         [project]
@@ -3640,33 +3390,6 @@ resources:
       groups:
       - puppet/puppet-dns-distgit-ptl
       - puppet/puppet-dns-distgit-core
-    5e9d2093cfe30a75601f235051a15dcd:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-fujitsu-distgit-core
-          owner = group openstack/networking-fujitsu-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-fujitsu-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-fujitsu-distgit-ptl
-            label-Verified = -2..+2 group openstack/networking-fujitsu-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-fujitsu-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-fujitsu-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-fujitsu-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-fujitsu-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-fujitsu-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-fujitsu-distgit-ptl
-      - openstack/networking-fujitsu-distgit-core
     5fbda21bc03e38f6aea61686120eb4ab:
       file: |
         [project]
@@ -4669,32 +4392,6 @@ resources:
       groups:
       - puppet/puppet-tomcat-distgit-ptl
       - rdo-core
-    761ca23285627425c55150665e35bc12:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-ovn-core
-          owner = group openstack/networking-ovn-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-ovn-core
-            label-Code-Review = -2..+2 group openstack/networking-ovn-ptl
-            submit = group openstack/networking-ovn-ptl
-            read = group Registered Users
-            read = group openstack/networking-ovn-core
-            label-Verified = -2..+0 group openstack/networking-ovn-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-ovn-core
-            label-Workflow = -1..+0 group openstack/networking-ovn-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-ovn-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-ovn-ptl
-      - openstack/networking-ovn-core
     773c617fc8b4acaeaeda0c9246922987:
       file: |
         [project]
@@ -5297,38 +4994,6 @@ resources:
       groups:
       - puppet/puppet-elasticsearch-ptl
       - puppet/puppet-elasticsearch-core
-    858cd1dbcd40a72ef3cc65bdece2a9b9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-mlnx-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-mlnx-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-mlnx-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-mlnx-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-mlnx-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-mlnx-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-mlnx-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-mlnx-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-mlnx-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-mlnx-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-mlnx-distgit-ptl
-      - rdo-core
     86b53d8ebd23c8bd923fc0ba15d98416:
       file: |
         [project]
@@ -5765,32 +5430,6 @@ resources:
       groups:
       - puppet/puppet-ceph-distgit-ptl
       - rdo-core
-    8edc75b495d8ed2f82644b45e0bca053:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-fujitsu-core
-          owner = group openstack/networking-fujitsu-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-fujitsu-core
-            label-Code-Review = -2..+2 group openstack/networking-fujitsu-ptl
-            submit = group openstack/networking-fujitsu-ptl
-            read = group openstack/networking-fujitsu-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-fujitsu-ptl
-            label-Workflow = -1..+0 group openstack/networking-fujitsu-ptl
-            label-Workflow = -1..+0 group openstack/networking-fujitsu-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-fujitsu-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-fujitsu-ptl
-      - openstack/networking-fujitsu-core
     8f774bbf3930caeee2de42576f8a85d8:
       file: |
         [access "refs/*"]
@@ -5961,38 +5600,6 @@ resources:
             action = rebase if necessary
       groups:
       - openstack/zaqar-distgit-ptl
-      - rdo-core
-    922dbdbf32851c5bec05a24c7639d35a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-cisco-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-cisco-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-cisco-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-cisco-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-cisco-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-cisco-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-cisco-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-cisco-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-cisco-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-cisco-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-cisco-distgit-ptl
       - rdo-core
     928e56eccf8c7023fb847b3511f95bca:
       file: |
@@ -6195,32 +5802,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdo-kolla-build-core
       - rdo-infra/ansible-role-rdo-kolla-build-ptl
-    997360a307467bb54a868424feedfb1d:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-l2gw-core
-          owner = group openstack/networking-l2gw-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-l2gw-core
-            label-Code-Review = -2..+2 group openstack/networking-l2gw-ptl
-            submit = group openstack/networking-l2gw-ptl
-            read = group openstack/networking-l2gw-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-l2gw-ptl
-            label-Workflow = -1..+0 group openstack/networking-l2gw-ptl
-            label-Workflow = -1..+0 group openstack/networking-l2gw-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-l2gw-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-l2gw-core
-      - openstack/networking-l2gw-ptl
     9afb7bc027afc82a3824527e1114349a:
       file: |
         [access "refs/*"]
@@ -6591,32 +6172,6 @@ resources:
       groups:
       - puppet/puppet-remote-distgit-ptl
       - rdo-core
-    a3e2aeee24d423d04a8f436f879b25b7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-cisco-core
-          owner = group openstack/networking-cisco-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-cisco-core
-            label-Code-Review = -2..+2 group openstack/networking-cisco-ptl
-            submit = group openstack/networking-cisco-ptl
-            read = group Registered Users
-            read = group openstack/networking-cisco-core
-            label-Verified = -2..+0 group openstack/networking-cisco-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-cisco-core
-            label-Workflow = -1..+0 group openstack/networking-cisco-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-cisco-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-cisco-ptl
-      - openstack/networking-cisco-core
     a4baeeda9d30d375c97db7234678faf8:
       file: |
         [project]
@@ -7141,32 +6696,6 @@ resources:
       groups:
       - puppet/puppet-midonet-core
       - puppet/puppet-midonet-ptl
-    abed5a27ff5239b49649a029d6ba70ef:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-vsphere-core
-          owner = group openstack/networking-vsphere-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-vsphere-core
-            label-Code-Review = -2..+2 group openstack/networking-vsphere-ptl
-            submit = group openstack/networking-vsphere-ptl
-            read = group openstack/networking-vsphere-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-vsphere-ptl
-            label-Workflow = -1..+0 group openstack/networking-vsphere-ptl
-            label-Workflow = -1..+0 group openstack/networking-vsphere-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-vsphere-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-vsphere-core
-      - openstack/networking-vsphere-ptl
     ac178dbb06e89dff549e298423d04ca1:
       file: |
         [access "refs/*"]
@@ -7626,32 +7155,6 @@ resources:
       groups:
       - puppet/puppet-trove-core
       - puppet/puppet-trove-ptl
-    b6a4356df4b203bec625ad8bfaef037b:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-arista-core
-          owner = group openstack/networking-arista-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-arista-core
-            label-Code-Review = -2..+2 group openstack/networking-arista-ptl
-            submit = group openstack/networking-arista-ptl
-            read = group Registered Users
-            read = group openstack/networking-arista-core
-            label-Verified = -2..+0 group openstack/networking-arista-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-arista-core
-            label-Workflow = -1..+0 group openstack/networking-arista-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-arista-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-arista-core
-      - openstack/networking-arista-ptl
     b6b5a26c6356c079a72a0633b1817bd9:
       file: |
         [project]
@@ -7833,32 +7336,6 @@ resources:
       groups:
       - puppet/puppet-glance-distgit-ptl
       - rdo-core
-    ba9132c56d4b8aa06145bd6e1ba4c30f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-odl-core
-          owner = group openstack/networking-odl-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-odl-core
-            label-Code-Review = -2..+2 group openstack/networking-odl-ptl
-            submit = group openstack/networking-odl-ptl
-            read = group Registered Users
-            read = group openstack/networking-odl-core
-            label-Verified = -2..+0 group openstack/networking-odl-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-odl-core
-            label-Workflow = -1..+0 group openstack/networking-odl-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-odl-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-odl-ptl
-      - openstack/networking-odl-core
     bb5ef0979f6e10480385a89332ede1ff:
       file: |
         [access "refs/*"]
@@ -8210,32 +7687,6 @@ resources:
       groups:
       - openstack/castellan-core
       - openstack/castellan-ptl
-    c22e15c214b32413a0af196fddd37994:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-bigswitch-core
-          owner = group openstack/networking-bigswitch-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bigswitch-core
-            label-Code-Review = -2..+2 group openstack/networking-bigswitch-ptl
-            submit = group openstack/networking-bigswitch-ptl
-            read = group Registered Users
-            read = group openstack/networking-bigswitch-core
-            label-Verified = -2..+0 group openstack/networking-bigswitch-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-bigswitch-core
-            label-Workflow = -1..+0 group openstack/networking-bigswitch-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-bigswitch-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-bigswitch-ptl
-      - openstack/networking-bigswitch-core
     c2faaf5d20680d49e7ccd80bcb5f27ed:
       file: |
         [access "refs/*"]
@@ -9131,38 +8582,6 @@ resources:
       groups:
       - puppet/puppet-tempest-distgit-ptl
       - rdo-core
-    d74323acee1cac798b98d5dc56817634:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-bigswitch-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-bigswitch-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-bigswitch-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-bigswitch-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-bigswitch-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-bigswitch-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-bigswitch-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-bigswitch-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-bigswitch-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-bigswitch-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-bigswitch-distgit-ptl
-      - rdo-core
     d85de99d2a937b7f624115ab43466d4c:
       file: |
         [access "refs/*"]
@@ -9404,38 +8823,6 @@ resources:
       groups:
       - openstack/murano-dashboard-distgit-core
       - openstack/murano-dashboard-distgit-ptl
-    dbe23f558b0537a26b4d315cb88f0de2:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/networking-arista-distgit-core
-          read = group rdo-core
-          owner = group openstack/networking-arista-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-arista-distgit-core
-            label-Code-Review = -2..+2 group openstack/networking-arista-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/networking-arista-distgit-ptl
-            label-Workflow = -1..+1 group openstack/networking-arista-distgit-core
-            label-Workflow = -1..+1 group openstack/networking-arista-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/networking-arista-distgit-ptl
-            read = group Registered Users
-            read = group openstack/networking-arista-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-arista-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/networking-arista-distgit-ptl
-      - rdo-core
     dd29ea85ce0042789074cabd7463b88d:
       file: |
         [access "refs/*"]
@@ -10085,32 +9472,6 @@ resources:
       groups:
       - openstack/designate-tempest-plugin-distgit-ptl
       - rdo-core
-    ea1461cb7c5653cbac9ab21cbb97ea44:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-mlnx-core
-          owner = group openstack/networking-mlnx-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-mlnx-core
-            label-Code-Review = -2..+2 group openstack/networking-mlnx-ptl
-            submit = group openstack/networking-mlnx-ptl
-            read = group Registered Users
-            read = group openstack/networking-mlnx-core
-            label-Verified = -2..+0 group openstack/networking-mlnx-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/networking-mlnx-core
-            label-Workflow = -1..+0 group openstack/networking-mlnx-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/networking-mlnx-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-mlnx-core
-      - openstack/networking-mlnx-ptl
     eabac0d6a971cafee7dc05a2ed8d9bfb:
       file: |
         [access "refs/*"]
@@ -10583,32 +9944,6 @@ resources:
       groups:
       - openstack/osc-lib-ptl
       - openstack/osc-lib-core
-    f6a890b65660648d5bedacc38cef19db:
-      file: |
-        [access "refs/*"]
-          read = group openstack/networking-sfc-core
-          owner = group openstack/networking-sfc-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/networking-sfc-core
-            label-Code-Review = -2..+2 group openstack/networking-sfc-ptl
-            submit = group openstack/networking-sfc-ptl
-            read = group openstack/networking-sfc-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/networking-sfc-ptl
-            label-Workflow = -1..+0 group openstack/networking-sfc-ptl
-            label-Workflow = -1..+0 group openstack/networking-sfc-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/networking-sfc-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/networking-sfc-core
-      - openstack/networking-sfc-ptl
     f8069179286b96809293908309467034:
       file: |
         [project]
@@ -12185,299 +11520,6 @@ resources:
       description: Project team lead for project openstack/muranoclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-arista-core:
-      description: Core developers for project networking-arista
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-    openstack/networking-arista-distgit-core:
-      description: Core developers for project networking-arista-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hegde.shashank@gmail.com
-    openstack/networking-arista-distgit-ptl:
-      description: Project team lead for project networking-arista-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-arista-ptl:
-      description: Project team lead for project networking-arista
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-bagpipe-core:
-      description: Core developers for project openstack/networking-bagpipe
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lukehinds@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-bagpipe-distgit-core:
-      description: Core developers for project openstack/networking-bagpipe-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lukehinds@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-bagpipe-distgit-ptl:
-      description: Project team lead for project openstack/networking-bagpipe-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bagpipe-ptl:
-      description: Project team lead for project openstack/networking-bagpipe
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bgpvpn-core:
-      description: Core developers for project openstack/networking-bgpvpn
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - ricardonor@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-bgpvpn-distgit-core:
-      description: Core developers for project openstack/networking-bgpvpn-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - ricardonor@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-bgpvpn-distgit-ptl:
-      description: Project team lead for project openstack/networking-bgpvpn-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bgpvpn-ptl:
-      description: Project team lead for project openstack/networking-bgpvpn
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bigswitch-core:
-      description: Core developers for project networking-bigswitch
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bigswitch-distgit-core:
-      description: Core developers for project networking-bigswitch-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-bigswitch-distgit-ptl:
-      description: Project team lead for project networking-bigswitch-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-bigswitch-ptl:
-      description: Project team lead for project networking-bigswitch
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-cisco-core:
-      description: Core developers for project networking-cisco
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/networking-cisco-distgit-core:
-      description: Core developers for project networking-cisco-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/networking-cisco-distgit-ptl:
-      description: Project team lead for project networking-cisco-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-cisco-ptl:
-      description: Project team lead for project networking-cisco
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-fujitsu-core:
-      description: Core developers for project openstack/networking-fujitsu
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - sanagi.koki@jp.fujitsu.com
-      - admin@review.rdoproject.org
-    openstack/networking-fujitsu-distgit-core:
-      description: Core developers for project openstack/networking-fujitsu-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - sanagi.koki@jp.fujitsu.com
-      - admin@review.rdoproject.org
-    openstack/networking-fujitsu-distgit-ptl:
-      description: Project team lead for project openstack/networking-fujitsu-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-fujitsu-ptl:
-      description: Project team lead for project openstack/networking-fujitsu
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-l2gw-core:
-      description: Core developers for project openstack/networking-l2gw
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - ricardonor@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-l2gw-distgit-core:
-      description: Core developers for project openstack/networking-l2gw-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - ricardonor@gmail.com
-      - admin@review.rdoproject.org
-    openstack/networking-l2gw-distgit-ptl:
-      description: Project team lead for project openstack/networking-l2gw-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-l2gw-ptl:
-      description: Project team lead for project openstack/networking-l2gw
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-mlnx-core:
-      description: Core developers for project networking-mlnx
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-mlnx-distgit-core:
-      description: Core developers for project networking-mlnx-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-mlnx-distgit-ptl:
-      description: Project team lead for project networking-mlnx-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-mlnx-ptl:
-      description: Project team lead for project networking-mlnx
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-odl-core:
-      description: Core developers for project networking-odl
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-      - mike.kolesnik@gmail.com
-      - majopela@redhat.com
-    openstack/networking-odl-distgit-core:
-      description: Core developers for project networking-odl-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - admin@review.rdoproject.org
-      - mike.kolesnik@gmail.com
-      - majopela@redhat.com
-    openstack/networking-odl-distgit-ptl:
-      description: Project team lead for project networking-odl-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-odl-ptl:
-      description: Project team lead for project networking-odl
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-ovn-core:
-      description: Core developers for project networking-ovn
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-ovn-distgit-core:
-      description: Core developers for project networking-ovn-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-ovn-distgit-ptl:
-      description: Project team lead for project networking-ovn-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-ovn-ptl:
-      description: Project team lead for project networking-ovn
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/networking-sfc-core:
-      description: Core developers for project openstack/networking-sfc
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - bcafarel@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-sfc-distgit-core:
-      description: Core developers for project openstack/networking-sfc-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - bcafarel@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-sfc-distgit-ptl:
-      description: Project team lead for project openstack/networking-sfc-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-sfc-ptl:
-      description: Project team lead for project openstack/networking-sfc
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-vsphere-core:
-      description: Core developers for project openstack/networking-vsphere
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - gm.mephisto@gmail.com
-      - admin@review.rdoproject.org
-      - odivlad@gmail.com
-    openstack/networking-vsphere-distgit-core:
-      description: Core developers for project openstack/networking-vsphere-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - gm.mephisto@gmail.com
-      - admin@review.rdoproject.org
-      - odivlad@gmail.com
-    openstack/networking-vsphere-distgit-ptl:
-      description: Project team lead for project openstack/networking-vsphere-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/networking-vsphere-ptl:
-      description: Project team lead for project openstack/networking-vsphere
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
       - admin@review.rdoproject.org
     openstack/openstack-panko-core:
       description: Core developers for project openstack/openstack-panko
@@ -15891,67 +14933,6 @@ resources:
       description: Mirror of upstream openstack/muranoclient (mirror + patches)
     openstack/muranoclient-distgit:
       acl: 172d799b794de53d46a63df3662dbdfb
-    openstack/networking-arista:
-      acl: b6a4356df4b203bec625ad8bfaef037b
-      description: Mirror of upstream networking-arista (mirror + patches)
-    openstack/networking-arista-distgit:
-      acl: dbe23f558b0537a26b4d315cb88f0de2
-    openstack/networking-bagpipe:
-      acl: 2f731588f2a4d1b89185826722ec974d
-      description: Mirror of upstream openstack/networking-bagpipe (mirror + patches)
-    openstack/networking-bagpipe-distgit:
-      acl: 20e44e3839dba4af72472ce4ea324e3a
-    openstack/networking-bgpvpn:
-      acl: 1f84cf93aa311872e300d3947b29d8f0
-      description: Mirror of upstream openstack/networking-bgpvpn (mirror + patches)
-    openstack/networking-bgpvpn-distgit:
-      acl: 5c6de6474424049fd0d1f2ee63367f6e
-    openstack/networking-bigswitch:
-      acl: c22e15c214b32413a0af196fddd37994
-      description: Mirror of upstream networking-bigswitch (mirror + patches)
-    openstack/networking-bigswitch-distgit:
-      acl: d74323acee1cac798b98d5dc56817634
-    openstack/networking-cisco:
-      acl: a3e2aeee24d423d04a8f436f879b25b7
-      description: Mirror of upstream networking-cisco (mirror + patches)
-    openstack/networking-cisco-distgit:
-      acl: 922dbdbf32851c5bec05a24c7639d35a
-    openstack/networking-fujitsu:
-      acl: 8edc75b495d8ed2f82644b45e0bca053
-      description: Mirror of upstream openstack/networking-fujitsu (mirror + patches)
-    openstack/networking-fujitsu-distgit:
-      acl: 5e9d2093cfe30a75601f235051a15dcd
-    openstack/networking-l2gw:
-      acl: 997360a307467bb54a868424feedfb1d
-      description: Mirror of upstream openstack/networking-l2gw (mirror + patches)
-    openstack/networking-l2gw-distgit:
-      acl: 180ded8dc2b2f88b8782389327d71bc3
-    openstack/networking-mlnx:
-      acl: ea1461cb7c5653cbac9ab21cbb97ea44
-      description: Mirror of upstream networking-mlnx (mirror + patches)
-    openstack/networking-mlnx-distgit:
-      acl: 858cd1dbcd40a72ef3cc65bdece2a9b9
-    openstack/networking-odl:
-      acl: ba9132c56d4b8aa06145bd6e1ba4c30f
-      description: Mirror of upstream networking-odl (mirror + patches)
-    openstack/networking-odl-distgit:
-      acl: 5ac7ea6d4698fc9f96da3700f93f6c38
-    openstack/networking-ovn:
-      acl: 761ca23285627425c55150665e35bc12
-      description: Mirror of upstream networking-ovn (mirror + patches)
-    openstack/networking-ovn-distgit:
-      acl: 5cb9d355d9b17eeec7c6748e7c87e9e1
-    openstack/networking-sfc:
-      acl: f6a890b65660648d5bedacc38cef19db
-      description: Mirror of upstream openstack/networking-sfc (mirror + patches)
-    openstack/networking-sfc-distgit:
-      acl: 3db991b871dc310f869ae54df61cbedf
-      description: Packaging content for openstack/networking-sfc (distgit)
-    openstack/networking-vsphere:
-      acl: abed5a27ff5239b49649a029d6ba70ef
-      description: Mirror of upstream openstack/networking-vsphere (mirror + patches)
-    openstack/networking-vsphere-distgit:
-      acl: 1f3d1a3d938cb67c7f1dc31b4f0de3f3
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)

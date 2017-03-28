@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/networking-bigswitch-core:
+      description: Core developers for project networking-bigswitch
+      members:
+      - xin.wu@bigswitch.com
+    openstack/networking-bigswitch-ptl:
+      description: Project team lead for project networking-bigswitch
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-bigswitch-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bigswitch-core
+          owner = group openstack/networking-bigswitch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bigswitch-core
+          label-Code-Review = -2..+2 group openstack/networking-bigswitch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bigswitch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bigswitch-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-bigswitch-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-bigswitch-core
+          label-Workflow = -1..+1 group openstack/networking-bigswitch-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bigswitch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bigswitch-core
+      - openstack/networking-bigswitch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-bigswitch:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bigswitch-core
+          owner = group openstack/networking-bigswitch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bigswitch-core
+          label-Code-Review = -2..+2 group openstack/networking-bigswitch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bigswitch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bigswitch-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-bigswitch-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-bigswitch-core
+          label-Workflow = -1..+0 group openstack/networking-bigswitch-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bigswitch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bigswitch-core
+      - openstack/networking-bigswitch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-bigswitch:
+      acl: openstack-networking-bigswitch
+      description: Mirror of upstream networking-bigswitch (mirror + patches)
+    openstack/networking-bigswitch-distgit:
+      acl: openstack-networking-bigswitch-distgit
+      description: Packaging of upstream networking-bigswitch
