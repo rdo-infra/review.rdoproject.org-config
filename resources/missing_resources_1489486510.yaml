@@ -579,33 +579,6 @@ resources:
       groups:
       - puppet/puppet-magnum-distgit-core
       - puppet/puppet-magnum-distgit-ptl
-    163b2de56fe6a24d2d4f5e0b105505a1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/panko-distgit-core
-          owner = group openstack/panko-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/panko-distgit-core
-            label-Code-Review = -2..+2 group openstack/panko-distgit-ptl
-            label-Verified = -2..+2 group openstack/panko-distgit-ptl
-            label-Workflow = -1..+1 group openstack/panko-distgit-core
-            label-Workflow = -1..+1 group openstack/panko-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/panko-distgit-ptl
-            read = group Registered Users
-            read = group openstack/panko-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/panko-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/panko-distgit-ptl
-      - openstack/panko-distgit-core
     172d799b794de53d46a63df3662dbdfb:
       file: |
         [project]
@@ -8913,32 +8886,6 @@ resources:
       groups:
       - puppet/puppet-tacker-ptl
       - puppet/puppet-tacker-core
-    dfebbdce0a5847668a0ee6468c610720:
-      file: |
-        [access "refs/*"]
-          read = group openstack/panko-core
-          owner = group openstack/panko-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/panko-core
-            label-Code-Review = -2..+2 group openstack/panko-ptl
-            submit = group openstack/panko-ptl
-            read = group openstack/panko-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/panko-ptl
-            label-Workflow = -1..+0 group openstack/panko-ptl
-            label-Workflow = -1..+0 group openstack/panko-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/panko-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/panko-core
-      - openstack/panko-ptl
     e0dd259e6f2aa0971d9b1cfd3e148893:
       file: |
         [access "refs/*"]
@@ -11362,30 +11309,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/openstack-panko-core:
-      description: Core developers for project openstack/openstack-panko
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-panko-distgit-core:
-      description: Core developers for project openstack/openstack-panko-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-panko-distgit-ptl:
-      description: Project team lead for project openstack/openstack-panko-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-panko-ptl:
-      description: Project team lead for project openstack/openstack-panko
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
       members:
@@ -11548,31 +11471,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/panko-core:
-      description: Core developers for project openstack/panko
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/panko-distgit-core:
-      description: Core developers for project openstack/panko-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/panko-distgit-ptl:
-      description: Project team lead for project openstack/panko-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/panko-ptl:
-      description: Project team lead for project openstack/panko
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/puppet-barbican-core:
       description: Core developers for project openstack/puppet-barbican
       members:
@@ -14795,11 +14693,6 @@ resources:
       description: Mirror of upstream packstack (mirror + patches)
     openstack/packstack-distgit:
       acl: c844967f7af60dfda8c7788692783cf7
-    openstack/panko:
-      acl: dfebbdce0a5847668a0ee6468c610720
-      description: Mirror of upstream openstack/panko (mirror + patches)
-    openstack/panko-distgit:
-      acl: 163b2de56fe6a24d2d4f5e0b105505a1
     openstack/pycadf:
       acl: 2fe14f45106fbde2c794e352bcd8c4a2
       description: Mirror of upstream pycadf (mirror + patches)
