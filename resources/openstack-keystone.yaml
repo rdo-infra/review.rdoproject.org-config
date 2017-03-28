@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/keystone-core:
+      description: Core developers for project keystone
+      members:
+      - apevec@redhat.com
+    openstack/keystone-ptl:
+      description: Project team lead for project keystone
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-keystone-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/keystone-core
+          owner = group openstack/keystone-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/keystone-core
+          label-Code-Review = -2..+2 group openstack/keystone-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/keystone-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/keystone-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/keystone-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/keystone-core
+          label-Workflow = -1..+1 group openstack/keystone-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/keystone-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/keystone-core
+      - openstack/keystone-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-keystone:
+      file: |
+        [access "refs/*"]
+          read = group openstack/keystone-core
+          owner = group openstack/keystone-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/keystone-core
+          label-Code-Review = -2..+2 group openstack/keystone-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/keystone-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/keystone-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/keystone-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/keystone-core
+          label-Workflow = -1..+0 group openstack/keystone-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/keystone-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/keystone-core
+      - openstack/keystone-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/keystone:
+      acl: openstack-keystone
+      description: Mirror of upstream keystone (mirror + patches)
+    openstack/keystone-distgit:
+      acl: openstack-keystone-distgit
+      description: Packaging of upstream keystone
