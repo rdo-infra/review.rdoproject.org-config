@@ -1538,32 +1538,6 @@ resources:
       groups:
       - puppet/puppet-tomcat-core
       - puppet/puppet-tomcat-ptl
-    4835d4de3cc2cdf3f30b9e82eca9ae5e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/debtcollector-core
-          owner = group openstack/debtcollector-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/debtcollector-core
-            label-Code-Review = -2..+2 group openstack/debtcollector-ptl
-            submit = group openstack/debtcollector-ptl
-            read = group Registered Users
-            read = group openstack/debtcollector-core
-            label-Verified = -2..+0 group openstack/debtcollector-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/debtcollector-core
-            label-Workflow = -1..+0 group openstack/debtcollector-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/debtcollector-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/debtcollector-ptl
-      - openstack/debtcollector-core
     484c858dd746d242976c0fd861fc9787:
       file: |
         [project]
@@ -6864,38 +6838,6 @@ resources:
       groups:
       - openstack/microversion-parse-core
       - openstack/microversion-parse-ptl
-    dd9d1f18315b80227686f5997b001655:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/debtcollector-distgit-core
-          read = group rdo-core
-          owner = group openstack/debtcollector-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/debtcollector-distgit-core
-            label-Code-Review = -2..+2 group openstack/debtcollector-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/debtcollector-distgit-ptl
-            label-Workflow = -1..+1 group openstack/debtcollector-distgit-core
-            label-Workflow = -1..+1 group openstack/debtcollector-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/debtcollector-distgit-ptl
-            read = group Registered Users
-            read = group openstack/debtcollector-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/debtcollector-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/debtcollector-distgit-ptl
-      - rdo-core
     ddc849f9f0873ee5db0765309a736587:
       file: |
         [project]
@@ -8383,32 +8325,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/debtcollector-core:
-      description: Core developers for project debtcollector
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/debtcollector-distgit-core:
-      description: Core developers for project debtcollector-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/debtcollector-distgit-ptl:
-      description: Project team lead for project debtcollector-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/debtcollector-ptl:
-      description: Project team lead for project debtcollector
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/dib-utils-core:
       description: Core developers for project dib-utils
       members:
@@ -11624,11 +11540,6 @@ resources:
       description: Mirror of upstream openstack/cursive (mirror + patches)
     openstack/cursive-distgit:
       acl: e6f2fe5044506b45ebee5ff25ab41155
-    openstack/debtcollector:
-      acl: 4835d4de3cc2cdf3f30b9e82eca9ae5e
-      description: Mirror of upstream debtcollector (mirror + patches)
-    openstack/debtcollector-distgit:
-      acl: dd9d1f18315b80227686f5997b001655
     openstack/dib-utils:
       acl: 6df3fd3b0b1ad9f11596d6bf551856d1
       description: Mirror of upstream dib-utils (mirror + patches)
