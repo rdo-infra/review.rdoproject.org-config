@@ -2851,67 +2851,6 @@ resources:
       groups:
       - puppet/puppet-heat-distgit-ptl
       - rdo-core
-    7c72055c07f6bbc6a010a756b80019b7:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/taskflow-distgit-core
-          read = group rdo-core
-          owner = group openstack/taskflow-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/taskflow-distgit-core
-            label-Code-Review = -2..+2 group openstack/taskflow-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/taskflow-distgit-ptl
-            label-Workflow = -1..+1 group openstack/taskflow-distgit-core
-            label-Workflow = -1..+1 group openstack/taskflow-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/taskflow-distgit-ptl
-            read = group Registered Users
-            read = group openstack/taskflow-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/taskflow-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-        [access "refs/heads/mitaka-rdo"]
-            push = group openstack/taskflow-distgit-core
-      groups:
-      - openstack/taskflow-distgit-ptl
-      - openstack/taskflow-distgit-core
-      - rdo-core
-    7d6d7e0f6e4133b49c8377a771ddd519:
-      file: |
-        [access "refs/*"]
-          read = group openstack/taskflow-core
-          owner = group openstack/taskflow-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/taskflow-core
-            label-Code-Review = -2..+2 group openstack/taskflow-ptl
-            submit = group openstack/taskflow-ptl
-            read = group Registered Users
-            read = group openstack/taskflow-core
-            label-Verified = -2..+0 group openstack/taskflow-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/taskflow-core
-            label-Workflow = -1..+0 group openstack/taskflow-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/taskflow-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/taskflow-ptl
-      - openstack/taskflow-core
     7d8296b118de3fe143e6981ae809187c:
       file: |
         [project]
@@ -7327,32 +7266,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/taskflow-core:
-      description: Core developers for project taskflow
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/taskflow-distgit-core:
-      description: Core developers for project taskflow-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/taskflow-distgit-ptl:
-      description: Project team lead for project taskflow-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/taskflow-ptl:
-      description: Project team lead for project taskflow
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/test-core:
       description: Core developers for project openstack/test
       members:
@@ -9847,11 +9760,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/taskflow:
-      acl: 7d6d7e0f6e4133b49c8377a771ddd519
-      description: Mirror of upstream taskflow (mirror + patches)
-    openstack/taskflow-distgit:
-      acl: 7c72055c07f6bbc6a010a756b80019b7
     openstack/tooz:
       acl: 9bcf41689752a66aad25ea4674003c46
       description: Mirror of upstream tooz (mirror + patches)
