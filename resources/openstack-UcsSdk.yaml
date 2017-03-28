@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/UcsSdk-core:
+      description: Core developers for project UcsSdk
+      members:
+#      - openstack-networking@cisco.com
+      - sam@code-smash.net
+    openstack/UcsSdk-ptl:
+      description: Project team lead for project UcsSdk
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-UcsSdk-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/UcsSdk-core
+          owner = group openstack/UcsSdk-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/UcsSdk-core
+          label-Code-Review = -2..+2 group openstack/UcsSdk-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/UcsSdk-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/UcsSdk-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/UcsSdk-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/UcsSdk-core
+          label-Workflow = -1..+1 group openstack/UcsSdk-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/UcsSdk-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/UcsSdk-core
+      - openstack/UcsSdk-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-UcsSdk:
+      file: |
+        [access "refs/*"]
+          read = group openstack/UcsSdk-core
+          owner = group openstack/UcsSdk-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/UcsSdk-core
+          label-Code-Review = -2..+2 group openstack/UcsSdk-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/UcsSdk-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/UcsSdk-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/UcsSdk-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/UcsSdk-core
+          label-Workflow = -1..+0 group openstack/UcsSdk-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/UcsSdk-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/UcsSdk-core
+      - openstack/UcsSdk-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/UcsSdk:
+      acl: openstack-UcsSdk
+      description: Mirror of upstream UcsSdk (mirror + patches)
+    openstack/UcsSdk-distgit:
+      acl: openstack-UcsSdk-distgit
+      description: Packaging of upstream UcsSdk

@@ -2147,32 +2147,6 @@ resources:
       groups:
       - puppet/puppet-cinder-ptl
       - puppet/puppet-cinder-core
-    619f2ff6a4e4484d28ce90ebe7b25c5e:
-      file: |
-        [access "refs/*"]
-          read = group openstack/UcsSdk-core
-          owner = group openstack/UcsSdk-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/UcsSdk-core
-            label-Code-Review = -2..+2 group openstack/UcsSdk-ptl
-            submit = group openstack/UcsSdk-ptl
-            read = group Registered Users
-            read = group openstack/UcsSdk-core
-            label-Verified = -2..+0 group openstack/UcsSdk-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/UcsSdk-core
-            label-Workflow = -1..+0 group openstack/UcsSdk-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/UcsSdk-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/UcsSdk-core
-      - openstack/UcsSdk-ptl
     64266fd32243bc97742ecc06713b83c6:
       file: |
         [access "refs/*"]
@@ -4293,38 +4267,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-ironic-distgit-ptl
-      - rdo-core
-    a654ac68fa88d1a7b632575241cf6485:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/UcsSdk-distgit-core
-          read = group rdo-core
-          owner = group openstack/UcsSdk-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/UcsSdk-distgit-core
-            label-Code-Review = -2..+2 group openstack/UcsSdk-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/UcsSdk-distgit-ptl
-            label-Workflow = -1..+1 group openstack/UcsSdk-distgit-core
-            label-Workflow = -1..+1 group openstack/UcsSdk-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/UcsSdk-distgit-ptl
-            read = group Registered Users
-            read = group openstack/UcsSdk-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/UcsSdk-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/UcsSdk-distgit-ptl
       - rdo-core
     a669b052689246e4f5baddebbbcdbeda:
       file: |
@@ -7420,28 +7362,6 @@ resources:
       description: Project team lead for project openstack/
       members:
       - admin@review.rdoproject.org
-    openstack/UcsSdk-core:
-      description: Core developers for project UcsSdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/UcsSdk-distgit-core:
-      description: Core developers for project UcsSdk-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - sam@code-smash.net
-    openstack/UcsSdk-distgit-ptl:
-      description: Project team lead for project UcsSdk-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/UcsSdk-ptl:
-      description: Project team lead for project UcsSdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/cliff-core:
       description: Core developers for project cliff
       members:
@@ -10441,11 +10361,6 @@ resources:
     gating_scripts:
       acl: b8942be7f036ae5cf800a93e70875b38
       description: ''
-    openstack/UcsSdk:
-      acl: 619f2ff6a4e4484d28ce90ebe7b25c5e
-      description: Mirror of upstream UcsSdk (mirror + patches)
-    openstack/UcsSdk-distgit:
-      acl: a654ac68fa88d1a7b632575241cf6485
     openstack/cliff:
       acl: d85de99d2a937b7f624115ab43466d4c
       description: Mirror of upstream cliff (mirror + patches)
