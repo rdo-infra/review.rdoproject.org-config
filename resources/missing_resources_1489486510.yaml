@@ -759,38 +759,6 @@ resources:
       groups:
       - puppet/puppet-staging-core
       - puppet/puppet-staging-ptl
-    1fa9faf3d959a0805cb3dcb71a5e3507:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/mistral-distgit-core
-          read = group rdo-core
-          owner = group openstack/mistral-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistral-distgit-core
-            label-Code-Review = -2..+2 group openstack/mistral-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/mistral-distgit-ptl
-            label-Workflow = -1..+1 group openstack/mistral-distgit-core
-            label-Workflow = -1..+1 group openstack/mistral-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/mistral-distgit-ptl
-            read = group Registered Users
-            read = group openstack/mistral-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mistral-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/mistral-distgit-ptl
-      - rdo-core
     204bd9e57e6f29c5018996132cd71575:
       file: |
         [access "refs/*"]
@@ -1027,32 +995,6 @@ resources:
       groups:
       - puppet/puppet-lib-file_concat-ptl
       - puppet/puppet-lib-file_concat-core
-    2952923f6770e3b64cf63852c83e07a2:
-      file: |
-        [access "refs/*"]
-          read = group openstack/mistral-core
-          owner = group openstack/mistral-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistral-core
-            label-Code-Review = -2..+2 group openstack/mistral-ptl
-            submit = group openstack/mistral-ptl
-            read = group Registered Users
-            read = group openstack/mistral-core
-            label-Verified = -2..+0 group openstack/mistral-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/mistral-core
-            label-Workflow = -1..+0 group openstack/mistral-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mistral-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/mistral-ptl
-      - openstack/mistral-core
     2c0990af1fbd51bac5dc463f8976f00a:
       file: |
         [project]
@@ -1908,32 +1850,6 @@ resources:
       groups:
       - puppet/puppet-tomcat-core
       - puppet/puppet-tomcat-ptl
-    470476807927b6b0bddeb08b4630a332:
-      file: |
-        [access "refs/*"]
-          read = group openstack/mistralclient-core
-          owner = group openstack/mistralclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistralclient-core
-            label-Code-Review = -2..+2 group openstack/mistralclient-ptl
-            submit = group openstack/mistralclient-ptl
-            read = group Registered Users
-            read = group openstack/mistralclient-core
-            label-Verified = -2..+0 group openstack/mistralclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/mistralclient-core
-            label-Workflow = -1..+0 group openstack/mistralclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mistralclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/mistralclient-core
-      - openstack/mistralclient-ptl
     4835d4de3cc2cdf3f30b9e82eca9ae5e:
       file: |
         [access "refs/*"]
@@ -3205,38 +3121,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-apache-distgit-ptl
-      - rdo-core
-    69fb34fa3bfa36e1f97f1b7ffa3739d4:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/mistralclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/mistralclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistralclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/mistralclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/mistralclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/mistralclient-distgit-core
-            label-Workflow = -1..+1 group openstack/mistralclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/mistralclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/mistralclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mistralclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/mistralclient-distgit-ptl
       - rdo-core
     6a59ebdc8aaba5d958362c48c00be8e8:
       file: |
@@ -7115,33 +6999,6 @@ resources:
       groups:
       - puppet/puppet-certmonger-core
       - puppet/puppet-certmonger-ptl
-    d0b69eb9725056476575f292acc6e3af:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/mistral-dashboard-distgit-core
-          owner = group openstack/mistral-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistral-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/mistral-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/mistral-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/mistral-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/mistral-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/mistral-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/mistral-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mistral-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/mistral-dashboard-distgit-ptl
-      - openstack/mistral-dashboard-distgit-core
     d2012bd3fcf1b9997dc76ca6988843eb:
       file: |
         [access "refs/*"]
@@ -7194,32 +7051,6 @@ resources:
       groups:
       - puppet/puppet-vlan-core
       - puppet/puppet-vlan-ptl
-    d2d872f1b39d11b0603aa06b7f06cf05:
-      file: |
-        [access "refs/*"]
-          read = group openstack/mistral-dashboard-core
-          owner = group openstack/mistral-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mistral-dashboard-core
-            label-Code-Review = -2..+2 group openstack/mistral-dashboard-ptl
-            submit = group openstack/mistral-dashboard-ptl
-            read = group openstack/mistral-dashboard-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/mistral-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/mistral-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/mistral-dashboard-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/mistral-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/mistral-dashboard-core
-      - openstack/mistral-dashboard-ptl
     d2f6cd56a77c56030fd12041f18bfb83:
       file: |
         [project]
@@ -9660,98 +9491,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/microversion-parse-ptl:
       description: Project team lead for project openstack/microversion-parse
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/mistral-core:
-      description: Core developers for project mistral
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-dashboard-core:
-      description: Core developers for project openstack/mistral-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-dashboard-distgit-core:
-      description: Core developers for project openstack/mistral-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/mistral-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-dashboard-ptl:
-      description: Project team lead for project openstack/mistral-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-distgit-core:
-      description: Core developers for project mistral-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-distgit-ptl:
-      description: Project team lead for project mistral-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/mistral-ptl:
-      description: Project team lead for project mistral
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/mistral-ui-core:
-      description: Core developers for project openstack/mistral-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-ui-distgit-core:
-      description: Core developers for project openstack/mistral-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-ui-distgit-ptl:
-      description: Project team lead for project openstack/mistral-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistral-ui-ptl:
-      description: Project team lead for project openstack/mistral-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistralclient-core:
-      description: Core developers for project mistralclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistralclient-distgit-core:
-      description: Core developers for project mistralclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/mistralclient-distgit-ptl:
-      description: Project team lead for project mistralclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/mistralclient-ptl:
-      description: Project team lead for project mistralclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -13011,21 +12750,6 @@ resources:
       description: Mirror of upstream openstack/microversion-parse (mirror + patches)
     openstack/microversion-parse-distgit:
       acl: 82b0393964c7be4e589832ab8261cf95
-    openstack/mistral:
-      acl: 2952923f6770e3b64cf63852c83e07a2
-      description: Mirror of upstream mistral (mirror + patches)
-    openstack/mistral-dashboard:
-      acl: d2d872f1b39d11b0603aa06b7f06cf05
-      description: Mirror of upstream openstack/mistral-dashboard (mirror + patches)
-    openstack/mistral-dashboard-distgit:
-      acl: d0b69eb9725056476575f292acc6e3af
-    openstack/mistral-distgit:
-      acl: 1fa9faf3d959a0805cb3dcb71a5e3507
-    openstack/mistralclient:
-      acl: 470476807927b6b0bddeb08b4630a332
-      description: Mirror of upstream mistralclient (mirror + patches)
-    openstack/mistralclient-distgit:
-      acl: 69fb34fa3bfa36e1f97f1b7ffa3739d4
     openstack/monascaclient:
       acl: 4125377bce17b7dceeacd269fbeb5269
       description: Mirror of upstream openstack/monascaclient (mirror + patches)

@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/mistralclient-core:
+      description: Core developers for project mistralclient
+      members:
+      - hguemar@fedoraproject.org
+    openstack/mistralclient-ptl:
+      description: Project team lead for project mistralclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-mistralclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/mistralclient-core
+          owner = group openstack/mistralclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/mistralclient-core
+          label-Code-Review = -2..+2 group openstack/mistralclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/mistralclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/mistralclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/mistralclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/mistralclient-core
+          label-Workflow = -1..+1 group openstack/mistralclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/mistralclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/mistralclient-core
+      - openstack/mistralclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-mistralclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/mistralclient-core
+          owner = group openstack/mistralclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/mistralclient-core
+          label-Code-Review = -2..+2 group openstack/mistralclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/mistralclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/mistralclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/mistralclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/mistralclient-core
+          label-Workflow = -1..+0 group openstack/mistralclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/mistralclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/mistralclient-core
+      - openstack/mistralclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/mistralclient:
+      acl: openstack-mistralclient
+      description: Mirror of upstream mistralclient (mirror + patches)
+    openstack/mistralclient-distgit:
+      acl: openstack-mistralclient-distgit
+      description: Packaging of upstream mistralclient
