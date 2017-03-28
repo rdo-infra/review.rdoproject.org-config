@@ -4102,38 +4102,6 @@ resources:
       groups:
       - puppet/puppet-haproxy-ptl
       - puppet/puppet-haproxy-core
-    ab9c7c8605c90fac8c2527d73dbbbeb0:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/rally-distgit-core
-          read = group rdo-core
-          owner = group openstack/rally-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/rally-distgit-core
-            label-Code-Review = -2..+2 group openstack/rally-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/rally-distgit-ptl
-            label-Workflow = -1..+1 group openstack/rally-distgit-core
-            label-Workflow = -1..+1 group openstack/rally-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/rally-distgit-ptl
-            read = group Registered Users
-            read = group openstack/rally-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/rally-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/rally-distgit-ptl
-      - rdo-core
     abdf8c0e403fb7c1f488bc669920bd45:
       file: |
         [access "refs/*"]
@@ -4625,32 +4593,6 @@ resources:
       groups:
       - puppet/puppet-remote-ptl
       - puppet/puppet-remote-core
-    bf772fb7f4824055d4b927d293e82a64:
-      file: |
-        [access "refs/*"]
-          read = group openstack/rally-core
-          owner = group openstack/rally-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/rally-core
-            label-Code-Review = -2..+2 group openstack/rally-ptl
-            submit = group openstack/rally-ptl
-            read = group Registered Users
-            read = group openstack/rally-core
-            label-Verified = -2..+0 group openstack/rally-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/rally-core
-            label-Workflow = -1..+0 group openstack/rally-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/rally-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/rally-ptl
-      - openstack/rally-core
     c12f9a930734723d49eed53433b168aa:
       file: |
         [access "refs/*"]
@@ -6467,31 +6409,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/rally-core:
-      description: Core developers for project rally
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - slinaber@redhat.com
-      - vimartin@redhat.com
-    openstack/rally-distgit-core:
-      description: Core developers for project rally-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - slinaber@redhat.com
-      - vimartin@redhat.com
-    openstack/rally-distgit-ptl:
-      description: Project team lead for project rally-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/rally-ptl:
-      description: Project team lead for project rally
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/test-core:
       description: Core developers for project openstack/test
       members:
@@ -8911,11 +8828,6 @@ resources:
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
     openstack/openstack-puppet-modules-distgit:
       acl: 8812c30df4a27d9cb53bf689d1140e77
-    openstack/rally:
-      acl: bf772fb7f4824055d4b927d293e82a64
-      description: Mirror of upstream rally (mirror + patches)
-    openstack/rally-distgit:
-      acl: ab9c7c8605c90fac8c2527d73dbbbeb0
     openstack/virtualbmc:
       acl: c73810c821a4b80ab793dd7118ad9c07
       description: Mirror of upstream openstack/virtualbmc (mirror + patches)
