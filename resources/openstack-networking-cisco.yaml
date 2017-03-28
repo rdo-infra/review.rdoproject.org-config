@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/networking-cisco-core:
+      description: Core developers for project networking-cisco
+      members:
+      - openstack-networking@cisco.com
+      - sambetts@cisco.com
+    openstack/networking-cisco-ptl:
+      description: Project team lead for project networking-cisco
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-cisco-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-cisco-core
+          owner = group openstack/networking-cisco-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-cisco-core
+          label-Code-Review = -2..+2 group openstack/networking-cisco-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-cisco-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-cisco-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-cisco-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-cisco-core
+          label-Workflow = -1..+1 group openstack/networking-cisco-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-cisco-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-cisco-core
+      - openstack/networking-cisco-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-cisco:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-cisco-core
+          owner = group openstack/networking-cisco-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-cisco-core
+          label-Code-Review = -2..+2 group openstack/networking-cisco-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-cisco-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-cisco-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-cisco-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-cisco-core
+          label-Workflow = -1..+0 group openstack/networking-cisco-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-cisco-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-cisco-core
+      - openstack/networking-cisco-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-cisco:
+      acl: openstack-networking-cisco
+      description: Mirror of upstream networking-cisco (mirror + patches)
+    openstack/networking-cisco-distgit:
+      acl: openstack-networking-cisco-distgit
+      description: Packaging of upstream networking-cisco
