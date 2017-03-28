@@ -579,38 +579,6 @@ resources:
       groups:
       - puppet/puppet-magnum-distgit-core
       - puppet/puppet-magnum-distgit-ptl
-    172d799b794de53d46a63df3662dbdfb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/muranoclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/muranoclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/muranoclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/muranoclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/muranoclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/muranoclient-distgit-core
-            label-Workflow = -1..+1 group openstack/muranoclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/muranoclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/muranoclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/muranoclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/muranoclient-distgit-ptl
-      - rdo-core
     17676f7b95299ccb98845bbee773afc8:
       file: |
         [project]
@@ -701,58 +669,6 @@ resources:
       groups:
       - openstack/magnum-core
       - openstack/magnum-ptl
-    19812e3f55d5d46dd17bdbfcb75c916a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/murano-dashboard-core
-          owner = group openstack/murano-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-dashboard-core
-            label-Code-Review = -2..+2 group openstack/murano-dashboard-ptl
-            submit = group openstack/murano-dashboard-ptl
-            read = group openstack/murano-dashboard-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/murano-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/murano-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/murano-dashboard-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/murano-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/murano-dashboard-ptl
-      - openstack/murano-dashboard-core
-    198adc84dc782f32dce548a69d55ec6f:
-      file: |
-        [access "refs/*"]
-          read = group openstack/murano-agent-core
-          owner = group openstack/murano-agent-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-agent-core
-            label-Code-Review = -2..+2 group openstack/murano-agent-ptl
-            submit = group openstack/murano-agent-ptl
-            read = group openstack/murano-agent-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/murano-agent-ptl
-            label-Workflow = -1..+0 group openstack/murano-agent-ptl
-            label-Workflow = -1..+0 group openstack/murano-agent-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/murano-agent-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/murano-agent-ptl
-      - openstack/murano-agent-core
     19dafd4bae191061874b051e52932e75:
       file: |
         [access "refs/*"]
@@ -1095,32 +1011,6 @@ resources:
       groups:
       - openstack/heat-distgit-ptl
       - rdo-core
-    21d14fdabb319d2419ca5872c4f0eac7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/murano-core
-          owner = group openstack/murano-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-core
-            label-Code-Review = -2..+2 group openstack/murano-ptl
-            submit = group openstack/murano-ptl
-            read = group openstack/murano-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/murano-ptl
-            label-Workflow = -1..+0 group openstack/murano-ptl
-            label-Workflow = -1..+0 group openstack/murano-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/murano-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/murano-ptl
-      - openstack/murano-core
     221fa1d6962b5af95353052bf9af11e3:
       file: |
         [access "refs/*"]
@@ -3420,38 +3310,6 @@ resources:
       groups:
       - openstack/UcsSdk-core
       - openstack/UcsSdk-ptl
-    6342781eae83762ea91be5079951ed6a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/murano-agent-distgit-core
-            read = group rdo-core
-          owner = group openstack/murano-agent-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-agent-distgit-core
-            label-Code-Review = -2..+2 group openstack/murano-agent-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/murano-agent-distgit-ptl
-            label-Workflow = -1..+1 group openstack/murano-agent-distgit-core
-            label-Workflow = -1..+1 group openstack/murano-agent-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/murano-agent-distgit-ptl
-            read = group Registered Users
-            read = group openstack/murano-agent-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/murano-agent-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/murano-agent-distgit-ptl
-      - rdo-core
     64266fd32243bc97742ecc06713b83c6:
       file: |
         [access "refs/*"]
@@ -3763,38 +3621,6 @@ resources:
       groups:
       - puppet/puppet-rsync-distgit-ptl
       - rdo-core
-    6aab0a417d0f113267e1364e17b4d7bb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/murano-distgit-core
-          read = group rdo-core
-          owner = group openstack/murano-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-distgit-core
-            label-Code-Review = -2..+2 group openstack/murano-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/murano-distgit-ptl
-            label-Workflow = -1..+1 group openstack/murano-distgit-core
-            label-Workflow = -1..+1 group openstack/murano-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/murano-distgit-ptl
-            read = group Registered Users
-            read = group openstack/murano-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/murano-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/murano-distgit-ptl
     6ae41f82a8e431d637c7a663bd6517a0:
       file: |
         [access "refs/*"]
@@ -6636,32 +6462,6 @@ resources:
       groups:
       - puppet/puppet-git-core
       - puppet/puppet-git-ptl
-    ad72fd7f9b05a18f3a6dc52cd812fd62:
-      file: |
-        [access "refs/*"]
-          read = group openstack/muranoclient-core
-          owner = group openstack/muranoclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/muranoclient-core
-            label-Code-Review = -2..+2 group openstack/muranoclient-ptl
-            submit = group openstack/muranoclient-ptl
-            read = group openstack/muranoclient-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/muranoclient-ptl
-            label-Workflow = -1..+0 group openstack/muranoclient-ptl
-            label-Workflow = -1..+0 group openstack/muranoclient-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/muranoclient-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/muranoclient-core
-      - openstack/muranoclient-ptl
     ae0c1e924f21911bb751030b9d832b1a:
       file: |
         [project]
@@ -8658,33 +8458,6 @@ resources:
       groups:
       - openstack/microversion-parse-core
       - openstack/microversion-parse-ptl
-    db27053ff00c842c3b930932f016a8bb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/murano-dashboard-distgit-core
-          owner = group openstack/murano-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/murano-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/murano-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/murano-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/murano-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/murano-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/murano-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/murano-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/murano-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/murano-dashboard-distgit-core
-      - openstack/murano-dashboard-distgit-ptl
     dd29ea85ce0042789074cabd7463b88d:
       file: |
         [access "refs/*"]
@@ -11209,103 +10982,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/mox3-ptl:
       description: Project team lead for project mox3
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/murano-agent-core:
-      description: Core developers for project openstack/murano-agent
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - akroshchenko@mirantis.com
-    openstack/murano-agent-distgit-core:
-      description: Core developers for project openstack/murano-agent-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - akroshchenko@mirantis.com
-    openstack/murano-agent-distgit-ptl:
-      description: Project team lead for project openstack/murano-agent-distgit
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/murano-agent-ptl:
-      description: Project team lead for project openstack/murano-agent
-      members:
-      - amoralej@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/murano-core:
-      description: Core developers for project openstack/murano
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-dashboard-core:
-      description: Core developers for project openstack/murano-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - iyozhikov@mirantis.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-dashboard-distgit-core:
-      description: Core developers for project openstack/murano-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - iyozhikov@mirantis.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/murano-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-dashboard-ptl:
-      description: Project team lead for project openstack/murano-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-distgit-core:
-      description: Core developers for project openstack/murano-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/murano-distgit-ptl:
-      description: Project team lead for project openstack/murano-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/murano-ptl:
-      description: Project team lead for project openstack/murano
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/muranoclient-core:
-      description: Core developers for project openstack/muranoclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/muranoclient-distgit-core:
-      description: Core developers for project openstack/muranoclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/muranoclient-distgit-ptl:
-      description: Project team lead for project openstack/muranoclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/muranoclient-ptl:
-      description: Project team lead for project openstack/muranoclient
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -14642,26 +14318,6 @@ resources:
       description: Mirror of upstream mox3 (mirror + patches)
     openstack/mox3-distgit:
       acl: 370dd64257410095bd3e24483e5d15be
-    openstack/murano:
-      acl: 21d14fdabb319d2419ca5872c4f0eac7
-      description: Mirror of upstream openstack/murano (mirror + patches)
-    openstack/murano-agent:
-      acl: 198adc84dc782f32dce548a69d55ec6f
-      description: Mirror of upstream openstack/murano-agent (mirror + patches)
-    openstack/murano-agent-distgit:
-      acl: 6342781eae83762ea91be5079951ed6a
-    openstack/murano-dashboard:
-      acl: 19812e3f55d5d46dd17bdbfcb75c916a
-      description: Mirror of upstream openstack/murano-dashboard (mirror + patches)
-    openstack/murano-dashboard-distgit:
-      acl: db27053ff00c842c3b930932f016a8bb
-    openstack/murano-distgit:
-      acl: 6aab0a417d0f113267e1364e17b4d7bb
-    openstack/muranoclient:
-      acl: ad72fd7f9b05a18f3a6dc52cd812fd62
-      description: Mirror of upstream openstack/muranoclient (mirror + patches)
-    openstack/muranoclient-distgit:
-      acl: 172d799b794de53d46a63df3662dbdfb
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
