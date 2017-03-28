@@ -1279,33 +1279,6 @@ resources:
       groups:
       - puppet/puppet-java-ptl
       - puppet/puppet-java-core
-    3c57d4c96aa5fa621cd341b524050c3f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ansible-pacemaker-distgit-core
-          owner = group openstack/ansible-pacemaker-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ansible-pacemaker-distgit-core
-            label-Code-Review = -2..+2 group openstack/ansible-pacemaker-distgit-ptl
-            label-Verified = -2..+2 group openstack/ansible-pacemaker-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ansible-pacemaker-distgit-core
-            label-Workflow = -1..+1 group openstack/ansible-pacemaker-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ansible-pacemaker-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ansible-pacemaker-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ansible-pacemaker-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ansible-pacemaker-distgit-core
-      - openstack/ansible-pacemaker-distgit-ptl
     3d42fa164f5b4034152dad7862cbd688:
       file: |
         [access "refs/*"]
@@ -1844,32 +1817,6 @@ resources:
       groups:
       - rdo-core
       - openstack/designateclient-distgit-ptl
-    491ccbe8858ecf8561f370ac35433768:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ansible-pacemaker-core
-          owner = group openstack/ansible-pacemaker-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ansible-pacemaker-core
-            label-Code-Review = -2..+2 group openstack/ansible-pacemaker-ptl
-            submit = group openstack/ansible-pacemaker-ptl
-            read = group openstack/ansible-pacemaker-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/ansible-pacemaker-ptl
-            label-Workflow = -1..+0 group openstack/ansible-pacemaker-ptl
-            label-Workflow = -1..+0 group openstack/ansible-pacemaker-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/ansible-pacemaker-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ansible-pacemaker-ptl
-      - openstack/ansible-pacemaker-core
     493373a68e06fcf3a23d6e8bac299d10:
       file: |
         [access "refs/*"]
@@ -8730,32 +8677,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/ansible-pacemaker-core:
-      description: Core developers for project openstack/ansible-pacemaker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - mat.bultel@gmail.com
-    openstack/ansible-pacemaker-distgit-core:
-      description: Core developers for project openstack/ansible-pacemaker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - mat.bultel@gmail.com
-    openstack/ansible-pacemaker-distgit-ptl:
-      description: Project team lead for project openstack/ansible-pacemaker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/ansible-pacemaker-ptl:
-      description: Project team lead for project openstack/ansible-pacemaker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
     openstack/automaton-core:
       description: Core developers for project automaton
       members:
@@ -12317,11 +12238,6 @@ resources:
       description: Mirror of upstream UcsSdk (mirror + patches)
     openstack/UcsSdk-distgit:
       acl: a654ac68fa88d1a7b632575241cf6485
-    openstack/ansible-pacemaker:
-      acl: 491ccbe8858ecf8561f370ac35433768
-      description: Mirror of upstream openstack/ansible-pacemaker (mirror + patches)
-    openstack/ansible-pacemaker-distgit:
-      acl: 3c57d4c96aa5fa621cd341b524050c3f
     openstack/automaton:
       acl: 7f029920842046d9414fde329db8aa9c
       description: Mirror of upstream automaton (mirror + patches)
