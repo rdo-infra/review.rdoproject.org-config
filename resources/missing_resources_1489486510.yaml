@@ -1137,38 +1137,6 @@ resources:
       groups:
       - puppet/puppet-nova-distgit-ptl
       - rdo-core
-    370dd64257410095bd3e24483e5d15be:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/mox3-distgit-core
-          read = group rdo-core
-          owner = group openstack/mox3-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mox3-distgit-core
-            label-Code-Review = -2..+2 group openstack/mox3-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/mox3-distgit-ptl
-            label-Workflow = -1..+1 group openstack/mox3-distgit-core
-            label-Workflow = -1..+1 group openstack/mox3-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/mox3-distgit-ptl
-            read = group Registered Users
-            read = group openstack/mox3-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mox3-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/mox3-distgit-ptl
-      - rdo-core
     38b9a04ef9b1d20bb7d7559bcc2042d7:
       file: |
         [access "refs/*"]
@@ -4218,32 +4186,6 @@ resources:
       groups:
       - puppet/puppet-zookeeper-core
       - puppet/puppet-zookeeper-ptl
-    89d4bf165b60a45c790c61ec8385ae62:
-      file: |
-        [access "refs/*"]
-          read = group openstack/mox3-core
-          owner = group openstack/mox3-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/mox3-core
-            label-Code-Review = -2..+2 group openstack/mox3-ptl
-            submit = group openstack/mox3-ptl
-            read = group Registered Users
-            read = group openstack/mox3-core
-            label-Verified = -2..+0 group openstack/mox3-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/mox3-core
-            label-Workflow = -1..+0 group openstack/mox3-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/mox3-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/mox3-ptl
-      - openstack/mox3-core
     8a3e42aafcf8dcbebc1a41268298cb8b:
       file: |
         [project]
@@ -9324,32 +9266,6 @@ resources:
       - amoralej@redhat.com
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/mox3-core:
-      description: Core developers for project mox3
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/mox3-distgit-core:
-      description: Core developers for project mox3-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/mox3-distgit-ptl:
-      description: Project team lead for project mox3-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/mox3-ptl:
-      description: Project team lead for project mox3
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
       members:
@@ -12508,11 +12424,6 @@ resources:
       description: Mirror of upstream openstack/monascaclient (mirror + patches)
     openstack/monascaclient-distgit:
       acl: 505641b9b3a1c08e2bc6e780a34fca7a
-    openstack/mox3:
-      acl: 89d4bf165b60a45c790c61ec8385ae62
-      description: Mirror of upstream mox3 (mirror + patches)
-    openstack/mox3-distgit:
-      acl: 370dd64257410095bd3e24483e5d15be
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
