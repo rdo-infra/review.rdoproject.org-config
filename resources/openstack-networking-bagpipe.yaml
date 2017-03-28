@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/networking-bagpipe-core:
+      description: Core developers for project networking-bagpipe
+      members:
+      - lhinds@redhat.com
+    openstack/networking-bagpipe-ptl:
+      description: Project team lead for project networking-bagpipe
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-bagpipe-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bagpipe-core
+          owner = group openstack/networking-bagpipe-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bagpipe-core
+          label-Code-Review = -2..+2 group openstack/networking-bagpipe-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bagpipe-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bagpipe-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-bagpipe-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-bagpipe-core
+          label-Workflow = -1..+1 group openstack/networking-bagpipe-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bagpipe-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bagpipe-core
+      - openstack/networking-bagpipe-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-bagpipe:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bagpipe-core
+          owner = group openstack/networking-bagpipe-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bagpipe-core
+          label-Code-Review = -2..+2 group openstack/networking-bagpipe-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bagpipe-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bagpipe-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-bagpipe-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-bagpipe-core
+          label-Workflow = -1..+0 group openstack/networking-bagpipe-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bagpipe-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bagpipe-core
+      - openstack/networking-bagpipe-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-bagpipe:
+      acl: openstack-networking-bagpipe
+      description: Mirror of upstream networking-bagpipe (mirror + patches)
+    openstack/networking-bagpipe-distgit:
+      acl: openstack-networking-bagpipe-distgit
+      description: Packaging of upstream networking-bagpipe
