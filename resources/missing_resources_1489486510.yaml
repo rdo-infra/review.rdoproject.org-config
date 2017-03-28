@@ -362,38 +362,6 @@ resources:
       groups:
       - testproject-core
       - testproject-ptl
-    11844921162ed82926fd3ee8cebd6779:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-fwaas-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutron-fwaas-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-fwaas-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-fwaas-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutron-fwaas-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-fwaas-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-fwaas-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-fwaas-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-fwaas-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-fwaas-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-fwaas-distgit-ptl
-      - rdo-core
     1240d195f12ea5d77ff61373dc48a92d:
       file: |
         [access "refs/*"]
@@ -2877,33 +2845,6 @@ resources:
       groups:
       - openstack/automaton-distgit-ptl
       - rdo-core
-    4c07363f3266ba1ea2ea37cd8d3fc60f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-lbaas-dashboard-distgit-core
-          owner = group openstack/neutron-lbaas-dashboard-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-dashboard-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-dashboard-distgit-ptl
-            label-Verified = -2..+2 group openstack/neutron-lbaas-dashboard-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-lbaas-dashboard-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-lbaas-dashboard-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-lbaas-dashboard-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-dashboard-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-dashboard-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-lbaas-dashboard-distgit-core
-      - openstack/neutron-lbaas-dashboard-distgit-ptl
     4c2faebe8c4ff275d852695e419bcb44:
       file: |
         [access "refs/*"]
@@ -3391,38 +3332,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-n1k-vsm-distgit-ptl
-      - rdo-core
-    59fbd6e0257b0b8574fa7a79cf38b480:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-lbaas-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutron-lbaas-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutron-lbaas-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-lbaas-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-lbaas-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-lbaas-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-lbaas-distgit-ptl
       - rdo-core
     5a3a9d5351226502a24d0543d603acc5:
       file: |
@@ -4431,32 +4340,6 @@ resources:
       groups:
       - openstack/vitrageclient-core
       - openstack/vitrageclient-ptl
-    6f0349b8c1ed8e8abc75eb6e48301d55:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-lib-core
-          owner = group openstack/neutron-lib-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lib-core
-            label-Code-Review = -2..+2 group openstack/neutron-lib-ptl
-            submit = group openstack/neutron-lib-ptl
-            read = group Registered Users
-            read = group openstack/neutron-lib-core
-            label-Verified = -2..+0 group openstack/neutron-lib-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutron-lib-core
-            label-Workflow = -1..+0 group openstack/neutron-lib-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-lib-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-lib-ptl
-      - openstack/neutron-lib-core
     6fca34e6dfc70080ff7c3c715f48fd4f:
       file: |
         [project]
@@ -5934,32 +5817,6 @@ resources:
       groups:
       - puppet/puppet-kibana3-core
       - puppet/puppet-kibana3-ptl
-    8f9e02f3aeec8773c52c7542b8465df7:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-lbaas-core
-          owner = group openstack/neutron-lbaas-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-core
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-ptl
-            submit = group openstack/neutron-lbaas-ptl
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-core
-            label-Verified = -2..+0 group openstack/neutron-lbaas-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutron-lbaas-core
-            label-Workflow = -1..+0 group openstack/neutron-lbaas-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-lbaas-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-lbaas-core
-      - openstack/neutron-lbaas-ptl
     906d2f86f61d52ce69abf907d4f279a4:
       file: |
         [project]
@@ -6702,32 +6559,6 @@ resources:
       groups:
       - openstack/ceilometerclient-distgit-ptl
       - rdo-core
-    a3420dbc99984902c683b291849bfd63:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-core
-          owner = group openstack/neutron-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-core
-            label-Code-Review = -2..+2 group openstack/neutron-ptl
-            submit = group openstack/neutron-ptl
-            read = group Registered Users
-            read = group openstack/neutron-core
-            label-Verified = -2..+0 group openstack/neutron-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutron-core
-            label-Workflow = -1..+0 group openstack/neutron-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-core
-      - openstack/neutron-ptl
     a3d2b33fe7987383833327cf5cb5c54e:
       file: |
         [project]
@@ -7045,38 +6876,6 @@ resources:
       groups:
       - openstack/congressclient-core
       - openstack/congressclient-ptl
-    aa26b5da53d80b4e1a7523b9903e3d3c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/octavia-distgit-core
-          read = group rdo-core
-          owner = group openstack/octavia-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/octavia-distgit-core
-            label-Code-Review = -2..+2 group openstack/octavia-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/octavia-distgit-ptl
-            label-Workflow = -1..+1 group openstack/octavia-distgit-core
-            label-Workflow = -1..+1 group openstack/octavia-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/octavia-distgit-ptl
-            read = group Registered Users
-            read = group openstack/octavia-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/octavia-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/octavia-distgit-ptl
-      - rdo-core
     aa440cce6c1870440c92abfc9fb258e6:
       file: |
         [project]
@@ -7472,32 +7271,6 @@ resources:
       groups:
       - openstack/muranoclient-core
       - openstack/muranoclient-ptl
-    add197d802e5d8eb7ced014bf6184634:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutronclient-core
-          owner = group openstack/neutronclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutronclient-core
-            label-Code-Review = -2..+2 group openstack/neutronclient-ptl
-            submit = group openstack/neutronclient-ptl
-            read = group Registered Users
-            read = group openstack/neutronclient-core
-            label-Verified = -2..+0 group openstack/neutronclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutronclient-core
-            label-Workflow = -1..+0 group openstack/neutronclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutronclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutronclient-ptl
-      - openstack/neutronclient-core
     ae0c1e924f21911bb751030b9d832b1a:
       file: |
         [project]
@@ -9016,32 +8789,6 @@ resources:
       groups:
       - openstack/k8sclient-distgit-core
       - openstack/k8sclient-distgit-ptl
-    d1b4ef3657bbbc3cead4a5de06a85d15:
-      file: |
-        [access "refs/*"]
-          read = group openstack/octavia-core
-          owner = group openstack/octavia-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/octavia-core
-            label-Code-Review = -2..+2 group openstack/octavia-ptl
-            submit = group openstack/octavia-ptl
-            read = group Registered Users
-            read = group openstack/octavia-core
-            label-Verified = -2..+0 group openstack/octavia-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/octavia-core
-            label-Workflow = -1..+0 group openstack/octavia-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/octavia-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/octavia-core
-      - openstack/octavia-ptl
     d2012bd3fcf1b9997dc76ca6988843eb:
       file: |
         [access "refs/*"]
@@ -9262,38 +9009,6 @@ resources:
       groups:
       - puppet/puppet-pacemaker-core
       - puppet/puppet-pacemaker-ptl
-    d54bc4c6d746ffd613c88d966c8ccdc1:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-lib-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutron-lib-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lib-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-lib-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutron-lib-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-lib-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-lib-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-lib-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-lib-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-lib-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-lib-distgit-ptl
-      - rdo-core
     d5e0159f0eafbce5a68b54ed5118de59:
       file: |
         [access "refs/*"]
@@ -9864,32 +9579,6 @@ resources:
       groups:
       - openstack/vitrage-core
       - openstack/vitrage-ptl
-    df1f195659279025d0f8866281ec5714:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-lbaas-dashboard-core
-          owner = group openstack/neutron-lbaas-dashboard-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-dashboard-core
-            label-Code-Review = -2..+2 group openstack/neutron-lbaas-dashboard-ptl
-            submit = group openstack/neutron-lbaas-dashboard-ptl
-            read = group openstack/neutron-lbaas-dashboard-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/neutron-lbaas-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/neutron-lbaas-dashboard-ptl
-            label-Workflow = -1..+0 group openstack/neutron-lbaas-dashboard-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/neutron-lbaas-dashboard-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-lbaas-dashboard-ptl
-      - openstack/neutron-lbaas-dashboard-core
     df604c22255be67f28147713ac9c5ff6:
       file: |
         [project]
@@ -10253,38 +9942,6 @@ resources:
       groups:
       - puppet/puppet-uchiwa-distgit-ptl
       - rdo-core
-    e53783cd77e61a3304e56279f627335a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutron-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutron-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-distgit-ptl
-      - rdo-core
     e5a86441ca83ae25441632dfc73e3521:
       file: |
         [access "refs/*"]
@@ -10311,32 +9968,6 @@ resources:
       groups:
       - puppet/puppet-mysql-core
       - puppet/puppet-mysql-ptl
-    e60759ac193071d91ad49c32f18dbed0:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-fwaas-core
-          owner = group openstack/neutron-fwaas-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-fwaas-core
-            label-Code-Review = -2..+2 group openstack/neutron-fwaas-ptl
-            submit = group openstack/neutron-fwaas-ptl
-            read = group Registered Users
-            read = group openstack/neutron-fwaas-core
-            label-Verified = -2..+0 group openstack/neutron-fwaas-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutron-fwaas-core
-            label-Workflow = -1..+0 group openstack/neutron-fwaas-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-fwaas-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-fwaas-ptl
-      - openstack/neutron-fwaas-core
     e6f2fe5044506b45ebee5ff25ab41155:
       file: |
         [project]
@@ -10506,38 +10137,6 @@ resources:
       groups:
       - puppet/puppet-xinetd-ptl
       - puppet/puppet-xinetd-core
-    eaef38925e3d8935176bad27cad93572:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutron-vpnaas-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutron-vpnaas-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-vpnaas-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutron-vpnaas-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutron-vpnaas-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutron-vpnaas-distgit-core
-            label-Workflow = -1..+1 group openstack/neutron-vpnaas-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutron-vpnaas-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutron-vpnaas-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-vpnaas-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutron-vpnaas-distgit-ptl
-      - rdo-core
     ec6faff36ea130278c5cd6d7d89895b8:
       file: |
         [project]
@@ -10771,38 +10370,6 @@ resources:
       groups:
       - centos-opstools/core
       - centos-opstools/ptl
-    f03e9ae786a25ad039abf64f23298153:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/neutronclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/neutronclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutronclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/neutronclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/neutronclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/neutronclient-distgit-core
-            label-Workflow = -1..+1 group openstack/neutronclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/neutronclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/neutronclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutronclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/neutronclient-distgit-ptl
-      - rdo-core
     f0a7b658f66dbe8985c56a2feed401d6:
       file: |
         [project]
@@ -11042,32 +10609,6 @@ resources:
       groups:
       - openstack/networking-sfc-core
       - openstack/networking-sfc-ptl
-    f75f6f1a1efee2efdb171ea5817e5a3c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/neutron-vpnaas-core
-          owner = group openstack/neutron-vpnaas-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/neutron-vpnaas-core
-            label-Code-Review = -2..+2 group openstack/neutron-vpnaas-ptl
-            submit = group openstack/neutron-vpnaas-ptl
-            read = group Registered Users
-            read = group openstack/neutron-vpnaas-core
-            label-Verified = -2..+0 group openstack/neutron-vpnaas-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/neutron-vpnaas-core
-            label-Workflow = -1..+0 group openstack/neutron-vpnaas-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/neutron-vpnaas-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/neutron-vpnaas-core
-      - openstack/neutron-vpnaas-ptl
     f8069179286b96809293908309467034:
       file: |
         [project]
@@ -12938,258 +12479,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
       - admin@review.rdoproject.org
-    openstack/neutron-core:
-      description: Core developers for project neutron
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-distgit-core:
-      description: Core developers for project neutron-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-distgit-ptl:
-      description: Project team lead for project neutron-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-fwaas-core:
-      description: Core developers for project neutron-fwaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-fwaas-distgit-core:
-      description: Core developers for project neutron-fwaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-fwaas-distgit-ptl:
-      description: Project team lead for project neutron-fwaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-fwaas-ptl:
-      description: Project team lead for project neutron-fwaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-lbaas-core:
-      description: Core developers for project neutron-lbaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-lbaas-dashboard-core:
-      description: Core developers for project openstack/neutron-lbaas-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutron-lbaas-dashboard-distgit-core:
-      description: Core developers for project openstack/neutron-lbaas-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutron-lbaas-dashboard-distgit-ptl:
-      description: Project team lead for project openstack/neutron-lbaas-dashboard-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutron-lbaas-dashboard-ptl:
-      description: Project team lead for project openstack/neutron-lbaas-dashboard
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutron-lbaas-distgit-core:
-      description: Core developers for project neutron-lbaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-lbaas-distgit-ptl:
-      description: Project team lead for project neutron-lbaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-lbaas-ptl:
-      description: Project team lead for project neutron-lbaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-lib-core:
-      description: Core developers for project neutron-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-lib-distgit-core:
-      description: Core developers for project neutron-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-lib-distgit-ptl:
-      description: Project team lead for project neutron-lib-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-lib-ptl:
-      description: Project team lead for project neutron-lib
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-ptl:
-      description: Project team lead for project neutron
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-vpnaas-core:
-      description: Core developers for project neutron-vpnaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-vpnaas-distgit-core:
-      description: Core developers for project neutron-vpnaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-      - twilson@redhat.com
-    openstack/neutron-vpnaas-distgit-ptl:
-      description: Project team lead for project neutron-vpnaas-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutron-vpnaas-ptl:
-      description: Project team lead for project neutron-vpnaas
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutronclient-core:
-      description: Core developers for project neutronclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutronclient-distgit-core:
-      description: Core developers for project neutronclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/neutronclient-distgit-ptl:
-      description: Project team lead for project neutronclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/neutronclient-ptl:
-      description: Project team lead for project neutronclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/octavia-core:
-      description: Core developers for project octavia
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-    openstack/octavia-distgit-core:
-      description: Core developers for project octavia-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - ihrachys@redhat.com
-      - libosvar@redhat.com
-      - admin@review.rdoproject.org
-      - majopela@redhat.com
-      - nmagnezi@redhat.com
-    openstack/octavia-distgit-ptl:
-      description: Project team lead for project octavia-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/octavia-ptl:
-      description: Project team lead for project octavia
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/openstack-neutron-lbaas-ui-core:
-      description: Core developers for project openstack/openstack-neutron-lbaas-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-neutron-lbaas-ui-distgit-core:
-      description: Core developers for project openstack/openstack-neutron-lbaas-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-neutron-lbaas-ui-distgit-ptl:
-      description: Project team lead for project openstack/openstack-neutron-lbaas-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/openstack-neutron-lbaas-ui-ptl:
-      description: Project team lead for project openstack/openstack-neutron-lbaas-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     openstack/openstack-panko-core:
       description: Core developers for project openstack/openstack-panko
       members:
@@ -16663,47 +15952,6 @@ resources:
       description: Mirror of upstream openstack/networking-vsphere (mirror + patches)
     openstack/networking-vsphere-distgit:
       acl: 1f3d1a3d938cb67c7f1dc31b4f0de3f3
-    openstack/neutron:
-      acl: a3420dbc99984902c683b291849bfd63
-      description: Mirror of upstream neutron (mirror + patches)
-    openstack/neutron-distgit:
-      acl: e53783cd77e61a3304e56279f627335a
-    openstack/neutron-fwaas:
-      acl: e60759ac193071d91ad49c32f18dbed0
-      description: Mirror of upstream neutron-fwaas (mirror + patches)
-    openstack/neutron-fwaas-distgit:
-      acl: 11844921162ed82926fd3ee8cebd6779
-    openstack/neutron-lbaas:
-      acl: 8f9e02f3aeec8773c52c7542b8465df7
-      description: Mirror of upstream neutron-lbaas (mirror + patches)
-    openstack/neutron-lbaas-dashboard:
-      acl: df1f195659279025d0f8866281ec5714
-      description: Mirror of upstream openstack/neutron-lbaas-dashboard (mirror +
-        patches)
-    openstack/neutron-lbaas-dashboard-distgit:
-      acl: 4c07363f3266ba1ea2ea37cd8d3fc60f
-    openstack/neutron-lbaas-distgit:
-      acl: 59fbd6e0257b0b8574fa7a79cf38b480
-    openstack/neutron-lib:
-      acl: 6f0349b8c1ed8e8abc75eb6e48301d55
-      description: Mirror of upstream neutron-lib (mirror + patches)
-    openstack/neutron-lib-distgit:
-      acl: d54bc4c6d746ffd613c88d966c8ccdc1
-    openstack/neutron-vpnaas:
-      acl: f75f6f1a1efee2efdb171ea5817e5a3c
-      description: Mirror of upstream neutron-vpnaas (mirror + patches)
-    openstack/neutron-vpnaas-distgit:
-      acl: eaef38925e3d8935176bad27cad93572
-    openstack/neutronclient:
-      acl: add197d802e5d8eb7ced014bf6184634
-      description: Mirror of upstream neutronclient (mirror + patches)
-    openstack/neutronclient-distgit:
-      acl: f03e9ae786a25ad039abf64f23298153
-    openstack/octavia:
-      acl: d1b4ef3657bbbc3cead4a5de06a85d15
-      description: Mirror of upstream octavia (mirror + patches)
-    openstack/octavia-distgit:
-      acl: aa26b5da53d80b4e1a7523b9903e3d3c
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)

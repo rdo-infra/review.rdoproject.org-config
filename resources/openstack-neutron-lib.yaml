@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/neutron-lib-core:
+      description: Core developers for project neutron-lib
+      members:
+      - ihrachys@redhat.com
+      - majopela@redhat.com
+      - jlibosva@redhat.com
+      - nmagnezi@redhat.com
+      - twilson@redhat.com
+    openstack/neutron-lib-ptl:
+      description: Project team lead for project neutron-lib
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutron-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-lib-core
+          owner = group openstack/neutron-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-lib-core
+          label-Code-Review = -2..+2 group openstack/neutron-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/neutron-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutron-lib-core
+          label-Workflow = -1..+1 group openstack/neutron-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-lib-core
+      - openstack/neutron-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutron-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-lib-core
+          owner = group openstack/neutron-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-lib-core
+          label-Code-Review = -2..+2 group openstack/neutron-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutron-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutron-lib-core
+          label-Workflow = -1..+0 group openstack/neutron-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-lib-core
+      - openstack/neutron-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutron-lib:
+      acl: openstack-neutron-lib
+      description: Mirror of upstream neutron-lib (mirror + patches)
+    openstack/neutron-lib-distgit:
+      acl: openstack-neutron-lib-distgit
+      description: Packaging of upstream neutron-lib

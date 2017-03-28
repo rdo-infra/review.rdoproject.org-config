@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/neutron-fwaas-core:
+      description: Core developers for project neutron-fwaas
+      members:
+      - ihrachys@redhat.com
+      - majopela@redhat.com
+      - jlibosva@redhat.com
+      - nmagnezi@redhat.com
+      - twilson@redhat.com
+    openstack/neutron-fwaas-ptl:
+      description: Project team lead for project neutron-fwaas
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutron-fwaas-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-fwaas-core
+          owner = group openstack/neutron-fwaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-fwaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-fwaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-fwaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-fwaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/neutron-fwaas-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutron-fwaas-core
+          label-Workflow = -1..+1 group openstack/neutron-fwaas-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-fwaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-fwaas-core
+      - openstack/neutron-fwaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutron-fwaas:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-fwaas-core
+          owner = group openstack/neutron-fwaas-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-fwaas-core
+          label-Code-Review = -2..+2 group openstack/neutron-fwaas-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-fwaas-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-fwaas-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutron-fwaas-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutron-fwaas-core
+          label-Workflow = -1..+0 group openstack/neutron-fwaas-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-fwaas-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-fwaas-core
+      - openstack/neutron-fwaas-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutron-fwaas:
+      acl: openstack-neutron-fwaas
+      description: Mirror of upstream neutron-fwaas (mirror + patches)
+    openstack/neutron-fwaas-distgit:
+      acl: openstack-neutron-fwaas-distgit
+      description: Packaging of upstream neutron-fwaas
