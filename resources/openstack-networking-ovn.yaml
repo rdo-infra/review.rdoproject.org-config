@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/networking-ovn-core:
+      description: Core developers for project networking-ovn
+      members:
+      - russell@russellbryant.net
+      - nusiddiq@redhat.com
+    openstack/networking-ovn-ptl:
+      description: Project team lead for project networking-ovn
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-ovn-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-ovn-core
+          owner = group openstack/networking-ovn-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-ovn-core
+          label-Code-Review = -2..+2 group openstack/networking-ovn-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-ovn-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-ovn-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-ovn-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-ovn-core
+          label-Workflow = -1..+1 group openstack/networking-ovn-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-ovn-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-ovn-core
+      - openstack/networking-ovn-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-ovn:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-ovn-core
+          owner = group openstack/networking-ovn-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-ovn-core
+          label-Code-Review = -2..+2 group openstack/networking-ovn-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-ovn-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-ovn-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-ovn-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-ovn-core
+          label-Workflow = -1..+0 group openstack/networking-ovn-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-ovn-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-ovn-core
+      - openstack/networking-ovn-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-ovn:
+      acl: openstack-networking-ovn
+      description: Mirror of upstream networking-ovn (mirror + patches)
+    openstack/networking-ovn-distgit:
+      acl: openstack-networking-ovn-distgit
+      description: Packaging of upstream networking-ovn

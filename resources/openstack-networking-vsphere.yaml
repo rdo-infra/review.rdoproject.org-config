@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/networking-vsphere-core:
+      description: Core developers for project networking-vsphere
+      members:
+      - odivlad@gmail.com
+      - gm.mephisto@gmail.com
+    openstack/networking-vsphere-ptl:
+      description: Project team lead for project networking-vsphere
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-vsphere-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-vsphere-core
+          owner = group openstack/networking-vsphere-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-vsphere-core
+          label-Code-Review = -2..+2 group openstack/networking-vsphere-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-vsphere-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-vsphere-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-vsphere-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-vsphere-core
+          label-Workflow = -1..+1 group openstack/networking-vsphere-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-vsphere-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-vsphere-core
+      - openstack/networking-vsphere-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-vsphere:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-vsphere-core
+          owner = group openstack/networking-vsphere-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-vsphere-core
+          label-Code-Review = -2..+2 group openstack/networking-vsphere-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-vsphere-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-vsphere-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-vsphere-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-vsphere-core
+          label-Workflow = -1..+0 group openstack/networking-vsphere-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-vsphere-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-vsphere-core
+      - openstack/networking-vsphere-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-vsphere:
+      acl: openstack-networking-vsphere
+      description: Mirror of upstream networking-vsphere (mirror + patches)
+    openstack/networking-vsphere-distgit:
+      acl: openstack-networking-vsphere-distgit
+      description: Packaging of upstream networking-vsphere

@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/networking-bgpvpn-core:
+      description: Core developers for project networking-bgpvpn
+      members:
+      - rnoriega@redhat.com
+    openstack/networking-bgpvpn-ptl:
+      description: Project team lead for project networking-bgpvpn
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-bgpvpn-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bgpvpn-core
+          owner = group openstack/networking-bgpvpn-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bgpvpn-core
+          label-Code-Review = -2..+2 group openstack/networking-bgpvpn-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bgpvpn-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bgpvpn-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/networking-bgpvpn-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-bgpvpn-core
+          label-Workflow = -1..+1 group openstack/networking-bgpvpn-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bgpvpn-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bgpvpn-core
+      - openstack/networking-bgpvpn-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-bgpvpn:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-bgpvpn-core
+          owner = group openstack/networking-bgpvpn-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-bgpvpn-core
+          label-Code-Review = -2..+2 group openstack/networking-bgpvpn-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-bgpvpn-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-bgpvpn-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-bgpvpn-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-bgpvpn-core
+          label-Workflow = -1..+0 group openstack/networking-bgpvpn-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-bgpvpn-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-bgpvpn-core
+      - openstack/networking-bgpvpn-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-bgpvpn:
+      acl: openstack-networking-bgpvpn
+      description: Mirror of upstream networking-bgpvpn (mirror + patches)
+    openstack/networking-bgpvpn-distgit:
+      acl: openstack-networking-bgpvpn-distgit
+      description: Packaging of upstream networking-bgpvpn
