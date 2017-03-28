@@ -733,32 +733,6 @@ resources:
       groups:
       - puppet/puppet-datacat-distgit-ptl
       - rdo-core
-    1cc7b9d7c44b0e45e349da63bbbe7a2c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/app-catalog-ui-core
-          owner = group openstack/app-catalog-ui-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/app-catalog-ui-core
-            label-Code-Review = -2..+2 group openstack/app-catalog-ui-ptl
-            submit = group openstack/app-catalog-ui-ptl
-            read = group Registered Users
-            read = group openstack/app-catalog-ui-core
-            label-Verified = -2..+0 group openstack/app-catalog-ui-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/app-catalog-ui-core
-            label-Workflow = -1..+0 group openstack/app-catalog-ui-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/app-catalog-ui-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/app-catalog-ui-ptl
-      - openstack/app-catalog-ui-core
     1d53fa9067505b6f859bdcca3af1c8dc:
       file: |
         [access "refs/*"]
@@ -3929,38 +3903,6 @@ resources:
             action = rebase if necessary
       groups:
       - puppet/puppet-ceilometer-distgit-ptl
-      - rdo-core
-    7a207c9a593b0ce35b1151fad883b48a:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/app-catalog-ui-distgit-core
-          read = group rdo-core
-          owner = group openstack/app-catalog-ui-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/app-catalog-ui-distgit-core
-            label-Code-Review = -2..+2 group openstack/app-catalog-ui-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/app-catalog-ui-distgit-ptl
-            label-Workflow = -1..+1 group openstack/app-catalog-ui-distgit-core
-            label-Workflow = -1..+1 group openstack/app-catalog-ui-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/app-catalog-ui-distgit-ptl
-            read = group Registered Users
-            read = group openstack/app-catalog-ui-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/app-catalog-ui-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/app-catalog-ui-distgit-ptl
       - rdo-core
     7bd1c95fa7811a29a23c0894d0c1446c:
       file: |
@@ -9273,28 +9215,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - jpena@redhat.com
       - admin@review.rdoproject.org
-    openstack/app-catalog-ui-core:
-      description: Core developers for project app-catalog-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - Kevin.Fox@pnnl.gov
-    openstack/app-catalog-ui-distgit-core:
-      description: Core developers for project app-catalog-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - Kevin.Fox@pnnl.gov
-    openstack/app-catalog-ui-distgit-ptl:
-      description: Project team lead for project app-catalog-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/app-catalog-ui-ptl:
-      description: Project team lead for project app-catalog-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/automaton-core:
       description: Core developers for project automaton
       members:
@@ -13071,11 +12991,6 @@ resources:
       description: Mirror of upstream openstack/ansible-pacemaker (mirror + patches)
     openstack/ansible-pacemaker-distgit:
       acl: 3c57d4c96aa5fa621cd341b524050c3f
-    openstack/app-catalog-ui:
-      acl: 1cc7b9d7c44b0e45e349da63bbbe7a2c
-      description: Mirror of upstream app-catalog-ui (mirror + patches)
-    openstack/app-catalog-ui-distgit:
-      acl: 7a207c9a593b0ce35b1151fad883b48a
     openstack/automaton:
       acl: 7f029920842046d9414fde329db8aa9c
       description: Mirror of upstream automaton (mirror + patches)

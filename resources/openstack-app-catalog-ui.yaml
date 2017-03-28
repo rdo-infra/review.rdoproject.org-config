@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/app-catalog-ui-core:
+      description: Core developers for project app-catalog-ui
+      members:
+      - Kevin.Fox@pnnl.gov
+    openstack/app-catalog-ui-ptl:
+      description: Project team lead for project app-catalog-ui
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-app-catalog-ui-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/app-catalog-ui-core
+          owner = group openstack/app-catalog-ui-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/app-catalog-ui-core
+          label-Code-Review = -2..+2 group openstack/app-catalog-ui-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/app-catalog-ui-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/app-catalog-ui-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/app-catalog-ui-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/app-catalog-ui-core
+          label-Workflow = -1..+1 group openstack/app-catalog-ui-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/app-catalog-ui-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/app-catalog-ui-core
+      - openstack/app-catalog-ui-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-app-catalog-ui:
+      file: |
+        [access "refs/*"]
+          read = group openstack/app-catalog-ui-core
+          owner = group openstack/app-catalog-ui-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/app-catalog-ui-core
+          label-Code-Review = -2..+2 group openstack/app-catalog-ui-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/app-catalog-ui-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/app-catalog-ui-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/app-catalog-ui-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/app-catalog-ui-core
+          label-Workflow = -1..+0 group openstack/app-catalog-ui-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/app-catalog-ui-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/app-catalog-ui-core
+      - openstack/app-catalog-ui-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/app-catalog-ui:
+      acl: openstack-app-catalog-ui
+      description: Mirror of upstream app-catalog-ui (mirror + patches)
+    openstack/app-catalog-ui-distgit:
+      acl: openstack-app-catalog-ui-distgit
+      description: Packaging of upstream app-catalog-ui
