@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/keystoneclient-core:
+      description: Core developers for project keystoneclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/keystoneclient-ptl:
+      description: Project team lead for project keystoneclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-keystoneclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/keystoneclient-core
+          owner = group openstack/keystoneclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/keystoneclient-core
+          label-Code-Review = -2..+2 group openstack/keystoneclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/keystoneclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/keystoneclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/keystoneclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/keystoneclient-core
+          label-Workflow = -1..+1 group openstack/keystoneclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/keystoneclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/keystoneclient-core
+      - openstack/keystoneclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-keystoneclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/keystoneclient-core
+          owner = group openstack/keystoneclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/keystoneclient-core
+          label-Code-Review = -2..+2 group openstack/keystoneclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/keystoneclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/keystoneclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/keystoneclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/keystoneclient-core
+          label-Workflow = -1..+0 group openstack/keystoneclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/keystoneclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/keystoneclient-core
+      - openstack/keystoneclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/keystoneclient:
+      acl: openstack-keystoneclient
+      description: Mirror of upstream keystoneclient (mirror + patches)
+    openstack/keystoneclient-distgit:
+      acl: openstack-keystoneclient-distgit
+      description: Packaging of upstream keystoneclient
