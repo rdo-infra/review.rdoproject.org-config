@@ -1978,38 +1978,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    5b29d6ba5ed73b29f90c47c3c0c4a878:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/stevedore-distgit-core
-          read = group rdo-core
-          owner = group openstack/stevedore-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/stevedore-distgit-core
-            label-Code-Review = -2..+2 group openstack/stevedore-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/stevedore-distgit-ptl
-            label-Workflow = -1..+1 group openstack/stevedore-distgit-core
-            label-Workflow = -1..+1 group openstack/stevedore-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/stevedore-distgit-ptl
-            read = group Registered Users
-            read = group openstack/stevedore-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/stevedore-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/stevedore-distgit-ptl
     5bee65a15645edd99b63c3556b55dd52:
       file: |
         [access "refs/*"]
@@ -5718,32 +5686,6 @@ resources:
       groups:
       - puppet/puppet-kmod-ptl
       - puppet/puppet-kmod-core
-    cc538d808b5a243316a03b76b506f598:
-      file: |
-        [access "refs/*"]
-          read = group openstack/stevedore-core
-          owner = group openstack/stevedore-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/stevedore-core
-            label-Code-Review = -2..+2 group openstack/stevedore-ptl
-            submit = group openstack/stevedore-ptl
-            read = group Registered Users
-            read = group openstack/stevedore-core
-            label-Verified = -2..+0 group openstack/stevedore-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/stevedore-core
-            label-Workflow = -1..+0 group openstack/stevedore-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/stevedore-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/stevedore-ptl
-      - openstack/stevedore-core
     cc593142e36f536b8b4e41e18a655bf9:
       file: |
         [project]
@@ -7954,32 +7896,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/rally-ptl:
       description: Project team lead for project rally
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/stevedore-core:
-      description: Core developers for project stevedore
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/stevedore-distgit-core:
-      description: Core developers for project stevedore-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/stevedore-distgit-ptl:
-      description: Project team lead for project stevedore-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/stevedore-ptl:
-      description: Project team lead for project stevedore
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -10606,11 +10522,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/stevedore:
-      acl: cc538d808b5a243316a03b76b506f598
-      description: Mirror of upstream stevedore (mirror + patches)
-    openstack/stevedore-distgit:
-      acl: 5b29d6ba5ed73b29f90c47c3c0c4a878
     openstack/taskflow:
       acl: 7d6d7e0f6e4133b49c8377a771ddd519
       description: Mirror of upstream taskflow (mirror + patches)

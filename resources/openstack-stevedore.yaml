@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/stevedore-core:
+      description: Core developers for project stevedore
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/stevedore-ptl:
+      description: Project team lead for project stevedore
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-stevedore-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/stevedore-core
+          owner = group openstack/stevedore-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/stevedore-core
+          label-Code-Review = -2..+2 group openstack/stevedore-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/stevedore-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/stevedore-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/stevedore-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/stevedore-core
+          label-Workflow = -1..+1 group openstack/stevedore-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/stevedore-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/stevedore-core
+      - openstack/stevedore-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-stevedore:
+      file: |
+        [access "refs/*"]
+          read = group openstack/stevedore-core
+          owner = group openstack/stevedore-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/stevedore-core
+          label-Code-Review = -2..+2 group openstack/stevedore-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/stevedore-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/stevedore-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/stevedore-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/stevedore-core
+          label-Workflow = -1..+0 group openstack/stevedore-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/stevedore-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/stevedore-core
+      - openstack/stevedore-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/stevedore:
+      acl: openstack-stevedore
+      description: Mirror of upstream stevedore (mirror + patches)
+    openstack/stevedore-distgit:
+      acl: openstack-stevedore-distgit
+      description: Packaging of upstream stevedore
