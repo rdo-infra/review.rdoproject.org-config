@@ -1836,32 +1836,6 @@ resources:
       groups:
       - puppet/puppet-vcsrepo-distgit-ptl
       - rdo-core
-    54e96cab7417754341b0fdbd8c6ee6cc:
-      file: |
-        [access "refs/*"]
-          read = group openstack/shaker-core
-          owner = group openstack/shaker-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/shaker-core
-            label-Code-Review = -2..+2 group openstack/shaker-ptl
-            submit = group openstack/shaker-ptl
-            read = group openstack/shaker-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/shaker-ptl
-            label-Workflow = -1..+0 group openstack/shaker-ptl
-            label-Workflow = -1..+0 group openstack/shaker-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/shaker-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/shaker-core
-      - openstack/shaker-ptl
     5629890ce3ac92d4dfacc37d356bb980:
       file: |
         [access "refs/*"]
@@ -3039,33 +3013,6 @@ resources:
       groups:
       - puppet/puppet-heat-distgit-ptl
       - rdo-core
-    7bfd0d2b822ffe208a579b8cdb1c58bf:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/shaker-distgit-core
-          owner = group openstack/shaker-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/shaker-distgit-core
-            label-Code-Review = -2..+2 group openstack/shaker-distgit-ptl
-            label-Verified = -2..+2 group openstack/shaker-distgit-ptl
-            label-Workflow = -1..+1 group openstack/shaker-distgit-core
-            label-Workflow = -1..+1 group openstack/shaker-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/shaker-distgit-ptl
-            read = group Registered Users
-            read = group openstack/shaker-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/shaker-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/shaker-distgit-core
-      - openstack/shaker-distgit-ptl
     7c72055c07f6bbc6a010a756b80019b7:
       file: |
         [project]
@@ -8010,32 +7957,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/shaker-core:
-      description: Core developers for project openstack/shaker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/shaker-distgit-core:
-      description: Core developers for project openstack/shaker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/shaker-distgit-ptl:
-      description: Project team lead for project openstack/shaker-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/shaker-ptl:
-      description: Project team lead for project openstack/shaker
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
     openstack/stevedore-core:
       description: Core developers for project stevedore
       members:
@@ -10685,11 +10606,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/shaker:
-      acl: 54e96cab7417754341b0fdbd8c6ee6cc
-      description: Mirror of upstream openstack/shaker (mirror + patches)
-    openstack/shaker-distgit:
-      acl: 7bfd0d2b822ffe208a579b8cdb1c58bf
     openstack/stevedore:
       acl: cc538d808b5a243316a03b76b506f598
       description: Mirror of upstream stevedore (mirror + patches)

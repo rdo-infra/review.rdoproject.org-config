@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/shaker-core:
+      description: Core developers for project shaker
+      members:
+      - chkumar@redhat.com
+    openstack/shaker-ptl:
+      description: Project team lead for project shaker
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-shaker-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/shaker-core
+          owner = group openstack/shaker-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/shaker-core
+          label-Code-Review = -2..+2 group openstack/shaker-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/shaker-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/shaker-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/shaker-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/shaker-core
+          label-Workflow = -1..+1 group openstack/shaker-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/shaker-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/shaker-core
+      - openstack/shaker-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-shaker:
+      file: |
+        [access "refs/*"]
+          read = group openstack/shaker-core
+          owner = group openstack/shaker-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/shaker-core
+          label-Code-Review = -2..+2 group openstack/shaker-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/shaker-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/shaker-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/shaker-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/shaker-core
+          label-Workflow = -1..+0 group openstack/shaker-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/shaker-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/shaker-core
+      - openstack/shaker-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/shaker:
+      acl: openstack-shaker
+      description: Mirror of upstream shaker (mirror + patches)
+    openstack/shaker-distgit:
+      acl: openstack-shaker-distgit
+      description: Packaging of upstream shaker
