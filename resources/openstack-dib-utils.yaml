@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/dib-utils-core:
+      description: Core developers for project dib-utils
+      members:
+      - jruzicka@redhat.com
+    openstack/dib-utils-ptl:
+      description: Project team lead for project dib-utils
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-dib-utils-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/dib-utils-core
+          owner = group openstack/dib-utils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/dib-utils-core
+          label-Code-Review = -2..+2 group openstack/dib-utils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/dib-utils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/dib-utils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/dib-utils-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/dib-utils-core
+          label-Workflow = -1..+1 group openstack/dib-utils-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/dib-utils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/dib-utils-core
+      - openstack/dib-utils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-dib-utils:
+      file: |
+        [access "refs/*"]
+          read = group openstack/dib-utils-core
+          owner = group openstack/dib-utils-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/dib-utils-core
+          label-Code-Review = -2..+2 group openstack/dib-utils-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/dib-utils-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/dib-utils-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/dib-utils-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/dib-utils-core
+          label-Workflow = -1..+0 group openstack/dib-utils-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/dib-utils-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/dib-utils-core
+      - openstack/dib-utils-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/dib-utils:
+      acl: openstack-dib-utils
+      description: Mirror of upstream dib-utils (mirror + patches)
+    openstack/dib-utils-distgit:
+      acl: openstack-dib-utils-distgit
+      description: Packaging of upstream dib-utils

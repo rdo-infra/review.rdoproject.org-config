@@ -2452,32 +2452,6 @@ resources:
       groups:
       - puppet/puppet-inifile-core
       - puppet/puppet-inifile-ptl
-    6df3fd3b0b1ad9f11596d6bf551856d1:
-      file: |
-        [access "refs/*"]
-          read = group openstack/dib-utils-core
-          owner = group openstack/dib-utils-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/dib-utils-core
-            label-Code-Review = -2..+2 group openstack/dib-utils-ptl
-            submit = group openstack/dib-utils-ptl
-            read = group Registered Users
-            read = group openstack/dib-utils-core
-            label-Verified = -2..+0 group openstack/dib-utils-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/dib-utils-core
-            label-Workflow = -1..+0 group openstack/dib-utils-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/dib-utils-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/dib-utils-core
-      - openstack/dib-utils-ptl
     6eed5db2d25f2cfd9b185560bf304352:
       file: |
         [access "refs/*"]
@@ -4178,38 +4152,6 @@ resources:
       groups:
       - puppet/puppet-remote-distgit-ptl
       - rdo-core
-    a4baeeda9d30d375c97db7234678faf8:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/diskimage-builder-distgit-core
-          read = group rdo-core
-          owner = group openstack/diskimage-builder-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/diskimage-builder-distgit-core
-            label-Code-Review = -2..+2 group openstack/diskimage-builder-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/diskimage-builder-distgit-ptl
-            label-Workflow = -1..+1 group openstack/diskimage-builder-distgit-core
-            label-Workflow = -1..+1 group openstack/diskimage-builder-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/diskimage-builder-distgit-ptl
-            read = group Registered Users
-            read = group openstack/diskimage-builder-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/diskimage-builder-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/diskimage-builder-distgit-ptl
-      - rdo-core
     a54227beaeaf8fa5c2f8f99745bdf3ee:
       file: |
         [project]
@@ -5187,32 +5129,6 @@ resources:
       groups:
       - puppet/puppet-ovn-distgit-core
       - puppet/puppet-ovn-distgit-ptl
-    c14829ed6cdc1b120e3ab258146ee0cf:
-      file: |
-        [access "refs/*"]
-          read = group openstack/diskimage-builder-core
-          owner = group openstack/diskimage-builder-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/diskimage-builder-core
-            label-Code-Review = -2..+2 group openstack/diskimage-builder-ptl
-            submit = group openstack/diskimage-builder-ptl
-            read = group Registered Users
-            read = group openstack/diskimage-builder-core
-            label-Verified = -2..+0 group openstack/diskimage-builder-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/diskimage-builder-core
-            label-Workflow = -1..+0 group openstack/diskimage-builder-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/diskimage-builder-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/diskimage-builder-ptl
-      - openstack/diskimage-builder-core
     c14a4640b99e82ab1fbdca9f2a8b780b:
       file: |
         [access "refs/*"]
@@ -5880,38 +5796,6 @@ resources:
       groups:
       - puppet/puppet-pacemaker-core
       - puppet/puppet-pacemaker-ptl
-    d5e96043e700b218ae56d042f6199e31:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/dib-utils-distgit-core
-          read = group rdo-core
-          owner = group openstack/dib-utils-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/dib-utils-distgit-core
-            label-Code-Review = -2..+2 group openstack/dib-utils-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/dib-utils-distgit-ptl
-            label-Workflow = -1..+1 group openstack/dib-utils-distgit-core
-            label-Workflow = -1..+1 group openstack/dib-utils-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/dib-utils-distgit-ptl
-            read = group Registered Users
-            read = group openstack/dib-utils-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/dib-utils-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/dib-utils-distgit-ptl
-      - rdo-core
     d7026939ad81af6f2127d9a75c4cb957:
       file: |
         [project]
@@ -7354,50 +7238,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/dib-utils-core:
-      description: Core developers for project dib-utils
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/dib-utils-distgit-core:
-      description: Core developers for project dib-utils-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/dib-utils-distgit-ptl:
-      description: Project team lead for project dib-utils-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/dib-utils-ptl:
-      description: Project team lead for project dib-utils
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/diskimage-builder-core:
-      description: Core developers for project diskimage-builder
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/diskimage-builder-distgit-core:
-      description: Core developers for project diskimage-builder-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-    openstack/diskimage-builder-distgit-ptl:
-      description: Project team lead for project diskimage-builder-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/diskimage-builder-ptl:
-      description: Project team lead for project diskimage-builder
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/dracclient-core:
       description: Core developers for project dracclient
       members:
@@ -10287,16 +10127,6 @@ resources:
       description: Mirror of upstream openstack/cursive (mirror + patches)
     openstack/cursive-distgit:
       acl: e6f2fe5044506b45ebee5ff25ab41155
-    openstack/dib-utils:
-      acl: 6df3fd3b0b1ad9f11596d6bf551856d1
-      description: Mirror of upstream dib-utils (mirror + patches)
-    openstack/dib-utils-distgit:
-      acl: d5e96043e700b218ae56d042f6199e31
-    openstack/diskimage-builder:
-      acl: c14829ed6cdc1b120e3ab258146ee0cf
-      description: Mirror of upstream diskimage-builder (mirror + patches)
-    openstack/diskimage-builder-distgit:
-      acl: a4baeeda9d30d375c97db7234678faf8
     openstack/dracclient:
       acl: fe29c2f474cecd344ecb939a0696589a
       description: Mirror of upstream dracclient (mirror + patches)
