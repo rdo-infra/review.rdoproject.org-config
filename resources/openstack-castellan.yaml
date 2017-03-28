@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/castellan-core:
+      description: Core developers for project castellan
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/castellan-ptl:
+      description: Project team lead for project castellan
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-castellan-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/castellan-core
+          owner = group openstack/castellan-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/castellan-core
+          label-Code-Review = -2..+2 group openstack/castellan-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/castellan-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/castellan-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/castellan-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/castellan-core
+          label-Workflow = -1..+1 group openstack/castellan-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/castellan-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/castellan-core
+      - openstack/castellan-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-castellan:
+      file: |
+        [access "refs/*"]
+          read = group openstack/castellan-core
+          owner = group openstack/castellan-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/castellan-core
+          label-Code-Review = -2..+2 group openstack/castellan-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/castellan-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/castellan-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/castellan-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/castellan-core
+          label-Workflow = -1..+0 group openstack/castellan-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/castellan-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/castellan-core
+      - openstack/castellan-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/castellan:
+      acl: openstack-castellan
+      description: Mirror of upstream castellan (mirror + patches)
+    openstack/castellan-distgit:
+      acl: openstack-castellan-distgit
+      description: Packaging of upstream castellan

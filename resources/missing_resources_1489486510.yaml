@@ -1331,38 +1331,6 @@ resources:
       groups:
       - puppet/puppet-ovn-core
       - puppet/puppet-ovn-ptl
-    407231a70ad7e9f88f866e5aca8837c9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/castellan-distgit-core
-          read = group rdo-core
-          owner = group openstack/castellan-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/castellan-distgit-core
-            label-Code-Review = -2..+2 group openstack/castellan-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/castellan-distgit-ptl
-            label-Workflow = -1..+1 group openstack/castellan-distgit-core
-            label-Workflow = -1..+1 group openstack/castellan-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/castellan-distgit-ptl
-            read = group Registered Users
-            read = group openstack/castellan-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/castellan-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/castellan-distgit-ptl
-      - rdo-core
     40ebd1629886dd7ed40e49c082e6480b:
       file: |
         [project]
@@ -6157,32 +6125,6 @@ resources:
       groups:
       - puppet/puppet-keepalived-ptl
       - puppet/puppet-keepalived-core
-    c1acfa026758e06867a2d6902ca653fa:
-      file: |
-        [access "refs/*"]
-          read = group openstack/castellan-core
-          owner = group openstack/castellan-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/castellan-core
-            label-Code-Review = -2..+2 group openstack/castellan-ptl
-            submit = group openstack/castellan-ptl
-            read = group Registered Users
-            read = group openstack/castellan-core
-            label-Verified = -2..+0 group openstack/castellan-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/castellan-core
-            label-Workflow = -1..+0 group openstack/castellan-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/castellan-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/castellan-core
-      - openstack/castellan-ptl
     c3b65b7969dab11fb5ead0403c51f940:
       file: |
         [project]
@@ -8526,32 +8468,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/automaton-ptl:
       description: Project team lead for project automaton
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/castellan-core:
-      description: Core developers for project castellan
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/castellan-distgit-core:
-      description: Core developers for project castellan-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/castellan-distgit-ptl:
-      description: Project team lead for project castellan-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/castellan-ptl:
-      description: Project team lead for project castellan
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -11997,11 +11913,6 @@ resources:
       description: Mirror of upstream automaton (mirror + patches)
     openstack/automaton-distgit:
       acl: 4b551bf361dafb7df8957c68867c5874
-    openstack/castellan:
-      acl: c1acfa026758e06867a2d6902ca653fa
-      description: Mirror of upstream castellan (mirror + patches)
-    openstack/castellan-distgit:
-      acl: 407231a70ad7e9f88f866e5aca8837c9
     openstack/ceilometer:
       acl: 5c175c6e996efc77c5e3815cc3f2665a
       description: Mirror of upstream ceilometer (mirror + patches)
