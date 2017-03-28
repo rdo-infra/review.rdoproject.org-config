@@ -1622,38 +1622,6 @@ resources:
       groups:
       - puppet/puppet-horizon-ptl
       - puppet/puppet-horizon-core
-    4b551bf361dafb7df8957c68867c5874:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/automaton-distgit-core
-          read = group rdo-core
-          owner = group openstack/automaton-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/automaton-distgit-core
-            label-Code-Review = -2..+2 group openstack/automaton-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/automaton-distgit-ptl
-            label-Workflow = -1..+1 group openstack/automaton-distgit-core
-            label-Workflow = -1..+1 group openstack/automaton-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/automaton-distgit-ptl
-            read = group Registered Users
-            read = group openstack/automaton-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/automaton-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/automaton-distgit-ptl
-      - rdo-core
     4c2faebe8c4ff275d852695e419bcb44:
       file: |
         [access "refs/*"]
@@ -3296,32 +3264,6 @@ resources:
       groups:
       - rdo-infra/weirdo-core
       - rdo-infra/weirdo-ptl
-    7f029920842046d9414fde329db8aa9c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/automaton-core
-          owner = group openstack/automaton-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/automaton-core
-            label-Code-Review = -2..+2 group openstack/automaton-ptl
-            submit = group openstack/automaton-ptl
-            read = group Registered Users
-            read = group openstack/automaton-core
-            label-Verified = -2..+0 group openstack/automaton-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/automaton-core
-            label-Workflow = -1..+0 group openstack/automaton-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/automaton-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/automaton-core
-      - openstack/automaton-ptl
     7f649840ab8afa266a5213d71ffbac72:
       file: |
         [access "refs/*"]
@@ -7785,32 +7727,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/automaton-core:
-      description: Core developers for project automaton
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/automaton-distgit-core:
-      description: Core developers for project automaton-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/automaton-distgit-ptl:
-      description: Project team lead for project automaton-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/automaton-ptl:
-      description: Project team lead for project automaton
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/ceilometer-core:
       description: Core developers for project ceilometer
       members:
@@ -10941,11 +10857,6 @@ resources:
       description: Mirror of upstream UcsSdk (mirror + patches)
     openstack/UcsSdk-distgit:
       acl: a654ac68fa88d1a7b632575241cf6485
-    openstack/automaton:
-      acl: 7f029920842046d9414fde329db8aa9c
-      description: Mirror of upstream automaton (mirror + patches)
-    openstack/automaton-distgit:
-      acl: 4b551bf361dafb7df8957c68867c5874
     openstack/ceilometer:
       acl: 5c175c6e996efc77c5e3815cc3f2665a
       description: Mirror of upstream ceilometer (mirror + patches)
