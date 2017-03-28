@@ -4044,38 +4044,6 @@ resources:
       groups:
       - puppet/puppet-stdlib-core
       - puppet/puppet-stdlib-ptl
-    ab0baa214bc52cf481bc958898211a10:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/virtualbmc-distgit-core
-            read = group rdo-core
-          owner = group openstack/virtualbmc-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/virtualbmc-distgit-core
-            label-Code-Review = -2..+2 group openstack/virtualbmc-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/virtualbmc-distgit-ptl
-            label-Workflow = -1..+1 group openstack/virtualbmc-distgit-core
-            label-Workflow = -1..+1 group openstack/virtualbmc-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/virtualbmc-distgit-ptl
-            read = group Registered Users
-            read = group openstack/virtualbmc-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/virtualbmc-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/virtualbmc-distgit-ptl
-      - rdo-core
     ab2364ec2c8af0fd7e802ae015473700:
       file: |
         [access "refs/*"]
@@ -4862,37 +4830,6 @@ resources:
       groups:
       - puppet/puppet-firewall-ptl
       - puppet/puppet-firewall-core
-    c73810c821a4b80ab793dd7118ad9c07:
-      file: |
-        [access "refs/*"]
-          read = group openstack/virtualbmc-core
-            read = group rdo-core
-          owner = group openstack/virtualbmc-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/virtualbmc-core
-            label-Code-Review = -2..+2 group openstack/virtualbmc-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            submit = group openstack/virtualbmc-ptl
-            read = group Registered Users
-            read = group openstack/virtualbmc-core
-            read = group rdo-core
-            label-Verified = -2..+0 group openstack/virtualbmc-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/virtualbmc-core
-            label-Workflow = -1..+0 group openstack/virtualbmc-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/virtualbmc-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/virtualbmc-ptl
-      - rdo-core
     c8b1dd0c1680552e63af59ed5c95f2cd:
       file: |
         [access "refs/*"]
@@ -6529,32 +6466,6 @@ resources:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
       - hguemar@fedoraproject.org
-    openstack/virtualbmc-core:
-      description: Core developers for project openstack/virtualbmc
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lucasagomes@gmail.com
-      - admin@review.rdoproject.org
-    openstack/virtualbmc-distgit-core:
-      description: Core developers for project openstack/virtualbmc-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - lucasagomes@gmail.com
-      - admin@review.rdoproject.org
-    openstack/virtualbmc-distgit-ptl:
-      description: Project team lead for project openstack/virtualbmc-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    openstack/virtualbmc-ptl:
-      description: Project team lead for project openstack/virtualbmc
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
     openstack/vmware-nsx-core:
       description: Core developers for project vmware-nsx
       members:
@@ -8828,11 +8739,6 @@ resources:
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
     openstack/openstack-puppet-modules-distgit:
       acl: 8812c30df4a27d9cb53bf689d1140e77
-    openstack/virtualbmc:
-      acl: c73810c821a4b80ab793dd7118ad9c07
-      description: Mirror of upstream openstack/virtualbmc (mirror + patches)
-    openstack/virtualbmc-distgit:
-      acl: ab0baa214bc52cf481bc958898211a10
     openstack/vmware-nsx:
       acl: d30dd71408a489abdb485a5ec47c5087
       description: Mirror of upstream vmware-nsx (mirror + patches)
