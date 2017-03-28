@@ -2756,32 +2756,6 @@ resources:
       groups:
       - openstack/dib-utils-core
       - openstack/dib-utils-ptl
-    6e5dc2f025020bcc8ef39355c5397de5:
-      file: |
-        [access "refs/*"]
-          read = group openstack/zaqarclient-core
-          owner = group openstack/zaqarclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/zaqarclient-core
-            label-Code-Review = -2..+2 group openstack/zaqarclient-ptl
-            submit = group openstack/zaqarclient-ptl
-            read = group Registered Users
-            read = group openstack/zaqarclient-core
-            label-Verified = -2..+0 group openstack/zaqarclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/zaqarclient-core
-            label-Workflow = -1..+0 group openstack/zaqarclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/zaqarclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/zaqarclient-core
-      - openstack/zaqarclient-ptl
     6eed5db2d25f2cfd9b185560bf304352:
       file: |
         [access "refs/*"]
@@ -4081,38 +4055,6 @@ resources:
       - rdo-infra/ci-config-ptl
       - rdo-ci-ptl
       - rdo-ci-core
-    91cb611cad9569cfa47e9ebaa7b88574:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/zaqar-distgit-core
-          read = group rdo-core
-          owner = group openstack/zaqar-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/zaqar-distgit-core
-            label-Code-Review = -2..+2 group openstack/zaqar-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/zaqar-distgit-ptl
-            label-Workflow = -1..+1 group openstack/zaqar-distgit-core
-            label-Workflow = -1..+1 group openstack/zaqar-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/zaqar-distgit-ptl
-            read = group Registered Users
-            read = group openstack/zaqar-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/zaqar-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/zaqar-distgit-ptl
-      - rdo-core
     928e56eccf8c7023fb847b3511f95bca:
       file: |
         [project]
@@ -4895,38 +4837,6 @@ resources:
       groups:
       - openstack/cliff-distgit-ptl
       - rdo-core
-    aaa2102bc5688ff4dfe05e06649f862c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/zaqarclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/zaqarclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/zaqarclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/zaqarclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/zaqarclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/zaqarclient-distgit-core
-            label-Workflow = -1..+1 group openstack/zaqarclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/zaqarclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/zaqarclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/zaqarclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/zaqarclient-distgit-ptl
-      - rdo-core
     ab0baa214bc52cf481bc958898211a10:
       file: |
         [project]
@@ -5567,32 +5477,6 @@ resources:
       groups:
       - puppet/puppet-glance-distgit-ptl
       - rdo-core
-    bb5ef0979f6e10480385a89332ede1ff:
-      file: |
-        [access "refs/*"]
-          read = group openstack/zaqar-core
-          owner = group openstack/zaqar-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/zaqar-core
-            label-Code-Review = -2..+2 group openstack/zaqar-ptl
-            submit = group openstack/zaqar-ptl
-            read = group Registered Users
-            read = group openstack/zaqar-core
-            label-Verified = -2..+0 group openstack/zaqar-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/zaqar-core
-            label-Workflow = -1..+0 group openstack/zaqar-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/zaqar-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/zaqar-core
-      - openstack/zaqar-ptl
     bbda2f2094784502da79dfe19cc133a6:
       file: |
         [project]
@@ -9158,54 +9042,6 @@ resources:
       - amoralej@redhat.com
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/zaqar-core:
-      description: Core developers for project zaqar
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - fpercoco@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/zaqar-distgit-core:
-      description: Core developers for project zaqar-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - fpercoco@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/zaqar-distgit-ptl:
-      description: Project team lead for project zaqar-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/zaqar-ptl:
-      description: Project team lead for project zaqar
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/zaqarclient-core:
-      description: Core developers for project zaqarclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - fpercoco@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/zaqarclient-distgit-core:
-      description: Core developers for project zaqarclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - fpercoco@redhat.com
-      - hguemar@fedoraproject.org
-    openstack/zaqarclient-distgit-ptl:
-      description: Project team lead for project zaqarclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/zaqarclient-ptl:
-      description: Project team lead for project zaqarclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     opm-packagers:
       description: ''
       members: []
@@ -11600,16 +11436,6 @@ resources:
       description: Mirror of upstream openstack/vmware-nsxlib (mirror + patches)
     openstack/vmware-nsxlib-distgit:
       acl: c8de9e8af4f22be13750cb53298cf647
-    openstack/zaqar:
-      acl: bb5ef0979f6e10480385a89332ede1ff
-      description: Mirror of upstream zaqar (mirror + patches)
-    openstack/zaqar-distgit:
-      acl: 91cb611cad9569cfa47e9ebaa7b88574
-    openstack/zaqarclient:
-      acl: 6e5dc2f025020bcc8ef39355c5397de5
-      description: Mirror of upstream zaqarclient (mirror + patches)
-    openstack/zaqarclient-distgit:
-      acl: aaa2102bc5688ff4dfe05e06649f862c
     puppet/puppet-aodh:
       acl: e387836b69963438ee9ac43cbc1a61ba
       description: Mirror of upstream puppet-aodh (mirror + patches)

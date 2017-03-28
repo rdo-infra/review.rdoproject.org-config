@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/zaqar-core:
+      description: Core developers for project zaqar
+      members:
+      - hguemar@fedoraproject.org
+      - fpercoco@redhat.com
+    openstack/zaqar-ptl:
+      description: Project team lead for project zaqar
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-zaqar-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/zaqar-core
+          owner = group openstack/zaqar-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/zaqar-core
+          label-Code-Review = -2..+2 group openstack/zaqar-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/zaqar-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/zaqar-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/zaqar-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/zaqar-core
+          label-Workflow = -1..+1 group openstack/zaqar-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/zaqar-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/zaqar-core
+      - openstack/zaqar-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-zaqar:
+      file: |
+        [access "refs/*"]
+          read = group openstack/zaqar-core
+          owner = group openstack/zaqar-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/zaqar-core
+          label-Code-Review = -2..+2 group openstack/zaqar-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/zaqar-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/zaqar-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/zaqar-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/zaqar-core
+          label-Workflow = -1..+0 group openstack/zaqar-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/zaqar-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/zaqar-core
+      - openstack/zaqar-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/zaqar:
+      acl: openstack-zaqar
+      description: Mirror of upstream zaqar (mirror + patches)
+    openstack/zaqar-distgit:
+      acl: openstack-zaqar-distgit
+      description: Packaging of upstream zaqar
