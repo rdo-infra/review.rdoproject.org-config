@@ -2479,32 +2479,6 @@ resources:
       groups:
       - puppet/puppet-qdr-distgit-core
       - puppet/puppet-qdr-distgit-ptl
-    6fe90bb30e4b6e6b0c707951ef391dfb:
-      file: |
-        [access "refs/*"]
-          read = group openstack/hacking-core
-          owner = group openstack/hacking-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/hacking-core
-            label-Code-Review = -2..+2 group openstack/hacking-ptl
-            submit = group openstack/hacking-ptl
-            read = group Registered Users
-            read = group openstack/hacking-core
-            label-Verified = -2..+0 group openstack/hacking-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/hacking-core
-            label-Workflow = -1..+0 group openstack/hacking-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/hacking-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/hacking-core
-      - openstack/hacking-ptl
     7033d66929f9f0ab05c7997a6b172587:
       file: |
         [project]
@@ -6049,38 +6023,6 @@ resources:
       groups:
       - rdoinfo-ptl
       - rdoinfo-core
-    e0e52dfa24d55ba3d6fac79f2d77f59c:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/hacking-distgit-core
-          read = group rdo-core
-          owner = group openstack/hacking-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/hacking-distgit-core
-            label-Code-Review = -2..+2 group openstack/hacking-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/hacking-distgit-ptl
-            label-Workflow = -1..+1 group openstack/hacking-distgit-core
-            label-Workflow = -1..+1 group openstack/hacking-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/hacking-distgit-ptl
-            read = group Registered Users
-            read = group openstack/hacking-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/hacking-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/hacking-distgit-ptl
-      - rdo-core
     e107ce1fd0eae7f5c26023d1a2dd2994:
       file: |
         [access "refs/*"]
@@ -7117,32 +7059,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/ec2-api-ptl:
       description: Project team lead for project ec2-api
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/hacking-core:
-      description: Core developers for project hacking
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/hacking-distgit-core:
-      description: Core developers for project hacking-distgit
-      members:
-      - alan.pevec@redhat.com
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-      - lbezdick@redhat.com
-    openstack/hacking-distgit-ptl:
-      description: Project team lead for project hacking-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/hacking-ptl:
-      description: Project team lead for project hacking
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -9895,11 +9811,6 @@ resources:
       description: Mirror of upstream ec2-api (mirror + patches)
     openstack/ec2-api-distgit:
       acl: e14cec4c74dcf39e724e9ce427829ee5
-    openstack/hacking:
-      acl: 6fe90bb30e4b6e6b0c707951ef391dfb
-      description: Mirror of upstream hacking (mirror + patches)
-    openstack/hacking-distgit:
-      acl: e0e52dfa24d55ba3d6fac79f2d77f59c
     openstack/kolla:
       acl: 8c2c5728909e163fa3d58121a3e70146
       description: Mirror of upstream openstack/kolla (mirror + patches)
