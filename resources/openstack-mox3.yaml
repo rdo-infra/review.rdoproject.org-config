@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/mox3-core:
+      description: Core developers for project mox3
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/mox3-ptl:
+      description: Project team lead for project mox3
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-mox3-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/mox3-core
+          owner = group openstack/mox3-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/mox3-core
+          label-Code-Review = -2..+2 group openstack/mox3-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/mox3-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/mox3-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/mox3-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/mox3-core
+          label-Workflow = -1..+1 group openstack/mox3-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/mox3-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/mox3-core
+      - openstack/mox3-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-mox3:
+      file: |
+        [access "refs/*"]
+          read = group openstack/mox3-core
+          owner = group openstack/mox3-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/mox3-core
+          label-Code-Review = -2..+2 group openstack/mox3-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/mox3-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/mox3-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/mox3-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/mox3-core
+          label-Workflow = -1..+0 group openstack/mox3-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/mox3-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/mox3-core
+      - openstack/mox3-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/mox3:
+      acl: openstack-mox3
+      description: Mirror of upstream mox3 (mirror + patches)
+    openstack/mox3-distgit:
+      acl: openstack-mox3-distgit
+      description: Packaging of upstream mox3
