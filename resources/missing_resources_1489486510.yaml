@@ -643,32 +643,6 @@ resources:
       groups:
       - puppet/puppet-swift-distgit-ptl
       - rdo-core
-    1948e1d30290ff977ad479b28bdad512:
-      file: |
-        [access "refs/*"]
-          read = group openstack/magnum-core
-          owner = group openstack/magnum-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnum-core
-            label-Code-Review = -2..+2 group openstack/magnum-ptl
-            submit = group openstack/magnum-ptl
-            read = group Registered Users
-            read = group openstack/magnum-core
-            label-Verified = -2..+0 group openstack/magnum-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/magnum-core
-            label-Workflow = -1..+0 group openstack/magnum-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/magnum-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/magnum-core
-      - openstack/magnum-ptl
     19dafd4bae191061874b051e52932e75:
       file: |
         [access "refs/*"]
@@ -3420,32 +3394,6 @@ resources:
       groups:
       - puppet/puppet-contrail-distgit-ptl
       - rdo-core
-    668d239fbd8c39d71c5250bc41b0ac68:
-      file: |
-        [access "refs/*"]
-          read = group openstack/magnumclient-core
-          owner = group openstack/magnumclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnumclient-core
-            label-Code-Review = -2..+2 group openstack/magnumclient-ptl
-            submit = group openstack/magnumclient-ptl
-            read = group Registered Users
-            read = group openstack/magnumclient-core
-            label-Verified = -2..+0 group openstack/magnumclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/magnumclient-core
-            label-Workflow = -1..+0 group openstack/magnumclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/magnumclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/magnumclient-ptl
-      - openstack/magnumclient-core
     66e4435f4fce1727ca6712ee3a92356c:
       file: |
         [project]
@@ -3984,38 +3932,6 @@ resources:
       groups:
       - puppet/puppet-concat-distgit-ptl
       - rdo-core
-    74620d8dc0d0d507625392b10844ecf5:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/magnum-distgit-core
-          read = group rdo-core
-          owner = group openstack/magnum-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnum-distgit-core
-            label-Code-Review = -2..+2 group openstack/magnum-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/magnum-distgit-ptl
-            label-Workflow = -1..+1 group openstack/magnum-distgit-core
-            label-Workflow = -1..+1 group openstack/magnum-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/magnum-distgit-ptl
-            read = group Registered Users
-            read = group openstack/magnum-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/magnum-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/magnum-distgit-ptl
-      - rdo-core
     746a1c04f4c23456460ccdce62c13cef:
       file: |
         [access "refs/*"]
@@ -4381,32 +4297,6 @@ resources:
       - openstack/taskflow-distgit-ptl
       - openstack/taskflow-distgit-core
       - rdo-core
-    7d667149c943ab2d7f33989911c8da39:
-      file: |
-        [access "refs/*"]
-          read = group openstack/magnum-ui-core
-          owner = group openstack/magnum-ui-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnum-ui-core
-            label-Code-Review = -2..+2 group openstack/magnum-ui-ptl
-            submit = group openstack/magnum-ui-ptl
-            read = group openstack/magnum-ui-core
-            read = group Registered Users
-            label-Verified = -2..+0 group openstack/magnum-ui-ptl
-            label-Workflow = -1..+0 group openstack/magnum-ui-ptl
-            label-Workflow = -1..+0 group openstack/magnum-ui-core
-            label-Workflow = -1..+0 group Registered Users
-        [access "refs/meta/config"]
-            read = group openstack/magnum-ui-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/magnum-ui-core
-      - openstack/magnum-ui-ptl
     7d6d7e0f6e4133b49c8377a771ddd519:
       file: |
         [access "refs/*"]
@@ -5742,33 +5632,6 @@ resources:
       groups:
       - rdo-core
       - puppet/puppet-fluentd-distgit-ptl
-    9f632548489d2bdc33765653eb0bafde:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/magnum-ui-distgit-core
-          owner = group openstack/magnum-ui-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnum-ui-distgit-core
-            label-Code-Review = -2..+2 group openstack/magnum-ui-distgit-ptl
-            label-Verified = -2..+2 group openstack/magnum-ui-distgit-ptl
-            label-Workflow = -1..+1 group openstack/magnum-ui-distgit-core
-            label-Workflow = -1..+1 group openstack/magnum-ui-distgit-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/magnum-ui-distgit-ptl
-            read = group Registered Users
-            read = group openstack/magnum-ui-distgit-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/magnum-ui-distgit-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/magnum-ui-distgit-core
-      - openstack/magnum-ui-distgit-ptl
     a0aa3d92bd8259b8e49f38a4a028bb62:
       file: |
         [access "refs/*"]
@@ -7082,38 +6945,6 @@ resources:
       groups:
       - puppet/puppet-magnum-ptl
       - puppet/puppet-magnum-core
-    bd8cedacfc3d523a981344647234a061:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/magnumclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/magnumclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/magnumclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/magnumclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/magnumclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/magnumclient-distgit-core
-            label-Workflow = -1..+1 group openstack/magnumclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/magnumclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/magnumclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/magnumclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/magnumclient-distgit-ptl
-      - rdo-core
     be926f6f3c72db93dfc02acd018adc2b:
       file: |
         [access "refs/*"]
@@ -10749,76 +10580,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/magnum-core:
-      description: Core developers for project magnum
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/magnum-distgit-core:
-      description: Core developers for project magnum-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-    openstack/magnum-distgit-ptl:
-      description: Project team lead for project magnum-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/magnum-ptl:
-      description: Project team lead for project magnum
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/magnum-ui-core:
-      description: Core developers for project openstack/magnum-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/magnum-ui-distgit-core:
-      description: Core developers for project openstack/magnum-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/magnum-ui-distgit-ptl:
-      description: Project team lead for project openstack/magnum-ui-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/magnum-ui-ptl:
-      description: Project team lead for project openstack/magnum-ui
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/magnumclient-core:
-      description: Core developers for project magnumclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - matmaul@gmail.com
-    openstack/magnumclient-distgit-core:
-      description: Core developers for project magnumclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-      - chkumar@redhat.com
-      - matmaul@gmail.com
-    openstack/magnumclient-distgit-ptl:
-      description: Project team lead for project magnumclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/magnumclient-ptl:
-      description: Project team lead for project magnumclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/microversion-parse-core:
       description: Core developers for project openstack/microversion-parse
       members:
@@ -14273,21 +14034,6 @@ resources:
     openstack/kolla-distgit:
       acl: e155d710082a13ef10d322708ed00f49
       description: Packaging content for openstack/kolla (distgit)
-    openstack/magnum:
-      acl: 1948e1d30290ff977ad479b28bdad512
-      description: Mirror of upstream magnum (mirror + patches)
-    openstack/magnum-distgit:
-      acl: 74620d8dc0d0d507625392b10844ecf5
-    openstack/magnum-ui:
-      acl: 7d667149c943ab2d7f33989911c8da39
-      description: Mirror of upstream openstack/magnum-ui (mirror + patches)
-    openstack/magnum-ui-distgit:
-      acl: 9f632548489d2bdc33765653eb0bafde
-    openstack/magnumclient:
-      acl: 668d239fbd8c39d71c5250bc41b0ac68
-      description: Mirror of upstream magnumclient (mirror + patches)
-    openstack/magnumclient-distgit:
-      acl: bd8cedacfc3d523a981344647234a061
     openstack/microversion-parse:
       acl: dab822e52e1d8a9d3c7f46043dba959e
       description: Mirror of upstream openstack/microversion-parse (mirror + patches)
