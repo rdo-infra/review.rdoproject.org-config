@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/ceilometerclient-core:
+      description: Core developers for project ceilometerclient
+      members:
+      - jruzicka@redhat.com
+      - hguemar@fedoraproject.org
+    openstack/ceilometerclient-ptl:
+      description: Project team lead for project ceilometerclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ceilometerclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ceilometerclient-core
+          owner = group openstack/ceilometerclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ceilometerclient-core
+          label-Code-Review = -2..+2 group openstack/ceilometerclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ceilometerclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ceilometerclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/ceilometerclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ceilometerclient-core
+          label-Workflow = -1..+1 group openstack/ceilometerclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ceilometerclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ceilometerclient-core
+      - openstack/ceilometerclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ceilometerclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ceilometerclient-core
+          owner = group openstack/ceilometerclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ceilometerclient-core
+          label-Code-Review = -2..+2 group openstack/ceilometerclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ceilometerclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ceilometerclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ceilometerclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ceilometerclient-core
+          label-Workflow = -1..+0 group openstack/ceilometerclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ceilometerclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ceilometerclient-core
+      - openstack/ceilometerclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ceilometerclient:
+      acl: openstack-ceilometerclient
+      description: Mirror of upstream ceilometerclient (mirror + patches)
+    openstack/ceilometerclient-distgit:
+      acl: openstack-ceilometerclient-distgit
+      description: Packaging of upstream ceilometerclient

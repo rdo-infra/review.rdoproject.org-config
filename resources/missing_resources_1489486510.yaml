@@ -1700,32 +1700,6 @@ resources:
       groups:
       - puppet/puppet-oslo-ptl
       - puppet/puppet-oslo-core
-    510ab43762c82a8083aaeee5d55f3d21:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ceilometerclient-core
-          owner = group openstack/ceilometerclient-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometerclient-core
-            label-Code-Review = -2..+2 group openstack/ceilometerclient-ptl
-            submit = group openstack/ceilometerclient-ptl
-            read = group Registered Users
-            read = group openstack/ceilometerclient-core
-            label-Verified = -2..+0 group openstack/ceilometerclient-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ceilometerclient-core
-            label-Workflow = -1..+0 group openstack/ceilometerclient-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometerclient-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ceilometerclient-ptl
-      - openstack/ceilometerclient-core
     51a82b6b7a9e831734913877bfefaa87:
       file: |
         [access "refs/*"]
@@ -2088,32 +2062,6 @@ resources:
       groups:
       - puppet/puppet-timezone-ptl
       - puppet/puppet-timezone-core
-    5c175c6e996efc77c5e3815cc3f2665a:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ceilometer-core
-          owner = group openstack/ceilometer-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometer-core
-            label-Code-Review = -2..+2 group openstack/ceilometer-ptl
-            submit = group openstack/ceilometer-ptl
-            read = group Registered Users
-            read = group openstack/ceilometer-core
-            label-Verified = -2..+0 group openstack/ceilometer-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ceilometer-core
-            label-Workflow = -1..+0 group openstack/ceilometer-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometer-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ceilometer-core
-      - openstack/ceilometer-ptl
     5d0396ff2228df8d1c39569e6c1530db:
       file: |
         [project]
@@ -3553,38 +3501,6 @@ resources:
       - openstack/openstack-puppet-modules-distgit-core
       - openstack/openstack-puppet-modules-distgit-ptl
       - rdo-core
-    88d137495ac16a4699a38be80b3d1eca:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ceilometer-distgit-core
-          read = group rdo-core
-          owner = group openstack/ceilometer-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometer-distgit-core
-            label-Code-Review = -2..+2 group openstack/ceilometer-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ceilometer-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ceilometer-distgit-core
-            label-Workflow = -1..+1 group openstack/ceilometer-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ceilometer-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ceilometer-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometer-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ceilometer-distgit-ptl
-      - rdo-core
     88d9aeeb6de2ab1278d9e090cf39c96d:
       file: |
         [access "refs/*"]
@@ -4367,38 +4283,6 @@ resources:
       groups:
       - openstack/osc-lib-distgit-ptl
       - openstack/osc-lib-distgit-core
-    a2947da23e2d75dca143c68aaa86d84d:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ceilometerclient-distgit-core
-          read = group rdo-core
-          owner = group openstack/ceilometerclient-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometerclient-distgit-core
-            label-Code-Review = -2..+2 group openstack/ceilometerclient-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ceilometerclient-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ceilometerclient-distgit-core
-            label-Workflow = -1..+1 group openstack/ceilometerclient-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ceilometerclient-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ceilometerclient-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometerclient-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ceilometerclient-distgit-ptl
-      - rdo-core
     a3d2b33fe7987383833327cf5cb5c54e:
       file: |
         [project]
@@ -6223,38 +6107,6 @@ resources:
       groups:
       - openstack/dib-utils-distgit-ptl
       - rdo-core
-    d6fa52a6bbbff302949cf5e8dc23a66f:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/ceilometermiddleware-distgit-core
-          read = group rdo-core
-          owner = group openstack/ceilometermiddleware-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometermiddleware-distgit-core
-            label-Code-Review = -2..+2 group openstack/ceilometermiddleware-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/ceilometermiddleware-distgit-ptl
-            label-Workflow = -1..+1 group openstack/ceilometermiddleware-distgit-core
-            label-Workflow = -1..+1 group openstack/ceilometermiddleware-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/ceilometermiddleware-distgit-ptl
-            read = group Registered Users
-            read = group openstack/ceilometermiddleware-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometermiddleware-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - openstack/ceilometermiddleware-distgit-ptl
-      - rdo-core
     d7026939ad81af6f2127d9a75c4cb957:
       file: |
         [project]
@@ -6729,32 +6581,6 @@ resources:
       groups:
       - openstack/kolla-distgit-ptl
       - openstack/kolla-distgit-core
-    e224fd19fa18f5bfe471c8fe9c66f60c:
-      file: |
-        [access "refs/*"]
-          read = group openstack/ceilometermiddleware-core
-          owner = group openstack/ceilometermiddleware-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/ceilometermiddleware-core
-            label-Code-Review = -2..+2 group openstack/ceilometermiddleware-ptl
-            submit = group openstack/ceilometermiddleware-ptl
-            read = group Registered Users
-            read = group openstack/ceilometermiddleware-core
-            label-Verified = -2..+0 group openstack/ceilometermiddleware-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/ceilometermiddleware-core
-            label-Workflow = -1..+0 group openstack/ceilometermiddleware-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/ceilometermiddleware-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/ceilometermiddleware-core
-      - openstack/ceilometermiddleware-ptl
     e318890fbeab7c54e6b7af57526261d9:
       file: |
         [project]
@@ -7724,80 +7550,6 @@ resources:
       - admin@review.rdoproject.org
     openstack/UcsSdk-ptl:
       description: Project team lead for project UcsSdk
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometer-core:
-      description: Core developers for project ceilometer
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - eglynn@redhat.com
-      - sileht@sileht.net
-    openstack/ceilometer-distgit-core:
-      description: Core developers for project ceilometer-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - pkilambi@redhat.com
-      - admin@review.rdoproject.org
-      - eglynn@redhat.com
-      - sileht@sileht.net
-    openstack/ceilometer-distgit-ptl:
-      description: Project team lead for project ceilometer-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometer-ptl:
-      description: Project team lead for project ceilometer
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometerclient-core:
-      description: Core developers for project ceilometerclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/ceilometerclient-distgit-core:
-      description: Core developers for project ceilometerclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/ceilometerclient-distgit-ptl:
-      description: Project team lead for project ceilometerclient-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometerclient-ptl:
-      description: Project team lead for project ceilometerclient
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometermiddleware-core:
-      description: Core developers for project ceilometermiddleware
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/ceilometermiddleware-distgit-core:
-      description: Core developers for project ceilometermiddleware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - jruzicka@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    openstack/ceilometermiddleware-distgit-ptl:
-      description: Project team lead for project ceilometermiddleware-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/ceilometermiddleware-ptl:
-      description: Project team lead for project ceilometermiddleware
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
@@ -10857,21 +10609,6 @@ resources:
       description: Mirror of upstream UcsSdk (mirror + patches)
     openstack/UcsSdk-distgit:
       acl: a654ac68fa88d1a7b632575241cf6485
-    openstack/ceilometer:
-      acl: 5c175c6e996efc77c5e3815cc3f2665a
-      description: Mirror of upstream ceilometer (mirror + patches)
-    openstack/ceilometer-distgit:
-      acl: 88d137495ac16a4699a38be80b3d1eca
-    openstack/ceilometerclient:
-      acl: 510ab43762c82a8083aaeee5d55f3d21
-      description: Mirror of upstream ceilometerclient (mirror + patches)
-    openstack/ceilometerclient-distgit:
-      acl: a2947da23e2d75dca143c68aaa86d84d
-    openstack/ceilometermiddleware:
-      acl: e224fd19fa18f5bfe471c8fe9c66f60c
-      description: Mirror of upstream ceilometermiddleware (mirror + patches)
-    openstack/ceilometermiddleware-distgit:
-      acl: d6fa52a6bbbff302949cf5e8dc23a66f
     openstack/cliff:
       acl: d85de99d2a937b7f624115ab43466d4c
       description: Mirror of upstream cliff (mirror + patches)
