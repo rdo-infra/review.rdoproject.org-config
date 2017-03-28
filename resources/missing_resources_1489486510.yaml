@@ -1105,38 +1105,6 @@ resources:
       groups:
       - puppet/puppet-heat-ptl
       - puppet/puppet-heat-core
-    30fa76b71feca7215c839550846f9d1b:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group openstack/requestsexceptions-distgit-core
-          read = group rdo-core
-          owner = group openstack/requestsexceptions-distgit-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/requestsexceptions-distgit-core
-            label-Code-Review = -2..+2 group openstack/requestsexceptions-distgit-ptl
-            label-Code-Review = -2..+2 group rdo-core
-            label-Verified = -2..+2 group openstack/requestsexceptions-distgit-ptl
-            label-Workflow = -1..+1 group openstack/requestsexceptions-distgit-core
-            label-Workflow = -1..+1 group openstack/requestsexceptions-distgit-ptl
-            label-Workflow = -1..+1 group rdo-core
-            label-Workflow = -1..+0 group Registered Users
-            submit = group openstack/requestsexceptions-distgit-ptl
-            read = group Registered Users
-            read = group openstack/requestsexceptions-distgit-core
-            read = group rdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/requestsexceptions-distgit-core
-            read = group rdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-core
-      - openstack/requestsexceptions-distgit-ptl
     3178a2d0adc8e19a5058c0521a526b0a:
       file: |
         [project]
@@ -1169,32 +1137,6 @@ resources:
       groups:
       - puppet/puppet-nova-distgit-ptl
       - rdo-core
-    33da6aa5c3e19f9d280be0cd06cb10c0:
-      file: |
-        [access "refs/*"]
-          read = group openstack/requestsexceptions-core
-          owner = group openstack/requestsexceptions-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group openstack/requestsexceptions-core
-            label-Code-Review = -2..+2 group openstack/requestsexceptions-ptl
-            submit = group openstack/requestsexceptions-ptl
-            read = group Registered Users
-            read = group openstack/requestsexceptions-core
-            label-Verified = -2..+0 group openstack/requestsexceptions-ptl
-            label-Workflow = -1..+0 group Registered Users
-            label-Workflow = -1..+0 group openstack/requestsexceptions-core
-            label-Workflow = -1..+0 group openstack/requestsexceptions-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group openstack/requestsexceptions-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - openstack/requestsexceptions-ptl
-      - openstack/requestsexceptions-core
     370dd64257410095bd3e24483e5d15be:
       file: |
         [project]
@@ -9633,26 +9575,6 @@ resources:
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
-    openstack/requestsexceptions-core:
-      description: Core developers for project requestsexceptions
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/requestsexceptions-distgit-core:
-      description: Core developers for project requestsexceptions-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/requestsexceptions-distgit-ptl:
-      description: Project team lead for project requestsexceptions-distgit
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
-    openstack/requestsexceptions-ptl:
-      description: Project team lead for project requestsexceptions
-      members:
-      - sfrdobender@rpmfactory.beta.rdoproject.org
-      - admin@review.rdoproject.org
     openstack/shaker-core:
       description: Core developers for project openstack/shaker
       members:
@@ -12622,11 +12544,6 @@ resources:
       description: Mirror of upstream rally (mirror + patches)
     openstack/rally-distgit:
       acl: ab9c7c8605c90fac8c2527d73dbbbeb0
-    openstack/requestsexceptions:
-      acl: 33da6aa5c3e19f9d280be0cd06cb10c0
-      description: Mirror of upstream requestsexceptions (mirror + patches)
-    openstack/requestsexceptions-distgit:
-      acl: 30fa76b71feca7215c839550846f9d1b
     openstack/shaker:
       acl: 54e96cab7417754341b0fdbd8c6ee6cc
       description: Mirror of upstream openstack/shaker (mirror + patches)
