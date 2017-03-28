@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/packstack-core:
+      description: Core developers for project packstack
+      members:
+      - ichavero@redhat.com
+      - mmagr@redhat.com
+      - lbezdick@redhat.com
+    openstack/packstack-ptl:
+      description: Project team lead for project packstack
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-packstack-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/packstack-core
+          owner = group openstack/packstack-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/packstack-core
+          label-Code-Review = -2..+2 group openstack/packstack-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/packstack-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/packstack-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/packstack-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/packstack-core
+          label-Workflow = -1..+1 group openstack/packstack-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/packstack-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/packstack-core
+      - openstack/packstack-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-packstack:
+      file: |
+        [access "refs/*"]
+          read = group openstack/packstack-core
+          owner = group openstack/packstack-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/packstack-core
+          label-Code-Review = -2..+2 group openstack/packstack-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/packstack-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/packstack-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/packstack-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/packstack-core
+          label-Workflow = -1..+0 group openstack/packstack-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/packstack-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/packstack-core
+      - openstack/packstack-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/packstack:
+      acl: openstack-packstack
+      description: Mirror of upstream packstack (mirror + patches)
+    openstack/packstack-distgit:
+      acl: openstack-packstack-distgit
+      description: Packaging of upstream packstack
