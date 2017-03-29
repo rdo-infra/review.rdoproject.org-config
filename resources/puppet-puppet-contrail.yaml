@@ -1,0 +1,106 @@
+resources:
+  groups:
+    puppet/puppet-contrail-core:
+      description: Core developers for project puppet-contrail
+      members:
+      - mhenkel@juniper.net
+      - kparmar@juniper.net
+    puppet/puppet-contrail-ptl:
+      description: Project team lead for project puppet-contrail
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-contrail-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-contrail-core
+          owner = group puppet/puppet-contrail-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-contrail-core
+          label-Code-Review = -2..+2 group puppet/puppet-contrail-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-contrail-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-contrail-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+2 group puppet/puppet-contrail-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-contrail-core
+          label-Workflow = -1..+1 group puppet/puppet-contrail-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-contrail-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-contrail-core
+      - puppet/puppet-contrail-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-contrail:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-contrail-core
+          owner = group puppet/puppet-contrail-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-contrail-core
+          label-Code-Review = -2..+2 group puppet/puppet-contrail-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-contrail-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-contrail-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-contrail-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-contrail-core
+          label-Workflow = -1..+0 group puppet/puppet-contrail-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-contrail-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-contrail-core
+      - puppet/puppet-contrail-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-contrail:
+      acl: puppet-puppet-contrail
+      description: Mirror of upstream puppet-contrail (mirror + patches)
+    puppet/puppet-contrail-distgit:
+      acl: puppet-puppet-contrail-distgit
+      description: Packaging of upstream puppet-contrail
