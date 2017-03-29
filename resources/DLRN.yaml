@@ -1,0 +1,90 @@
+resources:
+  groups:
+    DLRN-core:
+      description: Core developers for project DLRN
+      members:
+      - alan.pevec@redhat.com
+      - dms@redhat.com
+      - flepied@redhat.com
+      - jpena@redhat.com
+      - admin@review.rdoproject.org
+      - hguemar@fedoraproject.org
+    DLRN-ptl:
+      description: Project team lead for project DLRN
+      members:
+      - alan.pevec@redhat.com
+      - fboucher@redhat.com
+      - admin@review.rdoproject.org
+    rdo-infra/puppet-dlrn-core:
+      description: Core developers for project rdo-infra/puppet-dlrn
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - dms@redhat.com
+      - jpena@redhat.com
+      - admin@review.rdoproject.org
+    rdo-infra/puppet-dlrn-ptl:
+      description: Project team lead for project rdo-infra/puppet-dlrn
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - jpena@redhat.com
+      - admin@review.rdoproject.org
+  acls:
+    DLRN:
+      file: |
+        [access "refs/*"]
+          read = group DLRN-core
+          owner = group DLRN-ptl
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group DLRN-core
+            label-Code-Review = -2..+2 group DLRN-ptl
+            label-Verified = -2..+2 group DLRN-ptl
+            label-Workflow = -1..+1 group DLRN-core
+            label-Workflow = -1..+1 group DLRN-ptl
+            label-Workflow = -1..+0 group Registered Users
+            submit = group DLRN-ptl
+            read = group DLRN-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group DLRN-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = true
+      groups:
+      - DLRN-core
+      - DLRN-ptl
+    puppet-dlrn:
+      file: |
+        [project]
+        [access "refs/*"]
+          read = group rdo-infra/puppet-dlrn-core
+          owner = group rdo-infra/puppet-dlrn-ptl
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra/puppet-dlrn-core
+            label-Code-Review = -2..+2 group rdo-infra/puppet-dlrn-ptl
+            label-Verified = -2..+2 group rdo-infra/puppet-dlrn-ptl
+            label-Workflow = -1..+1 group rdo-infra/puppet-dlrn-core
+            label-Workflow = -1..+1 group rdo-infra/puppet-dlrn-ptl
+            label-Workflow = -1..+0 group Registered Users
+            submit = group rdo-infra/puppet-dlrn-ptl
+            read = group Registered Users
+            read = group rdo-infra/puppet-dlrn-core
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-infra/puppet-dlrn-core
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+      groups:
+      - rdo-infra/puppet-dlrn-ptl
+      - rdo-infra/puppet-dlrn-core
+  repos:
+    DLRN:
+      acl: DLRN
+      description: DLRN Continuous Delivery platform for OpenStack Packages
+    rdo-infra/puppet-dlrn:
+      acl: puppet-dlrn
