@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/kuryr-core:
+      description: Core developers for project kuryr
+      members:
+      - asegurap@redhat.com
+      - dmellado@redhat.com
+      - luis5tb@gmail.com
+    openstack/kuryr-ptl:
+      description: Project team lead for project kuryr
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-kuryr-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/kuryr-core
+          owner = group openstack/kuryr-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/kuryr-core
+          label-Code-Review = -2..+2 group openstack/kuryr-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/kuryr-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/kuryr-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/kuryr-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/kuryr-core
+          label-Workflow = -1..+1 group openstack/kuryr-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/kuryr-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/kuryr-core
+      - openstack/kuryr-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-kuryr:
+      file: |
+        [access "refs/*"]
+          read = group openstack/kuryr-core
+          owner = group openstack/kuryr-ptl
+          owner = rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/kuryr-core
+          label-Code-Review = -2..+2 group openstack/kuryr-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/kuryr-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/kuryr-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/kuryr-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/kuryr-core
+          label-Workflow = -1..+0 group openstack/kuryr-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/kuryr-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/kuryr-core
+      - openstack/kuryr-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/kuryr:
+      acl: openstack-kuryr
+      description: Mirror of upstream kuryr (mirror + patches)
+    openstack/kuryr-distgit:
+      acl: openstack-kuryr-distgit
+      description: Packaging of upstream kuryr
