@@ -1,0 +1,105 @@
+resources:
+  groups:
+    puppet/puppet-midonet-core:
+      description: Core developers for project puppet-midonet
+      members:
+      - alejandroandreu@openmailbox.org
+    puppet/puppet-midonet-ptl:
+      description: Project team lead for project puppet-midonet
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-midonet-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-midonet-core
+          owner = group puppet/puppet-midonet-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-midonet-core
+          label-Code-Review = -2..+2 group puppet/puppet-midonet-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-midonet-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-midonet-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+2 group puppet/puppet-midonet-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-midonet-core
+          label-Workflow = -1..+1 group puppet/puppet-midonet-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-midonet-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-midonet-core
+      - puppet/puppet-midonet-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-midonet:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-midonet-core
+          owner = group puppet/puppet-midonet-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-midonet-core
+          label-Code-Review = -2..+2 group puppet/puppet-midonet-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-midonet-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-midonet-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-midonet-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-midonet-core
+          label-Workflow = -1..+0 group puppet/puppet-midonet-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-midonet-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-midonet-core
+      - puppet/puppet-midonet-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-midonet:
+      acl: puppet-puppet-midonet
+      description: Mirror of upstream puppet-midonet (mirror + patches)
+    puppet/puppet-midonet-distgit:
+      acl: puppet-puppet-midonet-distgit
+      description: Packaging of upstream puppet-midonet

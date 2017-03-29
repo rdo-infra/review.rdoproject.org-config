@@ -1,0 +1,575 @@
+resources:
+  acls:
+    puppet-generic-distgit:
+      file: |
+        [access "refs/*"]
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-generic:
+      file: |
+        [access "refs/*"]
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-aodh:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-aodh (mirror + patches)
+    puppet/puppet-aodh-distgit:
+      acl: puppet-aodh-distgit
+      description: Packaging of upstream puppet-aodh
+    puppet/puppet-apache:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-apache (mirror + patches)
+    puppet/puppet-apache-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-apache
+    puppet/puppet-barbican:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-barbican (mirror + patches)
+    puppet/puppet-barbican-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-barbican
+    puppet/puppet-cassandra:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-cassandra (mirror + patches)
+    puppet/puppet-cassandra-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-cassandra
+    puppet/puppet-ceilometer:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ceilometer (mirror + patches)
+    puppet/puppet-ceilometer-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ceilometer
+    puppet/puppet-ceph:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ceph (mirror + patches)
+    puppet/puppet-ceph-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ceph
+    puppet/puppet-certmonger:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-certmonger (mirror + patches)
+    puppet/puppet-certmonger-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-certmonger
+    puppet/puppet-cinder:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-cinder (mirror + patches)
+    puppet/puppet-cinder-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-cinder
+    puppet/puppet-collectd:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-collectd (mirror + patches)
+    puppet/puppet-collectd-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-collectd
+    puppet/puppet-concat:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-concat (mirror + patches)
+    puppet/puppet-concat-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-concat
+    puppet/puppet-congress:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-congress (mirror + patches)
+    puppet/puppet-congress-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-congress
+    puppet/puppet-corosync:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-corosync (mirror + patches)
+    puppet/puppet-corosync-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-corosync
+    puppet/puppet-datacat:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-datacat (mirror + patches)
+    puppet/puppet-datacat-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-datacat
+    puppet/puppet-designate:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-designate (mirror + patches)
+    puppet/puppet-designate-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-designate
+    puppet/puppet-dns:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-dns (mirror + patches)
+    puppet/puppet-dns-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-dns
+    puppet/puppet-ec2api:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ec2api (mirror + patches)
+    puppet/puppet-ec2api-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ec2api
+    puppet/puppet-elasticsearch:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-elasticsearch (mirror + patches)
+    puppet/puppet-elasticsearch-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-elasticsearch
+    puppet/puppet-etcd:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-etcd (mirror + patches)
+    puppet/puppet-etcd-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-etcd
+    puppet/puppet-fdio:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-fdio (mirror + patches)
+    puppet/puppet-fdio-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-fdio
+    puppet/puppet-firewall:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-firewall (mirror + patches)
+    puppet/puppet-firewall-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-firewall
+    puppet/puppet-fluentd:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-fluentd (mirror + patches)
+    puppet/puppet-fluentd-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-fluentd
+    puppet/puppet-git:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-git (mirror + patches)
+    puppet/puppet-git-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-git
+    puppet/puppet-glance:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-glance (mirror + patches)
+    puppet/puppet-glance-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-glance
+    puppet/puppet-gnocchi:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-gnocchi (mirror + patches)
+    puppet/puppet-gnocchi-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-gnocchi
+    puppet/puppet-haproxy:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-haproxy (mirror + patches)
+    puppet/puppet-haproxy-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-haproxy
+    puppet/puppet-heat:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-heat (mirror + patches)
+    puppet/puppet-heat-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-heat
+    puppet/puppet-horizon:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-horizon (mirror + patches)
+    puppet/puppet-horizon-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-horizon
+    puppet/puppet-inifile:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-inifile (mirror + patches)
+    puppet/puppet-inifile-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-inifile
+    puppet/puppet-ironic:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ironic (mirror + patches)
+    puppet/puppet-ironic-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ironic
+    puppet/puppet-java:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-java (mirror + patches)
+    puppet/puppet-java-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-java
+    puppet/puppet-kafka:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-kafka (mirror + patches)
+    puppet/puppet-kafka-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-kafka
+    puppet/puppet-keepalived:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-keepalived (mirror + patches)
+    puppet/puppet-keepalived-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-keepalived
+    puppet/puppet-keystone:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-keystone (mirror + patches)
+    puppet/puppet-keystone-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-keystone
+    puppet/puppet-kibana3:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-kibana3 (mirror + patches)
+    puppet/puppet-kibana3-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-kibana3
+    puppet/puppet-kmod:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-kmod (mirror + patches)
+    puppet/puppet-kmod-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-kmod
+    puppet/puppet-magnum:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-magnum (mirror + patches)
+    puppet/puppet-magnum-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-magnum
+    puppet/puppet-manila:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-manila (mirror + patches)
+    puppet/puppet-manila-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-manila
+    puppet/puppet-memcached:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-memcached (mirror + patches)
+    puppet/puppet-memcached-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-memcached
+    puppet/puppet-mistral:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-mistral (mirror + patches)
+    puppet/puppet-mistral-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-mistral
+    puppet/puppet-module-data:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-module-data (mirror + patches)
+    puppet/puppet-module-data-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-module-data
+    puppet/puppet-mongodb:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-mongodb (mirror + patches)
+    puppet/puppet-mongodb-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-mongodb
+    puppet/puppet-mysql:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-mysql (mirror + patches)
+    puppet/puppet-mysql-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-mysql
+    puppet/puppet-n1k-vsm:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-n1k-vsm (mirror + patches)
+    puppet/puppet-n1k-vsm-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-n1k-vsm
+    puppet/puppet-nagios-openstack:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-nagios-openstack (mirror + patches)
+    puppet/puppet-nagios-openstack-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-nagios-openstack
+    puppet/puppet-neutron:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-neutron (mirror + patches)
+    puppet/puppet-neutron-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-neutron
+    puppet/puppet-nova:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-nova (mirror + patches)
+    puppet/puppet-nova-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-nova
+    puppet/puppet-nssdb:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-nssdb (mirror + patches)
+    puppet/puppet-nssdb-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-nssdb
+    puppet/puppet-ntp:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ntp (mirror + patches)
+    puppet/puppet-ntp-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ntp
+    puppet/puppet-octavia:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-octavia (mirror + patches)
+    puppet/puppet-octavia-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-octavia
+    puppet/puppet-opendaylight:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-opendaylight (mirror + patches)
+    puppet/puppet-opendaylight-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-opendaylight
+    puppet/puppet-openstack_extras:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-openstack_extras (mirror + patches)
+    puppet/puppet-openstack_extras-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-openstack_extras
+    puppet/puppet-openstacklib:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-openstacklib (mirror + patches)
+    puppet/puppet-openstacklib-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-openstacklib
+    puppet/puppet-oslo:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-oslo (mirror + patches)
+    puppet/puppet-oslo-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-oslo
+    puppet/puppet-ovn:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ovn (mirror + patches)
+    puppet/puppet-ovn-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ovn
+    puppet/puppet-pacemaker:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-pacemaker (mirror + patches)
+    puppet/puppet-pacemaker-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-pacemaker
+    puppet/puppet-panko:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-panko (mirror + patches)
+    puppet/puppet-panko-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-panko
+    puppet/puppet-powerdns:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-powerdns (mirror + patches)
+    puppet/puppet-powerdns-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-powerdns
+    puppet/puppet-qdr:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-qdr (mirror + patches)
+    puppet/puppet-qdr-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-qdr
+    puppet/puppet-rabbitmq:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-rabbitmq (mirror + patches)
+    puppet/puppet-rabbitmq-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-rabbitmq
+    puppet/puppet-redis:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-redis (mirror + patches)
+    puppet/puppet-redis-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-redis
+    puppet/puppet-remote:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-remote (mirror + patches)
+    puppet/puppet-remote-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-remote
+    puppet/puppet-rsync:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-rsync (mirror + patches)
+    puppet/puppet-rsync-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-rsync
+    puppet/puppet-sahara:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-sahara (mirror + patches)
+    puppet/puppet-sahara-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-sahara
+    puppet/puppet-sensu:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-sensu (mirror + patches)
+    puppet/puppet-sensu-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-sensu
+    puppet/puppet-snmp:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-snmp (mirror + patches)
+    puppet/puppet-snmp-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-snmp
+    puppet/puppet-ssh:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-ssh (mirror + patches)
+    puppet/puppet-ssh-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-ssh
+    puppet/puppet-staging:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-staging (mirror + patches)
+    puppet/puppet-staging-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-staging
+    puppet/puppet-stdlib:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-stdlib (mirror + patches)
+    puppet/puppet-stdlib-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-stdlib
+    puppet/puppet-swift:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-swift (mirror + patches)
+    puppet/puppet-swift-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-swift
+    puppet/puppet-sysctl:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-sysctl (mirror + patches)
+    puppet/puppet-sysctl-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-sysctl
+    puppet/puppet-systemd:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-systemd (mirror + patches)
+    puppet/puppet-systemd-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-systemd
+    puppet/puppet-tacker:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-tacker (mirror + patches)
+    puppet/puppet-tacker-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-tacker
+    puppet/puppet-tempest:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-tempest (mirror + patches)
+    puppet/puppet-tempest-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-tempest
+    puppet/puppet-timezone:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-timezone (mirror + patches)
+    puppet/puppet-timezone-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-timezone
+    puppet/puppet-tomcat:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-tomcat (mirror + patches)
+    puppet/puppet-tomcat-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-tomcat
+    puppet/puppet-tripleo:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-tripleo (mirror + patches)
+    puppet/puppet-tripleo-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-tripleo
+    puppet/puppet-trove:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-trove (mirror + patches)
+    puppet/puppet-trove-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-trove
+    puppet/puppet-uchiwa:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-uchiwa (mirror + patches)
+    puppet/puppet-uchiwa-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-uchiwa
+    puppet/puppet-vcsrepo:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-vcsrepo (mirror + patches)
+    puppet/puppet-vcsrepo-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-vcsrepo
+    puppet/puppet-vitrage:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-vitrage (mirror + patches)
+    puppet/puppet-vitrage-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-vitrage
+    puppet/puppet-vlan:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-vlan (mirror + patches)
+    puppet/puppet-vlan-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-vlan
+    puppet/puppet-vswitch:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-vswitch (mirror + patches)
+    puppet/puppet-vswitch-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-vswitch
+    puppet/puppet-xinetd:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-xinetd (mirror + patches)
+    puppet/puppet-xinetd-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-xinetd
+    puppet/puppet-zaqar:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-zaqar (mirror + patches)
+    puppet/puppet-zaqar-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-zaqar
+    puppet/puppet-zookeeper:
+      acl: puppet-generic
+      description: Mirror of upstream puppet-zookeeper (mirror + patches)
+    puppet/puppet-zookeeper-distgit:
+      acl: puppet-generic-distgit
+      description: Packaging of upstream puppet-zookeeper
