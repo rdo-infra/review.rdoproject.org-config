@@ -188,31 +188,6 @@ resources:
       groups:
       - rdo-infra/weirdo-core
       - rdo-infra/weirdo-ptl
-    15255df6ea5ad393589887ef28d04ade:
-      file: |
-        [access "refs/*"]
-          read = group DLRN-core
-          owner = group DLRN-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group DLRN-core
-            label-Code-Review = -2..+2 group DLRN-ptl
-            label-Verified = -2..+2 group DLRN-ptl
-            label-Workflow = -1..+1 group DLRN-core
-            label-Workflow = -1..+1 group DLRN-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group DLRN-ptl
-            read = group DLRN-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group DLRN-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = true
-      groups:
-      - DLRN-core
-      - DLRN-ptl
     51da9e01b7b6c18da43f32c4b07b4d5e:
       file: |
         [access "refs/*"]
@@ -680,32 +655,6 @@ resources:
       groups:
       - rdoinfo-ptl
       - rdoinfo-core
-    e318890fbeab7c54e6b7af57526261d9:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group rdo-infra/puppet-dlrn-core
-          owner = group rdo-infra/puppet-dlrn-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/puppet-dlrn-core
-            label-Code-Review = -2..+2 group rdo-infra/puppet-dlrn-ptl
-            label-Verified = -2..+2 group rdo-infra/puppet-dlrn-ptl
-            label-Workflow = -1..+1 group rdo-infra/puppet-dlrn-core
-            label-Workflow = -1..+1 group rdo-infra/puppet-dlrn-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/puppet-dlrn-ptl
-            read = group Registered Users
-            read = group rdo-infra/puppet-dlrn-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group rdo-infra/puppet-dlrn-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-      groups:
-      - rdo-infra/puppet-dlrn-ptl
-      - rdo-infra/puppet-dlrn-core
     f03207f718ed98261d657759d48e2731:
       file: |
         [project]
@@ -734,21 +683,6 @@ resources:
       - centos-opstools/core
       - centos-opstools/ptl
   groups:
-    DLRN-core:
-      description: Core developers for project DLRN
-      members:
-      - alan.pevec@redhat.com
-      - dms@redhat.com
-      - flepied@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
-    DLRN-ptl:
-      description: Project team lead for project DLRN
-      members:
-      - alan.pevec@redhat.com
-      - fboucher@redhat.com
-      - admin@review.rdoproject.org
     centos-opstools/centos-release-opstools-core:
       description: Core developers for project centos-opstools/centos-release-opstools
       members:
@@ -1040,21 +974,6 @@ resources:
       members:
       - dms@redhat.com
       - admin@review.rdoproject.org
-    rdo-infra/puppet-dlrn-core:
-      description: Core developers for project rdo-infra/puppet-dlrn
-      members:
-      - alan.pevec@redhat.com
-      - amoralej@redhat.com
-      - dms@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
-    rdo-infra/puppet-dlrn-ptl:
-      description: Project team lead for project rdo-infra/puppet-dlrn
-      members:
-      - alan.pevec@redhat.com
-      - amoralej@redhat.com
-      - jpena@redhat.com
-      - admin@review.rdoproject.org
     rdo-infra/rdo-dashboards-core:
       description: Core developers for project rdo-infra/rdo-dashboards
       members:
@@ -1161,9 +1080,6 @@ resources:
       - gcerami@redhat.com
       - admin@review.rdoproject.org
   repos:
-    DLRN:
-      acl: 15255df6ea5ad393589887ef28d04ade
-      description: DLRN Continuous Delivery platform for OpenStack Packages
     centos-opstools/centos-release-opstools:
       acl: f03207f718ed98261d657759d48e2731
     centos-opstools/kibana:
@@ -1228,8 +1144,6 @@ resources:
       acl: 0cbf8b59c21d3c2b5c87e430aedf61cf
     rdo-infra/ci-config:
       acl: 910a710c67c8cd8ed04404f9c26593a4
-    rdo-infra/puppet-dlrn:
-      acl: e318890fbeab7c54e6b7af57526261d9
     rdo-infra/rdo-dashboards:
       acl: 521a1df16117f6b2ad1b23bfa338f544
       description: ''
