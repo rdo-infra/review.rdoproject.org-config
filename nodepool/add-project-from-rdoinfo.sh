@@ -29,14 +29,14 @@ for MAINTAINER in ${MAINTAINER_LIST}; do
 echo "      - ${MAINTAINER}" >> resources/${PREFIX}-${PROJECT_NAME}.yaml
 done
 
-cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
     ${PREFIX}/${PROJECT_NAME}-ptl:
       description: Project team lead for project ${PROJECT_NAME}
       members:
       - sfrdobender@rpmfactory.beta.rdoproject.org
       - admin@review.rdoproject.org
   acls:
-    openstack-${PROJECT_NAME}-distgit:
+    ${PREFIX}-${PROJECT_NAME}-distgit:
       file: |
         [access "refs/*"]
           read = group ${PREFIX}/${PROJECT_NAME}-core
@@ -47,21 +47,71 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Code-Review = -2..+2 group rdo-superusers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Code-Review = -2..+2 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           submit = group ${PREFIX}/${PROJECT_NAME}-ptl
           submit = group rdo-superusers
+EOF
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          submit = group rdo-opm-core
+EOF
+fi
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           read = group Registered Users
           read = group ${PREFIX}/${PROJECT_NAME}-core
           read = group rdo-provenpackagers
+EOF
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          read = group rdo-opm-core
+EOF
+fi
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           label-Verified = -2..+2 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Verified = -2..+2 group rdo-superusers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Verified = -2..+2 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           label-Workflow = -1..+0 group Registered Users
           label-Workflow = -1..+1 group ${PREFIX}/${PROJECT_NAME}-core
           label-Workflow = -1..+1 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Workflow = -1..+1 group rdo-provenpackagers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Workflow = -1..+1 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
         [access "refs/meta/config"]
           read = group Registered Users
           read = group ${PREFIX}/${PROJECT_NAME}-core
           read = group rdo-provenpackagers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          read = group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
         [receive]
           requireChangeId = true
         [submit]
@@ -72,7 +122,16 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
       - ${PREFIX}/${PROJECT_NAME}-ptl
       - rdo-provenpackagers
       - rdo-superusers
-    openstack-${PROJECT_NAME}:
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+      - rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+    ${PREFIX}-${PROJECT_NAME}:
       file: |
         [access "refs/*"]
           read = group ${PREFIX}/${PROJECT_NAME}-core
@@ -83,21 +142,73 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
           label-Code-Review = -2..+2 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Code-Review = -2..+2 group rdo-superusers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Code-Review = -2..+2 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           submit = group ${PREFIX}/${PROJECT_NAME}-ptl
           submit = group rdo-superusers
+EOF
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          submit = group rdo-opm-core
+EOF
+fi
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           read = group Registered Users
           read = group ${PREFIX}/${PROJECT_NAME}-core
           read = group rdo-provenpackagers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          read = group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           label-Verified = -2..+0 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Verified = -2..+0 group rdo-superusers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Verified = -2..+0 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
           label-Workflow = -1..+0 group Registered Users
           label-Workflow = -1..+0 group ${PREFIX}/${PROJECT_NAME}-core
           label-Workflow = -1..+0 group ${PREFIX}/${PROJECT_NAME}-ptl
           label-Workflow = -1..+0 group rdo-provenpackagers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          label-Workflow = -1..+0 group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
         [access "refs/meta/config"]
           read = group Registered Users
           read = group ${PREFIX}/${PROJECT_NAME}-core
           read = group rdo-provenpackagers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+          read = group rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
         [receive]
           requireChangeId = true
         [submit]
@@ -108,15 +219,23 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF2
       - ${PREFIX}/${PROJECT_NAME}-ptl
       - rdo-provenpackagers
       - rdo-superusers
+EOF
+
+if [[ "${PREFIX}" = "puppet" ]]; then
+  cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
+      - rdo-opm-core
+EOF
+fi
+
+cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
   repos:
     ${PREFIX}/${PROJECT_NAME}:
-      acl: openstack-${PROJECT_NAME}
+      acl: ${PREFIX}-${PROJECT_NAME}
       description: Mirror of upstream ${PROJECT_NAME} (mirror + patches)
     ${PREFIX}/${PROJECT_NAME}-distgit:
-      acl: openstack-${PROJECT_NAME}-distgit
+      acl: ${PREFIX}-${PROJECT_NAME}-distgit
       description: Packaging of upstream ${PROJECT_NAME}
-EOF2
-
+EOF
 pushd resources
 mkdir -p ~/.ssh
 cat >> ~/.ssh/config << EOF
