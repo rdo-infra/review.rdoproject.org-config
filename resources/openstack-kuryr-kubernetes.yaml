@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/kuryr-kubernetes-core:
+      description: Core developers for project kuryr-kubernetes
+      members:
+      - asegurap@redhat.com
+      - dmellado@redhat.com
+      - luis5tb@gmail.com
+    openstack/kuryr-kubernetes-ptl:
+      description: Project team lead for project kuryr-kubernetes
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-kuryr-kubernetes-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/kuryr-kubernetes-core
+          owner = group openstack/kuryr-kubernetes-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/kuryr-kubernetes-core
+          label-Code-Review = -2..+2 group openstack/kuryr-kubernetes-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/kuryr-kubernetes-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/kuryr-kubernetes-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/kuryr-kubernetes-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/kuryr-kubernetes-core
+          label-Workflow = -1..+1 group openstack/kuryr-kubernetes-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/kuryr-kubernetes-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/kuryr-kubernetes-core
+      - openstack/kuryr-kubernetes-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-kuryr-kubernetes:
+      file: |
+        [access "refs/*"]
+          read = group openstack/kuryr-kubernetes-core
+          owner = group openstack/kuryr-kubernetes-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/kuryr-kubernetes-core
+          label-Code-Review = -2..+2 group openstack/kuryr-kubernetes-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/kuryr-kubernetes-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/kuryr-kubernetes-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/kuryr-kubernetes-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/kuryr-kubernetes-core
+          label-Workflow = -1..+0 group openstack/kuryr-kubernetes-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/kuryr-kubernetes-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/kuryr-kubernetes-core
+      - openstack/kuryr-kubernetes-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/kuryr-kubernetes:
+      acl: openstack-kuryr-kubernetes
+      description: Mirror of upstream kuryr-kubernetes (mirror + patches)
+    openstack/kuryr-kubernetes-distgit:
+      acl: openstack-kuryr-kubernetes-distgit
+      description: Packaging of upstream kuryr-kubernetes
