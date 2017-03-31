@@ -1,0 +1,63 @@
+resources:
+  groups:
+    centos-opstools-ptl:
+      description: ''
+      members:
+        - sfrdobender@rpmfactory.beta.rdoproject.org
+        - admin@review.rdoproject.org
+    centos-opstools-core:
+      description: ''
+      members:
+        - jbadiapa@redhat.com
+        - lars@redhat.com
+        - mmagr@redhat.com
+        - mrunge@redhat.com
+  acls:
+    centos-opstools:
+      file: |
+        [access "refs/*"]
+          read = group centos-opstools-core
+          owner = group centos-opstools-ptl
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group centos-opstools-core
+            label-Code-Review = -2..+2 group centos-opstools-ptl
+            label-Verified = -2..+2 group centos-opstools-ptl
+            label-Workflow = -1..+1 group centos-opstools-core
+            label-Workflow = -1..+1 group centos-opstools-ptl
+            label-Workflow = -1..+0 group Registered Users
+            submit = group centos-opstools-ptl
+            read = group centos-opstools-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group centos-opstools-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = true
+      groups:
+        - centos-opstools-core
+        - centos-opstools-ptl
+  repos:
+    centos-opstools/centos-release-opstools:
+      acl: centos-opstools
+    centos-opstools/kibana:
+      acl: centos-opstools
+    centos-opstools/opstools-ansible:
+      acl: centos-opstools
+    centos-opstools/opstools-doc:
+      acl: centos-opstools
+    centos-opstools/osops-tools-monitoring-oschecks:
+      acl: centos-opstools
+    centos-opstools/rubygem-builder:
+      acl: centos-opstools
+    centos-opstools/rubygem-fluent-plugin-secure-forward:
+      acl: centos-opstools
+    centos-opstools/rubygem-introspection:
+      acl: centos-opstools
+    centos-opstools/rubygem-proxifier:
+      acl: centos-opstools
+    centos-opstools/rubygem-resolve-hostname:
+      acl: centos-opstools
+    centos-opstools/skydive:
+      acl: centos-opstools
