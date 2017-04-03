@@ -50,7 +50,7 @@ sudo pip install zuul glob2 python-magic
 
 # Patch Zuul-Cloner https://review.openstack.org/#/c/442370/
 pushd /usr/lib/python2.7/site-packages
-patch -p1 < /opt/nodepool-scripts/PATCH-Find-fallback-branch-in-zuul-cloner.patch
+sudo patch -p1 < /opt/nodepool-scripts/PATCH-Find-fallback-branch-in-zuul-cloner.patch
 popd
 
 # Copy slave tools
