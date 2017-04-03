@@ -1,0 +1,31 @@
+From a733b766c728ecc01a3471031b9e1ac2c2e72a66 Mon Sep 17 00:00:00 2001
+From: Javier Pena <jpena@redhat.com>
+Date: Tue, 7 Mar 2017 11:31:54 +0100
+Subject: [PATCH] Find fallback branch in zuul-cloner
+
+Previously, we were always defaulting to 'master' as fallback_branch
+when the indicated branch was missing, but there may be repos where
+the default branch is another one.
+
+Change-Id: Ib787438cf5b9c1dc80f618b271d15f163f7c695d
+---
+ zuul/lib/cloner.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/zuul/lib/cloner.py b/zuul/lib/cloner.py
+index 6e50eda..f7a1c99 100644
+--- a/zuul/lib/cloner.py
++++ b/zuul/lib/cloner.py
+@@ -201,8 +201,8 @@ class Cloner(object):
+             if indicated_branch:
+                 self.log.info("upstream repo is missing branch %s",
+                               indicated_branch)
+-            # FIXME should be origin HEAD branch which might not be 'master'
+-            fallback_branch = 'master'
++            # Find origin HEAD branch, it might not be 'master'
++            fallback_branch = repo.createRepoObject().heads[0].name
+
+         if self.zuul_branch:
+             fallback_zuul_ref = re.sub(self.zuul_branch, fallback_branch,
+--
+1.9.1

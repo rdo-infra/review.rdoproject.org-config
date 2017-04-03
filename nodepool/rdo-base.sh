@@ -48,6 +48,11 @@ sudo yum install -y java
 sudo yum install -y python-requests gcc python-devel python-crypto
 sudo pip install zuul glob2 python-magic
 
+# Patch Zuul-Cloner https://review.openstack.org/#/c/442370/
+pushd /usr/lib/python2.7/site-packages
+patch -p1 < /opt/nodepool-scripts/PATCH-Find-fallback-branch-in-zuul-cloner.patch
+popd
+
 # Copy slave tools
 sudo cp -v /opt/nodepool-scripts/*.py /usr/local/bin/
 
