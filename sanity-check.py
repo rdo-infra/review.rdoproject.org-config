@@ -50,6 +50,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-builder',
         'centos-opstools/rubygem-introspection',
         'centos-opstools/skydive'
+        'centos-opstools/collectd'
     ]
 }
 
