@@ -49,7 +49,8 @@ IGNORED_PROJECTS = {
         'centos-opstools/kibana',
         'centos-opstools/rubygem-builder',
         'centos-opstools/rubygem-introspection',
-        'centos-opstools/skydive'
+        'centos-opstools/skydive',
+        'centos-opstools/rubygem-fluent-plugin-collectd-nest'
     ]
 }
 
