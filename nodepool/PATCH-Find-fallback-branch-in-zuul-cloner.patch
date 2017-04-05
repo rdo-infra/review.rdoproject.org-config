@@ -1,4 +1,4 @@
-From a733b766c728ecc01a3471031b9e1ac2c2e72a66 Mon Sep 17 00:00:00 2001
+From d1fe9eee59e91bce66a5fb75f19432fb835e371e Mon Sep 17 00:00:00 2001
 From: Javier Pena <jpena@redhat.com>
 Date: Tue, 7 Mar 2017 11:31:54 +0100
 Subject: [PATCH] Find fallback branch in zuul-cloner
@@ -13,7 +13,7 @@ Change-Id: Ib787438cf5b9c1dc80f618b271d15f163f7c695d
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/zuul/lib/cloner.py b/zuul/lib/cloner.py
-index 6e50eda..f7a1c99 100644
+index 6e50eda..fb03d69 100644
 --- a/zuul/lib/cloner.py
 +++ b/zuul/lib/cloner.py
 @@ -201,8 +201,8 @@ class Cloner(object):
@@ -23,9 +23,10 @@ index 6e50eda..f7a1c99 100644
 -            # FIXME should be origin HEAD branch which might not be 'master'
 -            fallback_branch = 'master'
 +            # Find origin HEAD branch, it might not be 'master'
-+            fallback_branch = repo.createRepoObject().heads[0].name
-
++            fallback_branch = repo.createRepoObject().head.name
+ 
          if self.zuul_branch:
              fallback_zuul_ref = re.sub(self.zuul_branch, fallback_branch,
---
-1.9.1
+-- 
+2.9.3
+
