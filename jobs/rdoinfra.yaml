@@ -65,8 +65,7 @@
           # Need to inherit system-site-packages for libselinux-python and python-yum
           virtualenv --system-site-packages $WORKSPACE/ansible
           source $WORKSPACE/ansible/bin/activate
-          # Unpin when https://github.com/ansible/ansible/issues/20400 is addressed
-          pip install ansible==2.2.0.0 ara
+          pip install ansible==2.2.2.0 ara
 
           export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
           export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
@@ -90,7 +89,7 @@
               - include_role:
                   name: "kolla-build"
           EOF
-          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
+          ansible-playbook -i localhost $WORKSPACE/playbook.yml --skip-tags "push"
     triggers:
       - zuul
     publishers:
