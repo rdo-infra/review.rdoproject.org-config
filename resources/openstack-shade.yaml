@@ -1,0 +1,74 @@
+resources:
+  groups:
+    openstack/shade-core:
+      description: Core developers for project shade
+      members:
+      - tdecacqu@redhat.com
+  acls:
+    openstack-shade-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/shade-core
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/shade-core
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/shade-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/shade-core
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/shade-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/shade-core
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-shade:
+      file: |
+        [access "refs/*"]
+          read = group openstack/shade-core
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/shade-core
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/shade-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/shade-core
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/shade-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/shade-core
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/shade:
+      acl: openstack-shade
+      description: Mirror of upstream shade (mirror + patches)
+    openstack/shade-distgit:
+      acl: openstack-shade-distgit
+      description: Packaging of upstream shade
