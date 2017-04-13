@@ -176,16 +176,6 @@
     node: rdo-weirdo-centos-7
 
 - project:
-    name: gate-weirdo-kolla
-    project: kolla
-    openstack_release: master
-    scenario:
-      - build
-      - deploy
-    jobs:
-      - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
-
-- project:
     name: gate-weirdo-packstack
     project: packstack
     openstack_release:
