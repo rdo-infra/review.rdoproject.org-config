@@ -22,8 +22,8 @@ managesf.htpasswd:create_update: rule:authenticated_api
 managesf.htpasswd:delete: rule:authenticated_api
 managesf.htpasswd:get: rule:authenticated_api
 managesf.job:get: rule:any
-managesf.job:run: rule:admin_or_service
-managesf.job:stop: rule:admin_or_service
+managesf.job:run: rule:admin_or_service or group:rdo-superusers
+managesf.job:stop: rule:admin_or_service or group:rdo-superusers
 managesf.localuser:bind: rule:any
 managesf.localuser:create_update: rule:admin_api or username:%(username)s
 managesf.localuser:delete: rule:admin_api or username:%(username)s
