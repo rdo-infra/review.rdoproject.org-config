@@ -210,12 +210,16 @@ projects:
       - name: noop
 
   - name: centos-opstools/skydive
-    template:
-      - name: noop
+    check:
+        - centos-opstools-rpmlint
+    gate:
+        - centos-opstools-rpmlint
 
   - name: centos-opstools/collectd
-    template:
-      - name: noop
+    check:
+        - centos-opstools-rpmlint
+    gate:
+        - centos-opstools-rpmlint
 
   - name: centos-opstools/fluentd
     template:
