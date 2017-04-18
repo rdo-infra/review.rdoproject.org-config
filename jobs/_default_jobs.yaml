@@ -24,6 +24,14 @@
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
           [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
+          # In the post pipeline, for merge commits we may have an errors if
+          # we use ZUUL_NEWREV, since the merge commit is not there. In those
+          # cases, use --zuul-ref $ZUUL_REFNAME
+          if [[ "${ZUUL_PIPELINE}" = "post" ]]; then
+            CLONE_OPTS="--zuul-ref $ZUUL_REFNAME"
+          else
+            CLONE_OPTS=""
+          fi
           echo "Clean workspace"
           rm -Rf ./*
           echo "Clone $ZUUL_PROJECT"
@@ -31,9 +39,9 @@
           # run as third party for review.o.o are in the Zuul pipelines
           # prefixed by "openstack-".
           if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              zuul-cloner https://git.openstack.org $ZUUL_PROJECT
+              zuul-cloner $CLONE_OPTS https://git.openstack.org $ZUUL_PROJECT
           else
-              zuul-cloner http://review.rdoproject.org/r $ZUUL_PROJECT
+              zuul-cloner $CLONE_OPTS http://review.rdoproject.org/r $ZUUL_PROJECT
           fi
 
 - builder:
