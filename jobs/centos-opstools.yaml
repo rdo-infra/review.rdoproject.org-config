@@ -55,3 +55,14 @@
     triggers:
       - zuul
     node: bare-centos-7
+- job:
+    name: 'centos-opstools-rpmlint'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e
+          sudo yum -y install rpmlint
+          pushd $ZUUL_PROJECT
+          rpmlint *.spec
+          popd
