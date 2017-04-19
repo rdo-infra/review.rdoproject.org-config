@@ -102,6 +102,9 @@
     name: rdoinfo-create-project
     defaults: global
     builders:
+      - shell: |
+          # DEBUG zuul-cloner error
+          sudo sed -i "s/raise exceptions.RevNotFound/self.log.exception('DEBUG RevNotFound'); raise exceptions.RevNotFound/" /usr/lib/python2.7/site-packages/zuul/lib/cloner.py
       - prepare-workspace
       - shell: |
           set +e -x
@@ -119,7 +122,7 @@
           done <<< "${TAGS_DIFF}"
 
           echo "New projects: ${NEW_PROJECTS}"
-  
+
           for PKG in ${NEW_PROJECTS}; do
             /opt/nodepool-scripts/add-project-from-rdoinfo.sh $PKG $PWD
           done
@@ -127,6 +130,7 @@
       - zuul
     node: bare-centos-7
     wrappers:
+      - timestamps
       - credentials-binding:
         - file:
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
