@@ -108,7 +108,7 @@
       - prepare-workspace
       - shell: |
           set +e -x
-          sudo pip install git-review rdopkg
+          sudo pip install git-review rdopkg ruamel.yaml
           cd $ZUUL_PROJECT
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
