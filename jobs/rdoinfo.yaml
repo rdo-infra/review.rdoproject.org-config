@@ -201,6 +201,73 @@
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
 
+- job:
+    name: rdo-send-stable-release
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e -x
+          if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
+              zuul-cloner http://review.rdoproject.org/r rdoinfo
+          fi
+          # Currently releng requires rdoinfo to be in $HOME/rdoinfo
+          rm -rf ~/rdoinfo
+          ln -s $PWD/rdoinfo ~/rdoinfo
+          zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
+          pushd rdo-infra/releng
+          sudo pip install .
+          popd
+          # Prepare environment to send a review
+          mkdir -p ~/.ssh
+          cat >> ~/.ssh/config << EOF
+
+          Host review.rdoproject.org
+            IdentityFile $SSH_KEY
+          EOF
+          chmod 600 ~/.ssh/config
+          sudo chmod 600 $SSH_KEY
+          sudo chown jenkins:jenkins $SSH_KEY
+          ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          git config --global --add user.name "rdo-trunk"
+          git config --global --add user.email "javier.pena@redhat.com"
+          git config --global --add gitreview.username "rdo-trunk"
+
+          # TODO (amoralej) - remove --dry-run when tested
+          BASE_CMD="rdo_release_review -u rdo-trunk --dry-run"
+          RELEASES="newton ocata"
+          for r in $RELEASES;do
+            case $ZUUL_PROJECT in
+              rdoinfo )
+                pushd rdoinfo
+                git checkout $ZUUL_COMMIT
+                popd
+                $BASE_CMD -r $r -p ~/rdoinfo
+              ;;
+              openstack/releases )
+                # When using reviews from openstack/releases to generate new releases
+                # we need to get the real commit (not the merge one) to search the
+                # review using gerrit API.
+                SUBJECT=$(git log --oneline $ZUUL_COMMIT|head -1|cut -d " " -f 2)
+                if [ $SUBJECT == "Merge" ]; then
+                  REAL_COMMIT=$(git show $COMMIT|grep ^Merge:|awk '{print $(NF)}')
+                else
+                  REAL_COMMIT=$ZUUL_COMMIT
+                fi
+                $BASE_CMD -r $r -n $REAL_COMMIT
+              ;;
+            esac
+          done
+    triggers:
+      - zuul
+    node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
+           variable: SSH_KEY
+
 - project:
     name: rdoinfo-upper-constraints
     branch:
