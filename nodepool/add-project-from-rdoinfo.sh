@@ -236,7 +236,38 @@ cat >> resources/${PREFIX}-${PROJECT_NAME}.yaml << EOF
       acl: ${PREFIX}-${PROJECT_NAME}-distgit
       description: Packaging of upstream ${PROJECT_NAME}
 EOF
-pushd resources
+
+# Add project to gerritbot configuration
+python - << EOF
+import ruamel.yaml as yaml
+with open("gerritbot/channels.yaml") as gerritbot:
+    info=yaml.load(gerritbot, Loader=yaml.RoundTripLoader)
+info['rdo']['projects'].append("${PREFIX}/${PROJECT_NAME}-distgit")
+info['rdo']['projects'].append("${PREFIX}/${PROJECT_NAME}")
+info['rdo']['projects'].sort()
+with open('gerritbot/channels.yaml', 'w') as outfile:
+    outfile.write(yaml.dump(info, Dumper=yaml.RoundTripDumper, indent=4, block_seq_indent=2))
+EOF
+
+# And also to the Zuul configuration
+python - << EOF
+import ruamel.yaml as yaml
+with open("zuul/projects.yaml") as infile:
+    info=yaml.load(infile, Loader=yaml.RoundTripLoader)
+
+data = yaml.comments.CommentedMap([('name', "${PREFIX}/${PROJECT_NAME}-distgit"), ('template', [yaml.comments.CommentedMap([('name', 'package-distgit-check-jobs')])])])
+data['template'][0].ca.items['name']=[None, None, yaml.tokens.CommentToken('\n\n', yaml.error.CommentMark(0), None), None]
+info['projects'].append(data)
+
+data = yaml.comments.CommentedMap([('name', "${PREFIX}/${PROJECT_NAME}"), ('template', [yaml.comments.CommentedMap([('name', 'package-check-jobs')])])])
+data['template'][0].ca.items['name']=[None, None, yaml.tokens.CommentToken('\n\n', yaml.error.CommentMark(0), None), None]
+info['projects'].append(data)
+info['projects'].sort()
+
+with open('zuul/projects.yaml', 'w') as outfile:
+    outfile.write(yaml.dump(info, Dumper=yaml.RoundTripDumper, indent=4, block_seq_indent=2))
+EOF
+
 mkdir -p ~/.ssh
 cat >> ~/.ssh/config << EOF
 
@@ -255,8 +286,9 @@ git config gitreview.username "rdo-trunk"
 git checkout -b new-project-$PROJECT_NAME
 git review -s -v
 COMMIT_MSG="Create project for $PROJECT_NAME"
-git add *.yaml
+git add resources/*.yaml
+gid add gerritbot/*.yaml
+gid add zuul/*.yaml
 echo -e $COMMIT_MSG | git commit -F-
 git review -t "add-${PROJECT_NAME}" < /dev/null
-popd
 popd
