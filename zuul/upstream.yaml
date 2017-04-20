@@ -49,6 +49,7 @@ pipelines:
   - name: openstack-post
     description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
     manager: IndependentPipelineManager
+    source: openstack
     precedence: low
     trigger:
       openstack:
