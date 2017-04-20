@@ -69,3 +69,23 @@
     triggers:
       - zuul
     node: bare-centos-7
+- job:
+    name: 'centos-opstools-rpmbuild'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e
+          mkdir $WORKSPACE/artifacts
+          sudo yum -y install rpm-build rpmdevtools centos-release-opstools
+          pushd $ZUUL_PROJECT
+          spectool -g  *.spec
+          yum-builddep *.spec
+          rpmbuild -D '_sourcedir .' -D '_specdir .' -D '_topdir .' -ba *.spec
+          # move built rpms to artifacts for later use
+          mv SRPMS/* $WORKSPACE/artifacts
+          mv RPMS/* $WORKSPACE/artifacts
+          popd
+    triggers:
+      - zuul
+    node: bare-centos-7
