@@ -172,8 +172,12 @@ projects:
       - centos-opstools-doc
 
   - name: centos-opstools/centos-release-opstools
-    template:
-      - name: noop
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
   - name: centos-opstools/opstools-ansible
     check:
@@ -182,8 +186,12 @@ projects:
       - centos-opstools-tox
 
   - name: centos-opstools/osops-tools-monitoring-oschecks
-    template:
-      - name: noop
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
   - name: centos-opstools/rubygem-fluent-plugin-secure-forward
     template:
@@ -218,12 +226,18 @@ projects:
   - name: centos-opstools/collectd
     check:
         - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
     gate:
         - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
   - name: centos-opstools/fluentd
-    template:
-      - name: noop
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     template:
