@@ -235,15 +235,16 @@
                 exit 0
               fi
               baseurl=http://rpm-packaging-ci.rdoproject.org/${repo_branch}/repos/
+              use_version_from_spec="0"
           else
               # master
               baseurl=http://rpm-packaging-ci.rdoproject.org/repos/
+              use_version_from_spec="1"
           fi
 
           repo="http://github.com/openstack/rpm-packaging"
           directory="/openstack"
           skip="openstack-macros"
-          use_version_from_spec="1"
           pkginfo_driver="dlrn.drivers.gitrepo.GitRepoDriver"
           branch=${ZUUL_BRANCH}
 
