@@ -1,3 +1,29 @@
+# This is a specific builder for post jobs, where we do not want to use
+# zuul-cloner but git directly. This is because there can be merge commits
+# that our zuul has not processed yet.
+
+- builder:
+    name: prepare-workspace-post
+    builders:
+      - shell: |
+          set +e -x
+          if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
+          # Source is review.rdoproject.org
+          GIT_URL=https://review.rdoproject.org/r
+          elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
+          # Source is git.openstack.org
+          GIT_URL=https://git.openstack.org
+          fi
+          echo "Clean workspace"
+          rm -Rf ./*
+          echo "Clone $ZUUL_PROJECT"
+          git clone ${GIT_URL}/${ZUUL_PROJECT} ${ZUUL_PROJECT}
+          # ZUUL_NEWREV is the variable with the commit to be used
+          echo "Checking out $ZUUL_NEWREV"
+          pushd $ZUUL_PROJECT
+          git checkout $ZUUL_NEWREV
+          popd
+
 - job:
     name: 'rdoinfo-unittests'
     defaults: global
@@ -105,7 +131,7 @@
       - shell: |
           # DEBUG zuul-cloner error
           sudo sed -i "s/raise exceptions.RevNotFound/self.log.exception('DEBUG RevNotFound'); raise exceptions.RevNotFound/" /usr/lib/python2.7/site-packages/zuul/lib/cloner.py
-      - prepare-workspace
+      - prepare-workspace-post
       - shell: |
           set +e -x
           sudo pip install git-review rdopkg ruamel.yaml Jinja2
@@ -205,7 +231,7 @@
     name: rdo-send-stable-release
     defaults: global
     builders:
-      - prepare-workspace
+      - prepare-workspace-post
       - shell: |
           set -e -x
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
