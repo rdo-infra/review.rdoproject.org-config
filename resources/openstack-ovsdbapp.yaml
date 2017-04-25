@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/ovsdbapp-core:
+      description: Core developers for project ovsdbapp
+      members:
+      - twilson@redhat.com
+      - ihrachys@redhat.com
+      - jlibosva@redhat.com
+      - rbryant@rehdat.com
+    openstack/ovsdbapp-ptl:
+      description: Project team lead for project ovsdbapp
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ovsdbapp-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovsdbapp-core
+          owner = group openstack/ovsdbapp-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovsdbapp-core
+          label-Code-Review = -2..+2 group openstack/ovsdbapp-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovsdbapp-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovsdbapp-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/ovsdbapp-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ovsdbapp-core
+          label-Workflow = -1..+1 group openstack/ovsdbapp-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovsdbapp-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ovsdbapp-core
+      - openstack/ovsdbapp-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ovsdbapp:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovsdbapp-core
+          owner = group openstack/ovsdbapp-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovsdbapp-core
+          label-Code-Review = -2..+2 group openstack/ovsdbapp-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovsdbapp-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovsdbapp-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ovsdbapp-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ovsdbapp-core
+          label-Workflow = -1..+0 group openstack/ovsdbapp-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovsdbapp-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ovsdbapp-core
+      - openstack/ovsdbapp-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ovsdbapp:
+      acl: openstack-ovsdbapp
+      description: Mirror of upstream ovsdbapp (mirror + patches)
+    openstack/ovsdbapp-distgit:
+      acl: openstack-ovsdbapp-distgit
+      description: Packaging of upstream ovsdbapp
