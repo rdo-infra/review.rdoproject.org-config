@@ -31,9 +31,9 @@
           # run as third party for review.o.o are in the Zuul pipelines
           # prefixed by "openstack-".
           if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              zuul-cloner https://git.openstack.org $ZUUL_PROJECT
+              zuul-cloner -v https://git.openstack.org $ZUUL_PROJECT
           else
-              zuul-cloner http://review.rdoproject.org/r $ZUUL_PROJECT
+              zuul-cloner -v http://review.rdoproject.org/r $ZUUL_PROJECT
           fi
 
 - builder:
