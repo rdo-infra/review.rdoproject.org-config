@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 # Find the project name and rdoinfo location
 PKG=$1
 RDOINFO_LOCATION=$2
