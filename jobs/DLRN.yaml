@@ -90,6 +90,7 @@
           addFilter("openstack-ironic-common.noarch: E: non-standard-dir-perm /var/log/ironic 0?750L?")
           addFilter("python-ironic-tests.noarch: E: wrong-script-interpreter /usr/lib/python2.7/site-packages/ironic/tests/.* ipxe")
           addFilter("python-ironic-tests.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/ironic/tests/.* 0?644L? ipxe")
+          addFilter("openstack-nova-migration.noarch: E: non-readable /etc/nova/migration/* 0640L")
           EOF
 
           # now download all these packages from the previous repository
