@@ -153,32 +153,6 @@
           fi
 
 - job:
-    name: 'DLRN-pep8'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          set +e
-          cd $ZUUL_PROJECT
-          tox -e pep8
-    triggers:
-      - zuul
-    node: bare-centos-7
-
-- job:
-    name: 'DLRN-py27'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          set +e
-          cd $ZUUL_PROJECT
-          tox -e py27
-    triggers:
-      - zuul
-    node: bare-centos-7
-
-- job:
     name: 'DLRN-rpmbuild'
     defaults: global
     builders:
@@ -303,61 +277,6 @@
           popd
           mkdir artifacts
           cp -a DLRN/logs/* artifacts/
-          exit $ret
-    publishers:
-      - zuul-swift-upload
-    triggers:
-      - zuul
-    node: bare-centos-7
-
-- job:
-    name: 'DLRN-rpmbuild-tripleo-ci'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - prepare-dlrn
-      - shell: |
-          set +e -x
-          # This builder should build DLRN packages using the TripleoCI
-          # playbooks
-
-          # Install some requirements
-          sudo yum install -y python-virtualenv gcc
-          virtualenv ${HOME}/venv
-          source ${HOME}/venv/bin/activate
-          pip install --upgrade pip
-          pip install 'ansible>=2.1,<2.2'
-
-          git clone https://github.com/openstack/tripleo-quickstart-extras
-
-          pushd tripleo-quickstart-extras
-          # Create config files for ansible
-          cat << EOF > hosts
-            localhost ansible_connection=local
-          EOF
-
-          cat << EOF > build-packages.yaml
-          ---
-          - name: Build custom RPMs
-            hosts: localhost
-            roles:
-              - build-test-packages
-            vars:
-              artg_change_list:
-               - project: openstack/tripleo-heat-templates
-                 branch: master
-                 refspec: refs/changes/49/365449/60
-                 host: review.openstack.org
-              artg_compressed_gating_repo: '/tmp/gating_repo.tar.gz'
-          EOF
-
-          # Finally tell ansible to run the playbook to create scripts
-          ansible-playbook -i hosts -vvvv build-packages.yaml
-          ret=$?
-          popd
-
-          mkdir -p artifacts
-          cp -p /tmp/gating_repo.tar.gz artifacts
           exit $ret
     publishers:
       - zuul-swift-upload
