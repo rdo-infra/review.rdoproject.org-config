@@ -2257,16 +2257,22 @@ projects:
       - name: noop
 
   - name: rdo-infra/ansible-role-rdobase
-    template:
-      - name: noop
+    check:
+      - gate-rdo-infra-ansible-lint
+    gate:
+      - gate-rdo-infra-ansible-lint
 
   - name: rdo-infra/ansible-role-rdomonitoring
-    template:
-      - name: noop
+    check:
+      - gate-rdo-infra-ansible-lint
+    gate:
+      - gate-rdo-infra-ansible-lint
 
   - name: rdo-infra/ansible-role-rdobot
-    template:
-      - name: noop
+    check:
+      - gate-rdo-infra-ansible-lint
+    gate:
+      - gate-rdo-infra-ansible-lint
 
   - name: rdo-infra/rdobot
     template:
