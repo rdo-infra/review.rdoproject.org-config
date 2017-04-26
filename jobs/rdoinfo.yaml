@@ -278,7 +278,7 @@
                 pushd openstack/releases
                 SUBJECT=$(git log --oneline $ZUUL_COMMIT|head -1|cut -d " " -f 2)
                 if [ $SUBJECT == "Merge" ]; then
-                  REAL_COMMIT=$(git show $COMMIT|grep ^Merge:|awk '{print $(NF)}')
+                  REAL_COMMIT=$(git show $ZUUL_COMMIT|grep ^Merge:|awk '{print $(NF)}')
                 else
                   REAL_COMMIT=$ZUUL_COMMIT
                 fi
