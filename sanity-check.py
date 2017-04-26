@@ -20,7 +20,6 @@ PROJECT_LIST = GERRIT + "/projects/"
 IGNORED_PROJECTS = {
     'replication': [
         'All-Users',
-        'DLRN',
         'config',
         'gating_scripts',
         'rdo',
@@ -30,7 +29,6 @@ IGNORED_PROJECTS = {
     ],
     'zuul': [
         'All-Users',
-        'DLRN',
         'config',
         'gating_scripts',
         'rdo',
@@ -39,7 +37,6 @@ IGNORED_PROJECTS = {
         'testproject'
     ],
     'gerritbot': [
-        'DLRN',
         'testbranching',
         'testproject',
         'centos-opstools/opstools-doc',
