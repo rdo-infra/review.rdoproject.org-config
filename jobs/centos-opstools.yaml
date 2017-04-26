@@ -80,7 +80,7 @@
           sudo yum -y install rpm-build rpmdevtools centos-release-opstools
           pushd $ZUUL_PROJECT
           spectool -g  *.spec
-          sudo yum-builddep *.spec
+          sudo yum-builddep -y *.spec
           rpmbuild -D '_sourcedir .' -D '_specdir .' -D '_topdir .' -ba *.spec
           # move built rpms to artifacts for later use
           mv SRPMS/* $WORKSPACE/artifacts
