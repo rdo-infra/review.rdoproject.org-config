@@ -78,10 +78,11 @@
           set -e
           mkdir $WORKSPACE/artifacts
           sudo yum -y install rpm-build rpmdevtools centos-release-opstools
+          sudo yum -y install gcc
           pushd $ZUUL_PROJECT
           spectool -g  *.spec
           sudo yum-builddep -y *.spec
-          rpmbuild -D '_sourcedir .' -D '_specdir .' -D '_topdir .' -ba *.spec
+          rpmbuild -D '_sourcedir '$PWD -D '_specdir '$PWD -D '_topdir '$PWD -ba *.spec
           # move built rpms to artifacts for later use
           mv SRPMS/* $WORKSPACE/artifacts
           mv RPMS/* $WORKSPACE/artifacts
