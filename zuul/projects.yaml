@@ -243,18 +243,6 @@ projects:
     template:
       - name: noop
 
-  - name: DLRN
-    check:
-     - DLRN-pep8
-     - DLRN-py27
-     - DLRN-rpmbuild
-    gate:
-     - DLRN-pep8
-     - DLRN-py27
-     - DLRN-rpmbuild
-    experimental:
-     - DLRN-rpmbuild-tripleo-ci
-
   - name: openstack/ansible-pacemaker-distgit
     template:
       - name: package-distgit-check-jobs
