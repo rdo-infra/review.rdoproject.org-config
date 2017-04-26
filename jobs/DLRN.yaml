@@ -219,9 +219,6 @@
       - shell: |
           set +e -x
           pushd DLRN
-          # FIXME(jpena) this is a temp workaround until we get this properly sorted out
-          git fetch http://review.rdoproject.org/r/DLRN refs/changes/59/1559/15 && git cherry-pick FETCH_HEAD
-
           # Setup virtualenv with tox and use it
           tox -epy27 --notest
           . .tox/py27/bin/activate
