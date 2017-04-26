@@ -143,14 +143,8 @@
           config_opts['plugin_conf']['tmpfs_opts']['keep_mounted'] = True
           EOF
 
-          # Clone DLRN if it's not provided by Zuul (ex: dist-git commits)
-          if [[ ! -e "DLRN" ]]; then
-            if [ -e $(which zuul-cloner) ]; then
-              zuul-cloner http://review.rdoproject.org/r DLRN
-            else
-              git clone http://review.rdoproject.org/r/p/DLRN.git --depth 1
-            fi
-          fi
+          # Clone DLRN
+          git clone https://github.com/softwarefactory-project/DLRN --depth 1
 
 - job:
     name: 'DLRN-rpmbuild'
