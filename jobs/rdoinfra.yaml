@@ -107,6 +107,72 @@
           script-only-if-failed: False
     node: bare-centos-7
 
+- builder:
+    name: rdo-infra-role-integration
+    builders:
+      - shell: |
+            set -e
+            mkdir $WORKSPACE/roles
+            ln -s $WORKSPACE/$ZUUL_PROJECT/ $WORKSPACE/roles/{role}
+
+            # Need to inherit system-site-packages for libselinux-python and python-yum
+            virtualenv --system-site-packages $WORKSPACE/ansible
+            source $WORKSPACE/ansible/bin/activate
+            pip install ansible=2.3.0.0 ara
+
+            export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+            export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
+            export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
+            export ANSIBLE_LIBRARY=$ara_location/plugins/modules
+            export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
+
+            export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+
+            cat << EOF > ${WORKSPACE}/playbook.yml
+            ---
+            - name: Apply {role} role
+              hosts: localhost
+              become: yes
+              become_user: root
+              tasks:
+                - include_role:
+                    name: "{role}"
+            EOF
+            ansible-playbook -i localhost $WORKSPACE/playbook.yml
+
+- job-template:
+    name: gate-rdo-infra-{role}-integration
+    defaults: global
+    builders:
+      - prepare-workspace
+      - rdo-infra-role-integration:
+          role: '{role}'
+    triggers:
+      - zuul
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/artifacts
+                  export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/artifacts/ara
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
+            - zuul-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+    node: bare-centos-7
+
+- project:
+    name: gate-rdo-infra-role-integration
+    role:
+      - base
+      - monitoring
+      - rdobot
+    jobs:
+      - 'gate-rdo-infra-{role}-integration'
+
 - job:
     name: 'tox-flake8'
     defaults: global

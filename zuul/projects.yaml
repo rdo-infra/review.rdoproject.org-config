@@ -2247,20 +2247,26 @@ projects:
   - name: rdo-infra/ansible-role-rdobase
     check:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-base-integration
     gate:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-base-integration
 
   - name: rdo-infra/ansible-role-rdomonitoring
     check:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-monitoring-integration
     gate:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-monitoring-integration
 
   - name: rdo-infra/ansible-role-rdobot
     check:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-rdobot-integration
     gate:
       - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-rdobot-integration
 
   - name: rdo-infra/rdobot
     template:
