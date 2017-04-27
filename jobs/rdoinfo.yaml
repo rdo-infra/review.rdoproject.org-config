@@ -295,6 +295,33 @@
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
 
+- job:
+    name: update-buildsys-tags
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set -e -x
+          sudo yum install -y createrepo mock git centos-packager yum-utils
+          # we need to install rdopkg from source until https://review.rdoproject.org/r/#/c/6120/
+          # is in a tagged release
+          git clone https://github.com/openstack-packages/rdopkg
+          pushd rdopkg
+          sudo pip install .
+          popd
+          # While testing this job i'll maintain scripts in personal github. I'll move them
+          # to review.rdoproject.org before moving this into production
+          git clone https://github.com/amoralej/ci-scripts
+          pushd ci-scripts
+          bash -x ./create_temp_repos.sh $PWD/../rdoinfo $PWD/../artifacts
+          bash -x ./test_temp_repos.sh $PWD/../artifacts
+          popd
+    publishers:
+      - zuul-swift-upload
+    triggers:
+      - zuul
+    node: bare-centos-7
+
 - project:
     name: rdoinfo-upper-constraints
     branch:
