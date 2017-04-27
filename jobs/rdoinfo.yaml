@@ -305,7 +305,7 @@
           sudo yum install -y createrepo mock git centos-packager yum-utils
           # we need to install rdopkg from source until https://review.rdoproject.org/r/#/c/6120/
           # is in a tagged release
-          pip install git+https://github.com/openstack-packages/rdopkg
+          sudo pip install git+https://github.com/openstack-packages/rdopkg
           # While testing this job i'll maintain scripts in personal github. I'll move them
           # to review.rdoproject.org before moving this into production
           git clone https://github.com/amoralej/ci-scripts
