@@ -260,8 +260,7 @@
           git config --global --add user.email "javier.pena@redhat.com"
           git config --global --add gitreview.username "rdo-trunk"
 
-          # TODO (amoralej) - remove --dry-run when tested
-          BASE_CMD="rdo_release_review -u rdo-trunk --dry-run"
+          BASE_CMD="rdo_release_review -u rdo-trunk"
           RELEASES="newton ocata"
           for r in $RELEASES;do
             case $ZUUL_PROJECT in
