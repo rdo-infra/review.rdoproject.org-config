@@ -32,6 +32,12 @@
             # WeIRDO uses ARA for ansible-playbook run visualization
             export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
 
+            # if file not_required in working dir exits this job is skipped
+            if [ -f not_required ];then
+                echo "INFO: job is not required"
+                exit 0
+            fi
+
             # Backwards compat for project and openstack_release
             # (dmsimard) TODO: Clean this up ASAP
             if [[ "{project}" == "puppet" ]]; then
