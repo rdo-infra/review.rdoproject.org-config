@@ -24,6 +24,59 @@
           git checkout $ZUUL_NEWREV
           popd
 
+- builder:
+    name: buildsys-tags-gate-repository
+    builders:
+      - shell: |
+          # This builder, when run from a child job of update-buildsys-tags
+          # configures the temporal repositories created by it
+          # This allows to install the packages in that repository and test
+          # them.
+          set +e -x
+          # This job requires variables $RELEASE and $PHASE to be defined.
+          MASTER_RELEASE="pike"
+
+          RELEASE={openstack_release}
+          PHASE={buildsys_phase}
+
+          if [ -z "$RELEASE" -o -z "$PHASE" ]; then
+              echo "ERROR in job definition"
+              exit 1
+          fi
+
+          if [ $RELEASE == "master" ]; then
+               RELEASE=$MASTER_RELEASE
+          fi
+          # Re-construct the expected repository URL
+          ZUUL_REF=$(echo $ZUUL_REF |cut -f4 -d /)
+          job="update-buildsys-tags"
+          LOG_PATH="$BASE_LOG_PATH/$ZUUL_PIPELINE/$job/$ZUUL_REF"
+          artifacts="$SWIFT_artifacts_LOGSERVER_PREFIX/$LOG_PATH/artifacts"
+          # If we couldn't find a working repository, give up
+          curl -o changed_repos -sIf "$artifacts/repos/changed_repos" || exit 1
+
+          REQUIRED=0
+
+          for tag in $RELEASE common
+          do
+              if grep -q -E "$tag-$PHASE" changed_repos; then
+              # Configure the repository
+              repository=$artifacts/repos/cloud7-openstack-$tag-$PHASE/"
+              name="temporal-$ag-$PHASE"
+          sudo bash -c "cat << EOF > /etc/yum.repos.d/$name.repo
+          [$name]
+          name=$name
+          baseurl=$repository
+          enabled=1
+          gpgcheck=0
+          EOF"
+              REQUIRED=1
+          fi
+
+          if [ $REQUIRED -eq 0 ];then
+            echo "INFO: this test is not required"| tee not_required
+          fi
+
 - job:
     name: 'rdoinfo-unittests'
     defaults: global
