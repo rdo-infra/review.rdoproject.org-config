@@ -53,6 +53,12 @@
                 delorean_url="https://trunk.rdoproject.org/centos7-{openstack_release}/current-passed-ci/delorean.repo"
             fi
 
+            if [[ "{stable}" == "true" ]]; then
+                stable_repositories=https://rdoproject.org/repos/openstack-{openstack_release}/rdo-release-{openstack_release}.rpm
+            else
+                stable_repositories="false"
+            fi
+
             cd weirdo
             # Prepare Ansible inventory to use localhost
             cat <<EOF >hosts
@@ -65,7 +71,9 @@
                 -e version=$version \
                 -e openstack_release={openstack_release} \
                 -e delorean_url=$delorean_url \
-                -e delorean_deps_url=$delorean_deps_url
+                -e delorean_deps_url=$delorean_deps_url \
+                -e stable_repositories=$stable_repositories \
+                -e testing_repository={testing_repository}
 
 - builder:
     name: weirdo-collect-logs
@@ -132,6 +140,8 @@
             project: '{project}'
             scenario: '{scenario}'
             experimental: 'false'
+            stable: 'false'
+            testing_repository: 'false'
     publishers:
         - weirdo-publish-logs
     triggers:
@@ -151,6 +161,8 @@
             project: '{project}'
             scenario: '{scenario}'
             experimental: 'false'
+            stable: 'false'
+            testing_repository: 'false'
     publishers:
         - weirdo-publish-logs
     triggers:
@@ -169,6 +181,8 @@
             project: '{project}'
             scenario: '{scenario}'
             experimental: 'true'
+            stable: 'false'
+            testing_repository: 'false'
     publishers:
         - weirdo-publish-logs
     triggers:
