@@ -195,6 +195,51 @@
         - zuul
     node: rdo-weirdo-centos-7
 
+- job-template:
+    name: 'buildsys-weirdo-release-{openstack_release}-{project}-{scenario}'
+    defaults: global
+    builders:
+        - prepare-workspace
+        - buildsys-tags-gate-repository:
+            openstack_release: '{openstack_release}'
+            buildsys_phase: 'release'
+        - weirdo-prepare
+        - weirdo-ansible-playbook:
+            openstack_release: '{openstack_release}'
+            project: '{project}'
+            scenario: '{scenario}'
+            experimental: 'false'
+            stable: 'true'
+            testing_repository: 'false'
+    publishers:
+        - weirdo-publish-logs
+    triggers:
+        - zuul
+    node: rdo-weirdo-centos-7
+
+- job-template:
+    name: 'buildsys-weirdo-testing-{openstack_release}-{project}-{scenario}'
+    defaults: global
+    builders:
+        - prepare-workspace
+        - buildsys-tags-gate-repository:
+            openstack_release: '{openstack_release}'
+            buildsys_phase: 'testing'
+        - weirdo-prepare
+        - weirdo-ansible-playbook:
+            openstack_release: '{openstack_release}'
+            project: '{project}'
+            scenario: '{scenario}'
+            experimental: 'false'
+            stable: 'true'
+            testing_repository: 'true'
+    publishers:
+        - weirdo-publish-logs
+    triggers:
+        - zuul
+    node: rdo-weirdo-centos-7
+
+
 - project:
     name: gate-weirdo-packstack
     project: packstack
@@ -227,3 +272,22 @@
       - 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
       - 'gate-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
       - 'experimental-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
+
+- project:
+    name: gate-buildsys-tags
+    project:
+      - puppet
+      - packstack
+    openstack_release:
+      - master
+      - ocata
+      - newton
+    scenario:
+      - scenario001
+      - scenario002
+      - scenario003
+    buidsys-phase:
+      - release
+      - testing
+    jobs:
+      - 'buildsys-weirdo-{buidsys-phase}-{openstack_release}-{project}-{scenario}'
