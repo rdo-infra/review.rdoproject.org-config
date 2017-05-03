@@ -239,6 +239,14 @@ projects:
         - centos-opstools-rpmlint
         - centos-opstools-rpmbuild
 
+  - name: centos-opstools/python-fluent-logger
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     template:
       - name: noop
