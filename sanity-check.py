@@ -20,7 +20,6 @@ PROJECT_LIST = GERRIT + "/projects/"
 IGNORED_PROJECTS = {
     'replication': [
         'All-Users',
-        'config',
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
