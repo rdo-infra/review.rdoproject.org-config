@@ -5,7 +5,7 @@ resources:
       members:
       {% for item in project_maintainers -%}
       - {{ item }}
-      {% endfor -%}
+      {%- endfor %}
     {{ project_prefix }}/{{ project_name }}-ptl:
       description: Project team lead for project {{ project_name }}
       members:
@@ -46,16 +46,16 @@ resources:
           label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-core
           label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Workflow = -1..+1 group rdo-provenpackagers
-          {% if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" -%}
           label-Workflow = -1..+1 group rdo-opm-core
-          {% endif -%}
+          {%- endif %}
         [access "refs/meta/config"]
           read = group Registered Users
           read = group {{ project_prefix }}/{{ project_name }}-core
           read = group rdo-provenpackagers
-          {% if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" -%}
           read = group rdo-opm-core
-          {% endif -%}
+          {%- endif %}
         [receive]
           requireChangeId = true
         [submit]
@@ -66,9 +66,9 @@ resources:
       - {{ project_prefix }}/{{ project_name }}-ptl
       - rdo-provenpackagers
       - rdo-superusers
-      {% if project_prefix == "puppet" -%}
+      {%- if project_prefix == "puppet" -%}
       - rdo-opm-core
-      {% endif -%}
+      {%- endif %}
     {{ project_prefix }}-{{ project_name }}:
       file: |
         [access "refs/*"]
@@ -103,16 +103,16 @@ resources:
           label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-core
           label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Workflow = -1..+0 group rdo-provenpackagers
-          {% if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" -%}
           label-Workflow = -1..+0 group rdo-opm-core
-          {% endif -%}
+          {%- endif %}
         [access "refs/meta/config"]
           read = group Registered Users
           read = group {{ project_prefix }}/{{ project_name }}-core
           read = group rdo-provenpackagers
-          {% if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" -%}
           read = group rdo-opm-core
-          {% endif -%}
+          {%- endif %}
         [receive]
           requireChangeId = true
         [submit]
@@ -123,9 +123,9 @@ resources:
       - {{ project_prefix }}/{{ project_name }}-ptl
       - rdo-provenpackagers
       - rdo-superusers
-      {% if project_prefix == "puppet" -%}
+      {%- if project_prefix == "puppet" -%}
       - rdo-opm-core
-      {% endif -%}
+      {%- endif %}
   repos:
     {{ project_prefix }}/{{ project_name }}:
       acl: {{ project_prefix }}-{{ project_name }}
