@@ -50,6 +50,18 @@
            variable: CLIENTSECRET
     node: bare-centos-7
 
+- project:
+    name: gate-opstools
+    component:
+      - perfmon-common
+      - fluent-012
+      - sensu-027
+      - elastic-common
+      - sensu-common
+    jobs:
+      - 'centos-opstools-{component}-distgit-validate'
+      - 'centos-opstools-{component}-distgit-cbs-final-build'
+
 - builder:
     name: 'centos-opstools-virtualenv'
     defaults: global
