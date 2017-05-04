@@ -1,3 +1,55 @@
+- job-template:
+    name: 'centos-opstools-{component}-distgit-cbs-validate'
+    defaults: global
+    builders:
+      - base-pkg-validation:
+          buildtarget: "opstools7-{component}-el7"
+          kojicmd: "cbs"
+      - shell: |
+          # shamelessly copied from distgit.yaml
+          # First, we create a chroot to be used in the installation
+          sudo mkdir -p /tmp/root/var/lib/rpm
+          sudo rpm --root /tmp/root --initdb
+          sudo yum -y install yum-utils
+          yumdownloader centos-release
+          sudo rpm --root /tmp/root -ivh --nodeps centos-release-*.rpm
+          # rpmfactory-temp-release-1.0-1 is built by the base-pkg-validation builder
+          # It defines two repositories: the newton one (from CBS) and the temporary CBS one that contains
+          # packages we freshly built within that Koji task
+          sudo rpm --root /tmp/root -i /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm
+          # Packages in the temp repository contained only the packages fetched from CBS
+          # This should list the packages we just build in that Koji task
+          yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
+          pkgs=$(yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {{printf "%s ", $1}}')
+          # Here we install locally the kust built packages
+          sudo yum install --installroot=/tmp/root -y $pkgs
+    triggers:
+      - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: ab950c60-d26c-4c5d-b2a1-1669815e4efd
+           variable: CLIENTSECRET
+    node: bare-centos-7
+
+- job-template:
+    name: 'centos-opstools-{component}-distgit-cbs-final-build'
+    defaults: global
+    builders:
+      - base-pkg-exportation:
+          buildtarget: "opstools7-{component}-el7"
+          kojicmd: "cbs"
+      - shell: |
+          echo "done. exiting"
+    triggers:
+      - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: ab950c60-d26c-4c5d-b2a1-1669815e4efd
+           variable: CLIENTSECRET
+    node: bare-centos-7
+
 - builder:
     name: 'centos-opstools-virtualenv'
     defaults: global

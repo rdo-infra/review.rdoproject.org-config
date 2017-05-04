@@ -182,8 +182,12 @@ projects:
   - name: centos-opstools/opstools-ansible
     check:
       - centos-opstools-tox
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
     gate:
       - centos-opstools-tox
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
 
   - name: centos-opstools/osops-tools-monitoring-oschecks
     check:
@@ -227,9 +231,11 @@ projects:
     check:
         - centos-opstools-rpmlint
         - centos-opstools-rpmbuild
+        - centos-opstools-perfmon-common-distgit-cbs-validate
     gate:
         - centos-opstools-rpmlint
         - centos-opstools-rpmbuild
+        - centos-opstools-perfmon-common-distgit-final-build
 
   - name: centos-opstools/fluentd
     check:
