@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/paunch-core:
+      description: Core developers for project paunch
+      members:
+      - sbaker@redhat.com
+    openstack/paunch-ptl:
+      description: Project team lead for project paunch
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-paunch-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/paunch-core
+          owner = group openstack/paunch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/paunch-core
+          label-Code-Review = -2..+2 group openstack/paunch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/paunch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/paunch-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+2 group openstack/paunch-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/paunch-core
+          label-Workflow = -1..+1 group openstack/paunch-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/paunch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/paunch-core
+      - openstack/paunch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-paunch:
+      file: |
+        [access "refs/*"]
+          read = group openstack/paunch-core
+          owner = group openstack/paunch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/paunch-core
+          label-Code-Review = -2..+2 group openstack/paunch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/paunch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/paunch-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/paunch-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/paunch-core
+          label-Workflow = -1..+0 group openstack/paunch-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/paunch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/paunch-core
+      - openstack/paunch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/paunch:
+      acl: openstack-paunch
+      description: Mirror of upstream paunch (mirror + patches)
+    openstack/paunch-distgit:
+      acl: openstack-paunch-distgit
+      description: Packaging of upstream paunch
