@@ -198,6 +198,16 @@ projects:
     template:
       - name: noop
 
+  - name: centos-opstools/skydive
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+        - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+        - centos-opstools-sensu-common-distgit-final-build
+
   - name: openstack/UcsSdk
     template:
       - name: package-check-jobs
@@ -2227,12 +2237,6 @@ projects:
       - centos-opstools-doc
     gate:
       - centos-opstools-doc
-
-  - name: centos-opstools/skydive
-    check:
-      - centos-opstools-rpmlint
-    gate:
-      - centos-opstools-rpmlint
 
   - name: centos-opstools/centos-release-opstools
     check:
