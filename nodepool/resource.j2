@@ -3,7 +3,7 @@ resources:
     {{ project_prefix }}/{{ project_name }}-core:
       description: Core developers for project {{ project_name }}
       members:
-      {% for item in project_maintainers -%}
+      {%- for item in project_maintainers %}
       - {{ item }}
       {%- endfor %}
     {{ project_prefix }}/{{ project_name }}-ptl:
@@ -23,9 +23,9 @@ resources:
           label-Code-Review = -2..+2 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Code-Review = -2..+2 group rdo-superusers
-          {% if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" %}
           label-Code-Review = -2..+2 group rdo-opm-core
-          {% endif -%}
+          {%- endif %}
           submit = group {{ project_prefix }}/{{ project_name }}-ptl
           submit = group rdo-superusers
           {% if project_prefix == "puppet" -%}
@@ -48,14 +48,14 @@ resources:
           label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-core
           label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Workflow = -1..+1 group rdo-provenpackagers
-          {%- if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" %}
           label-Workflow = -1..+1 group rdo-opm-core
           {%- endif %}
         [access "refs/meta/config"]
           read = group Registered Users
           read = group {{ project_prefix }}/{{ project_name }}-core
           read = group rdo-provenpackagers
-          {%- if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" %}
           read = group rdo-opm-core
           {%- endif %}
         [receive]
@@ -68,7 +68,7 @@ resources:
       - {{ project_prefix }}/{{ project_name }}-ptl
       - rdo-provenpackagers
       - rdo-superusers
-      {%- if project_prefix == "puppet" -%}
+      {%- if project_prefix == "puppet" %}
       - rdo-opm-core
       {%- endif %}
     {{ project_prefix }}-{{ project_name }}:
@@ -105,14 +105,14 @@ resources:
           label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-core
           label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Workflow = -1..+0 group rdo-provenpackagers
-          {%- if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" %}
           label-Workflow = -1..+0 group rdo-opm-core
           {%- endif %}
         [access "refs/meta/config"]
           read = group Registered Users
           read = group {{ project_prefix }}/{{ project_name }}-core
           read = group rdo-provenpackagers
-          {%- if project_prefix == "puppet" -%}
+          {%- if project_prefix == "puppet" %}
           read = group rdo-opm-core
           {%- endif %}
         [receive]
@@ -125,7 +125,7 @@ resources:
       - {{ project_prefix }}/{{ project_name }}-ptl
       - rdo-provenpackagers
       - rdo-superusers
-      {%- if project_prefix == "puppet" -%}
+      {%- if project_prefix == "puppet" %}
       - rdo-opm-core
       {%- endif %}
   repos:
