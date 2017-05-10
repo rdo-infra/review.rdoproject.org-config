@@ -1,0 +1,103 @@
+resources:
+  groups:
+    puppet/puppet-murano-core:
+      description: Core developers for project puppet-murano
+      members:
+      - lbezdick@redhat.com- jguiditt@redhat.com- gchamoul@redhat.com
+    puppet/puppet-murano-ptl:
+      description: Project team lead for project puppet-murano
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-murano-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-murano-core
+          owner = group puppet/puppet-murano-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-murano-core
+          label-Code-Review = -2..+2 group puppet/puppet-murano-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-murano-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-murano-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          abandon = group puppet/puppet-murano-core
+          label-Verified = -2..+2 group puppet/puppet-murano-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-murano-core
+          label-Workflow = -1..+1 group puppet/puppet-murano-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagerslabel-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-murano-core
+          read = group rdo-provenpackagersread = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-murano-core
+      - puppet/puppet-murano-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-murano:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-murano-core
+          owner = group puppet/puppet-murano-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-murano-core
+          label-Code-Review = -2..+2 group puppet/puppet-murano-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-murano-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-murano-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-murano-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-murano-core
+          label-Workflow = -1..+0 group puppet/puppet-murano-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagerslabel-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-murano-core
+          read = group rdo-provenpackagersread = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-murano-core
+      - puppet/puppet-murano-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-murano:
+      acl: puppet-puppet-murano
+      description: Mirror of upstream puppet-murano (mirror + patches)
+    puppet/puppet-murano-distgit:
+      acl: puppet-puppet-murano-distgit
+      description: Packaging of upstream puppet-murano
