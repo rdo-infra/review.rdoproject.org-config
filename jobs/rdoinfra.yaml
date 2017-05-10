@@ -84,7 +84,9 @@
             vars:
               kolla_rdo_images:
                 - openstack-base
-                - nova
+                - keystone
+                - glance
+                - cinder
             tasks:
               - include_role:
                   name: "kolla-build"
