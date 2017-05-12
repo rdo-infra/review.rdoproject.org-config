@@ -327,3 +327,23 @@
       - newton
     jobs:
       - 'rdoinfo-upper-constraints-update-{branch}'
+
+- job:
+    name: weirdo-update-buildsys-tags
+    defaults: global
+    builders:
+      - prepare-workspace-post
+      - shell: |
+          set -e -x
+          # Currently releng requires rdoinfo to be in $HOME/rdoinfo
+          zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
+          pushd rdo-infra/releng
+          sudo pip install .
+          popd
+          git clone https://github.com/amoralej/ci-scripts
+          pushd ci-scripts
+          bash -x ci-scripts/launch_weirdo_jobs.sh
+          popd
+    triggers:
+      - zuul
+    node: bare-centos-7
