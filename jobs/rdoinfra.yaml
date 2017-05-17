@@ -1,31 +1,52 @@
+- builder:
+    name: gpg-decrypt
+    builders:
+      - shell: |
+          set -e
+          gpg --import $GPG_KEY_FILE
+          find ci-config -name "*.gpg"|while read file
+          do
+              pushd $(dirname $file)
+              gpg --yes --decrypt -o $(basename -s .gpg $file) $(basename $file)
+              popd
+          done
+
 - job:
     name: 'tox-jjb'
     defaults: global
     builders:
       - prepare-workspace
+      - gpg-decrypt
       - shell: |
-          set +e
+          set +e -o pipefail
           cd $ZUUL_PROJECT
-          tox -e jjb
+          # lines containing authtoken must not be shown in output
+          tox -e jjb |grep -v -i -e authtoken -e auth-token
     triggers:
       - zuul
     node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: 14c4b25e-c7a9-4ae9-a0b5-9d421372dc68
+           variable: GPG_KEY_FILE
 
 - job:
     name: 'publish-cico-jjb'
     defaults: global
     builders:
       - prepare-workspace
+      - gpg-decrypt
       - shell: |
-          set +e
+          set +e -o pipefail
           cd $ZUUL_PROJECT
           # Ensure that there's no failure before pushing
-          tox -e jjb
+          tox -e jjb |grep -v -i -e authtoken -e auth-token
 
           # Update jobs
           source .tox/jjb/bin/activate
           pushd jenkins
-          jenkins-jobs --conf $JJB_CONFIG update jobs
+          jenkins-jobs --conf $JJB_CONFIG update jobs |grep -v -i -e authtoken -e auth-token
           popd
     triggers:
       - zuul
@@ -35,6 +56,9 @@
         - file:
            credential-id: b578a3ee-cf49-4250-899a-0bc7f84363c2
            variable: JJB_CONFIG
+        - file:
+           credential-id: 14c4b25e-c7a9-4ae9-a0b5-9d421372dc68
+           variable: GPG_KEY_FILE
 
 - job:
     name: gate-rdo-infra-ansible-lint
