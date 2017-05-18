@@ -346,3 +346,8 @@
     triggers:
       - zuul
     node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: 2b9107c5-c511-41e4-9012-a97af25bd295
+           variable: WEIRDO_TOKEN_FILE
