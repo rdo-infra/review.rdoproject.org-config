@@ -208,6 +208,16 @@ projects:
         - centos-opstools-rpmbuild
         - centos-opstools-sensu-common-distgit-final-build
 
+  - name: centos-opstools/rubygem-test-unit
+    check:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+        - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
+        - centos-opstools-sensu-common-distgit-final-build
+
   - name: centos-opstools/skydive
     check:
         - centos-opstools-rpmlint
