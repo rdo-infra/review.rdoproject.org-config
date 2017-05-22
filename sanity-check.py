@@ -49,6 +49,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-resolve-hostname',
         'centos-opstools/rubygem-rr',
         'centos-opstools/rubygem-rspec',
+        'centos-opstools/rubygem-session',
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
         'centos-opstools/kibana',
