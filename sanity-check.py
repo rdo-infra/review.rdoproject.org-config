@@ -42,6 +42,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/centos-release-opstools',
         'centos-opstools/opstools-ansible',
         'centos-opstools/osops-tools-monitoring-oschecks',
+        'centos-opstools/rubygem-diff-lcs',
         'centos-opstools/rubygem-fluent-plugin-secure-forward',
         'centos-opstools/rubygem-power_assert',
         'centos-opstools/rubygem-proxifier',
