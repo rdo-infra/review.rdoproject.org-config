@@ -2328,6 +2328,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-rspec-expectations
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-session
     check:
       - centos-opstools-rpmlint
