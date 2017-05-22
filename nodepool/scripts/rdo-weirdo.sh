@@ -7,6 +7,11 @@
 # See "rdo-weirdo-get-packages.sh" for package retrieval method
 cat weirdo-packages.txt |xargs sudo yum -y install
 
+# we run weirdo jobs in permissive mode in ci.centos.org so we should do it
+# also in review.rdoproject.org or gate jobs using current-passed-ci could fail
+
+sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/sysconfig/selinux
+
 # Pre-cache Cirros images for use with puppet-openstack-integration and
 # Packstack tests
 mkdir -p ~/cache/files
