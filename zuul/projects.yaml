@@ -178,16 +178,6 @@ projects:
     template:
       - name: noop
 
-  - name: centos-opstools/rubygem-diff-lcs
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     template:
       - name: noop
@@ -200,16 +190,6 @@ projects:
     template:
       - name: noop
 
-  - name: centos-opstools/rubygem-power_assert
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
   - name: centos-opstools/rubygem-proxifier
     template:
       - name: noop
@@ -217,66 +197,6 @@ projects:
   - name: centos-opstools/rubygem-resolve-hostname
     template:
       - name: noop
-
-  - name: centos-opstools/rubygem-rr
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
-  - name: centos-opstools/rubygem-rspec
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
-  - name: centos-opstools/rubygem-session
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
-  - name: centos-opstools/rubygem-test-unit
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
-  - name: centos-opstools/rubygem-test-unit-rr
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
-
-  - name: centos-opstools/skydive
-    check:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-        - centos-opstools-rpmlint
-        - centos-opstools-rpmbuild
-        - centos-opstools-sensu-common-distgit-final-build
 
   - name: openstack/UcsSdk
     template:
@@ -1227,6 +1147,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/panko-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/pankoclient
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/pankoclient-distgit
     template:
       - name: package-distgit-check-jobs
 
@@ -2349,6 +2277,86 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-perfmon-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-diff-lcs
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-power_assert
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-rr
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-rspec
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-session
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-test-unit
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/rubygem-test-unit-rr
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
+
+  - name: centos-opstools/skydive
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-final-build
 
   - name: centos-opstools/opstools-ansible
     check:

@@ -1,0 +1,92 @@
+resources:
+  groups:
+    openstack/pankoclient-core:
+      description: Core developers for project pankoclient
+      members:
+      - pkilambi@redhat.com
+    openstack/pankoclient-ptl:
+      description: Project team lead for project pankoclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-pankoclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/pankoclient-core
+          owner = group openstack/pankoclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/pankoclient-core
+          label-Code-Review = -2..+2 group openstack/pankoclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/pankoclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/pankoclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/pankoclient-core
+          label-Verified = -2..+2 group openstack/pankoclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/pankoclient-core
+          label-Workflow = -1..+1 group openstack/pankoclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/pankoclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/pankoclient-core
+      - openstack/pankoclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-pankoclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/pankoclient-core
+          owner = group openstack/pankoclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/pankoclient-core
+          label-Code-Review = -2..+2 group openstack/pankoclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/pankoclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/pankoclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/pankoclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/pankoclient-core
+          label-Workflow = -1..+0 group openstack/pankoclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/pankoclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/pankoclient-core
+      - openstack/pankoclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/pankoclient:
+      acl: openstack-pankoclient
+      description: Mirror of upstream pankoclient (mirror + patches)
+    openstack/pankoclient-distgit:
+      acl: openstack-pankoclient-distgit
+      description: Packaging of upstream pankoclient
