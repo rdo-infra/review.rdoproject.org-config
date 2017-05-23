@@ -14,6 +14,7 @@
 - job:
     name: 'publish-cico-jjb'
     defaults: global
+    concurrent: false
     builders:
       - prepare-workspace
       - shell: |
