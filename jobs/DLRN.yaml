@@ -190,7 +190,7 @@
           if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then    # stable branch
               repo_branch=$(sed "s#stable/##" <<< "${ZUUL_BRANCH}")
               # We only support Ocata and later as stable repos
-              if [ "{$repo_branch}" = "newton" ]; then
+              if [ "$repo_branch" = "newton" ]; then
                 exit 0
               fi
               baseurl=http://rpm-packaging-ci.rdoproject.org/${repo_branch}/repos/
