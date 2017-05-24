@@ -92,8 +92,10 @@
           addFilter("python-ironic-tests.noarch: E: wrong-script-interpreter /usr/lib/python2.7/site-packages/ironic/tests/.* ipxe")
           addFilter("python-ironic-tests.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/ironic/tests/.* 0?644L? ipxe")
 
-          # Exception for nova
+          # Exceptions for nova
           addFilter("openstack-nova-common.noarch: W: obsolete-not-provided openstack-nova-cert")
+          addFilter("python-novajoin.noarch: W: non-standard-gid")
+          addFilter("python-novajoin.noarch: W: non-standard-uid")
           EOF
 
           # now download all these packages from the previous repository
