@@ -19,7 +19,7 @@ pipelines:
 
 jobs:
   - name: ^DLRN-rpmbuild$
-    branch: ^master|(rpm-)|((\w+)-rdo)$
+    branch: ^master|(rpm-)|(^(?!mitaka)(\w+)-rdo)$
 
   - name: ^ocata-distgit-cbs-(validate|final-build)$
     branch: ^ocata-rdo$
