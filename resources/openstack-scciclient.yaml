@@ -1,0 +1,93 @@
+resources:
+  groups:
+    openstack/scciclient-core:
+      description: Core developers for project scciclient
+      members:
+      - okado.hiroaki@jp.fujitsu.com
+      - sanagi.koki@jp.fujitsu.com
+    openstack/scciclient-ptl:
+      description: Project team lead for project scciclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-scciclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/scciclient-core
+          owner = group openstack/scciclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/scciclient-core
+          label-Code-Review = -2..+2 group openstack/scciclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/scciclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/scciclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/scciclient-core
+          label-Verified = -2..+2 group openstack/scciclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/scciclient-core
+          label-Workflow = -1..+1 group openstack/scciclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/scciclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/scciclient-core
+      - openstack/scciclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-scciclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/scciclient-core
+          owner = group openstack/scciclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/scciclient-core
+          label-Code-Review = -2..+2 group openstack/scciclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/scciclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/scciclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/scciclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/scciclient-core
+          label-Workflow = -1..+0 group openstack/scciclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/scciclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/scciclient-core
+      - openstack/scciclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/scciclient:
+      acl: openstack-scciclient
+      description: Mirror of upstream scciclient (mirror + patches)
+    openstack/scciclient-distgit:
+      acl: openstack-scciclient-distgit
+      description: Packaging of upstream scciclient
