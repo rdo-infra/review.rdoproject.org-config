@@ -1,0 +1,88 @@
+diskimages: []
+labels:
+- image: bare-centos-7
+  min-ready: 4
+  name: bare-centos-7
+  providers:
+  - name: rdo-cloud-beta
+- image: bare-centos-7
+  min-ready: 0
+  name: bare-centos-7-2-node
+  providers:
+  - name: rcip-dev
+  ready-script: multinode_setup.sh
+  subnodes: 1
+- image: rdo-weirdo-centos-7
+  min-ready: 3
+  name: rdo-weirdo-centos-7
+  providers:
+  - name: rcip-dev
+- image: rdo-centos7-liberty
+  min-ready: 0
+  name: rdo-centos7-liberty
+  providers:
+  - name: rcip-dev
+  - name: trystack
+providers:
+- boot-timeout: 120
+  clean-floating-ips: true
+  cloud: rcip-dev
+  images:
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 8192
+    name: bare-centos-7
+    name-filter: m1.rdo-ci
+    setup: rdo-base.sh
+    username: centos
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 8192
+    name: rdo-weirdo-centos-7
+    name-filter: m1.rdo-ci
+    setup: rdo-weirdo.sh
+    username: centos
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 8192
+    name: rdo-centos7-liberty
+    name-filter: m1.rdo-ci
+    setup: rdo-centos7-liberty.sh
+    username: centos
+  max-servers: 18
+  name: rcip-dev
+  pool: public
+  rate: 2.0
+- boot-timeout: 120
+  clean-floating-ips: true
+  cloud: trystack
+  images:
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 8192
+    name: bare-centos-7
+    name-filter: m1.rdo-ci
+    setup: rdo-base.sh
+    username: centos
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 8192
+    name: rdo-centos7-liberty
+    name-filter: m1.rdo-ci
+    setup: rdo-centos7-liberty.sh
+    username: centos
+  max-servers: 9
+  name: trystack
+  pool: public
+  rate: 2.0
+- boot-timeout: 120
+  clean-floating-ips: true
+  cloud: rdo-cloud-beta
+  images:
+  - base-image: CentOS 7 (1701) x86_64
+    min-ram: 4096
+    name: bare-centos-7
+    name-filter: rdo.m1.medium
+    setup: rdo-base.sh
+    username: centos
+  max-servers: 15
+  name: rdo-cloud-beta
+  networks:
+  - name: private
+  pool: public
+  rate: 2.0
