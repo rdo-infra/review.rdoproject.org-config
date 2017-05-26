@@ -114,18 +114,18 @@ project-templates:
   - name: package-check-jobs
     check:
 #      - tox-validate-nv
-      - tox-validate
+          - tox-validate
     gate:
       - tox-validate
 
   - name: package-distgit-check-jobs
     check:
 #      - DLRN-rpmbuild-nv
-      - DLRN-rpmbuild:
-          - gate-rpmlint
-      - mitaka-distgit-cbs-validate
-      - newton-distgit-cbs-validate
-      - ocata-distgit-cbs-validate
+          - DLRN-rpmbuild:
+              - gate-rpmlint
+          - mitaka-distgit-cbs-validate
+          - newton-distgit-cbs-validate
+          - ocata-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
       - mitaka-distgit-cbs-final-build
@@ -984,6 +984,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/os-testr-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/os-traits
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/os-traits-distgit
     template:
       - name: package-distgit-check-jobs
 
