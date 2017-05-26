@@ -113,14 +113,14 @@ project-templates:
 
   - name: package-check-jobs
     check:
-      - tox-validate-nv
+#      - tox-validate-nv
       - tox-validate
     gate:
       - tox-validate
 
   - name: package-distgit-check-jobs
     check:
-      - DLRN-rpmbuild-nv
+#      - DLRN-rpmbuild-nv
       - DLRN-rpmbuild:
           - gate-rpmlint
       - mitaka-distgit-cbs-validate
