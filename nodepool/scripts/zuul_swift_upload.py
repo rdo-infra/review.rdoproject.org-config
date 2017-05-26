@@ -520,8 +520,8 @@ def upload_from_args(args):
     num_threads = min(max_file_count, items_to_upload)
     swift_form_post(queue, num_threads)
 
-    logging.info(os.path.join(logserver_prefix, swift_destination_prefix,
-                              os.path.basename(index_file)))
+    print(os.path.join(logserver_prefix, swift_destination_prefix,
+                       os.path.basename(index_file)))
 
     return file_list
 
