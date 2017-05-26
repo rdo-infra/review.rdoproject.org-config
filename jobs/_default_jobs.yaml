@@ -40,8 +40,13 @@
     name: zuul-swift-upload
     builders:
       - shell: |
+          if which zuul-swift-upload &> /dev/null; then
+            ZUUL_SWIFT_UPLOAD=zuul-swift-upload
+          else
+            ZUUL_SWIFT_UPLOAD=/usr/local/bin/zuul_swift_upload.py
+          fi
           # Publish artifacts on a Swift server
-          /usr/local/bin/zuul_swift_upload.py --name artifacts --delete-after 0 artifacts
+          $ZUUL_SWIFT_UPLOAD --name artifacts --delete-after 0 artifacts
 
 - publisher:
     name: zuul-swift-upload
