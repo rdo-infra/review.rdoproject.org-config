@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/os-traits-core:
+      description: Core developers for project os-traits
+      members:
+      - ratailor@redhat.com
+      - ykarel@redhat.com
+    openstack/os-traits-ptl:
+      description: Project team lead for project os-traits
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-traits-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-traits-core
+          owner = group openstack/os-traits-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-traits-core
+          label-Code-Review = -2..+2 group openstack/os-traits-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-traits-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-traits-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/os-traits-core
+          label-Verified = -2..+2 group openstack/os-traits-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-traits-core
+          label-Workflow = -1..+1 group openstack/os-traits-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-traits-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-traits-core
+      - openstack/os-traits-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-traits:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-traits-core
+          owner = group openstack/os-traits-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-traits-core
+          label-Code-Review = -2..+2 group openstack/os-traits-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-traits-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-traits-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-traits-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-traits-core
+          label-Workflow = -1..+0 group openstack/os-traits-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-traits-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-traits-core
+      - openstack/os-traits-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-traits:
+      acl: openstack-os-traits
+      description: Mirror of upstream os-traits (mirror + patches)
+    openstack/os-traits-distgit:
+      acl: openstack-os-traits-distgit
+      description: Packaging of upstream os-traits
+      default-branch: rpm-master
