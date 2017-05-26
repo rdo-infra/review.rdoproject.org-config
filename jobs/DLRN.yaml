@@ -175,6 +175,41 @@
     node: bare-centos-7
 
 - job:
+    name: 'DLRN-rpmbuild-nv'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          # Clone DLRN
+          git clone https://github.com/softwarefactory-project/DLRN --depth 1
+
+          set +e
+          # This job supports building reviews for both review.rdoproject.org
+          # and review.openstack.org. Builds that are run as third party for
+          # review.o.o are in the Zuul pipelines prefixed by "openstack-".
+          pushd DLRN
+          if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
+              timeout --signal=SIGKILL 3600 ./scripts/run_project_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              ret=$?
+          else
+              timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              ret=$?
+          fi
+          popd
+
+          # Retrieve logs/repositories/packages
+          mkdir artifacts
+          cp -a DLRN/logs/* artifacts/
+
+          exit $ret
+    publishers:
+      - zuul-swift-upload
+    triggers:
+      - zuul
+    node: dib-centos-7
+
+
+- job:
     name: 'DLRN-rpmbuild-rpm-packaging'
     defaults: global
     builders:

@@ -17,6 +17,12 @@ jobs:
   - name: ^puppet-openstack-integration-scenario(001|002|003)$
     voting: false
 
+  - name: ^DLRN-rpmbuild-nv$
+    voting: false
+
+  - name: ^tox-validate-nv$
+    voting: false
+
   - name: ^gate-rpmlint$
     branch: ^rpm-master$
 
@@ -107,12 +113,14 @@ project-templates:
 
   - name: package-check-jobs
     check:
+      - tox-validate-nv
       - tox-validate
     gate:
       - tox-validate
 
   - name: package-distgit-check-jobs
     check:
+      - DLRN-rpmbuild-nv
       - DLRN-rpmbuild:
           - gate-rpmlint
       - mitaka-distgit-cbs-validate
