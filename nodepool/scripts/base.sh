@@ -48,7 +48,7 @@ sudo yum install -y java
 
 # Install glob2 and python-magic for zuul_swift_upload
 sudo yum install -y python-magic
-sudo pip install glob2
+sudo pip install glob2 requestsexceptions
 
 # Install zuul-cloner
 # TODO: replace this section by zuul package

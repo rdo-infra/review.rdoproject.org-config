@@ -46,7 +46,7 @@ sudo yum install -y java
 # Install zuul_swift_upload and zuul-cloner
 # TODO: replace this section by zuul package
 sudo yum install -y python-requests gcc python-devel python-crypto
-sudo pip install zuul glob2 python-magic
+sudo pip install zuul glob2 python-magic requestsexceptions
 
 # Patch Zuul-Cloner https://review.openstack.org/#/c/442370/
 pushd /usr/lib/python2.7/site-packages
