@@ -31,7 +31,7 @@
           # Find the latest repository hash
           # If DLRN built multiple packages, there will be multiple repositories.
           # We want the latest repository which contains all of the packages that were just built.
-          hash=$(wget --spider -r -l1 ${artifacts}/centos/repos/report.html 2>&1 |grep -m1 delorean.repo |awk -F/ '{print $(NF-1)}')
+          hash=$(wget --spider -r -l2 ${artifacts}/centos/repos/report.html 2>&1 |grep -m1 delorean.repo |awk -F/ '{print $(NF-1)}')
           repository="${artifacts}/centos/repos/${hash}"
 
           # Configure the repository
