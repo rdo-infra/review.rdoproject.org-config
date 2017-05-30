@@ -45,6 +45,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-diff-lcs',
         'centos-opstools/rubygem-fluent-plugin-secure-forward',
         'centos-opstools/rubygem-http_parser.rb',
+        'centos-opstools/rubygem-msgpack',
         'centos-opstools/rubygem-power_assert',
         'centos-opstools/rubygem-proxifier',
         'centos-opstools/rubygem-resolve-hostname',
