@@ -55,6 +55,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-session',
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
+        'centos-opstools/rubygem-yajl-ruby',
         'centos-opstools/kibana',
         'centos-opstools/rubygem-builder',
         'centos-opstools/rubygem-introspection',
