@@ -8,6 +8,8 @@
           # This allows to install the packages in that repository and test
           # them.
           set +e
+          sudo yum install wget
+
           # Re-construct the expected repository URL
           ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
 
@@ -29,7 +31,7 @@
           # Find the latest repository hash
           # If DLRN built multiple packages, there will be multiple repositories.
           # We want the latest repository which contains all of the packages that were just built.
-          hash=$(curl -s "${artifacts}/centos/repos/report.html" |grep repo |sed 's/.*"\([^"]*\)".*/\1/' |head -n1)
+          hash=$(wget --spider -r -l1 ${artifacts}/centos/repos/report.html 2>&1 |grep -m1 delorean.repo |awk -F/ '{print $(NF-1)}')
           repository="${artifacts}/centos/repos/${hash}"
 
           # Configure the repository
