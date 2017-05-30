@@ -240,6 +240,8 @@
       - prepare-workspace
       - shell: |
           set +e
+          tar -xzvf $REGISTRY_CERTIFICATES
+          mv letsencrypt /etc/
           pushd $ZUUL_PROJECT
           ./run_tests.sh
           popd
@@ -248,3 +250,8 @@
     publishers:
       - zuul-swift-upload
     node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: d6d1ca8a-7ee5-43a1-b505-98577c7ab617
+           variable: REGISTRY_CERTIFICATES
