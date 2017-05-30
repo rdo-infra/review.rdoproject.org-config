@@ -50,7 +50,7 @@
            variable: WEIRDO_TOKEN_FILE
 
 - job:
-    name: gate-rdo-infra-ansible-lint
+    name: gate-rdo-infra-role-ansible-lint
     defaults: global
     builders:
       - prepare-workspace
@@ -197,4 +197,54 @@
           tox -e flake8
     triggers:
       - zuul
+    node: bare-centos-7
+
+- job:
+    name: gate-tox-ansible-lint
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          tox -e ansible-lint
+    triggers:
+      - zuul
+    node: bare-centos-7
+
+- job:
+    name: gate-tox-docs
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          pushd $ZUUL_PROJECT
+          tox -e docs
+          popd
+
+          mkdir artifacts
+          sudo cp -a $ZUUL_PROJECT/doc/build/html artifacts/
+          # Ensure permissions allow artifact uploading
+          sudo chown -R "$(id -u).$(id -g)" artifacts
+    triggers:
+      - zuul
+    publishers:
+      - zuul-swift-upload
+    node: bare-centos-7
+
+- job:
+    name: gate-rdo-container-registry-integration
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          pushd $ZUUL_PROJECT
+          ./run_tests.sh
+          popd
+    triggers:
+      - zuul
+    publishers:
+      - zuul-swift-upload
     node: bare-centos-7

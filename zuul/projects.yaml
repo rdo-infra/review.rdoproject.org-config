@@ -2391,34 +2391,34 @@ projects:
 
   - name: rdo-infra/ansible-role-rdobase
     check:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-base-integration
     gate:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-base-integration
 
   - name: rdo-infra/ansible-role-rdomonitoring
     check:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-monitoring-integration
     gate:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-monitoring-integration
 
   - name: rdo-infra/ansible-role-rdobot
     check:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-rdobot-integration
     gate:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-infra-rdobot-integration
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
       - gate-rdo-kolla-build-containers
     gate:
-      - gate-rdo-infra-ansible-lint
+      - gate-rdo-infra-role-ansible-lint
 
   - name: testbranching
     check:
@@ -2443,8 +2443,14 @@ projects:
       - rdopkg-unittests
 
   - name: rdo-infra/rdo-container-registry
-    template:
-      - name: noop
+    check:
+      - gate-tox-ansible-lint
+      - gate-tox-docs
+      - gate-rdo-container-registry-integration
+    gate:
+      - gate-tox-ansible-lint
+      - gate-tox-docs
+      - gate-rdo-container-registry-integration
 
   - name: rdo-infra/releng
     check:
