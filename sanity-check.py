@@ -54,6 +54,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-rspec-expectations',
         'centos-opstools/rubygem-rspec-mocks',
         'centos-opstools/rubygem-session',
+        'centos-opstools/rubygem-string-scrub',
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
         'centos-opstools/kibana',
