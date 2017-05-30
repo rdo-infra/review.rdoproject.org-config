@@ -2409,6 +2409,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-yajl-ruby
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-final-build
+
   - name: centos-opstools/skydive
     check:
       - centos-opstools-rpmlint
