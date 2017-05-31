@@ -242,9 +242,8 @@
           set +e
           tar -xzvf $REGISTRY_CERTIFICATES
           sudo mv letsencrypt /etc/
-          pushd $ZUUL_PROJECT
+          cd $ZUUL_PROJECT
           ./run_tests.sh
-          popd
     triggers:
       - zuul
     publishers:
