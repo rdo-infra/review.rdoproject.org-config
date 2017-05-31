@@ -247,7 +247,17 @@
     triggers:
       - zuul
     publishers:
-      - zuul-swift-upload
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/artifacts
+                  $WORKSPACE/$ZUUL_PROJECT/.tox/ansible-playbook/bin/ara generate html $WORKSPACE/artifacts/ara
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
+            - zuul-swift-upload
+          script-only-if-succeeded: False
+          script-only-if-failed: False
     node: bare-centos-7
     wrappers:
       - credentials-binding:
