@@ -142,7 +142,7 @@
           set -e
           mkdir $WORKSPACE/artifacts
           sudo yum -y install rpm-build rpmdevtools centos-release-opstools
-          sudo cat >> /etc/yum.repos.d/opstools-build.repo << EOF
+          cat << EOF | sudo tee /etc/yum.repos.d/opstools-build.repo
           [centos-opstools-perfmon-testing]
           name=CentOS-7 - OpsTools Performance monitoring - testing repo
           baseurl=http://cbs.centos.org/repos/opstools7-perfmon-common-testing/$basearch/os
