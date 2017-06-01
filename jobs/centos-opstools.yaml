@@ -142,6 +142,38 @@
           set -e
           mkdir $WORKSPACE/artifacts
           sudo yum -y install rpm-build rpmdevtools centos-release-opstools
+          sudo cat >> /etc/yum.repos.d/opstools-build.repo << EOF
+          [centos-opstools-perfmon-testing]
+          name=CentOS-7 - OpsTools Performance monitoring - testing repo
+          baseurl=http://cbs.centos.org/repos/opstools7-perfmon-common-testing/$basearch/os
+          gpgcheck=0
+          enabled=1
+
+          [centos-opstools-sensu-testing]
+          name=CentOS-7 - OpsTools availability monitoring - testing repo
+          baseurl=http://cbs.centos.org/repos/opstools7-sensu-common-testing/$basearch/os
+          gpgcheck=0
+          enabled=1
+
+          [centos-opstools-common-testing]
+          name=CentOS-7 - OpsTools common testing
+          baseurl=http://cbs.centos.org/repos/opstools7-common-testing/$basearch/os
+          gpgcheck=0
+          enabled=1
+
+          [centos-opstools-centralized-logging-testing]
+          name=CentOS-7 - OpsTools centralized logging common testing
+          baseurl=http://cbs.centos.org/repos/opstools7-elastic-common-testing/$basearch/os
+          gpgcheck=0
+          enabled=1
+
+          [centos-opstools-fluent-testing]
+          name=CentOS-7 - OpsTools fluentd testing
+          baseurl=http://cbs.centos.org/repos/opstools7-fluentd-012-testing/$basearch/os
+          gpgcheck=0
+          enabled=1
+          EOF
+
           sudo yum -y install gcc
           pushd $ZUUL_PROJECT
           spectool -g  *.spec
