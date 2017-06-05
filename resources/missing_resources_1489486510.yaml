@@ -1,32 +1,5 @@
 resources:
   acls:
-    08afde9926788f0cfbf64f6b14f55305:
-      file: |
-        [access "refs/*"]
-          read = group rdopkg-core
-          owner = group rdopkg-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdopkg-core
-            label-Code-Review = -2..+2 group rdopkg-ptl
-            label-Verified = -2..+2 group rdopkg-ptl
-            label-Workflow = -1..+1 group rdopkg-core
-            label-Workflow = -1..+1 group rdopkg-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdopkg-ptl
-            read = group Registered Users
-            read = group rdopkg-core
-            create = group rdopkg-ptl
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group rdopkg-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdopkg-ptl
-      - rdopkg-core
     0cbf8b59c21d3c2b5c87e430aedf61cf:
       file: |
         [project]
@@ -891,23 +864,6 @@ resources:
       - alan.pevec@redhat.com
       - mhu@enovance.com
       - admin@review.rdoproject.org
-    rdopkg-core:
-      description: Core developers for project rdopkg
-      members:
-      - alan.pevec@redhat.com
-      - fboucher@redhat.com
-      - jruzicka@redhat.com
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-    rdopkg-ptl:
-      description: Project team lead for project rdopkg
-      members:
-      - alan.pevec@redhat.com
-      - fboucher@redhat.com
-      - jruzicka@redhat.com
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-      - hguemar@fedoraproject.org
     testbranching-core:
       description: Core developers for project testbranching
       members:
@@ -989,9 +945,6 @@ resources:
     rdoinfo:
       acl: e0dd259e6f2aa0971d9b1cfd3e148893
       description: A fork of redhat-openstack rdoinfo made to use rmpfactory repositories
-    rdopkg:
-      acl: 08afde9926788f0cfbf64f6b14f55305
-      description: Power to the packagers
     testbranching:
       acl: 12df3119baf5bbbcccbe6c25a6900023
       description: just a test for branches
