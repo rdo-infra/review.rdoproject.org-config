@@ -23,6 +23,7 @@ IGNORED_PROJECTS = {
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
+        'rdopkg',
         'testbranching',
         'testproject'
     ],
@@ -32,10 +33,12 @@ IGNORED_PROJECTS = {
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
+        'rdopkg',
         'testbranching',
         'testproject'
     ],
     'gerritbot': [
+        'rdopkg',
         'testbranching',
         'testproject',
         'centos-opstools/opstools-doc',
