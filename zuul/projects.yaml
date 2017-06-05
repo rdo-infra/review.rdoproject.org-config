@@ -11,9 +11,6 @@ jobs:
   - name: ^mitaka-distgit-cbs-(validate|final-build)$
     branch: ^mitaka-rdo$
 
-  - name: ^rdopkg-unittests$
-    voting: true
-
   - name: ^puppet-openstack-integration-scenario(001|002|003)$
     voting: false
 
@@ -2506,11 +2503,6 @@ projects:
       - puppet-lint
       - puppet-syntax
       - puppet-spec
-  - name: rdopkg
-    check:
-      - rdopkg-unittests
-    gate:
-      - rdopkg-unittests
 
   - name: rdo-infra/rdo-container-registry
     check:
