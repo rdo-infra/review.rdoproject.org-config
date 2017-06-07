@@ -427,6 +427,14 @@ projects:
     template:
       - name: package-check-jobs
 
+  - name: openstack/glare
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/glare-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/glareclient
     template:
       - name: package-check-jobs
@@ -2379,7 +2387,7 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-rspec-mocks
+  - name: centos-opstools/rubygem-rspec-support
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2389,7 +2397,7 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-rspec-support
+  - name: centos-opstools/rubygem-rspec-mocks
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2500,16 +2508,6 @@ projects:
     gate:
       - gate-rdo-infra-role-ansible-lint
 
-  - name: rdo-infra/rdo-container-registry
-    check:
-      - gate-tox-ansible-lint
-      - gate-tox-docs
-      - rdo-registry-integration
-    gate:
-      - gate-tox-ansible-lint
-      - gate-tox-docs
-      - rdo-registry-integration
-
   - name: testbranching
     check:
       - multinode-test
@@ -2526,6 +2524,16 @@ projects:
       - puppet-lint
       - puppet-syntax
       - puppet-spec
+
+  - name: rdo-infra/rdo-container-registry
+    check:
+      - gate-tox-ansible-lint
+      - gate-tox-docs
+      - rdo-registry-integration
+    gate:
+      - gate-tox-ansible-lint
+      - gate-tox-docs
+      - rdo-registry-integration
 
   - name: rdo-infra/releng
     check:
