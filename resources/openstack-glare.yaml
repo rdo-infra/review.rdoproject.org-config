@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/glare-core:
+      description: Core developers for project glare
+      members:
+      - mfedosin@gmail.com
+      - idan.narotzki@nokia.com
+    openstack/glare-ptl:
+      description: Project team lead for project glare
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-glare-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/glare-core
+          owner = group openstack/glare-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/glare-core
+          label-Code-Review = -2..+2 group openstack/glare-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/glare-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/glare-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/glare-core
+          label-Verified = -2..+2 group openstack/glare-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/glare-core
+          label-Workflow = -1..+1 group openstack/glare-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/glare-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/glare-core
+      - openstack/glare-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-glare:
+      file: |
+        [access "refs/*"]
+          read = group openstack/glare-core
+          owner = group openstack/glare-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/glare-core
+          label-Code-Review = -2..+2 group openstack/glare-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/glare-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/glare-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/glare-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/glare-core
+          label-Workflow = -1..+0 group openstack/glare-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/glare-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/glare-core
+      - openstack/glare-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/glare:
+      acl: openstack-glare
+      description: Mirror of upstream glare (mirror + patches)
+    openstack/glare-distgit:
+      acl: openstack-glare-distgit
+      description: Packaging of upstream glare
+      default-branch: rpm-master
