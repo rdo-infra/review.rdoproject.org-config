@@ -41,10 +41,12 @@ PACKAGE_LINE=""
 # Prepare directories
 mkdir -p data/repos
 for PACKAGE in ${PACKAGES_TO_BUILD}; do
+    # This is a multi-line output
+    # Bash displays it on a single line if you don't use double-quotes
     PACKAGE_INFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo)
-    PROJECT_TO_BUILD_MAPPED=$(echo $PACKAGE_INFO | awk '/name:/ {print $2}')
-    PROJECT_IN_RDOINFO=$(echo $PACKAGE_INFO | awk '/project:/ {print $2}')
-    NAMESPACE=(echo $PACKAGE_INFO | awk '/patches/ { split($2, res, "/"); print res[6] }')
+    PROJECT_TO_BUILD_MAPPED=$(echo "$PACKAGE_INFO" | awk '/name:/ {print $2}')
+    PROJECT_IN_RDOINFO=$(echo "$PACKAGE_INFO" | awk '/project:/ {print $2}')
+    NAMESPACE=$(echo "$PACKAGE_INFO" | awk '/patches/ { split($2, res, "/"); print res[6] }')
     PROJECT_DISTRO="$NAMESPACE/$PROJECT_IN_RDOINFO-distgit"
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
