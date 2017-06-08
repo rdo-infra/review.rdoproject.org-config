@@ -110,13 +110,6 @@ providers:
     rate: 1.0
     networks:
     - name: private
-    images:
-    - name: bare-centos-7
-      base-image: CentOS 7 (1701) x86_64
-      setup: rdo-base.sh
-      name-filter: rdo.m1.medium
-      username: centos
-      min-ram: 4096
 
   - name: rdo-cloud
     boot-timeout: 120
