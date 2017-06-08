@@ -77,7 +77,7 @@
           pushd DLRN
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
-              timeout --signal=SIGKILL 5400  /opt/nodepool-scripts/rdoinfo-DLRN.sh $CURRENT_MASTER_TAG "${PACKAGES_UPDATED_MASTER}"
+              timeout --signal=SIGKILL 7200  /opt/nodepool-scripts/rdoinfo-DLRN.sh $CURRENT_MASTER_TAG "${PACKAGES_UPDATED_MASTER}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -86,7 +86,7 @@
               rm -rf data
           fi
           if [ -n "${PACKAGES_UPDATED_OCATA}" ]; then
-              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata "${PACKAGES_UPDATED_OCATA}"
+              timeout --signal=SIGKILL 7200 /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata "${PACKAGES_UPDATED_OCATA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -95,7 +95,7 @@
               rm -rf data
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
-              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
+              timeout --signal=SIGKILL 7200 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -104,7 +104,7 @@
               rm -rf data
           fi
           if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
-              timeout --signal=SIGKILL 5400 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
+              timeout --signal=SIGKILL 7200 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
