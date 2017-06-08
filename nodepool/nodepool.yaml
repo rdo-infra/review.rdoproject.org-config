@@ -22,6 +22,7 @@ labels:
     image: bare-centos-7
     providers:
       - name: rdo-cloud-beta
+      - name: rdo-cloud
 
   - name: bare-centos-7-2-node
     min-ready: 0
@@ -106,6 +107,23 @@ providers:
     clean-floating-ips: true
     cloud: rdo-cloud-beta
     max-servers: 15
+    pool: public
+    rate: 1.0
+    networks:
+    - name: private
+    images:
+    - name: bare-centos-7
+      base-image: CentOS 7 (1701) x86_64
+      setup: rdo-base.sh
+      name-filter: rdo.m1.medium
+      username: centos
+      min-ram: 4096
+
+  - name: rdo-cloud
+    boot-timeout: 120
+    clean-floating-ips: true
+    cloud: rdo-cloud
+    max-servers: 30
     pool: public
     rate: 1.0
     networks:
