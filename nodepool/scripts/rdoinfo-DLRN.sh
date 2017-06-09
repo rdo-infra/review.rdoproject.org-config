@@ -36,14 +36,12 @@ PACKAGE_LINE=""
 # Prepare directories
 mkdir -p data/repos
 for PACKAGE in ${PACKAGES_TO_BUILD}; do
-    PROJECT_TO_BUILD_MAPPED=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^name | awk '{print $2}')
-    PROJECT_IN_RDOINFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^project: | awk '{print $2}')
-    PROJECT_DISTGIT=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^distgit: | awk '{print $2}')
-    if [[ "$PROJECT_IN_RDOINFO" =~ puppet- ]]; then
-        PROJECT_DISTRO="puppet/$PROJECT_IN_RDOINFO-distgit"
-    else
-        PROJECT_DISTRO="openstack/$PROJECT_IN_RDOINFO-distgit"
-    fi
+    PACKAGE_INFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo)
+    PROJECT_TO_BUILD_MAPPED=$(echo "$PACKAGE_INFO" | awk '/name:/ {print $2}')
+    PROJECT_IN_RDOINFO=$(echo "$PACKAGE_INFO" | awk '/project:/ {print $2}')
+    PROJECT_DISTGIT=$(echo "$PACKAGE_INFO" | awk '/distgit:/ {print $2}')
+    NAMESPACE=$(echo "$PACKAGE_INFO" | awk '/patches/ { split($2, res, "/"); print res[6] }')
+    PROJECT_DISTRO="$NAMESPACE/$PROJECT_IN_RDOINFO-distgit"
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
     if [ "$PROJECT_DISTGIT" = "https://github.com/openstack/rpm-packaging" ]; then
