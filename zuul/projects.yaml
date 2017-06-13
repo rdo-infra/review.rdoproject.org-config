@@ -167,6 +167,17 @@ projects:
     template:
       - name: noop
 
+  - name: centos-opstools/rubygem-cool.io
+    template:
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     template:
       - name: noop
