@@ -2345,6 +2345,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-oj
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluent-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluent-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-power_assert
     check:
       - centos-opstools-rpmlint
