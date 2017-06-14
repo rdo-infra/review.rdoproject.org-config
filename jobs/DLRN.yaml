@@ -98,6 +98,7 @@
           addFilter("openstack-nova-common.noarch: W: obsolete-not-provided openstack-nova-cert")
           addFilter("python-novajoin.noarch: W: non-standard-gid")
           addFilter("python-novajoin.noarch: W: non-standard-uid")
+          addFilter("openstack-nova-compute.noarch: E: explicit-lib-dependency libvirt-client")
           EOF
 
           # now download all these packages from the previous repository
