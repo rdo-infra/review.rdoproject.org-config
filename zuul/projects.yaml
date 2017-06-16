@@ -2511,6 +2511,16 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
 
+  - name: centos-opstools/fluent-plugin-grok-parser
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: rdo-infra/ansible-role-rdobase
     check:
       - gate-rdo-infra-role-ansible-lint
