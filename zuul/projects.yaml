@@ -2596,9 +2596,12 @@ projects:
     check:
       - rdoinfo-unittests
       - rdoinfo-DLRN-check
+      - validate-buildsys-tags:
+          - weirdo-validate-buildsys-tags
     gate:
       - rdoinfo-unittests
       - rdoinfo-DLRN-check
+      - update-buildsys-tags
     periodic:
       - rdoinfo-upper-constraints-update-master
       - rdoinfo-upper-constraints-update-ocata
@@ -2612,6 +2615,4 @@ projects:
           - gate-weirdo-dlrn-master-puppet-scenario001
           - gate-weirdo-dlrn-master-puppet-scenario002
           - gate-weirdo-dlrn-master-puppet-scenario003
-      - validate-buildsys-tags:
-          - weirdo-validate-buildsys-tags
 

@@ -359,3 +359,58 @@
         - file:
            credential-id: 2b9107c5-c511-41e4-9012-a97af25bd295
            variable: WEIRDO_TOKEN_FILE
+
+- job:
+    name: update-buildsys-tags
+    defaults: global
+    builders:
+      - prepare-workspace
+      - validate-buildsys-tags
+      - prepare-rpmfactory-workspace
+      - shell: |
+          set +e
+          # Install graffiti from hguemar repo until it's moved
+          # to some controlled repo
+          sudo pip install git+https://github.com/hguemar/graffiti
+          # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/artifacts/info/
+          # by validate-buildsys-tags builder
+          # If there are register actions, they are executed first
+          if [ -s $WORKSPACE/artifacts/info/register.yaml ]; then
+              echo "INFO: Executing CBS register actions"
+              cat $WORKSPACE/artifacts/info/register.yaml
+              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml register -f $WORKSPACE/artifacts/info/register.yaml
+          fi
+          # If there are tag actions, they are executed
+          if [ -s $WORKSPACE/artifacts/info/tags.yaml ]; then
+              echo "INFO: Executing CBS tag actions"
+              cat $WORKSPACE/artifacts/info/tags.yaml
+              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml tag -f $WORKSPACE/artifacts/info/tags.yaml
+          fi
+          # Check if tags have been applied as expected
+          # format of cbs_actions.txt is <action>,<tag>,<build> where <action> is
+          # "tag" for tagging actions.
+          FAILED=0
+          for line in $(grep "^tag" $WORKSPACE/artifacts/info/cbs_actions.txt)
+          do
+              build=$(echo $line|awk -F',' '{print $3'})
+              tag=$(echo $line|awk -F',' '{print $2'})
+              TAGGED=$(cbs buildinfo $build|grep -c "Tags.*$tag")
+              if [ $TAGGED -eq 0 ]; then
+                  echo "ERROR: package $build was not included in tag $tag"
+                  FAILED=1
+              fi
+          done
+
+          exit $FAILED
+
+    publishers:
+      - zuul-swift-upload
+    triggers:
+      - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
+           variable: CLIENTSECRET
+    node: bare-centos-7
+
