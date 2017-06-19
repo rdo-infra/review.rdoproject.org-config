@@ -167,16 +167,6 @@ projects:
     template:
       - name: noop
 
-  - name: centos-opstools/rubygem-cool.io
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     template:
       - name: noop
@@ -638,6 +628,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/kuryr-kubernetes-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/kuryr-tempest-plugin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/kuryr-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
@@ -2301,17 +2299,27 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/osops-tools-monitoring-oschecks
+  - name: centos-opstools/python-fluent-logger
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-validate
+      - centos-opstools-fluentd-012-distgit-cbs-validate
     gate:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-final-build
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/python-fluent-logger
+  - name: centos-opstools/rubygem-cool.io
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-oj
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2330,6 +2338,16 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-perfmon-common-distgit-cbs-final-build
+
+  - name: centos-opstools/osops-tools-monitoring-oschecks
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-diff-lcs
     check:
@@ -2360,16 +2378,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-oj
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-power_assert
     check:
