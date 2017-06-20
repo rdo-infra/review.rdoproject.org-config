@@ -10,6 +10,31 @@ diskimages:
       - ansible
       - common-packages
 
+  - name: upstream-centos-7
+    elements:
+      - centos-minimal
+      - vm
+      - simple-init
+      - project-config/openstack-repos
+      - project-config/nodepool-base
+      - project-config/cache-devstack
+      - growroot
+      - project-config/infra-package-needs
+      - epel
+    env-vars:
+      TMPDIR: /opt/dib_tmp
+      DIB_CHECKSUM: '1'
+      DIB_IMAGE_CACHE: /opt/dib_cache
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
+      DIB_EPEL_DISABLED: '1'
+      NODEPOOL_SSH_KEY: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCp9iFXvR6UoWYboU41KFpx+Sdd7ov0i+szIjdB7p8LAR5mjVCWZWAyUSE16DQO0VRbl6FpxFUPRQCUXg5P59D6MjRPB+lIvAyZ53CkgVfkaKYNdLQKRoyBR0Q5ng0Gt74AwU7fo0lyVa9MYsxAVbwrE0ngrqzGA1Lm5TSAmZeURZLch65xZm8qc5UU2TZ9f9NEwdZgKFAplBT2Om+DdECNO+TRy/RAivBFmZangQBnBEp4cOiverur22Lc2MO4veBVT+pvTWI0YNKFPmwRpgfWTsZ6R1sUOHCIXmK+P8nR/BMAF/+XXNdEg4RTJFCNP5nWiSUpMj3z6dvQ0zv1twgb
+      NODEPOOL_SCRIPTDIR: /etc/nodepool/scripts/project-config
+      # bluebox-sjc2 is closer than rax-dfw from Phoenix
+      # (where rdo-cloud is located) but rax-dfw is tuned for higher capacity
+      NODEPOOL_MIRROR_HOST: mirror.dfw.rax.openstack.org
+
 labels:
   - name: dib-centos-7
     min-ready: 1
@@ -20,6 +45,12 @@ labels:
   - name: bare-centos-7
     min-ready: 4
     image: bare-centos-7
+    providers:
+      - name: rdo-cloud
+
+  - name: upstream-centos-7
+    min-ready: 0
+    image: upstream-centos-7
     providers:
       - name: rdo-cloud
 
