@@ -41,9 +41,4 @@ else
     popd
 fi
 
-echo "Setting up symbolic links..."
-ln -sf ${PROJECT_DIR}/nodepool/elements /etc/nodepool/elements/project-config
-ln -sf ${PROJECT_DIR}/nodepool/scripts /etc/nodepool/scripts/project-config
-echo "Done."
-
 rm -f "${LOCKFILE}"
