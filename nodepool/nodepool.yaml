@@ -22,9 +22,6 @@ diskimages:
       - infra-package-needs
       - epel
     env-vars:
-      TMPDIR: /opt/dib_tmp
-      DIB_CHECKSUM: '1'
-      DIB_IMAGE_CACHE: /opt/dib_cache
       QEMU_IMG_OPTIONS: compat=0.10
       DIB_GRUB_TIMEOUT: '0'
       DIB_EPEL_DISABLED: '1'
@@ -89,6 +86,11 @@ providers:
       diskimage: dib-centos-7
       username: jenkins
       min-ram: 2048
+
+    - name: upstream-centos-7
+      diskimage: upstream-centos-7
+      username: jenkins
+      min-ram: 8192
 
     - name: bare-centos-7
       base-image: CentOS 7 (1701) x86_64
