@@ -2545,10 +2545,10 @@ projects:
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
-      - gate-rdo-infra-role-ansible-lint
+      - gate-tox-ansible-lint
       - gate-rdo-kolla-build-containers
     gate:
-      - gate-rdo-infra-role-ansible-lint
+      - gate-tox-ansible-lint
 
   - name: rdo-infra/rdo-container-registry
     check:
