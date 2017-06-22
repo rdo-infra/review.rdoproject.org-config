@@ -49,6 +49,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-http_parser.rb',
         'centos-opstools/rubygem-msgpack',
         'centos-opstools/rubygem-minitest',
+        'centos-opstools/rubygem-netrc',
         'centos-opstools/rubygem-oj',
         'centos-opstools/rubygem-power_assert',
         'centos-opstools/rubygem-proxifier',
