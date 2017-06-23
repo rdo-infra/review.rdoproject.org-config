@@ -1,0 +1,14 @@
+- job:
+    name: test-upstream-centos-7
+    defaults: global
+    builders:
+      - prepare-workspace
+      - shell: |
+          set +e
+          # Test mirrors
+          yum repolist -vv
+          sudo yum -y install "@Development Tools"
+          sudo pip install python-openstackclient
+    triggers:
+      - zuul
+    node: upstream-centos-7
