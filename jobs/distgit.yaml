@@ -41,42 +41,6 @@
     jobs:
       - '{openstack_release}-distgit-cbs-validate'
 
-#- job:
-#    name: 'rpmlint-validate'
-#    defaults: global
-#    builders:
-#      - base-pkg-validation:
-#          buildtarget: "cloud7-openstack-liberty-el7"
-#          kojicmd: "koji"
-#      - shell: |
-#          echo "Please add logic to test rpmlint here."
-#    triggers:
-#      - zuul
-#    wrappers:
-#      - credentials-binding:
-#        - file:
-#           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
-#           variable: CLIENTSECRET
-#    node: rdo-centos7-liberty
-#
-#- job:
-#    name: 'pkg-upgrade-validate'
-#    defaults: global
-#    builders:
-#      - base-pkg-validation:
-#          buildtarget: "cloud7-openstack-liberty-el7"
-#          kojicmd: "koji"
-#      - shell: |
-#          echo "Please add logic to test the package can be upgraded."
-#    triggers:
-#      - zuul
-#    wrappers:
-#      - credentials-binding:
-#        - file:
-#           credential-id: 86d1bd02-65b8-4fe9-906f-04cfcb68b13a
-#           variable: CLIENTSECRET
-#    node: rdo-centos7-liberty
-#
 - job-template:
     name: '{openstack_release}-distgit-cbs-final-build'
     defaults: global

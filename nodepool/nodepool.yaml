@@ -61,12 +61,6 @@ labels:
     min-ready: 3
     providers:
       - name: rcip-dev
-  - name: rdo-centos7-liberty
-    image: rdo-centos7-liberty
-    min-ready: 0
-    providers:
-      - name: rcip-dev
-      - name: trystack
 
 providers:
   - name: rcip-dev
@@ -93,12 +87,6 @@ providers:
         name-filter: m1.rdo-ci
         username: centos
         min-ram: 8192
-      - name: rdo-centos7-liberty
-        base-image: CentOS 7 (1701) x86_64
-        setup: rdo-centos7-liberty.sh
-        name-filter: m1.rdo-ci
-        username: centos
-        min-ram: 8192
   - name: trystack
     boot-timeout: 120
     clean-floating-ips: true
@@ -110,12 +98,6 @@ providers:
       - name: bare-centos-7
         base-image: CentOS 7 (1701) x86_64
         setup: rdo-base.sh
-        name-filter: m1.rdo-ci
-        username: centos
-        min-ram: 8192
-      - name: rdo-centos7-liberty
-        base-image: CentOS 7 (1701) x86_64
-        setup: rdo-centos7-liberty.sh
         name-filter: m1.rdo-ci
         username: centos
         min-ram: 8192

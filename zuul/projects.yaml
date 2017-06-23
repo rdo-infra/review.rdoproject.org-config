@@ -14,9 +14,6 @@ jobs:
   - name: ^common-distgit-cbs-(validate|final-build)$
     branch: ^common-rdo$
 
-  - name: ^puppet-openstack-integration-scenario(001|002|003)$
-    voting: false
-
   - name: ^DLRN-rpmbuild-nv$
     voting: false
 
@@ -2218,10 +2215,6 @@ projects:
   - name: puppet/puppet-zookeeper-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: rdo
-    periodic:
-      - upstream-update
 
   - name: rdo-infra/ansible-role-logserver
     template:
