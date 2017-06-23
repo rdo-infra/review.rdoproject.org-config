@@ -63,6 +63,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-string-scrub',
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
+        'centos-opstools/rubygem-unf',
         'centos-opstools/rubygem-yajl-ruby',
         'centos-opstools/kibana',
         'centos-opstools/rubygem-builder',
