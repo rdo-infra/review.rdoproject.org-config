@@ -154,8 +154,8 @@ project-templates:
 
 projects:
   - name: testproject
-    template:
-      - name: noop
+    check:
+      - test-upstream-image
 
   - name: centos-opstools/kibana
     template:
@@ -2565,10 +2565,8 @@ projects:
       - rdo-registry-integration
 
   - name: testbranching
-    check:
-      - upstream-image
-    gate:
-      - upstream-image
+    template:
+      - name: noop
 
   # project for testing new tests
   - name: rdo-infra/puppet-dlrn
