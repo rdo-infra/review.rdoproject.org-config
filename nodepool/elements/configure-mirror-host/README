@@ -1,5 +1,5 @@
 Nodepool uses the 'env-vars' key from the DIB image definition when building
 the image but these are not persisted and available at boot time.
 
-This element persists the NODEPOOL_MIRROR_HOST variable so that it is available
- at boot time for the "configure_mirror.sh" ready-script.
+This element generates a wrapper script so that configure_mirror.sh is called
+with the right configuration when used as a ready-script.
