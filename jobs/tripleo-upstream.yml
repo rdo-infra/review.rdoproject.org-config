@@ -12,3 +12,175 @@
     triggers:
       - zuul
     node: upstream-centos-7
+
+#####################################
+# dmsimard experimentation - START
+#####################################
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L883-L889
+- wrapper:
+    name: build-timeout
+    wrappers:
+      - timeout:
+          timeout: '{timeout}'
+          timeout-var: 'BUILD_TIMEOUT'
+          fail: true
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L724-L756
+- builder:
+    name: net-info
+    builders:
+      - shell: |
+          #!/bin/sh
+          export PATH=$PATH:/sbin:/usr/sbin
+          if [ -f /etc/dib-builddate.txt ]; then
+              echo "Image build date"
+              echo "================"
+              cat /etc/dib-builddate.txt
+          fi
+          echo "Host & kernel"
+          echo "============="
+          uname -a
+          echo "Network configuration data..."
+          [ -f /mnt/config/openstack/latest/network_info.json ] && python -mjson.tool /mnt/config/openstack/latest/network_info.json
+          [ -f /mnt/config/openstack/latest/network_data.json ] && python -mjson.tool /mnt/config/openstack/latest/network_data.json
+          [ -f /mnt/config/openstack/latest/vendor_data.json ] && python -mjson.tool /mnt/config/openstack/latest/vendor_data.json
+          echo "Network interface addresses..."
+          echo "=============================="
+          ip address show
+          echo "Network routing tables..."
+          echo "========================="
+          ip route show
+          ip -6 route show
+          echo "Network neighbors..."
+          echo "===================="
+          ip neighbor show
+          echo "Route to Git mirror..."
+          echo "======================"
+          traceroute6 -n git.openstack.org \
+              || traceroute -n git.openstack.org \
+              || true
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L702-L714
+- builder:
+    name: devstack-checkout
+    builders:
+      - shell: |
+          #!/bin/bash -xe
+          cat > clonemap.yaml << EOF
+          clonemap:
+            - name: openstack-infra/devstack-gate
+              dest: devstack-gate
+          EOF
+          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+              git://git.openstack.org \
+              openstack-infra/devstack-gate
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
+- job-template:
+    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+    builders:
+      #- link-logs
+      - net-info
+      - devstack-checkout
+      - shell: |
+          #!/bin/bash -xe
+          export TOCI_JOBTYPE={type}
+
+          # ZUUL Doesn't set these for periodic jobs
+          export ZUUL_BRANCH=${{ZUUL_BRANCH:-master}}
+          export ZUUL_REF=${{ZUUL_REF:-None}}
+
+          export BRANCH_OVERRIDE={branch-override}
+          if [ "$BRANCH_OVERRIDE" != "default" ] ; then
+              export OVERRIDE_ZUUL_BRANCH=$BRANCH_OVERRIDE
+          fi
+
+          export PYTHONUNBUFFERED=true
+          export DEVSTACK_GATE_TEMPEST=0
+          export DEVSTACK_GATE_EXERCISES=0
+          export DEVSTACK_GATE_HORIZON=1
+
+          export PROJECTS="openstack/diskimage-builder $PROJECTS"
+          export PROJECTS="openstack/dib-utils $PROJECTS"
+          export PROJECTS="openstack/instack $PROJECTS"
+          export PROJECTS="openstack/instack-undercloud $PROJECTS"
+          export PROJECTS="openstack/puppet-aodh $PROJECTS"
+          export PROJECTS="openstack/puppet-barbican $PROJECTS"
+          export PROJECTS="openstack/puppet-ceilometer $PROJECTS"
+          export PROJECTS="openstack/puppet-ceph $PROJECTS"
+          export PROJECTS="openstack/puppet-cinder $PROJECTS"
+          export PROJECTS="openstack/puppet-ganesha $PROJECTS"
+          export PROJECTS="openstack/puppet-glance $PROJECTS"
+          export PROJECTS="openstack/puppet-gnocchi $PROJECTS"
+          export PROJECTS="openstack/puppet-heat $PROJECTS"
+          export PROJECTS="openstack/puppet-horizon $PROJECTS"
+          export PROJECTS="openstack/puppet-ironic $PROJECTS"
+          export PROJECTS="openstack/puppet-keystone $PROJECTS"
+          export PROJECTS="openstack/puppet-mistral $PROJECTS"
+          export PROJECTS="openstack/puppet-neutron $PROJECTS"
+          export PROJECTS="openstack/puppet-nova $PROJECTS"
+          export PROJECTS="openstack/puppet-openstack_extras $PROJECTS"
+          export PROJECTS="openstack/puppet-openstacklib $PROJECTS"
+          export PROJECTS="openstack/puppet-oslo $PROJECTS"
+          export PROJECTS="openstack/puppet-pacemaker $PROJECTS"
+          export PROJECTS="openstack/puppet-sahara $PROJECTS"
+          export PROJECTS="openstack/puppet-swift $PROJECTS"
+          export PROJECTS="openstack/puppet-tripleo $PROJECTS"
+          export PROJECTS="openstack/puppet-vswitch $PROJECTS"
+          export PROJECTS="openstack/puppet-zaqar $PROJECTS"
+          export PROJECTS="openstack/python-ironic-inspector-client $PROJECTS"
+          export PROJECTS="openstack/python-tripleoclient $PROJECTS"
+          export PROJECTS="openstack/tripleo-common $PROJECTS"
+          export PROJECTS="openstack/tripleo-puppet-elements $PROJECTS"
+          export PROJECTS="openstack/tripleo-quickstart $PROJECTS"
+          export PROJECTS="openstack/tripleo-quickstart-extras $PROJECTS"
+          export PROJECTS="openstack/tripleo-ui $PROJECTS"
+
+          # some projects are not in devstack-gate, we need them to grab logs:
+          export PROJECTS="openstack/aodh $PROJECTS"
+          export PROJECTS="openstack/barbican $PROJECTS"
+          export PROJECTS="openstack/gnocchi $PROJECTS"
+          export PROJECTS="openstack/panko $PROJECTS"
+          export PROJECTS="openstack/mistral $PROJECTS"
+
+          sudo chown -hR $(whoami) /opt/git
+          function gate_hook {{
+              bash -xe /opt/stack/new/tripleo-ci/toci_gate_test.sh
+          }}
+          export -f gate_hook
+          cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
+          ./safe-devstack-vm-gate-wrap.sh
+
+#    publishers:
+#      - scp:
+#          site: 'tarballs.openstack.org'
+#          files:
+#            - source: 'images/*'
+#              target: 'tarballs/tripleo-ci/images/'
+#              keep-hierarchy: false
+#              copy-after-failure: false
+#      - devstack-logs
+#      - console-log
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
+- project:
+    name: tripleo-ci
+    jobs:
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-undercloud-oooq'
+          suffix: ''
+          type: 'singlenode-featureset003'
+          # node: centos-7
+          node: upstream-centos-7
+          trigger: 'gate'
+          branch-override: default
+          timeout: 180
+
+#####################################
+# dmsimard experimentation - END
+#####################################
