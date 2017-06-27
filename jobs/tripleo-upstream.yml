@@ -16,6 +16,21 @@
 #####################################
 # dmsimard experimentation - START
 #####################################
+# Hacks
+# Fill /etc/nodepool/provider with data as expected by tripleo-quickstart
+# See: https://review.openstack.org/#/c/478211/
+- builder:
+    name: hack-nodepool-provider-setup
+    builders:
+      - shell: |
+          #!/bin/sh
+          cat <<EOF | sudo tee /etc/nodepool/provider
+          NODEPOOL_PROVIDER=rdo-cloud-tripleo
+          NODEPOOL_CLOUD=rax
+          NODEPOOL_REGION=dfw
+          NODEPOOL_AZ=
+          EOF
+
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L883-L889
 - wrapper:
     name: build-timeout
@@ -87,6 +102,7 @@
       #- link-logs
       - net-info
       - devstack-checkout
+      - hack-nodepool-provider-setup
       - shell: |
           #!/bin/bash -xe
           export TOCI_JOBTYPE={type}
