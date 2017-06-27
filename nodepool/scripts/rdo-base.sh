@@ -3,9 +3,31 @@
 
 set -xe
 
-# Use google dns by default, that is because rcip-dev
-# qrouter dns doesn't resolv well
-echo "nameserver 8.8.8.8" |sudo tee /etc/resolv.conf
+# Setup unbound as a forwarding DNS server
+sudo yum -y install unbound
+cat >> /tmp/forwarding.conf << EOF
+forward-zone:
+  name: "."
+  forward-addr: 208.67.222.222
+  forward-addr: 8.8.8.8
+EOF
+sudo systemctl enable unbound
+sudo cp /tmp/forwarding.conf /etc/unbound/conf.d/forwarding.conf
+sudo restorecon -R /etc/unbound
+sudo chmod +x /etc/rc.d/rc.local
+echo "sed 's/nameserver.*/nameserver 127.0.0.1/' /etc/resolv.conf" |sudo tee -a /etc/rc.d/rc.local
+
+# Make sure the dhcp client will not override our DNS configuration
+sudo sed -i -e 's/^\(DNS[0-9]*=[.0-9]\+\)/#\1/g' /etc/sysconfig/network-scripts/ifcfg-*
+cat << EOF | sudo tee /etc/dhcp/dhclient-eth0.conf
+option rfc3442-classless-static-routes code 121 = array of unsigned integer 8;
+send host-name "<hostname>";
+request subnet-mask, broadcast-address, routers,
+    interface-mtu, rfc3442-classless-static-routes;
+supersede domain-name-servers 127.0.0.1;
+supersede domain-search "";
+supersede domain-name "";
+EOF
 
 sudo yum update -y > /dev/null
 
