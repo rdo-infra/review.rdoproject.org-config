@@ -105,6 +105,11 @@
       - hack-nodepool-provider-setup
       - shell: |
           #!/bin/bash -xe
+          ######
+          # Hack, run the job without building DLRN things
+          ######
+          export ZUUL_CHANGES=""
+
           export TOCI_JOBTYPE={type}
 
           # ZUUL Doesn't set these for periodic jobs
