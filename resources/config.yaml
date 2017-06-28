@@ -1,0 +1,52 @@
+resources:
+  groups:
+    config-core:
+      description: Core developers for project config
+      members:
+      - alan.pevec@redhat.com
+      - adarazs@redhat.com
+      - ben.kero@gmail.com
+      - dms@redhat.com
+      - fboucher@redhat.com
+      - flepied@redhat.com
+      - admin@review.rdoproject.org
+      - tdecacqu@redhat.com
+      - jpena@redhat.com
+    config-ptl:
+      description: Project team lead for project config
+      members:
+      - dms@redhat.com
+      - fboucher@redhat.com
+      - admin@review.rdoproject.org
+      - tdecacqu@redhat.com
+  acls:
+    config-acl:
+      file: |
+        [access "refs/*"]
+          read = group config-core
+          owner = group config-ptl
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group config-core
+            label-Code-Review = -2..+2 group config-ptl
+            label-Verified = -2..+2 group config-ptl
+            label-Workflow = -1..+1 group config-core
+            label-Workflow = -1..+1 group config-ptl
+            label-Workflow = -1..+0 group Registered Users
+            submit = group config-ptl
+            read = group Registered Users
+            read = group config-core
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group config-core
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - config-ptl
+      - config-core
+  repos:
+    config:
+      acl: config-acl
+      description: Config repository (Do not delete it)
