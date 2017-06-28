@@ -2,7 +2,7 @@
     name: test-upstream-image
     defaults: global
     builders:
-      - prepare-workspace
+i      - prepare-workspace
       - shell: |
           set +e
           # Test mirrors
@@ -92,7 +92,7 @@
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
-    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
+    name: '{trigger}-{projectname}-{jobname}-{suffix}'
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -192,7 +192,8 @@
 - project:
     name: tripleo-ci
     jobs:
-      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-ci'
           jobname: 'centos-7-undercloud-oooq'
           suffix: ''
           type: 'singlenode-featureset003'
@@ -205,3 +206,37 @@
 #####################################
 # dmsimard experimentation - END
 #####################################
+
+# TripleO Quickstart gate jobs
+
+- project:
+    name: tripleo-quickstart
+    jobs:
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-quickstart'
+          jobname: 'centos-7-undercloud-oooq'
+          suffix: 'nv'
+          type: 'singlenode-featureset003'
+          # node: centos-7
+          node: upstream-centos-7
+          trigger: 'gate'
+          branch-override: default
+          timeout: 180
+
+# Creating a separate TripleO Quickstart Extras job as different job
+# should be used to gate here
+- project:
+    name: tripleo-quickstart-extras
+    jobs:
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-quickstart-extras'
+          jobname: 'centos-7-undercloud-oooq'
+          suffix: 'nv'
+          type: 'singlenode-featureset003'
+          # node: centos-7
+          node: upstream-centos-7
+          trigger: 'gate'
+          branch-override: default
+          timeout: 180
+
+
