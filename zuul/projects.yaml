@@ -1434,6 +1434,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/tripleo-quickstart
+    check:
+      - gate-tripleo-quickstart-centos-7-undercloud-oooq-nv
+
+  - name: openstack/tripleo-quickstart-extras
+    check:
+      - gate-tripleo-quickstart-extras-centos-7-undercloud-oooq-nv
+
   - name: openstack/tripleo-repos
     template:
       - name: package-check-jobs
