@@ -13,9 +13,6 @@
       - zuul
     node: upstream-centos-7
 
-#####################################
-# dmsimard experimentation - START
-#####################################
 # Hacks
 # Fill /etc/nodepool/provider with data as expected by tripleo-quickstart
 # See: https://review.openstack.org/#/c/478211/
@@ -90,36 +87,27 @@
               git://git.openstack.org \
               openstack-infra/devstack-gate
 
+# TripleO Quickstart gate jobs
+
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
-    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
+    name: 'gate-{projectname}-{jobname}-{suffix}'
     node: '{node}'
     wrappers:
       - build-timeout:
           timeout: '{timeout}'
       - timestamps
+    defaults: global
     builders:
       #- link-logs
       - net-info
       - devstack-checkout
       - hack-nodepool-provider-setup
+      - prepare-workspace
       - shell: |
           #!/bin/bash -xe
-          ######
-          # Hack, run the job without building DLRN things
-          ######
-          export ZUUL_CHANGES=""
 
           export TOCI_JOBTYPE={type}
-
-          # ZUUL Doesn't set these for periodic jobs
-          export ZUUL_BRANCH=${{ZUUL_BRANCH:-master}}
-          export ZUUL_REF=${{ZUUL_REF:-None}}
-
-          export BRANCH_OVERRIDE={branch-override}
-          if [ "$BRANCH_OVERRIDE" != "default" ] ; then
-              export OVERRIDE_ZUUL_BRANCH=$BRANCH_OVERRIDE
-          fi
 
           export PYTHONUNBUFFERED=true
           export DEVSTACK_GATE_TEMPEST=0
@@ -177,31 +165,18 @@
           cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
           ./safe-devstack-vm-gate-wrap.sh
 
-#    publishers:
-#      - scp:
-#          site: 'tarballs.openstack.org'
-#          files:
-#            - source: 'images/*'
-#              target: 'tarballs/tripleo-ci/images/'
-#              keep-hierarchy: false
-#              copy-after-failure: false
-#      - devstack-logs
-#      - console-log
-
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
 - project:
-    name: tripleo-ci
+    # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
+    name: tripleo-quickstart
     jobs:
-      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+      - 'gate-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-quickstart'
           jobname: 'centos-7-undercloud-oooq'
-          suffix: ''
+          suffix: 'nv'
           type: 'singlenode-featureset003'
-          # node: centos-7
           node: upstream-centos-7
-          trigger: 'gate'
+          triggers:
+            - zuul
           branch-override: default
           timeout: 180
 
-#####################################
-# dmsimard experimentation - END
-#####################################
