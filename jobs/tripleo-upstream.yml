@@ -17,82 +17,11 @@
 # dmsimard experimentation - START
 #####################################
 # Hacks
-# Fill /etc/nodepool/provider with data as expected by tripleo-quickstart
-# See: https://review.openstack.org/#/c/478211/
-- builder:
-    name: hack-nodepool-provider-setup
-    builders:
-      - shell: |
-          #!/bin/sh
-          cat <<EOF | sudo tee /etc/nodepool/provider
-          NODEPOOL_PROVIDER=rdo-cloud-tripleo
-          NODEPOOL_CLOUD=rax
-          NODEPOOL_REGION=dfw
-          NODEPOOL_AZ=
-          EOF
-
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L883-L889
-- wrapper:
-    name: build-timeout
-    wrappers:
-      - timeout:
-          timeout: '{timeout}'
-          timeout-var: 'BUILD_TIMEOUT'
-          fail: true
-
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L724-L756
-- builder:
-    name: net-info
-    builders:
-      - shell: |
-          #!/bin/sh
-          export PATH=$PATH:/sbin:/usr/sbin
-          if [ -f /etc/dib-builddate.txt ]; then
-              echo "Image build date"
-              echo "================"
-              cat /etc/dib-builddate.txt
-          fi
-          echo "Host & kernel"
-          echo "============="
-          uname -a
-          echo "Network configuration data..."
-          [ -f /mnt/config/openstack/latest/network_info.json ] && python -mjson.tool /mnt/config/openstack/latest/network_info.json
-          [ -f /mnt/config/openstack/latest/network_data.json ] && python -mjson.tool /mnt/config/openstack/latest/network_data.json
-          [ -f /mnt/config/openstack/latest/vendor_data.json ] && python -mjson.tool /mnt/config/openstack/latest/vendor_data.json
-          echo "Network interface addresses..."
-          echo "=============================="
-          ip address show
-          echo "Network routing tables..."
-          echo "========================="
-          ip route show
-          ip -6 route show
-          echo "Network neighbors..."
-          echo "===================="
-          ip neighbor show
-          echo "Route to Git mirror..."
-          echo "======================"
-          traceroute6 -n git.openstack.org \
-              || traceroute -n git.openstack.org \
-              || true
-
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L702-L714
-- builder:
-    name: devstack-checkout
-    builders:
-      - shell: |
-          #!/bin/bash -xe
-          cat > clonemap.yaml << EOF
-          clonemap:
-            - name: openstack-infra/devstack-gate
-              dest: devstack-gate
-          EOF
-          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
-              git://git.openstack.org \
-              openstack-infra/devstack-gate
+# moved to tripleo-upstream-builders
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
-    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
+    name: '{trigger}-{projectname}-{jobname}-{suffix}'
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -192,7 +121,8 @@
 - project:
     name: tripleo-ci
     jobs:
-      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-ci'
           jobname: 'centos-7-undercloud-oooq'
           suffix: ''
           type: 'singlenode-featureset003'
@@ -205,3 +135,37 @@
 #####################################
 # dmsimard experimentation - END
 #####################################
+
+# TripleO Quickstart gate jobs
+
+- project:
+    name: tripleo-quickstart
+    jobs:
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-quickstart'
+          jobname: 'centos-7-undercloud-oooq'
+          suffix: 'nv'
+          type: 'singlenode-featureset003'
+          # node: centos-7
+          node: upstream-centos-7
+          trigger: 'gate'
+          branch-override: default
+          timeout: 180
+
+# Creating a separate TripleO Quickstart Extras job as different job
+# should be used to gate here
+- project:
+    name: tripleo-quickstart-extras
+    jobs:
+      - '{trigger}-{projectname}-{jobname}-{suffix}':
+          projectname: 'tripleo-quickstart-extras'
+          jobname: 'centos-7-undercloud-oooq'
+          suffix: 'nv'
+          type: 'singlenode-featureset003'
+          # node: centos-7
+          node: upstream-centos-7
+          trigger: 'gate'
+          branch-override: default
+          timeout: 180
+
+
