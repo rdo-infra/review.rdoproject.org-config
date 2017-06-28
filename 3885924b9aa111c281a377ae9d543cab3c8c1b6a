@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa7fdbe_0a3a3ccd",
+        "filename": "jobs/tripleo-quickstart-scm.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-06-28T13:45:47Z",
+      "side": 1,
+      "message": "If you\u0027re going to be \"gating\" against an upstream project, you want to be using zuul-cloner, not a regular git clone.\n\nZuul-cloner allows you to clone a project *and* check out the patch you are meant to test.\nThis is done automatically by the \u0027prepare-workspace\u0027 builder [1].\n\nFor example, if the project is \u0027openstack/tripleo-quickstart\u0027 and a job triggers for it, it will automatically clone \u0027openstack/tripleo-quickstart\u0027 with the patchset.\nIf, however, you also need another project to be cloned in, potentially with a patchset as well (i.e, using Depends-On), you will need to \"manually\" zuul-clone that other project.\n\n[1]: https://github.com/rdo-infra/review.rdoproject.org-config/blob/ecac640de9105cfb6c81004fc0ea96d56f02f9e4/jobs/_default_jobs.yaml#L16-L43",
+      "revId": "3885924b9aa111c281a377ae9d543cab3c8c1b6a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa7fdbe_2a3700e5",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-06-28T13:45:47Z",
+      "side": 1,
+      "message": "No need to put this, I left it there to highlight that it was a difference from upstream.",
+      "range": {
+        "startLine": 220,
+        "startChar": 10,
+        "endLine": 220,
+        "endChar": 26
+      },
+      "revId": "3885924b9aa111c281a377ae9d543cab3c8c1b6a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa7fdbe_8a262cb9",
+        "filename": "zuul/projects.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-06-28T13:45:47Z",
+      "side": 1,
+      "message": "What is this intended on doing ?\nThis would add a check job on the \"openstack/tripleo-quickstart\" and \"openstack/tripleo-quickstart-extras\" projects on review.rdoproject.org, where they do not exist.\n\nIf you want to \"gate\" against the upstream projects, you need to use the upstream pipelines defined in upstream.yml. This is explained in the docs [1] under third party jobs.\n\n[1]: https://review.rdoproject.org/etherpad/p/upstream-tripleo-tweaks",
+      "range": {
+        "startLine": 1437,
+        "startChar": 0,
+        "endLine": 1443,
+        "endChar": 66
+      },
+      "revId": "3885924b9aa111c281a377ae9d543cab3c8c1b6a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
