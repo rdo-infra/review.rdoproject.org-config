@@ -77,3 +77,11 @@ projects:
   - name: openstack/releases
     openstack-post:
       - rdo-send-stable-release
+
+  - name: openstack/tripleo-quickstart
+    openstack-check-verified:
+      - gate-tripleo-quickstart-centos-7-undercloud-oooq-nv
+
+  - name: openstack/tripleo-quickstart-extras
+    openstack-check-verified:
+      - gate-tripleo-quickstart-centos-7-undercloud-oooq-nv
