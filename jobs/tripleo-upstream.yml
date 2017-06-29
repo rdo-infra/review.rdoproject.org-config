@@ -2,6 +2,16 @@
 # 2.6 where the 'scp' publisher (zuul rsync under the hood) is available.
 # Jobs using this publisher *must* provide the credentials-binding for the
 # authentication key: LOG_SSH_KEY: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+- builder:
+    name: log-setup
+    builders:
+      - shell:
+          #!/bin/bash
+          set -e
+          sudo chmod 600 $LOG_SSH_KEY
+          sudo chown jenkins:jenkins $LOG_SSH_KEY
+          cp -p $LOG_SSH_KEY ~/.ssh/logserver
+
 - publisher:
     name: rsync-logs
     publishers:
@@ -9,25 +19,25 @@
           builders:
             - shell: |
                 #!/bin/bash
+                set -e
                 LOG_DIR="/var/www/html/review.rdoproject.org/${LOG_PATH}"
-                sudo chmod 600 $LOG_SSH_KEY
-                sudo chown jenkins:jenkins $LOG_SSH_KEY
                 ssh-keyscan -H logs.rdoproject.org >>~/.ssh/known_hosts
-                ssh -i $LOG_SSH_KEY uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
-                rsync -e "ssh -i $LOG_SSH_KEY" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
+                ssh -i ~/.ssh/logserver uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
+                rsync -e "ssh -i ~/.ssh/logserver" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
+
+                python -c "print('#' * 80)"
+                echo "Logs have been uploaded and are available at:"
+                echo "https://logs.rdoproject.org/${LOG_PATH}"
+                python -c "print('#' * 80)"
           script-only-if-succeeded: False
           script-only-if-failed: False
-    wrappers:
-      - credentials-binding:
-        - file:
-           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
-           variable: LOG_SSH_KEY
 
 - job:
     name: test-upstream-image
     defaults: global
     builders:
       - prepare-workspace
+      - log-setup
       - shell: |
           set +e
           # Test mirrors
@@ -38,6 +48,12 @@
           rpm -qa > logs/rpm.txt
     triggers:
       - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     publishers:
       - rsync-logs
     node: upstream-centos-7
