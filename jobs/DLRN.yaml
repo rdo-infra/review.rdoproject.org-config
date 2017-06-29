@@ -67,7 +67,7 @@
           unset baseurl
 
           # get the repo data from the previous repository
-          URL=http://trunk.rdoproject.org/centos7/current
+          URL=https://trunk.rdoproject.org/centos7/current
           eval $(curl $URL/delorean.repo|grep baseurl=)
           wget $baseurl/repodata/repomd.xml
 
