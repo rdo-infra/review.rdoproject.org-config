@@ -1,6 +1,30 @@
+# Temporary publisher to publish logs until Software Factory upgrade to
+# 2.6 where the 'scp' publisher (zuul rsync under the hood) is available.
+# Jobs using this publisher *must* provide the credentials-binding for the
+# authentication key: LOG_SSH_KEY | 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+- publisher:
+    name: rsync-logs
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                #!/bin/bash
+                LOG_DIR="/var/www/html/review.rdoproject.org/${LOG_PATH}"
+                chmod 0600 $LOG_SSH_KEY
+                ssh -i $LOG_SSH_KEY uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
+                rsync -e "ssh -i $LOG_SSH_KEY" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
 - job:
     name: test-upstream-image
     defaults: global
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+      - timestamps
     builders:
       - prepare-workspace
       - shell: |
@@ -9,8 +33,12 @@
           yum repolist -vv
           sudo yum -y install "@Development Tools"
           sudo pip install python-openstackclient
+          mkdir logs
+          rpm -qa > logs/rpm.txt
     triggers:
       - zuul
+    publishers:
+      - rsync-logs
     node: upstream-centos-7
 
 # Hacks
