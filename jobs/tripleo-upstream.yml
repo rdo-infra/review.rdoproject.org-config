@@ -10,7 +10,8 @@
             - shell: |
                 #!/bin/bash
                 LOG_DIR="/var/www/html/review.rdoproject.org/${LOG_PATH}"
-                chmod 0600 $LOG_SSH_KEY
+                sudo chmod 600 $LOG_SSH_KEY
+                sudo chown jenkins:jenkins $LOG_SSH_KEY
                 ssh-keyscan -H logs.rdoproject.org >>~/.ssh/known_hosts
                 ssh -i $LOG_SSH_KEY uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
                 rsync -e "ssh -i $LOG_SSH_KEY" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
