@@ -97,6 +97,16 @@
             - target: '$LOG_PATH'
               copy-console: true
               copy-after-failure: true
+      - postbuildscript:
+          builders:
+            - shell: |
+                #!/bin/bash
+                python -c "print('#' * 80)"
+                echo "Logs have been uploaded and are available at:"
+                echo "https://logs.rdoproject.org/${LOG_PATH}"
+                python -c "print('#' * 80)"
+          script-only-if-succeeded: False
+          script-only-if-failed: False
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L941-L950
 - publisher:
@@ -109,16 +119,6 @@
               source: 'logs/**'
               keep-hierarchy: true
               copy-after-failure: true
-      - postbuildscript:
-          builders:
-            - shell: |
-                #!/bin/bash
-                python -c "print('#' * 80)"
-                echo "Logs have been uploaded and are available at:"
-                echo "https://logs.rdoproject.org/${LOG_PATH}"
-                python -c "print('#' * 80)"
-          script-only-if-succeeded: False
-          script-only-if-failed: False
 
 # TripleO Quickstart gate jobs
 
@@ -198,7 +198,7 @@
           cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
           ./safe-devstack-vm-gate-wrap.sh
     publishers:
-      - devstack-logs
+      # - devstack-logs
       - console-log
 
 - project:
