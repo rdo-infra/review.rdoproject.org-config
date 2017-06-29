@@ -593,6 +593,14 @@ projects:
     template:
       - name: package-check-jobs
 
+  - name: openstack/keystone-tempest-plugin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/keystone-tempest-plugin-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/keystoneauth1
     template:
       - name: package-check-jobs
@@ -2269,6 +2277,11 @@ projects:
     template:
       - name: weirdo-gate-jobs
 
+  - name: testbranching
+    template:
+      - name: noop
+
+  # project for testing new tests
   - name: centos-opstools/opstools-doc
     check:
       - centos-opstools-doc
@@ -2304,6 +2317,36 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-cool.io
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-fluent-plugin-grok-parser
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-minitest
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-oj
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2362,26 +2405,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-minitest
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-oj
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-power_assert
     check:
@@ -2523,16 +2546,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
 
-  - name: centos-opstools/rubygem-fluent-plugin-grok-parser
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: rdo-infra/ansible-role-rdobase
     check:
       - gate-rdo-infra-role-ansible-lint
@@ -2574,11 +2587,6 @@ projects:
       - gate-tox-docs
       - rdo-registry-integration
 
-  - name: testbranching
-    template:
-      - name: noop
-
-  # project for testing new tests
   - name: rdo-infra/puppet-dlrn
     check:
       - puppet-lint
