@@ -87,6 +87,39 @@
               git://git.openstack.org \
               openstack-infra/devstack-gate
 
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L930-L938
+- publisher:
+    name: console-log
+    publishers:
+      - scp:
+          site: 'logs.openstack.org'
+          files:
+            - target: '$LOG_PATH'
+              copy-console: true
+              copy-after-failure: true
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L941-L950
+- publisher:
+    name: devstack-logs
+    publishers:
+      - scp:
+          site: 'logs.rdoproject.org'
+          files:
+            - target: '$LOG_PATH'
+              source: 'logs/**'
+              keep-hierarchy: true
+              copy-after-failure: true
+      - postbuildscript:
+          builders:
+            - shell: |
+                #!/bin/bash
+                python -c "print('#' * 80)"
+                echo "Logs have been uploaded and are available at:"
+                echo "https://logs.rdoproject.org/${LOG_PATH}"
+                python -c "print('#' * 80)"
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
 # TripleO Quickstart gate jobs
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
@@ -164,6 +197,9 @@
           export -f gate_hook
           cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
           ./safe-devstack-vm-gate-wrap.sh
+    publishers:
+      - devstack-logs
+      - console-log
 
 - project:
     # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
