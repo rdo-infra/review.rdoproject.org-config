@@ -1,43 +1,9 @@
-# Temporary publisher to publish logs until Software Factory upgrade to
-# 2.6 where the 'scp' publisher (zuul rsync under the hood) is available.
-# Jobs using this publisher *must* provide the credentials-binding for the
-# authentication key: LOG_SSH_KEY: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
-- builder:
-    name: log-setup
-    builders:
-      - shell:
-          #!/bin/bash
-          set -e
-          sudo chmod 600 $LOG_SSH_KEY
-          sudo chown jenkins:jenkins $LOG_SSH_KEY
-          cp -p $LOG_SSH_KEY ~/.ssh/logserver
-
-- publisher:
-    name: rsync-logs
-    publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                #!/bin/bash
-                set -e
-                LOG_DIR="/var/www/html/review.rdoproject.org/${LOG_PATH}"
-                ssh-keyscan -H logs.rdoproject.org >>~/.ssh/known_hosts
-                ssh -i ~/.ssh/logserver uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
-                rsync -e "ssh -i ~/.ssh/logserver" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
-
-                python -c "print('#' * 80)"
-                echo "Logs have been uploaded and are available at:"
-                echo "https://logs.rdoproject.org/${LOG_PATH}"
-                python -c "print('#' * 80)"
-          script-only-if-succeeded: False
-          script-only-if-failed: False
-
 - job:
     name: test-upstream-image
     defaults: global
     builders:
       - prepare-workspace
-      - log-setup
+      - rdo-log-setup
       - shell: |
           set +e
           # Test mirrors
@@ -55,7 +21,7 @@
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
     publishers:
-      - rsync-logs
+      - rdo-rsync-logs
     node: upstream-centos-7
 
 # Hacks
@@ -142,31 +108,24 @@
             - target: '$LOG_PATH'
               copy-console: true
               copy-after-failure: true
-      - postbuildscript:
-          builders:
-            - shell: |
-                #!/bin/bash
-                python -c "print('#' * 80)"
-                echo "Logs have been uploaded and are available at:"
-                echo "https://logs.rdoproject.org/${LOG_PATH}"
-                python -c "print('#' * 80)"
           script-only-if-succeeded: False
           script-only-if-failed: False
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L941-L950
-- publisher:
-    name: devstack-logs
-    publishers:
-      - scp:
-          site: 'logs.rdoproject.org'
-          files:
-            - target: '$LOG_PATH'
-              source: 'logs/**'
-              keep-hierarchy: true
-              copy-after-failure: true
+# devstack-logs can be brought back after Software-Factory has been upgraded to
+# 2.6 if need be.
+#- publisher:
+#    name: devstack-logs
+#    publishers:
+#      - scp:
+#          site: 'logs.rdoproject.org'
+#          files:
+#            - target: '$LOG_PATH'
+#              source: 'logs/**'
+#              keep-hierarchy: true
+#              copy-after-failure: true
 
 # TripleO Quickstart gate jobs
-
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
     name: 'gate-tripleo-ci-{jobname}-{suffix}'
@@ -175,11 +134,16 @@
       - build-timeout:
           timeout: '{timeout}'
       - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     defaults: global
     builders:
       #- link-logs
       - net-info
       - prepare-workspace
+      - rdo-log-setup
       - devstack-checkout
       - hack-nodepool-provider-setup
       - shell: |
@@ -243,7 +207,7 @@
           cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
           ./safe-devstack-vm-gate-wrap.sh
     publishers:
-      # - devstack-logs
+      - rdo-rsync-logs
       - console-log
 
 - project:
