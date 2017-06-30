@@ -28,7 +28,7 @@
                 LOG_DIR="/var/www/html/review.rdoproject.org/${LOG_PATH}"
                 ssh-keyscan -H logs.rdoproject.org >>~/.ssh/known_hosts
                 ssh -i ~/.ssh/logserver uploader@logs.rdoproject.org "mkdir -p ${LOG_DIR}"
-                rsync -e "ssh -i /home/jenkins/.ssh/logserver" -avzR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
+                rsync -e "ssh -i /home/jenkins/.ssh/logserver" -azR logs/./* "uploader@logs.rdoproject.org:${LOG_DIR}"
 
                 python -c "print('#' * 80)"
                 echo "Logs have been uploaded and are available at:"
