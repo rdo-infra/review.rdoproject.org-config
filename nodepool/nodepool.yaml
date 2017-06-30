@@ -35,12 +35,12 @@ diskimages:
 
 labels:
   - name: dib-centos-7
-    min-ready: 1
+    min-ready: 0
     image: dib-centos-7
     providers:
       - name: rcip-dev
   - name: bare-centos-7
-    min-ready: 4
+    min-ready: 5
     image: bare-centos-7
     providers:
       - name: rdo-cloud
@@ -68,20 +68,10 @@ providers:
     boot-timeout: 120
     clean-floating-ips: true
     cloud: rcip-dev
-    max-servers: 18
+    max-servers: 10
     pool: public
     rate: 1.0
     images:
-      - name: dib-centos-7
-        diskimage: dib-centos-7
-        username: jenkins
-        min-ram: 2048
-      - name: bare-centos-7
-        base-image: CentOS 7 (1701) x86_64
-        setup: rdo-base.sh
-        name-filter: m1.rdo-ci
-        username: centos
-        min-ram: 8192
       - name: rdo-weirdo-centos-7
         base-image: CentOS 7 (1701) x86_64
         setup: rdo-weirdo.sh
