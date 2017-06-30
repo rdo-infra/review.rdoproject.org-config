@@ -77,10 +77,10 @@
             # Generate ARA playbook analysis (don't fail job if generation fails)
             sudo -E weirdo/.tox/ansible-playbook/bin/ara generate html /var/log/weirdo/ara || true
 
-            mkdir artifacts
-            sudo cp -a /var/log/weirdo/* artifacts/
+            mkdir logs
+            sudo cp -a /var/log/weirdo/* logs/
             # Ensure permissions allow artifact uploading
-            sudo chown -R "$(id -u).$(id -g)" artifacts
+            sudo chown -R "$(id -u).$(id -g)" logs
 
 - publisher:
     name: weirdo-publish-logs
@@ -88,7 +88,7 @@
       - postbuildscript:
           builders:
             - weirdo-collect-logs
-            - zuul-swift-upload
+            - rdo-rsync-logs
           script-only-if-succeeded: False
           script-only-if-failed: False
 
@@ -144,6 +144,7 @@
     defaults: global
     builders:
         - prepare-workspace
+        - rdo-log-setup
         - dlrn-gate-repository
         - weirdo-prepare
         - weirdo-ansible-playbook:
@@ -155,6 +156,12 @@
         - weirdo-publish-logs
     triggers:
         - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: rdo-weirdo-centos-7
 
 - job-template:
@@ -162,6 +169,7 @@
     defaults: global
     builders:
         - prepare-workspace
+        - rdo-log-setup
         - dlrn-gate-repository
         - weirdo-prepare
         - weirdo-ansible-playbook:
@@ -173,6 +181,12 @@
         - weirdo-publish-logs
     triggers:
         - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: rdo-weirdo-centos-7
 
 - project:
