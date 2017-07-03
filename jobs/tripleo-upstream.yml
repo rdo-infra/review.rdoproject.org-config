@@ -128,7 +128,7 @@
 # TripleO Quickstart gate jobs
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
-    name: 'gate-tripleo-ci-{jobname}-{suffix}'
+    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -214,13 +214,34 @@
     # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
     name: tripleo-quickstart
     jobs:
-      - 'gate-tripleo-ci-{jobname}-{suffix}':
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-undercloud-oooq'
           suffix: 'nv'
           type: 'singlenode-featureset003'
           node: upstream-centos-7
+          trigger: gate
           triggers:
             - zuul
           branch-override: default
           timeout: 180
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'ovb-3ctlr_1comp-featureset001'
+          suffix: ''
+          type: 'periodic-3ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'ovb-1ctlr_1comp-featureset024'
+          suffix: ''
+          type: 'periodic-1ctlr_1comp-featureset024'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
 

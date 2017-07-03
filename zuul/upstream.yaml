@@ -46,6 +46,25 @@ pipelines:
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in openstack-check-verified pipeline: {change.project}'
 
+  - name: manual
+    description: Patchsets that have to be checked manually against a set of jobs.
+    manager: IndependentPipelineManager
+    source: openstack
+    precedence: normal
+    require:
+      open: True
+      current-patchset: True
+    trigger:
+      openstack:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check manual)
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in openstack-check-verified pipeline: {change.project}'
+
+
   - name: openstack-post
     description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
     manager: IndependentPipelineManager
@@ -85,3 +104,8 @@ projects:
   - name: openstack/tripleo-quickstart-extras
     openstack-check-verified:
       - gate-tripleo-ci-centos-7-undercloud-oooq-nv
+
+  - name: openstack-infra/tripleo-ci
+    manual:
+      - promote-tripleo-ci-ovb-3ctlr_1comp-featureset001
+      - promote-tripleo-ci-ovb-1ctlr_1comp-featureset024
