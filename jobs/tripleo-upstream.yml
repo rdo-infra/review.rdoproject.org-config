@@ -223,4 +223,13 @@
             - zuul
           branch-override: default
           timeout: 180
+      - 'promote-tripleo-ci-{jobname}{suffix}'
+          jobname: 'ovb-3ctlr_1comp-featureset001'
+          suffix: ''
+          type: 'periodic-1ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
 
