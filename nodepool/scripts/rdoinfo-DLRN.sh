@@ -24,11 +24,7 @@ if [[ "${TAG}" != "pike-uc" ]]; then
     tag=$TAG
     baseurl="http://trunk.rdoproject.org/${branch}/centos7/"
     src="stable/${branch}"
-    if [ $TAG = "mitaka" ]; then
-        PROJECT_DISTRO_BRANCH="rpm-${TAG}"
-    else
-        PROJECT_DISTRO_BRANCH="${TAG}-rdo"
-    fi
+    PROJECT_DISTRO_BRANCH="${TAG}-rdo"
 fi
 
 # Update the configuration
