@@ -87,9 +87,6 @@
               if [[ -n $(echo "$line" | grep -w newton) ]]; then
                   PACKAGES_UPDATED_NEWTON="$PACKAGES_UPDATED_NEWTON $PKGNAME"
               fi
-              if [[ -n $(echo "$line" | grep -w mitaka) ]]; then
-                  PACKAGES_UPDATED_MITAKA="$PACKAGES_UPDATED_MITAKA $PKGNAME"
-              fi
           done <<< "${TAGS_DIFF}"
           popd
 
@@ -115,15 +112,6 @@
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
               timeout --signal=SIGKILL 7200 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
-              ret1=$?
-              if [ $ret1 -ne 0 ]; then
-                  ret=$ret1
-              fi
-              # The data/ contents have been archived already, remove to avoid issues with the next branch
-              rm -rf data
-          fi
-          if [ -n "${PACKAGES_UPDATED_MITAKA}" ]; then
-              timeout --signal=SIGKILL 7200 /opt/nodepool-scripts/rdoinfo-DLRN.sh mitaka "${PACKAGES_UPDATED_MITAKA}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
