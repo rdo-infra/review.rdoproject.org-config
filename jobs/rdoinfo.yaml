@@ -38,8 +38,8 @@
           # clone scripts and run
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags/
-          bash -x ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/artifacts
-          bash -x ./validate_updates.sh $WORKSPACE/artifacts
+          bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/artifacts
+          bash ./validate_updates.sh $WORKSPACE/artifacts
           popd
 
 
@@ -349,7 +349,7 @@
           export PARENT_JOB="validate-buildsys-tags"
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags
-          bash -x ./launch_weirdo_jobs.sh
+          bash ./launch_weirdo_jobs.sh
           popd
     triggers:
       - zuul
