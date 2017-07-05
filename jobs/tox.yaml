@@ -23,6 +23,9 @@
             glance )
               ./run_tests.sh --concurrency 4 -V -P
             ;;
+            rdoinfo )
+              tox -evalidate
+            ;;
             * )
               tox -epy27
             ;;
