@@ -2665,12 +2665,12 @@ projects:
 
   - name: rdoinfo
     check:
-      - rdoinfo-unittests
+      - tox-validate
       - rdoinfo-DLRN-check
       - validate-buildsys-tags:
           - weirdo-validate-buildsys-tags
     gate:
-      - rdoinfo-unittests
+      - tox-validate
       - rdoinfo-DLRN-check
       - update-buildsys-tags
     periodic:
