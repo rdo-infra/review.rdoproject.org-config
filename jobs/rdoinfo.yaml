@@ -42,20 +42,6 @@
           bash ./validate_updates.sh $WORKSPACE/artifacts
           popd
 
-
-- job:
-    name: 'rdoinfo-unittests'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: |
-          sudo pip install pyyaml
-          cd $ZUUL_PROJECT
-          python verify.py
-    triggers:
-      - zuul
-    node: bare-centos-7
-
 - job:
     name: rdoinfo-DLRN-check
     defaults: global
