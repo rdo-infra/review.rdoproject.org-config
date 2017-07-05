@@ -2362,6 +2362,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-perfmon-common-distgit-cbs-final-build
 
+  - name: centos-opstools/intel-cmt-cat
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-perfmon-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-perfmon-common-distgit-cbs-final-build
+
   - name: centos-opstools/osops-tools-monitoring-oschecks
     check:
       - centos-opstools-rpmlint

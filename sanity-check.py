@@ -40,6 +40,7 @@ IGNORED_PROJECTS = {
         'testproject',
         'centos-opstools/opstools-doc',
         'centos-opstools/centos-release-opstools',
+        'centos-opstools/intel-cmt-cat',
         'centos-opstools/opstools-ansible',
         'centos-opstools/osops-tools-monitoring-oschecks',
         'centos-opstools/rubygem-cool.io',
