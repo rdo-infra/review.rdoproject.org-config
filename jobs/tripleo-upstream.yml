@@ -244,4 +244,47 @@
             - zuul
           branch-override: default
           timeout: 300
-
+       # https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14397
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-scenario001-multinode-oooq'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset005'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+       # https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14407
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-scenario002-multinode-oooq'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset006'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+       # https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14412
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-scenario003-multinode-oooq'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset007'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+       # https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14420
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-scenario004-multinode-oooq'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset008'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
