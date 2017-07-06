@@ -1,14 +1,14 @@
 diskimages:
-  - name: dib-centos-7
-    elements:
-      - centos-minimal
-      - nodepool-minimal
-      - sf-release # This installs centos-release-openstack-newton, centos-release-opstools and sf repository
-      - sf-zuul-worker
-      - jenkins-worker
-      - rpm-factory
-      - ansible
-      - common-packages
+#  - name: dib-centos-7
+#    elements:
+#      - centos-minimal
+#      - nodepool-minimal
+#      - sf-release # This installs centos-release-openstack-newton, centos-release-opstools and sf repository
+#      - sf-zuul-worker
+#      - jenkins-worker
+#      - rpm-factory
+#      - ansible
+#      - common-packages
   - name: upstream-centos-7
     elements:
       - centos-minimal
@@ -34,11 +34,11 @@ diskimages:
       NODEPOOL_MIRROR_HOST: mirror.dfw.rax.openstack.org
 
 labels:
-  - name: dib-centos-7
-    min-ready: 0
-    image: dib-centos-7
-    providers:
-      - name: rcip-dev
+#  - name: dib-centos-7
+#    min-ready: 0
+#    image: dib-centos-7
+#    providers:
+#      - name: rcip-dev
   - name: bare-centos-7
     min-ready: 5
     image: bare-centos-7
