@@ -50,6 +50,13 @@ labels:
     ready-script: configure_mirror_host.sh
     providers:
       - name: rdo-cloud-tripleo
+  - name: upstream-centos-7-2-node
+    min-ready: 1
+    image: upstream-centos-7
+    providers:
+      - name: rdo-cloud-tripleo
+    ready-script: multinode_setup.sh
+    subnodes: 1
   - name: bare-centos-7-2-node
     min-ready: 0
     image: bare-centos-7
@@ -124,3 +131,4 @@ providers:
         username: jenkins
         min-ram: 8192
         config-drive: true
+

@@ -244,4 +244,43 @@
             - zuul
           branch-override: default
           timeout: 300
-
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset005'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset005'
+          node: upstream-centos-7-2-node
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset006'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset006'
+          node: upstream-centos-7-2-node
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset007'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset007'
+          node: upstream-centos-7-2-node
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset008'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset008'
+          node: upstream-centos-7-2-node
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
