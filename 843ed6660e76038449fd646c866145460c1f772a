@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa7fdbe_cbd83156",
+        "filename": "nodepool/nodepool.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-07-06T14:22:38Z",
+      "side": 1,
+      "message": "max-server is the maximum amount of \"zuul nodes\" that will be provisioned at any given time by nodepool for that tenant.\n\nThe fact that one of those zuul nodes spawns 5 or 10 OVB machines is transparent to nodepool, it doesn\u0027t count it as 6 or 11 machines, it\u0027s still just one and this is part of why of the danger of colocating different systems in the same tenant as nodepool.\n\nMulti-node jobs do, in fact, properly count towards that max-server amount because those are instanciated and controlled by nodepool.\n\nOnce max-servers is reached, what happens is that zuul will simply queue jobs until a job finishes, the node is freed and a new one is created to start a new job (first in/first out).\n\nI haven\u0027t seen more than like 10 jobs running concurrently right now and I don\u0027t understand the rush to bump from 30 to 100.\n30 concurrent unique jobs should very honestly get you plenty of capacity and we can easily bump it if it becomes a problem.\n\nI\u0027d rather we keep it at 30 for the time being so that it\u0027s easier to clean up should something go wrong.",
+      "revId": "843ed6660e76038449fd646c866145460c1f772a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
