@@ -1276,6 +1276,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/senlin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/senlin-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/shade
     template:
       - name: package-check-jobs
@@ -2317,7 +2325,27 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-domain_name
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-fluent-plugin-grok-parser
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-http-cookie
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2337,7 +2365,47 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-netrc
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-oj
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-rest-client
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-unf
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-unf_ext
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2387,26 +2455,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-domain_name
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-http-cookie
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-http_parser.rb
     check:
       - centos-opstools-rpmlint
@@ -2427,16 +2475,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-netrc
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-power_assert
     check:
       - centos-opstools-rpmlint
@@ -2446,16 +2484,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-rest-client
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-rr
     check:
@@ -2556,26 +2584,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-unf
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-unf_ext
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-yajl-ruby
     check:

@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/senlin-core:
+      description: Core developers for project senlin
+      members:
+      - snecklifter@gmail.com
+    openstack/senlin-ptl:
+      description: Project team lead for project senlin
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-senlin-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/senlin-core
+          owner = group openstack/senlin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/senlin-core
+          label-Code-Review = -2..+2 group openstack/senlin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/senlin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/senlin-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/senlin-core
+          label-Verified = -2..+2 group openstack/senlin-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/senlin-core
+          label-Workflow = -1..+1 group openstack/senlin-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/senlin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/senlin-core
+      - openstack/senlin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-senlin:
+      file: |
+        [access "refs/*"]
+          read = group openstack/senlin-core
+          owner = group openstack/senlin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/senlin-core
+          label-Code-Review = -2..+2 group openstack/senlin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/senlin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/senlin-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/senlin-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/senlin-core
+          label-Workflow = -1..+0 group openstack/senlin-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/senlin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/senlin-core
+      - openstack/senlin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/senlin:
+      acl: openstack-senlin
+      description: Mirror of upstream senlin (mirror + patches)
+    openstack/senlin-distgit:
+      acl: openstack-senlin-distgit
+      description: Packaging of upstream senlin
+      default-branch: rpm-master
+      branches:
+        master: '0'
