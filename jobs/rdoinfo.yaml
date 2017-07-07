@@ -430,3 +430,92 @@
            variable: CLIENTSECRET
     node: bare-centos-7
 
+- job-template:
+    name: rdoinfo-buildsys-tags-update-{release}-{phase}
+    defaults: global
+    builders:
+      - prepare-workspace
+      - prepare-rpmfactory-workspace
+      - shell: |
+          set +e -x
+          RELEASE="{release}"
+          PHASE="{phase}"
+          # I want to run jobs for testing in odd days and release in even
+          if [ $(($(date +%d)%2)) -eq 0 -a $PHASE == "testing" ]||[ $(($(date +%d)%2)) -ne 0 -a $PHASE == "release" ]; then
+            exit 0
+          fi
+          sudo yum install -y git centos-packager PyYAML
+          sudo pip install git+https://softwarefactory-project.io/r/graffiti
+          sudo pip install ruamel.yaml sh
+          git clone http://review.rdoproject.org/r/gating_scripts
+          cd $WORKSPACE/rdoinfo
+          python $WORKSPACE/gating_scripts/buildsys-tags/update-buildsys-tags.py \
+            -c $WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml \
+            -r $RELEASE \
+            -p $PHASE \
+            -n
+          DIFF=$(git diff rdo.yml deps.yml)
+          if [ -n "$DIFF" ]; then
+            mkdir -p ~/.ssh
+            cat >> ~/.ssh/config << EOF
+
+          Host review.rdoproject.org
+            IdentityFile $SSH_KEY
+          EOF
+            chmod 600 ~/.ssh/config
+            sudo chmod 600 $SSH_KEY
+            sudo chown jenkins:jenkins $SSH_KEY
+            ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            # Check for an open change, if so reuse it
+            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
+            gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
+            topic:buildsys-tags-update-"{release}"-"{phase}")
+            previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
+            if [ -n "$previous" ]; then
+                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
+                COMMIT_MSG="Promote CBS tags update for $RELEASE-$PHASE\n\nChange-Id: $CHANGE_ID\n"
+            else
+                COMMIT_MSG="Promote CBS tags update for $RELEASE-$PHASE"
+            fi
+            git config user.name "rdo-trunk"
+            git config user.email "javier.pena@redhat.com"
+            git config gitreview.username "rdo-trunk"
+            git checkout -b proposal
+            git review -s -v
+            echo -e $COMMIT_MSG | git commit -F- rdo.yml deps.yml
+            # Just in case, check if there are changes between this version and the current review
+            curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
+            curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/deps.yml/content |base64 -d > deps_current.yml
+            diff rdo.yml rdo_current.yml
+            DIFF_RDO=$?
+            diff deps.yml deps_current.yml
+            DIFF_DEPS=$?
+            if [ $DIFF_DEPS -ne 0 -o $DIFF_RDO -ne 0 ]; then
+                git review -t "buildsys-tags-update-"{release}"-"{phase}"" < /dev/null
+            fi
+          fi
+    triggers:
+      - zuul
+    node: bare-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
+           variable: SSH_KEY
+        - file:
+           credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
+           variable: CLIENTSECRET
+
+- project:
+    name: rdoinfo-buildsys-tags-update
+    release:
+      - newton
+      - ocata
+      - pike
+    phase:
+      - testing
+      - release
+    jobs:
+      - 'rdoinfo-buildsys-tags-update-{release}-{phase}'
+
