@@ -4,7 +4,8 @@
 . rdo-base.sh
 . rdo-rpmfactory-base.sh
 
-# See "rdo-weirdo-get-packages.sh" for package retrieval method
+# Pre-install base packages unrelated to RDO or OpenStack to speed up jobs
+# See "filter_packages.sh" for package retrieval method
 cat weirdo-packages.txt |xargs sudo yum -y install
 
 # we run weirdo jobs in permissive mode in ci.centos.org so we should do it
