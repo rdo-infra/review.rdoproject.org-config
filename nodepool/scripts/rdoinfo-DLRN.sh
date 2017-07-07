@@ -67,6 +67,7 @@ done
 function copy_logs() {
     mkdir -p logs
     rsync -avzr data/repos logs/centos
+    rsync -avzrL data/repos/current logs/centos
 }
 trap copy_logs ERR EXIT
 
