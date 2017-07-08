@@ -153,6 +153,12 @@
             EOF
             ansible-playbook -i localhost $WORKSPACE/playbook.yml
 
+            echo
+            echo "Re-running for idempotency"
+            echo
+
+            ansible-playbook -i localhost $WORKSPACE/playbook.yml
+
 - job-template:
     name: gate-rdo-infra-{role}-integration
     defaults: global
