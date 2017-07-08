@@ -115,6 +115,10 @@
       - zuul-swift-upload
     triggers:
       - zuul
+    wrappers:
+      - build-timeout:
+          timeout: '180'
+      - timestamps
     node: bare-centos-7
 
 - job:
