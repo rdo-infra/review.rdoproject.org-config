@@ -348,9 +348,7 @@
       - shell: |
           set +e
           FAILED=0
-          # Install graffiti from hguemar repo until it's moved
-          # to some controlled repo
-          sudo pip install git+https://github.com/hguemar/graffiti
+          sudo pip install git+https://softwarefactory-project.io/r/graffiti
           # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/artifacts/info/
           # by validate-buildsys-tags builder
           # If there are register actions, they are executed first
