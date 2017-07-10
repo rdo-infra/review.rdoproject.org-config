@@ -419,7 +419,7 @@
           RELEASE="{release}"
           PHASE="{phase}"
           # I want to run jobs for testing in odd days and release in even
-          if [ $(($(date +%d)%2)) -eq 0 -a $PHASE == "testing" ]||[ $(($(date +%d)%2)) -ne 0 -a $PHASE == "release" ]; then
+          if [ $(($(date +%-d)%2)) -eq 0 -a $PHASE == "testing" ]||[ $(($(date +%d)%2)) -ne 0 -a $PHASE == "release" ]; then
             exit 0
           fi
           sudo yum install -y git centos-packager PyYAML
