@@ -64,8 +64,8 @@ labels:
       - name: rcip-dev
     ready-script: multinode_setup.sh
     subnodes: 1
-  - name: rdo-weirdo-centos-7
-    image: rdo-weirdo-centos-7
+  - name: rdo-snapshot-weirdo-centos-7
+    image: rdo-snapshot-weirdo-centos-7
     min-ready: 3
     providers:
       - name: rcip-dev
@@ -79,7 +79,7 @@ providers:
     pool: public
     rate: 1.0
     images:
-      - name: rdo-weirdo-centos-7
+      - name: rdo-snapshot-weirdo-centos-7
         base-image: CentOS 7 (1701) x86_64
         setup: rdo-weirdo.sh
         name-filter: m1.rdo-ci
