@@ -111,6 +111,7 @@
           builders:
             - shell: |
                   mkdir $WORKSPACE/artifacts
+                  cp -a /tmp/kolla $WORKSPACE/artifacts/
                   export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
                   sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/artifacts/ara
 
