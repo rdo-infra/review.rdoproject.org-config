@@ -9,6 +9,29 @@ diskimages:
 #      - rpm-factory
 #      - ansible
 #      - common-packages
+
+  - name: rdo-weirdo-centos-7
+    elements:
+      - centos-minimal
+      - vm
+      - simple-init
+      - nodepool-base
+      - growroot
+      - selinux-permissive
+      - weirdo
+      - upstream-image-tweaks
+    env-vars:
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
+      DIB_EPEL_DISABLED: '1'
+      NODEPOOL_SSH_KEY: >-
+        AAAAB3NzaC1yc2EAAAADAQABAAABAQCp9iFXvR6UoWYboU41KFpx+Sdd7ov0i+szIjdB7p8LAR5mjVCWZWAyUSE16DQO0VRbl6FpxFUPRQCUXg5P59D6MjRPB+lIvAyZ53CkgVfkaKYNdLQKRoyBR0Q5ng0Gt74AwU7fo0lyVa9MYsxAVbwrE0ngrqzGA1Lm5TSAmZeURZLch65xZm8qc5UU2TZ9f9NEwdZgKFAplBT2Om+DdECNO+TRy/RAivBFmZangQBnBEp4cOiverur22Lc2MO4veBVT+pvTWI0YNKFPmwRpgfWTsZ6R1sUOHCIXmK+P8nR/BMAF/+XXNdEg4RTJFCNP5nWiSUpMj3z6dvQ0zv1twgb
+      ELEMENTS_PATH: /opt/git/openstack-infra/project-config/nodepool/elements:/etc/nodepool/elements
+      NODEPOOL_SCRIPTDIR: /opt/git/openstack-infra/project-config/nodepool/scripts
+      # bluebox-sjc2 is closer than rax-dfw from Phoenix
+      # (where rdo-cloud is located) but rax-dfw is tuned for higher capacity
+      NODEPOOL_MIRROR_HOST: mirror.dfw.rax.openstack.org
+
   - name: upstream-centos-7
     elements:
       - centos-minimal
@@ -69,6 +92,12 @@ labels:
     min-ready: 3
     providers:
       - name: rcip-dev
+  - name: rdo-weirdo-centos-7
+    image: rdo-weirdo-centos-7
+    ready-script: configure_mirror_host.sh
+    min-ready: 1
+    providers:
+      - name: rcip-dev
 
 providers:
   - name: rcip-dev
@@ -85,6 +114,12 @@ providers:
         name-filter: m1.rdo-ci
         username: centos
         min-ram: 8192
+      - name: rdo-weirdo-centos-7
+        diskimage: rdo-weirdo-centos-7
+        name-filter: m1.rdo-ci
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
   - name: trystack
     boot-timeout: 120
     clean-floating-ips: true
@@ -131,4 +166,3 @@ providers:
         username: jenkins
         min-ram: 8192
         config-drive: true
-
