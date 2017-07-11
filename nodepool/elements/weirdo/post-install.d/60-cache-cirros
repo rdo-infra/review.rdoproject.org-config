@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Pre-cache Cirros images for use with puppet-openstack-integration and
+# Packstack tests
+mkdir -p /home/jenkins/cache/files
+wget --tries=10 http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-uec.tar.gz -P /home/jenkins/cache/files/
+wget --tries=10 http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img -P /home/jenkins/cache/files/
