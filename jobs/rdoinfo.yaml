@@ -33,7 +33,7 @@
           sudo yum install -y createrepo mock git centos-packager yum-utils
           # we need to install rdopkg from source until commit 78d720a
           # is in a tagged release
-          sudo pip install git+https://github.com/openstack-packages/rdopkg
+          sudo pip install git+https://github.com/openstack-packages/rdopkg@6a7798ae6e01514c5d7bb4994dd3202023e97b0e
           sudo pip install ruamel.yaml
           # clone scripts and run
           git clone http://review.rdoproject.org/r/gating_scripts
