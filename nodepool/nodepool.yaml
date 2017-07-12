@@ -10,7 +10,7 @@ diskimages:
 #      - ansible
 #      - common-packages
 
-  - name: rdo-weirdo-centos-7
+  - name: rdo-centos-7
     elements:
       - centos-minimal
       - vm
@@ -18,7 +18,6 @@ diskimages:
       - nodepool-base
       - growroot
       - selinux-permissive
-      - weirdo
       - upstream-image-tweaks
     env-vars:
       QEMU_IMG_OPTIONS: compat=0.10
@@ -91,8 +90,8 @@ labels:
     min-ready: 3
     providers:
       - name: rcip-dev
-  - name: rdo-weirdo-centos-7
-    image: rdo-weirdo-centos-7
+  - name: rdo-centos-7
+    image: rdo-centos-7
     ready-script: configure_mirror_host.sh
     min-ready: 1
     providers:
@@ -113,8 +112,8 @@ providers:
         name-filter: m1.rdo-ci
         username: centos
         min-ram: 8192
-      - name: rdo-weirdo-centos-7
-        diskimage: rdo-weirdo-centos-7
+      - name: rdo-centos-7
+        diskimage: rdo-centos-7
         name-filter: m1.rdo-ci
         username: jenkins
         min-ram: 8192
