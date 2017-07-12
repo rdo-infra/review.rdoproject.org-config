@@ -16,6 +16,24 @@
       "revId": "754728bcc589ac8113b1ede226356f0b71c606df",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa7fdbe_54777902",
+        "filename": "nodepool/elements/weirdo/package-installs.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-07-12T18:24:25Z",
+      "side": 1,
+      "message": "This is coming from an aggregate file that contains the \"rpm -qa\" from all weirdo jobs, for example:\n\n    https://logs.rdoproject.org/95/7595/4/experimental/gate-weirdo-dlrn-master-puppet-scenario003/Z8e2bbd62cfd24b88a70db552cc88a61f/rpm_packages.txt.gz\n\nThis aggregate file is then passed through this script:\n\n    https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/nodepool/scripts/filter_packages.sh\n\nExcerpt from the documentation header:\n# The script:\n#  1) Resolves the package names from the rpm -qa output\n#  2) Blacklists verbatim matches in blacklisted repositories (RDO and release_packages)\n#  3) Blacklists packages which requires blacklisted packages\n#  4) Filters the initial list of packages against the comprehensive blacklist\n#  5) Provides a list of packages that is *only* available on CentOS base repos\n#     and does not require packages which are found in blacklisted repositories\n\nBasically, it ensures that the packages in this list:\n- Are not mirrored by RDO and SIG repositories\n- Do not require the installation of a package that is in a RDO or SIG repository\n\nThe script isn\u0027t super finished yet, IIRC I need to do a final \"sort | uniq\" on the end result and for some reason the centos-release-storage-common needs taken out.",
+      "parentUuid": "9aa7fdbe_f4114dad",
+      "revId": "754728bcc589ac8113b1ede226356f0b71c606df",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
