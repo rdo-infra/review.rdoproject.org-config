@@ -2180,6 +2180,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: puppet/puppet-veritas_hyperscale
+    template:
+      - name: package-check-jobs
+
+  - name: puppet/puppet-veritas_hyperscale-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: puppet/puppet-vitrage
     template:
       - name: package-check-jobs
@@ -2335,7 +2343,7 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-fluent-plugin-parser
+  - name: centos-opstools/rubygem-fluent-plugin-grok-parser
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2345,7 +2353,7 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-fluent-plugin-grok-parser
+  - name: centos-opstools/rubygem-fluent-plugin-parser
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
