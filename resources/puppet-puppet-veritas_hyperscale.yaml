@@ -1,0 +1,112 @@
+resources:
+  groups:
+    puppet/puppet-veritas_hyperscale-core:
+      description: Core developers for project puppet-veritas_hyperscale
+      members:
+      - dnyanmpawar@gmail.com
+      - pawarsandeepu@gmail.com
+      - DL-VTAS-ENG-SDIO-HyperScale-Opensource@veritas.com
+    puppet/puppet-veritas_hyperscale-ptl:
+      description: Project team lead for project puppet-veritas_hyperscale
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-veritas_hyperscale-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-veritas_hyperscale-core
+          owner = group puppet/puppet-veritas_hyperscale-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-veritas_hyperscale-core
+          label-Code-Review = -2..+2 group puppet/puppet-veritas_hyperscale-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-veritas_hyperscale-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-veritas_hyperscale-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          abandon = group puppet/puppet-veritas_hyperscale-core
+          label-Verified = -2..+2 group puppet/puppet-veritas_hyperscale-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-veritas_hyperscale-core
+          label-Workflow = -1..+1 group puppet/puppet-veritas_hyperscale-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-veritas_hyperscale-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-veritas_hyperscale-core
+      - puppet/puppet-veritas_hyperscale-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-veritas_hyperscale:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-veritas_hyperscale-core
+          owner = group puppet/puppet-veritas_hyperscale-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-veritas_hyperscale-core
+          label-Code-Review = -2..+2 group puppet/puppet-veritas_hyperscale-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-veritas_hyperscale-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-veritas_hyperscale-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-veritas_hyperscale-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-veritas_hyperscale-core
+          label-Workflow = -1..+0 group puppet/puppet-veritas_hyperscale-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-veritas_hyperscale-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-veritas_hyperscale-core
+      - puppet/puppet-veritas_hyperscale-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-veritas_hyperscale:
+      acl: puppet-puppet-veritas_hyperscale
+      description: Mirror of upstream puppet-veritas_hyperscale (mirror + patches)
+    puppet/puppet-veritas_hyperscale-distgit:
+      acl: puppet-puppet-veritas_hyperscale-distgit
+      description: Packaging of upstream puppet-veritas_hyperscale
+      default-branch: rpm-master
+      branches:
+        master: '0'
