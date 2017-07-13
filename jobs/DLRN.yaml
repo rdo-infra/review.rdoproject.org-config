@@ -8,7 +8,6 @@
           # This allows to install the packages in that repository and test
           # them.
           set +e
-          sudo yum install wget
 
           # Re-construct the expected repository URL
           ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
@@ -28,11 +27,10 @@
           # If we couldn't find a working repository, give up
           curl -o /dev/null -sIf "${artifacts}" || exit 1
 
-          # Find the latest repository hash
+          # Use the latest repository hash
           # If DLRN built multiple packages, there will be multiple repositories.
           # We want the latest repository which contains all of the packages that were just built.
-          hash=$(wget --spider -r -l2 ${artifacts}/centos/repos/report.html 2>&1 |grep -m1 delorean.repo |awk -F/ '{print $(NF-3)"/"$(NF-2)"/"$(NF-1)}')
-          repository="${artifacts}/centos/repos/${hash}"
+          repository="${artifacts}/centos/current"
 
           # Configure the repository
           name="delorean-zuul-${ZUUL_REF}"
@@ -54,7 +52,7 @@
           # rpmlint reports from the previously built packages.
 
           # install needed packages
-          sudo yum install -y rpmlint sqlite
+          sudo yum install -y rpmlint sqlite wget
 
           # extract the sha1
           ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
