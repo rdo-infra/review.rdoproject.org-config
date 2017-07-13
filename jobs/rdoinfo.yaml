@@ -38,8 +38,8 @@
           # clone scripts and run
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags/
-          bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/artifacts
-          bash ./validate_updates.sh $WORKSPACE/artifacts
+          bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
+          bash ./validate_updates.sh $WORKSPACE/logs
           popd
 
 - job:
@@ -47,6 +47,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - prepare-dlrn
       - shell: |
           set +e -x
@@ -108,17 +109,21 @@
           popd
 
           # Retrieve logs/repositories/packages
-          mkdir artifacts
-          cp -a DLRN/logs/* artifacts/
+          mkdir logs
+          cp -a DLRN/logs/* logs/
           exit $ret
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
     wrappers:
       - build-timeout:
           timeout: '180'
       - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 - job:
@@ -297,11 +302,18 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - validate-buildsys-tags
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 - project:
@@ -343,6 +355,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - validate-buildsys-tags
       - prepare-rpmfactory-workspace
       - shell: |
@@ -351,23 +364,23 @@
           # Install graffiti from hguemar repo until it's moved
           # to some controlled repo
           sudo pip install git+https://github.com/hguemar/graffiti
-          # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/artifacts/info/
+          # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/logs/info/
           # by validate-buildsys-tags builder
           # If there are register actions, they are executed first
-          if [ -s $WORKSPACE/artifacts/info/register.yaml ]; then
+          if [ -s $WORKSPACE/logs/info/register.yaml ]; then
               echo "INFO: Executing CBS register actions"
-              cat $WORKSPACE/artifacts/info/register.yaml
-              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml register -f $WORKSPACE/artifacts/info/register.yaml
+              cat $WORKSPACE/logs/info/register.yaml
+              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml register -f $WORKSPACE/logs/info/register.yaml
               if [ $? -ne 0 ]; then
                   FAILED=1
                   echo "ERROR: Executing CBS register actions"
               fi
           fi
           # If there are tag actions, they are executed
-          if [ -s $WORKSPACE/artifacts/info/tags.yaml ]; then
+          if [ -s $WORKSPACE/logs/info/tags.yaml ]; then
               echo "INFO: Executing CBS tag actions"
-              cat $WORKSPACE/artifacts/info/tags.yaml
-              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml tag -f $WORKSPACE/artifacts/info/tags.yaml
+              cat $WORKSPACE/logs/info/tags.yaml
+              graffiti --config-file=$WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml tag -f $WORKSPACE/logs/info/tags.yaml
               if [ $? -ne 0 ]; then
                   FAILED=1
                   echo "ERROR: Executing CBS tag actions"
@@ -376,7 +389,7 @@
           # Check if tags have been applied as expected
           # format of cbs_actions.txt is <action>,<tag>,<build> where <action> is
           # "tag" for tagging actions.
-          for line in $(grep "^tag" $WORKSPACE/artifacts/info/cbs_actions.txt)
+          for line in $(grep "^tag" $WORKSPACE/logs/info/cbs_actions.txt)
           do
               build=$(echo $line|awk -F',' '{print $3'})
               tag=$(echo $line|awk -F',' '{print $2'})
@@ -398,7 +411,7 @@
           exit $FAILED
 
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
     wrappers:
@@ -406,6 +419,9 @@
         - file:
            credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
            variable: CLIENTSECRET
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 - job-template:
