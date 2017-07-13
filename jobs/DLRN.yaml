@@ -17,20 +17,22 @@
           jobs="DLRN-rpmbuild rdoinfo-DLRN-check"
           for job in $jobs;
           do
+            # Note, LOG_PATH is expected since we reconstruct it inside
+            # zuul_functions.py
             LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/${job}/${ZUUL_REF}"
-            artifacts="${SWIFT_artifacts_LOGSERVER_PREFIX}/${LOG_PATH}/artifacts"
+            logs="https://logs.rdoproject.org/${LOG_PATH}"
 
-            curl -o /dev/null -sIf "${artifacts}" || continue
+            curl -o /dev/null -sIf "${logs}" || continue
             break
           done
 
           # If we couldn't find a working repository, give up
-          curl -o /dev/null -sIf "${artifacts}" || exit 1
+          curl -o /dev/null -sIf "${logs}" || exit 1
 
           # Use the latest repository hash
           # If DLRN built multiple packages, there will be multiple repositories.
           # We want the latest repository which contains all of the packages that were just built.
-          repository="${artifacts}/centos/current"
+          repository="${logs}/centos/current"
 
           # Configure the repository
           name="delorean-zuul-${ZUUL_REF}"
@@ -148,6 +150,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - prepare-dlrn
       - shell: |
           set +e
@@ -165,14 +168,20 @@
           popd
 
           # Retrieve logs/repositories/packages
-          mkdir artifacts
-          cp -a DLRN/logs/* artifacts/
+          mkdir logs
+          cp -a DLRN/logs/* logs/
 
           exit $ret
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 - job:
@@ -180,6 +189,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           # Clone DLRN
           git clone https://github.com/softwarefactory-project/DLRN --depth 1
@@ -199,14 +209,20 @@
           popd
 
           # Retrieve logs/repositories/packages
-          mkdir artifacts
-          cp -a DLRN/logs/* artifacts/
+          mkdir logs
+          cp -a DLRN/logs/* logs/
 
           exit $ret
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 
@@ -215,6 +231,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - prepare-dlrn
       - shell: |
           set +e -x
@@ -298,13 +315,19 @@
           mock -r data/dlrn-1.cfg --scrub=all
 
           popd
-          mkdir artifacts
-          cp -a DLRN/logs/* artifacts/
+          mkdir logs
+          cp -a DLRN/logs/* logs/
           exit $ret
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: bare-centos-7
 
 # Job to check the non-regression of quality of the new packages built
