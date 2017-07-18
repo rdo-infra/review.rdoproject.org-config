@@ -128,6 +128,70 @@
 # TripleO Quickstart gate jobs
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
 - job-template:
+    name: '{trigger}-tripleo-containers-images-build{suffix}'
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
+           variable: REGISTRY_PASSWORD
+    defaults: global
+    builders:
+      shell: |
+        TESTING_TAG="tripleo-ci-testing"
+        ANSIBLE_HOSTS="$WORKSPACE/hosts"
+        pushd $WORKSPACE
+        # Retrieve role
+        mkdir -p $WORKSPACE/roles
+        pushd $WORKSPACE/roles
+            git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build rdo-kolla-build
+        popd
+        # Install dependencies
+        [[ ! -d provision_venv ]] && virtualenv provision_venv
+        source provision_venv/bin/activate
+        pip install ansible==2.3.1.0 ara shyaml
+        ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+        export ANSIBLE_HOST_KEY_CHECKING=False
+        export ANSIBLE_CALLBACK_PLUGINS="$ara_location/plugins/callbacks"
+        export ANSIBLE_ACTION_PLUGINS="$ara_location/plugins/actions"
+        export ANSIBLE_LIBRARY="$ara_location/plugins/modules"
+        export ANSIBLE_ROLES_PATH="$WORKSPACE/roles"
+        export ARA_DATABASE="sqlite:///$WORKSPACE/$JOB_NAME.sqlite"
+        cat << EOF > $WORKSPACE/playbook.yml
+        ---
+        - name: Build Kolla images
+          hosts: openstack_nodes
+          become: yes
+          become_user: root
+          vars:
+            kolla_push: true
+            kolla_tag: "$TESTING_TAG"
+          tasks:
+            - include_role:
+                name: "rdo-kolla-build"
+                static: "no"
+        EOF
+
+        # Build and Push the images
+        ansible-playbook -i $WORKSPACE/hosts $WORKSPACE/playbook.yml -e kolla_threads=16 $extra_vars
+
+        # Tag images on remote repository with $TESTING_TAG
+        NAMESPACE=$(shyaml get-value kolla_namespace "" < roles/rdo-kolla-build/defaults/main.yml)
+        source_tag="$(docker images ${NAMESPACE:+$NAMESPACE/}centos-binary-nova-compute --format {{.Tag}} | grep -v $TESTING_TAG)
+        destination_tag="$TESTING_TAG"
+        extra_vars="$extra_vars -e source_tag=$source_tag"
+        extra_vars="$extra_vars -e destination_tag=$destination_tag"
+
+        ansible-playbook -i $WORKSPACE/hosts $WORKSPACE/rdo-kolla-build/tag-promotion.yml $extra_vars
+        deactivate
+        popd
+    publishers:
+      - rdo-rsync-logs
+
+- job-template:
     name: '{trigger}-tripleo-ci-{jobname}{suffix}'
     node: '{node}'
     wrappers:
@@ -234,16 +298,23 @@
             - zuul
           branch-override: default
           timeout: 300
-      - '{trigger}-tripleo-ci-{jobname}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset023'
+      - '{trigger}-tripleo-containers-images-build{suffix}':
           suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset023'
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          timeout: 120
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset016'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset016'
           node: upstream-centos-7-2-node
           trigger: manual
           triggers:
             - zuul
           branch-override: default
-          timeout: 300
+          timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
           suffix: ''
