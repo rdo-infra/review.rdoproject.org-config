@@ -69,6 +69,19 @@ pipelines:
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in manual pipeline: {change.project}'
 
+  - name: openstack-periodic
+    description: Runs periodic tripleo tests to check upstream code bases.
+    manager: IndependentPipelineManager
+    precedence: low
+    trigger:
+      timer:
+        - time: 'H H/4 * * *'
+    failure:
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in periodic tripleo upstream pipeline'
+
 
   - name: openstack-post
     description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
@@ -122,6 +135,11 @@ projects:
     openstack-manual:
       - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset023
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset008
+    openstack-periodic:
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007
