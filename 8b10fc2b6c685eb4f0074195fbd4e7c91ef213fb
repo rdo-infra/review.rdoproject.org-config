@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa7fdbe_be879c60",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-07-19T00:37:25Z",
+      "side": 1,
+      "message": "If you\u0027re setting kolla_tag to $TESTING_TAG, you don\u0027t need to be doing any promotion.\n\nThe default behavior is to push to \"latest\" and \"DLRN_HASH\" tags. By overriding kolla_tag, you won\u0027t push to \"latest\" anymore, you\u0027ll be pushing to $TESTING_TAG and \"DLRN_HASH\" so the promotion isn\u0027t really necessary.",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 59
+      },
+      "revId": "8b10fc2b6c685eb4f0074195fbd4e7c91ef213fb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
