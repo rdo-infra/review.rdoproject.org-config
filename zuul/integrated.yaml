@@ -254,6 +254,20 @@ project-templates:
       - DLRN-rpmbuild:
         - experimental-weirdo-dlrn-master-puppet-scenario004
 
+  - name: weirdo-dlrn-master-networking-bgpvpn
+    check:
+      - DLRN-rpmbuild:
+        - gate-rpmlint
+        - gate-weirdo-dlrn-master-puppet-scenario004
+      - newton-distgit-cbs-validate
+      - ocata-distgit-cbs-validate
+    gate:
+      - DLRN-rpmbuild
+      - newton-distgit-cbs-final-build
+      - ocata-distgit-cbs-final-build
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-puppet-scenario004
 
 projects:
   - name: openstack/aodh-distgit
@@ -339,6 +353,10 @@ projects:
   - name: openstack/keystonemiddleware-distgit
     template:
       - name: weirdo-dlrn-master-keystone
+
+  - name: openstack/networking-bgpvpn-distgit
+    template:
+      - name: weirdo-dlrn-master-networking-bgpvpn
 
   - name: openstack/neutron-distgit
     template:
