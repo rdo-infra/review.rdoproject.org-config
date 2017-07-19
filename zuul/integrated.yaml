@@ -239,6 +239,21 @@ project-templates:
       - DLRN-rpmbuild:
         - experimental-weirdo-dlrn-master-puppet-scenario003
 
+  - name: weirdo-dlrn-master-watcher
+    check:
+      - DLRN-rpmbuild:
+        - gate-rpmlint
+        - gate-weirdo-dlrn-master-puppet-scenario004
+      - newton-distgit-cbs-validate
+      - ocata-distgit-cbs-validate
+    gate:
+      - DLRN-rpmbuild
+      - newton-distgit-cbs-final-build
+      - ocata-distgit-cbs-final-build
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-puppet-scenario004
+
 
 projects:
   - name: openstack/aodh-distgit
@@ -468,6 +483,10 @@ projects:
   - name: openstack/taskflow-distgit
     template:
       - name: weirdo-dlrn-master-glance
+
+  - name: openstack/watcher-distgit
+    template:
+      - name: weirdo-dlrn-master-watcher
 
   - name: openstack/zaqar-distgit
     template:
