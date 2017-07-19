@@ -42,6 +42,27 @@
           bash ./validate_updates.sh $WORKSPACE/logs
           popd
 
+- builder:
+   name: configure-rdoinfo-oooq-gate-job
+   builders:
+     - shell: |
+         !include-raw-escape: scripts/rdoinfo_oooq_prepare.sh
+
+- builder:
+    name: oooq-checkout
+    builders:
+      - shell: |
+          #!/bin/bash -xe
+          mkdir -p /opt/stack
+          cat > clonemap.yaml << EOF
+          clonemap:
+            - name: openstack/tripleo-quickstart
+              dest: /opt/stack/tripleo-quickstart
+          EOF
+          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+              git://git.openstack.org \
+              openstack/tripleo-quickstart
+
 - job:
     name: rdoinfo-DLRN-check
     defaults: global
@@ -512,4 +533,113 @@
       - release
     jobs:
       - 'rdoinfo-buildsys-tags-update-{release}-{phase}'
+
+- job-template:
+    name: 'rdoinfo-tripleo-ci-{openstack_release}-{buildsys_phase}-{jobname}{suffix}'
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    defaults: global
+    builders:
+      #- link-logs
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - devstack-checkout
+      - hack-nodepool-provider-setup
+      - configure-rdoinfo-oooq-gate-job
+      # I need to clone oooq repo and adding custom config befor running quickstart
+      - oooq-checkout
+      - shell: |
+          #!/bin/bash -xe
+          # If this configuration is not required, exit early
+          if [ -f $WORKSPACE/not_required ]; then
+              echo "Job for {openstack_release}-{buildsys_phase} not required"
+              exit 0
+          fi
+
+          export TOCI_JOBTYPE={type}
+          export STABLE_RELEASE={openstack_release}
+
+          rm -f /opt/stack/tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
+          mv tripleo.yml /opt/stack/tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
+
+          export PYTHONUNBUFFERED=true
+          export DEVSTACK_GATE_TEMPEST=0
+          export DEVSTACK_GATE_EXERCISES=0
+          export DEVSTACK_GATE_HORIZON=1
+
+          export PROJECTS="openstack/diskimage-builder $PROJECTS"
+          export PROJECTS="openstack/dib-utils $PROJECTS"
+          export PROJECTS="openstack/instack $PROJECTS"
+          export PROJECTS="openstack/instack-undercloud $PROJECTS"
+          export PROJECTS="openstack/puppet-aodh $PROJECTS"
+          export PROJECTS="openstack/puppet-barbican $PROJECTS"
+          export PROJECTS="openstack/puppet-ceilometer $PROJECTS"
+          export PROJECTS="openstack/puppet-ceph $PROJECTS"
+          export PROJECTS="openstack/puppet-cinder $PROJECTS"
+          export PROJECTS="openstack/puppet-ganesha $PROJECTS"
+          export PROJECTS="openstack/puppet-glance $PROJECTS"
+          export PROJECTS="openstack/puppet-gnocchi $PROJECTS"
+          export PROJECTS="openstack/puppet-heat $PROJECTS"
+          export PROJECTS="openstack/puppet-horizon $PROJECTS"
+          export PROJECTS="openstack/puppet-ironic $PROJECTS"
+          export PROJECTS="openstack/puppet-keystone $PROJECTS"
+          export PROJECTS="openstack/puppet-mistral $PROJECTS"
+          export PROJECTS="openstack/puppet-neutron $PROJECTS"
+          export PROJECTS="openstack/puppet-nova $PROJECTS"
+          export PROJECTS="openstack/puppet-openstack_extras $PROJECTS"
+          export PROJECTS="openstack/puppet-openstacklib $PROJECTS"
+          export PROJECTS="openstack/puppet-oslo $PROJECTS"
+          export PROJECTS="openstack/puppet-pacemaker $PROJECTS"
+          export PROJECTS="openstack/puppet-sahara $PROJECTS"
+          export PROJECTS="openstack/puppet-swift $PROJECTS"
+          export PROJECTS="openstack/puppet-tripleo $PROJECTS"
+          export PROJECTS="openstack/puppet-vswitch $PROJECTS"
+          export PROJECTS="openstack/puppet-zaqar $PROJECTS"
+          export PROJECTS="openstack/python-ironic-inspector-client $PROJECTS"
+          export PROJECTS="openstack/python-tripleoclient $PROJECTS"
+          export PROJECTS="openstack/tripleo-common $PROJECTS"
+          export PROJECTS="openstack/tripleo-puppet-elements $PROJECTS"
+          export PROJECTS="openstack/tripleo-quickstart-extras $PROJECTS"
+          export PROJECTS="openstack/tripleo-ui $PROJECTS"
+
+          # some projects are not in devstack-gate, we need them to grab logs:
+          export PROJECTS="openstack/aodh $PROJECTS"
+          export PROJECTS="openstack/barbican $PROJECTS"
+          export PROJECTS="openstack/gnocchi $PROJECTS"
+          export PROJECTS="openstack/panko $PROJECTS"
+          export PROJECTS="openstack/mistral $PROJECTS"
+
+          sudo chown -hR $(whoami) /opt/git
+          function gate_hook {{
+              bash -xe /opt/stack/new/tripleo-ci/toci_gate_test.sh
+          }}
+          export -f gate_hook
+          cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
+          ./safe-devstack-vm-gate-wrap.sh
+    publishers:
+      - rdo-rsync-logs
+      # - console-log
+
+- project:
+    name: gate-rdoinfo-tripleo-quickstart
+    jobs:
+      - 'rdoinfo-tripleo-ci-{openstack_release}-{buildsys_phase}-{jobname}{suffix}'
+          jobname: 'centos-7-multinode-1ctlr-featureset005'
+          suffix: '-nv'
+          type: 'gate-multinode-1ctlr-featureset005'
+          openstack_release: ocata
+          buildsys_phase: testing
+          node: upstream-centos-7-2-node
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
 
