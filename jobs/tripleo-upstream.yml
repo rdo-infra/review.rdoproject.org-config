@@ -148,7 +148,6 @@
       - rdo-log-setup
       - shell: |
           TESTING_TAG="tripleo-ci-testing"
-          ANSIBLE_HOSTS="$WORKSPACE/hosts"
           pushd $WORKSPACE
           # Retrieve role
           mkdir -p $WORKSPACE/roles
@@ -169,7 +168,7 @@
           cat << EOF > $WORKSPACE/playbook.yml
           ---
           - name: Build Kolla images
-            hosts: openstack_nodes
+            hosts: localhost
             become: yes
             become_user: root
             vars:
@@ -181,7 +180,7 @@
                   static: "no"
           EOF
 
-          ansible-playbook -i $WORKSPACE/hosts $WORKSPACE/playbook.yml -e kolla_threads=16 $extra_vars
+          ansible-playbook $WORKSPACE/playbook.yml -e kolla_threads=16
           deactivate
           popd
     publishers:
