@@ -9,7 +9,18 @@ diskimages:
 #      - rpm-factory
 #      - ansible
 #      - common-packages
-
+  - name: rdo-centos-7
+    elements:
+      - centos-minimal
+      - nodepool-minimal
+      - simple-init
+      - sf-zuul-worker
+      - jenkins-worker
+      - pip-and-virtualenv
+      - selinux-permissive
+    env-vars:
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
   - name: upstream-centos-7
     elements:
       - centos-minimal
@@ -43,6 +54,12 @@ labels:
   - name: bare-centos-7
     min-ready: 5
     image: bare-centos-7
+    providers:
+      - name: rdo-cloud
+  - name: rdo-centos-7
+    min-ready: 1
+    image: rdo-centos-7
+    ready-script: configure_mirror_host.sh
     providers:
       - name: rdo-cloud
   - name: upstream-centos-7
@@ -116,6 +133,12 @@ providers:
         name-filter: rdo.m1.medium
         username: centos
         min-ram: 4096
+      - name: rdo-centos-7
+        diskimage: rdo-centos-7
+        name-filter: rdo.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
   - name: rdo-cloud-tripleo
     boot-timeout: 120
     clean-floating-ips: true
