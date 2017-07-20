@@ -190,10 +190,8 @@
     builders:
       - prepare-workspace
       - rdo-log-setup
+      - prepare-dlrn
       - shell: |
-          # Clone DLRN
-          git clone https://github.com/softwarefactory-project/DLRN --depth 1
-
           set +e
           # This job supports building reviews for both review.rdoproject.org
           # and review.openstack.org. Builds that are run as third party for
@@ -223,7 +221,7 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    node: bare-centos-7
+    node: rdo-centos-7
 
 
 - job:
@@ -341,4 +339,4 @@
         - dlrn-gate-rpmlint
     triggers:
         - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
