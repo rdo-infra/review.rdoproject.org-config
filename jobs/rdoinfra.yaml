@@ -12,7 +12,7 @@
           tox -e jjb |grep -v -i -e authtoken -e auth-token
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
@@ -205,7 +205,7 @@
           tox -e flake8
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: gate-tox-ansible-lint
@@ -218,7 +218,7 @@
           tox -e ansible-lint
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: gate-tox-docs
@@ -239,7 +239,7 @@
       - zuul
     publishers:
       - zuul-swift-upload
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: rdo-registry-integration
