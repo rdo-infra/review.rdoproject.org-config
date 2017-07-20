@@ -155,7 +155,7 @@
               git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build rdo-kolla-build
           popd
           # Install dependencies
-          [[ ! -d provision_venv ]] && virtualenv provision_venv
+          [[ ! -d provision_venv ]] && virtualenv --system-site-packages provision_venv
           source provision_venv/bin/activate
           pip install ansible==2.3.1.0 ara
           ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
