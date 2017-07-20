@@ -57,6 +57,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-oj',
         'centos-opstools/rubygem-power_assert',
         'centos-opstools/rubygem-proxifier',
+        'centos-opstools/rubygem-recursive-open-struct',
         'centos-opstools/rubygem-rest-client',
         'centos-opstools/rubygem-resolve-hostname',
         'centos-opstools/rubygem-rr',
