@@ -104,7 +104,7 @@
           tox -e ansible-lint
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: gate-weirdo-docs
@@ -118,7 +118,7 @@
           tox -e docs
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 # WeIRDO's own gate jobs
 - job-template:
@@ -187,7 +187,7 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    node: rdo-snapshot-weirdo-centos-7
+    node: rdo-centos-7
 
 - project:
     name: gate-weirdo-packstack
