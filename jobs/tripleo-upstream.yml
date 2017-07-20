@@ -149,6 +149,8 @@
       - shell: |
           TESTING_TAG="tripleo-ci-testing"
           pushd $WORKSPACE
+
+          sudo yum install -y rpm-python
           # Retrieve role
           mkdir -p $WORKSPACE/roles
           pushd $WORKSPACE/roles
