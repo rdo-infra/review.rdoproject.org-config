@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/neutron-dynamic-routing-core:
+      description: Core developers for project neutron-dynamic-routing
+      members:
+      - mosonkonrad@gmail.com
+    openstack/neutron-dynamic-routing-ptl:
+      description: Project team lead for project neutron-dynamic-routing
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-neutron-dynamic-routing-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-dynamic-routing-core
+          owner = group openstack/neutron-dynamic-routing-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-dynamic-routing-core
+          label-Code-Review = -2..+2 group openstack/neutron-dynamic-routing-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-dynamic-routing-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-dynamic-routing-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/neutron-dynamic-routing-core
+          label-Verified = -2..+2 group openstack/neutron-dynamic-routing-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/neutron-dynamic-routing-core
+          label-Workflow = -1..+1 group openstack/neutron-dynamic-routing-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-dynamic-routing-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-dynamic-routing-core
+      - openstack/neutron-dynamic-routing-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-neutron-dynamic-routing:
+      file: |
+        [access "refs/*"]
+          read = group openstack/neutron-dynamic-routing-core
+          owner = group openstack/neutron-dynamic-routing-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/neutron-dynamic-routing-core
+          label-Code-Review = -2..+2 group openstack/neutron-dynamic-routing-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/neutron-dynamic-routing-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/neutron-dynamic-routing-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/neutron-dynamic-routing-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/neutron-dynamic-routing-core
+          label-Workflow = -1..+0 group openstack/neutron-dynamic-routing-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/neutron-dynamic-routing-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/neutron-dynamic-routing-core
+      - openstack/neutron-dynamic-routing-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/neutron-dynamic-routing:
+      acl: openstack-neutron-dynamic-routing
+      description: Mirror of upstream neutron-dynamic-routing (mirror + patches)
+    openstack/neutron-dynamic-routing-distgit:
+      acl: openstack-neutron-dynamic-routing-distgit
+      description: Packaging of upstream neutron-dynamic-routing
+      default-branch: rpm-master
+      branches:
+        master: '0'
