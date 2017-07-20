@@ -11,12 +11,6 @@ jobs:
   - name: ^common-distgit-cbs-(validate|final-build)$
     branch: ^common-rdo$
 
-  - name: ^DLRN-rpmbuild-nv$
-    voting: false
-
-  - name: ^tox-validate-nv$
-    voting: false
-
   - name: ^gate-rpmlint$
     branch: ^rpm-master$
 
@@ -97,6 +91,10 @@ jobs:
     files:
       - ^docs/.*$
       - ^.*\.rst$
+
+  # -nv jobs are never voting.
+  - name: ^.*-nv$
+    voting: false
 
 project-templates:
   - name: noop
