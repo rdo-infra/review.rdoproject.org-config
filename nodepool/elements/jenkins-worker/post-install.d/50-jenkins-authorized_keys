@@ -1,5 +1,5 @@
 #!/bin/sh -ex
-useradd -m -d /var/lib/jenkins -s /bin/sh jenkins
+useradd -m -d /var/lib/jenkins -s /bin/bash jenkins
 mkdir -m 0700 /var/lib/jenkins/.ssh
 cp /tmp/in_target.d/id_rsa.pub /var/lib/jenkins/.ssh/authorized_keys
 chmod 0600 /var/lib/jenkins/.ssh/authorized_keys
