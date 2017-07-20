@@ -1,29 +1,3 @@
-- job:
-    name: test-upstream-image
-    defaults: global
-    builders:
-      - prepare-workspace
-      - rdo-log-setup
-      - shell: |
-          set +e
-          # Test mirrors
-          yum repolist -vv
-          sudo yum -y install "@Development Tools"
-          sudo pip install python-openstackclient
-          mkdir logs
-          rpm -qa > logs/rpm.txt
-    triggers:
-      - zuul
-    wrappers:
-      - timestamps
-      - credentials-binding:
-        - file:
-           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
-           variable: LOG_SSH_KEY
-    publishers:
-      - rdo-rsync-logs
-    node: rdo-centos-7
-
 # Hacks
 # Fill /etc/nodepool/provider with data as expected by tripleo-quickstart
 # See: https://review.openstack.org/#/c/478211/
