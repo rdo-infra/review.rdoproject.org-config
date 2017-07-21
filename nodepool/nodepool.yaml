@@ -101,20 +101,6 @@ providers:
         name-filter: m1.rdo-ci
         username: centos
         min-ram: 8192
-  - name: trystack
-    boot-timeout: 120
-    clean-floating-ips: true
-    cloud: trystack
-    max-servers: 9
-    pool: public
-    rate: 2.0
-    images:
-      - name: bare-centos-7
-        base-image: CentOS 7 (1701) x86_64
-        setup: rdo-base.sh
-        name-filter: m1.rdo-ci
-        username: centos
-        min-ram: 8192
   - name: rdo-cloud
     boot-timeout: 120
     clean-floating-ips: true
