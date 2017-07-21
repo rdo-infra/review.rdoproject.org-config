@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/senlinclient-core:
+      description: Core developers for project senlinclient
+      members:
+      - snecklifter@gmail.com
+    openstack/senlinclient-ptl:
+      description: Project team lead for project senlinclient
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    openstack-senlinclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/senlinclient-core
+          owner = group openstack/senlinclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/senlinclient-core
+          label-Code-Review = -2..+2 group openstack/senlinclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/senlinclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/senlinclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/senlinclient-core
+          label-Verified = -2..+2 group openstack/senlinclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/senlinclient-core
+          label-Workflow = -1..+1 group openstack/senlinclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/senlinclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/senlinclient-core
+      - openstack/senlinclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-senlinclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/senlinclient-core
+          owner = group openstack/senlinclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/senlinclient-core
+          label-Code-Review = -2..+2 group openstack/senlinclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/senlinclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/senlinclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/senlinclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/senlinclient-core
+          label-Workflow = -1..+0 group openstack/senlinclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/senlinclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/senlinclient-core
+      - openstack/senlinclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/senlinclient:
+      acl: openstack-senlinclient
+      description: Mirror of upstream senlinclient (mirror + patches)
+    openstack/senlinclient-distgit:
+      acl: openstack-senlinclient-distgit
+      description: Packaging of upstream senlinclient
+      default-branch: rpm-master
+      branches:
+        master: '0'
