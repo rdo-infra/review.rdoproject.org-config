@@ -71,7 +71,7 @@
           fi
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: 'puppet-syntax'
@@ -88,7 +88,7 @@
           done
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: 'puppet-spec'
@@ -106,4 +106,4 @@
           $GEM_HOME/bin/bundle exec rake spec SPEC_OPTS='--format documentation'
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7

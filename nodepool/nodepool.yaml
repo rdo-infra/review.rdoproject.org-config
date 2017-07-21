@@ -50,13 +50,13 @@ labels:
 #    image: dib-centos-7
 #    providers:
 #      - name: rcip-dev
-  - name: bare-centos-7
-    min-ready: 2
-    image: bare-centos-7
+  - name: rdo-centos-7-rcip
+    min-ready: 4
+    image: rdo-centos-7
     providers:
-      - name: rdo-cloud
+      - name: rcip-dev
   - name: rdo-centos-7
-    min-ready: 8
+    min-ready: 10
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
@@ -73,24 +73,17 @@ labels:
       - name: rdo-cloud-tripleo
     ready-script: multinode_setup_host.sh
     subnodes: 1
-  - name: bare-centos-7-2-node
-    min-ready: 0
-    image: bare-centos-7
-    providers:
-      - name: rcip-dev
-    ready-script: multinode_setup.sh
-    subnodes: 1
 
 providers:
   - name: rcip-dev
     boot-timeout: 120
     clean-floating-ips: true
     cloud: rcip-dev
-    max-servers: 10
+    max-servers: 12
     pool: public
     rate: 1.0
     images:
-      - name: rdo-centos-7
+      - name: rdo-centos-7-rcip
         diskimage: rdo-centos-7
         name-filter: m1.rdo-ci
         username: jenkins
@@ -106,12 +99,6 @@ providers:
     networks:
       - name: private
     images:
-      - name: bare-centos-7
-        base-image: CentOS-7-x86_64-GenericCloud-1706
-        setup: rdo-base.sh
-        name-filter: rdo.m1.medium
-        username: centos
-        min-ram: 4096
       - name: rdo-centos-7
         diskimage: rdo-centos-7
         name-filter: rdo.m1.nodepool

@@ -124,7 +124,7 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: rdoinfo-create-project
@@ -156,7 +156,7 @@
           done
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - timestamps
       - credentials-binding:
@@ -222,7 +222,7 @@
           fi
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
@@ -290,7 +290,7 @@
           done
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
@@ -314,7 +314,7 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - project:
     name: rdoinfo-upper-constraints
@@ -343,7 +343,7 @@
           popd
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
@@ -422,7 +422,7 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job-template:
     name: rdoinfo-buildsys-tags-update-{release}-{phase}
@@ -491,7 +491,7 @@
           fi
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
