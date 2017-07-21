@@ -146,10 +146,6 @@ project-templates:
       - gate-weirdo-integration-master-puppet-scenario001
 
 projects:
-  - name: testproject
-    template:
-      - name: noop
-
   - name: centos-opstools/kibana
     template:
       - name: noop
@@ -221,6 +217,14 @@ projects:
   - name: openstack/barbican
     template:
       - name: package-check-jobs
+
+  - name: openstack/barbican-tempest-plugin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/barbican-tempest-plugin-distgit
+    template:
+      - name: package-distgit-check-jobs
 
   - name: openstack/barbicanclient
     template:
@@ -2287,6 +2291,10 @@ projects:
       - name: noop
 
   # project for testing new tests
+  - name: testproject
+    template:
+      - name: noop
+
   - name: centos-opstools/opstools-doc
     check:
       - centos-opstools-doc
