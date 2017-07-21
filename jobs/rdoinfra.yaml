@@ -39,7 +39,7 @@
           popd
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
@@ -62,7 +62,7 @@
           find $WORKSPACE/$ZUUL_PROJECT -type f -regex '.*.y[a]?ml' -print0 | xargs -t -n1 -0 ansible-lint -x ANSIBLE0006,ANSIBLE0010,ANSIBLE0012,ANSIBLE0013,ANSIBLE0014
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: gate-rdo-kolla-build-containers
@@ -120,7 +120,7 @@
             - zuul-swift-upload
           script-only-if-succeeded: False
           script-only-if-failed: False
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - builder:
     name: rdo-infra-role-integration
@@ -183,7 +183,7 @@
             - zuul-swift-upload
           script-only-if-succeeded: False
           script-only-if-failed: False
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - project:
     name: gate-rdo-infra-role-integration
@@ -266,7 +266,7 @@
             - zuul-swift-upload
           script-only-if-succeeded: False
           script-only-if-failed: False
-    node: bare-centos-7
+    node: rdo-centos-7
     wrappers:
       - credentials-binding:
         - file:
