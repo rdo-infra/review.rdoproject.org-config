@@ -269,6 +269,21 @@ project-templates:
       - DLRN-rpmbuild:
         - experimental-weirdo-dlrn-master-puppet-scenario004
 
+  - name: weirdo-dlrn-master-barbican
+    check:
+      - DLRN-rpmbuild:
+        - gate-rpmlint
+        - gate-weirdo-dlrn-master-puppet-scenario002
+      - newton-distgit-cbs-validate
+      - ocata-distgit-cbs-validate
+    gate:
+      - DLRN-rpmbuild
+      - newton-distgit-cbs-final-build
+      - ocata-distgit-cbs-final-build
+    experimental:
+      - DLRN-rpmbuild:
+        - experimental-weirdo-dlrn-master-puppet-scenario002
+
 projects:
   - name: openstack/aodh-distgit
     template:
@@ -280,11 +295,11 @@ projects:
 
   - name: openstack/barbican-distgit
     template:
-      - name: weirdo-dlrn-master-cinder
+      - name: weirdo-dlrn-master-barbican
 
   - name: openstack/barbicanclient-distgit
     template:
-      - name: weirdo-dlrn-master-cinder
+      - name: weirdo-dlrn-master-barbican
 
   - name: openstack/ceilometer-distgit
     template:
