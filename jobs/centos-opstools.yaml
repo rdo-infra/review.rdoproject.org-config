@@ -30,7 +30,7 @@
         - file:
            credential-id: ab950c60-d26c-4c5d-b2a1-1669815e4efd
            variable: CLIENTSECRET
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job-template:
     name: 'centos-opstools-{component}-distgit-cbs-final-build'
@@ -48,7 +48,7 @@
         - file:
            credential-id: ab950c60-d26c-4c5d-b2a1-1669815e4efd
            variable: CLIENTSECRET
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - project:
     name: gate-opstools
@@ -97,7 +97,7 @@
           popd
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 
 - job:
     name: 'centos-opstools-doc'
@@ -118,7 +118,7 @@
       - zuul-swift-upload
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 - job:
     name: 'centos-opstools-rpmlint'
     defaults: global
@@ -132,7 +132,7 @@
           popd
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7
 - job:
     name: 'centos-opstools-rpmbuild'
     defaults: global
@@ -181,4 +181,4 @@
       - zuul-swift-upload
     triggers:
       - zuul
-    node: bare-centos-7
+    node: rdo-centos-7

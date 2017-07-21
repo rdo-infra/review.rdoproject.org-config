@@ -274,7 +274,7 @@
           #ssh -F $HOME/.quickstart/ssh.config.local.ansible undercloud ./overcloud-validate.sh
     triggers:
       - zuul
-    node: bare-centos-7-2-node
+    node: rdo-centos-7-2-node
     publishers:
       - tripleo-quickstart-collect-logs:
           topology: 'minimal'
