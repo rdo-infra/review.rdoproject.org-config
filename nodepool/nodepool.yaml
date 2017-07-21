@@ -56,7 +56,7 @@ labels:
     providers:
       - name: rdo-cloud
   - name: rdo-centos-7
-    min-ready: 3
+    min-ready: 8
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
@@ -80,11 +80,6 @@ labels:
       - name: rcip-dev
     ready-script: multinode_setup.sh
     subnodes: 1
-  - name: rdo-snapshot-weirdo-centos-7
-    image: rdo-snapshot-weirdo-centos-7
-    min-ready: 3
-    providers:
-      - name: rcip-dev
 
 providers:
   - name: rcip-dev
@@ -95,12 +90,12 @@ providers:
     pool: public
     rate: 1.0
     images:
-      - name: rdo-snapshot-weirdo-centos-7
-        base-image: CentOS 7 (1701) x86_64
-        setup: rdo-weirdo.sh
+      - name: rdo-centos-7
+        diskimage: rdo-centos-7
         name-filter: m1.rdo-ci
-        username: centos
+        username: jenkins
         min-ram: 8192
+        config-drive: true
   - name: rdo-cloud
     boot-timeout: 120
     clean-floating-ips: true
