@@ -5,9 +5,6 @@
 set +e -x
 # This job requires variables $RELEASE and $PHASE to be defined.
 
-RELEASE={openstack_release}
-PHASE={buildsys_phase}
-
 REQUIRED=0
 MASTER_RELEASE=pike
 CREPOS_FILE=changed_repos.txt

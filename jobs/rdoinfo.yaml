@@ -46,7 +46,7 @@
    name: configure-rdoinfo-oooq-gate-job
    builders:
      - shell:
-         !include-raw-escape: scripts/rdoinfo_oooq_prepare.sh
+         !include-raw: scripts/rdoinfo_oooq_prepare.sh
 
 # In some cases we need to clone oooq repo and adding custom config before running quickstart
 # so we create a builder oooq-checkout to clone it
@@ -548,12 +548,14 @@
            variable: LOG_SSH_KEY
     defaults: global
     builders:
-      #- link-logs
       - net-info
       - prepare-workspace
       - rdo-log-setup
       - devstack-checkout
       - hack-nodepool-provider-setup
+      - shell: |
+          export RELEASE="{openstack_release}"
+          export PHASE="{buildsys_phase}"
       - configure-rdoinfo-oooq-gate-job
       # I need to clone oooq repo and adding custom config befor running quickstart
       - oooq-checkout
