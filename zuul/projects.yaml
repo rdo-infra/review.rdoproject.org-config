@@ -146,10 +146,6 @@ project-templates:
       - gate-weirdo-integration-master-puppet-scenario001
 
 projects:
-  - name: testproject
-    template:
-      - name: noop
-
   - name: centos-opstools/kibana
     template:
       - name: noop
@@ -1286,6 +1282,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/senlinclient
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/senlinclient-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/shade
     template:
       - name: package-check-jobs
@@ -2287,6 +2291,10 @@ projects:
       - name: noop
 
   # project for testing new tests
+  - name: testproject
+    template:
+      - name: noop
+
   - name: centos-opstools/opstools-doc
     check:
       - centos-opstools-doc
