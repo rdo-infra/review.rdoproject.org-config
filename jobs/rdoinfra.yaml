@@ -69,6 +69,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           set -e
           mkdir $WORKSPACE/roles
@@ -110,17 +111,23 @@
       - postbuildscript:
           builders:
             - shell: |
-                  mkdir $WORKSPACE/artifacts
-                  cp -a /tmp/kolla $WORKSPACE/artifacts/
+                  mkdir $WORKSPACE/logs
+                  cp -a /tmp/kolla $WORKSPACE/logs/
                   export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
-                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/artifacts/ara
+                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
 
                   # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
-            - zuul-swift-upload
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+            - rdo-rsync-logs
           script-only-if-succeeded: False
           script-only-if-failed: False
     node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
 
 - builder:
     name: rdo-infra-role-integration
@@ -166,6 +173,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - rdo-infra-role-integration:
           role: '{role}'
     triggers:
@@ -174,16 +182,22 @@
       - postbuildscript:
           builders:
             - shell: |
-                  mkdir $WORKSPACE/artifacts
+                  mkdir $WORKSPACE/logs
                   export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
-                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/artifacts/ara
+                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
 
                   # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
-            - zuul-swift-upload
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+            - rdo-rsync-logs
           script-only-if-succeeded: False
           script-only-if-failed: False
     node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
 
 - project:
     name: gate-rdo-infra-role-integration
@@ -225,20 +239,28 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           set +e
           pushd $ZUUL_PROJECT
           tox -e docs
           popd
 
-          mkdir artifacts
-          sudo cp -a $ZUUL_PROJECT/doc/build/html artifacts/
+          mkdir logs
+          sudo cp -a $ZUUL_PROJECT/doc/build/html logs/
           # Ensure permissions allow artifact uploading
-          sudo chown -R "$(id -u).$(id -g)" artifacts
+          sudo chown -R "$(id -u).$(id -g)" logs
     triggers:
       - zuul
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+
     node: rdo-centos-7
 
 - job:
@@ -246,6 +268,7 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           set +e
           tar -xzvf $REGISTRY_CERTIFICATES
@@ -258,17 +281,21 @@
       - postbuildscript:
           builders:
             - shell: |
-                  mkdir $WORKSPACE/artifacts
-                  $WORKSPACE/$ZUUL_PROJECT/.tox/ansible-playbook/bin/ara generate html $WORKSPACE/artifacts/ara
+                  mkdir $WORKSPACE/logs
+                  $WORKSPACE/$ZUUL_PROJECT/.tox/ansible-playbook/bin/ara generate html $WORKSPACE/logs/ara
 
                   # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/artifacts
-            - zuul-swift-upload
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+            - rdo-rsync-logs
           script-only-if-succeeded: False
           script-only-if-failed: False
     node: rdo-centos-7
     wrappers:
+      - timestamps
       - credentials-binding:
         - file:
            credential-id: d6d1ca8a-7ee5-43a1-b505-98577c7ab617
            variable: REGISTRY_CERTIFICATES
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
