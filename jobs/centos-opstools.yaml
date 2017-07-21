@@ -104,21 +104,29 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           set +e
-          mkdir $WORKSPACE/artifacts
+          mkdir $WORKSPACE/logs
 
           sudo yum -y install rubygems
           gem install asciidoctor
 
           pushd $ZUUL_PROJECT
-          ~/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/artifacts
+          ~/bin/asciidoctor -v -b html5 *.txt -D $WORKSPACE/logs
           popd
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
     node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+
 - job:
     name: 'centos-opstools-rpmlint'
     defaults: global
@@ -138,9 +146,10 @@
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-log-setup
       - shell: |
           set -e
-          mkdir $WORKSPACE/artifacts
+          mkdir $WORKSPACE/logs
           sudo yum -y install rpm-build rpmdevtools centos-release-opstools
           cat << EOF | sudo tee /etc/yum.repos.d/opstools-build.repo
           [centos-opstools-perfmon-testing]
@@ -173,12 +182,18 @@
           spectool -g  *.spec
           sudo yum-builddep -y *.spec
           rpmbuild -D '_sourcedir '$PWD -D '_specdir '$PWD -D '_topdir '$PWD -ba *.spec
-          # move built rpms to artifacts for later use
-          mv SRPMS/* $WORKSPACE/artifacts
-          mv RPMS/* $WORKSPACE/artifacts
+          # move built rpms to logs for later use
+          mv SRPMS/* $WORKSPACE/logs
+          mv RPMS/* $WORKSPACE/logs
           popd
     publishers:
-      - zuul-swift-upload
+      - rdo-rsync-logs
     triggers:
       - zuul
     node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
