@@ -61,6 +61,8 @@
               dest: tripleo-quickstart
             - name: openstack-infra/tripleo-ci
               dest: tripleo-ci
+            - name: openstack-dev/devstack
+              dest: devstack
           EOF
           /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
               git://git.openstack.org \
@@ -577,6 +579,7 @@
           export TOCI_JOBTYPE={type}
           export STABLE_RELEASE={openstack_release}
           export TRIPLEO_ROOT=$WORKSPACE
+          ln -s $TRIPLEO_ROOT $TRIPLEO_ROOT/new
 
           rm -f tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
           mv tripleo.yml tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
