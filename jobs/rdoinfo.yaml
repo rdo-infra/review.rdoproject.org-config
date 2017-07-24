@@ -55,26 +55,16 @@
     builders:
       - shell: |
           #!/bin/bash -xe
+          sudo mkdir -p /opt/stack/new
           cat > clonemap.yaml << EOF
           clonemap:
             - name: openstack/tripleo-quickstart
-              dest: tripleo-quickstart
-            - name: openstack-infra/tripleo-ci
-              dest: tripleo-ci
-            - name: openstack-dev/devstack
-              dest: devstack
+              dest: /opt/stack/new/tripleo-quickstart
           EOF
-          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+          sudo /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
               git://git.openstack.org \
               openstack/tripleo-quickstart
 
-          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
-              git://git.openstack.org \
-              openstack-infra/tripleo-ci
-
-          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
-              git://git.openstack.org \
-              openstack-dev/devstack
 - job:
     name: rdoinfo-DLRN-check
     defaults: global
@@ -581,11 +571,9 @@
 
           export TOCI_JOBTYPE={type}
           export STABLE_RELEASE={openstack_release}
-          export TRIPLEO_ROOT=$WORKSPACE
-          ln -s $TRIPLEO_ROOT $TRIPLEO_ROOT/new
 
-          rm -f tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
-          mv tripleo.yml tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
+          sudo rm -f /opt/stack/new/tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
+          sudo mv tripleo.yml /opt/stack/new/tripleo-quickstart/config/release/tripleo-ci/{openstack_release}.yml
 
           export PYTHONUNBUFFERED=true
           export DEVSTACK_GATE_TEMPEST=0
