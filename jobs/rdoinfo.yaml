@@ -59,10 +59,16 @@
           clonemap:
             - name: openstack/tripleo-quickstart
               dest: tripleo-quickstart
+            - name: openstack-infra/tripleo-ci
+              dest: tripleo-ci
           EOF
           /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
               git://git.openstack.org \
               openstack/tripleo-quickstart
+
+          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+              git://git.openstack.org \
+              openstack-infra/tripleo-ci
 
 - job:
     name: rdoinfo-DLRN-check
