@@ -72,6 +72,9 @@
               git://git.openstack.org \
               openstack-infra/tripleo-ci
 
+          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+              git://git.openstack.org \
+              openstack-dev/devstack
 - job:
     name: rdoinfo-DLRN-check
     defaults: global
