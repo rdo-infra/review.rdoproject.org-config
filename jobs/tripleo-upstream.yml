@@ -158,6 +158,18 @@
           deactivate
           popd
     publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/logs
+                  cp -a /tmp/kolla $WORKSPACE/logs/
+                  export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
       - rdo-rsync-logs
 
 - job-template:
