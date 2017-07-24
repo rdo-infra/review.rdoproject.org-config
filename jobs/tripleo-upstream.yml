@@ -259,6 +259,7 @@
     # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
     name: tripleo-quickstart
     jobs:
+      # Single node undercloud
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-undercloud-oooq'
           suffix: '-nv'
@@ -269,6 +270,7 @@
             - zuul
           branch-override: default
           timeout: 180
+      # OVB
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
           suffix: ''
@@ -279,23 +281,56 @@
             - zuul
           branch-override: default
           timeout: 300
-      - '{trigger}-tripleo-centos-7-containers-images-build{suffix}':
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
           suffix: ''
+          type: 'periodic-ovb-3ctlr_1comp-featureset002'
           node: upstream-centos-7
           trigger: manual
-          triggers:
-            - zuul
-          timeout: 120
+          branch-override: default
+          timeout: 240
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset016'
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset002-ocata'
           suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset016'
-          node: upstream-centos-7-2-node
+          type: 'periodic-ovb-3ctlr_1comp-featureset002'
+          node: upstream-centos-7
           trigger: manual
-          triggers:
-            - zuul
-          branch-override: promotion-testing-hash
+          branch-override: stable/ocata
+          timeout: 240
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset002-newton'
+          suffix: ''
+          type: 'periodic-ovb-3ctlr_1comp-featureset002'
+          node: upstream-centos-7
+          trigger: manual
+          branch-override: stable/newton
+          timeout: 240
+      # periodic job for testing quickstart with full tempest
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset020-master'
+          suffix: ''
+          type: 'periodic-ovb-1ctlr_1comp-featureset020'
+          node: upstream-centos-7
+          trigger: manual
+          branch-override: default
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset020-ocata'
+          suffix: ''
+          type: 'periodic-ovb-1ctlr_1comp-featureset020'
+          node: upstream-centos-7
+          trigger: manual
+          branch-override: stable/ocata
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp_1ceph-featureset024'
+          suffix: ''
+          type: 'periodic-ovb-1ctlr_1comp_1ceph-featureset024'
+          node: upstream-centos-7
+          trigger: manual
+          branch-override: default
           timeout: 180
+      # Multinode
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
           suffix: ''
@@ -343,4 +378,21 @@
           triggers:
             - zuul
           branch-override: default
+          timeout: 180
+      - '{trigger}-tripleo-centos-7-containers-images-build{suffix}':
+          suffix: ''
+          node: upstream-centos-7
+          trigger: manual
+          triggers:
+            - zuul
+          timeout: 120
+      - '{trigger}-tripleo-ci-{jobname}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset016'
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset016'
+          node: upstream-centos-7-2-node
+          trigger: manual
+          triggers:
+            - zuul
+          branch-override: promotion-testing-hash
           timeout: 180
