@@ -553,10 +553,9 @@
       - rdo-log-setup
       - devstack-checkout
       - hack-nodepool-provider-setup
-      - shell: |
-          export RELEASE="{openstack_release}"
-          export PHASE="{buildsys_phase}"
-      - configure-rdoinfo-oooq-gate-job
+      - configure-rdoinfo-oooq-gate-job:
+          openstack_release: "{openstack_release}"
+          buildsys_phase: "{buildsys_phase}"
       # I need to clone oooq repo and adding custom config befor running quickstart
       - oooq-checkout
       - shell: |

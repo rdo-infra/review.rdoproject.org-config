@@ -5,6 +5,9 @@
 set +e -x
 # This job requires variables $RELEASE and $PHASE to be defined.
 
+PHASE='{buildsys_phase}'
+RELEASE='{openstack_release}'
+
 REQUIRED=0
 MASTER_RELEASE=pike
 CREPOS_FILE=changed_repos.txt
@@ -46,7 +49,7 @@ COMMON_RELEASE_TAG="cloud7-openstack-common-release"
 COMMON_TESTING=$(grep -c $COMMON_TESTING_TAG $CREPOS_FILE)
 COMMON_RELEASE=$(grep -c $COMMON_RELEASE_TAG $CREPOS_FILE)
 
-function create_config(){
+function create_config(){{
     echo "release: $RELEASE"
     echo "overcloud_image_url: file:///var/lib/oooq-images/$RELEASE/overcloud-full.tar"
     echo "ipa_image_url: file:///var/lib/oooq-images/$RELEASE/ironic-python-agent.tar"
@@ -93,7 +96,7 @@ function create_config(){
             ((INDEX++))
         done
     fi
-}
+}}
 
 
 case $PHASE in
