@@ -101,6 +101,52 @@
 
 # TripleO Quickstart gate jobs
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
+#
+
+- job-template:
+    name: "{trigger}-hash-fetch"
+    builders:
+      - shell: |
+          mkdir $WORKSPACE/logs
+          wget -O $WORKSPACE/logs/ current repo 
+          compute hash
+          write $WORKSPACE/logs/delorean_hash.txt
+
+- job-template:
+    name: "{trigger}-tripleo-centos-7-cloud-images-build"
+    builders:
+      - shell: |
+          quickstart
+          install undercloud
+          build images
+          upload images
+          images server symlink as delorean_hash
+
+- job-template:
+    name: "{trigger}-results-poller"
+    builders:
+      - shell:
+          get hash-fetch log url
+          get log_url/hash.txt
+          read watch_hash
+          promotion_jobs="{trigger}-tripleo-ci-centos-7-multinode-1ctlr-featureset16"
+          for job in $promotion_jobs; do
+            compute last_build_log url
+            # Getting this info from infra
+            # too much to change to get this from the job itself
+            last_build_result = get job_status
+            wget last_build_log_url/logs/delorean_hash.txt
+            read last_build_hash
+            if last_build_result != "SUCCESS" or last_job_hash != watch_hash; then
+               exit 1
+            fi
+          done
+
+          # promotion!
+          tag containers (get image with sam hash, tag)
+          promote images (change <branch> symlink in images server)
+          promote hash (trigger promotion in jenkins) <- credentials ???
+
 - job-template:
     name: '{trigger}-tripleo-centos-7-containers-images-build{suffix}'
     node: '{node}'
@@ -259,6 +305,16 @@
     # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
     name: tripleo-quickstart
     jobs:
+      - "{trigger}-results-poller":
+          triggers:
+            - zuul
+          trigger:
+            - manual
+      - "{trigger}-hash-fetch":
+          triggers:
+            - zuul
+          trigger:
+            - manual
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-undercloud-oooq'
           suffix: '-nv'

@@ -134,8 +134,10 @@ projects:
       - gate-tripleo-ci-centos-7-undercloud-oooq-nv
     openstack-manual:
       - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
-      - manual-tripleo-centos-7-containers-images-build:
-        - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset016
+      - manual-hash-fetch:
+        - manual-tripleo-centos-7-cloud-images-build:
+           - manual-tripleo-centos-7-containers-images-build:
+             - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset016
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006
       - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007
@@ -145,3 +147,4 @@ projects:
       - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006
       - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007
       - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008
+      - periodic-results-poller
