@@ -406,32 +406,6 @@ resources:
       groups:
       - rdo-ptl
       - rdo-core
-    af7a1eec3c94e834dcc7beaba1c68fd9:
-      file: |
-        [access "refs/*"]
-          read = group rdo-infra/ansible-role-rdobase-core
-          owner = group rdo-infra/ansible-role-rdobase-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/ansible-role-rdobase-core
-            label-Code-Review = -2..+2 group rdo-infra/ansible-role-rdobase-ptl
-            label-Verified = -2..+2 group rdo-infra/ansible-role-rdobase-ptl
-            label-Workflow = -1..+1 group rdo-infra/ansible-role-rdobase-core
-            label-Workflow = -1..+1 group rdo-infra/ansible-role-rdobase-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/ansible-role-rdobase-ptl
-            read = group rdo-infra/ansible-role-rdobase-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group rdo-infra/ansible-role-rdobase-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/ansible-role-rdobase-core
-      - rdo-infra/ansible-role-rdobase-ptl
     b3c0ebd7ad1e548eaf9c1bf2ca819f37:
       file: |
         [project]
