@@ -169,6 +169,9 @@
           export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
           export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
           export ANSIBLE_LIBRARY=$ara_location/plugins/modules
+          # ANSIBLE_ASK_VAULT_PASS and ANSIBLE_VAULT_PASSWORD_FILE are mutually
+          # exclusive. We default ANSIBLE_ASK_VAULT_PASS to true in ansible.cfg.
+          export ANSIBLE_ASK_VAULT_PASS=false
 
           export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
 
