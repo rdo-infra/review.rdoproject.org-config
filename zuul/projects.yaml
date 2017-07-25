@@ -2289,8 +2289,16 @@ projects:
       - name: noop
 
   - name: rdo-infra/rdo-infra-playbooks
-    template:
-      - name: noop
+    check:
+      - rdo-infra-ansible-lint
+      - rdo-infra-playbooks-integration-base
+      - rdo-infra-playbooks-integration-sensu-client
+      - rdo-infra-playbooks-integration-sensu-server
+    gate:
+      - rdo-infra-ansible-lint
+      - rdo-infra-playbooks-integration-base
+      - rdo-infra-playbooks-integration-sensu-client
+      - rdo-infra-playbooks-integration-sensu-server
 
   - name: rdo-infra/rdo-release
     template:
@@ -2689,27 +2697,21 @@ projects:
 
   - name: rdo-infra/ansible-role-rdo-base
     check:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-base-integration
+      - rdo-infra-ansible-lint
+      - rdo-infra-playbooks-integration-base
     gate:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-base-integration
+      - rdo-infra-ansible-lint
+      - rdo-infra-playbooks-integration-base
 
+  # Deprecated
   - name: rdo-infra/ansible-role-rdomonitoring
-    check:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-monitoring-integration
-    gate:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-monitoring-integration
+    template:
+      - name: noop
 
+  # Deprecated
   - name: rdo-infra/ansible-role-rdobot
-    check:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-rdobot-integration
-    gate:
-      - gate-rdo-infra-role-ansible-lint
-      - gate-rdo-infra-rdobot-integration
+    template:
+      - name: noop
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
