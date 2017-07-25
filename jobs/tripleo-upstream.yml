@@ -72,54 +72,10 @@
               git://git.openstack.org \
               openstack-infra/devstack-gate
 
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L930-L938
-- publisher:
-    name: console-log
-    publishers:
-      - scp:
-          site: 'logs.rdoproject.org'
-          files:
-            - target: '$LOG_PATH'
-              copy-console: true
-              copy-after-failure: true
-          script-only-if-succeeded: False
-          script-only-if-failed: False
 
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L941-L950
-# devstack-logs can be brought back after Software-Factory has been upgraded to
-# 2.6 if need be.
-#- publisher:
-#    name: devstack-logs
-#    publishers:
-#      - scp:
-#          site: 'logs.rdoproject.org'
-#          files:
-#            - target: '$LOG_PATH'
-#              source: 'logs/**'
-#              keep-hierarchy: true
-#              copy-after-failure: true
-
-# TripleO Quickstart gate jobs
-# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
-- job-template:
-    name: '{trigger}-tripleo-centos-7-containers-images-build{suffix}'
-    node: '{node}'
-    wrappers:
-      - build-timeout:
-          timeout: '{timeout}'
-      - timestamps
-      - credentials-binding:
-        - text:
-           credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
-           variable: REGISTRY_PASSWORD
-        - file:
-           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
-           variable: LOG_SSH_KEY
-    defaults: global
+- builder:
+    name: build-containers-images
     builders:
-      - net-info
-      - prepare-workspace
-      - rdo-log-setup
       - shell: |
           TESTING_TAG="tripleo-ci-testing"
           pushd $WORKSPACE
@@ -148,6 +104,7 @@
             vars:
               kolla_push: true
               kolla_tag: "$TESTING_TAG"
+              kolla_rpm_location: https://trunk.rdoproject.org/centos7-master/triple-ci-building/delorean.repo
             tasks:
               - include_role:
                   name: "rdo-kolla-build"
@@ -157,44 +114,90 @@
           ansible-playbook $WORKSPACE/playbook.yml -e kolla_threads=16
           deactivate
           popd
-    publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                  mkdir $WORKSPACE/logs
-                  cp -a /tmp/kolla $WORKSPACE/logs/
-                  export ARA_DATABASE="sqlite:///$WORKSPACE/$JOB_NAME.sqlite"
-                  sudo -E $WORKSPACE/provision_venv/bin/ara generate html $WORKSPACE/logs/ara
 
-                  # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
-          script-only-if-succeeded: False
-          script-only-if-failed: False
-      - rdo-rsync-logs
-
-- job-template:
-    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
-    node: '{node}'
-    wrappers:
-      - build-timeout:
-          timeout: '{timeout}'
-      - timestamps
-      - credentials-binding:
-        - file:
-           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
-           variable: LOG_SSH_KEY
-    defaults: global
+- builder:
+    name: images-upload-and-label
     builders:
-      #- link-logs
-      - net-info
-      - prepare-workspace
-      - rdo-log-setup
-      - devstack-checkout
-      - hack-nodepool-provider-setup
+      - shell: |
+          # Delete old testing symlink
+          source /tmp/hash_info.sh
+          pushd /hom/jenkins
+          IMAGES="ironic-python-agent.tar \
+                  ironic-python-agent.tar.md5 \
+                  overcloud-full.tar \
+                  overcloud-full.tar.md5 \"
+          rsync --verbose --archive --delay-updates ironic-python-agent.tar uploader@images.rdoproject.org:/var/www/html/images/$HASH_PATH/ipa-image.tar
+          rsync --verbose --archive --delay-updates ironic-python-agent.tar.md5 uploader@images.rdoproject.org:/var/www/html/images/$HASH_PATH/ipa-image.tar.md5
+          rsync --verbose --archive --delay-updates overcloud-full.tar uploader@images.rdoproject.org:/var/www/html/images/$HASH_PATH/overcloud-full.tar
+          rsync --verbose --archive --delay-updates overcloud-full.tar.md5 uploader@images.rdoproject.org:/var/www/html/images/$HASH_PATH/overcloud-full.tar.md5
+          mkdir $LOCATION
+          rsync -av --delete --include 'tripleo-ci-testing**' --exclude '*' $LOCATION/ uploader@images.rdoproject.org:/var/www/html/images/$dest_image_path/
+          # push testing symlink so sub-jobs know what to test
+          mkdir $HASH_PATH
+          ln -s $HASH_PATH tripleo-ci-testing
+          rsync -av testing uploader@images.rdoproject.org:/var/www/html/images/$dest_image_path/tripleo-ci-testing
+          popd
+          source /tmp/delorean/bin/activate
+          export ANSIBLE_LIBRARY=/tmp/dlnapi_client/dlrnapi_client/ansible
+          ansible-playbook -i localhost -e hash_label=tripleo-ci-testing -vv /tmp/hash_label.yml
+          deactivate
+
+- builder:
+    name: prep-hash
+    builders:
+      - shell: |
+          curl -o /tmp/delorean.repo https://trunk.rdoproject.org/centos7-master/current/delorean.repo
+          FULL_HASH=$(grep -o -E '[0-9a-f]{40}_[0-9a-f]{8}' < /tmp/delorean.repo)
+          HASH_PATH=$(grep -o -E '[a-f0-9]{2}/[a-f0-9]{2}/[0-9a-f]{40}_[0-9a-e]{8}' < /tmp/delorean.repo)
+          COMMIT_HASH=$(awk -F_ '{print $1}' <<<$FULL_HASH)
+          DISTRO_HASH=$(awk -F_ '{print $2}' <<<$FULL_HASH)
+          HASH_LABEL=tripleo-ci-building
+          cat > /tmp/hash_info.sh << EOF
+          export HASH_PATH=$HASH_PATH
+          export FULL_HASH=$FULL_HASH
+          export COMMIT_HASH=$COMMIT_HASH
+          export DISTRO_HASH=$DISTRO_HASH
+          export HASH_LABEL=$HASH_LABEL
+          EOF
+          # TODO promote to label
+          rm -f /tmp/delorean.repo
+          virtualenv --system-site-packages /tmp/delorean
+          pip install ansible=2.3.0.0
+          source /tmp/delorean/bin/activate
+          git clone https://github.com/javierpena/dlrnapi_client /tmp/dltnapi_client
+          export ANSIBLE_LIBRARY=/tmp/dlnapi_client/dlrnapi_client/ansible
+          # dlrn API cannot be used from CLI until https://github.com/javierpena/dlrnapi_client/pull/2 merges
+          # (otherwise the password will be shown)
+          cat > /tmp/hash_label.yml << EOF
+          - name: Assign label to latest hash using the DLRN API
+             hosts: localhost
+            vars:
+              dlrn_user: "{{ lookup('env', 'DLRNAPI_USER') }}"
+              dlrn_pass: "{{ lookup('env', 'DLRNAPI_PASSWD') }}"
+              url: "{{ lookup('env', 'DLRNAPI_URL') }}"
+              commit_hash: "{{ lookup('env', 'COMMIT_HASH') }}"
+              distro_hash: "{{ lookup('env', 'DISTRO_HASH') }}"
+            tasks:
+              - dlrn_api:
+                  action: repo-promote
+                  host: "{{ url }}"
+                  user: "{{ dlrn_user }}"
+                  password: "{{ dlrn_pass }}"
+                  commit_hash: "{{ commit_hash }}"
+                  distro_hash: "{{ distro_hash }}"
+                  promote_name: {{ hash_label }}
+          EOF
+          ansible-playbook -i localhost -e hash_label=tripleo-ci-building -vv /tmp/hash_label.yml
+          deactivate
+
+- builder:
+    name: toci-test
+    builders:
       - shell: |
           #!/bin/bash -xe
 
           export TOCI_JOBTYPE={type}
+          export DELOREAN_LINK={delorean_link}
 
           export PYTHONUNBUFFERED=true
           export DEVSTACK_GATE_TEMPEST=0
@@ -251,6 +254,100 @@
           export -f gate_hook
           cp devstack-gate/devstack-vm-gate-wrap.sh ./safe-devstack-vm-gate-wrap.sh
           ./safe-devstack-vm-gate-wrap.sh
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L930-L938
+- publisher:
+    name: console-log
+    publishers:
+      - scp:
+          site: 'logs.rdoproject.org'
+          files:
+            - target: '$LOG_PATH'
+              copy-console: true
+              copy-after-failure: true
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L941-L950
+# devstack-logs can be brought back after Software-Factory has been upgraded to
+# 2.6 if need be.
+#- publisher:
+#    name: devstack-logs
+#    publishers:
+#      - scp:
+#          site: 'logs.rdoproject.org'
+#          files:
+#            - target: '$LOG_PATH'
+#              source: 'logs/**'
+#              keep-hierarchy: true
+#              copy-after-failure: true
+
+# TripleO Quickstart gate jobs
+# https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/tripleo.yaml#L107-L198
+#
+
+- job-template:
+    name: "periodic-tripleo-centos-7-images-build{suffix}"
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
+           variable: REGISTRY_PASSWORD
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: SSH_KEY
+    defaults: global
+    builders:
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - prep-hash
+      - build-containers-images
+      - toci-test:
+          type: 'singlenode-featureset023'
+          delorean_link: 'tripleo-ci-building'
+      - images-upload-and-label
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/logs
+                  cp -a /tmp/kolla $WORKSPACE/logs/
+                  export ARA_DATABASE="sqlite:///$WORKSPACE/$JOB_NAME.sqlite"
+                  sudo -E $WORKSPACE/provision_venv/bin/ara generate html $WORKSPACE/logs/ara
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+      - rdo-rsync-logs
+
+- job-template:
+    name: '{trigger}-tripleo-ci-{jobname}{suffix}'
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    defaults: global
+    builders:
+      #- link-logs
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - devstack-checkout
+      - hack-nodepool-provider-setup
+      - toci-test:
+          type: {type}
+          delorean_link: {delorean_link}
     publishers:
       - rdo-rsync-logs
       # - console-log
@@ -268,6 +365,7 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
@@ -278,11 +376,11 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 300
-      - '{trigger}-tripleo-centos-7-containers-images-build{suffix}':
+      - 'periodic-tripleo-centos-7-images-build{suffix}':
           suffix: ''
           node: upstream-centos-7
-          trigger: manual
           triggers:
             - zuul
           timeout: 120
@@ -294,7 +392,8 @@
           trigger: manual
           triggers:
             - zuul
-          branch-override: promotion-testing-hash
+          branch-override: default
+          delorean_link: ''
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
@@ -307,6 +406,7 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset006'
@@ -319,6 +419,7 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset007'
@@ -331,6 +432,7 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset008'
@@ -343,4 +445,5 @@
           triggers:
             - zuul
           branch-override: default
+          delorean_link: ''
           timeout: 180
