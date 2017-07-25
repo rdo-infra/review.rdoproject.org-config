@@ -201,6 +201,11 @@
               monitoring:
                 hosts:
                   localhost:
+              # TODO: Fix this
+              # rabbit_hosts is expected by opstools-ansible
+              rabbit_hosts:
+                children:
+                  monitoring
               monitoring_clients:
                 children:
                   standard:
