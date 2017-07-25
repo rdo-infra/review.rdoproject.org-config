@@ -33,7 +33,8 @@ IGNORED_PROJECTS = {
         'rdo',
         'rdo_gating_scripts',
         'testbranching',
-        'testproject'
+        'testproject',
+        'rdo-infra/ansible-role-rdobase'  # Chicken and egg, will be deleted
     ],
     'gerritbot': [
         'testbranching',
@@ -82,7 +83,8 @@ IGNORED_PROJECTS = {
         'centos-opstools/collectd',
         'centos-opstools/fluentd',
         'centos-opstools/python-fluent-logger',
-        'centos-opstools/rubygem-fluent-plugin-collectd-nest'
+        'centos-opstools/rubygem-fluent-plugin-collectd-nest',
+        'rdo-infra/ansible-role-rdobase' # Chicken and egg, will be deleted
     ]
 }
 
