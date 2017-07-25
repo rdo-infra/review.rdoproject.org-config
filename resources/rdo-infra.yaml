@@ -1,0 +1,40 @@
+resources:
+  groups:
+    rdo-infra-core:
+      description: 'Core members for rdo-infra projects'
+      members:
+        - alan.pevec@redhat.com
+        - amoralej@redhat.com
+        - dms@redhat.com
+        - jpena@redhat.com
+        - hguemar@redhat.com
+        - admin@review.rdoproject.org
+  acls:
+    rdo-infra-default:
+      file: |
+        [access "refs/*"]
+          owner = group rdo-infra-core
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra-core
+            label-Verified = -2..+2 group rdo-infra-core
+            label-Workflow = -1..+0 group Registered Users
+            submit = group rdo-infra-core
+            read = group rdo-infra-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group rdo-infra-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+        - rdo-infra-core
+  repos:
+    rdo-infra/ansible-role-logserver:
+      acl: rdo-infra-default
+    rdo-infra/ansible-role-rdo-base:
+      acl: rdo-infra-default
+    rdo-infra/rdo-container-registry:
+      acl: rdo-infra-default
