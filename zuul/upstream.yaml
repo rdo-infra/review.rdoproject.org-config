@@ -75,7 +75,7 @@ pipelines:
     precedence: low
     trigger:
       timer:
-        - time: 'H H/4 * * *'
+        - time: '0 */4 * * *'
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
