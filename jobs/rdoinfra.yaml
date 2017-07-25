@@ -50,7 +50,7 @@
            variable: WEIRDO_TOKEN_FILE
 
 - job:
-    name: gate-rdo-infra-role-ansible-lint
+    name: rdo-infra-ansible-lint
     defaults: global
     builders:
       - prepare-workspace
@@ -130,52 +130,97 @@
            variable: LOG_SSH_KEY
 
 - builder:
-    name: rdo-infra-role-integration
+    name: rdo-infra-playbooks-prepare
     builders:
       - shell: |
-            set -e
-            mkdir $WORKSPACE/roles
-            ln -s $WORKSPACE/$ZUUL_PROJECT/ $WORKSPACE/roles/{role}
+          CLONEMAP=$(mktemp)
+          function cleanup {
+              rm -f $CLONEMAP
+          }
+          trap cleanup EXIT
+          cat > $CLONEMAP << EOF
+          clonemap:
+            - name: 'rdo-infra/rdo-infra-playbooks'
+              dest: 'rdo-infra-playbooks'
+            - name: 'rdo-infra/ansible-role-rdo-(.*)'
+              dest: 'rdo-infra-playbooks/roles/rdo-infra/\1'
+            - name: 'centos-opstools/opstools-ansible'
+              dest: 'rdo-infra-playbooks/roles/opstools-ansible'
+          EOF
 
-            # Need to inherit system-site-packages for libselinux-python and python-yum
-            virtualenv --system-site-packages $WORKSPACE/ansible
-            source $WORKSPACE/ansible/bin/activate
-            pip install ansible==2.3.1.0 ara
+          # Zuul clone rdo-infra-playbooks and it's roles at their expected location
+          zuul-cloner -m $CLONEMAP \
+            https://review.rdoproject.org/r \
+            rdo-infra/rdo-infra-playbooks \
+            rdo-infra/ansible-role-rdo-base \
+            centos-opstools/opstools-ansible
 
-            export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
-            export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
-            export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
-            export ANSIBLE_LIBRARY=$ara_location/plugins/modules
-            export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
+- builder:
+    name: rdo-infra-playbooks-integration
+      - shell: |
+          set -e
+          # Need to inherit system-site-packages for libselinux-python and python-yum
+          virtualenv --system-site-packages $WORKSPACE/ansible
+          source $WORKSPACE/ansible/bin/activate
+          pip install ansible==2.3.1.0 ara
 
-            export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+          export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+          export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
+          export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
+          export ANSIBLE_LIBRARY=$ara_location/plugins/modules
 
-            cat << EOF > $WORKSPACE/playbook.yml
-            ---
-            - name: Apply {role} role
-              hosts: localhost
-              become: yes
-              become_user: root
-              tasks:
-                - include_role:
-                    name: "{role}"
-            EOF
-            ansible-playbook -i localhost $WORKSPACE/playbook.yml
+          export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
 
-            echo
+          export ANSIBLE_HOSTS="$WORKSPACE/integration-hosts.yml"
+          # This is an empty version of hosts.yml from rdo-infra-playbooks
+          # so that we are easily and safely able to run everything against localhost
+          cat > $ANSIBLE_HOSTS << EOF
+          all:
+            vars:
+              public_address: 0.0.0.0
+            hosts:
+              localhost:
+                ansible_connection: local
+            children:
+              standard:
+                hosts:
+                  localhost:
+              review:
+                hosts:
+                  localhost:
+              dlrn:
+                hosts:
+                  localhost:
+              cico:
+                hosts:
+                  localhost:
+              monitoring:
+                hosts:
+                  localhost:
+              monitoring_clients:
+                children:
+                  standard:
+                  review:
+                  dlrn:
+                  cico:
+                  monitoring:
+          EOF
+
+          pushd rdo-infra-playbooks
+            ansible-playbook -i $ANSIBLE_HOSTS $WORKSPACE/{playbook}.yml
             echo "Re-running for idempotency"
-            echo
-
-            ansible-playbook -i localhost $WORKSPACE/playbook.yml
+            ansible-playbook -i $ANSIBLE_HOSTS $WORKSPACE/{playbook}.yml
+          popd
 
 - job-template:
-    name: gate-rdo-infra-{role}-integration
+    name: rdo-infra-playbooks-integration-{playbook}
     defaults: global
     builders:
       - prepare-workspace
+      - rdo-infra-playbooks-prepare
       - rdo-log-setup
-      - rdo-infra-role-integration:
-          role: '{role}'
+      - rdo-infra-playbooks-integration:
+          playbook: '{playbook}'
     triggers:
       - zuul
     publishers:
@@ -198,15 +243,18 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
+        - file:
+            credential-id: e9c40e40-9c98-4cdc-8e97-76ac05a100cf
+            variable: ANSIBLE_VAULT_PASSWORD_FILE
 
 - project:
-    name: gate-rdo-infra-role-integration
-    role:
+    name: rdo-infra-playbooks-integration
+    playbook:
       - base
-      - monitoring
-      - rdobot
+      - sensu-client
+      - sensu-server
     jobs:
-      - 'gate-rdo-infra-{role}-integration'
+      - 'rdo-infra-playbooks-integration-{playbook}'
 
 - job:
     name: 'tox-flake8'
@@ -299,3 +347,5 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
+
+- job-template:
