@@ -105,7 +105,7 @@
           rm -Rf config build
           zuul-cloner http://review.rdoproject.org/r config
           # Prepare a default configuration for zuul and nodepool
-          mkdir -p build/nodepool build/zuul
+          mkdir -p build/nodepool build/zuul build/repoxplorer
           cp ~jenkins/defconf/zuul.conf build/zuul/
           cp ~jenkins/defconf/nodepool.yaml build/nodepool/_nodepool.yaml
           cp ~jenkins/defconf/repoxplorer.py build/repoxplorer/config.py
