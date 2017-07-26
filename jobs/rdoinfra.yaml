@@ -258,15 +258,15 @@
 
 - project:
     name: rdo-infra-playbooks-integration
-    suffix:
-      - ''
-      - '-nv'
-    playbook:
-      - base
-      - sensu-client
-      - sensu-server
     jobs:
-      - 'rdo-infra-playbooks-integration-{playbook}{suffix}'
+      - 'rdo-infra-playbooks-integration-{playbook}{suffix}':
+          playbook:
+            - base
+            - sensu-client
+            - sensu-server
+          suffix:
+            - ''
+            - '-nv'
 
 - job:
     name: 'tox-flake8'
