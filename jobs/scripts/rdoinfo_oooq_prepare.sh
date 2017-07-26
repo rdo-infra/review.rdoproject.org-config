@@ -50,6 +50,8 @@ COMMON_TESTING=$(grep -c $COMMON_TESTING_TAG $CREPOS_FILE)
 COMMON_RELEASE=$(grep -c $COMMON_RELEASE_TAG $CREPOS_FILE)
 
 function create_config(){{
+    echo "artg_skipped_projects:"
+    echo "  - rdoinfo"
     echo "release: $RELEASE"
     echo "overcloud_image_url: file:///var/lib/oooq-images/$RELEASE/overcloud-full.tar"
     echo "ipa_image_url: file:///var/lib/oooq-images/$RELEASE/ironic-python-agent.tar"
