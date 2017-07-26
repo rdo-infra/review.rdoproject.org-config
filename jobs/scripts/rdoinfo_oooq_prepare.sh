@@ -72,8 +72,14 @@ function create_config(){{
     echo "  - type: package"
     echo "    pkg_name: centos-release-ceph-jewel"
     echo "    custom_cmd: 'sudo yum install -y --enablerepo=extras'"
+    echo "  - type: generic"
+    echo "    reponame: centos-opstools"
+    echo "    filename: centos-opstools.repo"
+    echo "    baseurl: http://mirror.centos.org/centos/7/opstools/x86_64/"
     echo "repo_cmd_after: |"
     echo "  sudo yum-config-manager --save --setopt centos-ceph-jewel.gpgcheck=0"
+    echo '  {{% if not enable_opstools_repo|default(false)|bool %}}sudo yum-config-manager --save --setopt centos-opstools.enable=0;'
+    echo '  {{%endif %}}'
     if [ $STABLE_REPOSITORIES != false ]; then
         echo "  sudo yum-config-manager --save --setopt centos-qemu-ev.gpgcheck=0"
         echo "  sudo yum-config-manager --save --setopt centos-openstack-$O_RELEASE.gpgcheck=0"
