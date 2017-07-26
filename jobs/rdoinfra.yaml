@@ -59,7 +59,7 @@
           virtualenv $WORKSPACE/ansible-lint
           source $WORKSPACE/ansible-lint/bin/activate
           pip install ansible-lint
-          find $WORKSPACE/$ZUUL_PROJECT -type f -regex '.*.y[a]?ml' -print0 | xargs -t -n1 -0 ansible-lint -x ANSIBLE0006,ANSIBLE0010,ANSIBLE0012,ANSIBLE0013,ANSIBLE0014
+          find $WORKSPACE/$ZUUL_PROJECT -type f -not -name '*vault.yml' -regex '.*.y[a]?ml' -print0 | xargs -t -n1 -0 ansible-lint -x ANSIBLE0006,ANSIBLE0010,ANSIBLE0012,ANSIBLE0013,ANSIBLE0014
     triggers:
       - zuul
     node: rdo-centos-7
