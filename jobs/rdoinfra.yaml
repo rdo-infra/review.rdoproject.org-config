@@ -222,7 +222,7 @@
           popd
 
 - job-template:
-    name: 'rdo-infra-playbooks-integration-{playbook}'
+    name: 'rdo-infra-playbooks-integration-{playbook}{suffix}'
     defaults: global
     builders:
       - prepare-workspace
@@ -258,12 +258,15 @@
 
 - project:
     name: rdo-infra-playbooks-integration
+    suffix:
+      - ''
+      - '-nv'
     playbook:
       - base
       - sensu-client
       - sensu-server
     jobs:
-      - 'rdo-infra-playbooks-integration-{playbook}'
+      - 'rdo-infra-playbooks-integration-{playbook}{suffix}'
 
 - job:
     name: 'tox-flake8'
