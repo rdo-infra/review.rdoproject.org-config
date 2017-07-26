@@ -1,0 +1,56 @@
+resources:
+  groups:
+    rdo-infra/example-core:
+      description: Core developers for project example
+      members:
+      - chkumar@redhat.com
+    rdo-infra/example-ptl:
+      description: Project team lead for project example
+      members:
+      - sfrdobender@rpmfactory.beta.rdoproject.org
+      - admin@review.rdoproject.org
+  acls:
+    rdo-infra-example-distgit:
+      file: |
+        [access "refs/*"]
+          read = group rdo-infra/example-core
+          owner = group rdo-infra/example-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group rdo-infra/example-core
+          label-Code-Review = -2..+2 group rdo-infra/example-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group rdo-infra/example-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group rdo-infra/example-core
+          read = group rdo-provenpackagers
+          abandon = group rdo-infra/example-core
+          label-Verified = -2..+2 group rdo-infra/example-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group rdo-infra/example-core
+          label-Workflow = -1..+1 group rdo-infra/example-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group rdo-infra/example-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - rdo-infra/example-core
+      - rdo-infra/example-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    rdo-infra/example-distgit:
+      acl: rdo-infra-example-distgit
+      description: Packaging of upstream example
+      default-branch: rpm-master
+      branches:
+        master: '0'
