@@ -16,9 +16,13 @@ pipelines:
     success:
       openstack:
         verified: 1
+      sqlreporter:
+        score: 1
     failure:
       openstack:
         verified: -1
+      sqlreporter:
+        score: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
@@ -40,7 +44,12 @@ pipelines:
           approval:
             - verified: 1
           username: ^(jenkins|zuul)$
+    success:
+      sqlreporter:
+        score: 1
     failure:
+      sqlreporter:
+        score: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
@@ -61,9 +70,13 @@ pipelines:
     success:
       openstack:
         verified: 1
+      sqlreporter:
+        score: 1
     failure:
       openstack:
         verified: -1
+      sqlreporter:
+        score: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
@@ -76,7 +89,12 @@ pipelines:
     trigger:
       timer:
         - time: '0 */4 * * *'
+    success:
+      sqlreporter:
+        score: 1
     failure:
+      sqlreporter:
+        score: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
@@ -92,7 +110,12 @@ pipelines:
       openstack:
         - event: ref-updated
           ref: ^(?!refs/).*$
+    success:
+      sqlreporter:
+        score: 1
     failure:
+      sqlreporter:
+        score: -1
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
