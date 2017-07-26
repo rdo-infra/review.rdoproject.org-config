@@ -108,6 +108,7 @@
           mkdir -p build/nodepool build/zuul
           cp ~jenkins/defconf/zuul.conf build/zuul/
           cp ~jenkins/defconf/nodepool.yaml build/nodepool/_nodepool.yaml
+          cp ~jenkins/defconf/repoxplorer.py build/repoxplorer/config.py
 
           cd config
           echo "[+] Checking jobs"
@@ -119,7 +120,7 @@
           zuul-server -c ../build/zuul/zuul.conf -l ../build/zuul/layout.yaml -t
 
           echo "[+] Checking nodepool"
-          /usr/local/bin/sf-nodepool-conf-merger.py ../build/nodepool/nodepool.yaml
+          /usr/share/sf-config/scripts/sf-nodepool-conf-merger.py nodepool/nodepool.yaml ../build/nodepool/nodepool.yaml
           nodepool -c ../build/nodepool/nodepool.yaml config-validate
 
           echo "[+] Checking gerrit replication"
@@ -128,12 +129,19 @@
           echo "[+] Checking gerrit commentlinks"
           python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
 
+          echo "[+] Check dashboards"
+          sf-update-dashboard --check --input dashboards/
+
           echo "[+] Checking syntax errors in policy file"
           python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
 
+          if [ -f /usr/bin/repoxplorer-config-validate ]; then
+              echo "[+] Checking syntax errors in repoxplorer definition files"
+              repoxplorer-config-validate --config ../build/repoxplorer/config.py
+          fi
+
           echo "[+] Checking resources changes"
           /usr/local/bin/resources.sh validate
-
     triggers:
       - zuul
     node: master
@@ -145,6 +153,7 @@
       - shell: |
           echo "Updating configuration using $ZUUL_COMMIT"
           ssh root@managesf.review.rdoproject.org sf_configrepo_update
+
           echo "[+] Applying resources changes"
           /usr/local/bin/resources.sh apply
     publishers:

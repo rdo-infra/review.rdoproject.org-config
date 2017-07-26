@@ -1,3 +1,4 @@
+---
 # This file is managed by ansible, don't edit
 # This is the definition of the default jobs
 
@@ -7,9 +8,13 @@ includes:
 jobs:
   - name: ^.*$
     parameter-function: set_node_options
-    swift:
-      - name: artifacts
 
+# sqlreporter score value:
+# +1/-1  check
+# +2/-2  gate
+# +1/-3  periodic (less critical than post)
+# +1/-4  post (very critical error)
+# +1/-5  tag (even more critical error to look for)
 pipelines:
   - name: check
     description: Newly uploaded patchsets enter this pipeline to receive an initial +/-1 Verified vote from Jenkins.
@@ -17,8 +22,8 @@ pipelines:
     manager: IndependentPipelineManager
     precedence: low
     require:
-      open: True
-      current-patchset: True
+      open: true
+      current-patchset: true
     trigger:
       gerrit:
         - event: patchset-created
@@ -33,17 +38,21 @@ pipelines:
     success:
       gerrit:
         verified: 1
+      sqlreporter:
+        score: 1
     failure:
       gerrit:
         verified: -1
+      sqlreporter:
+        score: -1
 
   - name: gate
     description: Changes that have been approved by core developers are enqueued in order in this pipeline
     manager: DependentPipelineManager
     precedence: normal
     require:
-      open: True
-      current-patchset: True
+      open: true
+      current-patchset: true
       approval:
         - verified: [1, 2]
           username: jenkins
@@ -68,9 +77,13 @@ pipelines:
       gerrit:
         verified: 2
         submit: true
+      sqlreporter:
+        score: 2
     failure:
       gerrit:
         verified: -2
+      sqlreporter:
+        score: -2
     window-floor: 20
     window-increase-factor: 2
 
@@ -82,11 +95,16 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^(?!(devnull|refs/.*)).*$
+    success:
+      sqlreporter:
+        score: 1
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
+      sqlreporter:
+        score: -4
 
   - name: periodic
     description: Jobs in this queue are triggered daily.
@@ -95,11 +113,16 @@ pipelines:
     trigger:
       timer:
         - time: '0 0 * * *'
+    success:
+      sqlreporter:
+        score: 1
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
+      sqlreporter:
+        score: -3
 
   - name: tag
     description: This pipeline runs jobs in response to any tag event.
@@ -110,11 +133,16 @@ pipelines:
       gerrit:
         - event: ref-updated
           ref: ^refs/tags/.*$
+    success:
+      sqlreporter:
+        score: 1
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in tag pipeline: {change.project}'
+      sqlreporter:
+        score: -5
 
   - name: experimental
     description: On-demand pipeline for requesting a run against a set of jobs that are not yet gating. Leave review comment of "check experimental" to run jobs in this pipeline.
@@ -129,8 +157,12 @@ pipelines:
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
     success:
       gerrit: {}
+      sqlreporter:
+        score: 1
     failure:
       gerrit: {}
+      sqlreporter:
+        score: -1
 
 projects:
   - name: config
