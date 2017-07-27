@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8c0949_f445f0b3",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "missing RELEASE\u003d{release} ?",
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_741100ac",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "Credential binding is SSH_KEY variable but here it\u0027s RDO_SSH_KEY.",
+      "range": {
+        "startLine": 125,
+        "startChar": 85,
+        "endLine": 125,
+        "endChar": 96
+      },
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_341778a5",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "Missing:\n\nssh_args\u003d\"-o StrictHostKeyChecking\u003dno -o UserKnownHostsFile\u003d/dev/null\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 72,
+        "endLine": 125,
+        "endChar": 79
+      },
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_14127cb4",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "This should be:\n\nUPLOAD_URL\u003duploader@images.rdoproject.org:/var/www/html/images/$RELEASE/delorean/tripleo-upstream",
+      "range": {
+        "startLine": 126,
+        "startChar": 10,
+        "endLine": 126,
+        "endChar": 98
+      },
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_540c0495",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "I think this rsync and following one also need -e \u0027ssh $ssh_args -i $RDO_SSH_KEY\u0027\n\nIn rdo-ci it\u0027s not needed because it\u0027s executed from jenkins slaves not from virthost.",
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_94258c0c",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T17:26:45Z",
+      "side": 1,
+      "message": "For non master, -uc it\u0027s not needed. Anyway we can fix this in follow up.",
+      "range": {
+        "startLine": 174,
+        "startChar": 73,
+        "endLine": 174,
+        "endChar": 76
+      },
+      "revId": "a1e418cedbaf6d978abb1ca1c76c4af2a0804c67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
