@@ -79,34 +79,6 @@ resources:
       groups:
       - testbranching-core
       - testbranching-ptl
-    14b11c55feeaf2ae6415041b7f1d1682:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group rdo-infra/weirdo-core
-          owner = group rdo-infra/weirdo-ptl
-            removeReviewer = group rdo-infra/weirdo-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/weirdo-core
-            label-Code-Review = -2..+2 group rdo-infra/weirdo-ptl
-            label-Verified = -2..+2 group rdo-infra/weirdo-ptl
-            label-Workflow = -1..+1 group rdo-infra/weirdo-core
-            label-Workflow = -1..+1 group rdo-infra/weirdo-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/weirdo-ptl
-            read = group Registered Users
-            read = group rdo-infra/weirdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group rdo-infra/weirdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/weirdo-core
-      - rdo-infra/weirdo-ptl
     521a1df16117f6b2ad1b23bfa338f544:
       file: |
         [access "refs/*"]
@@ -185,33 +157,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    7e8ec4400c7f13a00e5a8cd7c706f7bb:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group rdo-infra/weirdo-core
-          owner = group rdo-infra/weirdo-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/weirdo-core
-            label-Code-Review = -2..+2 group rdo-infra/weirdo-ptl
-            label-Verified = -2..+2 group rdo-infra/weirdo-ptl
-            label-Workflow = -1..+1 group rdo-infra/weirdo-core
-            label-Workflow = -1..+1 group rdo-infra/weirdo-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/weirdo-ptl
-            read = group Registered Users
-            read = group rdo-infra/weirdo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group rdo-infra/weirdo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/weirdo-core
-      - rdo-infra/weirdo-ptl
     86db27632fe53182ae377d3720199056:
       file: |
         [access "refs/*"]
@@ -575,46 +520,6 @@ resources:
       members:
       - dms@redhat.com
       - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-common-core:
-      description: Core developers for project rdo-infra/ansible-role-weirdo-common
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-common-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-weirdo-common
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-kolla-core:
-      description: Core developers for project rdo-infra/ansible-role-weirdo-kolla
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-kolla-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-weirdo-kolla
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-logs-core:
-      description: Core developers for project rdo-infra/ansible-role-weirdo-logs
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-logs-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-weirdo-logs
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-packstack-core:
-      description: Core developers for project rdo-infra/ansible-role-weirdo-packstack
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-packstack-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-weirdo-packstack
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-puppet-openstack-core:
-      description: Core developers for project rdo-infra/ansible-role-weirdo-puppet-openstack
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-weirdo-puppet-openstack-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-weirdo-puppet-openstack
-      members:
-      - admin@review.rdoproject.org
     rdo-infra/centos-release-openstack-core:
       description: Core developers for project rdo-infra/centos-release-openstack
       members:
@@ -659,15 +564,6 @@ resources:
     rdo-infra/rdo-release-ptl:
       description: Project team lead for project rdo-infra/rdo-release
       members:
-      - admin@review.rdoproject.org
-    rdo-infra/weirdo-core:
-      description: Core developers for project rdo-infra/weirdo
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/weirdo-ptl:
-      description: Project team lead for project rdo-infra/weirdo
-      members:
-      - dms@redhat.com
       - admin@review.rdoproject.org
     rdo-ptl:
       description: Project team lead for project rdo
@@ -733,16 +629,6 @@ resources:
     rdo-infra/ansible-role-rdomonitoring:
       acl: d8d99db68b93fc8097ff3db71baab8f9
       description: ''
-    rdo-infra/ansible-role-weirdo-common:
-      acl: 14b11c55feeaf2ae6415041b7f1d1682
-    rdo-infra/ansible-role-weirdo-kolla:
-      acl: 14b11c55feeaf2ae6415041b7f1d1682
-    rdo-infra/ansible-role-weirdo-logs:
-      acl: 7e8ec4400c7f13a00e5a8cd7c706f7bb
-    rdo-infra/ansible-role-weirdo-packstack:
-      acl: 14b11c55feeaf2ae6415041b7f1d1682
-    rdo-infra/ansible-role-weirdo-puppet-openstack:
-      acl: 14b11c55feeaf2ae6415041b7f1d1682
     rdo-infra/centos-release-openstack:
       acl: 0cbf8b59c21d3c2b5c87e430aedf61cf
     rdo-infra/ci-config:
@@ -756,8 +642,6 @@ resources:
     rdo-infra/rdo-release:
       acl: 5af830f17f44516b11f1f77e31ea70f5
       description: ''
-    rdo-infra/weirdo:
-      acl: 14b11c55feeaf2ae6415041b7f1d1682
     rdo_gating_scripts:
       acl: 52cb6e86d30b67dde85f1df8b75e2dc8
       description: ''
