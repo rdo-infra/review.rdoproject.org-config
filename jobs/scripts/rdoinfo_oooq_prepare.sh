@@ -55,6 +55,11 @@ function create_config(){{
     echo "release: $RELEASE"
     echo "overcloud_image_url: file:///var/lib/oooq-images/$RELEASE/overcloud-full.tar"
     echo "ipa_image_url: file:///var/lib/oooq-images/$RELEASE/ironic-python-agent.tar"
+    echo "repo_cmd_before: |"
+    echo "  sudo yum remove -y rdo-release centos-release-openstack-* || true;"
+    echo "  sudo rpm -e epel-release || true;"
+    echo "  sudo rm -rf /etc/yum.repos.d/*.rpmsave;"
+    echo "  sudo yum clean all"
     echo "repos:"
     if [ $STABLE_REPOSITORIES != false ]; then
         echo "  - type: package"
