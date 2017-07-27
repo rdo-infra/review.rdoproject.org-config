@@ -2713,6 +2713,13 @@ projects:
       - rdo-infra-ansible-lint
       - rdo-infra-playbooks-integration-base
 
+  - name: rdo-infra/ansible-role-rdo-bot
+    check:
+      - rdo-infra-ansible-lint
+      - rdo-infra-playbooks-integration-sensu-server-nv
+    gate:
+      - rdo-infra-ansible-lint
+
   # Deprecated
   - name: rdo-infra/ansible-role-rdomonitoring
     template:
