@@ -33,13 +33,27 @@
           # in upstream images
           export PATH=$PATH:/usr/zuul-env/bin
 
+          # Note (dmsimard): If we're running for a periodic job, there is no
+          # incentive in using Zuul cloner because the jobs are not going to
+          # potentially depend on things from the zuul context (ex: depends-on)
+          # The zuul git namespace (where the job was triggered from) is also
+          # wonky for periodic jobs. A periodic pipeline targetted at an
+          # upstream project would still end up trying to clone from review.rdo.
+          # This should be revisited in Zuul v3 which is supposedly not a
+          # problem
+
           # We can receive reviews from review.openstack.org.
           # Builds that are run as third party for review.o.o are in the Zuul
           # pipelines prefixed by "openstack-".
+          GIT_SOURCE="https://review.rdoproject.org/r"
           if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              zuul-cloner -v https://git.openstack.org $ZUUL_PROJECT
-          else
-              zuul-cloner -v http://review.rdoproject.org/r $ZUUL_PROJECT
+              GIT_SOURCE="https://git.openstack.org"
+          fi
+
+          if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
+              git clone --depth=1 $GIT_SOURCE/$ZUUL_PROJECT
+          else:
+              zuul-cloner -v $GIT_SOURCE $ZUUL_PROJECT
           fi
 
 - builder:
