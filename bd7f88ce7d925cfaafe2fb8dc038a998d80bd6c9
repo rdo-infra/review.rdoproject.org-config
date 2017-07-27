@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8c0949_1488bc21",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "This should be:\n\nuploader@images.rdoproject.org:/var/www/html/images/$dest_image_path/$FULL_HASH/",
+      "range": {
+        "startLine": 126,
+        "startChar": 80,
+        "endLine": 126,
+        "endChar": 143
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_348db832",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "Additional option is used in rsync:\n\n-e \u0027ssh $ssh_args -i rdo-ci-public.pem\u0027\n\nWe need to make certificate available, via credential-binding i guess.",
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_d49e3463",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "In rdo-ci jobs LOCATION is the directory where hash_directories are created, current-tripleo. As per the proposed \"/var/www/html/images/\u003crelease\u003e/delorean/tripleo-upstream/$FULL_HASH/\", LOCATION would be \"tripleo-upstream\".",
+      "range": {
+        "startLine": 129,
+        "startChar": 17,
+        "endLine": 129,
+        "endChar": 25
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_f49b3070",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "dest_image_path is \"$RDO_VERSION_DIR/$BUILD_SYS/$LOCATION\", for example master/delorean/tripleo-upstream",
+      "range": {
+        "startLine": 130,
+        "startChar": 140,
+        "endLine": 130,
+        "endChar": 155
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_54824401",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "FULL_PATH",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 26
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_74874010",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "FULL_PATH",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_947bcc28",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T16:12:51Z",
+      "side": 1,
+      "message": "You can remove tripleo-ci-testing. The way to access the image would be:\n\nhttps://images.rdoproject.org/master/delorean/tripleo-upstream/testing/",
+      "range": {
+        "startLine": 134,
+        "startChar": 97,
+        "endLine": 134,
+        "endChar": 115
+      },
+      "revId": "bd7f88ce7d925cfaafe2fb8dc038a998d80bd6c9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
