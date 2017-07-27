@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8c0949_94390cdb",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Could we do this parametrizable for others releases, not only master?",
+      "range": {
+        "startLine": 119,
+        "startChar": 10,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_742580aa",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "The destination path is wrong, in current jobs in rdo-ci promotion pipeline it\u0027s:\n\n/var/www/html/images/\u003crelease\u003e/delorean/consistent/$FULL_HASH/\n\nHowever, we need to do something to avoid path collisions as the images built in this jobs are not valid for rdo-ci promotion as-is. they need undercloud images also. Maybe in future we can reuse them.\n\nI\u0027d propose to use:\n\n/var/www/html/images/\u003crelease\u003e/delorean/tripleo-upstream/$FULL_HASH/",
+      "range": {
+        "startLine": 129,
+        "startChar": 128,
+        "endLine": 129,
+        "endChar": 138
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_144d1c73",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "I need to check the rsync commands to publish this. I\u0027ll follow up.",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 15
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_d43394f4",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "This variable is not declared.",
+      "range": {
+        "startLine": 134,
+        "startChar": 140,
+        "endLine": 134,
+        "endChar": 155
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_740e6036",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Could we make this a parameter so that we could use it not only for master. We\u0027ll need promotion pipelines not only for master but for stable releases also.",
+      "range": {
+        "startLine": 149,
+        "startChar": 74,
+        "endLine": 149,
+        "endChar": 80
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_5409642b",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "This should be \"consistent\", not \"current\".",
+      "range": {
+        "startLine": 149,
+        "startChar": 81,
+        "endLine": 149,
+        "endChar": 88
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_5420849b",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "typo, that should be a \u0027f\u0027",
+      "range": {
+        "startLine": 151,
+        "startChar": 77,
+        "endLine": 151,
+        "endChar": 78
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_d41c746d",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "This will not work to discover hashes, you need long distro_hash, and this is providing only short hash for distro. You need to use commit.yml file, see logic in https://github.com/rdo-infra/ci-config/blob/master/jenkins/jobs/weirdo-defaults.yml#L110",
+      "range": {
+        "startLine": 153,
+        "startChar": 10,
+        "endLine": 153,
+        "endChar": 59
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_f419707a",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "There is a package in pip, you can do pip install dlrnapi_client. If not, i\u0027m not sure if you need to do pip install . from the clone to get dlrnapi_client binary installed in the venv.",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 84
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_1426fcba",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Making this a parameter for reusability on others repos would be nice.",
+      "range": {
+        "startLine": 177,
+        "startChar": 60,
+        "endLine": 177,
+        "endChar": 69
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_342bf883",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Where is this variable used?",
+      "range": {
+        "startLine": 200,
+        "startChar": 17,
+        "endLine": 200,
+        "endChar": 30
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_3404d814",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "as per conversation in irc, \"featureset023 \u003d\u003d just build images\". It doesn\u0027t exist yet, WIP.",
+      "range": {
+        "startLine": 314,
+        "startChar": 17,
+        "endLine": 314,
+        "endChar": 41
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_94402c37",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be tripleo-ci-testing ?",
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_b43d28be",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-07-27T10:42:08Z",
+      "side": 1,
+      "message": "Will other jobs come here later?, iiuc this is only to test how this works, right?",
+      "range": {
+        "startLine": 198,
+        "startChar": 10,
+        "endLine": 198,
+        "endChar": 68
+      },
+      "revId": "b11c5f1d3a297bc16a648451c53d142c65356a94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
