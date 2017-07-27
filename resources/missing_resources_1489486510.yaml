@@ -107,32 +107,6 @@ resources:
       groups:
       - rdo-infra/weirdo-core
       - rdo-infra/weirdo-ptl
-    51da9e01b7b6c18da43f32c4b07b4d5e:
-      file: |
-        [access "refs/*"]
-          read = group rdo-infra/rdobot-core
-          owner = group rdo-infra/rdobot-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/rdobot-core
-            label-Code-Review = -2..+2 group rdo-infra/rdobot-ptl
-            label-Verified = -2..+2 group rdo-infra/rdobot-ptl
-            label-Workflow = -1..+1 group rdo-infra/rdobot-core
-            label-Workflow = -1..+1 group rdo-infra/rdobot-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/rdobot-ptl
-            read = group rdo-infra/rdobot-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group rdo-infra/rdobot-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/rdobot-ptl
-      - rdo-infra/rdobot-core
     521a1df16117f6b2ad1b23bfa338f544:
       file: |
         [access "refs/*"]
@@ -686,14 +660,6 @@ resources:
       description: Project team lead for project rdo-infra/rdo-release
       members:
       - admin@review.rdoproject.org
-    rdo-infra/rdobot-core:
-      description: Core developers for project rdo-infra/rdobot
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/rdobot-ptl:
-      description: Project team lead for project rdo-infra/rdobot
-      members:
-      - admin@review.rdoproject.org
     rdo-infra/weirdo-core:
       description: Core developers for project rdo-infra/weirdo
       members:
@@ -789,9 +755,6 @@ resources:
       description: ''
     rdo-infra/rdo-release:
       acl: 5af830f17f44516b11f1f77e31ea70f5
-      description: ''
-    rdo-infra/rdobot:
-      acl: 51da9e01b7b6c18da43f32c4b07b4d5e
       description: ''
     rdo-infra/weirdo:
       acl: 14b11c55feeaf2ae6415041b7f1d1682
