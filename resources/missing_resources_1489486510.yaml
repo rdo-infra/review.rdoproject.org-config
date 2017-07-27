@@ -157,32 +157,6 @@ resources:
       groups:
       - rdo-infra/rdo-release-core
       - rdo-infra/rdo-release-ptl
-    86db27632fe53182ae377d3720199056:
-      file: |
-        [access "refs/*"]
-          read = group rdo-infra/rdo-infra-playbooks-core
-          owner = group rdo-infra/rdo-infra-playbooks-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/rdo-infra-playbooks-core
-            label-Code-Review = -2..+2 group rdo-infra/rdo-infra-playbooks-ptl
-            label-Verified = -2..+2 group rdo-infra/rdo-infra-playbooks-ptl
-            label-Workflow = -1..+1 group rdo-infra/rdo-infra-playbooks-core
-            label-Workflow = -1..+1 group rdo-infra/rdo-infra-playbooks-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/rdo-infra-playbooks-ptl
-            read = group rdo-infra/rdo-infra-playbooks-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group rdo-infra/rdo-infra-playbooks-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/rdo-infra-playbooks-ptl
-      - rdo-infra/rdo-infra-playbooks-core
     8812c30df4a27d9cb53bf689d1140e77:
       file: |
         [project]
@@ -546,15 +520,6 @@ resources:
       description: Project team lead for project rdo-infra/rdo-dashboards
       members:
       - admin@review.rdoproject.org
-    rdo-infra/rdo-infra-playbooks-core:
-      description: Core developers for project rdo-infra/rdo-infra-playbooks
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/rdo-infra-playbooks-ptl:
-      description: Project team lead for project rdo-infra/rdo-infra-playbooks
-      members:
-      - dms@redhat.com
-      - admin@review.rdoproject.org
     rdo-infra/rdo-release-core:
       description: Core developers for project rdo-infra/rdo-release
       members:
@@ -635,9 +600,6 @@ resources:
       acl: 910a710c67c8cd8ed04404f9c26593a4
     rdo-infra/rdo-dashboards:
       acl: 521a1df16117f6b2ad1b23bfa338f544
-      description: ''
-    rdo-infra/rdo-infra-playbooks:
-      acl: 86db27632fe53182ae377d3720199056
       description: ''
     rdo-infra/rdo-release:
       acl: 5af830f17f44516b11f1f77e31ea70f5
