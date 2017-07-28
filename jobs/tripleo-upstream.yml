@@ -309,7 +309,8 @@
       - net-info
       - prepare-workspace
       - rdo-log-setup
-      - prep-hash
+      - prep-hash:
+          release: {release}
       - build-containers-images:
           release: {release}
       - toci-test:
