@@ -141,6 +141,7 @@
     name: prep-hash
     builders:
       - shell: |
+          mkdir $WORKSPACE/logs
           export RELEASE={release}
           curl -o /tmp/delorean.repo https://trunk.rdoproject.org/centos7-$RELEASE/consistent/delorean.repo
           export FULL_HASH=$(grep -o -E '[0-9a-f]{{40}}_[0-9a-f]{{8}}' < /tmp/delorean.repo)
@@ -157,7 +158,8 @@
           export DISTRO_HASH=$DISTRO_HASH
           export PROMOTE_NAME=$PROMOTE_NAME
           EOF
-          rm -f /tmp/delorean.repo
+          mv /tmp/delorean.repo $WORKSPACE/logs
+          cp /tmp/hash_info.sh $WORKSPACE/logs
           virtualenv --system-site-packages /tmp/delorean
           source /tmp/delorean/bin/activate
           pip install ansible==2.3.0.0 dlrnapi_client
