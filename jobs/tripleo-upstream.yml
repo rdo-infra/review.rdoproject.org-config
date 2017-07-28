@@ -196,6 +196,16 @@
           export TOCI_JOBTYPE={type}
           export DELOREAN_LINK=tripleo-ci-testing
 
+          # ZUUL Doesn't set these for periodic jobs
+          export ZUUL_BRANCH=${{ZUUL_BRANCH:-master}}
+          export ZUUL_REF=${{ZUUL_REF:-None}}
+
+          export BRANCH_OVERRIDE={branch-override}
+          if [ "$BRANCH_OVERRIDE" != "default" ] ; then
+              export OVERRIDE_ZUUL_BRANCH=$BRANCH_OVERRIDE
+          fi
+
+
           export PYTHONUNBUFFERED=true
           export DEVSTACK_GATE_TEMPEST=0
           export DEVSTACK_GATE_EXERCISES=0
@@ -314,6 +324,7 @@
           release: "{release}"
       - toci-test:
           type: 'singlenode-featureset023'
+          branch-override: "{branch-override}"
       - images-upload-and-label:
           release: "{release}"
     publishers:
@@ -387,7 +398,8 @@
           node: upstream-centos-7
           triggers:
             - zuul
-          timeout: 120
+          branch-override: default
+          timeout: 240
       - '{trigger}-tripleo-ci-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset016'
           suffix: ''
