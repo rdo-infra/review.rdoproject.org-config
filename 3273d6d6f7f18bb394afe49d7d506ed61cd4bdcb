@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_5720869b",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "yes, Done",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_f47df0b2",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -66,6 +83,23 @@
         "endLine": 127,
         "endChar": 107
       },
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_772582aa",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "We need to make clear that these are not RDO images at all, in some way. I suggested not putting them underc delorean at all. If this doesn\u0027t look good either, I\u0027m out of ideas.",
       "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -119,6 +153,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_97390edb",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "upstream jobs used ipa-images.tar name since ages. It may be wrong, but I\u0027m not going to change it now.",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_344f7894",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -160,6 +211,23 @@
         "endLine": 138,
         "endChar": 14
       },
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_b7360ae6",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "This is exaclty what was done here https://github.com/rdo-infra/ci-config/blob/master/jenkins/jobs/scripts/tripleo-quickstart-publish-testing-images.sh. I think it is done to rsync a deleted file on the remote. I did not have time to find the proper documentation on how to delete a symnlink in the server.",
       "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -213,6 +281,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_d73396f4",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "Please define \"needlessly complicated\". This is done with fewer lines of code, smaller regexp and pipes.\nI need the values to call dlrn api, and some other to maintain variable across all next builders.",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_74402057",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -260,6 +345,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_f73092ea",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "\"PROMOTE\" continues to be confusing. When I promote I still expect something to be tested and deemed appropriate. That\u0027s why I\u0027m using label, because that\u0027s what I do in my mind: \"assign the hash a label with a common known name\"\nAnyway, renamed to PROMOTE_NAME",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_d4571425",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -277,6 +379,23 @@
         "endLine": 161,
         "endChar": 34
       },
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_174d1e73",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "Since the slave is going to launch quickstart and setup repository, I didn\u0027t want to leave delorean repos anywhere in the filesystem if not necessary.\nAnyway, removed the remove.",
       "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -330,6 +449,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_37521a14",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "Done",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_b45a884e",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -353,6 +489,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_5757a602",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "fixed hosts",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_945d8c4b",
         "filename": "jobs/tripleo-upstream.yml",
         "patchSetId": 10
@@ -370,6 +523,23 @@
         "endLine": 188,
         "endChar": 65
       },
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_775ca226",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "leftover from previous patchset",
       "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -423,6 +593,23 @@
     },
     {
       "key": {
+        "uuid": "7a8c0949_97402e37",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "Duplicated credentials entry",
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8c0949_9424acc7",
         "filename": "zuul/upstream.yaml",
         "patchSetId": 10
@@ -464,6 +651,23 @@
         "endLine": 83,
         "endChar": 73
       },
+      "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a8c0949_372bfa83",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2017-07-28T07:54:58Z",
+      "side": 1,
+      "message": "Manual was created as a mean to launch periodic jobs manually, to force a promotion, Based on your request (too many jobs on the manual pipeline) we are moving the job that still need debugging to the experimental pipeline, leaving in the manual only the periodic jobs that are know to work. So manual would be equivalent to perodic, changing only the trigger, experimental will be for all other jobs not consisten enough",
       "revId": "3273d6d6f7f18bb394afe49d7d506ed61cd4bdcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
