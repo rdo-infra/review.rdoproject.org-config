@@ -58,6 +58,7 @@ function create_config(){{
     echo "repo_cmd_before: |"
     echo "  sudo yum remove -y rdo-release centos-release-openstack-* || true;"
     echo "  sudo rpm -e epel-release || true;"
+    echo "  sudo rm -rf /etc/yum.repos.d/delorean*;"
     echo "  sudo rm -rf /etc/yum.repos.d/*.rpmsave;"
     echo "  sudo yum clean all"
     echo "repos:"
