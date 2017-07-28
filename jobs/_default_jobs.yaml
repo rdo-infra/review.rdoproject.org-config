@@ -52,7 +52,7 @@
 
           if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
               git clone --depth=1 $GIT_SOURCE/$ZUUL_PROJECT
-          else:
+          else
               zuul-cloner -v $GIT_SOURCE $ZUUL_PROJECT
           fi
 
