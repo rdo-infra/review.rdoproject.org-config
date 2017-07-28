@@ -77,6 +77,7 @@
     name: build-containers-images
     builders:
       - shell: |
+          echo ======== BUILD CONTAINERS IMAGES
           TESTING_TAG="tripleo-ci-testing"
           pushd $WORKSPACE
           # Retrieve role
@@ -114,16 +115,17 @@
           ansible-playbook $WORKSPACE/playbook.yml -e kolla_threads=16
           deactivate
           popd
+          echo ======== BUILD CONTAINERS IMAGES COMPLETED
 
 - builder:
     name: images-upload-and-label
     builders:
       - shell: |
-          # Delete old testing symlink
+          echo ========= UPLOAD CLOUD IMAGES
           source /tmp/hash_info.sh
           pushd /home/jenkins
-          ssh_args="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-          rsync_cmd="rsync --verbose --archive --delay-updates -e 'ssh $ssh_args -i $SSH_KEY'"
+          ssh_cmd="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
+          rsync_cmd="rsync --verbose --archive --delay-updates -e $ssh_cmd"
           UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/delorean/tripleo-upstream
           $rsync_cmd ironic-python-agent.tar $UPLOAD_URL/$FULL_HASH/ipa_images.tar
           $rsync_cmd ironic-python-agent.tar.md5 $UPLOAD_URL/$FULL_HASH/ipa_images.tar.md5
@@ -136,11 +138,13 @@
           ln -s $FULL_HASH testing
           rsync -av testing $UPLOAD_URL/
           popd
+          echo ======== UPLOAD CLOUD IMAGES COMPLETE
 
 - builder:
     name: prep-hash
     builders:
       - shell: |
+          echo ========= PREPARE HASH PROMOTION
           mkdir $WORKSPACE/logs
           export RELEASE={release}
           curl -o /tmp/delorean.repo https://trunk.rdoproject.org/centos7-$RELEASE/consistent/delorean.repo
@@ -188,6 +192,7 @@
           EOF
           ansible-playbook -i localhost -vv /tmp/hash_label.yml
           deactivate
+          echo ========= PREPARE HASH PROMOTION COMPLETED
 
 - builder:
     name: toci-test
@@ -327,7 +332,7 @@
       - build-containers-images:
           release: "{release}"
       - toci-test:
-          type: 'singlenode-featureset023'
+          type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
       - images-upload-and-label:
           release: "{release}"
