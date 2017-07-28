@@ -160,7 +160,7 @@
           rm -f /tmp/delorean.repo
           virtualenv --system-site-packages /tmp/delorean
           source /tmp/delorean/bin/activate
-          pip install ansible=2.3.0.0 dlrnapi_client
+          pip install ansible==2.3.0.0 dlrnapi_client
           export ANSIBLE_LIBRARY=/usr/lib/python2.7/site-packages/dlrnapi_client/ansible:$VIRTUAL_ENV/lib/python2.7/site-packages/dlrnapi_client/ansible
           # dlrn API cannot be used from CLI until https://github.com/javierpena/dlrnapi_client/pull/2 merges
           # (otherwise the password will be shown)
