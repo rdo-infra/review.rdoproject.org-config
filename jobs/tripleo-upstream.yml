@@ -168,10 +168,9 @@
           - name: Assign label to latest hash using the DLRN API
             hosts: localhost
             vars:
-              release: "{{{{ lookup('env', 'RELEASE') }}}}"
               dlrn_user: "review_rdoproject_org"
               dlrn_pass: "{{{{ lookup('env', 'DLRNAPI_PASSWD') }}}}"
-              url: "https://trunk.rdoproject.org/api-centos-{{{{ release }}}}-uc"
+              url: "https://trunk.rdoproject.org/api-centos-{{{{ lookup('env', 'RELEASE') }}}}-uc"
               commit_hash: "{{{{ lookup('env', 'COMMIT_HASH') }}}}"
               distro_hash: "{{{{ lookup('env', 'DISTRO_HASH') }}}}"
               promote_name: "{{{{ lookup('env', 'PROMOTE_NAME') }}}}"
