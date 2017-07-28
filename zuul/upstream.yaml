@@ -80,10 +80,10 @@ pipelines:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in manual pipeline: {change.project}'
+        subject: '[Zuul] Job failed in experimental pipeline: {change.project}'
 
   - name: openstack-manual
-    description: Upstream patchsets that have to be checked manually against a set of jobs.
+    description: Upstream patchsets to manually check promotion jobs.
     manager: IndependentPipelineManager
     source: openstack
     precedence: normal
@@ -107,7 +107,7 @@ pipelines:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in experimental pipeline: {change.project}'
+        subject: '[Zuul] Job failed in manual pipeline: {change.project}'
 
   - name: openstack-periodic-4hr
     description: Jobs in this queue are triggered to run periodically.
@@ -194,5 +194,5 @@ projects:
       - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007
       - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008
     openstack-experimental:
-      - periodic-tripleo-centos-7-images-build:
+      - periodic-tripleo-centos-7-master-images-build:
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016
