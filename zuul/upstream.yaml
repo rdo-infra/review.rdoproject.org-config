@@ -149,6 +149,11 @@ pipelines:
         subject: '[Zuul] Job failed in openstack-post pipeline: {change.project}'
 
 projects:
+  - name: openstack/tripleo-common
+    openstack-check:
+      - DLRN-rpmbuild:
+        - rdo-kolla-build-integration
+
   - name: openstack/python-openstackclient
     openstack-check-verified:
       - DLRN-rpmbuild
