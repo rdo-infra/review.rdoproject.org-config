@@ -64,60 +64,101 @@
       - zuul
     node: rdo-centos-7
 
+- builder:
+    name: checkout-rdo-kolla-build
+    builders:
+      shell: |
+        if [[ "${ZUUL_PROJECT}" != "rdo-infra/ansible-role-rdo-kolla-build" ]]; then
+            mkdir -p $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build
+            git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build
+        fi
+
+- builder:
+    name: rdo-kolla-build-images
+    builders:
+      shell: |
+          mkdir -p $WORKSPACE/roles
+        ln -s $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build $WORKSPACE/roles/kolla-build
+
+        sudo yum -y install libselinux-python
+        # Need to inherit system-site-packages for libselinux-python and python-yum
+        virtualenv --system-site-packages $WORKSPACE/ansible
+        source $WORKSPACE/ansible/bin/activate
+        pip install ansible==2.3.1.0 ara
+
+        export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+        export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
+        export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
+        export ANSIBLE_LIBRARY=$ara_location/plugins/modules
+        export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
+
+        export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+
+        cat << EOF > ${WORKSPACE}/playbook.yml
+        ---
+        - name: Build Kolla images
+          hosts: localhost
+          become: yes
+          become_user: root
+          roles:
+            - kolla-build
+        EOF
+        ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
+
 - job:
-    name: gate-rdo-kolla-build-containers
+    name: 'rdo-kolla-build-integration'
     defaults: global
     builders:
       - prepare-workspace
       - rdo-log-setup
-      - shell: |
-          set -e
-          mkdir $WORKSPACE/roles
-          ln -s $WORKSPACE/$ZUUL_PROJECT/ $WORKSPACE/roles/kolla-build
-
-          sudo yum -y install libselinux-python
-          # Need to inherit system-site-packages for libselinux-python and python-yum
-          virtualenv --system-site-packages $WORKSPACE/ansible
-          source $WORKSPACE/ansible/bin/activate
-          pip install ansible==2.3.1.0 ara
-
-          export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
-          export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
-          export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
-          export ANSIBLE_LIBRARY=$ara_location/plugins/modules
-          export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
-
-          export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
-
-          cat << EOF > ${WORKSPACE}/playbook.yml
-          ---
-          - name: Build Kolla images
-            hosts: localhost
-            become: yes
-            become_user: root
-            vars:
-              kolla_rdo_images:
-                - openstack-base
-                - keystone
-              kolla_force_build: true
-            tasks:
-              - include_role:
-                  name: "kolla-build"
-          EOF
-          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
+      - dlrn-gate-repository
+      - checkout-rdo-kolla-build
+      - rdo-kolla-build-images
     triggers:
       - zuul
     publishers:
       - postbuildscript:
           builders:
             - shell: |
-                  mkdir $WORKSPACE/logs
-                  cp -a /tmp/kolla $WORKSPACE/logs/
-                  export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
-                  sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
+                mkdir $WORKSPACE/logs
+                cp -a /tmp/kolla $WORKSPACE/logs/
+                export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+                sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
 
-                  # Ensure permissions allow artifact uploading
-                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+                # Ensure permissions allow artifact uploading
+                sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+      - rdo-rsync-logs
+    node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+
+- job:
+    name: gate-rdo-kolla-build-containers
+    defaults: global
+    builders:
+      - prepare-workspace
+      - rdo-log-setup
+      - checkout-rdo-kolla-build
+      - rdo-kolla-build-images
+    triggers:
+      - zuul
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                mkdir $WORKSPACE/logs
+                cp -a /tmp/kolla $WORKSPACE/logs/
+                export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+                sudo -E $WORKSPACE/ansible/bin/ara generate html $WORKSPACE/logs/ara
+
+                # Ensure permissions allow artifact uploading
+                sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
       - rdo-rsync-logs
