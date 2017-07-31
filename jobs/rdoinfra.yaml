@@ -71,7 +71,7 @@
           set -ex
           if [[ "${ZUUL_PROJECT}" != "rdo-infra/ansible-role-rdo-kolla-build" ]]; then
               mkdir -p $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build
-              git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build
+              git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build rdo-infra/ansible-role-rdo-kolla-build
           fi
 
 - builder:
