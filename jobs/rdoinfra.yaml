@@ -67,45 +67,45 @@
 - builder:
     name: checkout-rdo-kolla-build
     builders:
-      shell: |
-        set -ex
-        if [[ "${ZUUL_PROJECT}" != "rdo-infra/ansible-role-rdo-kolla-build" ]]; then
-            mkdir -p $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build
-            git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build
-        fi
+      - shell: |
+          set -ex
+          if [[ "${ZUUL_PROJECT}" != "rdo-infra/ansible-role-rdo-kolla-build" ]]; then
+              mkdir -p $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build
+              git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build
+          fi
 
 - builder:
     name: rdo-kolla-build-images
     builders:
-      shell: |
-        set -ex
-        mkdir -p $WORKSPACE/roles
-        ln -s $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build $WORKSPACE/roles/kolla-build
+      - shell: |
+          set -ex
+          mkdir -p $WORKSPACE/roles
+          ln -s $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build $WORKSPACE/roles/kolla-build
 
-        sudo yum -y install libselinux-python
-        # Need to inherit system-site-packages for libselinux-python and python-yum
-        virtualenv --system-site-packages $WORKSPACE/ansible
-        source $WORKSPACE/ansible/bin/activate
-        pip install ansible==2.3.1.0 ara
+          sudo yum -y install libselinux-python
+          # Need to inherit system-site-packages for libselinux-python and python-yum
+          virtualenv --system-site-packages $WORKSPACE/ansible
+          source $WORKSPACE/ansible/bin/activate
+          pip install ansible==2.3.1.0 ara
 
-        export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
-        export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
-        export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
-        export ANSIBLE_LIBRARY=$ara_location/plugins/modules
-        export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
+          export ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+          export ANSIBLE_CALLBACK_PLUGINS=$ara_location/plugins/callbacks
+          export ANSIBLE_ACTION_PLUGINS=$ara_location/plugins/actions
+          export ANSIBLE_LIBRARY=$ara_location/plugins/modules
+          export ANSIBLE_ROLES_PATH=$WORKSPACE/roles
 
-        export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
+          export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
 
-        cat << EOF > ${WORKSPACE}/playbook.yml
-        ---
-        - name: Build Kolla images
-          hosts: localhost
-          become: yes
-          become_user: root
-          roles:
-            - kolla-build
-        EOF
-        ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
+          cat << EOF > ${WORKSPACE}/playbook.yml
+          ---
+          - name: Build Kolla images
+            hosts: localhost
+            become: yes
+            become_user: root
+            roles:
+              - kolla-build
+          EOF
+          ansible-playbook -i localhost $WORKSPACE/playbook.yml --tags "setup,build"
 
 - job:
     name: 'rdo-kolla-build-integration'
