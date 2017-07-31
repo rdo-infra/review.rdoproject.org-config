@@ -68,6 +68,7 @@
     name: checkout-rdo-kolla-build
     builders:
       shell: |
+        set -ex
         if [[ "${ZUUL_PROJECT}" != "rdo-infra/ansible-role-rdo-kolla-build" ]]; then
             mkdir -p $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build
             git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build
@@ -77,6 +78,7 @@
     name: rdo-kolla-build-images
     builders:
       shell: |
+        set -ex
         mkdir -p $WORKSPACE/roles
         ln -s $WORKSPACE/rdo-infra/ansible-role-rdo-kolla-build $WORKSPACE/roles/kolla-build
 
