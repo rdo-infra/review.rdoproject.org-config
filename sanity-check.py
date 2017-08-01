@@ -74,6 +74,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
         'centos-opstools/rubygem-thread_safe',
+        'centos-opstools/rubygem-tzinfo',
         'centos-opstools/rubygem-unf',
         'centos-opstools/rubygem-unf_ext',
         'centos-opstools/rubygem-yajl-ruby',
