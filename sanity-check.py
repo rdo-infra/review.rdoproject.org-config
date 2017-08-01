@@ -45,6 +45,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/opstools-ansible',
         'centos-opstools/osops-tools-monitoring-oschecks',
         'centos-opstools/rubygem-cool.io',
+        'centos-opstools/rubygem-coveralls',
         'centos-opstools/rubygem-diff-lcs',
         'centos-opstools/rubygem-domain_name',
         'centos-opstools/rubygem-fluent-plugin-parser',
