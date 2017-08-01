@@ -44,6 +44,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/intel-cmt-cat',
         'centos-opstools/opstools-ansible',
         'centos-opstools/osops-tools-monitoring-oschecks',
+        'centos-opstools/rubygem-atomic',
         'centos-opstools/rubygem-cool.io',
         'centos-opstools/rubygem-diff-lcs',
         'centos-opstools/rubygem-domain_name',
