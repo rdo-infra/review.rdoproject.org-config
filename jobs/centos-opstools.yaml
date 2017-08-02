@@ -177,6 +177,7 @@
           enabled=1
           EOF
 
+          sudo yum -y update
           sudo yum -y install gcc
           pushd $ZUUL_PROJECT
           spectool -g  *.spec
