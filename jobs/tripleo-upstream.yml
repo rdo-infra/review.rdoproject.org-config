@@ -329,11 +329,11 @@
       - hack-nodepool-provider-setup
       - prep-hash:
           release: "{release}"
-      - build-containers-images:
-          release: "{release}"
       - toci-test:
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
+      - build-containers-images:
+          release: "{release}"
       - images-upload-and-label:
           release: "{release}"
     publishers:
