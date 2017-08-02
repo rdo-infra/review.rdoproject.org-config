@@ -15,8 +15,8 @@
     name: puppet-install
     builders:
       - shell: |
-          wget https://git.openstack.org/cgit/openstack-infra/system-config/plain/install_puppet.sh
-          sudo bash -xe install_puppet.sh
+          sudo yum -y install centos-release-openstack-ocata
+          sudo yum -y install puppet
 
 - builder:
     name: puppet-integration-copy-logs
