@@ -90,6 +90,8 @@
           source provision_venv/bin/activate
           pip install ansible==2.3.1.0 ara
           ara_location=$(python -c "import os,ara; print(os.path.dirname(ara.__file__))")
+          # devstack gate sets this, but conflicts with anything else
+          unset ANSIBLE_STDOUT_CALLBACK
           export ANSIBLE_HOST_KEY_CHECKING=False
           export ANSIBLE_CALLBACK_PLUGINS="$ara_location/plugins/callbacks"
           export ANSIBLE_ACTION_PLUGINS="$ara_location/plugins/actions"
@@ -124,6 +126,7 @@
           echo ========= UPLOAD CLOUD IMAGES
           source /tmp/hash_info.sh
           pushd /home/jenkins
+          ls *.tar
           ssh_cmd="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
           rsync_cmd="rsync --verbose --archive --delay-updates -e $ssh_cmd"
           UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/delorean/tripleo-upstream
@@ -332,9 +335,9 @@
       - toci-test:
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
-      - build-containers-images:
-          release: "{release}"
       - images-upload-and-label:
+          release: "{release}"
+      - build-containers-images:
           release: "{release}"
     publishers:
       - postbuildscript:
