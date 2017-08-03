@@ -129,8 +129,8 @@
           # FIXME(gcerami): remove this mock after testing this part
           touch ironic-python-agent.tar ironic-python-agent.tar.md5 overcloud-full.tar overcloud-full.tar.md5
           ls *.tar
-          ssh_cmd="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
-          rsync_cmd="rsync --verbose --archive --delay-updates -e $ssh_cmd"
+          export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
+          rsync_cmd="rsync --verbose --archive --delay-updates"
           UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/delorean/tripleo-upstream
           $rsync_cmd ironic-python-agent.tar $UPLOAD_URL/$FULL_HASH/ipa_images.tar
           $rsync_cmd ironic-python-agent.tar.md5 $UPLOAD_URL/$FULL_HASH/ipa_images.tar.md5
