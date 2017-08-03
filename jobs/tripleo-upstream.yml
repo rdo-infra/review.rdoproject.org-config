@@ -77,7 +77,10 @@
     name: build-containers-images
     builders:
       - shell: |
+          set -e
           echo ======== BUILD CONTAINERS IMAGES
+          # Delete any leftover configuration ansible
+          rm -f $WORKSPACE/ansible.cfg
           TESTING_TAG="tripleo-ci-testing"
           pushd $WORKSPACE
           # Retrieve role
@@ -123,11 +126,10 @@
     name: images-upload-and-label
     builders:
       - shell: |
+          set -e
           echo ========= UPLOAD CLOUD IMAGES
           source /tmp/hash_info.sh
           pushd /home/jenkins
-          # FIXME(gcerami): remove this mock after testing this part
-          touch ironic-python-agent.tar ironic-python-agent.tar.md5 overcloud-full.tar overcloud-full.tar.md5
           ls *.tar
           chmod 600 $SSH_KEY
           export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
@@ -150,6 +152,7 @@
     name: prep-hash
     builders:
       - shell: |
+          set -e
           echo ========= PREPARE HASH PROMOTION
           mkdir $WORKSPACE/logs
           export RELEASE={release}
@@ -335,20 +338,18 @@
       - hack-nodepool-provider-setup
       - prep-hash:
           release: "{release}"
-      # TODO(gcerami): fix the order at the ed of the tests
-      # cloud images, image push , container images
-      - images-upload-and-label:
-          release: "{release}"
       - toci-test:
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
+      - images-upload-and-label:
+          release: "{release}"
       - build-containers-images:
           release: "{release}"
     publishers:
       - postbuildscript:
           builders:
             - shell: |
-                  mkdir $WORKSPACE/logs
+                  mkdir -p $WORKSPACE/logs
                   cp -a /tmp/kolla $WORKSPACE/logs/
                   export ARA_DATABASE="sqlite:///$WORKSPACE/$JOB_NAME.sqlite"
                   sudo -E $WORKSPACE/provision_venv/bin/ara generate html $WORKSPACE/logs/ara
