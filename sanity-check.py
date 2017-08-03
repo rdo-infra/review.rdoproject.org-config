@@ -55,6 +55,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-fluent-plugin-secure-forward',
         'centos-opstools/rubygem-fluent-plugin-grok-parser',
         'centos-opstools/rubygem-fluent-plugin-rewrite-tag-filter',
+        'centos-opstools/rubygem-gherkin',
         'centos-opstools/rubygem-http-cookie',
         'centos-opstools/rubygem-http_parser.rb',
         'centos-opstools/rubygem-msgpack',
