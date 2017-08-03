@@ -2425,6 +2425,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-cucumber-wire
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-domain_name
     check:
       - centos-opstools-rpmlint
