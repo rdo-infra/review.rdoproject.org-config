@@ -2,6 +2,9 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^master|(rpm-)|(^(?!common)(\w+)-rdo)$
 
+  - name: ^pike-distgit-cbs-(validate|final-build)$
+    branch: ^pike-rdo$
+
   - name: ^ocata-distgit-cbs-(validate|final-build)$
     branch: ^ocata-rdo$
 
@@ -115,11 +118,13 @@ project-templates:
           - gate-rpmlint
       - newton-distgit-cbs-validate
       - ocata-distgit-cbs-validate
+      - pike-distgit-cbs-validate
       - common-distgit-cbs-validate
     gate:
       - DLRN-rpmbuild
       - newton-distgit-cbs-final-build
       - ocata-distgit-cbs-final-build
+      - pike-distgit-cbs-final-build
       - common-distgit-cbs-final-build
 
   - name: weirdo-gate-jobs
