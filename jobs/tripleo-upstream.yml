@@ -126,6 +126,7 @@
           echo ========= UPLOAD CLOUD IMAGES
           source /tmp/hash_info.sh
           pushd /home/jenkins
+          touch ironic-python-agent.tar ironic-python-agent.tar.md5 overcloud-full.tar overcloud-full.tar.md5
           ls *.tar
           ssh_cmd="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
           rsync_cmd="rsync --verbose --archive --delay-updates -e $ssh_cmd"
@@ -332,11 +333,11 @@
       - hack-nodepool-provider-setup
       - prep-hash:
           release: "{release}"
+      - images-upload-and-label:
+          release: "{release}"
       - toci-test:
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
-      - images-upload-and-label:
-          release: "{release}"
       - build-containers-images:
           release: "{release}"
     publishers:
