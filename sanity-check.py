@@ -66,6 +66,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-msgpack',
         'centos-opstools/rubygem-minitest',
         'centos-opstools/rubygem-multi_json',
+        'centos-opstools/rubygem-multi_test',
         'centos-opstools/rubygem-netrc',
         'centos-opstools/rubygem-oj',
         'centos-opstools/rubygem-power_assert',
