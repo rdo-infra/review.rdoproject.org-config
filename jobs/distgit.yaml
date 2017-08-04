@@ -68,3 +68,35 @@
       - common
     jobs:
       - '{openstack_release}-distgit-cbs-final-build'
+
+- job-template:
+    name: '{openstack_release}-distgit-cbs-branch'
+    defaults: global
+      - shell: |
+          # clone rdoinfo
+          zuul-cloner http://review.rdoproject.org/r rdoinfo
+          PROJECTS=`awk '/project:/ { print $3 }' rdo.yml`
+          PKGS=""
+          for project in "$PROJECTS"; do
+            if [[ $project == puppet-* ]]; then
+              PKG=$project
+            else
+              PKG`pymod2pkg-2 $project`
+            fi
+            PKGS="$PKGS $PKG"
+          done;
+          PKGS=`sort %PKGS`
+          # XXX: remove reference to PIKE
+          echo "== List of packages to be branched for Pike =="
+          echo $PKGS
+          for pkg in $PKGS; do
+            cbs add-pkg cloud7-openstack-pike-candidate $pkg --owner hguemar
+          done
+    triggers:
+      - zuul
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
+           variable: CLIENTSECRET
+    node: rdo-centos-7
