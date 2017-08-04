@@ -82,6 +82,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-rspec-support',
         'centos-opstools/rubygem-rspec-mocks',
         'centos-opstools/rubygem-session',
+        'centos-opstools/rubygem-shoulda',
         'centos-opstools/rubygem-sigdump',
         'centos-opstools/rubygem-simplecov',
         'centos-opstools/rubygem-string-scrub',
