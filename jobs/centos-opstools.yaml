@@ -151,7 +151,7 @@
       - shell: |
           set -e
           mkdir $WORKSPACE/logs
-          sudo yum -y install rpm-build rpmdevtools centos-release-opstools
+          sudo yum -y install rpm-build rpmdevtools centos-release-opstools centos-release-ocata
           cat << EOF | sudo tee /etc/yum.repos.d/opstools-build.repo
           [centos-opstools-perfmon-testing]
           name=CentOS-7 - OpsTools Performance monitoring - testing repo
