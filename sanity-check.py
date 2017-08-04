@@ -53,6 +53,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-cucumber-core',
         'centos-opstools/rubygem-cucumber-wire',
         'centos-opstools/rubygem-diff-lcs',
+        'centos-opstools/rubygem-docile',
         'centos-opstools/rubygem-domain_name',
         'centos-opstools/rubygem-fluent-plugin-parser',
         'centos-opstools/rubygem-fluent-plugin-secure-forward',
