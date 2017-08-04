@@ -84,6 +84,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-session',
         'centos-opstools/rubygem-sigdump',
         'centos-opstools/rubygem-simplecov',
+        'centos-opstools/rubygem-simplecov-html',
         'centos-opstools/rubygem-string-scrub',
         'centos-opstools/rubygem-test-unit',
         'centos-opstools/rubygem-test-unit-rr',
