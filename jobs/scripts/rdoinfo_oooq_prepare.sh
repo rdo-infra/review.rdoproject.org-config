@@ -53,6 +53,10 @@ function create_config(){{
     echo "artg_skipped_projects:"
     echo "  - rdoinfo"
     echo "release: $RELEASE"
+    if [ $STABLE_REPOSITORIES != false ]; then
+        echo "run_tempest: false"
+        echo "test_ping: true"
+    fi
     echo "overcloud_image_url: file:///var/lib/oooq-images/$RELEASE/overcloud-full.tar"
     echo "ipa_image_url: file:///var/lib/oooq-images/$RELEASE/ironic-python-agent.tar"
     echo "repo_cmd_before: |"
