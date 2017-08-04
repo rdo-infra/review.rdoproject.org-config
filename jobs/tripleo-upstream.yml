@@ -129,7 +129,9 @@
           set -e
           echo ========= UPLOAD CLOUD IMAGES
           source /tmp/hash_info.sh
-          pushd /home/jenkins
+          # If I try to build images as upstream ( in /home/jenkins ) something will go wrong
+          # we leave quickstart build in the default location. it proved to work
+          pushd /var/lib/oooq-images/$RELEASE
           ls *.tar
           chmod 600 $SSH_KEY
           export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
