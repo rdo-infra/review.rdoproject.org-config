@@ -17,6 +17,7 @@ resources:
         [access "refs/*"]
           read = group openstack/barbicanclient-core
           owner = group openstack/barbicanclient-ptl
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group openstack/barbicanclient-core
           label-Code-Review = -2..+2 group openstack/barbicanclient-ptl
@@ -53,6 +54,7 @@ resources:
         [access "refs/*"]
           read = group openstack/barbicanclient-core
           owner = group openstack/barbicanclient-ptl
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group openstack/barbicanclient-core
           label-Code-Review = -2..+2 group openstack/barbicanclient-ptl
