@@ -57,6 +57,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-diff-lcs',
         'centos-opstools/rubygem-docile',
         'centos-opstools/rubygem-domain_name',
+        'centos-opstools/rubygem-ffi',
         'centos-opstools/rubygem-fluent-plugin-parser',
         'centos-opstools/rubygem-fluent-plugin-secure-forward',
         'centos-opstools/rubygem-fluent-plugin-grok-parser',
