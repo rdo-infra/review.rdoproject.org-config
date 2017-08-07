@@ -68,6 +68,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-http_parser.rb',
         'centos-opstools/rubygem-msgpack',
         'centos-opstools/rubygem-mime-types',
+        'centos-opstools/rubygem-mime-types-data',
         'centos-opstools/rubygem-minitest',
         'centos-opstools/rubygem-multi_json',
         'centos-opstools/rubygem-multi_test',
