@@ -2416,6 +2416,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-childprocess
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-cool.io
     check:
       - centos-opstools-rpmlint
