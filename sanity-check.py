@@ -48,6 +48,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-atomic',
         'centos-opstools/rubygem-backports',
         'centos-opstools/rubygem-builder',
+        'centos-opstools/rubygem-contracts',
         'centos-opstools/rubygem-cool.io',
         'centos-opstools/rubygem-childprocess',
         'centos-opstools/rubygem-coveralls',
