@@ -88,7 +88,7 @@
 - builder:
     name: prep-hash
     builders:
-      - shell:
+      - shell: |
           export RELEASE={release}
           bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
 
