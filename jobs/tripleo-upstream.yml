@@ -77,122 +77,20 @@
     name: build-containers-images
     builders:
       - shell: |
-          set -e
-          # Retrieve role
-          mkdir -p $WORKSPACE/roles
-          pushd $WORKSPACE/roles
-              git clone https://github.com/rdo-infra/ansible-role-rdo-kolla-build rdo-kolla-build
-          popd
-
-          echo ======== BUILD CONTAINERS IMAGES
-          # Delete any leftover configuration ansible
-          rm -f $WORKSPACE/ansible.cfg
-          TESTING_TAG="tripleo-ci-testing"
-          # devstack gate sets this, but conflicts with anything else
-          unset ANSIBLE_STDOUT_CALLBACK
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          export ANSIBLE_ROLES_PATH="$WORKSPACE/roles"
-          cat << EOF > $WORKSPACE/playbook.yml
-          ---
-          - name: Build Kolla images
-            hosts: localhost
-            become: yes
-            become_user: root
-            vars:
-              kolla_push: true
-              kolla_tag: "$TESTING_TAG"
-              trunk_repository: "https://trunk.rdoproject.org/centos7-master/tripleo-ci-testing/delorean.repo"
-            tasks:
-              - include_role:
-                  name: "rdo-kolla-build"
-                  static: "no"
-          EOF
-
-          ansible-playbook $WORKSPACE/playbook.yml -e kolla_threads=16
-          echo ======== BUILD CONTAINERS IMAGES COMPLETED
+          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
 
 - builder:
     name: images-upload-and-label
     builders:
       - shell: |
-          set -e
-          echo ========= UPLOAD CLOUD IMAGES
-          source /tmp/hash_info.sh
-          # If I try to build images as upstream ( in /home/jenkins ) something will go wrong
-          # we leave quickstart build in the default location. it proved to work
-          pushd /var/lib/oooq-images/$RELEASE
-          ls *.tar
-          chmod 600 $SSH_KEY
-          export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $SSH_KEY"
-          rsync_cmd="rsync --verbose --archive --delay-updates --relative"
-          UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/delorean/tripleo-upstream
-          mkdir $FULL_HASH
-          mv overcloud-full.tar overcloud-full.tar.md5 $FULL_HASH
-          mv ironic-python-agent.tar $FULL_HASH/ipa_images.tar
-          mv ironic-python-agent.tar.md5 $FULL_HASH/ipa_images.tar.md5
-          $rsync_cmd $FULL_HASH $UPLOAD_URL
-          $rsync_cmd --delete --include 'testing**' --exclude '*' ./ $UPLOAD_URL/
-          # push testing symlink so sub-jobs know what to test
-          # but only after all images are uploaded
-          ln -s $FULL_HASH testing
-          rsync -av testing $UPLOAD_URL/
-          popd
-          echo ======== UPLOAD CLOUD IMAGES COMPLETE
+          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/upload-cloud-images.sh
 
 - builder:
     name: prep-hash
     builders:
-      - shell: |
-          set -e
-          echo ========= PREPARE HASH PROMOTION
-          mkdir $WORKSPACE/logs
+      - shell:
           export RELEASE={release}
-          curl -o /tmp/delorean.repo https://trunk.rdoproject.org/centos7-$RELEASE/consistent/delorean.repo
-          export FULL_HASH=$(grep -o -E '[0-9a-f]{{40}}_[0-9a-f]{{8}}' < /tmp/delorean.repo)
-          export HASH_PATH=$(grep -o -E '[a-f0-9]{{2}}/[a-f0-9]{{2}}/[0-9a-f]{{40}}_[0-9a-f]{{8}}' < /tmp/delorean.repo)
-          export COMMIT_HASH=$(awk -F_ '{{print $1}}' <<<$FULL_HASH)
-          delorean_commit_url="https://trunk.rdoproject.org/centos7-$RELEASE/$HASH_PATH/commit.yaml"
-          export DISTRO_HASH=$(curl $delorean_commit_url | awk -F": " '/distro_hash/ {{print $2}}')
-          export PROMOTE_NAME=tripleo-ci-testing
-          cat > /tmp/hash_info.sh << EOF
-          export RELEASE=$RELEASE
-          export HASH_PATH=$HASH_PATH
-          export FULL_HASH=$FULL_HASH
-          export COMMIT_HASH=$COMMIT_HASH
-          export DISTRO_HASH=$DISTRO_HASH
-          export PROMOTE_NAME=$PROMOTE_NAME
-          EOF
-          mv /tmp/delorean.repo $WORKSPACE/logs
-          cp /tmp/hash_info.sh $WORKSPACE/logs
-          virtualenv --system-site-packages /tmp/delorean
-          source /tmp/delorean/bin/activate
-          pip install ansible==2.3.0.0 dlrnapi_client
-          export ANSIBLE_LIBRARY=/usr/lib/python2.7/site-packages/dlrnapi_client/ansible:$VIRTUAL_ENV/lib/python2.7/site-packages/dlrnapi_client/ansible
-          # dlrn API cannot be used from CLI until https://github.com/javierpena/dlrnapi_client/pull/2 merges
-          # (otherwise the password will be shown)
-          cat > /tmp/hash_label.yml << EOF
-          - name: Assign label to latest hash using the DLRN API
-            hosts: localhost
-            vars:
-              dlrn_user: "review_rdoproject_org"
-              dlrn_pass: "{{{{ lookup('env', 'DLRNAPI_PASSWD') }}}}"
-              url: "https://trunk.rdoproject.org/api-centos-{{{{ lookup('env', 'RELEASE') }}}}-uc"
-              commit_hash: "{{{{ lookup('env', 'COMMIT_HASH') }}}}"
-              distro_hash: "{{{{ lookup('env', 'DISTRO_HASH') }}}}"
-              promote_name: "{{{{ lookup('env', 'PROMOTE_NAME') }}}}"
-            tasks:
-              - dlrn_api:
-                  action: repo-promote
-                  host: "{{{{ url }}}}"
-                  user: "{{{{ dlrn_user }}}}"
-                  password: "{{{{ dlrn_pass }}}}"
-                  commit_hash: "{{{{ commit_hash }}}}"
-                  distro_hash: "{{{{ distro_hash }}}}"
-                  promote_name: "{{{{ promote_name }}}}"
-          EOF
-          ansible-playbook -i localhost -vv /tmp/hash_label.yml
-          deactivate
-          echo ========= PREPARE HASH PROMOTION COMPLETED
+          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
 
 - builder:
     name: toci-test
