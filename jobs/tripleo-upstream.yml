@@ -77,20 +77,20 @@
     name: build-containers-images
     builders:
       - shell: |
-          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
 
 - builder:
     name: images-upload-and-label
     builders:
       - shell: |
-          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/upload-cloud-images.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/upload-cloud-images.sh
 
 - builder:
     name: prep-hash
     builders:
       - shell: |
           export RELEASE={release}
-          bash -xe /opt/stack/new/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
 
 - builder:
     name: toci-test
