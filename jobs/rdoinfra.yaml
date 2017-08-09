@@ -260,9 +260,13 @@
           EOF
 
           pushd rdo-infra-playbooks
-            ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml -e "rdobot_nickname=not_rdobot"
+            ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml \
+              -e "rdobot_nickname=not_rdobot" \
+              -e "sensu_rabbitmq_server=localhost"
             echo "Re-running for idempotency"
-            ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml -e "rdobot_nickname=not_rdobot"
+            ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml \
+              -e "rdobot_nickname=not_rdobot" \
+              -e "sensu_rabbitmq_server=localhost"
           popd
 
 - job-template:
