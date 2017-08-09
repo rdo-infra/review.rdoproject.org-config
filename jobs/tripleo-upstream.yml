@@ -59,6 +59,20 @@
 
 # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/macros.yaml#L702-L714
 - builder:
+    name: tripleo-ci-checkout
+    builders:
+      - shell: |
+          #!/bin/bash -xe
+          cat > clonemap.yaml << EOF
+          clonemap:
+            - name: openstack-infra/tripleo-ci
+              dest: /opt/stack/new/tripleo-ci
+          EOF
+          /usr/zuul-env/bin/zuul-cloner -m clonemap.yaml --cache-dir /opt/git \
+              git://git.openstack.org \
+              openstack-infra/tripleo-ci
+
+- builder:
     name: devstack-checkout
     builders:
       - shell: |
@@ -225,6 +239,7 @@
       - rdo-log-setup
       - devstack-checkout
       - hack-nodepool-provider-setup
+      - tripleo-ci-checkout
       - prep-hash:
           release: "{release}"
       - toci-test:
