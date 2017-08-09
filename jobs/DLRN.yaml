@@ -99,6 +99,9 @@
           addFilter("python-novajoin.noarch: W: non-standard-gid")
           addFilter("python-novajoin.noarch: W: non-standard-uid")
           addFilter("openstack-nova-compute.noarch: E: explicit-lib-dependency libvirt-client")
+
+          # Exception for tackerclient
+          addFilter("python-tackerclient-doc.noarch: W: file-not-utf8 /usr/share/doc/python-tackerclient-doc-0.10.1/html/objects.inv")
           EOF
 
           # now download all these packages from the previous repository
