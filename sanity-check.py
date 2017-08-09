@@ -34,80 +34,10 @@ IGNORED_PROJECTS = {
         'rdo_gating_scripts',
         'testbranching',
         'testproject',
-        'rdo-infra/ansible-role-rdobase'  # Chicken and egg, will be deleted
     ],
     'gerritbot': [
         'testbranching',
         'testproject',
-        'centos-opstools/opstools-doc',
-        'centos-opstools/centos-release-opstools',
-        'centos-opstools/intel-cmt-cat',
-        'centos-opstools/opstools-ansible',
-        'centos-opstools/osops-tools-monitoring-oschecks',
-        'centos-opstools/rubygem-aruba',
-        'centos-opstools/rubygem-atomic',
-        'centos-opstools/rubygem-backports',
-        'centos-opstools/rubygem-builder',
-        'centos-opstools/rubygem-contracts',
-        'centos-opstools/rubygem-cool.io',
-        'centos-opstools/rubygem-childprocess',
-        'centos-opstools/rubygem-coveralls',
-        'centos-opstools/rubygem-cucumber',
-        'centos-opstools/rubygem-cucumber-core',
-        'centos-opstools/rubygem-cucumber-wire',
-        'centos-opstools/rubygem-diff-lcs',
-        'centos-opstools/rubygem-docile',
-        'centos-opstools/rubygem-domain_name',
-        'centos-opstools/rubygem-ffi',
-        'centos-opstools/rubygem-fluent-plugin-parser',
-        'centos-opstools/rubygem-fluent-plugin-secure-forward',
-        'centos-opstools/rubygem-fluent-plugin-grok-parser',
-        'centos-opstools/rubygem-fluent-plugin-rewrite-tag-filter',
-        'centos-opstools/rubygem-gherkin',
-        'centos-opstools/rubygem-http-cookie',
-        'centos-opstools/rubygem-http_parser.rb',
-        'centos-opstools/rubygem-msgpack',
-        'centos-opstools/rubygem-mime-types',
-        'centos-opstools/rubygem-mime-types-data',
-        'centos-opstools/rubygem-minitest',
-        'centos-opstools/rubygem-multi_json',
-        'centos-opstools/rubygem-multi_test',
-        'centos-opstools/rubygem-netrc',
-        'centos-opstools/rubygem-oj',
-        'centos-opstools/rubygem-power_assert',
-        'centos-opstools/rubygem-proxifier',
-        'centos-opstools/rubygem-rack',
-        'centos-opstools/rubygem-recursive-open-struct',
-        'centos-opstools/rubygem-rest-client',
-        'centos-opstools/rubygem-resolve-hostname',
-        'centos-opstools/rubygem-rr',
-        'centos-opstools/rubygem-rspec',
-        'centos-opstools/rubygem-rspec-core',
-        'centos-opstools/rubygem-rspec-expectations',
-        'centos-opstools/rubygem-rspec-support',
-        'centos-opstools/rubygem-rspec-mocks',
-        'centos-opstools/rubygem-session',
-        'centos-opstools/rubygem-shoulda',
-        'centos-opstools/rubygem-sigdump',
-        'centos-opstools/rubygem-simplecov',
-        'centos-opstools/rubygem-simplecov-html',
-        'centos-opstools/rubygem-string-scrub',
-        'centos-opstools/rubygem-test-unit',
-        'centos-opstools/rubygem-test-unit-rr',
-        'centos-opstools/rubygem-thread_safe',
-        'centos-opstools/rubygem-tzinfo',
-        'centos-opstools/rubygem-tzinfo-data',
-        'centos-opstools/rubygem-unf',
-        'centos-opstools/rubygem-unf_ext',
-        'centos-opstools/rubygem-yajl-ruby',
-        'centos-opstools/kibana',
-        'centos-opstools/rubygem-introspection',
-        'centos-opstools/skydive',
-        'centos-opstools/collectd',
-        'centos-opstools/fluentd',
-        'centos-opstools/python-fluent-logger',
-        'centos-opstools/rubygem-fluent-plugin-collectd-nest',
-        'rdo-infra/ansible-role-rdobase' # Chicken and egg, will be deleted
     ]
 }
 
@@ -184,7 +114,9 @@ for section in replication.sections():
 gerritbot_projects = []
 with open('gerritbot/channels.yaml') as f:
     config = yaml.load(f.read())
-    for project in config['rdo']['projects']:
+    irc_rdo = config['rdo']['projects']
+    irc_opstools = config['centos-opstools']['projects']
+    for project in irc_rdo + irc_opstools:
         gerritbot_projects.append(project)
 
 ###
