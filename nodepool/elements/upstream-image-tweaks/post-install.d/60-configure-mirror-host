@@ -4,8 +4,14 @@
 # it here so it is properly picked up by configure_mirror.sh when used as a
 # ready-script.
 
-cat <<EOF > /opt/nodepool-scripts/configure_mirror_host.sh
-export NODEPOOL_MIRROR_HOST=${NODEPOOL_MIRROR_HOST}
-/opt/nodepool-scripts/configure_mirror.sh
-EOF
-chmod +x /opt/nodepool-scripts/configure_mirror_host.sh
+# NOTE(aschultz): this script has a whole bunch of assumptions around the mirror
+# locations and can only be used when running on actual infra clouds. This is
+# is commented out to prevent this information from being written out to the
+# image because there are some CI configurations that look for it and will
+# change URLs based on it's existance. This should not be used outside of
+# the openstack infra clouds
+#cat <<EOF > /opt/nodepool-scripts/configure_mirror_host.sh
+#export NODEPOOL_MIRROR_HOST=${NODEPOOL_MIRROR_HOST}
+#/opt/nodepool-scripts/configure_mirror.sh
+#EOF
+#chmod +x /opt/nodepool-scripts/configure_mirror_host.sh
