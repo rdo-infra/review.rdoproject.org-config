@@ -16,6 +16,7 @@ resources:
         [access "refs/*"]
           read = group openstack/barbican-core
           owner = group openstack/barbican-ptl
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group openstack/barbican-core
           label-Code-Review = -2..+2 group openstack/barbican-ptl
@@ -52,6 +53,7 @@ resources:
         [access "refs/*"]
           read = group openstack/barbican-core
           owner = group openstack/barbican-ptl
+          owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group openstack/barbican-core
           label-Code-Review = -2..+2 group openstack/barbican-ptl
