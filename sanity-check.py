@@ -28,7 +28,6 @@ IGNORED_PROJECTS = {
     ],
     'zuul': [
         'All-Users',
-        'centos-opstools/rubygem-term-ansi-color',
         'config',
         'gating_scripts',
         'rdo',
@@ -37,7 +36,6 @@ IGNORED_PROJECTS = {
         'testproject',
     ],
     'gerritbot': [
-        'centos-opstools/rubygem-term-ansi-color',
         'testbranching',
         'testproject',
     ]
