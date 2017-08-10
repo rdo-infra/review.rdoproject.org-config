@@ -155,6 +155,16 @@ projects:
     template:
       - name: noop
 
+  - name: centos-opstools/rubygem-fakeweb
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-fluent-plugin-collectd-nest
     check:
       - centos-opstools-rpmlint
@@ -176,8 +186,14 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-introspection
-    template:
-      - name: noop
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-proxifier
     check:
@@ -2556,6 +2572,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-http_connection
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-http-cookie
     check:
       - centos-opstools-rpmlint
@@ -2567,6 +2593,16 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-json
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-metaclass
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2597,6 +2633,16 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-minitest
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-mocha
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
