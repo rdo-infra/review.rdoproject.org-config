@@ -109,7 +109,7 @@ pipelines:
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in manual pipeline: {change.project}'
 
-  - name: openstack-periodic-8hr
+  - name: openstack-master-periodic-8hr
     description: Jobs in this queue are triggered to run periodically.
     manager: IndependentPipelineManager
     precedence: low
@@ -125,8 +125,61 @@ pipelines:
       smtp:
         from: jenkins@review.rdoproject.org
         to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in periodic 4hr pipeline: {change.project}'
+        subject: '[Zuul] Job failed in periodic 8hr pipeline: {change.project}'
 
+  - name: openstack-n-periodic
+    description: Jobs in this queue are triggered to run periodically on the latest Openstack stable release.
+    manager: IndependentPipelineManager
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 */8 * * *'
+    success:
+      sqlreporter:
+        score: 1
+    failure:
+      sqlreporter:
+        score: -1
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in periodic openstack-n pipeline: {change.project}'
+
+  - name: openstack-n-1-periodic
+    description: Jobs in this queue are triggered to run once a day on Openstack that was one release before latest stable.
+    manager: IndependentPipelineManager
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 0 * * *'
+    success:
+      sqlreporter:
+        score: 1
+    failure:
+      sqlreporter:
+        score: -1
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in periodic openstack-n-1 pipeline: {change.project}'
+
+  - name: openstack-n-2-periodic
+    description: Jobs in this queue are triggered to run once a day on Openstack that was two releases before latest stable.
+    manager: IndependentPipelineManager
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 0 * * *'
+    success:
+      sqlreporter:
+        score: 1
+    failure:
+      sqlreporter:
+        score: -1
+      smtp:
+        from: jenkins@review.rdoproject.org
+        to: rdo-infra-list@redhat.com
+        subject: '[Zuul] Job failed in periodic openstack-n-2 pipeline: {change.project}'
 
   - name: openstack-post
     description: This pipeline runs jobs that operate after each change is merged in upstream OpenStack.
@@ -168,37 +221,59 @@ projects:
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-nv
+      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart-extras
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-nv
+      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
 
   - name: openstack-infra/tripleo-ci
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
     # review.rdo's implementation of third party CI
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-nv
+      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
     openstack-manual:
-      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset008
+      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
+      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
+      - manual-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
+      - manual-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007-master
+      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset008-master
       - periodic-tripleo-centos-7-master-images-build:
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019
-    openstack-periodic-8hr:
-      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005
-      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006
-      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007
-      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008
+    openstack-master-periodic-8hr:
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-master
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008-master
       - periodic-tripleo-centos-7-master-images-build:
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019
+    openstack-n-periodic:
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-pike
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-pike
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-pike
+      - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008-pike
+    openstack-n-1-periodic:
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata
+    openstack-n-2-periodic:
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton
+
