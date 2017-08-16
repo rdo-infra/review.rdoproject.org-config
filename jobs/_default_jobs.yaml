@@ -51,7 +51,10 @@
           fi
 
           if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
-              git clone --depth=1 $GIT_SOURCE/$ZUUL_PROJECT
+          # Note (trown): we need to make sure we clone this to the same
+          # location as zuul-cloner will so that manual and periodic jobs
+          # can share builders
+              git clone --depth=1 $GIT_SOURCE/$ZUUL_PROJECT $ZUUL_PROJECT
           else
               zuul-cloner -v $GIT_SOURCE $ZUUL_PROJECT
           fi
