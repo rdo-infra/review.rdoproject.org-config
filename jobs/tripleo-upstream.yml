@@ -18,7 +18,7 @@
     builders:
       - shell: |
           #!/bin/sh
-          pushd $WORKSPACE/openstack-infra/tripleo-ci
+          pushd $WORKSPACE/tripleo-ci
           git fetch https://git.openstack.org/openstack-infra/tripleo-ci refs/changes/47/475747/101 && git checkout FETCH_HEAD
           popd
 
