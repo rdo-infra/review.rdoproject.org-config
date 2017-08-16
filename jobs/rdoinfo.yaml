@@ -74,7 +74,7 @@
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
 
-          CURRENT_MASTER_TAG="pike-uc"
+          CURRENT_MASTER_TAG="queens-uc"
 
           PACKAGES_UPDATED_MASTER=""
           PACKAGES_UPDATED_NEWTON=""
@@ -87,6 +87,9 @@
               PKGNAME=$(awk '{print $1}' <<< $line)
               if [[ -n $(echo "$line" | grep -w $CURRENT_MASTER_TAG) ]]; then
                   PACKAGES_UPDATED_MASTER="$PACKAGES_UPDATED_MASTER $PKGNAME"
+              fi
+              if [[ -n $(echo "$line" | grep -w pike) ]]; then
+                  PACKAGES_UPDATED_PIKE="$PACKAGES_UPDATED_PIKE $PKGNAME"
               fi
               if [[ -n $(echo "$line" | grep -w ocata) ]]; then
                   PACKAGES_UPDATED_OCATA="$PACKAGES_UPDATED_OCATA $PKGNAME"
@@ -101,6 +104,15 @@
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
               timeout --signal=SIGKILL 10800  /opt/nodepool-scripts/rdoinfo-DLRN.sh $CURRENT_MASTER_TAG "${PACKAGES_UPDATED_MASTER}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -rf data
+          fi
+          if [ -n "${PACKAGES_UPDATED_PIKE}" ]; then
+              timeout --signal=SIGKILL 10800 /opt/nodepool-scripts/rdoinfo-DLRN.sh pike "${PACKAGES_UPDATED_PIKE}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -198,7 +210,7 @@
             GIT_SUFFIX="?h=stable/{branch}"
             UC_BRANCH="{branch}"
           else
-            UC_BRANCH="pike-uc"
+            UC_BRANCH="queens-uc"
             GIT_SUFFIX=""
           fi
           curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
@@ -340,6 +352,7 @@
     name: rdoinfo-upper-constraints
     branch:
       - master
+      - pike
       - ocata
       - newton
     jobs:
