@@ -18,7 +18,7 @@
     builders:
       - shell: |
           #!/bin/sh
-          pushd $WORKSPACE/tripleo-ci
+          pushd $WORKSPACE/openstack-infra/tripleo-ci
           git fetch https://git.openstack.org/openstack-infra/tripleo-ci refs/changes/47/475747/101 && git checkout FETCH_HEAD
           popd
 
@@ -86,20 +86,20 @@
     name: build-containers-images
     builders:
       - shell: |
-          bash -xe $WORKSPACE/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
 
 - builder:
     name: images-upload-and-label
     builders:
       - shell: |
-          bash -xe $WORKSPACE/tripleo-ci/scripts/shell-builders/rdo-infra-config/upload-cloud-images.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/upload-cloud-images.sh
 
 - builder:
     name: prep-hash
     builders:
       - shell: |
           export RELEASE={release}
-          bash -xe $WORKSPACE/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
+          bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/get-hash.sh
 
 - builder:
     name: toci-test
