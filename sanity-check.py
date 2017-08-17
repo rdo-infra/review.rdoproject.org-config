@@ -28,10 +28,6 @@ IGNORED_PROJECTS = {
     ],
     'zuul': [
         'All-Users',
-        'centos-opstools/rubygem-sensu-occurrences',
-        'centos-opstools/rubygem-sensu-only-check-output',
-        'centos-opstools/rubygem-sensu-ruby-hash',
-        'centos-opstools/rubygem-sensu-system-profile',
         'config',
         'gating_scripts',
         'rdo',
@@ -40,10 +36,6 @@ IGNORED_PROJECTS = {
         'testproject',
     ],
     'gerritbot': [
-        'centos-opstools/rubygem-sensu-occurrences',
-        'centos-opstools/rubygem-sensu-only-check-output',
-        'centos-opstools/rubygem-sensu-ruby-hash',
-        'centos-opstools/rubygem-sensu-system-profile',
         'testbranching',
         'testproject',
     ]
