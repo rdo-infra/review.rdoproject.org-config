@@ -2335,6 +2335,16 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
 
+  - name: centos-opstools/rubygem-addressable
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-builder
     check:
       - centos-opstools-rpmlint
@@ -2354,6 +2364,56 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-em-http-request
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-em-http-server
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-em-redis-unified
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-em-socksify
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-em-worker
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-ffi
     check:
