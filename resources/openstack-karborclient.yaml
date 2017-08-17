@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/karborclient-core:
+      description: Core developers for project karborclient
+      members:
+      - liujiong63@163.com
+    openstack/karborclient-ptl:
+      description: Project team lead for project karborclient
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-karborclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/karborclient-core
+          owner = group openstack/karborclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/karborclient-core
+          label-Code-Review = -2..+2 group openstack/karborclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/karborclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/karborclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/karborclient-core
+          label-Verified = -2..+2 group openstack/karborclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/karborclient-core
+          label-Workflow = -1..+1 group openstack/karborclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/karborclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/karborclient-core
+      - openstack/karborclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-karborclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/karborclient-core
+          owner = group openstack/karborclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/karborclient-core
+          label-Code-Review = -2..+2 group openstack/karborclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/karborclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/karborclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/karborclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/karborclient-core
+          label-Workflow = -1..+0 group openstack/karborclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/karborclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/karborclient-core
+      - openstack/karborclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/karborclient:
+      acl: openstack-karborclient
+      description: Mirror of upstream karborclient (mirror + patches)
+    openstack/karborclient-distgit:
+      acl: openstack-karborclient-distgit
+      description: Packaging of upstream karborclient
+      default-branch: rpm-master
+      branches:
+        master: '0'
