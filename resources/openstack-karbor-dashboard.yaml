@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/karbor-dashboard-core:
+      description: Core developers for project karbor-dashboard
+      members:
+      - liujiong63@163.com
+    openstack/karbor-dashboard-ptl:
+      description: Project team lead for project karbor-dashboard
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-karbor-dashboard-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/karbor-dashboard-core
+          owner = group openstack/karbor-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/karbor-dashboard-core
+          label-Code-Review = -2..+2 group openstack/karbor-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/karbor-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/karbor-dashboard-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/karbor-dashboard-core
+          label-Verified = -2..+2 group openstack/karbor-dashboard-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/karbor-dashboard-core
+          label-Workflow = -1..+1 group openstack/karbor-dashboard-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/karbor-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/karbor-dashboard-core
+      - openstack/karbor-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-karbor-dashboard:
+      file: |
+        [access "refs/*"]
+          read = group openstack/karbor-dashboard-core
+          owner = group openstack/karbor-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/karbor-dashboard-core
+          label-Code-Review = -2..+2 group openstack/karbor-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/karbor-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/karbor-dashboard-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/karbor-dashboard-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/karbor-dashboard-core
+          label-Workflow = -1..+0 group openstack/karbor-dashboard-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/karbor-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/karbor-dashboard-core
+      - openstack/karbor-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/karbor-dashboard:
+      acl: openstack-karbor-dashboard
+      description: Mirror of upstream karbor-dashboard (mirror + patches)
+    openstack/karbor-dashboard-distgit:
+      acl: openstack-karbor-dashboard-distgit
+      description: Packaging of upstream karbor-dashboard
+      default-branch: rpm-master
+      branches:
+        master: '0'
