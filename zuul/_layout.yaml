@@ -154,7 +154,7 @@ pipelines:
     trigger:
       gerrit:
         - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check rdo-experimental\s*$
     success:
       gerrit: {}
       sqlreporter:
