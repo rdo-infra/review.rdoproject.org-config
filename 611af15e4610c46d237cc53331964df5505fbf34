@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_ee1fc007",
+        "filename": "nodepool/nodepool.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-08-22T20:14:51Z",
+      "side": 1,
+      "message": "Just validating this number for the record:\n\nThe aggregate currently has 15 nodes at (probably) 48 cores and 256GB RAM each. This gives us 720 cores and ~4000GB RAM to work with.\n\nThe CPU overcommit ratio is currently at 1, though, so this limits us to 90 VMs (720 cores/8 vcpu flavors) while also leaving a huge amount of RAM unused (only using 720 out of 4000).\n\nFor the time being, 50 servers is a good number and it means we\u0027re left with ~40 VMs of headroom for OVB nodes which is more than enough.\n\nWe should consider bumping the CPU overcommit at least to 2 to get us 180 VMs without significant impact to the job performance while doubling our capacity. It still leaves us with ~1440GB RAM used out of ~4000GB but it\u0027s a better use of our hardware.",
+      "revId": "611af15e4610c46d237cc53331964df5505fbf34",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_2e0388b9",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-08-22T20:14:51Z",
+      "side": 1,
+      "message": "let\u0027s keep \"openstack-experimental\"",
+      "range": {
+        "startLine": 58,
+        "startChar": 20,
+        "endLine": 58,
+        "endChar": 24
+      },
+      "revId": "611af15e4610c46d237cc53331964df5505fbf34",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_8e31dca4",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-08-22T20:14:51Z",
+      "side": 1,
+      "message": "s/experimental RDO/openstack-experimental/",
+      "range": {
+        "startLine": 83,
+        "startChar": 39,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "611af15e4610c46d237cc53331964df5505fbf34",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
