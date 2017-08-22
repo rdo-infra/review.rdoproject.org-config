@@ -137,7 +137,8 @@
           set -e
           sudo yum -y install rpmlint
           pushd $ZUUL_PROJECT
-          rpmlint *.spec
+          base=`basename $ZUUL_PROJECT`
+          rpmlint "$base.spec"
           popd
     triggers:
       - zuul
@@ -181,9 +182,10 @@
           sudo yum -y update
           sudo yum -y install gcc
           pushd $ZUUL_PROJECT
-          spectool -g  *.spec
-          sudo yum-builddep -y *.spec
-          rpmbuild -D '_sourcedir '$PWD -D '_specdir '$PWD -D '_topdir '$PWD -ba *.spec
+          base=`basename $ZUUL_PROJECT`
+          spectool -g  "$base.spec"
+          sudo yum-builddep -y "$base.spec"
+          rpmbuild -D '_sourcedir '$PWD -D '_specdir '$PWD -D '_topdir '$PWD -ba "$base.spec"
           # move built rpms to logs for later use
           mv SRPMS/* $WORKSPACE/logs
           mv RPMS/* $WORKSPACE/logs
