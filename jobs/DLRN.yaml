@@ -105,6 +105,9 @@
 
           # Exception for congress
           addFilter("openstack-congress-common.noarch: E: non-standard-dir-perm /etc/congress/keys 0?750L?")
+
+          # Exception for mistral
+          addFilter("python-mistral.noarch: W: self-obsoletion python-openstack-mistral < 5.0.0-1 obsoletes python-openstack-mistral.*")
           EOF
 
           # now download all these packages from the previous repository
