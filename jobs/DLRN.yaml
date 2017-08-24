@@ -210,6 +210,8 @@
           # and not just in the mock buildroot.
           sudo yum -y install https://buildlogs.centos.org/centos/7/cloud/x86_64/openstack-pike/common/openstack-macros-2018.1.0-0.noarch.rpm
           pushd DLRN
+          # FIXME(jpena): use test patch for singlespec reviews: https://softwarefactory-project.io/r/9350
+          git fetch ssh://javierpena@softwarefactory-project.io:29418/DLRN refs/changes/50/9350/1 && git cherry-pick FETCH_HEAD
           # Setup virtualenv with tox and use it
           tox -epy27 --notest
           . .tox/py27/bin/activate
