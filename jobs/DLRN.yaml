@@ -166,6 +166,12 @@
       - prepare-dlrn
       - shell: |
           set +e
+          # FIXME(jpena): Let's do some DNS debugging
+          sudo yum -y install bind-utils
+          cat /etc/resolv.conf
+          dig mirror.centos.org
+          dig review.rdoproject.org
+          dig www.google.com
           # This job supports building reviews for both review.rdoproject.org
           # and review.openstack.org. Builds that are run as third party for
           # review.o.o are in the Zuul pipelines prefixed by "openstack-".
