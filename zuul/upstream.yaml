@@ -109,13 +109,13 @@ pipelines:
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in manual pipeline: {change.project}'
 
-  - name: openstack-periodic-8hr
-    description: Jobs in this queue are triggered to run periodically every 8 hours.
+  - name: openstack-periodic-4hr
+    description: Jobs in this queue are triggered to run periodically every 4 hours.
     manager: IndependentPipelineManager
     precedence: normal
     trigger:
       timer:
-        - time: '0 */8 * * *'
+        - time: '0 */4 * * *'
     success:
       sqlreporter:
         score: 1
@@ -213,7 +213,7 @@ projects:
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master
-    openstack-periodic-8hr:
+    openstack-periodic-4hr:
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
       - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
