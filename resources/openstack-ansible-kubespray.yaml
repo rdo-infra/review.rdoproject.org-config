@@ -1,0 +1,54 @@
+resources:
+  groups:
+    openstack/ansible-kubespray-distgit-maint:
+      description: Maintainers for project ansible-kubespray-distgit
+      members:
+      - bdobreli@redhat.com
+      - fpercoco@redhat.com
+      - emilien@redhat.com
+    openstack/ansible-kubespray-distgit-owner:
+      description: Project owner ansible-kubespray-distgit
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-kubespray-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-kubespray-distgit-maint
+          owner = group openstack/ansible-kubespray-distgit-owner
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-kubespray-distgit-maint
+          label-Code-Review = -2..+2 group openstack/ansible-kubespray-distgit-owner
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-kubespray-distgit-owner
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-kubespray-distgit-maint
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-kubespray-distgit-maint
+          label-Verified = -2..+2 group openstack/ansible-kubespray-distgit-owner
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-kubespray-distgit-maint
+          label-Workflow = -1..+1 group openstack/ansible-kubespray-distgit-owner
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-kubespray-distgit-maint
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-kubespray-distgit-maint
+      - openstack/ansible-kubespray-distgit-owner
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-kubespray-distgit:
+      acl: openstack-ansible-kubespray-distgit
+      description: Packaging of upstream Kubespray installer for Kubernetes
