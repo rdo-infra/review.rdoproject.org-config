@@ -208,7 +208,7 @@
       - credentials-binding:
         - text:
            credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
-           variable: DLRNAPI_PASSWD
+           variable: DLRNAPI_PASSWORD
         - text:
            credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
            variable: REGISTRY_PASSWORD
@@ -255,6 +255,9 @@
           timeout: '{timeout}'
       - timestamps
       - credentials-binding:
+        - text:
+           credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
+           variable: DLRNAPI_PASSWORD
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
