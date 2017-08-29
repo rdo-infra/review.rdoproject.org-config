@@ -2763,6 +2763,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-fluent-plugin-viaq_data_model
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-gherkin
     check:
       - centos-opstools-rpmlint
