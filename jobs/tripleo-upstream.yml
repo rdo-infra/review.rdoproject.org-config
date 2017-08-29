@@ -275,6 +275,37 @@
       # - console-log
 
 - job-template:
+    name: 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader'
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
+           variable: DLRNAPI_PASSWORD
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    defaults: global
+    builders:
+      #- link-logs
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - devstack-checkout
+      - hack-nodepool-provider-setup
+      - toci-test:
+          type: "{type}"
+          branch-override: "{branch-override}"
+      - images-upload-and-label:
+          release: "{release}"
+    publishers:
+      - rdo-rsync-logs
+      # - console-log
+
+- job-template:
     name: '{trigger}-tripleo-ci-{jobname}-{release}{suffix}'
     node: '{node}'
     wrappers:
@@ -339,18 +370,15 @@
             - zuul
           branch-override: 'stable/{release}'
           timeout: 300
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
           release: master
           suffix: ''
           type: 'periodic-ovb-3ctlr_1comp-featureset002'
           node: upstream-centos-7
-          trigger:
-            - manual
-            - periodic
           branch-override: default
           timeout: 240
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
           release:
             - pike
@@ -359,7 +387,6 @@
           suffix: ''
           type: 'periodic-ovb-3ctlr_1comp-featureset002'
           node: upstream-centos-7
-          trigger: periodic
           branch-override: 'stable/{release}'
           timeout: 240
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
