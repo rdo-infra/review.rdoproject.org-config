@@ -82,33 +82,6 @@ pipelines:
         to: rdo-infra-list@redhat.com
         subject: '[Zuul] Job failed in openstack-experimental pipeline: {change.project}'
 
-  - name: openstack-manual
-    description: Upstream patchsets to manually check promotion jobs.
-    manager: IndependentPipelineManager
-    source: openstack
-    precedence: normal
-    require:
-      open: True
-      current-patchset: True
-    trigger:
-      openstack:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check manual)
-    success:
-      openstack:
-        verified: 1
-      sqlreporter:
-        score: 1
-    failure:
-      openstack:
-        verified: -1
-      sqlreporter:
-        score: -1
-      smtp:
-        from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
-        subject: '[Zuul] Job failed in manual pipeline: {change.project}'
-
   - name: openstack-periodic-4hr
     description: Jobs in this queue are triggered to run periodically every 4 hours.
     manager: IndependentPipelineManager
@@ -199,20 +172,6 @@ projects:
     # review.rdo's implementation of third party CI
     openstack-check:
       - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
-    openstack-manual:
-      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
-      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
-      - manual-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
-      - manual-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset007-master
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset008-master
-      - periodic-tripleo-centos-7-master-images-build:
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master
     openstack-periodic-4hr:
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-uploader
@@ -244,11 +203,3 @@ projects:
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata-uploader
       - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata
       - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton-uploader
-    openstack-experimental:
-      - manual-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
-      - manual-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master
-      - periodic-tripleo-centos-7-master-images-build:
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master
