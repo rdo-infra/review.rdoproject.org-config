@@ -167,6 +167,12 @@
           gpgcheck=0
           enabled=1
 
+          [centos-opstools-sensu-027-testing]
+          name=CentOS-7 - OpsTools availability monitoring - sensu 0.27 testing repo
+          baseurl=http://cbs.centos.org/repos/opstools7-sensu-027-testing/\$basearch/os
+          gpgcheck=0
+          enabled=1
+
           [centos-opstools-common-testing]
           name=CentOS-7 - OpsTools common testing
           baseurl=http://cbs.centos.org/repos/opstools7-common-testing/\$basearch/os
@@ -181,7 +187,6 @@
           EOF
 
           sudo yum -y update
-          sudo yum -y install gcc
           pushd $ZUUL_PROJECT
           base=`basename $ZUUL_PROJECT`
           spectool -g  "$base.spec"
