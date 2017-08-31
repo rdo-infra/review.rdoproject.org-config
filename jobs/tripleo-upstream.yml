@@ -78,6 +78,7 @@
     builders:
       - shell: |
           export RELEASE={release}
+          yum install -y ansible
           bash -xe $WORKSPACE/openstack-infra/tripleo-ci/scripts/shell-builders/rdo-infra-config/build-containers-images.sh
 
 - builder:
