@@ -425,17 +425,22 @@
               build=$(echo $line|awk -F',' '{print $3'})
               tag=$(echo $line|awk -F',' '{print $2'})
               i=0
-              TAGGED=0
-              while [ $i -lt 5 -a $TAGGED -eq 0 ]; do
-                  sleep 10
-                  TAGGED=$(cbs buildinfo $build|grep -c "Tags.*$tag")
-                  ((i++))
-              done
+              TAGGED=$(cbs buildinfo $build|grep -c "Tags.*$tag")
               if [ $TAGGED -eq 0 ]; then
-                  echo "ERROR: package $build was not included in tag $tag"
-                  FAILED=1
+                while [ $i -lt 10 -a $TAGGED -eq 0 ]; do
+                    sleep 5
+                    TAGGED=$(cbs buildinfo $build|grep -c "Tags.*$tag")
+                    ((i++))
+                done
+                if [ $TAGGED -eq 0 ]; then
+                    echo "ERROR: package $build was not included in tag $tag"
+                    FAILED=1
+                else
+                    echo "INFO: package $build was added to tag $tag"
+                fi
               else
-                  echo "INFO: package $build was added to tag $tag"
+                echo "INFO: package $build was added to tag $tag"
+                sleep 2
               fi
           done
 
