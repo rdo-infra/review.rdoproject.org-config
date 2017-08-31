@@ -427,7 +427,7 @@
               i=0
               TAGGED=0
               while [ $i -lt 5 -a $TAGGED -eq 0 ]; do
-                  sleep 10
+                  sleep 5
                   TAGGED=$(cbs buildinfo $build|grep -c "Tags.*$tag")
                   ((i++))
               done
