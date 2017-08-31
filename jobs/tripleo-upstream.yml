@@ -199,7 +199,7 @@
 #
 
 - job-template:
-    name: "periodic-tripleo-centos-7-{release}-images-build{suffix}"
+    name: "periodic-tripleo-centos-7-{release}-containers-build{suffix}"
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -227,9 +227,6 @@
       - hack-nodepool-provider-setup
       - prep-hash:
           release: "{release}"
-      - toci-test:
-          type: 'periodic-singlenode-featureset023'
-          branch-override: "{branch-override}"
       - build-containers-images:
           release: "{release}"
     publishers:
@@ -499,7 +496,7 @@
             - zuul
           branch-override: 'stable/{release}'
           timeout: 180
-      - 'periodic-tripleo-centos-7-{release}-images-build{suffix}':
+      - 'periodic-tripleo-centos-7-{release}-containers-build{suffix}':
           suffix: ''
           release:
             - master
@@ -508,7 +505,7 @@
             - zuul
           branch-override: default
           timeout: 240
-      - 'periodic-tripleo-centos-7-{release}-images-build{suffix}':
+      - 'periodic-tripleo-centos-7-{release}-containers-build{suffix}':
           suffix: ''
           release:
             - pike
