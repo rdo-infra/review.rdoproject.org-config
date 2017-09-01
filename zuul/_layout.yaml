@@ -55,7 +55,7 @@ pipelines:
       current-patchset: true
       approval:
         - verified: [1, 2]
-          username: David Moreau Simard
+          username: jenkins
         - code-review: 2
         - workflow: 1
     trigger:
@@ -69,7 +69,7 @@ pipelines:
         - event: comment-added
           approval:
             - verified: 1
-          username: David Moreau Simard
+          username: jenkins
     start:
       gerrit:
         verified: 0
