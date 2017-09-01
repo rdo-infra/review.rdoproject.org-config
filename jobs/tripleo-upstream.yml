@@ -93,11 +93,20 @@
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
 
 - builder:
-    name: prep-hash
+    name: get-hash
     builders:
       - shell: |
           export RELEASE={release}
+          export PROMOTE_NAME={promote_name}
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/get-hash.sh
+
+- builder:
+    name: promote-hash
+    builders:
+      - shell: |
+          export RELEASE={release}
+          export PROMOTE_NAME={promote_name}
+          bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/promote-hash.sh
 
 - builder:
     name: toci-test
@@ -106,7 +115,7 @@
           #!/bin/bash -xe
 
           export TOCI_JOBTYPE={type}
-          export DELOREAN_LINK=tripleo-ci-testing
+          export DELOREAN_LINK={promote_name}
 
           # ZUUL Doesn't set these for periodic jobs
           export ZUUL_BRANCH=${{ZUUL_BRANCH:-master}}
@@ -205,6 +214,43 @@
 #
 
 - job-template:
+    name: "periodic-tripleo-centos-7-{release}-promote-consistent-to-tripleo-ci-testing{suffix}"
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
+           variable: DLRNAPI_PASSWORD
+        - text:
+           credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
+           variable: REGISTRY_PASSWORD
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: SSH_KEY
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    defaults: global
+    builders:
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - devstack-checkout
+      - ci-config-checkout
+      - hack-nodepool-provider-setup
+      - get-hash:
+          release: "{release}"
+          promote_name: "consistent"
+      - promote-hash:
+          release: "{release}"
+          promote_name: "tripleo-ci-testing"
+    publishers:
+      - rdo-rsync-logs
+
+- job-template:
     name: "periodic-tripleo-centos-7-{release}-containers-build{suffix}"
     node: '{node}'
     wrappers:
@@ -232,11 +278,13 @@
       - devstack-checkout
       - ci-config-checkout
       - hack-nodepool-provider-setup
-      - prep-hash:
+      - get-hash:
           release: "{release}"
+          promote_name: "tripleo-ci-testing"
       - toci-test:
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
+          promote_name: "tripleo-ci-testing"
       - build-containers-images:
           release: "{release}"
     publishers:
@@ -275,9 +323,13 @@
       - devstack-checkout
       - ci-config-checkout
       - hack-nodepool-provider-setup
+      - get-hash:
+          release: "{release}"
+          promote_name: "tripleo-ci-testing"
       - toci-test:
           type: "{type}"
           branch-override: "{branch-override}"
+          promote_name: "tripleo-ci-testing"
     publishers:
       - rdo-rsync-logs
       # - console-log
@@ -305,9 +357,13 @@
       - devstack-checkout
       - ci-config-checkout
       - hack-nodepool-provider-setup
+      - get-hash:
+          release: "{release}"
+          promote_name: "tripleo-ci-testing"
       - toci-test:
           type: "{type}"
           branch-override: "{branch-override}"
+          promote_name: "tripleo-ci-testing"
       - images-upload-and-label:
           release: "{release}"
     publishers:
@@ -337,6 +393,7 @@
       - toci-test:
           type: "{type}"
           branch-override: "{branch-override}"
+          promote_name: "current-tripleo"
     publishers:
       - rdo-rsync-logs
       # - console-log
@@ -356,6 +413,24 @@
             - zuul
           branch-override: default
           timeout: 180
+      - "periodic-tripleo-centos-7-{release}-promote-consistent-to-tripleo-ci-testing{suffix}"
+          release:
+            - master
+            - pike
+            - ocata
+            - newton
+          suffix: ''
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 30
+      - "periodic-tripleo-centos-7-{release}-promote-consistent-to-tripleo-ci-testing{suffix}"
+          release: pike
+          suffix: ''
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 30
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
           release: master
