@@ -926,6 +926,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/novajoin-tempest-plugin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/novajoin-tempest-plugin-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/octavia
     template:
       - name: package-check-jobs
@@ -2366,7 +2374,7 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-ffi
+  - name: centos-opstools/rubygem-coveralls
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2376,15 +2384,15 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-idn
+  - name: centos-opstools/rubygem-ffi
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-027-distgit-cbs-validate
+      - centos-opstools-common-distgit-cbs-validate
     gate:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-027-distgit-cbs-final-build
+      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-http_parser.rb
     check:
@@ -2396,15 +2404,25 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-launchy
+  - name: centos-opstools/rubygem-json
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-027-distgit-cbs-validate
+      - centos-opstools-common-distgit-cbs-validate
     gate:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-      - centos-opstools-sensu-027-distgit-cbs-final-build
+      - centos-opstools-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-minitest
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-msgpack
     check:
@@ -2556,7 +2574,37 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-simplecov
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-simplecov-html
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-string-scrub
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-term-ansicolor
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2577,6 +2625,16 @@ projects:
       - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-test-unit-rr
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-tins
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -2665,16 +2723,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-coveralls
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-cucumber
     check:
@@ -2866,16 +2914,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-json
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-kubeclient
     check:
       - centos-opstools-rpmlint
@@ -2925,16 +2963,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-minitest
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-mocha
     check:
@@ -2996,36 +3024,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-simplecov
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-simplecov-html
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-term-ansicolor
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-thor
     check:
       - centos-opstools-rpmlint
@@ -3046,16 +3044,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-tins
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-tzinfo
     check:
@@ -3188,6 +3176,26 @@ projects:
       - centos-opstools-sensu-027-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-eventmachine
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-idn
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-launchy
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
