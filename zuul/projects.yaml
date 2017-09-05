@@ -2,6 +2,9 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
 
+  - name: ^rdo-kolla-build-integration$
+    branch: ^(master|stable/pike)$
+
   - name: ^pike-distgit-cbs-(validate|final-build)$
     branch: ^pike-rdo$
 
