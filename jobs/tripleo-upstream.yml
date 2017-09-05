@@ -421,6 +421,7 @@
           suffix: ''
           triggers:
             - zuul
+          node: upstream-centos-7
           branch-override: default
           timeout: 30
       - 'periodic-tripleo-centos-7-{release}-promote-consistent-to-tripleo-ci-testing{suffix}':
@@ -431,6 +432,7 @@
           suffix: ''
           triggers:
             - zuul
+          node: upstream-centos-7
           branch-override: 'stable/{release}'
           timeout: 30
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
