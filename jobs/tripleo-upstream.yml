@@ -335,7 +335,7 @@
       # - console-log
 
 - job-template:
-    name: 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader'
+    name: 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload'
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -455,7 +455,7 @@
             - zuul
           branch-override: 'stable/{release}'
           timeout: 300
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader':
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
           release: master
           suffix: ''
@@ -463,7 +463,7 @@
           node: upstream-centos-7
           branch-override: default
           timeout: 240
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-uploader':
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
           release:
             - pike
