@@ -34,6 +34,12 @@ diskimages:
       # bluebox-sjc2 is closer than rax-dfw from Phoenix
       # (where rdo-cloud is located) but rax-dfw is tuned for higher capacity
       NODEPOOL_MIRROR_HOST: mirror.dfw.rax.openstack.org
+      # Note (dmsimard)
+      # We have stopped synchronizing project-config over concerns of divergence
+      # with the zuul v3 migration as well as the gerrit upgrade upstream
+      # We need to also pin the location where the project-config/nodepool/elements/openstack-repos
+      # element retrieves it's project list to match our pin
+      DIB_CUSTOM_PROJECTS_LIST_URL: https://git.openstack.org/cgit/openstack-infra/project-config/plain/gerrit/projects.yaml?id=d2efe2e71ed07e17b8f0922934665dfb3a6fdbd0
 
 labels:
   - name: rdo-centos-7
