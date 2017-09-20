@@ -15,12 +15,12 @@ pipelines:
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify|check-rdo|verify-rdo)
     success:
       openstack:
-        verified: 1
+        Verified: 1
       sqlreporter:
         score: 1
     failure:
       openstack:
-        verified: -1
+        Verified: -1
       sqlreporter:
         score: -1
       smtp:
@@ -42,7 +42,7 @@ pipelines:
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify|check-rdo|verify-rdo)
         - event: comment-added
           approval:
-            - verified: 1
+            - Verified: 1
           username: ^(jenkins|zuul)$
     success:
       sqlreporter:
@@ -69,12 +69,12 @@ pipelines:
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check rdo experimental)
     success:
       openstack:
-        verified: 1
+        Verified: 1
       sqlreporter:
         score: 1
     failure:
       openstack:
-        verified: -1
+        Verified: -1
       sqlreporter:
         score: -1
       smtp:
