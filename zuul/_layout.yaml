@@ -29,20 +29,20 @@ pipelines:
         - event: patchset-created
         - event: comment-added
           comment: (?i)retrigger
-        # this one is for people used to the openstack workflow
+        # this one is for people used to the openstack Workflow
         - event: comment-added
           comment: (?i)recheck
     start:
       gerrit:
-        verified: 0
+        Verified: 0
     success:
       gerrit:
-        verified: 1
+        Verified: 1
       sqlreporter:
         score: 1
     failure:
       gerrit:
-        verified: -1
+        Verified: -1
       sqlreporter:
         score: -1
 
@@ -54,34 +54,34 @@ pipelines:
       open: true
       current-patchset: true
       approval:
-        - verified: [1, 2]
+        - Verified: [1, 2]
           username: jenkins
-        - code-review: 2
-        - workflow: 1
+        - Code-Review: 2
+        - Workflow: 1
     trigger:
       gerrit:
         - event: comment-added
           approval:
-            - code-review: 2
+            - Code-Review: 2
         - event: comment-added
           approval:
-            - workflow: 1
+            - Workflow: 1
         - event: comment-added
           approval:
-            - verified: 1
+            - Verified: 1
           username: jenkins
     start:
       gerrit:
-        verified: 0
+        Verified: 0
     success:
       gerrit:
-        verified: 2
+        Verified: 2
         submit: true
       sqlreporter:
         score: 2
     failure:
       gerrit:
-        verified: -2
+        Verified: -2
       sqlreporter:
         score: -2
     window-floor: 20
