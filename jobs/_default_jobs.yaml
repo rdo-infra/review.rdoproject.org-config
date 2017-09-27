@@ -21,12 +21,6 @@
           echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
           export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
           export ZUUL_REF=${ZUUL_REF:-None}
-          # FIXME(jpena): DNS debugging due to intermittent issues
-          sudo yum -y install bind-utils
-          cat /etc/resolv.conf
-          dig mirror.centos.org
-          dig review.rdoproject.org
-          dig www.google.com
 
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
