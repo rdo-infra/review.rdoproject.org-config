@@ -2,7 +2,6 @@
 set -ex
 
 # Simple script to test several DLRN packages
-GIT_BASE_URL="https://review.rdoproject.org/r/p"
 TAG="${1:-queens-uc}"
 PACKAGES_TO_BUILD="${2:-python-glanceclient}"
 PROJECT_DISTRO_BRANCH="rpm-master"
@@ -39,12 +38,20 @@ mkdir -p data/repos
 for PACKAGE in ${PACKAGES_TO_BUILD}; do
     PROJECT_TO_BUILD_MAPPED=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^name | awk '{print $2}')
     PROJECT_IN_RDOINFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^project: | awk '{print $2}')
+    PROJECT_DISTGIT=$(rdopkg findpkg $PACKAGE -l ../rdoinfo | grep ^distgit: | awk '{print $2}')
     if [[ "$PROJECT_IN_RDOINFO" =~ puppet- ]]; then
         PROJECT_DISTRO="puppet/$PROJECT_IN_RDOINFO-distgit"
     else
         PROJECT_DISTRO="openstack/$PROJECT_IN_RDOINFO-distgit"
     fi
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
+
+    if [ "$PROJECT_DISTGIT" = "https://github.com/openstack/rpm-packaging" ]; then
+        GIT_BASE_URL=$(dirname $PROJECT_DISTGIT)
+        PROJECT_DISTRO=$(basename $PROJECT_DISTGIT)
+    else
+        GIT_BASE_URL="https://review.rdoproject.org/r/p"
+    fi
 
     if [ -e /usr/bin/zuul-cloner ]; then
         zuul-cloner --workspace data/ $GIT_BASE_URL $PROJECT_DISTRO --branch $PROJECT_DISTRO_BRANCH
