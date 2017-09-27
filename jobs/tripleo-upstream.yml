@@ -333,7 +333,6 @@
           promote_name: "tripleo-ci-testing"
     publishers:
       - rdo-rsync-logs
-      # - console-log
 
 - job-template:
     name: 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload'
@@ -372,7 +371,6 @@
           release: "{release}"
     publishers:
       - rdo-rsync-logs
-      # - console-log
 
 - job-template:
     name: '{trigger}-tripleo-ci-{jobname}-{release}{suffix}'
@@ -400,7 +398,6 @@
           promote_name: "current-tripleo"
     publishers:
       - rdo-rsync-logs
-      # - console-log
 
 - project:
     # https://github.com/openstack-infra/project-config/blob/cafc121a627a812302fc8414c3faa751e30043f2/jenkins/jobs/projects.yaml#L15221-L15229
