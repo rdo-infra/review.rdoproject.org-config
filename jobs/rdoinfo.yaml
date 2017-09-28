@@ -389,14 +389,22 @@
     builders:
       - prepare-workspace
       - rdo-log-setup
-      - validate-buildsys-tags
       - prepare-rpmfactory-workspace
       - shell: |
           set +e
           FAILED=0
+          # Install requirements
+          sudo yum install -y createrepo mock git centos-packager yum-utils
+          sudo pip install ruamel.yaml rdopkg
+          # clone scripts and run
+          git clone http://review.rdoproject.org/r/gating_scripts
+          pushd gating_scripts/buildsys-tags/
+          # create_temporary_repos.sh will create input files for graffiti
+          bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
+          popd
           sudo pip install  git+https://github.com/softwarefactory-project/graffiti
           # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/logs/info/
-          # by validate-buildsys-tags builder
+          # by create_temporary_repos.sh script
           # If there are register actions, they are executed first
           if [ -s $WORKSPACE/logs/info/register.yaml ]; then
               echo "INFO: Executing CBS register actions"
