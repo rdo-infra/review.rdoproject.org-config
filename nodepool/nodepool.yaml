@@ -11,6 +11,18 @@ diskimages:
       QEMU_IMG_OPTIONS: compat=0.10
       DIB_GRUB_TIMEOUT: '0'
       DIB_YUM_MINIMAL_CREATE_INTERFACES: '1'
+  - name: ssd-rdo-centos-7
+    elements:
+      - centos-minimal
+      - nodepool-minimal
+      - simple-init
+      - sf-zuul-worker
+      - jenkins-worker
+      - rdo-base
+    env-vars:
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
+      DIB_YUM_MINIMAL_CREATE_INTERFACES: '1'
   - name: upstream-centos-7
     elements:
       - centos-minimal
@@ -47,6 +59,11 @@ labels:
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
+  - name: ssd-rdo-centos-7
+    min-ready: 3
+    image: ssd-rdo-centos-7
+    providers:
+      - name: rdo-cloud
   - name: upstream-centos-7
     min-ready: 5
     image: upstream-centos-7
@@ -79,6 +96,13 @@ providers:
         min-ram: 8192
         config-drive: true
         boot-from-volume: true
+      - name: ssd-rdo-centos-7
+        diskimage: ssd-rdo-centos-7
+        name-filter: ci.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
+        boot-from-volume: false
   - name: rdo-cloud-tripleo
     boot-timeout: 120
     clean-floating-ips: true
