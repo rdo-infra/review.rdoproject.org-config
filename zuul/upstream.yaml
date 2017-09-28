@@ -154,6 +154,13 @@ projects:
   - name: openstack/releases
     openstack-post:
       - rdo-send-stable-release
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -207,6 +214,64 @@ projects:
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata
       - periodic-tripleo-centos-7-newton-promote-consistent-to-tripleo-ci-testing:
         - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton-upload
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: puppet/puppet-tripleo
+    template:
+      - name: package-check-jobs
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: openstack/tripleo-heat-templates
+    template:
+      - name: package-check-jobs
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: openstack/tripleo-quickstart
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: openstack/tripleo-quickstart-extras
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: openstack/python-tripleoclient
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
+      - gate-tripleo-ci-centos-7-multinode-upgrades
+      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+
+  - name: openstack/tripleo-upgrade
     openstack-experimental:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
       - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
