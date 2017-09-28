@@ -47,6 +47,11 @@ labels:
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
+  - name: ssd-rdo-centos-7
+    min-ready: 5
+    image: rdo-centos-7
+    providers:
+      - name: ssd-rdo-cloud
   - name: upstream-centos-7
     min-ready: 5
     image: upstream-centos-7
@@ -66,7 +71,7 @@ providers:
     boot-timeout: 120
     clean-floating-ips: true
     cloud: rdo-cloud
-    max-servers: 30
+    max-servers: 20
     pool: public
     rate: 0.25
     networks:
@@ -79,6 +84,23 @@ providers:
         min-ram: 8192
         config-drive: true
         boot-from-volume: true
+  - name: ssd-rdo-cloud
+    boot-timeout: 120
+    clean-floating-ips: true
+    cloud: rdo-cloud
+    max-servers: 10
+    pool: public
+    rate: 0.25
+    networks:
+      - name: private
+    images:
+      - name: ssd-rdo-centos-7
+        diskimage: rdo-centos-7
+        name-filter: ci.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
+        boot-from-volume: false
   - name: rdo-cloud-tripleo
     boot-timeout: 120
     clean-floating-ips: true
