@@ -687,4 +687,47 @@
             - zuul
           branch-override: 'stable/{release}'
           timeout: 180
-
+      - 'gate-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-containers-multinode-upgrades'
+          release: master
+          suffix: '-nv'
+          type: 'multinode-1ctlr-featureset011'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+      - 'gate-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-scenario001-multinode-oooq-container-upgrades'
+          release: master
+          suffix: '-nv'
+          type: 'multinode-1ctlr-featureset012'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+      - 'gate-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-scenario003-multinode-oooq-container-upgrades'
+          release: master
+          suffix: '-nv'
+          type: 'multinode-1ctlr-featureset014'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+      - 'gate-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-undercloud-upgrades-nv'
+          release: master
+          suffix: '-nv'
+          type: 'undercloud-upgrades'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
