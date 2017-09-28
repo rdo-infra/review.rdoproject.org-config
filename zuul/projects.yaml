@@ -3538,7 +3538,7 @@ projects:
     gate:
       - tox-validate
       - rdoinfo-DLRN-check
-      - update-buildsys-tags
+      - validate-buildsys-tags
     periodic:
       - rdoinfo-upper-constraints-update-master
       - rdoinfo-upper-constraints-update-pike
@@ -3553,6 +3553,7 @@ projects:
     post:
       - rdoinfo-create-project
       - rdo-send-stable-release
+      - update-buildsys-tags
     experimental:
       - rdoinfo-DLRN-check:
           - gate-weirdo-dlrn-master-packstack-scenario003
