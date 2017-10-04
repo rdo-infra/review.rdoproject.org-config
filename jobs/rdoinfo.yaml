@@ -406,6 +406,7 @@
           # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/logs/info/
           # by create_temporary_repos.sh script
           # If there are register actions, they are executed first
+          pushd $WORKSPACE/rdoinfo
           if [ -s $WORKSPACE/logs/info/register.yaml ]; then
               echo "INFO: Executing CBS register actions"
               cat $WORKSPACE/logs/info/register.yaml
@@ -425,6 +426,7 @@
                   echo "ERROR: Executing CBS tag actions"
               fi
           fi
+          popd
           # Check if tags have been applied as expected
           # format of cbs_actions.txt is <action>,<tag>,<build> where <action> is
           # "tag" for tagging actions.
