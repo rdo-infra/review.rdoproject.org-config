@@ -508,7 +508,7 @@
             # Check for an open change, if so reuse it
             change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
             gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
-            topic:buildsys-tags-update-"{release}"-"{phase}")
+            topic:"{release}"-"{phase}"-update)
             previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
             if [ -n "$previous" ]; then
                 CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
@@ -530,7 +530,7 @@
             diff deps.yml deps_current.yml
             DIFF_DEPS=$?
             if [ $DIFF_DEPS -ne 0 -o $DIFF_RDO -ne 0 ]; then
-                git review -t "buildsys-tags-update-"{release}"-"{phase}"" < /dev/null
+                git review -t ""{release}"-"{phase}"-update" < /dev/null
             fi
           fi
     triggers:
