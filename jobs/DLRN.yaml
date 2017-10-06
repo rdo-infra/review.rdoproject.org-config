@@ -111,6 +111,11 @@
 
           # Exception for cloudkitty
           addFilter("openstack-cloudkitty-common.noarch: E: non-standard-dir-perm /var/log/cloudkitty 0750L?")
+
+          # Exception for puppet-tripleo
+          addFilter("puppet-tripleo.noarch: E: explicit-lib-dependency puppet-openstacklib")
+          addFilter("puppet-tripleo.noarch: E: explicit-lib-dependency puppet-stdlib")
+          addFilter("puppet-tripleo.noarch: E: non-executable-script /usr/share/openstack-puppet/modules/tripleo/templates/redis/redis-notifications.sh.erb 0644L /bin/bash")
           EOF
 
           # now download all these packages from the previous repository
