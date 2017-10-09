@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/oswin-tempest-plugin-core:
+      description: Core developers for project oswin-tempest-plugin
+      members:
+      - mkopec@redhat.com
+    openstack/oswin-tempest-plugin-ptl:
+      description: Project team lead for project oswin-tempest-plugin
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oswin-tempest-plugin-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oswin-tempest-plugin-core
+          owner = group openstack/oswin-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oswin-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/oswin-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oswin-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oswin-tempest-plugin-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/oswin-tempest-plugin-core
+          label-Verified = -2..+2 group openstack/oswin-tempest-plugin-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oswin-tempest-plugin-core
+          label-Workflow = -1..+1 group openstack/oswin-tempest-plugin-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oswin-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oswin-tempest-plugin-core
+      - openstack/oswin-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oswin-tempest-plugin:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oswin-tempest-plugin-core
+          owner = group openstack/oswin-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oswin-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/oswin-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oswin-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oswin-tempest-plugin-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oswin-tempest-plugin-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oswin-tempest-plugin-core
+          label-Workflow = -1..+0 group openstack/oswin-tempest-plugin-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oswin-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oswin-tempest-plugin-core
+      - openstack/oswin-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oswin-tempest-plugin:
+      acl: openstack-oswin-tempest-plugin
+      description: Mirror of upstream oswin-tempest-plugin (mirror + patches)
+    openstack/oswin-tempest-plugin-distgit:
+      acl: openstack-oswin-tempest-plugin-distgit
+      description: Packaging of upstream oswin-tempest-plugin
+      default-branch: rpm-master
+      branches:
+        master: '0'
