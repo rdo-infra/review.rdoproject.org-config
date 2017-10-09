@@ -159,23 +159,33 @@ projects:
     openstack-post:
       - rdo-send-stable-release
     openstack-experimental:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
   - name: puppet/puppet-tripleo
     template:
       - name: package-check-jobs
     openstack-experimental:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
   - name: openstack/tripleo-heat-templates
     template:
@@ -184,12 +194,17 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -200,12 +215,17 @@ projects:
     openstack-experimental:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -216,12 +236,17 @@ projects:
     openstack-experimental:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
   - name: openstack-infra/tripleo-ci
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
@@ -269,27 +294,42 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master-nv
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master-nv
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
   - name: openstack/python-tripleoclient
     openstack-experimental:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike
 
   - name: openstack/tripleo-upgrade
     openstack-experimental:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-nv
-      - gate-tripleo-ci-centos-7-multinode-upgrades
-      - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades-pike
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-master
+      - gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades-pike

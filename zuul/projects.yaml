@@ -20,6 +20,15 @@ jobs:
   - name: ^gate-rpmlint$
     branch: ^rpm-master$
 
+  - name: ^gate-tripleo-ci-centos-7-.*-master$
+    branch: ^master$
+
+  - name: ^gate-tripleo-ci-centos-7-.*-pike$
+    branch: ^stable/pike$
+
+  - name: ^gate-tripleo-ci-centos-7-.*-ocata$
+    branch: ^stable/ocata$
+
   ####
   # WeIRDO job filters
   ####
