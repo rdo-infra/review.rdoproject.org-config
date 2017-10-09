@@ -706,8 +706,10 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
+            - ocata
             - pike
-          suffix: '-nv'
+            - master
+          suffix: ''
           type: 'multinode-1ctlr-featureset011'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -719,7 +721,8 @@
           jobname: 'centos-7-scenario001-multinode-oooq-container-upgrades'
           release:
             - pike
-          suffix: '-nv'
+            - master
+          suffix: ''
           type: 'multinode-1ctlr-featureset012'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -731,7 +734,8 @@
           jobname: 'centos-7-scenario003-multinode-oooq-container-upgrades'
           release:
             - pike
-          suffix: '-nv'
+            - master
+          suffix: ''
           type: 'multinode-1ctlr-featureset014'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -740,11 +744,12 @@
           branch-override: default
           timeout: 360
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-undercloud-upgrades-nv'
+          jobname: 'centos-7-undercloud-upgrades'
           release:
             - ocata
             - pike
-          suffix: '-nv'
+            - master
+          suffix: ''
           type: 'undercloud-upgrades'
           node: upstream-centos-7
           trigger: gate
@@ -755,21 +760,10 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
-            - ocata
-          suffix: '-nv'
+            - pike
+            - master
+          suffix: ''
           type: 'multinode-upgrades'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-scenario001-multinode-oooq-upgrades'
-          release:
-            - ocata
-          suffix: '-nv'
-          type: 'scenario001-multinode-upgrades'
           node: upstream-centos-7-2-node
           trigger: gate
           triggers:
