@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/networking-baremetal-core:
+      description: Core developers for project networking-baremetal
+      members:
+      - divius.inside@gmail.com
+      - harald.jensas@gmail.com
+    openstack/networking-baremetal-ptl:
+      description: Project team lead for project networking-baremetal
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-baremetal-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-baremetal-core
+          owner = group openstack/networking-baremetal-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-baremetal-core
+          label-Code-Review = -2..+2 group openstack/networking-baremetal-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-baremetal-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-baremetal-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/networking-baremetal-core
+          label-Verified = -2..+2 group openstack/networking-baremetal-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-baremetal-core
+          label-Workflow = -1..+1 group openstack/networking-baremetal-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-baremetal-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-baremetal-core
+      - openstack/networking-baremetal-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-baremetal:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-baremetal-core
+          owner = group openstack/networking-baremetal-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-baremetal-core
+          label-Code-Review = -2..+2 group openstack/networking-baremetal-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-baremetal-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-baremetal-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-baremetal-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-baremetal-core
+          label-Workflow = -1..+0 group openstack/networking-baremetal-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-baremetal-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-baremetal-core
+      - openstack/networking-baremetal-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-baremetal:
+      acl: openstack-networking-baremetal
+      description: Mirror of upstream networking-baremetal (mirror + patches)
+    openstack/networking-baremetal-distgit:
+      acl: openstack-networking-baremetal-distgit
+      description: Packaging of upstream networking-baremetal
+      default-branch: rpm-master
+      branches:
+        master: '0'

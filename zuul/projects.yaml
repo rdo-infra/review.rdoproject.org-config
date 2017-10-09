@@ -158,6 +158,9 @@ projects:
     template:
       - name: noop
 
+  - name: gating_scripts
+    template:
+      - name: noop
   - name: openstack/UcsSdk
     template:
       - name: package-check-jobs
@@ -795,6 +798,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/networking-bagpipe-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/networking-baremetal
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/networking-baremetal-distgit
     template:
       - name: package-distgit-check-jobs
 
@@ -3561,6 +3572,3 @@ projects:
           - gate-weirdo-dlrn-master-puppet-scenario002
           - gate-weirdo-dlrn-master-puppet-scenario003
           - gate-weirdo-dlrn-master-puppet-scenario004
-  - name: gating_scripts
-    template:
-      - name: noop
