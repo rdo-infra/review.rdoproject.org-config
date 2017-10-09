@@ -40,6 +40,18 @@ diskimages:
       # We need to also pin the location where the project-config/nodepool/elements/openstack-repos
       # element retrieves it's project list to match our pin
       DIB_CUSTOM_PROJECTS_LIST_URL: https://git.openstack.org/cgit/openstack-infra/project-config/plain/gerrit/projects.yaml?id=d2efe2e71ed07e17b8f0922934665dfb3a6fdbd0
+  - name: rdo-fedora-26
+    elements:
+      - fedora-minimal
+      - nodepool-minimal
+      - simple-init
+      - sf-zuul-worker
+      - jenkins-worker
+      - rdo-base
+    env-vars:
+      DIB_RELEASE: '26'
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
 
 labels:
   - name: rdo-centos-7
@@ -52,6 +64,11 @@ labels:
     image: rdo-centos-7
     providers:
       - name: rdo-cloud-ssd
+  - name: rdo-fedora-26
+    min-ready: 1
+    image: rdo-fedora-26
+    providers:
+      - name: rdo-cloud
   - name: upstream-centos-7
     min-ready: 5
     image: upstream-centos-7
@@ -79,6 +96,13 @@ providers:
     images:
       - name: rdo-centos-7
         diskimage: rdo-centos-7
+        name-filter: rdo.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
+        boot-from-volume: true
+      - name: rdo-fedora-26
+        diskimage: rdo-fedora-26
         name-filter: rdo.m1.nodepool
         username: jenkins
         min-ram: 8192
