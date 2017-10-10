@@ -139,6 +139,12 @@
         - weirdo-publish-logs
     triggers:
         - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
     node: rdo-centos-7-ssd
 
 # To use WeIRDO jobs to test a DLRN repository (i.e, distgit reviews)
