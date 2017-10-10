@@ -116,6 +116,14 @@
           addFilter("puppet-tripleo.noarch: E: explicit-lib-dependency puppet-openstacklib")
           addFilter("puppet-tripleo.noarch: E: explicit-lib-dependency puppet-stdlib")
           addFilter("puppet-tripleo.noarch: E: non-executable-script /usr/share/openstack-puppet/modules/tripleo/templates/redis/redis-notifications.sh.erb 0644L /bin/bash")
+
+          # Exceptions for glance
+          addFilter("openstack-glance.noarch: E: non-standard-dir-perm /var/log/glance 0?750L?")
+          # The dangling-symlink exclusions are related to files from
+          # python-glance-store and python-os-brick.
+          addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/glance_cinder_store.filters /usr/share/glance_store/glance_cinder_store.filters")
+          addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/os-brick.filters /usr/share/os-brick/rootwrap/os-brick.filters")
+
           EOF
 
           # now download all these packages from the previous repository
