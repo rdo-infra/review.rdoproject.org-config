@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/os-service-types-core:
+      description: Core developers for project os-service-types
+      members:
+      - ykarel@redhat.com
+    openstack/os-service-types-ptl:
+      description: Project team lead for project os-service-types
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-service-types-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-service-types-core
+          owner = group openstack/os-service-types-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-service-types-core
+          label-Code-Review = -2..+2 group openstack/os-service-types-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-service-types-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-service-types-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/os-service-types-core
+          label-Verified = -2..+2 group openstack/os-service-types-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-service-types-core
+          label-Workflow = -1..+1 group openstack/os-service-types-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-service-types-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-service-types-core
+      - openstack/os-service-types-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-service-types:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-service-types-core
+          owner = group openstack/os-service-types-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-service-types-core
+          label-Code-Review = -2..+2 group openstack/os-service-types-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-service-types-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-service-types-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-service-types-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-service-types-core
+          label-Workflow = -1..+0 group openstack/os-service-types-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-service-types-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-service-types-core
+      - openstack/os-service-types-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-service-types:
+      acl: openstack-os-service-types
+      description: Mirror of upstream os-service-types (mirror + patches)
+    openstack/os-service-types-distgit:
+      acl: openstack-os-service-types-distgit
+      description: Packaging of upstream os-service-types
+      default-branch: rpm-master
+      branches:
+        master: '0'
