@@ -400,6 +400,39 @@
             - zuul
           branch-override: default
           timeout: 180
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
+          release: master
+          suffix: '-nv'
+          type: 'ovb-3ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp_1ceph-featureset024'
+          release: master
+          suffix: '-nv'
+          type: 'ovb-1ctlr_1comp_1ceph-featureset024'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset022'
+          release: master
+          suffix: '-nv'
+          type: 'ovb-1ctlr_1comp-featureset022'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 300
       - 'periodic-tripleo-centos-7-{release}-promote-consistent-to-tripleo-ci-testing{suffix}':
           release: master
           suffix: ''
