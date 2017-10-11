@@ -32,10 +32,12 @@ IGNORED_PROJECTS = {
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
+        'rubygem-fluent-plugin-parser',
         'testbranching',
         'testproject',
     ],
     'gerritbot': [
+        'rubygem-fluent-plugin-parser',
         'testbranching',
         'testproject',
     ]
