@@ -90,6 +90,7 @@
     builders:
       - shell: |
           export RELEASE={release}
+          bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
 
 - builder:
