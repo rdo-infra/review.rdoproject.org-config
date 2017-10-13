@@ -1,0 +1,39 @@
+resources:
+  groups:
+    gating_scripts-core:
+      description: 'Core members for gating_scripts project'
+      members:
+        - alan.pevec@redhat.com
+        - amoralej@redhat.com
+        - dms@redhat.com
+        - jpena@redhat.com
+        - hguemar@redhat.com
+        - ykarel@redhat.com
+        - cschwede@redhat.com
+        - admin@review.rdoproject.org
+  acls:
+    gating_scripts:
+      file: |
+        [access "refs/*"]
+          owner = group gating_scripts-core
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group gating_scripts-core
+            label-Verified = -2..+2 group gating_scripts-core
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group gating_scripts-core
+            submit = group gating_scripts-core
+            read = group gating_scripts-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group gating_scripts-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+        - gating_scripts-core
+  repos:
+    gating_scripts:
+      acl: gating_scripts

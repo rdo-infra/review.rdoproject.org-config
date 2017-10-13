@@ -299,32 +299,6 @@ resources:
       groups:
       - rdo-ptl
       - rdo-core
-    b8942be7f036ae5cf800a93e70875b38:
-      file: |
-        [access "refs/*"]
-          read = group gating_scripts-core
-          owner = group gating_scripts-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group gating_scripts-core
-            label-Code-Review = -2..+2 group gating_scripts-ptl
-            label-Verified = -2..+2 group gating_scripts-ptl
-            label-Workflow = -1..+1 group gating_scripts-core
-            label-Workflow = -1..+1 group gating_scripts-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group gating_scripts-ptl
-            read = group gating_scripts-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group gating_scripts-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - gating_scripts-ptl
-      - gating_scripts-core
     c14a4640b99e82ab1fbdca9f2a8b780b:
       file: |
         [access "refs/*"]
@@ -406,16 +380,6 @@ resources:
       - rdoinfo-ptl
       - rdoinfo-core
   groups:
-    gating_scripts-core:
-      description: Core developers for project gating_scripts
-      members:
-      - cschwede@redhat.com
-      - admin@review.rdoproject.org
-    gating_scripts-ptl:
-      description: Project team lead for project gating_scripts
-      members:
-      - cschwede@redhat.com
-      - admin@review.rdoproject.org
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
       members:
@@ -568,9 +532,6 @@ resources:
       - gcerami@redhat.com
       - admin@review.rdoproject.org
   repos:
-    gating_scripts:
-      acl: b8942be7f036ae5cf800a93e70875b38
-      description: ''
     openstack/openstack-puppet-modules:
       acl: c14a4640b99e82ab1fbdca9f2a8b780b
       description: Mirror of upstream openstack-puppet-modules (mirror + patches)
