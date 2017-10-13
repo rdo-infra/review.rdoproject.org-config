@@ -3291,6 +3291,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-027-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-sensu-extensions-check-dependencies
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-027-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-sensu-extensions-debug
     check:
       - centos-opstools-rpmlint
