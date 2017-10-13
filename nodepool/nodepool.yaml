@@ -40,6 +40,8 @@ diskimages:
       # We need to also pin the location where the project-config/nodepool/elements/openstack-repos
       # element retrieves it's project list to match our pin
       DIB_CUSTOM_PROJECTS_LIST_URL: https://git.openstack.org/cgit/openstack-infra/project-config/plain/gerrit/projects.yaml?id=d2efe2e71ed07e17b8f0922934665dfb3a6fdbd0
+# NOTE(jpena): We had to manually cherry-pick https://github.com/openstack/diskimage-builder/commit/6ffde2e5964acb9183616a7c2ab67a10d4712c3e
+# to the review.rdoproject.org and nb01.rdoproject.org machines to avoid the coreutils issue when creating the image
   - name: rdo-fedora-26
     elements:
       - fedora-minimal
