@@ -32,12 +32,10 @@ IGNORED_PROJECTS = {
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
-        'centos-opstools/rubygem-fluent-plugin-parser',
         'testbranching',
         'testproject',
     ],
     'gerritbot': [
-        'centos-opstools/rubygem-fluent-plugin-parser',
         'testbranching',
         'testproject',
     ]
