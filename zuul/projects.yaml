@@ -2,6 +2,9 @@ jobs:
   - name: ^DLRN-rpmbuild$
     branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
 
+  - name: ^DLRN-rpmbuild-fedora$
+    branch: ^(master)|(rpm-master)$
+
   - name: ^rdo-kolla-build-integration$
     branch: ^(master|stable/pike)$
 
@@ -129,6 +132,8 @@ project-templates:
       - ocata-distgit-cbs-final-build
       - pike-distgit-cbs-final-build
       - common-distgit-cbs-final-build
+    experimental:
+      - DLRN-rpmbuild-fedora
 
   - name: weirdo-gate-jobs
     check:
