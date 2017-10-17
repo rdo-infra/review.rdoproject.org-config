@@ -92,6 +92,7 @@
           export RELEASE={release}
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
+          echo export UPLOAD_EXIT_VALUE=0 >> $WORKSPACE/hash_info.sh
 
 - builder:
     name: get-hash
@@ -319,6 +320,14 @@
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
     publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                source $WORKSPACE/hash_info.sh
+                export SUCCESS=$([[ "$JOB_EXIT_VALUE" == 0 ]] && echo true || echo false)
+                bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+          script-only-if-succeeded: False
+          script-only-if-failed: False
       - rdo-rsync-logs
 
 - job-template:
@@ -357,6 +366,14 @@
       - images-upload-and-label:
           release: "{release}"
     publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                source $WORKSPACE/hash_info.sh
+                export SUCCESS=$([[ "$JOB_EXIT_VALUE" == 0 && "$UPLOAD_EXIT_VALUE" == 0  ]] && echo true || echo false)
+                bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+          script-only-if-succeeded: False
+          script-only-if-failed: False
       - rdo-rsync-logs
 
 - job-template:
