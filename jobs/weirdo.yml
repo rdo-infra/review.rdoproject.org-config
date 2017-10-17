@@ -82,6 +82,10 @@
 
             mkdir logs
             sudo cp -a /var/log/weirdo/* logs/
+            # Copy database (experimental)
+            sudo mkdir logs/ara-database
+            sudo cp $WORKSPACE/ara-$JOB_NAME.sqlite logs/ara-database/ansible.sqlite
+
             # Ensure permissions allow artifact uploading
             sudo chown -R "$(id -u).$(id -g)" logs
 
