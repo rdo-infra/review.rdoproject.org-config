@@ -210,6 +210,42 @@
     node: rdo-centos-7-ssd
 
 - job:
+    name: 'DLRN-rpmbuild-fedora'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - rdo-log-setup
+      - prepare-dlrn
+      - shell: |
+          set +e
+          pushd DLRN
+          # Edit the default test script to use Fedora instead of CentOS
+          # Note we are only using rpm-master in Fedora, builds for
+          # stable branches will fail
+          sed -i 's/^target=.*/target=\"fedora\"/' scripts/run_tests.sh
+          sed -i 's/^baseurl*.*/baseurl=\"https:\/\/trunk.rdoproject.org\/f25\/\"/' scripts/run_tests.sh
+          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+          ret=$?
+          popd
+
+          # Retrieve logs/repositories/packages
+          mkdir logs
+          cp -a DLRN/logs/* logs/
+
+          exit $ret
+    publishers:
+      - rdo-rsync-logs
+    triggers:
+      - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    node: rdo-fedora-26 
+
+- job:
     name: 'DLRN-rpmbuild-rpm-packaging'
     defaults: global
     builders:
