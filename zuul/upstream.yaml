@@ -223,6 +223,16 @@ projects:
       - gate-tripleo-ci-centos-7-scenario001-multinode-upgrades
       - gate-tripleo-ci-centos-7-undercloud-upgrades-nv
 
+  - name: openstack/python-tempestconf
+    # Note (arxcruz): This is a job to ensure openstack/python-tempestconf
+    # commits do not break review.rdo's implementation of third party CI.
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset005-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset006-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset007-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset008-master-nv
+
   - name: openstack-infra/tripleo-ci
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
     # review.rdo's implementation of third party CI
