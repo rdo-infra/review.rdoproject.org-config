@@ -92,7 +92,7 @@
           export RELEASE={release}
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
-          echo export UPLOAD_EXIT_VALUE=0 >> $WORKSPACE/hash_info.sh
+          echo export UPLOAD_EXIT_VALUE=$? >> $WORKSPACE/hash_info.sh
 
 - builder:
     name: get-hash
@@ -324,6 +324,7 @@
           builders:
             - shell: |
                 source $WORKSPACE/hash_info.sh
+                export TOCI_JOBTYPE={type}
                 export SUCCESS=$([[ "$JOB_EXIT_VALUE" == 0 ]] && echo true || echo false)
                 bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           script-only-if-succeeded: False
