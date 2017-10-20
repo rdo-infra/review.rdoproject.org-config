@@ -3493,6 +3493,16 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
 
+  - name: centos-opstools/opstools-ansible-release
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
       - gate-tox-ansible-lint
