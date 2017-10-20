@@ -260,6 +260,9 @@
         - file:
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
+    publishers:
+      - email:
+          recipients: rdo-infra-list@redhat.com
 
 - job:
     name: rdo-send-stable-release
@@ -328,6 +331,9 @@
         - file:
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
+    publishers:
+      - email:
+          recipients: rdo-infra-list@redhat.com
 
 - job:
     name: validate-buildsys-tags
@@ -457,6 +463,8 @@
 
     publishers:
       - rdo-rsync-logs
+      - email:
+          recipients: rdo-infra-list@redhat.com
     triggers:
       - zuul
     wrappers:
@@ -546,6 +554,9 @@
         - file:
            credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
            variable: CLIENTSECRET
+    publishers:
+      - email:
+          recipients: rdo-infra-list@redhat.com
 
 - project:
     name: rdoinfo-buildsys-tags-update
