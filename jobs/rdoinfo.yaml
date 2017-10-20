@@ -484,6 +484,17 @@
           if [ $(($DAY%2)) -eq 0 -a $PHASE == "testing" ]||[ $(($DAY%2)) -ne 0 -a $PHASE == "release" ]; then
             exit 0
           fi
+          # When updating packages from -testing to -release we want to automatically include
+          # dependencies. For promotions from -candidate to -testing we'll keep it manual as
+          # someone must create the build and justify the update.
+          case $PHASE in
+            testing )
+              DEPS="-n"
+            ;;
+            release )
+              DEPS=""
+            ;;
+          esac
           sudo yum install -y git centos-packager PyYAML
           sudo pip install git+https://github.com/softwarefactory-project/graffiti
           sudo pip install ruamel.yaml sh git-review
@@ -493,7 +504,7 @@
             -c $WORKSPACE/gating_scripts/buildsys-tags/graffiti_config.yaml \
             -r $RELEASE \
             -p $PHASE \
-            -n
+            $DEPS
           DIFF=$(git diff rdo.yml deps.yml)
           if [ -n "$DIFF" ]; then
             mkdir -p ~/.ssh
