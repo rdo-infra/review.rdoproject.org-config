@@ -156,10 +156,25 @@ projects:
     openstack-check:
       - DLRN-rpmbuild:
         - rdo-kolla-build-integration
-    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
   - name: openstack/rpm-packaging
     openstack-check:
@@ -182,12 +197,16 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
 
-  - name: puppet/puppet-tripleo
+  - name: openstack/puppet-tripleo
     template:
       - name: package-check-jobs
-    openstack-experimental:
+    openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -198,16 +217,20 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
   - name: openstack/tripleo-heat-templates
     template:
       - name: package-check-jobs
-    openstack-experimental:
+    openstack-check:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -218,18 +241,20 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
-    openstack-experimental:
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -240,18 +265,18 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart-extras
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
-    openstack-experimental:
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -262,8 +287,11 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
   - name: openstack/python-tempestconf
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
     # Note (arxcruz): This is a job to ensure openstack/python-tempestconf
     # commits do not break review.rdo's implementation of third party CI.
     openstack-experimental:
@@ -278,9 +306,9 @@ projects:
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
     # review.rdo's implementation of third party CI
     openstack-check:
-      - gate-tripleo-ci-centos-7-undercloud-oooq-master-nv
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
-    openstack-experimental:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
     openstack-periodic-4hr:
@@ -320,8 +348,6 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master-nv
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master-nv
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master-nv
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -332,11 +358,16 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
   - name: openstack/python-tripleoclient
-    openstack-experimental:
+    openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -347,11 +378,16 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
   - name: openstack/tripleo-upgrade
-    openstack-experimental:
+    openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -362,3 +398,154 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/dib-utils
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+
+  - name: openstack/diskimage-builder
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+
+  - name: openstack/instack
+    openstack-check:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/instack-undercloud
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
+      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/os-apply-config
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/os-collect-config
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/os-net-config
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/os-refresh-config
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/tripleo-image-elements
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
+  - name: openstack/tripleo-puppet-elements
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
