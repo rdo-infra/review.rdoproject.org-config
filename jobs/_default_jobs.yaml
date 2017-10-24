@@ -50,6 +50,12 @@
               GIT_SOURCE="https://git.openstack.org"
           fi
 
+          # NOTE(jpena): we want to add some extra debugging here, to
+          # troubleshoot initial clone issues
+          export GIT_CURL_VERBOSE=1
+          git config --global http.postBuffer 524288000
+          git config --global https.postBuffer 524288000
+
           if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
           # Note (trown): we need to make sure we clone this to the same
           # location as zuul-cloner will so that manual and periodic jobs
@@ -58,6 +64,9 @@
           else
               zuul-cloner -v $GIT_SOURCE $ZUUL_PROJECT
           fi
+
+           # NOTE(jpena): remove additional git verbosity
+           unset GIT_CURL_VERBOSE
 
 - builder:
     name: zuul-swift-upload
