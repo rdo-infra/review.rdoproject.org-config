@@ -59,7 +59,7 @@ pipelines:
     description: Upstream patchsets that have to be checked against a set of experimental jobs.
     manager: IndependentPipelineManager
     source: openstack
-    precedence: normal
+    precedence: low
     require:
       open: True
       current-patchset: True
@@ -85,7 +85,7 @@ pipelines:
   - name: openstack-periodic-4hr
     description: Jobs in this queue are triggered to run periodically every 4 hours.
     manager: IndependentPipelineManager
-    precedence: normal
+    precedence: high
     trigger:
       timer:
         - time: '0 */4 * * *'
