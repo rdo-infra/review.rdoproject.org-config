@@ -101,7 +101,7 @@ pipelines:
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
       sqlreporter:
         score: -4
@@ -119,7 +119,7 @@ pipelines:
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
       sqlreporter:
         score: -3
@@ -139,7 +139,7 @@ pipelines:
     failure:
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in tag pipeline: {change.project}'
       sqlreporter:
         score: -5

@@ -25,7 +25,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in openstack-check pipeline: {change.project}'
 
   - name: openstack-check-verified
@@ -52,7 +52,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in openstack-check-verified pipeline: {change.project}'
 
   - name: openstack-experimental
@@ -79,7 +79,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in openstack-experimental pipeline: {change.project}'
 
   - name: openstack-periodic-4hr
@@ -97,7 +97,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in periodic 8hr pipeline: {change.project}'
 
   - name: openstack-periodic-24hr
@@ -115,7 +115,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in periodic 24hr pipeline: {change.project}'
 
 
@@ -136,7 +136,7 @@ pipelines:
         score: -1
       smtp:
         from: jenkins@review.rdoproject.org
-        to: rdo-infra-list@redhat.com
+        to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in openstack-post pipeline: {change.project}'
 
 jobs:
