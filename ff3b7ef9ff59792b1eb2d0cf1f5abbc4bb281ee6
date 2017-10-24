@@ -46,6 +46,30 @@
       "revId": "ff3b7ef9ff59792b1eb2d0cf1f5abbc4bb281ee6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_e246f522",
+        "filename": "nodepool/nodepool.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2017-10-24T13:25:03Z",
+      "side": 1,
+      "message": "Rough math:\n\n(I don\u0027t know what\u0027s the disk capacity)\n15 nodes @ 48 cores, 256GB RAM:\n720 cores (overcommit 2:1, 1440 cores), 3840GB RAM\n\n80 VMs:\n640 cores, 640GB RAM\n\n160 OVB VMs (avg 4 core, 8GB ram)\n640 cores, 1280GB RAM\n\nIt looks like you could run a bit short on cores but plenty of ram. You should look with rhos-ops what\u0027s the disk capacity.",
+      "parentUuid": "fa81d914_62bbe50e",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 19
+      },
+      "revId": "ff3b7ef9ff59792b1eb2d0cf1f5abbc4bb281ee6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
