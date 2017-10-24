@@ -3189,6 +3189,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-027-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-elasticsearch
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-em-http-request
     check:
       - centos-opstools-rpmlint
