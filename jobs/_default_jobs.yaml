@@ -50,6 +50,9 @@
               GIT_SOURCE="https://git.openstack.org"
           fi
 
+          git config --global http.postBuffer 524288000
+          git config --global https.postBuffer 524288000
+
           if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
           # Note (trown): we need to make sure we clone this to the same
           # location as zuul-cloner will so that manual and periodic jobs
