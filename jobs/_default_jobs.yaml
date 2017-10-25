@@ -137,6 +137,23 @@
           echo "[+] Checking jobs"
           jenkins-jobs test jobs/ -o ../build/
 
+          echo "[+] Checking all jobs have an assigned node"
+          pushd ../build
+          set +e
+          err=0
+          for file in $(find . -maxdepth 1 -type f) ; do
+            grep assignedNode $file > /dev/null
+            if [ $? -ne 0 ]; then
+              echo "ERROR: Job $file does not have an assigned node"
+              err=1
+            fi
+          done
+          if [ $err -eq 1 ]; then
+             exit 1
+          fi
+          set -e
+          popd
+
           echo "[+] Checking zuul"
           /usr/local/bin/yaml-merger.py zuul | tee ../build/zuul/layout.yaml
           cp zuul/*.py ../build/zuul/ || true
