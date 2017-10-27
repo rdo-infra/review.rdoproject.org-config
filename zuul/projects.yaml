@@ -1601,6 +1601,14 @@ projects:
     template:
       - name: package-check-jobs
 
+  - name: openstack/zaqar-tempest-plugin
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/zaqar-tempest-plugin-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/zaqarclient
     template:
       - name: package-check-jobs
@@ -2788,6 +2796,36 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-elasticsearch
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-elasticsearch-api
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-elasticsearch-transport
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-excon
     check:
       - centos-opstools-rpmlint
@@ -3018,16 +3056,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-public_suffix
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-netrc
     check:
       - centos-opstools-rpmlint
@@ -3039,6 +3067,16 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-psych
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-public_suffix
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
@@ -3199,36 +3237,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-027-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-elasticsearch
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-elasticsearch-api
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-elasticsearch-transport
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-em-http-request
     check:
       - centos-opstools-rpmlint
@@ -3279,16 +3287,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-027-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-eventmachine
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-idn
     check:
       - centos-opstools-rpmlint
@@ -3308,16 +3306,6 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-027-distgit-cbs-final-build
-
-  - name: centos-opstools/rubygem-parse-cron
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-sensu-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-sensu-extension
     check:
@@ -3480,6 +3468,26 @@ projects:
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-diff-lcs
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-eventmachine
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-sensu-common-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-parse-cron
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
