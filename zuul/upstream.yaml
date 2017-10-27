@@ -82,13 +82,13 @@ pipelines:
         to: infra@lists.rdoproject.org
         subject: '[Zuul] Job failed in openstack-experimental pipeline: {change.project}'
 
-  - name: openstack-periodic-4hr
-    description: Jobs in this queue are triggered to run periodically every 4 hours.
+  - name: openstack-periodic
+    description: Jobs in this queue are triggered to run every few hours.
     manager: IndependentPipelineManager
     precedence: high
     trigger:
       timer:
-        - time: '0 */4 * * *'
+        - time: '0 0,4,9,14,19 * * *'
     success:
       sqlreporter:
         score: 1
@@ -98,7 +98,7 @@ pipelines:
       smtp:
         from: jenkins@review.rdoproject.org
         to: infra@lists.rdoproject.org
-        subject: '[Zuul] Job failed in periodic 8hr pipeline: {change.project}'
+        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
 
   - name: openstack-periodic-24hr
     description: Jobs in this queue are triggered to run periodically once a day.
@@ -106,7 +106,7 @@ pipelines:
     precedence: normal
     trigger:
       timer:
-        - time: '0 0 * * *'
+        - time: '0 4 * * *'
     success:
       sqlreporter:
         score: 1
@@ -291,7 +291,7 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv
-    openstack-periodic-4hr:
+    openstack-periodic:
       - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing:
         - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-upload
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
