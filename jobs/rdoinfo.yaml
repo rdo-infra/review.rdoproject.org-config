@@ -110,6 +110,7 @@
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
               rm -rf data
+              sudo rm -rf /var/cache/mock/*
           fi
           if [ -n "${PACKAGES_UPDATED_PIKE}" ]; then
               timeout --signal=SIGKILL 10800 /opt/nodepool-scripts/rdoinfo-DLRN.sh pike "${PACKAGES_UPDATED_PIKE}"
@@ -119,6 +120,7 @@
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
               rm -rf data
+              sudo rm -rf /var/cache/mock/*
           fi
           if [ -n "${PACKAGES_UPDATED_OCATA}" ]; then
               timeout --signal=SIGKILL 10800 /opt/nodepool-scripts/rdoinfo-DLRN.sh ocata "${PACKAGES_UPDATED_OCATA}"
@@ -128,6 +130,7 @@
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
               rm -rf data
+              sudo rm -rf /var/cache/mock/*
           fi
           if [ -n "${PACKAGES_UPDATED_NEWTON}" ]; then
               timeout --signal=SIGKILL 10800 /opt/nodepool-scripts/rdoinfo-DLRN.sh newton "${PACKAGES_UPDATED_NEWTON}"
@@ -137,6 +140,7 @@
               fi
               # The data/ contents have been archived already, remove to avoid issues with the next branch
               rm -rf data
+              sudo rm -rf /var/cache/mock/*
           fi
           popd
 

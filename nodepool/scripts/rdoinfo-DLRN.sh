@@ -73,8 +73,8 @@ done
 # If the commands below throws an error we still want the logs
 function copy_logs() {
     mkdir -p logs
-    rsync -avzr data/repos logs/centos
-    rsync -avzrL data/repos/current logs/centos
+    rsync -avzr data/repos logs/centos-$PROJECT_DISTRO_BRANCH
+    rsync -avzrL data/repos/current logs/centos-$PROJECT_DISTRO_BRANCH
 }
 trap copy_logs ERR EXIT
 
