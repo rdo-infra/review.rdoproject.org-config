@@ -298,7 +298,7 @@
           git config --global --add user.email "javier.pena@redhat.com"
           git config --global --add gitreview.username "rdo-trunk"
 
-          BASE_CMD="rdo_release_review -u rdo-trunk"
+          BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
           RELEASES="newton ocata pike"
           for r in $RELEASES;do
             case $ZUUL_PROJECT in
