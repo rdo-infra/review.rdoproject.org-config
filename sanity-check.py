@@ -29,6 +29,7 @@ IGNORED_PROJECTS = {
     'zuul': [
         'All-Users',
         'config',
+        'centos-opstools/rubygem-psych',
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
@@ -37,6 +38,7 @@ IGNORED_PROJECTS = {
     ],
     'gerritbot': [
         'testbranching',
+        'centos-opstools/rubygem-psych',
         'testproject',
     ]
 }
