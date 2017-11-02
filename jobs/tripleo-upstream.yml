@@ -290,6 +290,52 @@
       - rdo-rsync-logs
 
 - job-template:
+    name: "experimental-tripleo-centos-7-{release}-containers-build{suffix}"
+    node: '{node}'
+    wrappers:
+      - build-timeout:
+          timeout: '{timeout}'
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
+           variable: DLRNAPI_PASSWORD
+        - text:
+           credential-id: f80d1c45-82f7-47c7-a463-7c99c27be09c
+           variable: REGISTRY_PASSWORD
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: SSH_KEY
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    defaults: global
+    builders:
+      - net-info
+      - prepare-workspace
+      - rdo-log-setup
+      - devstack-checkout
+      - ci-config-checkout
+      - hack-nodepool-provider-setup
+      - get-hash:
+          release: "{release}"
+          promote_name: "tripleo-ci-testing"
+      - build-containers-images:
+          release: "{release}"
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir -p $WORKSPACE/logs
+                  cp -a /tmp/kolla $WORKSPACE/logs/
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+      - rdo-rsync-logs
+
+- job-template:
     name: 'periodic-tripleo-ci-{jobname}-{release}{suffix}'
     node: '{node}'
     wrappers:
@@ -606,6 +652,15 @@
           branch-override: 'stable/{release}'
           timeout: 180
       - 'periodic-tripleo-centos-7-{release}-containers-build{suffix}':
+          suffix: ''
+          release:
+            - master
+          node: upstream-centos-7
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 240
+      - 'experimental-tripleo-centos-7-{release}-containers-build{suffix}':
           suffix: ''
           release:
             - master
