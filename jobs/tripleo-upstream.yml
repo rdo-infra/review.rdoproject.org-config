@@ -270,10 +270,6 @@
       - get-hash:
           release: "{release}"
           promote_name: "tripleo-ci-testing"
-      - toci-test:
-          type: 'periodic-singlenode-featureset023'
-          branch-override: "{branch-override}"
-          promote_name: "tripleo-ci-testing"
       - build-containers-images:
           release: "{release}"
     publishers:
