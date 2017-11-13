@@ -140,6 +140,11 @@
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/glance_cinder_store.filters /usr/share/glance_store/glance_cinder_store.filters")
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/os-brick.filters /usr/share/os-brick/rootwrap/os-brick.filters")
 
+          # Exceptions for puppet-ceph
+          addFilter("puppet-ceph.noarch: E: explicit-lib-dependency puppet-openstacklib")
+          addFilter("puppet-ceph.noarch: E: explicit-lib-dependency puppet-stdlib")
+          addFilter("puppet-ceph.noarch: E: non-executable-script /usr/share/openstack-puppet/modules/ceph/setup.py 0644L /usr/bin/env")
+
           EOF
 
           # now download all these packages from the previous repository
