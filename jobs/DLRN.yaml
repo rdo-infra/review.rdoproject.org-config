@@ -140,6 +140,12 @@
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/glance_cinder_store.filters /usr/share/glance_store/glance_cinder_store.filters")
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/os-brick.filters /usr/share/os-brick/rootwrap/os-brick.filters")
 
+          # Exceptions for horizon
+          addFilter("openstack-dashboard.noarch: E: zero-length /usr/share/openstack-dashboard/openstack_auth/tests/models.py")
+          addFilter("openstack-dashboard.noarch: E: zero-length /usr/share/openstack-dashboard/openstack_auth/tests/templates/auth/blank.html")
+          addFilter("python-django-horizon.noarch: W: obsolete-not-provided python2-django-openstack-auth")
+          addFilter("python-django-horizon.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/openstack_auth/tests/run_tests.py 0644L /usr/bin/env")
+
           EOF
 
           # now download all these packages from the previous repository
