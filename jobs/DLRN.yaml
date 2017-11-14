@@ -145,6 +145,11 @@
           addFilter("puppet-ceph.noarch: E: explicit-lib-dependency puppet-stdlib")
           addFilter("puppet-ceph.noarch: E: non-executable-script /usr/share/openstack-puppet/modules/ceph/setup.py 0644L /usr/bin/env")
 
+          # Exceptions for horizon
+          addFilter("python-django-horizon.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/openstack_auth/tests/run_tests.py 0644L /usr/bin/env")
+          addFilter("python-django-horizon.noarch: E: zero-length /usr/lib/python2.7/site-packages/openstack_auth/tests/models.py")
+          addFilter("python-django-horizon.noarch: E: zero-length /usr/lib/python2.7/site-packages/openstack_auth/tests/templates/auth/blank.html")
+
           EOF
 
           # now download all these packages from the previous repository
