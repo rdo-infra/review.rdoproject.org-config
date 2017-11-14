@@ -140,6 +140,10 @@
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/glance_cinder_store.filters /usr/share/glance_store/glance_cinder_store.filters")
           addFilter("openstack-glance.noarch: W: dangling-symlink /etc/glance/rootwrap.d/os-brick.filters /usr/share/os-brick/rootwrap/os-brick.filters")
 
+          # Exceptions for horizon
+          addFilter("openstack-dashboard.noarch: E: zero-length /usr/share/openstack-dashboard/openstack_auth/tests/models.py")
+          addFilter("openstack-dashboard.noarch: E: zero-length /usr/share/openstack-dashboard/openstack_auth/tests/templates/auth/blank.html")
+
           EOF
 
           # now download all these packages from the previous repository
