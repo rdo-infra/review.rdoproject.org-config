@@ -319,7 +319,7 @@
                 else
                   REAL_COMMIT=$ZUUL_COMMIT
                 fi
-                $BASE_CMD -r $r -n $REAL_COMMIT
+                $BASE_CMD -r $r -n commit:$REAL_COMMIT
                 popd
               ;;
             esac
