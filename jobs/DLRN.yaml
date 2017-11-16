@@ -124,6 +124,7 @@
 
           # Exception for mistral
           addFilter("python-mistral.noarch: W: self-obsoletion python-openstack-mistral < 5.0.0-1 obsoletes python-openstack-mistral.*")
+          addFilter("openstack-mistral-common.noarch: E: non-standard-dir-perm /var/lib/mistral 0?750L?")
 
           # Exception for cloudkitty
           addFilter("openstack-cloudkitty-common.noarch: E: non-standard-dir-perm /var/log/cloudkitty 0750L?")
