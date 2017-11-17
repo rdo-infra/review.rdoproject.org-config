@@ -23,6 +23,12 @@ else
     O_RELEASE="$RELEASE"
 fi
 
+if [[ ( "$RELEASE" == "newton" ) || ( "$RELEASE" == "ocata" ) || ("$RELEASE" == "pike" ) ]];then
+    C_RELEASE=common
+else
+    C_RELEASE=""
+fi
+
 # Re-construct the expected repository URL
 ZUUL_REF=$(echo $ZUUL_REF |cut -f4 -d /)
 job="validate-buildsys-tags"
@@ -31,7 +37,7 @@ logs="https://logs.rdoproject.org/$LOG_PATH/"
 # If we couldn't find a working repository, give up
 curl -o $CREPOS_FILE -sf "$logs/repos/changed_repos.txt" || exit 1
 
-for tag in $O_RELEASE common
+for tag in $O_RELEASE $C_RELEASE
 do
     if grep -q -E "$tag-$PHASE" $CREPOS_FILE; then
         REQUIRED=1
