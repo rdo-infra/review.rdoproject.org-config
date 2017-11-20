@@ -1291,6 +1291,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/rsdclient
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/rsdclient-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/sahara
     template:
       - name: package-check-jobs
@@ -2395,6 +2403,16 @@ projects:
     gate:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
+
+  - name: centos-opstools/opstools-ansible-distgit
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-builder
     check:
@@ -3548,16 +3566,6 @@ projects:
       - centos-opstools-tox
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
-
-  - name: centos-opstools/opstools-ansible-distgit
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-common-distgit-cbs-final-build
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:

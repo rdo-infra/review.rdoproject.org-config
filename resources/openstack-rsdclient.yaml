@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/rsdclient-core:
+      description: Core developers for project rsdclient
+      members:
+      - lin.a.yang@intel.com
+      - nathaniel.potter@intel.com
+    openstack/rsdclient-ptl:
+      description: Project team lead for project rsdclient
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-rsdclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/rsdclient-core
+          owner = group openstack/rsdclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/rsdclient-core
+          label-Code-Review = -2..+2 group openstack/rsdclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/rsdclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/rsdclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/rsdclient-core
+          label-Verified = -2..+2 group openstack/rsdclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/rsdclient-core
+          label-Workflow = -1..+1 group openstack/rsdclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/rsdclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/rsdclient-core
+      - openstack/rsdclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-rsdclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/rsdclient-core
+          owner = group openstack/rsdclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/rsdclient-core
+          label-Code-Review = -2..+2 group openstack/rsdclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/rsdclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/rsdclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/rsdclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/rsdclient-core
+          label-Workflow = -1..+0 group openstack/rsdclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/rsdclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/rsdclient-core
+      - openstack/rsdclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/rsdclient:
+      acl: openstack-rsdclient
+      description: Mirror of upstream rsdclient (mirror + patches)
+    openstack/rsdclient-distgit:
+      acl: openstack-rsdclient-distgit
+      description: Packaging of upstream rsdclient
+      default-branch: rpm-master
+      branches:
+        master: '0'
