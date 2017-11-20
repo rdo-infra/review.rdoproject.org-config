@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/rsd-lib-core:
+      description: Core developers for project rsd-lib
+      members:
+      - nathaniel.potter@intel.com
+      - lin.a.yang@intel.com
+    openstack/rsd-lib-ptl:
+      description: Project team lead for project rsd-lib
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-rsd-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/rsd-lib-core
+          owner = group openstack/rsd-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/rsd-lib-core
+          label-Code-Review = -2..+2 group openstack/rsd-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/rsd-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/rsd-lib-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/rsd-lib-core
+          label-Verified = -2..+2 group openstack/rsd-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/rsd-lib-core
+          label-Workflow = -1..+1 group openstack/rsd-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/rsd-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/rsd-lib-core
+      - openstack/rsd-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-rsd-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/rsd-lib-core
+          owner = group openstack/rsd-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/rsd-lib-core
+          label-Code-Review = -2..+2 group openstack/rsd-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/rsd-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/rsd-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/rsd-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/rsd-lib-core
+          label-Workflow = -1..+0 group openstack/rsd-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/rsd-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/rsd-lib-core
+      - openstack/rsd-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/rsd-lib:
+      acl: openstack-rsd-lib
+      description: Mirror of upstream rsd-lib (mirror + patches)
+    openstack/rsd-lib-distgit:
+      acl: openstack-rsd-lib-distgit
+      description: Packaging of upstream rsd-lib
+      default-branch: rpm-master
+      branches:
+        master: '0'
