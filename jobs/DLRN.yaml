@@ -200,13 +200,9 @@
           # Clone DLRN
           git clone https://github.com/softwarefactory-project/DLRN --depth 1
 
-- job:
-    name: 'DLRN-rpmbuild'
-    defaults: global
+- builder:
+    name: DLRN-build-rpm
     builders:
-      - prepare-workspace
-      - rdo-log-setup
-      - prepare-dlrn
       - shell: |
           set +e
           # This job supports building reviews for both review.rdoproject.org
@@ -217,16 +213,25 @@
               timeout --signal=SIGKILL 3600 ./scripts/run_project_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
               ret=$?
           else
-              timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git
+              timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git "{target}" "{baseurl}"
               ret=$?
           fi
           popd
-
           # Retrieve logs/repositories/packages
           mkdir logs
           cp -a DLRN/logs/* logs/
-
           exit $ret
+
+- job:
+    name: 'DLRN-rpmbuild'
+    defaults: global
+    builders:
+      - prepare-workspace
+      - rdo-log-setup
+      - prepare-dlrn
+      - DLRN-build-rpm:
+          target: 'centos'
+          baseurl: 'https://trunk.rdoproject.org/centos7/'
     publishers:
       - rdo-rsync-logs
     triggers:
@@ -246,18 +251,9 @@
       - prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
-      - shell: |
-          set +e
-          pushd DLRN
-          timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh http://review.rdoproject.org/r/p/rdoinfo.git fedora https://trunk.rdoproject.org/f25/
-          ret=$?
-          popd
-
-          # Retrieve logs/repositories/packages
-          mkdir logs
-          cp -a DLRN/logs/* logs/
-
-          exit $ret
+      - DLRN-build-rpm:
+          target: 'fedora'
+          baseurl: 'https://trunk.rdoproject.org/f25/'
     publishers:
       - rdo-rsync-logs
     triggers:
