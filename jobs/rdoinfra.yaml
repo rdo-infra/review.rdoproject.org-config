@@ -272,6 +272,9 @@
               -e "sensu_rabbitmq_server=localhost"
           popd
 
+          [[ -f /etc/sensu/conf.d/checks.json ]] && cat /etc/sensu/conf.d/checks.json
+          [[ -f /etc/sensu/conf.d/client.json ]] && cat /etc/sensu/conf.d/client.json
+
 - job-template:
     name: 'rdo-infra-playbooks-integration-{playbook}{suffix}'
     defaults: global
