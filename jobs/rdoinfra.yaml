@@ -395,6 +395,10 @@
                   mkdir $WORKSPACE/logs
                   $WORKSPACE/$ZUUL_PROJECT/.tox/ansible-playbook/bin/ara generate html $WORKSPACE/logs/ara
 
+                  # Copy database (experimental)
+                  mkdir $WORKSPACE/logs/ara-database
+                  cp $HOME/.ara/ansible.sqlite $WORKSPACE/logs/ara-database/ansible.sqlite
+
                   # Ensure permissions allow artifact uploading
                   sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
