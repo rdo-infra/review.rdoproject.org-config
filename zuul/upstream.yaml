@@ -231,6 +231,10 @@ projects:
       - DLRN-rpmbuild:
         - rdo-kolla-build-integration
 
+  - name: openstack/requirements
+    openstack-post:
+      - rdo-deps-uc-send-review
+
   - name: openstack/rpm-packaging
     openstack-check:
       - DLRN-rpmbuild-rpm-packaging

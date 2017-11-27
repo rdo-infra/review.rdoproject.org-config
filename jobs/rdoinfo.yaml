@@ -265,6 +265,94 @@
            credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
            variable: SSH_KEY
 
+
+- job:
+    name: rdo-deps-uc-send-review
+    defaults: global
+    builders:
+      - prepare-workspace-post
+      - shell: |
+          set +e -x
+          sudo pip install pymod2pkg sh git-review ruamel.yaml rdopkg
+          if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
+              zuul-cloner http://review.rdoproject.org/r rdoinfo
+          fi
+          if [ "${ZUUL_REF}" == 'master' ]; then
+              RELEASE="queens"
+          else
+              RELEASE="${ZUUL_REF/stable\//}"
+          fi
+          export PHASE="candidate"
+          # Currently releng requires rdoinfo to be in $HOME/rdoinfo
+          rm -rf ~/rdoinfo
+          ln -s $PWD/rdoinfo ~/rdoinfo
+          zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
+          pushd rdo-infra/releng
+          sudo pip install .
+          popd
+          pushd $ZUUL_PROJECT
+          SUBJECT=$(git log --oneline $ZUUL_COMMIT|head -1|cut -d " " -f 2)
+          if [ $SUBJECT == "Merge" ]; then
+             REAL_COMMIT=$(git show $ZUUL_COMMIT|grep ^Merge:|awk '{print $(NF)}')
+          else
+             REAL_COMMIT=$ZUUL_COMMIT
+          fi
+          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
+          change_list=${change_list[@]/#[+-]/}
+          git clone http://review.rdoproject.org/r/gating_scripts
+          pushd $WORKSPACE/rdoinfo
+              python $WORKSPACE/gating_scripts/buildsys-tags/add-buildsys-tags.py \
+              -l $change_list \
+              -r $RELEASE \
+              -p $PHASE
+          popd
+          DIFF=$(git diff deps.yml)
+          if [ -n "$DIFF" ]; then
+            mkdir -p ~/.ssh
+            cat >> ~/.ssh/config << EOF
+
+          Host review.rdoproject.org
+            IdentityFile $SSH_KEY
+          EOF
+            chmod 600 ~/.ssh/config
+            sudo chmod 600 $SSH_KEY
+            sudo chown jenkins:jenkins $SSH_KEY
+            ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            # Check for an open change, if so reuse it
+            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
+            gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
+            topic:rdoinfo-deps-uc-update-"$RELEASE")
+            previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
+            if [ -n "$previous" ]; then
+                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
+                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nChange-Id: $CHANGE_ID\n"
+            else
+                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE"
+            fi
+            git config user.name "rdo-trunk"
+            git config user.email "javier.pena@redhat.com"
+            git config gitreview.username "rdo-trunk"
+            git checkout -b proposal
+            git review -s -v
+            echo -e $COMMIT_MSG | git commit -F- deps.yml
+            # Just in case, check if there are changes between this version and the current review
+            curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/deps.yml/content |base64 -d > deps_current.yml
+            diff deps.yml deps_current.yml
+            if [ $? -ne 0 ]; then
+                git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
+            fi
+          fi
+    triggers:
+      - zuul
+    node: rdo-centos-7
+    wrappers:
+      - credentials-binding:
+        - file:
+           credential-id: f8472527-c620-43b7-b4ed-3d3ec67ec63a
+           variable: SSH_KEY
+
+
 - job:
     name: rdo-send-stable-release
     defaults: rdo-global
