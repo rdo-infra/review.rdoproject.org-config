@@ -142,16 +142,8 @@
           if [ -f "$base.spec" ]; then
              specfile="$base.spec"
           else
-            if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
-             else
-              echo '*********************************'
-              echo "* There is no $base.spec file    "
-              echo '* There is no spec/anything.spec '
-              echo '*********************************'
-             fi
+             specfile=`find . -depth -maxdepth 1 -name '*.spec' | head -n 1`
           fi
-
           rpmlint "$specfile"
           popd
     triggers:
@@ -206,14 +198,7 @@
           if [ -f "$base.spec" ]; then
              specfile="$base.spec"
           else
-             if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
-             else
-              echo '*********************************'
-              echo "* There is no $base.spec file    "
-              echo '* There is no spec/anything.spec '
-              echo '*********************************'
-             fi
+             specfile=`find . -depth -maxdepth 1 -name '*.spec' | head -n 1`
           fi
           spectool -g  "$specfile"
           sudo yum-builddep -y "$specfile"
