@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ba7be1f8_3c876963",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 155
+      },
+      "writtenOn": "2017-11-27T15:11:03Z",
+      "side": 1,
+      "message": "full tempest is too long job to run it on these repos, we\u0027ll wait a lot of time for all other jobs that run with it. Especially given little stacks number we can run now. There is nothing related to tempest in quickstart and tripleo-ci repos, only extras role and python-tempestconf could be related. \n\nI think it\u0027s enough to have it in one repository, python-tempestconf doesn\u0027t have so lot of patches as quickstart-extras and could be used for testing full tempest. We can just do dummy patches with dependencies in case of checking other repositories patches.",
+      "parentUuid": "ba7be1f8_2e52d313",
+      "range": {
+        "startLine": 249,
+        "startChar": 8,
+        "endLine": 249,
+        "endChar": 72
+      },
+      "revId": "151054d44a7a6df37404d19fd3a90861d3da3a92",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da86d52c_2b2c784a",
         "filename": "zuul/upstream.yaml",
         "patchSetId": 1
