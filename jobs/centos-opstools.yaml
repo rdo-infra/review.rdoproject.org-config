@@ -141,15 +141,13 @@
           base=`basename $ZUUL_PROJECT`
           if [ -f "$base.spec" ]; then
              specfile="$base.spec"
+          elif [ -f "${base::-8}.spec" ]; then
+             specfile="${base::-8}.spec"
           else
-            if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
-             else
               echo '*********************************'
               echo "* There is no $base.spec file    "
-              echo '* There is no spec/anything.spec '
+              echo '* There is no XXXXX-distgit.spec '
               echo '*********************************'
-             fi
           fi
 
           rpmlint "$specfile"
@@ -205,15 +203,13 @@
           base=`basename $ZUUL_PROJECT`
           if [ -f "$base.spec" ]; then
              specfile="$base.spec"
+          elif [ -f "${base::-8}.spec" ]; then
+             specfile="${base::-8}.spec"
           else
-             if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
-             else
               echo '*********************************'
               echo "* There is no $base.spec file    "
-              echo '* There is no spec/anything.spec '
+              echo '* There is no XXXXX-distgit.spec '
               echo '*********************************'
-             fi
           fi
           spectool -g  "$specfile"
           sudo yum-builddep -y "$specfile"
