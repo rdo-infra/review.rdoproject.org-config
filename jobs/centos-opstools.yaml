@@ -143,7 +143,7 @@
              specfile="$base.spec"
           else
             if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
+              specfile=`find . -depth -maxdepth 1 -name '*.spec' | head -n 1`
              else
               echo '*********************************'
               echo "* There is no $base.spec file    "
@@ -207,7 +207,7 @@
              specfile="$base.spec"
           else
              if [ -d spec ]; then
-              specfile=`find spec -depth -maxdepth 1 -name '*.spec' | head -n 1`
+              specfile=`find . -depth -maxdepth 1 -name '*.spec' | head -n 1`
              else
               echo '*********************************'
               echo "* There is no $base.spec file    "
