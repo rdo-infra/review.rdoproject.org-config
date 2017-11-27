@@ -176,6 +176,10 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
+  - name: openstack/requirements
+    openstack-post:
+      - rdo-deps-uc-send-review
+
   - name: openstack/rpm-packaging
     openstack-check:
       - DLRN-rpmbuild-rpm-packaging
