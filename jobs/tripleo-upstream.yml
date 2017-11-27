@@ -573,16 +573,6 @@
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
-          release: master
-          suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset005'
-          node: upstream-centos-7-2-node
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 180
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset005'
           release: pike
           suffix: ''
           type: 'periodic-multinode-1ctlr-featureset005'
@@ -590,16 +580,6 @@
           triggers:
             - zuul
           branch-override: 'stable/{release}'
-          timeout: 180
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset006'
-          release: master
-          suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset006'
-          node: upstream-centos-7-2-node
-          triggers:
-            - zuul
-          branch-override: default
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset006'
@@ -613,16 +593,6 @@
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset007'
-          release: master
-          suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset007'
-          node: upstream-centos-7-2-node
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 180
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset007'
           release: pike
           suffix: ''
           type: 'periodic-multinode-1ctlr-featureset007'
@@ -630,16 +600,6 @@
           triggers:
             - zuul
           branch-override: 'stable/{release}'
-          timeout: 180
-      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset008'
-          release: master
-          suffix: ''
-          type: 'periodic-multinode-1ctlr-featureset008'
-          node: upstream-centos-7-2-node
-          triggers:
-            - zuul
-          branch-override: default
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset008'
@@ -819,17 +779,6 @@
             - master
           suffix: ''
           type: 'multinode-upgrades'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset005'
-          release: master
-          suffix: '-nv'
-          type: 'multinode-1ctlr-featureset005'
           node: upstream-centos-7-2-node
           trigger: gate
           triggers:
