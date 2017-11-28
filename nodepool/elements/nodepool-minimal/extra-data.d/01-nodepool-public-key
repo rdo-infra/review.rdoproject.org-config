@@ -1,2 +1,5 @@
 #!/bin/sh -ex
-sudo cp /var/lib/nodepool/.ssh/id_rsa.pub $TMP_HOOKS_PATH/id_rsa.pub
+sudo cp /var/lib/nodepool/.ssh/nodepool_rsa.pub $TMP_HOOKS_PATH/id_rsa.pub
+
+# Add zuul public key
+echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCp9iFXvR6UoWYboU41KFpx+Sdd7ov0i+szIjdB7p8LAR5mjVCWZWAyUSE16DQO0VRbl6FpxFUPRQCUXg5P59D6MjRPB+lIvAyZ53CkgVfkaKYNdLQKRoyBR0Q5ng0Gt74AwU7fo0lyVa9MYsxAVbwrE0ngrqzGA1Lm5TSAmZeURZLch65xZm8qc5UU2TZ9f9NEwdZgKFAplBT2Om+DdECNO+TRy/RAivBFmZangQBnBEp4cOiverur22Lc2MO4veBVT+pvTWI0YNKFPmwRpgfWTsZ6R1sUOHCIXmK+P8nR/BMAF/+XXNdEg4RTJFCNP5nWiSUpMj3z6dvQ0zv1twgb root@managesf >> $TMP_HOOKS_PATH/id_rsa.pub
