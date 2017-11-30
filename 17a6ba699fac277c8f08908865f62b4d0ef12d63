@@ -34,6 +34,24 @@
       "revId": "17a6ba699fac277c8f08908865f62b4d0ef12d63",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7be1f8_021ddebd",
+        "filename": "jobs/centos-opstools.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-11-30T16:01:09Z",
+      "side": 1,
+      "message": "Actually not. If there is more than one spec file, and none of them is named $base.spec, specfile will be undefined, and the job will fail later at:\n\nrpmlint \"$specfile\"\n\nSo we should rather fail cleanly by stating that there is more than one spec file.",
+      "parentUuid": "ba7be1f8_c222e600",
+      "revId": "17a6ba699fac277c8f08908865f62b4d0ef12d63",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
