@@ -13,6 +13,9 @@ pipelines:
         - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify|check-rdo|verify-rdo)
+    start:
+      gerrit:
+        Verified: 0
     success:
       openstack:
         Verified: 1
@@ -67,6 +70,9 @@ pipelines:
       openstack:
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check rdo experimental)
+    start:
+      gerrit:
+        Verified: 0
     success:
       openstack:
         Verified: 1
