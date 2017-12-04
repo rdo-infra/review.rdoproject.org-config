@@ -3627,10 +3627,12 @@ projects:
       - rdo-infra-ansible-lint
       - rdo-infra-playbooks-integration-base
 
+  # TODO: Only run these jobs when required
   - name: rdo-infra/rdo-infra-playbooks
     check:
       - rdo-infra-ansible-lint
       - rdo-infra-playbooks-integration-base
+      - rdo-infra-playbooks-integration-logserver-nv
       - rdo-infra-playbooks-integration-sensu-client
       - rdo-infra-playbooks-integration-sensu-server
     gate:
