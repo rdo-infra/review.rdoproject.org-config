@@ -468,8 +468,12 @@
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
-          release: master
-          suffix: '-nv'
+          release:
+            - master
+            - pike
+            - ocata
+            - newton
+          suffix: ''
           type: 'ovb-3ctlr_1comp-featureset001'
           node: upstream-centos-7
           trigger: gate
@@ -479,8 +483,11 @@
           timeout: 300
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp_1ceph-featureset024'
-          release: master
-          suffix: '-nv'
+          release:
+            - pike
+            - ocata
+            - newton
+          suffix: ''
           type: 'ovb-1ctlr_1comp_1ceph-featureset024'
           node: upstream-centos-7
           trigger: gate
@@ -491,7 +498,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset022'
           release: master
-          suffix: '-nv'
+          suffix: ''
           type: 'ovb-1ctlr_1comp-featureset022'
           node: upstream-centos-7
           trigger: gate
@@ -831,7 +838,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset020'
           release: master
-          suffix: '-nv'
+          suffix: ''
           type: 'ovb-1ctlr_1comp-featureset020'
           node: upstream-centos-7
           trigger: gate
@@ -858,6 +865,18 @@
             - master
           suffix: ''
           type: 'ovb-3ctlr_1comp-featureset021'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset035'
+          release:
+            - master
+          suffix: ''
+          type: 'ovb-3ctlr_1comp-featureset035'
           node: upstream-centos-7
           trigger: gate
           triggers:
