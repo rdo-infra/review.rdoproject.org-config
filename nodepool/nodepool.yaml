@@ -88,7 +88,7 @@ labels:
 providers:
   - name: rdo-cloud
     boot-timeout: 120
-    clean-floating-ips: true
+    clean-floating-ips: false
     cloud: rdo-cloud
     max-servers: 15
     pool: public
@@ -112,7 +112,7 @@ providers:
         boot-from-volume: true
   - name: rdo-cloud-ssd
     boot-timeout: 120
-    clean-floating-ips: true
+    clean-floating-ips: false
     cloud: rdo-cloud-ssd
     max-servers: 15
     pool: public
@@ -128,7 +128,7 @@ providers:
         config-drive: true
   - name: rdo-cloud-tripleo
     boot-timeout: 120
-    clean-floating-ips: true
+    clean-floating-ips: false
     cloud: rdo-cloud-tripleo
     max-servers: 75
     pool: public
