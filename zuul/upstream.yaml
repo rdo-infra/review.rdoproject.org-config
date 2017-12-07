@@ -167,8 +167,9 @@ project-templates:
 
   - name: tripleo-upgrades-check
     openstack-check:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
 
   - name: tripleo-upgrades-experimental
     openstack-experimental:
