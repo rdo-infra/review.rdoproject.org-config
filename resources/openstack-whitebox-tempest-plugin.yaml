@@ -1,0 +1,104 @@
+resources:
+  groups:
+    openstack/whitebox-tempest-plugin-core:
+      description: Core developers for project whitebox-tempest-plugin
+      members:
+      - jhakimra@redhat.com
+      - sfinucan@redhat.com
+      - owalsh@redhat.com
+      - alifshit@redhat.com
+    openstack/whitebox-tempest-plugin-ptl:
+      description: Project team lead for project heat-tempest-plugin
+      members:
+      - jhakimra@redhat.com
+      - admin@review.rdoproject.org
+  acls:
+    openstack-whitebox-tempest-plugin-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/whitebox-tempest-plugin-core
+          owner = group openstack/whitebox-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/whitebox-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/whitebox-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/whitebox-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/whitebox-tempest-plugin-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/whitebox-tempest-plugin-core
+          label-Verified = -2..+2 group openstack/whitebox-tempest-plugin-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/whitebox-tempest-plugin-core
+          label-Workflow = -1..+1 group openstack/whitebox-tempest-plugin-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/whitebox-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/heat-tempest-plugin-core
+      - openstack/heat-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-whitebox-tempest-plugin:
+      file: |
+        [access "refs/*"]
+          read = group openstack/whitebox-tempest-plugin-core
+          owner = group openstack/whitebox-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/whitebox-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/whitebox-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/whitebox-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/whitebox-tempest-plugin-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/whitebox-tempest-plugin-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/whitebox-tempest-plugin-core
+          label-Workflow = -1..+0 group openstack/whitebox-tempest-plugin-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/whitebox-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/whitebox-tempest-plugin-core
+      - openstack/whitebox-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/whitebox-tempest-plugin:
+      acl: openstack-whitebox-tempest-plugin
+      description: Tempest clients for whitebox testing
+
+  projects:
+    rdopkg:
+      name: openstack/whitebox-tempest-plugin
+      description: Tempest clients for whitebox testing
+      website: http://github.com/resdat-openstack/whitebox-tempest-plugin
+      issue-tracker: default
+      review-dashboard: default
+      contacts:
+      - jhakimra@redhat.com
+      source-repositories:
+      - openstack/whitebox-tempest-plugin
