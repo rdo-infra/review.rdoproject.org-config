@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/tripleo-ipsec-core:
+      description: Core developers for project tripleo-ipsec
+      members:
+      - jaosorior@gmail.com
+    openstack/tripleo-ipsec-ptl:
+      description: Project team lead for project tripleo-ipsec
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-ipsec-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ipsec-core
+          owner = group openstack/tripleo-ipsec-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ipsec-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ipsec-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ipsec-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ipsec-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/tripleo-ipsec-core
+          label-Verified = -2..+2 group openstack/tripleo-ipsec-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-ipsec-core
+          label-Workflow = -1..+1 group openstack/tripleo-ipsec-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ipsec-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ipsec-core
+      - openstack/tripleo-ipsec-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-ipsec:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ipsec-core
+          owner = group openstack/tripleo-ipsec-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ipsec-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ipsec-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ipsec-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ipsec-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-ipsec-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-ipsec-core
+          label-Workflow = -1..+0 group openstack/tripleo-ipsec-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ipsec-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ipsec-core
+      - openstack/tripleo-ipsec-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-ipsec:
+      acl: openstack-tripleo-ipsec
+      description: Mirror of upstream tripleo-ipsec (mirror + patches)
+    openstack/tripleo-ipsec-distgit:
+      acl: openstack-tripleo-ipsec-distgit
+      description: Packaging of upstream tripleo-ipsec
+      default-branch: rpm-master
+      branches:
+        master: '0'
