@@ -1,0 +1,91 @@
+resources:
+  groups:
+    openstack/ansible-role-redhat-subscription-core:
+      description: Core developers for project ansible-role-redhat-subscription
+      members:
+      - sdoran@redhat.com
+    openstack/ansible-role-redhat-subscription-ptl:
+      description: Project team lead for project ansible-role-redhat-subscription
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-role-redhat-subscription-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-redhat-subscription-core
+          owner = group openstack/ansible-role-redhat-subscription-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-redhat-subscription-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-redhat-subscription-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-redhat-subscription-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-redhat-subscription-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-role-redhat-subscription-core
+          label-Verified = -2..+2 group openstack/ansible-role-redhat-subscription-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-role-redhat-subscription-core
+          label-Workflow = -1..+1 group openstack/ansible-role-redhat-subscription-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-redhat-subscription-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-redhat-subscription-core
+      - openstack/ansible-role-redhat-subscription-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-role-redhat-subscription:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-redhat-subscription-core
+          owner = group openstack/ansible-role-redhat-subscription-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-redhat-subscription-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-redhat-subscription-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-redhat-subscription-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-redhat-subscription-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-role-redhat-subscription-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-role-redhat-subscription-core
+          label-Workflow = -1..+0 group openstack/ansible-role-redhat-subscription-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-redhat-subscription-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-redhat-subscription-core
+      - openstack/ansible-role-redhat-subscription-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-role-redhat-subscription:
+      acl: openstack-ansible-role-redhat-subscription
+      description: Mirror of upstream ansible-role-redhat-subscription (mirror + patches)
+    openstack/ansible-role-redhat-subscription-distgit:
+      acl: openstack-ansible-role-redhat-subscription-distgit
+      description: Packaging of upstream ansible-role-redhat-subscription
