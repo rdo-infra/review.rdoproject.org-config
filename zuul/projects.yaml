@@ -2465,6 +2465,16 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
+  - name: centos-opstools/rubygem-concurrent-ruby
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-common-distgit-cbs-final-build
+
   - name: centos-opstools/rubygem-coveralls
     check:
       - centos-opstools-rpmlint
