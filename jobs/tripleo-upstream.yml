@@ -775,9 +775,20 @@
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
-            - master
           suffix: ''
           type: 'multinode-1ctlr-featureset011'
+          node: upstream-centos-7-2-node
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-container-to-container-upgrades-master'
+          release:
+            - master
+          suffix: ''
+          type: 'multinode-1ctlr-featureset_containerized_upgrade.yml'
           node: upstream-centos-7-2-node
           trigger: gate
           triggers:
