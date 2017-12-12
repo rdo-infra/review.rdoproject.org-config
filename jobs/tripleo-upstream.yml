@@ -482,6 +482,20 @@
           branch-override: default
           timeout: 300
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
+          release:
+            - pike
+            - ocata
+            - newton
+          suffix: '-branch'
+          type: 'ovb-3ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: 'stable/{release}'
+          timeout: 300
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp_1ceph-featureset024'
           release:
             - pike
