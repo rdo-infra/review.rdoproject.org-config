@@ -143,6 +143,9 @@ jobs:
   - name: ^gate-tripleo-ci-centos-7-.*-master$
     branch: ^master$
 
+  - name: ^gate-tripleo-ci-centos-7-.*-branch$
+    branch: ^master$
+
   - name: ^gate-tripleo-ci-centos-7-.*-pike$
     branch: ^stable/pike$
 
@@ -253,6 +256,10 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton-branch
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -262,6 +269,10 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton-branch
 
   - name: openstack/python-tempestconf
     openstack-check:
@@ -312,6 +323,10 @@ projects:
       - periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing:
         - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata-upload
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton-branch
     openstack-experimental:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master
