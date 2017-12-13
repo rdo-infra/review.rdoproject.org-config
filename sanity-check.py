@@ -21,6 +21,7 @@ IGNORED_PROJECTS = {
     'replication': [
         'All-Users',
         'gating_scripts',
+        'openstack/whitebox-tempest-plugin',
         'rdo',
         'rdo_gating_scripts',
         'testbranching',
@@ -36,6 +37,7 @@ IGNORED_PROJECTS = {
         'testproject',
     ],
     'gerritbot': [
+        'openstack/whitebox-tempest-plugin',
         'testbranching',
         'testproject',
     ]
