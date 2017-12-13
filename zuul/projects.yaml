@@ -182,6 +182,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/ansible-role-redhat-subscription
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/ansible-role-redhat-subscription-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/aodh
     template:
       - name: package-check-jobs
@@ -2412,6 +2420,10 @@ projects:
     template:
       - name: noop
 
+  - name: rdo-infra/test-day-tools
+    template:
+      - name: noop
+
   - name: rdo-infra/weirdo
     template:
       - name: weirdo-gate-jobs
@@ -3660,10 +3672,6 @@ projects:
       - rdo-infra-playbooks-integration-base
       - rdo-infra-playbooks-integration-sensu-client
       - rdo-infra-playbooks-integration-sensu-server
-
-  - name: rdo-infra/test-day-tools
-    template:
-      - name: noop
 
   - name: rdo-infra/ansible-role-rdo-bot
     check:
