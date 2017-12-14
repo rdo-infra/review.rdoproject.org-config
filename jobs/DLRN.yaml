@@ -10,7 +10,12 @@
           set +e
 
           # Re-construct the expected repository URL
-          ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+          if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then
+              # If the branch is stable/something, we have an additional /
+              ZUUL_REF=$(echo ${ZUUL_REF} |cut -f5 -d /)
+          else
+              ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+          fi
 
           # This builder can be shared across different DLRN based jobs.
           # Try and find the right one
