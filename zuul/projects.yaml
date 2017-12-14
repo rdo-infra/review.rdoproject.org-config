@@ -734,6 +734,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/mistral-extra
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/mistral-extra-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/mistral-lib
     template:
       - name: package-check-jobs
@@ -2481,16 +2489,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-common-distgit-cbs-final-build
 
-  - name: centos-opstools/rubygem-concurrent-ruby
-    check:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - centos-opstools-fluentd-012-distgit-cbs-final-build
-
   - name: centos-opstools/rubygem-coveralls
     check:
       - centos-opstools-rpmlint
@@ -2822,6 +2820,16 @@ projects:
       - centos-opstools-fluentd-012-distgit-cbs-final-build
 
   - name: centos-opstools/rubygem-bacon
+    check:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      - centos-opstools-rpmlint
+      - centos-opstools-rpmbuild
+      - centos-opstools-fluentd-012-distgit-cbs-final-build
+
+  - name: centos-opstools/rubygem-concurrent-ruby
     check:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
