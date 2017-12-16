@@ -386,8 +386,6 @@
       - rdo-log-setup
       - shell: |
           set +e
-          tar -xzvf $REGISTRY_CERTIFICATES
-          sudo mv letsencrypt /etc/
           cd $ZUUL_PROJECT
           ./run_tests.sh
     triggers:
@@ -412,9 +410,6 @@
     wrappers:
       - timestamps
       - credentials-binding:
-        - file:
-           credential-id: d6d1ca8a-7ee5-43a1-b505-98577c7ab617
-           variable: REGISTRY_CERTIFICATES
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
