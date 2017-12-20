@@ -233,9 +233,9 @@
 
 - job:
     name: 'DLRN-rpmbuild'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
       - DLRN-build-rpm:
@@ -255,9 +255,9 @@
 
 - job:
     name: 'DLRN-rpmbuild-fedora'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
       - DLRN-build-rpm:
@@ -277,9 +277,9 @@
 
 - job:
     name: 'DLRN-rpmbuild-rpm-packaging'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
       - shell: |
@@ -391,9 +391,9 @@
 # by DLRN (i.e, distgit reviews)
 - job:
     name: gate-rpmlint
-    defaults: global
+    defaults: rdo-global
     builders:
-        - prepare-workspace
+        - rdo-prepare-workspace
         - dlrn-gate-repository
         - dlrn-gate-rpmlint
     triggers:

@@ -1,8 +1,8 @@
 - job:
     name: 'tox-validate'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           # Tox update should be put in the slave preparation script
           sudo pip install -U tox
@@ -36,9 +36,9 @@
 
 - job:
     name: 'tox-validate-nv'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           cd $ZUUL_PROJECT
           [ -f setup.cfg ] && sed 's/^version =.*//' -i setup.cfg
