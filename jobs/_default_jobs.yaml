@@ -1,20 +1,16 @@
-# This file is managed by configuration management, do not edit directly
+# This file is managed by ansible, don't edit
 # This is the definition of the default jobs
 
 - defaults:
     name: global
     description: |
-      <p>Job is managed by Jenkins Job Builder</a>.</p>
+      <p>Job is managed by Jenkins Job Builder.</p>
 
     project-type: freestyle
-    logrotate:
-        daysToKeep: 90
-        artifactDaysToKeep: 90
     wrappers:
       - ansicolor:
           colormap: gnome-terminal
       - timestamps
-    concurrent: true
 
 - builder:
     name: prepare-workspace
@@ -24,67 +20,14 @@
           echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
           export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
           export ZUUL_REF=${ZUUL_REF:-None}
-
           # In the post pipeline ZUUL_REF is master but does not behave as we want
           # So fall back on None
           [ "$ZUUL_REF" = "master" ] && ZUUL_REF=None
           echo "Clean workspace"
           rm -Rf ./*
-
           echo "Clone $ZUUL_PROJECT"
-          # zuul-cloner is installed as /usr/zuul-env/bin/zuul-cloner
-          # in upstream images
-          export PATH=$PATH:/usr/zuul-env/bin
+          zuul-cloner https://review.rdoproject.org/r $ZUUL_PROJECT
 
-          # Note (dmsimard): If we're running for a periodic job, there is no
-          # incentive in using Zuul cloner because the jobs are not going to
-          # potentially depend on things from the zuul context (ex: depends-on)
-          # The zuul git namespace (where the job was triggered from) is also
-          # wonky for periodic jobs. A periodic pipeline targetted at an
-          # upstream project would still end up trying to clone from review.rdo.
-          # This should be revisited in Zuul v3 which is supposedly not a
-          # problem
-
-          # We can receive reviews from review.openstack.org.
-          # Builds that are run as third party for review.o.o are in the Zuul
-          # pipelines prefixed by "openstack-".
-          GIT_SOURCE="https://review.rdoproject.org/r"
-          if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              GIT_SOURCE="https://git.openstack.org"
-          fi
-
-          git config --global http.postBuffer 524288000
-          git config --global https.postBuffer 524288000
-
-          if [[ "${ZUUL_PIPELINE}" =~ "periodic" ]]; then
-          # Note (trown): we need to make sure we clone this to the same
-          # location as zuul-cloner will so that manual and periodic jobs
-          # can share builders
-              git clone --depth=1 $GIT_SOURCE/$ZUUL_PROJECT $ZUUL_PROJECT
-          else
-              zuul-cloner -v $GIT_SOURCE $ZUUL_PROJECT
-          fi
-
-- builder:
-    name: zuul-swift-upload
-    builders:
-      - shell: |
-          if which zuul-swift-upload &> /dev/null; then
-            ZUUL_SWIFT_UPLOAD=zuul-swift-upload
-          else
-            ZUUL_SWIFT_UPLOAD=/usr/local/bin/zuul_swift_upload.py
-          fi
-          # Publish artifacts on a Swift server
-          $ZUUL_SWIFT_UPLOAD --name artifacts --delete-after 0 artifacts
-
-- publisher:
-    name: zuul-swift-upload
-    publishers:
-      - postbuildscript:
-          builders:
-            - zuul-swift-upload
-          script-only-if-succeeded: False
-          script-only-if-failed: False
 
 ## Useful job template
 - job-template:
@@ -106,99 +49,3 @@
     triggers:
       - zuul
     node: '{node}'
-
-
-- job-template:
-    name: '{name}-publish-docs'
-    defaults: global
-    builders:
-      - prepare-workspace
-      - shell: cd $ZUUL_PROJECT && ./publish_docs.sh
-    triggers:
-      - zuul
-    node: '{node}'
-
-# Config repository associated jobs
-- job:
-    name: 'config-check'
-    defaults: global
-    builders:
-      - shell: |
-          set -e
-          rm -Rf config build
-          zuul-cloner http://review.rdoproject.org/r config
-          # Prepare a default configuration for zuul and nodepool
-          mkdir -p build/nodepool build/zuul build/repoxplorer
-          cp ~jenkins/defconf/zuul.conf build/zuul/
-          cp ~jenkins/defconf/nodepool.yaml build/nodepool/_nodepool.yaml
-          cp ~jenkins/defconf/repoxplorer.py build/repoxplorer/config.py
-
-          cd config
-          echo "[+] Checking jobs"
-          jenkins-jobs test jobs/ -o ../build/
-
-          echo "[+] Checking all jobs have an assigned node"
-          pushd ../build
-          set +e
-          err=0
-          for file in $(find . -maxdepth 1 -type f) ; do
-            grep assignedNode $file > /dev/null
-            if [ $? -ne 0 ]; then
-              echo "ERROR: Job $file does not have an assigned node"
-              err=1
-            fi
-          done
-          if [ $err -eq 1 ]; then
-             exit 1
-          fi
-          set -e
-          popd
-
-          echo "[+] Checking zuul"
-          /usr/local/bin/yaml-merger.py zuul | tee ../build/zuul/layout.yaml
-          cp zuul/*.py ../build/zuul/ || true
-          zuul-server -c ../build/zuul/zuul.conf -l ../build/zuul/layout.yaml -t
-
-          echo "[+] Checking nodepool"
-          /usr/share/sf-config/scripts/sf-nodepool-conf-merger.py nodepool/nodepool.yaml ../build/nodepool/nodepool.yaml
-          nodepool -c ../build/nodepool/nodepool.yaml config-validate
-
-          echo "[+] Checking gerrit replication"
-          git config -f gerrit/replication.config -l > /dev/null
-
-          echo "[+] Checking gerrit commentlinks"
-          python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
-
-          echo "[+] Check dashboards"
-          sf-update-dashboard --check --input dashboards/
-
-          echo "[+] Checking syntax errors in policy file"
-          python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
-
-          if [ -f /usr/bin/repoxplorer-config-validate ]; then
-              echo "[+] Checking syntax errors in repoxplorer definition files"
-              repoxplorer-config-validate --config ../build/repoxplorer/config.py
-          fi
-
-          echo "[+] Checking resources changes"
-          /usr/local/bin/resources.sh validate
-    triggers:
-      - zuul
-    node: master
-
-- job:
-    name: 'config-update'
-    defaults: global
-    builders:
-      - shell: |
-          echo "Updating configuration using $ZUUL_COMMIT"
-          ssh root@managesf.review.rdoproject.org sf_configrepo_update
-
-          echo "[+] Applying resources changes"
-          /usr/local/bin/resources.sh apply
-    publishers:
-      - email:
-          recipients: infra@lists.rdoproject.org
-    triggers:
-      - zuul
-    node: master
