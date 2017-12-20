@@ -1,8 +1,8 @@
 - job:
     name: 'tox-jjb'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e -o pipefail
           cd $ZUUL_PROJECT
@@ -21,10 +21,10 @@
 
 - job:
     name: 'publish-cico-jjb'
-    defaults: global
+    defaults: rdo-global
     concurrent: false
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e -o pipefail
           cd $ZUUL_PROJECT
@@ -51,9 +51,9 @@
 
 - job:
     name: rdo-infra-ansible-lint
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set -e
           virtualenv $WORKSPACE/ansible-lint
@@ -109,9 +109,9 @@
 
 - job:
     name: 'rdo-kolla-build-integration'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - dlrn-gate-repository
       - checkout-rdo-kolla-build
@@ -142,9 +142,9 @@
 
 - job:
     name: gate-rdo-kolla-build-containers
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - checkout-rdo-kolla-build
       - rdo-kolla-build-images
@@ -277,9 +277,9 @@
 
 - job-template:
     name: 'rdo-infra-playbooks-integration-{playbook}{suffix}'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-infra-playbooks-prepare
       - rdo-log-setup
       - rdo-infra-playbooks-integration:
@@ -325,9 +325,9 @@
 
 - job:
     name: 'tox-flake8'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e
           cd $ZUUL_PROJECT
@@ -338,9 +338,9 @@
 
 - job:
     name: gate-tox-ansible-lint
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e
           cd $ZUUL_PROJECT
@@ -351,9 +351,9 @@
 
 - job:
     name: gate-tox-docs
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - shell: |
           set +e
@@ -380,9 +380,9 @@
 
 - job:
     name: rdo-registry-integration
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - shell: |
           set +e

@@ -101,9 +101,9 @@
 
 - job:
     name: gate-weirdo-ansible-lint
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - weirdo-prepare
       - shell: |
           set +e
@@ -115,9 +115,9 @@
 
 - job:
     name: gate-weirdo-docs
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - weirdo-prepare
       - shell: |
           set +e
@@ -130,9 +130,9 @@
 # WeIRDO's own gate jobs
 - job-template:
     name: 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
-    defaults: global
+    defaults: rdo-global
     builders:
-        - prepare-workspace
+        - rdo-prepare-workspace
         - rdo-log-setup
         - weirdo-prepare
         - weirdo-ansible-playbook:
@@ -155,9 +155,9 @@
 # To use WeIRDO jobs to test a DLRN repository (i.e, distgit reviews)
 - job-template:
     name: 'gate-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
-    defaults: global
+    defaults: rdo-global
     builders:
-        - prepare-workspace
+        - rdo-prepare-workspace
         - rdo-log-setup
         - dlrn-gate-repository
         - weirdo-prepare
@@ -180,9 +180,9 @@
 
 - job-template:
     name: 'experimental-weirdo-dlrn-{openstack_release}-{project}-{scenario}'
-    defaults: global
+    defaults: rdo-global
     builders:
-        - prepare-workspace
+        - rdo-prepare-workspace
         - rdo-log-setup
         - dlrn-gate-repository
         - weirdo-prepare
