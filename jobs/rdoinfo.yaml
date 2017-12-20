@@ -3,7 +3,7 @@
 # that our zuul has not processed yet.
 
 - builder:
-    name: prepare-workspace-post
+    name: rdo-prepare-workspace-post
     builders:
       - shell: |
           set -e -x
@@ -64,9 +64,9 @@
 
 - job:
     name: rdoinfo-DLRN-check
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
       - shell: |
@@ -164,12 +164,12 @@
 
 - job:
     name: rdoinfo-create-project
-    defaults: global
+    defaults: rdo-global
     builders:
       - shell: |
           # DEBUG zuul-cloner error
           sudo sed -i "s/raise exceptions.RevNotFound/self.log.exception('DEBUG RevNotFound'); raise exceptions.RevNotFound/" /usr/lib/python2.7/site-packages/zuul/lib/cloner.py
-      - prepare-workspace-post
+      - rdo-prepare-workspace-post
       - shell: |
           set +e -x
           sudo pip install git-review rdopkg ruamel.yaml Jinja2
@@ -203,9 +203,9 @@
 
 - job-template:
     name: rdoinfo-upper-constraints-update-{branch}
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e -x
           sudo pip install ruamel.yaml git-review
@@ -267,9 +267,9 @@
 
 - job:
     name: rdo-send-stable-release
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace-post
+      - rdo-prepare-workspace-post
       - shell: |
           set -e -x
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
@@ -335,9 +335,9 @@
 
 - job:
     name: validate-buildsys-tags
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - validate-buildsys-tags
     publishers:
@@ -364,9 +364,9 @@
 
 - job:
     name: weirdo-validate-buildsys-tags
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set -e -x
           zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
@@ -389,9 +389,9 @@
 
 - job:
     name: update-buildsys-tags
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-rpmfactory-workspace
       - shell: |
@@ -475,9 +475,9 @@
 
 - job-template:
     name: rdoinfo-buildsys-tags-update-{release}-{phase}
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - prepare-rpmfactory-workspace
       - shell: |
           set +e -x
@@ -585,10 +585,10 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-    defaults: global
+    defaults: rdo-global
     builders:
       - net-info
-      - prepare-workspace
+      - rdo-prepare-workspace
       - rdo-log-setup
       - devstack-checkout
       - hack-nodepool-provider-setup

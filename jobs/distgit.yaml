@@ -1,6 +1,6 @@
 - job-template:
     name: '{openstack_release}-distgit-cbs-validate'
-    defaults: global
+    defaults: rdo-global
     builders:
       - base-pkg-validation:
           buildtarget: "cloud7-openstack-{openstack_release}-el7"
@@ -43,7 +43,7 @@
 
 - job-template:
     name: '{openstack_release}-distgit-cbs-final-build'
-    defaults: global
+    defaults: rdo-global
     builders:
       - base-pkg-exportation:
           buildtarget: "cloud7-openstack-{openstack_release}-el7"

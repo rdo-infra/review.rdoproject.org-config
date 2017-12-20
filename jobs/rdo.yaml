@@ -1,8 +1,8 @@
 - job:
     name: 'config-sanity-check'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - shell: |
           set +e
           cd $ZUUL_PROJECT

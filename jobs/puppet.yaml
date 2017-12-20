@@ -40,9 +40,9 @@
 
 - job:
     name: 'puppet-lint'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - puppet-prepare-node
       - shell: |
           cd $ZUUL_PROJECT
@@ -75,9 +75,9 @@
 
 - job:
     name: 'puppet-syntax'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - puppet-prepare-node
       - puppet-install
       - shell: |
@@ -92,9 +92,9 @@
 
 - job:
     name: 'puppet-spec'
-    defaults: global
+    defaults: rdo-global
     builders:
-      - prepare-workspace
+      - rdo-prepare-workspace
       - puppet-prepare-node
       - shell: |
           cd $ZUUL_PROJECT
