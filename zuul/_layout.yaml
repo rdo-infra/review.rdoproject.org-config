@@ -156,7 +156,9 @@ projects:
   - name: config
     check:
       - config-check
+      - config-sanity-check
     gate:
       - config-check
+      - config-sanity-check
     post:
       - config-update
