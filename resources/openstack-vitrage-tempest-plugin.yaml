@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/vitrage-tempest-plugin-core:
+      description: Core developers for project vitrage-tempest-plugin
+      members:
+      - chkumar@redhat.com
+      - ltoscano@redhat.com
+    openstack/vitrage-tempest-plugin-ptl:
+      description: Project team lead for project vitrage-tempest-plugin
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-vitrage-tempest-plugin-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vitrage-tempest-plugin-core
+          owner = group openstack/vitrage-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vitrage-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/vitrage-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vitrage-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vitrage-tempest-plugin-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/vitrage-tempest-plugin-core
+          label-Verified = -2..+2 group openstack/vitrage-tempest-plugin-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/vitrage-tempest-plugin-core
+          label-Workflow = -1..+1 group openstack/vitrage-tempest-plugin-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vitrage-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vitrage-tempest-plugin-core
+      - openstack/vitrage-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-vitrage-tempest-plugin:
+      file: |
+        [access "refs/*"]
+          read = group openstack/vitrage-tempest-plugin-core
+          owner = group openstack/vitrage-tempest-plugin-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/vitrage-tempest-plugin-core
+          label-Code-Review = -2..+2 group openstack/vitrage-tempest-plugin-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/vitrage-tempest-plugin-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/vitrage-tempest-plugin-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/vitrage-tempest-plugin-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/vitrage-tempest-plugin-core
+          label-Workflow = -1..+0 group openstack/vitrage-tempest-plugin-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/vitrage-tempest-plugin-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/vitrage-tempest-plugin-core
+      - openstack/vitrage-tempest-plugin-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/vitrage-tempest-plugin:
+      acl: openstack-vitrage-tempest-plugin
+      description: Mirror of upstream vitrage-tempest-plugin (mirror + patches)
+    openstack/vitrage-tempest-plugin-distgit:
+      acl: openstack-vitrage-tempest-plugin-distgit
+      description: Packaging of upstream vitrage-tempest-plugin
+      default-branch: rpm-master
+      branches:
+        master: '0'
