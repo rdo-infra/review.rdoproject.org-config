@@ -9,9 +9,9 @@
           zuul-cloner http://gerrit/r config
           # Prepare a default configuration for zuul and nodepool
           mkdir -p build/nodepool build/zuul build/repoxplorer
-          cp ~zuul/defconf/zuul.conf build/zuul/zuul.conf
-          cp ~zuul/defconf/nodepool.yaml build/nodepool/_nodepool.yaml
-          cp ~zuul/defconf/repoxplorer.py build/repoxplorer/config.py
+          cp ~jenkins/defconf/zuul.conf build/zuul/zuul.conf
+          cp ~jenkins/defconf/nodepool.yaml build/nodepool/_nodepool.yaml
+          cp ~jenkins/defconf/repoxplorer.py build/repoxplorer/config.py
           # Prepare a fake jenkins-job config file to force offline jobs check
           echo -e "[jenkins]\nurl=http://localhost:99" > build/jenkins.ini
 
