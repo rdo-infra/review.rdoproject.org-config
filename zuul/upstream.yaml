@@ -211,6 +211,10 @@ project-templates:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
 
+  - name: tripleo-multinode-experimental
+    openstack-experimental:
+      - gate-tripleo-ci-rhel-7-multinode-1ctlr-featureset010
+
 projects:
   - name: openstack/tripleo-common
     template:
@@ -244,6 +248,7 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-multinode-experimental
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -253,6 +258,7 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-multinode-experimental
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
@@ -265,6 +271,7 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-multinode-experimental
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
@@ -296,6 +303,7 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-multinode-experimental
     openstack-periodic:
       - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing:
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
@@ -427,3 +435,8 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+
+  - name: openstack/ansible-role-redhat-subscription
+    template:
+      - name: package-check-jobs
+      - name: tripleo-multinode-experimental
