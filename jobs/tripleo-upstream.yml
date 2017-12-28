@@ -877,3 +877,14 @@
             - zuul
           branch-override: default
           timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'rhel-7-multinode-1ctlr-featureset010'
+          release: master
+          suffix: ''
+          type: 'multinode-1ctlr-featureset010'
+          node: upstream-rhel-7-2-node
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
