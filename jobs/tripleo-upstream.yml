@@ -626,6 +626,26 @@
           branch-override: 'stable/{release}'
           timeout: 240
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset010'
+          release: master
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset010'
+          node: upstream-centos-7-2-node
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset010'
+          release: pike
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset010'
+          node: upstream-centos-7-2-node
+          triggers:
+            - zuul
+          branch-override: 'stable/{release}'
+          timeout: 180
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset016'
           release: master
           suffix: ''
