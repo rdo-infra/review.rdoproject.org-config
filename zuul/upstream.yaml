@@ -299,10 +299,10 @@ projects:
       - name: tripleo-ovb-experimental
     openstack-periodic:
       - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing:
-        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-upload
-        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
         - periodic-tripleo-centos-7-master-containers-build:
+          - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-upload
+          - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master
@@ -317,6 +317,7 @@ projects:
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-pike
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008-pike
         - periodic-tripleo-centos-7-pike-containers-build:
+          - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-pike
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-pike
           - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-pike
