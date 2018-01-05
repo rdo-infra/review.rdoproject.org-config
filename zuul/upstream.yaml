@@ -282,6 +282,12 @@ projects:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master
 
+  - name: openstack/tempest
+    # Note(chandankumar): This is a job to ensure openstack/tempest commits do
+    # not break review.rdo's implementation of third party CI
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+
   - name: openstack-infra/tripleo-ci
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
     # review.rdo's implementation of third party CI
