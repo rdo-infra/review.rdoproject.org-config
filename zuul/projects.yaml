@@ -1787,8 +1787,12 @@ projects:
       - name: package-distgit-check-jobs
 
   - name: openstack/whitebox-tempest-plugin
-    template:
-      - name: package-check-jobs
+    check:
+      - tox-flake8
+      - tox-validate
+    gate:
+      - tox-flake8
+      - tox-validate
 
   - name: openstack/wsme
     template:
