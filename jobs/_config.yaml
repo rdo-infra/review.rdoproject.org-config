@@ -75,3 +75,42 @@
       - console-log
       - email-admin
     node: master
+
+- job:
+    name: 'config-distgit-mirror-github'
+    builders:
+      - shell: |
+          set -e
+          # Clone the gating_scripts repo, we will need it
+          git clone https://review.rdoproject.org/r/rdo_gating_scripts /tmp/rdo_gating_scripts
+          pushd /tmp/rdo_gating_scripts/rdo-create-project
+          virtualenv .venv
+          . .venv/bin/activate
+          pip install -r requirements.txt
+          pip install ruamel.yaml
+          pip install --upgrade urllib3
+          popd
+          # Set up git configuration
+          git config user.name "rdo-trunk"
+          git config user.email "javier.pena@redhat.com"
+          git diff --name-only --diff-filter=A HEAD~1 | while read line; do
+            # Find new files in the resources directory
+            if [[ "$line" =~ resources.* ]]; then
+              echo "Parsing new projects in $line"
+              python /opt/nodepool-scripts/find-new-distgit-projects.py $line | while read project; do
+                  # Remove the initial openstack/ or puppet/ part
+                  project_short=$(echo $project | awk -F/ '{print $2}')
+                  echo "Creating GitHub project for $project_short"
+                  /tmp/rdo_gating_scripts/rdo-create-project/rdo-create-project-github.py --token $GITHUB_API_KEY --org rdo-packages --skip-deploy-key create --name $project_short
+              done
+            fi
+          done
+    node: rdo-centos-7
+    publishers:
+      - console-log
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - text:
+           credential-id: d3a88c21-2575-4756-9bd7-aeda904171bc
+           variable: GITHUB_API_KEY
