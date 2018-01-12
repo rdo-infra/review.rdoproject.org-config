@@ -22,7 +22,7 @@
           yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
           pkgs=$(yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {{printf "%s ", $1}}')
           # Here we install locally the kust built packages
-          sudo yum install --installroot=/tmp/root -y $pkgs
+          sudo yum install --installroot=/tmp/root --disableexcludes=all -y $pkgs
     triggers:
       - zuul
     wrappers:
