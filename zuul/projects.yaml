@@ -1554,6 +1554,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/tap-as-a-service
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/tap-as-a-service-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/taskflow
     template:
       - name: package-check-jobs
@@ -1785,14 +1793,6 @@ projects:
   - name: openstack/watcher-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/whitebox-tempest-plugin
-    check:
-      - tox-flake8
-      - tox-validate
-    gate:
-      - tox-flake8
-      - tox-validate
 
   - name: openstack/wsme
     template:
@@ -3812,6 +3812,14 @@ projects:
       - tox-flake8
     gate:
       - tox-flake8
+
+  - name: openstack/whitebox-tempest-plugin
+    check:
+      - tox-flake8
+      - tox-validate
+    gate:
+      - tox-flake8
+      - tox-validate
 
   - name: rdo-infra/ci-config
     check:
