@@ -892,3 +892,15 @@
             - zuul
           branch-override: default
           timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'ovb-fakeha-caserver'
+          release:
+            - master
+          suffix: ''
+          type: 'ovb-fakeha-caserver'
+          node: upstream-centos-7
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
