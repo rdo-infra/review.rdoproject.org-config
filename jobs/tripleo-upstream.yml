@@ -513,20 +513,20 @@
           branch-override: 'stable/{release}'
           timeout: 30
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload':
-          jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset002'
           release: master
           suffix: ''
-          type: 'periodic-ovb-3ctlr_1comp-featureset002'
+          type: 'periodic-ovb-1ctlr_1comp-featureset002'
           node: upstream-centos-7
           branch-override: default
           timeout: 240
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}-upload':
-          jobname: 'centos-7-ovb-3ctlr_1comp-featureset002'
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset002'
           release:
             - pike
             - ocata
           suffix: ''
-          type: 'periodic-ovb-3ctlr_1comp-featureset002'
+          type: 'periodic-ovb-1ctlr_1comp-featureset002'
           node: upstream-centos-7
           branch-override: 'stable/{release}'
           timeout: 240
@@ -537,6 +537,24 @@
           type: 'periodic-ovb-3ctlr_1comp-featureset035'
           node: upstream-centos-7
           branch-override: default
+          timeout: 300
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
+          release: master
+          suffix: ''
+          type: 'periodic-ovb-3ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          branch-override: default
+          timeout: 300
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-3ctlr_1comp-featureset001'
+          release:
+            - pike
+            - ocata
+          suffix: ''
+          type: 'periodic-ovb-3ctlr_1comp-featureset001'
+          node: upstream-centos-7
+          branch-override: 'stable/{release}'
           timeout: 300
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset022'
