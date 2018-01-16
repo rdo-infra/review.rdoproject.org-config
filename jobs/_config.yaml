@@ -81,7 +81,7 @@
     builders:
       - rdo-prepare-workspace-post
       - shell: |
-          set -e
+          set -e +x
           cd $ZUUL_PROJECT
           # Clone the gating_scripts repo, we will need it
           git clone https://review.rdoproject.org/r/rdo_gating_scripts
