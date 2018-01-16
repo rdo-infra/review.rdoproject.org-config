@@ -63,8 +63,8 @@ function create_config(){{
         echo "run_tempest: false"
         echo "test_ping: true"
     fi
-    echo "overcloud_image_url: http://66.187.229.139/builds-$RELEASE/current-tripleo/overcloud-full.tar
-    echo "ipa_image_url: http://66.187.229.139/builds-$RELEASE/current-tripleo/ironic-python-agent.tar
+    echo "overcloud_image_url: http://66.187.229.139/builds-$RELEASE/current-tripleo/overcloud-full.tar"
+    echo "ipa_image_url: http://66.187.229.139/builds-$RELEASE/current-tripleo/ironic-python-agent.tar"
     echo "repo_cmd_before: |"
     echo "  sudo yum remove -y rdo-release centos-release-openstack-* || true;"
     echo "  sudo rpm -e epel-release || true;"
