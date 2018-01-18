@@ -40,6 +40,40 @@
           popd
 
 - builder:
+    name: find-fedora-rebuilds
+    builders:
+      - shell: |
+          set -e -x
+          # Install requirements
+          sudo pip install rdopkg
+
+          # Create file to store required rebuilds
+          mkdir -p $WORKSPACE/logs
+          rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          touch $rebuilds_file
+
+          pushd $ZUUL_PROJECT
+          BUILDSYS_TAGS_DIFF=$(rdopkg info-tags-diff -b .)
+          while read line; do
+              pkg_name=$(echo $line |cut -d " " -f 1)
+              tags=$(echo $line |cut -d " " -f 2-| tr -d [],\')
+              for tag in $tags
+              do
+                  PHASE=$(echo $tag|awk -F'-' '{print $4}')
+                  if [ "$PHASE" != "candidate" ]; then
+                      continue
+                  fi
+                  build=$(rdopkg info -l . "name:^${pkg_name}$"| grep "${tag}"|awk '{print $2}')
+                  target=$(echo $tag|sed 's/-candidate/-el7/')
+                  config=$(rdopkg info -l . "name:^${pkg_name}$"| grep "^conf:"|awk '{print $2}')
+                  if [ $config = "fedora-dependency" ]; then
+                      echo "$target $build" | tee -a $rebuilds_file
+                  fi
+              done
+          done <<< "${BUILDSYS_TAGS_DIFF}"
+          popd
+
+- builder:
    name: configure-rdoinfo-oooq-gate-job
    builders:
      - shell:
@@ -350,6 +384,49 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
+    node: rdo-centos-7
+
+- job:
+    name: validate-fedora-rebuild-deps-nv
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - rdo-log-setup
+      - find-fedora-rebuilds
+      - prepare-rpmfactory-workspace
+      - shell: |
+          set +e -x
+          sudo yum install -y git centos-packager
+          # clone scripts and run
+          git clone http://review.rdoproject.org/r/gating_scripts
+
+          FAILED=0
+          rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          pushd gating_scripts
+          while read target build
+          do
+              echo "INFO: validating $build on $target"
+              ./validate_rebuild_fedora.sh $target $build
+              if [ $? -ne 0 ];then
+                  echo "ERROR: validation of $build failed on $target"
+                  FAILED=1
+              fi
+          done <<< $(cat $rebuilds_file)
+          popd
+          exit $FAILED
+    publishers:
+      - rdo-rsync-logs
+    triggers:
+      - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+        - file:
+           credential-id: e9b465e2-abfe-418c-8026-edc8c3f21a12
+           variable: CLIENTSECRET
     node: rdo-centos-7
 
 - project:
