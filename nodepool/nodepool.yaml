@@ -58,28 +58,28 @@ diskimages:
 
 labels:
   - name: rdo-centos-7
-    min-ready: 7
+    min-ready: 2
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
   - name: rdo-centos-7-ssd
-    min-ready: 6
+    min-ready: 2
     image: rdo-centos-7
     providers:
       - name: rdo-cloud-ssd
   - name: rdo-fedora-26
-    min-ready: 2
+    min-ready: 1
     image: rdo-fedora-26
     providers:
       - name: rdo-cloud
   - name: upstream-centos-7
-    min-ready: 5
+    min-ready: 3
     image: upstream-centos-7
     ready-script: configure_mirror_host.sh
     providers:
       - name: rdo-cloud-tripleo
   - name: upstream-centos-7-2-node
-    min-ready: 5
+    min-ready: 3
     image: upstream-centos-7
     providers:
       - name: rdo-cloud-tripleo
