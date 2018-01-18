@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da9b358b_411a1219",
+        "filename": "jobs/rdoinfo.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2018-01-18T18:48:21Z",
+      "side": 1,
+      "message": "In my tests, the script failed with:\n\n  File \"/home/centos/gating_scripts/buildsys-tags/add-buildsys-tags.py\", line 9, in \u003cmodule\u003e\n    import rdoinfo\nImportError: No module named rdoinfo\n\nIt worked after setting PYTHONPATH\u003d.",
+      "range": {
+        "startLine": 304,
+        "startChar": 14,
+        "endLine": 304,
+        "endChar": 82
+      },
+      "revId": "e7433317b5e56e48bdd0cd48e5122874cfaa834f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9b358b_21170eef",
+        "filename": "jobs/rdoinfo.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2018-01-18T18:48:21Z",
+      "side": 1,
+      "message": "If $change_list is empty, as in any review not touching upper-constraints.txt file, this command will fail. We should check if there is anything in the variable before running the command.",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 305,
+        "endChar": 29
+      },
+      "revId": "e7433317b5e56e48bdd0cd48e5122874cfaa834f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
