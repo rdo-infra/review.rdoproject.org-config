@@ -405,6 +405,9 @@
           pushd gating_scripts
           while read target build
           do
+              [ -z $target -o -z $build ]; then
+                  continue
+              fi
               echo "INFO: validating $build on $target"
               ./validate_rebuild_fedora.sh $target $build
               if [ $? -ne 0 ];then
