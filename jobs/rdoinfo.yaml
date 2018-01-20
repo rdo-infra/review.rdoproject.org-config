@@ -40,7 +40,7 @@
           popd
 
 - builder:
-    name: find-fedora-rebuilds
+    name: find-dependencies-rebuilds
     builders:
       - shell: |
           set -e -x
@@ -49,8 +49,10 @@
 
           # Create file to store required rebuilds
           mkdir -p $WORKSPACE/logs
-          rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
-          touch $rebuilds_file
+          fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          rdo_rebuilds_file="$WORKSPACE/logs/rdo_rebuilds.txt"
+          touch $fedora_rebuilds_file
+          touch $rdo_rebuilds_file
 
           pushd $ZUUL_PROJECT
           BUILDSYS_TAGS_DIFF=$(rdopkg info-tags-diff -b .)
@@ -67,7 +69,9 @@
                   target=${tag//-candidate/-el7}
                   config=$(rdopkg info -l . "name:^${pkg_name}$"| awk '/^conf:/{print $2}')
                   if [ $config = "fedora-dependency" ]; then
-                      echo "$target $build" | tee -a $rebuilds_file
+                      echo "$target $build" | tee -a $fedora_rebuilds_file
+                  elif [ $config = "rdo-dependency" ]; then
+                      echo "$target $build" | tee -a $rdo_rebuilds_file
                   fi
               done
           done <<< "${BUILDSYS_TAGS_DIFF}"
@@ -392,7 +396,7 @@
     builders:
       - rdo-prepare-workspace
       - rdo-log-setup
-      - find-fedora-rebuilds
+      - find-dependencies-rebuilds
       - prepare-rpmfactory-workspace
       - shell: |
           set +e -x
@@ -401,11 +405,22 @@
           git clone http://review.rdoproject.org/r/gating_scripts
 
           FAILED=0
-          rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          rdo_rebuilds_file="$WORKSPACE/logs/rdo_rebuilds.txt"
           pushd gating_scripts
+          # Validate rebuilds of builds with config fedora-dependency
+          echo "INFO: Validating updates for fedora-dependencies packages"
           while read target build
           do
               if [ -z $target -o -z $build ]; then
+                  continue
+              fi
+              echo "INFO: Checking for $build on CBS"
+              cbs buildinfo $build|grep "No such build"
+              # If build already exist in CBS, don't need to rebuild
+              # it from fedora
+              if [ $? -ne 0 ];then
+                  echo "INFO: build $build exists in CBS"
                   continue
               fi
               echo "INFO: validating $build on $target"
@@ -414,7 +429,21 @@
                   echo "ERROR: validation of $build failed on $target"
                   FAILED=1
               fi
-          done <<< $(cat $rebuilds_file)
+          done <<< $(cat $fedora_rebuilds_file)
+          # Check if builds with config rdo-dependency exist in CBS
+          echo "INFO: Validating updates for fedora-dependencies packages"
+          while read target build
+          do
+              if [ -z $target -o -z $build ]; then
+                  continue
+              fi
+              echo "INFO: Checking for $build on CBS"
+              cbs buildinfo $build|grep "No such build"
+              if [ $? -eq 0 ];then
+                  echo "ERROR: build $build does not exist in CBS"
+                  FAILED=1
+              fi
+          done <<< $(cat $rdo_rebuilds_file)
           popd
           exit $FAILED
     publishers:
