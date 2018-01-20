@@ -405,7 +405,7 @@
           pushd gating_scripts
           while read target build
           do
-              [ -z $target -o -z $build ]; then
+              if [ -z $target -o -z $build ]; then
                   continue
               fi
               echo "INFO: validating $build on $target"
