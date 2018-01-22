@@ -180,6 +180,127 @@ jobs:
           - tox.ini
           - ^setup.*$
 
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset0(01|35)-.*$
+    skip-if:
+        # The regex should match all tripleo projects
+      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
+        all-files-match-any:
+          - ^coe/kubernetes.*$
+          - ^coe/openshift.*$
+          - ^docker/services/.*ovn.*$
+          - ^docker/services/aodh.*$
+          - ^docker/services/barbican.*$
+          - ^docker/services/ceilometer.*$
+          - ^docker/services/ceph.*$
+          - ^docker/services/cinder.*$
+          - ^docker/services/congress.*$
+          - ^docker/services/ec2-api.*$
+          - ^docker/services/gnocchi.*$
+          - ^docker/services/logging.*$
+          - ^docker/services/manila.*$
+          - ^docker/services/metrics.*$
+          - ^docker/services/monitoring.*$
+          - ^docker/services/panko.*$
+          - ^docker/services/sahara.*$
+          - ^docker/services/tacker.*$
+          - ^environments/.*opendaylight.*$
+          - ^environments/kubernetes.*$
+          - ^environments/openshift.*$
+          - ^manifests/profile/base/aodh.*$
+          - ^manifests/profile/base/barbican.*$
+          - ^manifests/profile/base/ceilometer.*$
+          - ^manifests/profile/base/ceph.*$
+          - ^manifests/profile/base/cinder.*$
+          - ^manifests/profile/base/congress.*$
+          - ^manifests/profile/base/glance.*$
+          - ^manifests/profile/base/gnocchi.*$
+          - ^manifests/profile/base/logging.*$
+          - ^manifests/profile/base/manila.*$
+          - ^manifests/profile/base/metrics.*$
+          - ^manifests/profile/base/monitoring.*$
+          - ^manifests/profile/base/neutron/agents/ovn.*$
+          - ^manifests/profile/base/neutron/opendaylight/.*$
+          - ^manifests/profile/base/neutron/ovn.*$
+          - ^manifests/profile/base/neutron/plugins/ml2/ovn.*$
+          - ^manifests/profile/base/nova/ec2.*$
+          - ^manifests/profile/base/panko.*$
+          - ^manifests/profile/base/sahara.*$
+          - ^manifests/profile/base/tacker.*$
+          - ^manifests/profile/pacemaker/manila.*$
+          - ^manifests/profile/pacemaker/ovn.*$
+          - ^puppet/services/.*opendaylight.*$
+          - ^puppet/services/.*ovn.*$
+          - ^puppet/services/aodh.*$
+          - ^puppet/services/barbican.*$
+          - ^puppet/services/ceilometer.*$
+          - ^puppet/services/ceph.*$
+          - ^puppet/services/cinder.*$
+          - ^puppet/services/congress.*$
+          - ^puppet/services/ec2-api.*$
+          - ^puppet/services/glance.*$
+          - ^puppet/services/gnocchi.*$
+          - ^puppet/services/logging.*$
+          - ^puppet/services/manila.*$
+          - ^puppet/services/metrics.*$
+          - ^puppet/services/monitoring.*$
+          - ^puppet/services/panko.*$
+          - ^puppet/services/sahara.*$
+          - ^puppet/services/tacker.*$
+          - ci/environments/scenario001-multinode-containers.yaml
+          - ci/environments/scenario001-multinode.yaml
+          - ci/environments/scenario002-multinode-containers.yaml
+          - ci/environments/scenario002-multinode.yaml
+          - ci/environments/scenario003-multinode-containers.yaml
+          - ci/environments/scenario003-multinode.yaml
+          - ci/environments/scenario004-multinode-containers.yaml
+          - ci/environments/scenario004-multinode.yaml
+          - ci/environments/scenario005-multinode.yaml
+          - ci/environments/scenario006-multinode.yaml
+          - ci/environments/scenario007-multinode-containers.yaml
+          - ci/environments/scenario007-multinode.yaml
+          - ci/environments/scenario008-multinode.yaml
+          - ci/environments/scenario009-multinode.yaml
+          - ci/pingtests/scenario001.*$
+          - ci/pingtests/scenario002.*$
+          - ci/pingtests/scenario003.*$
+          - ci/pingtests/scenario004.*$
+          - ci/pingtests/scenario005-multinode.yaml
+          - ci/pingtests/scenario006-multinode.yaml
+          - ci/pingtests/scenario007-multinode.yaml
+          - ci/pingtests/scenario008-multinode.yaml
+          - ci/pingtests/scenario009-multinode.yaml
+          - config/general_config/featureset005.yml
+          - config/general_config/featureset006.yml
+          - config/general_config/featureset007.yml
+          - config/general_config/featureset008.yml
+          - config/general_config/featureset009.yml
+          - config/general_config/featureset016.yml
+          - config/general_config/featureset017.yml
+          - config/general_config/featureset018.yml
+          - config/general_config/featureset019.yml
+          - config/general_config/featureset026.yml
+          - config/general_config/featureset028.yml
+          - config/general_config/featureset028.yml
+          - config/general_config/featureset030.yml
+          - config/general_config/featureset031.yml
+          - config/general_config/featureset032.yml
+          - config/general_config/featureset033.yml
+          - manifests/profile/base/neutron/opendaylight.pp
+          - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
+          - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
+          - ^.*\.md$
+          - ^.*\.rst$
+          - ^doc/.*$
+          - ^etc/.*$
+          - ^metadata.json$
+          - ^releasenotes/.*$
+          - ^requirements.txt$
+          - ^test-requirements.txt$
+          - ^spec/.*$
+          - ^Puppetfile.*$
+          - tox.ini
+          - ^setup.*$
+
 project-templates:
   - name: tripleo-ovb-check
     openstack-check:
