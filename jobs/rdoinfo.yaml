@@ -334,7 +334,7 @@
               echo "INFO: No update in upper-constraints, Exiting"
               exit 0
           fi
-          git clone http://review.rdoproject.org/r/gating_scripts
+          git clone http://review.rdoproject.org/r/gating_scripts $WORKSPACE/gating_scripts
           pushd $WORKSPACE/rdoinfo
           python $WORKSPACE/gating_scripts/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
