@@ -330,6 +330,7 @@
           fi
           change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
           change_list=${change_list[@]/#[+-]/}
+          popd
           if [ -z "${change_list//[[:space:]]/}" ]; then
               echo "INFO: No update in upper-constraints, Exiting"
               exit 0
@@ -340,7 +341,6 @@
               -l $change_list \
               -r $RELEASE \
               -p $PHASE
-          popd
           DIFF=$(git diff deps.yml)
           if [ -n "$DIFF" ]; then
             mkdir -p ~/.ssh
@@ -377,6 +377,7 @@
             if [ $? -ne 0 ]; then
                 git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
             fi
+            popd
           fi
     triggers:
       - zuul
