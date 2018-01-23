@@ -429,7 +429,7 @@
                   echo "ERROR: validation of $build failed on $target"
                   FAILED=1
               fi
-          done <<< $(cat $fedora_rebuilds_file)
+          done <<< "$(cat $fedora_rebuilds_file)"
           # Check if builds with config rdo-dependency exist in CBS
           echo "INFO: Validating updates for rdo-dependencies packages"
           while read target build
@@ -443,7 +443,7 @@
                   echo "ERROR: build $build does not exist in CBS"
                   FAILED=1
               fi
-          done <<< $(cat $rdo_rebuilds_file)
+          done <<< "$(cat $rdo_rebuilds_file)"
           popd
           exit $FAILED
     publishers:
