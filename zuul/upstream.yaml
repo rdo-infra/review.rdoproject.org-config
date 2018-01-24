@@ -566,6 +566,14 @@ projects:
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
+    - name: openstack/puppet-pacemaker
+      template:
+        - name: package-check-jobs
+      openstack-check:
+        - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
+        - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike
+        - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata
+
   # Non tripleo repositories
 
   - name: openstack/heat
