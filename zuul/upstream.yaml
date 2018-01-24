@@ -340,6 +340,12 @@ project-templates:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-master
 
+  - name: tripleo-ovb-001-experimental
+    openstack-experimental:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata
+
 projects:
   - name: openstack/tripleo-common
     template:
@@ -559,3 +565,9 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+
+  # Non tripleo repositories
+
+  - name: openstack/heat
+    template:
+      - name: tripleo-ovb-001-experimental
