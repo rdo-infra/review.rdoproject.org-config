@@ -1,15 +1,15 @@
 # Note: '\' character needs to be escapped twice ('\\')
 # Double quote needs to be escaped too
 commentlinks:
-  - name: Redmine_addressing
-    match: '([Bb]ug|[Ff]ix|[Ss]tory|[Ii]ssue|[Cc]loses?):\\s+#?(\\d+)'
-    html: '$1 <a href=\"/redmine/issues/$2\">$2</a>'
-  - name: Redmine_related
-    match: '([Rr]elated|[Rr]elated[ -][Tt]o):\\s+#?(\\d+)'
-    html: '$1 <a href=\"/redmine/issues/$2\">$2</a>'
   - name: upstreamid
     match: 'Upstream-Id: (I[0-9a-f]{8,40})'
     html: 'Upstream-Id: <a href=\"https://review.openstack.org/#/q/$1\">$1</a>'
   - name: rhbz
     match: 'rhbz#(\\d+)'
     html: '<a href=\"https://bugzilla.redhat.com/show_bug.cgi?id=$1\">rhbz#$1</a>'
+  - name: story
+    match: 'story#(\\d+)'
+    html: '<a href=\"https://storyboard.openstack.org/#!/story/$1\">story#$1</a>'
+  - name: launchpadbug
+    match: 'launchpadbug#(\\d+)'
+    html: '<a href=\"https:bugs.launchpad.net/bugs/$1\">launchpadbug#$1</a>'
