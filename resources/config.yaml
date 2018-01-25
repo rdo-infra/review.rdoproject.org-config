@@ -25,9 +25,11 @@ resources:
         [access "refs/heads/*"]
             label-Code-Review = -2..+2 group config-core
             label-Code-Review = -2..+2 group config-ptl
+            label-Code-Review = -2..+2 group rdo-provenpackagers
             label-Verified = -2..+2 group config-ptl
             label-Workflow = -1..+1 group config-core
             label-Workflow = -1..+1 group config-ptl
+            label-Workflow = -1..+1 group rdo-provenpackagers
             label-Workflow = -1..+0 group Registered Users
             submit = group config-ptl
             read = group Registered Users
@@ -35,6 +37,7 @@ resources:
         [access "refs/meta/config"]
             read = group Registered Users
             read = group config-core
+            read = group rdo-provenpackagers
         [receive]
             requireChangeId = true
         [submit]
@@ -43,6 +46,7 @@ resources:
       groups:
       - config-ptl
       - config-core
+      - rdo-provenpackagers
   repos:
     config:
       acl: config-acl
