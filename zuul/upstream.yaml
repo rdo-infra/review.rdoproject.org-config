@@ -316,6 +316,10 @@ project-templates:
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
 
+  - name: tripleo-validate-ha-check
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset041-master
+
   - name: tripleo-upgrades-experimental
     openstack-experimental:
       - gate-tripleo-ci-centos-7-container-to-container-upgrades-master
@@ -392,9 +396,12 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-validate-ha-check
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset041-master
+
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
@@ -404,9 +411,11 @@ projects:
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
+      - name: tripleo-validate-ha-check
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset041-master
 
   - name: openstack/python-tempestconf
     openstack-check:
