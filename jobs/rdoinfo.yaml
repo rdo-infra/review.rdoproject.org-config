@@ -356,17 +356,7 @@
             sudo chown jenkins:jenkins $SSH_KEY
             ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
-            # Check for an open change, if so reuse it
-            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
-            gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
-            topic:rdoinfo-deps-uc-update-"$RELEASE")
-            previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
-            if [ -n "$previous" ]; then
-                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
-                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID\n\nChange-Id: $CHANGE_ID\n"
-            else
-                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID"
-            fi
+            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID"
             git config user.name "rdo-trunk"
             git config user.email "javier.pena@redhat.com"
             git config gitreview.username "rdo-trunk"
