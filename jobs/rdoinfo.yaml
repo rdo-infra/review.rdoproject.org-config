@@ -328,6 +328,8 @@
           else
              REAL_COMMIT=$ZUUL_COMMIT
           fi
+          UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
+          UPSTREAM_BASE_URL="https://review.openstack.org/#/q"
           change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
           change_list=${change_list[@]/#[+-]/}
           popd
@@ -361,9 +363,9 @@
             previous=$(echo "$change_info" | grep "^  number:" | awk '{{print $2}}')
             if [ -n "$previous" ]; then
                 CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{{print $2}}')
-                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nChange-Id: $CHANGE_ID\n"
+                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID\n\nChange-Id: $CHANGE_ID\n"
             else
-                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE"
+                COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID"
             fi
             git config user.name "rdo-trunk"
             git config user.email "javier.pena@redhat.com"
