@@ -32,9 +32,8 @@ diskimages:
         AAAAB3NzaC1yc2EAAAADAQABAAABAQCp9iFXvR6UoWYboU41KFpx+Sdd7ov0i+szIjdB7p8LAR5mjVCWZWAyUSE16DQO0VRbl6FpxFUPRQCUXg5P59D6MjRPB+lIvAyZ53CkgVfkaKYNdLQKRoyBR0Q5ng0Gt74AwU7fo0lyVa9MYsxAVbwrE0ngrqzGA1Lm5TSAmZeURZLch65xZm8qc5UU2TZ9f9NEwdZgKFAplBT2Om+DdECNO+TRy/RAivBFmZangQBnBEp4cOiverur22Lc2MO4veBVT+pvTWI0YNKFPmwRpgfWTsZ6R1sUOHCIXmK+P8nR/BMAF/+XXNdEg4RTJFCNP5nWiSUpMj3z6dvQ0zv1twgb
       ELEMENTS_PATH: /opt/git/openstack-infra/project-config/nodepool/elements:/etc/nodepool/elements
       NODEPOOL_SCRIPTDIR: /opt/git/openstack-infra/project-config/nodepool/scripts
-      # bluebox-sjc2 is closer than rax-dfw from Phoenix
-      # (where rdo-cloud is located) but rax-dfw is tuned for higher capacity
-      NODEPOOL_MIRROR_HOST: mirror.dfw.rax.openstack.org
+      # NOTE(jpena) we now have an AFS mirror in RDO Cloud
+      NODEPOOL_MIRROR_HOST: mirror.regionone.rdo-cloud.rdoproject.org
       # Note (dmsimard)
       # We have stopped synchronizing project-config over concerns of divergence
       # with the zuul v3 migration as well as the gerrit upgrade upstream
