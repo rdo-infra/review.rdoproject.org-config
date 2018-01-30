@@ -575,6 +575,13 @@ projects:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master
 
+  - name: openstack/tripleo-ipsec
+    template:
+      - name: package-check-jobs
+    openstack-check:
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens
+
   # Non tripleo repositories
 
   - name: openstack/heat
