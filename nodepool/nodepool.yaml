@@ -33,6 +33,8 @@ diskimages:
       ELEMENTS_PATH: /opt/git/openstack-infra/project-config/nodepool/elements:/etc/nodepool/elements
       NODEPOOL_SCRIPTDIR: /opt/git/openstack-infra/project-config/nodepool/scripts
       # NOTE(jpena) we now have an AFS mirror in RDO Cloud
+      # This requires a local change to /opt/git/openstack-infra/project-config/nodepool/scripts/configure_mirror.sh,
+      # so pip install allows a mirror in the rdoproject.org domain.
       NODEPOOL_MIRROR_HOST: mirror.regionone.rdo-cloud.rdoproject.org
       # Note (dmsimard)
       # We have stopped synchronizing project-config over concerns of divergence
