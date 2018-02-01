@@ -301,6 +301,10 @@ jobs:
           - tox.ini
           - ^setup.*$
 
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*$
+    files:
+      - ^extraconfig/services/ipsec.yaml$
+
 project-templates:
   - name: tripleo-ovb-check
     openstack-check:
