@@ -329,7 +329,6 @@
              REAL_COMMIT=$ZUUL_COMMIT
           fi
           UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
-          UPSTREAM_BASE_URL="https://review.openstack.org/#/q"
           change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
           change_list=${change_list[@]/#[+-]/}
           popd
@@ -356,7 +355,7 @@
             sudo chown jenkins:jenkins $SSH_KEY
             ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream change url: $UPSTREAM_BASE_URL/$UPSTREAM_CHANGE_ID"
+            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID"
             git config user.name "rdo-trunk"
             git config user.email "javier.pena@redhat.com"
             git config gitreview.username "rdo-trunk"
