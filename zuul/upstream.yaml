@@ -392,12 +392,8 @@ projects:
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-check:
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master:
-          files:
-            - ^extraconfig/services/ipsec.yaml$
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens:
-          files:
-            - ^extraconfig/services/ipsec.yaml$
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht
+      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht
 
 # Note (dmsimard): This is a job to ensure tripleo-quickstart commits do not break review.rdo's
 # implementation of third party CI.
