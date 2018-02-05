@@ -146,19 +146,19 @@ pipelines:
         subject: '[Zuul] Job failed in openstack-post pipeline: {change.project}'
 
 jobs:
-  - name: ^gate-tripleo-ci-centos-7-.*-master$
+  - name: ^gate-tripleo-ci-centos-7-.*-master(?!(-branch)).*$
     branch: ^master$
 
   - name: ^gate-tripleo-ci-centos-7-.*-branch$
     branch: ^master$
 
-  - name: ^gate-tripleo-ci-centos-7-.*-pike$
+  - name: ^gate-tripleo-ci-centos-7-.*-pike(?!(-branch)).*$
     branch: ^stable/pike$
 
-  - name: ^gate-tripleo-ci-centos-7-.*-ocata$
+  - name: ^gate-tripleo-ci-centos-7-.*-ocata(?!(-branch)).*$
     branch: ^stable/(0.6.x|ocata)$
 
-  - name: ^gate-tripleo-ci-centos-7-.*-queens$
+  - name: ^gate-tripleo-ci-centos-7-.*-queens(?!(-branch)).*$
     branch: ^stable/queens$
 
   ####
