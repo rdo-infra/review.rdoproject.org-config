@@ -439,6 +439,9 @@ projects:
     # not break review.rdo's implementation of third party CI
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
+    openstack-experimental:
+    # Add experimental job for running full tempest against a particular patchset
+      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
 
   - name: openstack-infra/tripleo-ci
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
