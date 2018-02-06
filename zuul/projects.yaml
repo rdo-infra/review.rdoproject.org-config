@@ -1039,6 +1039,8 @@ projects:
   - name: openstack/octavia
     template:
       - name: package-check-jobs
+    periodic:
+      - periodic-octavia-build-amphora
 
   - name: openstack/octavia-dashboard
     template:
