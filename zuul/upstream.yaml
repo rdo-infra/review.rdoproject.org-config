@@ -329,11 +329,13 @@ project-templates:
   - name: tripleo-upgrades-check
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-master
 
   - name: tripleo-upgrades-check-branchless
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset045-updates-master
+      - gate-tripleo-ci-centos-7-container-to-container-upgrades-master-branch
 
   - name: tripleo-upgrades-experimental
     openstack-experimental:
