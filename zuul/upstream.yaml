@@ -164,6 +164,15 @@ jobs:
   ####
   # TripleO job filters
   ####
+
+  # Don't run 042 job if IPSec config is not touched
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht$
+    skip-if:
+        # The regex should match THT repo
+      - project: ^openstack/tripleo-heat-templates$
+        all-files-match-any:
+          - ^extraconfig/services/(?!ipsec.yaml).*$
+
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
     skip-if:
