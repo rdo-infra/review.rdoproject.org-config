@@ -330,10 +330,13 @@ project-templates:
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
 
+  - name: tripleo-upgrades-check-branchless
+    openstack-check:
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch
+
   - name: tripleo-upgrades-experimental
     openstack-experimental:
       - gate-tripleo-ci-centos-7-container-to-container-upgrades-master
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-master
       - gate-tripleo-ci-centos-7-multinode-upgrades-pike
       - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
@@ -408,7 +411,7 @@ projects:
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart
     template:
-      - name: tripleo-upgrades-check
+      - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
@@ -421,7 +424,7 @@ projects:
 # implementation of third party CI.
   - name: openstack/tripleo-quickstart-extras
     template:
-      - name: tripleo-upgrades-check
+      - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
@@ -456,7 +459,7 @@ projects:
     # Note (rlandy): This is a job to ensure openstack-infra/tripleo-ci commits do not break
     # review.rdo's implementation of third party CI
     template:
-      - name: tripleo-upgrades-check
+      - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
