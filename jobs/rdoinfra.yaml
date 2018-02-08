@@ -299,7 +299,7 @@
           script-only-if-succeeded: False
           script-only-if-failed: False
       - rdo-rsync-logs
-    node: rdo-centos-7
+    node: '{image}'
     wrappers:
       - timestamps
       - credentials-binding:
@@ -322,6 +322,14 @@
           suffix:
             - ''
             - '-nv'
+          image: 'rdo-centos-7'
+      - 'rdo-infra-playbooks-integration-{playbook}{suffix}':
+          playbook:
+            - base
+            - sensu-client
+          suffix:
+            - '-fedora-nv'
+          image: 'rdo-fedora-26'
 
 - job:
     name: 'tox-flake8'
