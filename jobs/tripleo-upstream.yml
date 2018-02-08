@@ -992,7 +992,10 @@
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset042'
           release:
             - master
-          suffix: ''
+            - queens
+          suffix:
+            - ''
+            - '-tht'
           type: 'ovb-3ctlr_1comp-featureset042'
           node: upstream-centos-7
           trigger: gate
@@ -1000,44 +1003,3 @@
             - zuul
           branch-override: default
           timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-ovb-3ctlr_1comp-featureset042'
-          release:
-            - queens
-          suffix: ''
-          type: 'ovb-3ctlr_1comp-featureset042'
-          node: upstream-centos-7
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: 'stable/{release}'
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-ovb-3ctlr_1comp-featureset042'
-          files:
-            - ^extraconfig/services/ipsec.yaml$
-          release:
-            - master
-          suffix: '-tht'
-          type: 'ovb-3ctlr_1comp-featureset042'
-          node: upstream-centos-7
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-ovb-3ctlr_1comp-featureset042'
-          files:
-            - ^extraconfig/services/ipsec.yaml$
-          release:
-            - queens
-          suffix: '-tht'
-          type: 'ovb-3ctlr_1comp-featureset042'
-          node: upstream-centos-7
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: 'stable/{release}'
-          timeout: 360
-
