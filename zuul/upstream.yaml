@@ -164,6 +164,14 @@ jobs:
   ####
   # TripleO job filters
   ####
+
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht$
+    skip-if:
+        # The regex should match all tripleo projects
+      - project: ^openstack/tripleo-heat-templates$
+        all-files-match-any:
+          - ^extraconfig/services/(?!ipsec.yaml).*$
+
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
     skip-if:
