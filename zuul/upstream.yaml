@@ -169,9 +169,15 @@ jobs:
   - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht$
     skip-if:
         # The regex should match THT repo
-      - project: ^openstack/tripleo-heat-templates$
+      - project: ^openstack/tripleo-(heat-templates|common)$
         all-files-match-any:
+          # t-h-t
           - ^extraconfig/services/(?!ipsec.yaml).*$
+          - network/network.j2
+          - network/network.j2.yaml
+          - network_data.yaml
+          # tripleo-common
+          - tripleo_common/inventory.py
 
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
