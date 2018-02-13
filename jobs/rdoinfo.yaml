@@ -112,12 +112,13 @@
           pushd $ZUUL_PROJECT
           sudo pip install rdopkg
 
-          CURRENT_MASTER_TAG="queens-uc"
+          CURRENT_MASTER_TAG="rocky-uc"
 
           PACKAGES_UPDATED_MASTER=""
           PACKAGES_UPDATED_NEWTON=""
-          PACKAGES_UPDATED_MITAKA=""
           PACKAGES_UPDATED_OCATA=""
+          PACKAGES_UPDATED_PIKE=""
+          PACKAGES_UPDATED_QUEENS=""
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
 
@@ -125,6 +126,9 @@
               PKGNAME=$(awk '{print $1}' <<< $line)
               if [[ -n $(echo "$line" | grep -w $CURRENT_MASTER_TAG) ]]; then
                   PACKAGES_UPDATED_MASTER="$PACKAGES_UPDATED_MASTER $PKGNAME"
+              fi
+              if [[ -n $(echo "$line" | grep -w queens) ]]; then
+                  PACKAGES_UPDATED_QUEENS="$PACKAGES_UPDATED_QUEENS $PKGNAME"
               fi
               if [[ -n $(echo "$line" | grep -w pike) ]]; then
                   PACKAGES_UPDATED_PIKE="$PACKAGES_UPDATED_PIKE $PKGNAME"
@@ -142,6 +146,16 @@
           ret=0
           if [ -n "${PACKAGES_UPDATED_MASTER}" ]; then
               timeout --signal=SIGKILL 10800  /opt/nodepool-scripts/rdoinfo-DLRN.sh $CURRENT_MASTER_TAG "${PACKAGES_UPDATED_MASTER}"
+              ret1=$?
+              if [ $ret1 -ne 0 ]; then
+                  ret=$ret1
+              fi
+              # The data/ contents have been archived already, remove to avoid issues with the next branch
+              rm -rf data
+              sudo rm -rf /var/cache/mock/*
+          fi
+          if [ -n "${PACKAGES_UPDATED_QUEENS}" ]; then
+              timeout --signal=SIGKILL 10800 /opt/nodepool-scripts/rdoinfo-DLRN.sh queens "${PACKAGES_UPDATED_QUEENS}"
               ret1=$?
               if [ $ret1 -ne 0 ]; then
                   ret=$ret1
@@ -252,7 +266,7 @@
             GIT_SUFFIX="?h=stable/{branch}"
             UC_BRANCH="{branch}"
           else
-            UC_BRANCH="queens-uc"
+            UC_BRANCH="rocky-uc"
             GIT_SUFFIX=""
           fi
           curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
@@ -316,7 +330,7 @@
               zuul-cloner http://review.rdoproject.org/r rdoinfo
           fi
           if [ "${ZUUL_REF}" == 'master' ]; then
-              RELEASE="queens"
+              RELEASE="rocky"
           else
               RELEASE="${ZUUL_REF/stable\//}"
           fi
@@ -597,6 +611,7 @@
     name: rdoinfo-upper-constraints
     branch:
       - master
+      - queens
       - pike
       - ocata
       - newton
