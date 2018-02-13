@@ -805,57 +805,6 @@
           branch-override: 'stable/{release}'
           timeout: 180
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset012-upgrades'
-          release:
-            - pike
-            - master
-          suffix: ''
-          type: 'multinode-1ctlr-featureset012'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset014-upgrades'
-          release:
-            - pike
-            - master
-          suffix: ''
-          type: 'multinode-1ctlr-featureset014'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset036-oc-ffu'
-          release: master
-          suffix: ''
-          type: 'multinode-1ctlr-featureset036'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-undercloud-upgrades'
-          release:
-            - ocata
-            - pike
-            - master
-          suffix: ''
-          type: 'undercloud-upgrades'
-          node: upstream-centos-7
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 180
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
@@ -887,33 +836,6 @@
             - '-nv'
             - ''
           type: 'multinode-1ctlr-featureset040'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-upgrades'
-          release:
-            - ocata
-            - pike
-            - master
-          suffix: ''
-          type: 'multinode-upgrades'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset037-update'
-          release:
-            - pike
-            - master
-          suffix: ''
-          type: 'multinode-1ctlr-featureset037'
           node: upstream-centos-7-2-node
           trigger: gate
           triggers:
