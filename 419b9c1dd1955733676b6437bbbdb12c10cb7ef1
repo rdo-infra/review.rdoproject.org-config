@@ -49,6 +49,47 @@
     },
     {
       "key": {
+        "uuid": "7aaa499b_3e527ede",
+        "filename": "jobs/tripleo-upstream.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 163
+      },
+      "writtenOn": "2018-02-13T11:51:20Z",
+      "side": 1,
+      "message": "We don\u0027t need a branchless job for the master branch, because our branchless projects like quickstart are running on master anyway.",
+      "parentUuid": "7aaa499b_1e37c2b1",
+      "range": {
+        "startLine": 883,
+        "startChar": 0,
+        "endLine": 893,
+        "endChar": 22
+      },
+      "revId": "419b9c1dd1955733676b6437bbbdb12c10cb7ef1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aaa499b_fe62d6ac",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 163
+      },
+      "writtenOn": "2018-02-13T11:51:20Z",
+      "side": 1,
+      "message": "I think you should not add stuff here, we want to have the \"branchless\" jobs for now running on TQ \u0026 TQE instead of all the projects. This will make a possibly still broken job run on a lot more projects.",
+      "revId": "419b9c1dd1955733676b6437bbbdb12c10cb7ef1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aaa499b_3e1a7e6f",
         "filename": "zuul/upstream.yaml",
         "patchSetId": 3
@@ -84,6 +125,30 @@
       "side": 1,
       "message": "Same reason as pike-branch, it needs the -branch prefix to run",
       "parentUuid": "7aaa499b_3e1a7e6f",
+      "range": {
+        "startLine": 338,
+        "startChar": 71,
+        "endLine": 338,
+        "endChar": 78
+      },
+      "revId": "419b9c1dd1955733676b6437bbbdb12c10cb7ef1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aaa499b_1e5ea2e9",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 163
+      },
+      "writtenOn": "2018-02-13T11:51:20Z",
+      "side": 1,
+      "message": "Same here, we don\u0027t need the -branch.",
+      "parentUuid": "7aaa499b_fe3bf69a",
       "range": {
         "startLine": 338,
         "startChar": 71,
