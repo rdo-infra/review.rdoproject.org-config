@@ -450,7 +450,9 @@
             - pike
             - ocata
             - queens
-          suffix: ''
+          suffix:
+            - ''
+            - '-nv'
           type: 'ovb-3ctlr_1comp-featureset001'
           node: upstream-centos-7
           trigger: gate
@@ -464,7 +466,8 @@
             - pike
             - ocata
             - queens
-          suffix: '-branch'
+          suffix:
+            - '-branch'
           type: 'ovb-3ctlr_1comp-featureset001'
           node: upstream-centos-7
           trigger: gate
@@ -477,7 +480,8 @@
           release:
             - pike
             - ocata
-          suffix: ''
+          suffix:
+            - ''
           type: 'ovb-1ctlr_1comp_1ceph-featureset024'
           node: upstream-centos-7
           trigger: gate
@@ -488,7 +492,8 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset022'
           release: pike
-          suffix: ''
+          suffix:
+            - ''
           type: 'ovb-1ctlr_1comp-featureset022'
           node: upstream-centos-7
           trigger: gate
@@ -809,7 +814,7 @@
           release:
             - pike
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset012'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -822,7 +827,7 @@
           release:
             - pike
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset014'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -833,7 +838,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset036-oc-ffu'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset036'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -847,7 +852,7 @@
             - ocata
             - pike
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'undercloud-upgrades'
           node: upstream-centos-7
           trigger: gate
@@ -859,7 +864,7 @@
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
-          suffix: '-branch'
+          suffix: '-branch-nv'
           type: 'multinode-1ctlr-featureset011'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -871,7 +876,7 @@
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset011'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -883,7 +888,7 @@
           jobname: 'centos-7-container-to-container-upgrades'
           release:
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset040'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -897,7 +902,7 @@
             - ocata
             - pike
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-upgrades'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -910,7 +915,7 @@
           release:
             - pike
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset037'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -921,7 +926,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset017'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset017'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -932,7 +937,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset018'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset018'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -943,7 +948,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset019'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset019'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -954,7 +959,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset020'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'ovb-1ctlr_1comp-featureset020'
           node: upstream-centos-7
           trigger: gate
@@ -965,7 +970,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset016'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset016'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -979,7 +984,7 @@
             - ocata
             - pike
             - queens
-          suffix: ''
+          suffix: '-nv'
           type: 'ovb-3ctlr_1comp-featureset021'
           node: upstream-centos-7
           trigger: gate
@@ -990,7 +995,7 @@
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-3ctlr_1comp-featureset021'
           release: master
-          suffix: ''
+          suffix: '-nv'
           type: 'ovb-3ctlr_1comp-featureset021'
           node: upstream-centos-7
           trigger: gate
@@ -1003,7 +1008,8 @@
           release:
             - master
             - queens
-          suffix: ''
+          suffix:
+            - ''
           type: 'ovb-3ctlr_1comp-featureset035'
           node: upstream-centos-7
           trigger: gate
@@ -1015,7 +1021,7 @@
           jobname: 'centos-7-ovb-3ctlr_1comp_1supp-featureset039'
           release:
             - master
-          suffix: ''
+          suffix: '-nv'
           type: 'ovb-3ctlr_1comp_1supp-featureset039'
           node: upstream-centos-7
           trigger: gate
@@ -1030,7 +1036,9 @@
             - queens
           suffix:
             - ''
+            - '-nv'
             - '-tht'
+            - '-tht-nv'
           type: 'ovb-3ctlr_1comp-featureset042'
           node: upstream-centos-7
           trigger: gate
@@ -1043,7 +1051,7 @@
           release:
             - master
           suffix:
-            - ''
+            - '-nv'
           type: 'multinode-1ctlr-featureset045'
           node: upstream-centos-7-2-node
           trigger: gate
