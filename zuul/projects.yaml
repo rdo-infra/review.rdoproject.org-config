@@ -176,10 +176,6 @@ projects:
     template:
       - name: noop
 
-  - name: rdo_gating_scripts
-    template:
-      - name: noop
-
   - name: openstack/UcsSdk
     template:
       - name: package-check-jobs
@@ -501,6 +497,14 @@ projects:
       - name: package-check-jobs
 
   - name: openstack/heat-agents-distgit
+    template:
+      - name: package-distgit-check-jobs
+
+  - name: openstack/heat-dashboard
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/heat-dashboard-distgit
     template:
       - name: package-distgit-check-jobs
 
@@ -2513,6 +2517,10 @@ projects:
   - name: rdo-infra/weirdo
     template:
       - name: weirdo-gate-jobs
+
+  - name: rdo_gating_scripts
+    template:
+      - name: noop
 
   - name: testbranching
     template:
