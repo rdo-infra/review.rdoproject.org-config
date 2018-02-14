@@ -859,7 +859,7 @@
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
-          suffix: '-branch'
+          suffix: '-branch-nv'
           type: 'multinode-1ctlr-featureset011'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -871,7 +871,7 @@
           jobname: 'centos-7-containers-multinode-upgrades'
           release:
             - pike
-          suffix: ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset011'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -883,7 +883,9 @@
           jobname: 'centos-7-container-to-container-upgrades'
           release:
             - master
-          suffix: ''
+          suffix:
+            - '-nv'
+            - ''
           type: 'multinode-1ctlr-featureset040'
           node: upstream-centos-7-2-node
           trigger: gate
@@ -1030,7 +1032,9 @@
             - queens
           suffix:
             - ''
+            - '-nv'
             - '-tht'
+            - '-tht-nv'
           type: 'ovb-3ctlr_1comp-featureset042'
           node: upstream-centos-7
           trigger: gate
@@ -1042,8 +1046,7 @@
           jobname: 'centos-7-multinode-1ctlr-featureset045-updates'
           release:
             - master
-          suffix:
-            - ''
+          suffix: '-nv'
           type: 'multinode-1ctlr-featureset045'
           node: upstream-centos-7-2-node
           trigger: gate
