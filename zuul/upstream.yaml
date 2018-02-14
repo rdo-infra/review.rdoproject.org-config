@@ -145,7 +145,7 @@ jobs:
   - name: ^gate-tripleo-ci-centos-7-.*-master(?!(-branch)).*$
     branch: ^master$
 
-  - name: ^gate-tripleo-ci-centos-7-.*-branch$
+  - name: ^gate-tripleo-ci-centos-7-.*-branch(-nv)*$
     branch: ^master$
 
   - name: ^gate-tripleo-ci-centos-7-.*-pike(?!(-branch)).*$
@@ -162,7 +162,7 @@ jobs:
   ####
 
   # Don't run 042 job if IPSec config is not touched
-  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht$
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht(-nv)*$
     skip-if:
         # The regex should match THT repo
       - project: ^openstack/tripleo-heat-templates$
@@ -324,13 +324,13 @@ project-templates:
 
   - name: tripleo-upgrades-check
     openstack-check:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-nv
 
   - name: tripleo-upgrades-check-branchless
     openstack-check:
-      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset045-updates-master
-      - gate-tripleo-ci-centos-7-container-to-container-upgrades-master
+      - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch-nv
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset045-updates-master-nv
+      - gate-tripleo-ci-centos-7-container-to-container-upgrades-master-nv
 
   - name: tripleo-upgrades-experimental
     openstack-experimental:
