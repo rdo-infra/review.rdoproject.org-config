@@ -37,11 +37,11 @@ PACKAGE_LINE=""
 mkdir -p data/repos
 for PACKAGE in ${PACKAGES_TO_BUILD}; do
     PACKAGE_INFO=$(rdopkg findpkg $PACKAGE -l ../rdoinfo)
-    PROJECT_TO_BUILD_MAPPED=$(echo "$PACKAGE_INFO" | awk '/name:/ {print $2}')
-    PROJECT_IN_RDOINFO=$(echo "$PACKAGE_INFO" | awk '/project:/ {print $2}')
-    PROJECT_DISTGIT=$(echo "$PACKAGE_INFO" | awk '/distgit:/ {print $2}')
-    NAMESPACE=$(echo "$PACKAGE_INFO" | awk '/patches/ { split($2, res, "/"); print res[6] }')
-    PROJECT_DISTRO="$NAMESPACE/$PROJECT_IN_RDOINFO-distgit"
+    PROJECT_TO_BUILD_MAPPED=$(echo "$PACKAGE_INFO" | awk '/^name:/ {print $2}')
+    PROJECT_IN_RDOINFO=$(echo "$PACKAGE_INFO" | awk '/^project:/ {print $2}')
+    PROJECT_DISTGIT=$(echo "$PACKAGE_INFO" | awk '/^distgit:/ {print $2}')
+    NAMESPACE=$(echo "$PACKAGE_INFO" | awk '/^patches/ { split($2, res, "/"); print res[6] }')
+    PROJECT_DISTRO="$NAMESPACE/$(echo $PROJECT_DISTGIT | awk -F/ '{print $NF}')"
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
     if [ "$PROJECT_DISTGIT" = "https://github.com/openstack/rpm-packaging" ]; then
