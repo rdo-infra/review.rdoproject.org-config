@@ -421,3 +421,35 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
+
+- job:
+    name: test-logs
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - rdo-log-setup
+      - shell: |
+          set +e
+          cd $ZUUL_PROJECT
+          ./run_tests.sh
+    triggers:
+      - zuul
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                  mkdir $WORKSPACE/logs
+                  echo "noop" >$WORKSPACE/logs/test.txt
+
+                  # Ensure permissions allow artifact uploading
+                  sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
+          script-only-if-succeeded: False
+          script-only-if-failed: False
+      - rdo-rsync-logs
+    node: rdo-centos-7
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
