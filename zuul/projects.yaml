@@ -6,9 +6,9 @@ jobs:
   #   job=job.name,
   #   ref=ref_uuid
   #)
-  - name: test-logs
-    failure-pattern: "https://logs.rdoproject.org/{build.parameters[LOG_PATH]}"
-    success-pattern: "https://logs.rdoproject.org/{build.parameters[LOG_PATH]}"
+  - name: ^test-logs$
+    failure-pattern: https://logs.rdoproject.org/{build.parameters[LOG_PATH]}
+    success-pattern: https://logs.rdoproject.org/{build.parameters[LOG_PATH]}
 
   - name: ^DLRN-rpmbuild$
     branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
