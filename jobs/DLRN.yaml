@@ -84,7 +84,7 @@
           eval $(grep baseurl= < /etc/yum.repos.d/delorean-zuul-${ZUUL_REF}.repo)
 
           # download binary packages
-          wget -nd -r --accept .rpm --reject .src.rpm ${baseurl}
+          wget -e robots=off -nd -r --accept .rpm --reject .src.rpm ${baseurl}
           unset baseurl
 
           # get the repo data from the previous repository
