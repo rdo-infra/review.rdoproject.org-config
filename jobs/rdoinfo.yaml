@@ -688,31 +688,6 @@
               fi
           fi
           popd
-          # Check if tags have been applied as expected
-          # format of cbs_actions.txt is <action>,<tag>,<build> where <action> is
-          # "tag" for tagging actions.
-          # Retrieve all builds information in one go
-          awk -F , '/tag/ {
-            builds[$2]=builds[$2] " " $3
-          }
-          END {
-          for (tag in builds)
-            print "##"tag;
-            system("cbs buildinfo " builds[tag])
-          }' cbs_actions.txt  > cbs_output.txt
-          # Then analyze cbs command output to detect failures
-          while read line; do
-              [[ $line = \#\#* ]] && tag=${line:2}
-              [[ $line = BUILD* ]] && build=${line:7} && build=${build% *}
-              if [[ $line = Tags:* ]]; then
-                  if [[ $line = Tags:*$tag* ]]; then
-                      echo "INFO: package $build was added to tag $tag"
-                  else
-                      echo "ERROR: package $build was not included in tag $tag"
-                      FAILED=1
-                  fi
-              fi
-          done < cbs_output.txt
 
           exit $FAILED
 
