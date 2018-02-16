@@ -1,8 +1,17 @@
 jobs:
-  - name: ^DLRN-rpmbuild$
-    branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+  # ref_uuid = params['ZUUL_REF'].split('/')[-1]
+  # params['LOG_PATH'] = "{base}/{pipeline}/{job}/{ref}".format(
+  #   base=params['BASE_LOG_PATH'],
+  #   pipeline=params['ZUUL_PIPELINE'],
+  #   job=job.name,
+  #   ref=ref_uuid
+  #)
+  - name: ^test-logs$
     failure-pattern: https://logs.rdoproject.org/{build.parameters[LOG_PATH]}
     success-pattern: https://logs.rdoproject.org/{build.parameters[LOG_PATH]}
+
+  - name: ^DLRN-rpmbuild$
+    branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
 
   - name: ^DLRN-rpmbuild-fedora$
     branch: ^(master)|(rpm-master)$
@@ -2532,8 +2541,9 @@ projects:
 
   # project for testing new tests
   - name: testproject
-    template:
-      - name: noop
+    check:
+      - test-logs
+
 
   - name: centos-opstools/opstools-doc
     check:
