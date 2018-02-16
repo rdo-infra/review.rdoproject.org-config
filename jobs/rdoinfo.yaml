@@ -409,6 +409,7 @@
           ln -s $PWD/rdoinfo ~/rdoinfo
           zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
           pushd rdo-infra/releng
+          sudo pip install rdopkg==0.45.0
           sudo pip install .
           popd
           # Prepare environment to send a review
