@@ -699,7 +699,7 @@
           for (tag in builds)
             print "##"tag;
             system("cbs buildinfo " builds[tag])
-          }' cbs_actions.txt  > cbs_output.txt
+          }' $WORKSPACE/logs/info/cbs_actions.txt  > cbs_output.txt
           # Then analyze cbs command output to detect failures
           while read line; do
               [[ $line = \#\#* ]] && tag=${line:2}
