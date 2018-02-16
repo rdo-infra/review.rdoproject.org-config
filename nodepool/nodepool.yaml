@@ -59,17 +59,12 @@ diskimages:
 
 labels:
   - name: rdo-centos-7
-    min-ready: 2
+    min-ready: 5
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
-  - name: rdo-centos-7-ssd
-    min-ready: 2
-    image: rdo-centos-7
-    providers:
-      - name: rdo-cloud-ssd
   - name: rdo-fedora-26
-    min-ready: 1
+    min-ready: 2
     image: rdo-fedora-26
     providers:
       - name: rdo-cloud
@@ -92,7 +87,7 @@ providers:
     boot-timeout: 240
     clean-floating-ips: true
     cloud: rdo-cloud
-    max-servers: 15
+    max-servers: 30
     pool: public
     rate: 0.25
     networks:
@@ -107,22 +102,6 @@ providers:
       - name: rdo-fedora-26
         diskimage: rdo-fedora-26
         name-filter: rdo.m1.nodepool
-        username: jenkins
-        min-ram: 8192
-        config-drive: true
-  - name: rdo-cloud-ssd
-    boot-timeout: 240
-    clean-floating-ips: true
-    cloud: rdo-cloud-ssd
-    max-servers: 15
-    pool: public
-    rate: 0.25
-    networks:
-      - name: private
-    images:
-      - name: rdo-centos-7
-        diskimage: rdo-centos-7
-        name-filter: ci.m1.nodepool
         username: jenkins
         min-ram: 8192
         config-drive: true
