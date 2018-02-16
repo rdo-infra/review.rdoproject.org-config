@@ -87,7 +87,7 @@ providers:
     boot-timeout: 240
     clean-floating-ips: true
     cloud: rdo-cloud
-    max-servers: 15
+    max-servers: 30
     pool: public
     rate: 0.25
     networks:
@@ -105,16 +105,6 @@ providers:
         username: jenkins
         min-ram: 8192
         config-drive: true
-  - name: rdo-cloud-ssd
-    boot-timeout: 240
-    clean-floating-ips: true
-    cloud: rdo-cloud-ssd
-    max-servers: -1
-    pool: public
-    rate: 0.25
-    networks:
-      - name: private
-    images: []
   - name: rdo-cloud-tripleo
     boot-timeout: 240
     clean-floating-ips: true
