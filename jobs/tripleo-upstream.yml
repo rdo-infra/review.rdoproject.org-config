@@ -336,6 +336,7 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
+      - collect-tripleo-logs
     publishers:
       - postbuildscript:
           builders:
@@ -384,6 +385,7 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
+      - collect-tripleo-logs
       - images-upload-and-label:
           release: "{release}"
     publishers:
@@ -425,6 +427,7 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "current-tripleo"
+      - collect-tripleo-logs
     publishers:
       - rdo-rsync-logs
 
