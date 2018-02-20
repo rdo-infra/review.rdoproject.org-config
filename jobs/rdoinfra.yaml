@@ -266,6 +266,10 @@
           EOF
 
           pushd rdo-infra-playbooks
+            # Use test data for the runs
+            if [ -f samples/secrets.vault.yml ]; then
+                cat samples/secrets.vault.yml > playbooks/group_vars/all/secrets.vault.yml
+            fi
             ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml \
               -e "rdobot_nickname=not_rdobot" \
               -e "sensu_rabbitmq_server=localhost"
@@ -306,9 +310,6 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-        - file:
-            credential-id: e9c40e40-9c98-4cdc-8e97-76ac05a100cf
-            variable: ANSIBLE_VAULT_PASSWORD_FILE
 
 - project:
     name: rdo-infra-playbooks-integration
