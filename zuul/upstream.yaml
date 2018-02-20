@@ -322,19 +322,6 @@ project-templates:
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike
       - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata
 
-  - name: tripleo-ovb-with-newton-check
-    openstack-check:
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata
-
   - name: tripleo-upgrades-check
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-nv
@@ -617,7 +604,7 @@ projects:
     template:
       - name: package-check-jobs
       - name: tripleo-upgrades-check
-      - name: tripleo-ovb-with-newton-check
+      - name: tripleo-ovb-check
       - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
