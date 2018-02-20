@@ -265,6 +265,158 @@
                   monitoring:
           EOF
 
+          # Create alternative secrets.vault.yml file with test data
+          cat > rdo-infra-playbooks/playbooks/group_vars/all/secrets.vault.yml << EOF
+          ---
+          server_ssl_ca_cert: |
+              -----BEGIN CERTIFICATE-----
+              MIIDejCCAmKgAwIBAgIJANurvpJRwK1pMA0GCSqGSIb3DQEBCwUAMFExCzAJBgNV
+              BAYTAkVTMQ8wDQYDVQQIDAZNYWRyaWQxDzANBgNVBAcMBk1hZHJpZDEMMAoGA1UE
+              CgwDUkRPMRIwEAYDVQQDDAlsb2NhbGhvc3QwIBcNMTgwMjIwMTA0NTE4WhgPMzAx
+              NzA2MjMxMDQ1MThaMFExCzAJBgNVBAYTAkVTMQ8wDQYDVQQIDAZNYWRyaWQxDzAN
+              BgNVBAcMBk1hZHJpZDEMMAoGA1UECgwDUkRPMRIwEAYDVQQDDAlsb2NhbGhvc3Qw
+              ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCaAQzZTjcYJ88XCCGXJCFG
+              2P7RlMPFqOnTWC3bgTpO+4SV9th8m6IB7g+eqC4YhcJYt15viEanODdATzKRTcyv
+              0BG376q1aA5jAIG7RpbXYxEp8xsllwtfoJOymyVTPSGMsnTAXENjRZqSAIzc6gaO
+              OVKnITbVmZ2GkvHiT4MYcfBtanxLANcPOUhhg2MPfDB0pMsfIddOF3e+CHcVB4dZ
+              8SrVaziFn4v2G2AYaZJcMW10mQGRmvt/kpSmsYlR/7thUwAxh7XxurMTxMEfZ8NS
+              amf+lTh27C9zbtaYp/06hQmI8aRY6zIBbr3rwaKvi5XG4gIyqK89yoE4rn4Dj3aN
+              AgMBAAGjUzBRMB0GA1UdDgQWBBT+uiPzf2v7cPp/xXJH+OKTLq3lvjAfBgNVHSME
+              GDAWgBT+uiPzf2v7cPp/xXJH+OKTLq3lvjAPBgNVHRMBAf8EBTADAQH/MA0GCSqG
+              SIb3DQEBCwUAA4IBAQCN1HENwagHcXILCZAi2zxTec2vB8z+Nj4wOIDDOhKzOxP5
+              5wbiCHfhGlbbTa5gSgcauglL+H6FtL9MJPhRnYYJa5KIYhesGC4KQ5kPkSqpy0KT
+              LNCQAy83JWgK0DwKdqtmZYhluXuCRCnibWTfrwTwqmP4B3hbc4SzFGa75Zl2L6oY
+              IjiYzJqFCSaen/G79U2dB8HsK+Fi8GzlL+brmktjb7xdyBkv0n+/LiA/hdQm7PTC
+              hevF97Th4LQeuYVM1p2PvFPeKniY7YPwaZQC4xuwif0UhMDWkgPMx3/zhv3Oipnb
+              Sdk2bkTlKDSGpHOOQeEAJJC4FCWYxy7qDT0eo6a5
+              -----END CERTIFICATE-----
+          server_ssl_cert: |
+              -----BEGIN CERTIFICATE-----
+              MIIDGDCCAgACAQEwDQYJKoZIhvcNAQELBQAwUTELMAkGA1UEBhMCRVMxDzANBgNV
+              BAgMBk1hZHJpZDEPMA0GA1UEBwwGTWFkcmlkMQwwCgYDVQQKDANSRE8xEjAQBgNV
+              BAMMCWxvY2FsaG9zdDAgFw0xODAyMjAxMDQ2MDBaGA8zMDE3MDYyMzEwNDYwMFow
+              UTELMAkGA1UEBhMCRVMxDzANBgNVBAgMBk1hZHJpZDEPMA0GA1UEBwwGTWFkcmlk
+              MQwwCgYDVQQKDANSRE8xEjAQBgNVBAMMCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcN
+              AQEBBQADggEPADCCAQoCggEBALO4ODWw1/hCsi+K72Qcu95XhrtVigXvM0pkfRhm
+              Ncuv0FSs+wNxcpstctNvqfF8+inXf9+a44SfmAoqeAN6mymw4AsXbTrAG99N4Hgl
+              MHJ0jV26rYDBQpLQgpPCfwB3fCFREsByFhlkBo5Es1JEVNv6UL7ftkptWv3GFjTC
+              ciQs4f5iImbxgmFuEnK9ofCV67+NYd7/JsKSache5gt1BTdvlctVajjt03rU76nn
+              RkdJfJ5jWVqniZyE/5/Rkeei1jLNw3BxDz/3b5SVPY9PBTtCPvg35LJMkTfgBrgu
+              xEUKFzpKLVcalM7m/XHBc/6f4Ktim/Iwb3kyK8ipPGSrgPkCAwEAATANBgkqhkiG
+              9w0BAQsFAAOCAQEAUEalnr2wdA6qku44QBBBdPw9ZX5rspdA/EonY+EkPRrTHuCX
+              WaJmLOxveum16AKmchWxrWRNCBYovfUi2yjuJGZt5k5Fu1eALP+NLNOs25r7RsER
+              LvH5P/lFYL6RdwSo1+e9qSsV/qHzWHmufAxWl1kXG/I0Ectvx5P/2sSp8diMtsvD
+              nmM8dl5EhO57wm7w/HdJd/CECWKAjSW8kSGTX3OFcaLKfi1yn52nDCXxY2xT8aKW
+              b6u6dkU3GrJNRxoe+WFMhLmWbnzthO68ySomUpgUH9zHbLTFvoHOtvwJtQkeM6bU
+              hf+WkJ2DsIduw7buY2wShaeZ+WaIPlKL0sQgag==
+              -----END CERTIFICATE-----
+          server_ssl_key: |
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEpAIBAAKCAQEAs7g4NbDX+EKyL4rvZBy73leGu1WKBe8zSmR9GGY1y6/QVKz7
+              A3Fymy1y02+p8Xz6Kdd/35rjhJ+YCip4A3qbKbDgCxdtOsAb303geCUwcnSNXbqt
+              gMFCktCCk8J/AHd8IVESwHIWGWQGjkSzUkRU2/pQvt+2Sm1a/cYWNMJyJCzh/mIi
+              ZvGCYW4Scr2h8JXrv41h3v8mwpJpyF7mC3UFN2+Vy1VqOO3TetTvqedGR0l8nmNZ
+              WqeJnIT/n9GR56LWMs3DcHEPP/dvlJU9j08FO0I++DfkskyRN+AGuC7ERQoXOkot
+              VxqUzub9ccFz/p/gq2Kb8jBveTIryKk8ZKuA+QIDAQABAoIBAB6tfJLVrBgJsobh
+              DXomWX9bq3kA4f2fVj8FpkDq+ZXaXhKGMJbm36xTdr1W20iIj99ilMZjlyDFaVua
+              4j+dxyy3r5bVGeUkc92LWpzHpFx1PshYHFPVKXsMMq3sTmeS/dJmF3BYSSNuapwQ
+              aBfL6DxgnzXl1CUiQ5z8GkBJTNiVs0dnJdA5BVp8rGkDHFhPZGqq4pdGF/Nk2g/J
+              UiJJhfphqDvFRmF6W4tKsYAm03NKgnaGNMUHa2K31Bd93huz1aOIpV7exr9llYBo
+              F88zf1ImEsurLbnNce4z9WA2Zas6yM8EqyMDxtnF61+NQUlvA19IJfZvQHbGMbTh
+              ary9nPECgYEA6PsMP/NEp5TIK6gEuXezo40MThZl2X3AmPtssPmMcQ/aAJihwGVR
+              EyhEn+/Ibuz6duDB5FNtD6GbZsW5FGmDqnn1IWKAYNCOB2CfN8pJdllNzknUagVg
+              mj5rSF93H6/Gn3/2tFJyEeD5cHStOaJwvcIOTXbpcQpRNKdpHAI0ml0CgYEAxXoA
+              KEL1qE5rwaLNGzIcUkPGRY1QexIi/yAeoFuUOSvTffYYGLQtFAoEVikwxK1PDQo1
+              BwVY/m2INVikuw9GP5OhfEjW5nNXFFt3sxWFAifsl6KapI2XDKdCo0tKMV9FQHIA
+              rQpESK2D/B+7w2UUOsW7tmIT1Adt6v/zrkhqL00CgYEA4GYlh1b1Un/gSQQ9ALKF
+              qMrLBk9WbCROJEtOhirmFWQSMq7QZPJxI4WOi4m1wPmpyGR0/ElKa1rZxiQ9Pqbe
+              dY2gCDbKtfVKR1rOIDtLhJ1Bbqb32+IwCICEbqHcp/1yzt++rDIYwpWxS5pl2nRW
+              KL9HbV9SO1mXm6J/f8W0CtUCgYEAhMhzAJ99lS0d8bbpWWcJehtOX4gU3JwmYgwT
+              69mIQiUA8YqfS0UjpnzRy6movCaYp/j8DPuAipvV4aD4KzurDabUB8Dml1Bo9ixG
+              wWkv5XI4+QECILGAJqb0/N3sRmR8KUg+whvMLF5YCBjCZTE7OAWrIYizMnfIZiKy
+              lLbmh2UCgYAspcuA7DtulI/CftfY522QXKCWROLF7ZZ6VxKZAvF+kdGbkAQzsOpc
+              POny0Fhg4Mbs9K9ZTgxBY0H7TSKv24zgGMc8XS2D8snDu6R0bE8i8UrOaHMqL52s
+              axhpSBKl17C4viP1ti/v1v2a1wLOJ9u39MgetpTvknO269zhvsjI8g==
+              -----END RSA PRIVATE KEY-----
+          client_ssl_cert: |
+              -----BEGIN CERTIFICATE-----
+              MIIDHjCCAgYCAQEwDQYJKoZIhvcNAQELBQAwUTELMAkGA1UEBhMCRVMxDzANBgNV
+              BAgMBk1hZHJpZDEPMA0GA1UEBwwGTWFkcmlkMQwwCgYDVQQKDANSRE8xEjAQBgNV
+              BAMMCWxvY2FsaG9zdDAgFw0xODAyMjAxMDQ2MzJaGA8zMDE3MDYyMzEwNDYzMlow
+              VzELMAkGA1UEBhMCRVMxDzANBgNVBAgMBk1hZHJpZDEPMA0GA1UEBwwGTWFkcmlk
+              MQwwCgYDVQQKDANSRE8xGDAWBgNVBAMMD2xvY2FsaG9zdGNsaWVudDCCASIwDQYJ
+              KoZIhvcNAQEBBQADggEPADCCAQoCggEBAM5YR0kQSgBx//wU7Ppl+BoJ2rXMJlLt
+              kOtGO796oIL9RQ9yUAfigafkfw5RpMF8HPpKsKR/T8UaUFMgUggLEAO1Q8bvybth
+              wK8E3Unz+TSMyeOU8f7AUse/dg0z9BZcpTptUmOGv/QK3cEWjZYgcf8uz4BMFUY+
+              xe1g4uE1chmCcZxIL8/mpxKgI0k1XwYxwNAe/LtLEu2Qs9fN3eW0iKTJ3Z4S38YB
+              oHn2ujpvtzlF45kYPVehfXQyehDXJQVwtBg9O3gOi6CY/pMn7rhu41e1OQSZ6zTn
+              hmliU0HjAJpb5om3/AT938jBGdxMQsZSkWXaR30uUNZ17+Z0smjy+0sCAwEAATAN
+              BgkqhkiG9w0BAQsFAAOCAQEADywQq03VkHjPYmwsa0nWH7AlAQ96XFkZ5zknrwkr
+              czqkESxBaTjKuoshvZ7N7kqxTjLIkWgJUX84/l+El2EyMXVD782Mt9z1mgZUC7ZG
+              NZdgIKEjEV0hkrdalTyyy0Amr8Hc8lGpsdnQnnjrLrJKDxOubDHAfuoXrW0yOYv+
+              Mk4m115Vql0dYZ6V5vUB1VZTsnTz9Gww2UaCcT7s0QuyPdLGae6wed1V3mq5l9e2
+              9ySEjWn8+474UcaauXdIHweWTqPnCvZdCdMX51xVx2YBLB19Bt+uUTNp75HnwFy3
+              Vuj4nTMO3XZyi5f42mXjnuGgvEt/lJTSTBw70gCRs/r9hg==
+              -----END CERTIFICATE-----
+          client_ssl_key: |
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEpAIBAAKCAQEAzlhHSRBKAHH//BTs+mX4GgnatcwmUu2Q60Y7v3qggv1FD3JQ
+              B+KBp+R/DlGkwXwc+kqwpH9PxRpQUyBSCAsQA7VDxu/Ju2HArwTdSfP5NIzJ45Tx
+              /sBSx792DTP0FlylOm1SY4a/9ArdwRaNliBx/y7PgEwVRj7F7WDi4TVyGYJxnEgv
+              z+anEqAjSTVfBjHA0B78u0sS7ZCz183d5bSIpMndnhLfxgGgefa6Om+3OUXjmRg9
+              V6F9dDJ6ENclBXC0GD07eA6LoJj+kyfuuG7jV7U5BJnrNOeGaWJTQeMAmlvmibf8
+              BP3fyMEZ3ExCxlKRZdpHfS5Q1nXv5nSyaPL7SwIDAQABAoIBAQC9MENrwfuXnO5P
+              egAtNQDdHtvgg2U/84FDtglh7lTsxLplBzJJiGvIO8AiqMiefeUztvduWywQU6gC
+              D0gnB72PKMsTwxb7Lw0zawpZm8+JVuxkNVQLdtpvOiRKxq+tMRRtFX7MseedIblg
+              KAV4+BaNGaY2w4td9IAUvRhH1HDg4QqKqnv5HcJmHzl3hd6VOsA3/+5vATqzj2Lx
+              wkHB2jdkQ+JQi0lMyS7EkkaMeiT+Z+AsolLMmAJknAYc2S9DMqKvdbWNqBP4EUqi
+              3lybk38qGgatIzkjdocO+ggkbHB9vC7nMvwaAFVbL2+48waEAJHtkFYjtWiGZ+Oj
+              mzOd0nsBAoGBAPO2gKsuvuWCH8Dj5VSI0VpDzABLjU1IrNAiZ7+negRqru3mwcwD
+              RSn8ReLKGVTk3FVUisAB9XOM+Bwiv6YU49lL6abZ9bFAELFgjddmFervup606W1A
+              HuNhSnnlYXl/KG90EyC9I2zEpJvXb64Mk3Orsy+Y1akTUelM3CBOOLybAoGBANi/
+              e3vjitJIaIcb3apT0sLViNgtJNUzJSpbxYlZenOZzBuP/qfi9+xToKOASRXYKGT5
+              QH9rGTZCk/6YYAqyX8V8tMPPBEs59jV1OwjuJF45LWrwYmFdqNxEp5UQne6tIEGp
+              WmeL5hvII2YXQUPzwqKxuXcr+XFH5MIlTvzzii8RAoGBANByyn6fztsSfwJGagHx
+              u85Oqo+eD0+I13Z11vMP1cctUE1ez2clbOTKRyQA48W+sc2yL7Kmej/I1PWLqwvs
+              Vi2nRkNVrVVbjGuKQAd540k8ngvchMLS0xh8QG0eCk8WuYkKaMnZvBDt6DT7ASSG
+              0R9gPjR5rlWclrTK7oQbI1/9AoGAFzhkVUBqRd7l+9t7Ytz6Dk9sCqTDdme1SpVs
+              UyuX17yZRjal9Hx3TQUkh3+d1M5EfZTKWRwzJkH5suPGHj8/zVtvzi5maly6SL3X
+              ZjyE/ucnO3anQ4ESLw7X2TtfgAtiEka/Xap6K23EhRJmto3twxpBIUg/v+gQ1M/E
+              Z4r7udECgYAlDJuPvFZ5XhDTf1uAsYzhAcczox4dO5xNSqRtEFr7HBBJX42S1+So
+              vmPTsqTMH7V04ExYdimVazwK+UVuW2S1FnGbo9Re9hxkRVEeUw/DsjhQ9/fxbA3V
+              NABmBoeYFeoWpVkeM9ZSFti9zHs1Nmu8BCHLOl3HIhVG4tWzV2pNNw==
+              -----END RSA PRIVATE KEY-----
+
+          sensu_api_username: 'sensu'
+          sensu_api_password: 'password'
+
+          uchiwa_credentials:
+            - username: 'rdo'
+              password: 'password'
+              readonly: 'true'
+            - username: 'dmsimard'
+              password: 'password'
+              readonly: 'false'
+            - username: 'apevec'
+              password: 'password'
+              readonly: 'false'
+            - username: 'jtrowbridge'
+              password: 'password'
+              readonly: 'false'
+            - username: 'jpena'
+              password: 'password'
+              readonly: 'false'
+            - username: 'hguemar'
+              password: 'password'
+              readonly: 'false'
+            - username: 'amoralej'
+              password: 'password'
+              readonly: 'false'
+
+          rdobot_nickserv_password: password
+          rdobot_sensu_password: "{{ sensu_api_password }}"
+          EOF
+
           pushd rdo-infra-playbooks
             ansible-playbook -i $ANSIBLE_HOSTS playbooks/{playbook}.yml \
               -e "rdobot_nickname=not_rdobot" \
@@ -306,9 +458,6 @@
         - file:
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
-        - file:
-            credential-id: e9c40e40-9c98-4cdc-8e97-76ac05a100cf
-            variable: ANSIBLE_VAULT_PASSWORD_FILE
 
 - project:
     name: rdo-infra-playbooks-integration
