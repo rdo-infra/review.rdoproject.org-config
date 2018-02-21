@@ -29,7 +29,7 @@
           sudo systemctl start libvirtd
           sudo LIBGUESTFS_BACKEND=direct virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/delorean-deps.repo'
           sudo LIBGUESTFS_BACKEND=direct virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/current-passed-ci/delorean.repo'
-          sudo DIB_LOCAL_IMAGE=./$IMAGE_NAME /usr/bin/octavia-diskimage-create.sh  -p -i centos -o amphora-x64-haproxy-centos.qcow2
+          sudo DIB_LOCAL_IMAGE=$PWD/$IMAGE_NAME /usr/bin/octavia-diskimage-create.sh  -p -i centos -o amphora-x64-haproxy-centos.qcow2
 
 - job:
     name: 'periodic-octavia-build-amphora'
