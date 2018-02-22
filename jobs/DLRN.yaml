@@ -163,6 +163,9 @@
           # Following error only-non-binary-in-usr-lib has been fixed in recent rpmlint versions not in CentOS yet.
           addFilter("openstack-kuryr-kubernetes-cni.noarch: W: only-non-binary-in-usr-lib")
 
+          # Exceptions for heat
+          addFilter("openstack-heat-common.noarch: W: obsolete-not-provided openstack-heat-api-cloudwatch")
+
           EOF
 
           # now download all these packages from the previous repository
