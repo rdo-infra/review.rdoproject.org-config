@@ -791,6 +791,16 @@
           branch-override: 'stable/{release}'
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset027'
+          release: master
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset027'
+          node: upstream-centos-7
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset030'
           release: master
           suffix: ''
