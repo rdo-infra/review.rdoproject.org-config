@@ -1,0 +1,111 @@
+---
+- pipeline:
+    name: check
+    description: |
+      Newly uploaded patchsets enter this pipeline to receive an
+      initial +/-1 Verified vote.
+    manager: independent
+    trigger:
+      rdoproject.org:
+        - event: patchset-created
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+    start:
+      rdoproject.org:
+        verified: 0
+    success:
+      rdoproject.org:
+        verified: 1
+      sqlreporter:
+    failure:
+      rdoproject.org:
+        verified: -1
+      sqlreporter:
+
+- pipeline:
+    name: gate
+    description: |
+      Changes that have been approved by core developers are enqueued
+      in order in this pipeline, and if they pass tests, will be
+      merged.
+    success-message: Build succeeded (gate pipeline).
+    failure-message: |
+      Build failed (gate pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: dependent
+    precedence: high
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+        approval:
+          - Verified: [1, 2]
+            username: zuul
+          - Workflow: 1
+    trigger:
+      rdoproject.org:
+        - event: comment-added
+          approval:
+            - Workflow: 1
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
+    start:
+      rdoproject.org:
+        Verified: 0
+    success:
+      rdoproject.org:
+        Verified: 2
+        submit: true
+      sqlreporter:
+    failure:
+      rdoproject.org:
+        Verified: -2
+      sqlreporter:
+    window-floor: 20
+    window-increase-factor: 2
+
+- pipeline:
+    name: post
+    post-review: true
+    description: This pipeline runs jobs that operate after each change is merged.
+    manager: independent
+    precedence: low
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^(?!refs/).*$
+    success:
+      sqlreporter:
+    failure:
+      sqlreporter:
+
+- pipeline:
+    name: release
+    post-review: true
+    description: When a commit is tagged as a release, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/[0-9]+(\.[0-9]+)*$
+    success:
+      sqlreporter:
+    failure:
+      sqlreporter:
+
+- pipeline:
+    name: periodic
+    post-review: true
+    description: Jobs in this queue are triggered daily.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 0 * * *'
+    success:
+      sqlreporter:
+    failure:
+      sqlreporter:
