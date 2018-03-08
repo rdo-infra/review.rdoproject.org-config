@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  roles:
+    - role: add-fileserver
+      fileserver: "{{ site_rdologs }}"
+    - emit-ara-html
+
+- hosts: "{{ site_rdologs.fqdn }}"
+  tasks:
+    # Use a block because play vars doesn't take precedence on roles vars
+    - block:
+        - import_role: name=upload-logs
+      vars:
+        zuul_log_url: "{{ site_rdologs.url }}"
+        zuul_logserver_root: "{{ site_rdologs.path }}"
