@@ -240,7 +240,6 @@
           type: 'periodic-singlenode-featureset023'
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
-      - collect-tripleo-logs
       - build-containers-images:
           release: "{release}"
     publishers:
@@ -254,6 +253,7 @@
                   sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
+      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -338,7 +338,6 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
-      - collect-tripleo-logs
     publishers:
       - postbuildscript:
           builders:
@@ -349,6 +348,7 @@
                 bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           script-only-if-succeeded: False
           script-only-if-failed: False
+      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -387,7 +387,6 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "tripleo-ci-testing"
-      - collect-tripleo-logs
       - images-upload-and-label:
           release: "{release}"
     publishers:
@@ -400,6 +399,7 @@
                 bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           script-only-if-succeeded: False
           script-only-if-failed: False
+      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -429,8 +429,8 @@
           type: "{type}"
           branch-override: "{branch-override}"
           promote_name: "current-tripleo"
-      - collect-tripleo-logs
     publishers:
+      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - project:

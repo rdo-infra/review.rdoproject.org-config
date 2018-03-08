@@ -17,15 +17,18 @@
           sudo chown jenkins:jenkins $LOG_SSH_KEY
           cp -p $LOG_SSH_KEY ~/.ssh/logserver
 
-- builder:
+- publisher:
     name: collect-tripleo-logs
-    builders:
-      - shell: |
-          #!/bin/bash
-          if [[ -e $WORKSPACE/logs/collect_logs.sh ]]; then
-            bash $WORKSPACE/logs/collect_logs.sh
-          fi
-
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                #!/bin/bash
+                if [[ -e $WORKSPACE/logs/collect_logs.sh ]]; then
+                  bash $WORKSPACE/logs/collect_logs.sh
+                fi
+          script-only-if-succeeded: False
+          script-only-if-failed: False
 
 - publisher:
     name: rdo-rsync-logs
