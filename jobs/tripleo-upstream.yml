@@ -253,7 +253,6 @@
                   sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -348,7 +347,6 @@
                 bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -399,7 +397,6 @@
                 bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - job-template:
@@ -430,7 +427,6 @@
           branch-override: "{branch-override}"
           promote_name: "current-tripleo"
     publishers:
-      - collect-tripleo-logs
       - rdo-rsync-logs
 
 - project:
