@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/designate-dashboard-core:
+      description: Core developers for project designate-dashboard
+      members:
+      - kevintibi@hotmail.com
+      - rod2a@hotmail.com
+    openstack/designate-dashboard-ptl:
+      description: Project team lead for project designate-dashboard
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-designate-dashboard-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designate-dashboard-core
+          owner = group openstack/designate-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designate-dashboard-core
+          label-Code-Review = -2..+2 group openstack/designate-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designate-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designate-dashboard-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/designate-dashboard-core
+          label-Verified = -2..+2 group openstack/designate-dashboard-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/designate-dashboard-core
+          label-Workflow = -1..+1 group openstack/designate-dashboard-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designate-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designate-dashboard-core
+      - openstack/designate-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-designate-dashboard:
+      file: |
+        [access "refs/*"]
+          read = group openstack/designate-dashboard-core
+          owner = group openstack/designate-dashboard-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/designate-dashboard-core
+          label-Code-Review = -2..+2 group openstack/designate-dashboard-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/designate-dashboard-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/designate-dashboard-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/designate-dashboard-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/designate-dashboard-core
+          label-Workflow = -1..+0 group openstack/designate-dashboard-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/designate-dashboard-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/designate-dashboard-core
+      - openstack/designate-dashboard-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/designate-dashboard:
+      acl: openstack-designate-dashboard
+      description: Mirror of upstream designate-dashboard (mirror + patches)
+    openstack/designate-dashboard-distgit:
+      acl: openstack-designate-dashboard-distgit
+      description: Packaging of upstream designate-dashboard
+      default-branch: rpm-master
+      branches:
+        master: '0'

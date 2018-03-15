@@ -179,6 +179,11 @@ project-templates:
       - gate-weirdo-integration-master-puppet-scenario001
 
 projects:
+  - name: testproject
+    check:
+      - test-logs
+
+
   - name: centos-opstools/kibana
     template:
       - name: noop
@@ -386,6 +391,14 @@ projects:
   - name: openstack/designate
     template:
       - name: package-check-jobs
+
+  - name: openstack/designate-dashboard
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/designate-dashboard-distgit
+    template:
+      - name: package-distgit-check-jobs
 
   - name: openstack/designate-distgit
     template:
@@ -1050,12 +1063,6 @@ projects:
   - name: openstack/novajoin-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/octavia
-    template:
-      - name: package-check-jobs
-    periodic:
-      - periodic-octavia-build-amphora
 
   - name: openstack/octavia-dashboard
     template:
@@ -2540,11 +2547,6 @@ projects:
       - name: noop
 
   # project for testing new tests
-  - name: testproject
-    check:
-      - test-logs
-
-
   - name: centos-opstools/opstools-doc
     check:
       - centos-opstools-doc
@@ -3813,6 +3815,12 @@ projects:
     gate:
       - tox-flake8
       - tox-validate
+
+  - name: openstack/octavia
+    template:
+      - name: package-check-jobs
+    periodic:
+      - periodic-octavia-build-amphora
 
   - name: rdo-infra/ci-config
     check:
