@@ -41,7 +41,8 @@ for PACKAGE in ${PACKAGES_TO_BUILD}; do
     PROJECT_IN_RDOINFO=$(echo "$PACKAGE_INFO" | awk '/^project:/ {print $2}')
     PROJECT_DISTGIT=$(echo "$PACKAGE_INFO" | awk '/^distgit:/ {print $2}')
     NAMESPACE=$(echo "$PACKAGE_INFO" | awk '/^patches/ { split($2, res, "/"); print res[6] }')
-    PROJECT_DISTRO="$NAMESPACE/$(echo $PROJECT_DISTGIT | awk -F/ '{print $NF}')"
+    # Remove trailing .git from distgit name, otherwise Depends-On: will fail
+    PROJECT_DISTRO="$NAMESPACE/$(echo $PROJECT_DISTGIT | awk -F/ '{print $NF}' | sed 's/\.git$//')"
     PROJECT_DISTRO_DIR=${PROJECT_TO_BUILD_MAPPED}_distro
 
     if [ "$PROJECT_DISTGIT" = "https://github.com/openstack/rpm-packaging" ]; then
