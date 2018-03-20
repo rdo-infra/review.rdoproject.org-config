@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_c91080ab",
+        "filename": "nodepool/scripts/rdoinfo-DLRN.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2018-03-20T22:29:14Z",
+      "side": 1,
+      "message": "I was going to suggest to put here, instead of sed:\n  \u0027{print gensub(\"\\\\.git$\",\"\",1,$NF)}\u0027\nbut in the end that\u0027s not very readable.\nJust for fun, shell-only oneliner w/o awk would be:\n  echo $PROJECT_DISTGIT | rev | cut -d/ -f1 | rev | sed \u0027s/\\.git$//\u0027",
+      "range": {
+        "startLine": 45,
+        "startChar": 65,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "691dad05caa442c582ceeff3c883fb80c25b2702",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
