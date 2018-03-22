@@ -17,6 +17,10 @@ jobs:
     branch: ^(master)|(rpm-master)$
     voting: false
 
+  - name: ^DLRN-build-tripleo$
+    branch: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+    voting: false
+
   - name: ^rdo-kolla-build-integration$
     branch: ^(master|stable/pike)$
 
@@ -137,6 +141,7 @@ project-templates:
     check:
       - DLRN-rpmbuild:
           - gate-rpmlint
+          - DLRN-build-tripleo
       - DLRN-rpmbuild-fedora
       - newton-distgit-cbs-validate
       - ocata-distgit-cbs-validate
