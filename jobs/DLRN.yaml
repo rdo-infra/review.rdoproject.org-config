@@ -239,6 +239,81 @@
           cp -a DLRN/logs/* logs/
           exit $ret
 
+- builder:
+    name: DLRN-build-tripleo
+    builders:
+      - shell: |
+          set +e
+          # This builder, when run from a child job of a DLRN based job,
+          # will rebuild and test installation of a src.rpm, when built
+          # using the repository configuration used by Tripleo CI jobs.
+          # This ensures that we're not breaking the TripleO gates with a
+          # packaging change.
+
+          # Re-construct the expected repository URL
+          if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then
+              # If the branch is stable/something, we have an additional /
+              ZUUL_REF=$(echo ${ZUUL_REF} |cut -f5 -d /)
+          else
+              ZUUL_REF=$(echo ${ZUUL_REF} |cut -f4 -d /)
+          fi
+
+          # Note, LOG_PATH is expected since we reconstruct it inside
+          # zuul_functions.py
+          LOG_PATH="${BASE_LOG_PATH}/${ZUUL_PIPELINE}/DLRN-rpmbuild/${ZUUL_REF}"
+          logs="https://logs.rdoproject.org/${LOG_PATH}"
+
+          # If we couldn't find a working repository, give up
+          curl -o /dev/null -sIf "${logs}" || exit 1
+
+          # Use the latest repository hash
+          # If DLRN built multiple packages, there will be multiple repositories.
+          # We want the latest repository which contains all of the packages that were just built.
+          repository="${logs}/centos/current"
+
+          # Fetch all src.rpm files, we will rebuild them here
+          wget -e robots=off -nd -r --accept .src.rpm $repository
+
+          # Create mock config file
+          if [[ "${ZUUL_BRANCH}" =~ rpm- && "${ZUUL_BRANCH}" != "rpm-master" ]]; then
+              branch=$(sed "s/rpm-//" <<< "${ZUUL_BRANCH}")
+          elif [[ "${ZUUL_BRANCH}" =~ -rdo ]]; then
+              branch=$(sed "s/-rdo//" <<< "${ZUUL_BRANCH}")
+          else
+              branch="master"
+          fi
+          baseurl="https://trunk.rdoproject.org/centos7-${branch}/"
+
+          # Fetch base mock configuration, we'll update it to match TripleO requirements
+          cp DLRN/master/scripts/centos.cfg .
+          # Remove the last line, then add all required repos
+          sed -i '$ d' centos.cfg
+          # current
+          curl ${baseurl}/current/delorean.repo >> centos.cfg
+          echo >> centos.cfg
+          echo "priority=10" >> centos.cfg
+          echo "includepkgs=diskimage-builder,instack,instack-undercloud,os-apply-config,os-collect-config,os-net-config,os-refresh-config,python-tripleoclient*,openstack-tripleo-*,puppet-*" >> centos.cfg
+          sed -i "s/\[delorean\]/\[delorean-current\]/" centos.cfg
+          # current-tripleo
+          curl ${baseurl}/current-tripleo/delorean.repo >> centos.cfg
+          sed -i "s/\[delorean\]/\[delorean-current-tripleo\]/" centos.cfg
+          echo >> centos.cfg
+          echo "priority=20" >> centos.cfg
+          # deps
+          curl ${baseurl}/delorean-deps.repo >> centos.cfg
+          echo >> centos.cfg
+          echo '"""' >> centos.cfg
+          # Build package
+          OUTPUT_DIRECTORY="$PWD/build"
+          mkdir $OUTPUT_DIRECTORY
+          MOCKOPTS="-v -r centos.cfg --resultdir $OUTPUT_DIRECTORY"
+          /usr/bin/mock ${MOCKOPTS} --postinstall --rebuild *.src.rpm 2>&1 | tee $OUTPUT_DIRECTORY/mock.log
+          ret=$?
+          # Retrieve logs/repositories/packages
+          mkdir logs
+          cp -a ${OUTPUT_DIRECTORY}/* logs/
+          exit $ret
+
 - job:
     name: 'DLRN-rpmbuild'
     defaults: rdo-global
@@ -282,6 +357,26 @@
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
     node: rdo-fedora-26
+
+- job:
+    name: 'DLRN-build-tripleo'
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - rdo-log-setup
+      - prepare-dlrn
+      - DLRN-build-tripleo
+    publishers:
+      - rdo-rsync-logs
+    triggers:
+      - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    node: rdo-centos-7
 
 - job:
     name: 'DLRN-rpmbuild-rpm-packaging'
