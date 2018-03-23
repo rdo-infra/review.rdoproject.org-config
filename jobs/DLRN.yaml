@@ -156,6 +156,15 @@
           addFilter("python-django-horizon.noarch: E: zero-length /usr/lib/python2.7/site-packages/openstack_auth/tests/models.py")
           addFilter("python-django-horizon.noarch: E: zero-length /usr/lib/python2.7/site-packages/openstack_auth/tests/templates/auth/blank.html")
 
+          addFilter("openstack-dashboard.noarch: E: non-standard-dir-perm /etc/openstack-dashboard/local_settings.d")
+          addFilter("python-django-horizon.noarch: W: dangerous-command-in-%post rm")
+          addFilter("python-django-horizon.noarch: W: dangerous-command-in-%pre mv")
+          addFilter("openstack-dashboard.noarch: W: non-conffile-in-etc /etc/openstack-dashboard/local_settings.d/_10_set_custom_theme.py.example")
+          addFilter("openstack-dashboard.noarch: W: non-conffile-in-etc /etc/openstack-dashboard/local_settings.d/_11_toggle_angular_features.py.example")
+          addFilter("openstack-dashboard.noarch: W: non-conffile-in-etc /etc/openstack-dashboard/local_settings.d/_2010_integration_tests_deprecated.py.example")
+          addFilter("openstack-dashboard.noarch: W: non-conffile-in-etc /etc/openstack-dashboard/local_settings.d/_20_integration_tests_scaffolds.py.example")
+          addFilter("openstack-dashboard.noarch: W: non-conffile-in-etc /etc/openstack-dashboard/local_settings.d/_9030_profiler_settings.py.example")
+
           # Exceptions for ceilometer
           addFilter("openstack-ceilometer-common.noarch: W: obsolete-not-provided openstack-ceilometer-api")
 
