@@ -87,8 +87,14 @@ def project_in_gerritbot(project):
 ###
 # Gerrit's response is pretty-printed JSON but the first line is garbage, get
 # rid of it
-projects = requests.get(PROJECT_LIST)
-projects = json.loads(projects.text.replace(")]}'\n", ""))
+try:
+    projects = requests.get(PROJECT_LIST)
+    projects = json.loads(projects.text.replace(")]}'\n", ""))
+except ValueError as e:
+    print_header("Error when retrieving project list from Gerrit")
+    print("HTTP: %s" % projects.status_code)
+    print("Content: %s" % projects.text)
+    raise e
 
 ###
 # Retrieve Gerrit replication.config
