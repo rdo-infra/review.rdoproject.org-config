@@ -325,30 +325,17 @@ project-templates:
   - name: tripleo-upgrades-check
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-nv
+      - gate-tripleo-ci-centos-7-container-to-container-upgrades-queens-nv
+      - gate-tripleo-ci-centos-7-container-to-container-upgrades-master-nv
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-queens-nv
+      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master-nv
 
   - name: tripleo-upgrades-check-branchless
     openstack-check:
       - gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch-nv
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master-nv
       - gate-tripleo-ci-centos-7-container-to-container-upgrades-master-nv
-
-  - name: tripleo-upgrades-experimental
-    openstack-experimental:
       - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master
-      - gate-tripleo-ci-centos-7-container-to-container-upgrades-master
-      - gate-tripleo-ci-centos-7-multinode-upgrades-master
-      - gate-tripleo-ci-centos-7-multinode-upgrades-pike
-      - gate-tripleo-ci-centos-7-multinode-upgrades-ocata
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-master
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-pike
-      - gate-tripleo-ci-centos-7-undercloud-upgrades-ocata
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-master
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-update-pike
-      - gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-update-master
 
   - name: tripleo-ovb-experimental
     openstack-experimental:
@@ -369,9 +356,7 @@ projects:
   - name: openstack/tripleo-common
     template:
       - name: package-check-jobs
-      - name: tripleo-upgrades-check
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-check:
       - DLRN-rpmbuild:
@@ -385,12 +370,6 @@ projects:
     openstack-check:
       - DLRN-rpmbuild-rpm-packaging
 
-  - name: openstack/releases
-    template:
-      - name: tripleo-upgrades-experimental
-    openstack-post:
-      - rdo-send-stable-release
-
   - name: puppet/puppet-tripleo
     template:
       - name: package-check-jobs
@@ -398,9 +377,7 @@ projects:
   - name: openstack/tripleo-heat-templates
     template:
       - name: package-check-jobs
-      - name: tripleo-upgrades-check
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht
@@ -412,7 +389,6 @@ projects:
     template:
       - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
@@ -425,7 +401,6 @@ projects:
     template:
       - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-check:
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch
@@ -460,7 +435,6 @@ projects:
     template:
       - name: tripleo-upgrades-check-branchless
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
     openstack-periodic:
       - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing:
@@ -516,15 +490,12 @@ projects:
 
   - name: openstack/python-tripleoclient
     template:
-      - name: tripleo-upgrades-check
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/tripleo-upgrade
     template:
       - name: tripleo-upgrades-check
-      - name: tripleo-upgrades-experimental
 
   - name: openstack/diskimage-builder
     template:
@@ -547,66 +518,55 @@ projects:
   - name: openstack/instack
     template:
       - name: package-check-jobs
-      - name: tripleo-upgrades-check
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/instack-undercloud
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/os-apply-config
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/os-collect-config
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/os-net-config
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/os-refresh-config
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/tripleo-image-elements
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/tripleo-puppet-elements
     template:
       - name: package-check-jobs
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/puppet-tripleo
     template:
       - name: package-check-jobs
-      - name: tripleo-upgrades-check
       - name: tripleo-ovb-check
-      - name: tripleo-upgrades-experimental
       - name: tripleo-ovb-experimental
 
   - name: openstack/puppet-pacemaker
