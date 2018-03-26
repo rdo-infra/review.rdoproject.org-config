@@ -170,6 +170,12 @@
           addFilter("python2-telemetry-tests-tempest.noarch: E: zero-length /usr/lib/python2.7/site-packages/telemetry_tempest_plugin/gnocchi/__init_.py")
           addFilter("\w+.*-tests-tempest.noarch: W: obsolete-not-provided \w+.*-tests")
 
+          # Exceptions for os-xenapi
+          addFilter("python2-os-xenapi.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/os_xenapi/utils/himn.py 0644L /usr/bin/env")
+          addFilter("python2-os-xenapi.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/os_xenapi/utils/iptables.py 0644L /usr/bin/env")
+          addFilter("python2-os-xenapi.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/os_xenapi/utils/shell_tools/install_conntrack.sh 0644L /bin/bash")
+          addFilter("python2-os-xenapi.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/os_xenapi/utils/xapi_plugin.py 0644L /usr/bin/env")
+          addFilter("python2-os-xenapi.noarch: E: non-executable-script /usr/lib/python2.7/site-packages/os_xenapi/utils/xenapi_facts.py 0644L /usr/bin/env")
 
           EOF
 
