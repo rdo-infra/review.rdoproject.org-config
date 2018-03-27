@@ -369,6 +369,10 @@ projects:
     openstack-check:
       - DLRN-rpmbuild-rpm-packaging
 
+  - name: openstack/releases
+    openstack-post:
+      - rdo-send-stable-release
+
   - name: puppet/puppet-tripleo
     template:
       - name: package-check-jobs
