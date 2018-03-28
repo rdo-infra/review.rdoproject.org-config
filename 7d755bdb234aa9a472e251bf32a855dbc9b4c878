@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_e75b602d",
+        "filename": "zuul/upstream.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 84
+      },
+      "writtenOn": "2018-03-28T13:45:27Z",
+      "side": 1,
+      "message": "this will skip these jobs if we touch any featureset that is not the one that is used in the job that uses that featureset.\n\nThe problem is it will do this even if we also touch the featureset we are interested in.\n\nTake a change that modifies a bunch of featuresets... it will not run any of these jobs.\n\nThere are other corner cases where this logic will also cause us to not run the jobs we want as well, but the one above is worth thinking of a better way to get to the goal of not running so many wasted upgrade jobs.",
+      "revId": "7d755bdb234aa9a472e251bf32a855dbc9b4c878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
