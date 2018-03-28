@@ -160,34 +160,7 @@ jobs:
   ####
   # TripleO job filters
   ####
-
-  # Don't run 042 job if IPSec config is not touched
-  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht(-nv)*$
-    skip-if:
-        # The regex should match THT repo
-      - project: ^openstack/tripleo-heat-templates$
-        all-files-match-any:
-          - ^extraconfig/services/(?!ipsec.yaml).*$
-          - config/general_config/featureset(?!042).*
-
-  - name: ^gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch.*$
-    skip-if:
-      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
-        all-files-match-any:
-          - config/general_config/featureset(?!011).*
-
-  - name: ^gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037.*$
-    skip-if:
-      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
-        all-files-match-any:
-          - config/general_config/featureset(?!037).*
-
-  - name: ^.gate-tripleo-ci-centos-7-container-to-container-upgrades.*$
-    skip-if:
-      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
-        all-files-match-any:
-          - config/general_config/featureset(?!040).*
-
+  ## KEEP THE FOLLOWING RULE AS THE TOP, ORDER MATTERS
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
     skip-if:
@@ -206,6 +179,12 @@ jobs:
           - ^Puppetfile.*$
           - tox.ini
           - ^setup.*$
+
+  # Don't run 042 job if IPSec config is not touched
+  - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-.*-tht(-nv)*$
+    files:
+      - ^extraconfig/services/ipsec.*$
+      - config/general_config/featureset042.*
 
   - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset0(01|35)-.*$
     skip-if:
@@ -275,7 +254,6 @@ jobs:
           - ^puppet/services/tacker.*$
           - ci/environments/scenario.*$
           - ci/pingtests/scenario.*$
-          - config/general_config/featureset(?!001|035).*
           - manifests/profile/base/neutron/opendaylight.pp
           - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
           - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
