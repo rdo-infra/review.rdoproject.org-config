@@ -168,6 +168,25 @@ jobs:
       - project: ^openstack/tripleo-heat-templates$
         all-files-match-any:
           - ^extraconfig/services/(?!ipsec.yaml).*$
+          - config/general_config/featureset(?!042).*
+
+  - name: ^gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch.*$
+    skip-if:
+      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
+        all-files-match-any:
+          - config/general_config/featureset(?!featureset011).*
+
+  - name: ^gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037.*$
+    skip-if:
+      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
+        all-files-match-any:
+          - config/general_config/featureset(?!featureset037).*
+
+  - name: ^.gate-tripleo-ci-centos-7-container-to-container-upgrades.*$
+    skip-if:
+      - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
+        all-files-match-any:
+          - config/general_config/featureset(?!featureset040).*
 
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
@@ -254,45 +273,9 @@ jobs:
           - ^puppet/services/panko.*$
           - ^puppet/services/sahara.*$
           - ^puppet/services/tacker.*$
-          - ci/environments/scenario001-multinode-containers.yaml
-          - ci/environments/scenario001-multinode.yaml
-          - ci/environments/scenario002-multinode-containers.yaml
-          - ci/environments/scenario002-multinode.yaml
-          - ci/environments/scenario003-multinode-containers.yaml
-          - ci/environments/scenario003-multinode.yaml
-          - ci/environments/scenario004-multinode-containers.yaml
-          - ci/environments/scenario004-multinode.yaml
-          - ci/environments/scenario005-multinode.yaml
-          - ci/environments/scenario006-multinode.yaml
-          - ci/environments/scenario007-multinode-containers.yaml
-          - ci/environments/scenario007-multinode.yaml
-          - ci/environments/scenario008-multinode.yaml
-          - ci/environments/scenario009-multinode.yaml
-          - ci/pingtests/scenario001.*$
-          - ci/pingtests/scenario002.*$
-          - ci/pingtests/scenario003.*$
-          - ci/pingtests/scenario004.*$
-          - ci/pingtests/scenario005-multinode.yaml
-          - ci/pingtests/scenario006-multinode.yaml
-          - ci/pingtests/scenario007-multinode.yaml
-          - ci/pingtests/scenario008-multinode.yaml
-          - ci/pingtests/scenario009-multinode.yaml
-          - config/general_config/featureset005.yml
-          - config/general_config/featureset006.yml
-          - config/general_config/featureset007.yml
-          - config/general_config/featureset008.yml
-          - config/general_config/featureset009.yml
-          - config/general_config/featureset016.yml
-          - config/general_config/featureset017.yml
-          - config/general_config/featureset018.yml
-          - config/general_config/featureset019.yml
-          - config/general_config/featureset026.yml
-          - config/general_config/featureset027.yml
-          - config/general_config/featureset028.yml
-          - config/general_config/featureset030.yml
-          - config/general_config/featureset031.yml
-          - config/general_config/featureset032.yml
-          - config/general_config/featureset033.yml
+          - ci/environments/scenario.*$
+          - ci/pingtests/scenario.*$
+          - config/general_config/featureset(?!001|035).*
           - manifests/profile/base/neutron/opendaylight.pp
           - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
           - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
