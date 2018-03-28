@@ -174,19 +174,19 @@ jobs:
     skip-if:
       - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
         all-files-match-any:
-          - config/general_config/featureset(?!featureset011).*
+          - config/general_config/featureset(?!011).*
 
   - name: ^gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037.*$
     skip-if:
       - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
         all-files-match-any:
-          - config/general_config/featureset(?!featureset037).*
+          - config/general_config/featureset(?!037).*
 
   - name: ^.gate-tripleo-ci-centos-7-container-to-container-upgrades.*$
     skip-if:
       - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
         all-files-match-any:
-          - config/general_config/featureset(?!featureset040).*
+          - config/general_config/featureset(?!040).*
 
   # Don't run functional tests for docs and other things
   - name: ^gate-tripleo-ci-centos-7-.*$
