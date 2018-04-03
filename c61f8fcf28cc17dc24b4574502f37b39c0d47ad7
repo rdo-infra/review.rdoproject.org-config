@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_f9b0a08d",
+        "filename": "jobs/DLRN.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2018-04-03T17:21:26Z",
+      "side": 1,
+      "message": "master? shouldn\u0027t this be DLRN/scripts/centos.cfg ?",
+      "range": {
+        "startLine": 294,
+        "startChar": 18,
+        "endLine": 294,
+        "endChar": 24
+      },
+      "revId": "c61f8fcf28cc17dc24b4574502f37b39c0d47ad7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ab14d0d_d9ade432",
+        "filename": "jobs/DLRN.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2018-04-03T17:21:26Z",
+      "side": 1,
+      "message": "Note that the delorean.repo already has a priority\u003d1 statement so we are getting two priorities set in the same config:\n\n[delorean-current]\nname\u003ddelorean-openstack-tripleo-heat-templates-04c9f4691f5d1ddc9744b7f95f2cce6a241cedb6\nbaseurl\u003dhttps://trunk.rdoproject.org/centos7/04/c9/04c9f4691f5d1ddc9744b7f95f2cce6a241cedb6_3597a6b4\nenabled\u003d1\ngpgcheck\u003d0\npriority\u003d1\npriority\u003d10\nincludepkgs\u003ddiskimage-builder,instack,instack-undercloud,os-apply-config,os-collect-config,os-net-config,os-refresh-config,python-tripleoclient*,openstack-tripleo-*,puppet-*\n[delorean-current-tripleo]\nname\u003ddelorean-openstack-ec2-api-ad1779c561edabdd6446c5fa39f05e121a327d7f\nbaseurl\u003dhttps://trunk.rdoproject.org/centos7/ad/17/ad1779c561edabdd6446c5fa39f05e121a327d7f_710b9460\nenabled\u003d1\ngpgcheck\u003d0\npriority\u003d1\npriority\u003d20\n\nI\u0027m not sure how yum behaves in this case, but i think the safest is to remove previous priority.",
+      "range": {
+        "startLine": 300,
+        "startChar": 10,
+        "endLine": 300,
+        "endChar": 42
+      },
+      "revId": "c61f8fcf28cc17dc24b4574502f37b39c0d47ad7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
