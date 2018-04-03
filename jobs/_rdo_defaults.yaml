@@ -17,6 +17,8 @@
     name: rdo-prepare-workspace
     builders:
       - shell: |
+          echo "[DEBUG]: JJB template name: {template-name}"
+
           # If this is called in a periodic job, these will not be set
           echo "Use default for ZUUL_BRANCH and ZUUL_REF if needed"
           export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
