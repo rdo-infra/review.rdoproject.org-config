@@ -3837,14 +3837,13 @@ projects:
       - validate-dependencies-rebuilds
       - validate-buildsys-tags:
           - weirdo-validate-buildsys-tags
-          # (amoralej) disable tripleo jobs until tripleo-ci is fixed
-          #- rdoinfo-tripleo-master-testing-centos-7-singlenode-featureset023-nv
-          #- rdoinfo-tripleo-pike-testing-centos-7-multinode-1ctlr-featureset005-nv
-          #- rdoinfo-tripleo-pike-release-centos-7-multinode-1ctlr-featureset005-nv
-          #- rdoinfo-tripleo-ocata-testing-centos-7-multinode-1ctlr-featureset005-nv
-          #- rdoinfo-tripleo-ocata-release-centos-7-multinode-1ctlr-featureset005-nv
-          #- rdoinfo-tripleo-newton-testing-centos-7-multinode-1ctlr-featureset005-nv
-          #- rdoinfo-tripleo-newton-release-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-master-testing-centos-7-singlenode-featureset023-nv
+          - rdoinfo-tripleo-pike-testing-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-pike-release-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-ocata-testing-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-ocata-release-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-newton-testing-centos-7-multinode-1ctlr-featureset005-nv
+          - rdoinfo-tripleo-newton-release-centos-7-multinode-1ctlr-featureset005-nv
     gate:
       - tox-validate
       - rdoinfo-DLRN-check
