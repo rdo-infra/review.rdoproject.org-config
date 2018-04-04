@@ -906,12 +906,12 @@
     name: gate-rdoinfo-tripleo-quickstart
     jobs:
       - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
-          jobname: 'centos-7-singlenode-featureset023'
+          jobname: 'centos-7-multinode-1ctlr-featureset010'
           suffix: '-nv'
-          type: 'gate-singlenode-featureset023'
+          type: 'gate-multinode-1ctlr-featureset010'
           openstack_release: master
           buildsys_phase: testing
-          node: upstream-centos-7
+          node: upstream-centos-7-2-node
           triggers:
             - zuul
           branch-override: default
