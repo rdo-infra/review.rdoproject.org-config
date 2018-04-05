@@ -1005,3 +1005,16 @@
             - zuul
           branch-override: default
           timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-scenario001-multinode-oc-upgrade'
+          release:
+            - master
+          suffix:
+            - '-nv'
+          type: 'multinode-1ctlr-featureset040'
+          node: upstream-centos-7-2-node
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
