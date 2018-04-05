@@ -872,6 +872,24 @@
           branch-override: default
           timeout: 360
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-container-to-container-scenario000-upgrades'
+          release:
+            - pike
+            - queens
+            - master
+          suffix:
+            - '-nv'
+            - '-nv'
+            - ''
+          type: 'multinode-1ctlr-featureset051'
+          node: upstream-centos-7-2-node
+          trigger: gate
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 360
+
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset017'
           release: master
           suffix: ''
