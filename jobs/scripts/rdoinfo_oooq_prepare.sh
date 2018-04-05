@@ -100,6 +100,12 @@ function create_config(){{
     echo "    reponame: centos-opstools"
     echo "    filename: centos-opstools.repo"
     echo "    baseurl: http://mirror.centos.org/centos/7/opstools/x86_64/"
+    echo "  - type: generic"
+    echo "    reponame: quickstart-centos-base"
+    echo "    filename: quickstart-centos-base.repo"
+    echo "    baseurl: http://mirror.regionone.rdo-cloud.rdoproject.org/centos/7/os/x86_64/"
+    echo "    gpgcheck=0"
+    echo "    enabled=1"
     echo "repo_cmd_after: |"
     echo "  sudo yum-config-manager --save --setopt centos-ceph-jewel.gpgcheck=0"
     echo '  {{% if not enable_opstools_repo|default(false)|bool %}}sudo yum-config-manager --save --setopt centos-opstools.enable=0;'
