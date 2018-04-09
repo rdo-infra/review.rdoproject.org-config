@@ -918,11 +918,33 @@
           branch-override: default
           timeout: 180
       - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+          jobname: 'centos-7-singlenode-featureset023'
+          suffix: '-nv'
+          type: 'gate-singlenode-featureset023'
+          openstack_release: queens
+          buildsys_phase: testing
+          node: upstream-centos-7
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+          jobname: 'centos-7-singlenode-featureset023'
+          suffix: '-nv'
+          type: 'gate-singlenode-featureset023'
+          openstack_release: queens
+          buildsys_phase: release 
+          node: upstream-centos-7
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset005'
           openstack_release: pike
-          buildsys_phase: testing
+          buildsys_phase: testing 
           node: upstream-centos-7-2-node
           triggers:
             - zuul

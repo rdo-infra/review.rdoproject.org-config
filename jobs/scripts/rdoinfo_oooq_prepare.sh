@@ -9,7 +9,7 @@ PHASE='{buildsys_phase}'
 RELEASE='{openstack_release}'
 
 REQUIRED=0
-MASTER_RELEASE=queens
+MASTER_RELEASE=rocky
 CREPOS_FILE=changed_repos.txt
 
 if [ -z "$RELEASE" -o -z "$PHASE" ]; then
