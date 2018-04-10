@@ -132,6 +132,9 @@ function create_config(){{
             ((INDEX++))
         done
     fi
+    echo "undercloud_rpm_dependencies: >-"
+    echo "  python-tripleoclient"
+    echo "  ceph-ansible"
 }}
 
 
