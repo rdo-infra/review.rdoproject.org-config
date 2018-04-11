@@ -74,7 +74,7 @@ function create_config(){{
     echo "    url: \"{{{{ ipa_image_url }}}}\""
     echo "    type: tar"
     echo "repo_cmd_before: |"
-    echo "  sudo yum remove -y rdo-release centos-release-openstack-* || true;"
+    echo "  sudo yum remove -y rdo-release centos-release-openstack-* centos-release-ceph-* || true;"
     echo "  sudo rpm -e epel-release || true;"
     echo "  sudo rm -rf /etc/yum.repos.d/delorean*;"
     echo "  sudo rm -rf /etc/yum.repos.d/*.rpmsave;"
@@ -83,6 +83,10 @@ function create_config(){{
     if [ $STABLE_REPOSITORIES != false ]; then
         echo "  - type: package"
         echo "    pkg_name: centos-release-openstack-$O_RELEASE"
+        echo "    custom_cmd: 'sudo yum install -y --enablerepo=extras'"
+    else
+        echo "  - type: package"
+        echo "    pkg_name: centos-release-ceph-luminous"
         echo "    custom_cmd: 'sudo yum install -y --enablerepo=extras'"
     fi
     INDEX=0
@@ -93,9 +97,6 @@ function create_config(){{
         echo "    down_url: $repo"
         ((INDEX++))
     done
-    echo "  - type: package"
-    echo "    pkg_name: centos-release-ceph-jewel"
-    echo "    custom_cmd: 'sudo yum install -y --enablerepo=extras'"
     echo "  - type: generic"
     echo "    reponame: centos-opstools"
     echo "    filename: centos-opstools.repo"
