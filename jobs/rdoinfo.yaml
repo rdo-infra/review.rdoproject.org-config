@@ -43,7 +43,7 @@
     name: find-dependencies-rebuilds
     builders:
       - shell: |
-          set -e -x
+          set -e
           # Install requirements
           sudo pip install rdopkg
 
@@ -490,7 +490,7 @@
       - find-dependencies-rebuilds
       - prepare-rpmfactory-workspace
       - shell: |
-          set +e -x
+          set +e
           sudo yum install -y git centos-packager
           # clone scripts and run
           git clone http://review.rdoproject.org/r/gating_scripts
