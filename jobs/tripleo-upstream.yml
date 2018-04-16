@@ -90,9 +90,11 @@
     builders:
       - shell: |
           export RELEASE={release}
+          mkdir -p $WORKSPACE/logs/images-upload/
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
           echo export UPLOAD_EXIT_VALUE=$? >> $WORKSPACE/hash_info.sh
+          cp $WORKSPACE/.quickstart/.__repo_setup.sh.log $WORKSPACE/logs/images-upload
 
 - builder:
     name: get-hash
