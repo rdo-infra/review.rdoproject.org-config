@@ -586,6 +586,22 @@
           branch-override: 'stable/{release}'
           timeout: 300
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset048'
+          release: master
+          suffix: ''
+          type: 'periodic-ovb-1ctlr_1comp-featureset048'
+          node: upstream-centos-7
+          branch-override: default
+          timeout: 360
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset048'
+          release: queens
+          suffix: ''
+          type: 'periodic-ovb-1ctlr_1comp-featureset048'
+          node: upstream-centos-7
+          branch-override: 'stable/{release}'
+          timeout: 360
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-ovb-1ctlr_1comp-featureset020'
           release: master
           suffix: ''
