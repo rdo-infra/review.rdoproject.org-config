@@ -1,0 +1,41 @@
+resources:
+  groups:
+    rdo-infra/fedora-stable-config:
+      description: 'Core developers for fedora-stable-config repo'
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - dms@redhat.com
+      - jruzicka@redhat.com
+      - jpena@redhat.com
+      - hguemar@fedoraproject.org
+      - emilien@redhat.com
+      - admin@review.rdoproject.org
+  acls:
+    rdo-infra/fedora-stable-config:
+      file: |
+        [access "refs/*"]
+            read = group rdo-infra/fedora-stable-config
+            owner = group rdo-infra/fedora-stable-config
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra/fedora-stable-config
+            submit = group rdo-infra/fedora-stable-config
+            read = group Registered Users
+            read = group rdo-infra/fedora-stable-config
+            label-Verified = -2..+2 group rdo-infra/fedora-stable-config
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-infra/fedora-stable-config
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-infra/fedora-stable-config
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-infra/fedora-stable-config
+  repos:
+    rdo-infra/fedora-stable-config:
+      acl: rdo-infra/fedora-stable-config
+      description: "Configuration for Fedora stabilized repo using sinkhole"
