@@ -316,7 +316,7 @@
           OUTPUT_DIRECTORY="$PWD/build"
           mkdir $OUTPUT_DIRECTORY
           MOCKOPTS="-v -r centos.cfg --resultdir $OUTPUT_DIRECTORY"
-          /usr/bin/mock ${MOCKOPTS} --postinstall --rebuild *.src.rpm 2>&1 | tee $OUTPUT_DIRECTORY/mock.log
+          /usr/bin/mock ${MOCKOPTS} --postinstall --rebuild *.src.rpm 2>&1
           ret=$?
           # Retrieve logs/repositories/packages
           mkdir logs
