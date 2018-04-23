@@ -31,16 +31,16 @@
           sudo LIBGUESTFS_BACKEND_SETTINGS=force_tcg LIBGUESTFS_BACKEND=direct virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/current-passed-ci/delorean.repo'
           sudo DIB_LOCAL_IMAGE=$PWD/$IMAGE_NAME /usr/bin/octavia-diskimage-create.sh -s 3 -p -i centos -o amphora-x64-haproxy-centos.qcow2
 
-- job:
-    name: 'periodic-octavia-build-amphora'
+- job-template:
+    name: octavia-build-amphora-{release}
     defaults: rdo-global
     builders:
       - rdo-prepare-workspace
       - rdo-log-setup
       - build-octavia-image:
-          release: "master"
+          release: {release}
       - upload-octavia-image:
-          release: "master"
+          release: {release}
     publishers:
       - rdo-rsync-logs
     triggers:
@@ -55,3 +55,11 @@
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: UPLOAD_SSH_KEY
     node: rdo-centos-7
+
+- project:
+    name: octavia-build-amphora
+    release:
+      - master
+      - queens
+    jobs:
+      - 'octavia-build-amphora-{release}'
