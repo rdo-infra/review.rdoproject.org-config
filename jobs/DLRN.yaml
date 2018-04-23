@@ -316,8 +316,18 @@
           OUTPUT_DIRECTORY="$PWD/build"
           mkdir $OUTPUT_DIRECTORY
           MOCKOPTS="-v -r centos.cfg --resultdir $OUTPUT_DIRECTORY"
-          /usr/bin/mock ${MOCKOPTS} --postinstall --rebuild *.src.rpm 2>&1
-          ret=$?
+          ret=0
+          /usr/bin/mock ${MOCKOPTS} --rebuild *.src.rpm 2>&1
+          RC_BUILD=$?
+          if [ $RC_BUILD -ne 0 ]; then
+            ret=$RC_BUILD
+          else
+            /usr/bin/mock ${MOCKOPTS} --install $OUTPUT_DIRECTORY/*rpm 2>&1
+             RC_INSTALL=$?
+             if [ $RC_INSTALL -ne 0 ]; then
+                 ret=$RC_INSTALL
+             fi
+          fi
           # Retrieve logs/repositories/packages
           mkdir logs
           cp -a ${OUTPUT_DIRECTORY}/* logs/
