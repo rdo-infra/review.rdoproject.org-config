@@ -213,6 +213,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/ansible-role-container-registry
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/ansible-role-container-registry-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/ansible-role-redhat-subscription
     template:
       - name: package-check-jobs
@@ -2523,6 +2531,10 @@ projects:
     template:
       - name: noop
 
+  - name: rdo-infra/fedora-stable-config
+    template:
+      - name: noop
+
   - name: rdo-infra/rdo-dashboards
     template:
       - name: noop
@@ -2535,6 +2547,11 @@ projects:
     template:
       - name: noop
 
+  - name: rdo-infra/sinkhole
+    template:
+      - name: noop
+
+  # Deprecated
   - name: rdo-infra/test-day-tools
     template:
       - name: noop
@@ -3806,15 +3823,6 @@ projects:
     gate:
       - rdo-infra-ansible-lint
 
-  - name: rdo-infra/fedora-stable-config
-    template:
-      - name: noop
-
-  - name: rdo-infra/sinkhole
-    template:
-      - name: noop
-
-  # Deprecated
   - name: rdo-infra/releng
     check:
       - tox-flake8
