@@ -476,6 +476,9 @@
           sudo mkdir -p /home/fedora-master/data/repos/fedora/latest
           sudo chown ${USER} /home/fedora-master/data/repos/fedora/latest
           cd $ZUUL_PROJECT
+          pwd
+          git show
+          find .
           echo "INFO: Running synchronization using sinkhole"
           sinkhole --config fedora_config
           echo "INFO: Running repoclosure"
