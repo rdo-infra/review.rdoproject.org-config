@@ -463,7 +463,7 @@
       - rdo-prepare-workspace
       - rdo-log-setup
       - shell: |
-          set -e
+          set -e -x
           mkdir -p $WORKSPACE/logs
           sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils fedora-packager
