@@ -464,7 +464,7 @@
       - rdo-log-setup
       - shell: |
           set -e
-          mkdir -f $WORKSPACE/logs
+          mkdir -p $WORKSPACE/logs
           sudo dnf install -y createrepo_c dnf-utils
           git clone http://review.rdoproject.org/r/sinkhole
           virtualenv --system-site-packages .venv
