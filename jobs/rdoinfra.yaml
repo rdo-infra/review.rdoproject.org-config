@@ -465,6 +465,7 @@
       - shell: |
           set -e
           mkdir -p $WORKSPACE/logs
+          sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils
           git clone http://review.rdoproject.org/r/sinkhole
           virtualenv --system-site-packages .venv
