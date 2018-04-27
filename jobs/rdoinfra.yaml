@@ -467,11 +467,11 @@
           mkdir -p $WORKSPACE/logs
           sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils
-          git clone http://review.rdoproject.org/r/sinkhole
+          git clone https://review.rdoproject.org/r/rdo-infra/fedora-stable-config
           virtualenv --system-site-packages .venv
           source .venv/bin/activate
           pushd sinkhole
-          pip install -r requirements.txt
+          pip install .
           popd
           sudo mkdir -p /home/fedora-master/data/repos/fedora/latest
           sudo chown ${USER} /home/fedora-master/data/repos/fedora/latest
