@@ -466,7 +466,7 @@
           set -e
           mkdir -p $WORKSPACE/logs
           sudo dnf remove -y yum-utils
-          sudo dnf install -y createrepo_c dnf-utils
+          sudo dnf install -y createrepo_c dnf-utils fedora-packager
           git clone https://review.rdoproject.org/r/rdo-infra/sinkhole
           virtualenv --system-site-packages .venv
           source .venv/bin/activate
