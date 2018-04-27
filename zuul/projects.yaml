@@ -2532,8 +2532,10 @@ projects:
       - name: noop
 
   - name: rdo-infra/fedora-stable-config
-    template:
-      - name: noop
+    check:
+      - fedora-stable-repoclosure
+    gate:
+      - fedora-stable-repoclosure
 
   - name: rdo-infra/rdo-dashboards
     template:
