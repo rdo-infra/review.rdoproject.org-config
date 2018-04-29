@@ -468,7 +468,7 @@
           sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils fedora-packager
           git clone https://review.rdoproject.org/r/rdo-infra/sinkhole
-          virtualenv --system-site-packages .venv
+          virtualenv -p python3 --system-site-packages .venv
           source .venv/bin/activate
           pushd sinkhole
           pip install .
