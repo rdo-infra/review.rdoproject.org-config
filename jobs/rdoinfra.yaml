@@ -465,6 +465,9 @@
       - shell: |
           set -e -x
           mkdir -p $WORKSPACE/logs
+          # cachedir configuration added by dib breaks running some dnf
+          # commands with non-root users.
+          sudo sed -i '/^cachedir.*/d' /etc/dnf/dnf.conf
           sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils fedora-packager
           git clone https://review.rdoproject.org/r/rdo-infra/sinkhole
@@ -482,6 +485,7 @@
           echo "INFO: Running synchronization using sinkhole"
           sinkhole --config fedora_config
           echo "INFO: Running repoclosure"
+          dnf clean all
           repoclosure --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp
           repoquery --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
     triggers:
