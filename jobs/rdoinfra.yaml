@@ -482,7 +482,6 @@
           echo "INFO: Running synchronization using sinkhole"
           sinkhole --config fedora_config
           echo "INFO: Running repoclosure"
-          dnf clean all
           repoclosure --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp
           repoquery --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
     triggers:
