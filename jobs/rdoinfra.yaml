@@ -468,6 +468,9 @@
           # cachedir configuration added by dib breaks running some dnf
           # commands with non-root users.
           sudo sed -i '/^cachedir.*/d' /etc/dnf/dnf.conf
+          # diskimage builder excludes some packages from repos as pip
+          # and virtualenb what breaks synchronization.
+          sudo sed -i '/^exclude.*/d' /etc/dnf/dnf.conf
           sudo dnf remove -y yum-utils
           sudo dnf install -y createrepo_c dnf-utils fedora-packager
           git clone https://review.rdoproject.org/r/rdo-infra/sinkhole
