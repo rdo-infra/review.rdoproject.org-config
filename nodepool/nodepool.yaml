@@ -78,6 +78,12 @@ labels:
     ready-script: configure_mirror_host.sh
     providers:
       - name: rdo-cloud-tripleo
+  - name: upstream-centos-7-ppc64le
+    min-ready: 3
+    image: upstream-centos-7
+    ready-script: configure_mirror_host.sh
+    providers:
+      - name: rdo-cloud-tripleo-ppc64le
   - name: upstream-centos-7-2-node
     min-ready: 3
     image: upstream-centos-7
@@ -113,6 +119,22 @@ providers:
     boot-timeout: 240
     clean-floating-ips: true
     cloud: rdo-cloud-tripleo
+    max-servers: 85
+    pool: public
+    rate: 0.1
+    networks:
+      - name: private
+    images:
+      - name: upstream-centos-7
+        diskimage: upstream-centos-7
+        name-filter: ci.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
+ - name: rdo-cloud-tripleo-ppc64le
+    boot-timeout: 240
+    clean-floating-ips: true
+    cloud: rdo-cloud-tripleo-tripleo
     max-servers: 85
     pool: public
     rate: 0.1

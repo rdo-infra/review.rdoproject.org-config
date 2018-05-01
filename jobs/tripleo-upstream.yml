@@ -655,10 +655,12 @@
           branch-override: 'stable/{release}'
           timeout: 180
       - 'periodic-tripleo-centos-7-{release}-containers-build{suffix}':
-          suffix: ''
+          suffix:
+            - ''
+            - '-ppc64le'
           release:
             - master
-          node: upstream-centos-7
+          node: 'upstream-centos-7{suffix}'
           triggers:
             - zuul
           branch-override: default
