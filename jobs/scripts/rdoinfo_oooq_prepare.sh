@@ -138,7 +138,7 @@ function create_config(){{
 case $PHASE in
 testing)
     if [ $RELEASE = master ]; then
-        REPOS_URL="http://trunk.rdoproject.org/centos7-master/current-passed-ci/delorean.repo https://trunk.rdoproject.org/centos7-master/deps-bootstrap/delorean-deps.repo"
+        REPOS_URL="http://trunk.rdoproject.org/centos7-master/current-passed-ci/delorean.repo http://trunk.rdoproject.org/centos7-master/delorean-deps.repo"
         STABLE_REPOSITORIES=false
         TESTING_REPOSITORY=false
     else
