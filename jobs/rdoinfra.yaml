@@ -479,9 +479,10 @@
           pushd sinkhole
           pip install .
           popd
-          sudo mkdir -p /home/fedora-master/data/repos/fedora/latest
-          sudo chown ${USER} /home/fedora-master/data/repos/fedora/latest
           cd $ZUUL_PROJECT
+          OUTPUT_DIR=$(grep output_dir fedora_config |awk -F= '{print $2}')
+          sudo mkdir -p $OUTPUT_DIR
+          sudo chown ${USER} $OUTPUT_DIR
           echo "INFO: Running synchronization using sinkhole"
           sinkhole --config fedora_config
           echo "INFO: Running repoclosure"
