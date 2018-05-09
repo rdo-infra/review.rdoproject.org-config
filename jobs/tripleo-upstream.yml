@@ -1035,15 +1035,4 @@
             - zuul
           branch-override: default
           timeout: 360
-      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
-          jobname: 'centos-7-multinode-1ctlr-featureset037-updates'
-          release:
-            - master
-          suffix: ''
-          type: 'multinode-1ctlr-featureset037'
-          node: upstream-centos-7-2-node
-          trigger: gate
-          triggers:
-            - zuul
-          branch-override: default
-          timeout: 360
+
