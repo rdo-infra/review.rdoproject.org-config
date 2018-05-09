@@ -480,7 +480,7 @@
           pip install .
           popd
           cd $ZUUL_PROJECT
-          OUTPUT_DIR=$(grep output_dir fedora_config |awk -F= '{print $2}')
+          OUTPUT_DIR=$(grep output_dir fedora_config | cut -d= -f2 | tr -d '[:space:]')
           sudo mkdir -p $OUTPUT_DIR
           sudo chown ${USER} $OUTPUT_DIR
           echo "INFO: Running synchronization using sinkhole"
