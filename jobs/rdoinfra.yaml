@@ -487,8 +487,8 @@
           sinkhole --config fedora_config
           echo "INFO: Running repoclosure"
           dnf clean all
-          repoquery --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
-          repoclosure --repofrompath=temp,file:///home/fedora-master/data/repos/fedora/latest --disablerepo='*' --enablerepo=temp
+          repoquery --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
+          repoclosure --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp
     triggers:
       - zuul
     publishers:
