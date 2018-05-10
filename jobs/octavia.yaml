@@ -22,15 +22,13 @@
           set -e -x
           export IMAGE_NAME=CentOS-7-x86_64-GenericCloud-1801-01.qcow2
           sudo yum -y install libguestfs-tools policycoreutils-python wget
-          # Install kernel 3.10.0-693.el7.x86_64 required by workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1535973
-          sudo yum install -y kernel-3.10.0-693.el7.x86_64
           sudo wget -O /etc/yum.repos.d/delorean.repo https://trunk.rdoproject.org/centos7-{release}/current/delorean.repo
           sudo wget -O /etc/yum.repos.d/delorean-deps.repo https://trunk.rdoproject.org/centos7-{release}/delorean-deps.repo
           sudo yum -y install openstack-octavia-diskimage-create
           wget https://cloud.centos.org/centos/7/images/$IMAGE_NAME
           sudo systemctl start libvirtd
-          sudo LIBGUESTFS_BACKEND=direct SUPERMIN_KERNEL_VERSION=3.10.0-693.el7.x86_64 SUPERMIN_KERNEL=/boot/vmlinuz-3.10.0-693.el7.x86_64 SUPERMIN_MODULES=/lib/modules/3.10.0-693.el7.x86_64 virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/delorean-deps.repo'
-          sudo LIBGUESTFS_BACKEND=direct SUPERMIN_KERNEL_VERSION=3.10.0-693.el7.x86_64 SUPERMIN_KERNEL=/boot/vmlinuz-3.10.0-693.el7.x86_64 SUPERMIN_MODULES=/lib/modules/3.10.0-693.el7.x86_64 virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/current-passed-ci/delorean.repo'
+          sudo LIBGUESTFS_BACKEND_SETTINGS=force_tcg virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/delorean-deps.repo'
+          sudo LIBGUESTFS_BACKEND_SETTINGS=force_tcg virt-customize -a $IMAGE_NAME --selinux-relabel --run-command 'yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-{release}/current-passed-ci/delorean.repo'
           sudo DIB_LOCAL_IMAGE=$PWD/$IMAGE_NAME /usr/bin/octavia-diskimage-create.sh -s 3 -p -i centos -o amphora-x64-haproxy-centos.qcow2
 
 - job:
