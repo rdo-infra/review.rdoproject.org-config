@@ -2534,10 +2534,12 @@ projects:
   - name: rdo-infra/fedora-stable-config
     check:
       - fedora-stable-repoclosure
-      - fedora-stable-image-build-nv
+      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
+      # - fedora-stable-image-build-nv
     gate:
       - fedora-stable-repoclosure
-      - fedora-stable-image-build-nv
+      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
+      # - fedora-stable-image-build-nv
 
   - name: rdo-infra/rdo-dashboards
     template:
