@@ -125,3 +125,19 @@ providers:
         username: jenkins
         min-ram: 8192
         config-drive: true
+  # This provider is defined so nodepool can upload images there.
+  # The VMs are created and destroyed by Jenkins on ci.centos.org.
+  - name: rdo-cloud-cico
+    cloud: rdo-cloud-cico
+    max-servers: 0
+    pool: public
+    rate: 0.25
+    networks:
+      - name: private
+    images:
+      - name: rdo-centos-7
+        diskimage: rdo-centos-7
+        name-filter: rdo.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
