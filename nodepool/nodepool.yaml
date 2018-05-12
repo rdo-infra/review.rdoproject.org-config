@@ -64,6 +64,21 @@ diskimages:
       DIB_RELEASE: '26'
       QEMU_IMG_OPTIONS: compat=0.10
       DIB_GRUB_TIMEOUT: '0'
+  - name: rdo-fedora-stable
+    elements:
+      - fedora
+      - nodepool-minimal
+      - simple-init
+      - zuul-cloner-pip
+      - jenkins-worker
+      - rdo-base
+    env-vars:
+      DIB_RELEASE: '27'
+      QEMU_IMG_OPTIONS: compat=0.10
+      DIB_GRUB_TIMEOUT: '0'
+      DIB_CLOUD_IMAGES: https://images.rdoproject.org/fedora-stable
+      BASE_IMAGE_FILE: Fedora-Cloud-Base-RDO-28-latest.qcow2
+
 
 labels:
   - name: rdo-centos-7
@@ -74,6 +89,11 @@ labels:
   - name: rdo-fedora-26
     min-ready: 1
     image: rdo-fedora-26
+    providers:
+      - name: rdo-cloud
+  - name: rdo-fedora-stable
+    min-ready: 1
+    image: rdo-fedora-stable
     providers:
       - name: rdo-cloud
   - name: upstream-centos-7
@@ -109,6 +129,12 @@ providers:
         config-drive: true
       - name: rdo-fedora-26
         diskimage: rdo-fedora-26
+        name-filter: rdo.m1.nodepool
+        username: jenkins
+        min-ram: 8192
+        config-drive: true
+      - name: rdo-fedora-stable
+        diskimage: rdo-fedora-stable
         name-filter: rdo.m1.nodepool
         username: jenkins
         min-ram: 8192
