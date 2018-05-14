@@ -267,10 +267,15 @@
             UC_BRANCH="{branch}"
           else
             UC_BRANCH="rocky-uc"
+            UC_BRANCH_PY3="rocky-py3-uc"
             GIT_SUFFIX=""
           fi
           curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
           ./update-uc.py $UC_BRANCH
+          # We have a special case for master, with two tags
+          if [ "{branch}" = "master" ]; then
+              ./update-uc.py $UC_BRANCH_PY3
+          fi
           DIFF=$(git diff rdo.yml)
           if [ -n "$DIFF" ]; then
             mkdir -p ~/.ssh
