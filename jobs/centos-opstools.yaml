@@ -83,7 +83,7 @@
     builders:
       - shell: |
           set -e
-          sudo yum -y install centos-release-openstack-newton
+          sudo yum -y install centos-release-openstack-queens
           sudo yum -y install libffi-devel openssl-devel libyaml-devel
 
 - job:
@@ -166,7 +166,7 @@
       - shell: |
           set -e
           mkdir $WORKSPACE/logs
-          sudo yum -y install rpm-build rpmdevtools centos-release-opstools centos-release-openstack-ocata
+          sudo yum -y install rpm-build rpmdevtools centos-release-opstools centos-release-openstack-queens
           sudo yum -y groupinstall "Development Tools"
           cat << EOF | sudo tee /etc/yum.repos.d/opstools-build.repo
           [centos-opstools-perfmon-testing]
