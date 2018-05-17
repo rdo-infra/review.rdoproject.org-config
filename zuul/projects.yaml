@@ -33,8 +33,9 @@ jobs:
   - name: ^ocata-distgit-cbs-(validate|final-build)$
     branch: ^ocata-rdo$
 
-  - name: ^newton-distgit-cbs-(validate|final-build)$
+  - name: ^newton-distgit-cbs-validate$
     branch: ^newton-rdo$
+
 
   - name: ^common-distgit-cbs-(validate|final-build)$
     branch: ^common-rdo$
@@ -3871,8 +3872,6 @@ projects:
           - rdoinfo-tripleo-pike-release-centos-7-multinode-1ctlr-featureset006-nv
           - rdoinfo-tripleo-ocata-testing-centos-7-multinode-1ctlr-featureset005-nv
           - rdoinfo-tripleo-ocata-release-centos-7-multinode-1ctlr-featureset005-nv
-          - rdoinfo-tripleo-newton-testing-centos-7-multinode-1ctlr-featureset005-nv
-          - rdoinfo-tripleo-newton-release-centos-7-multinode-1ctlr-featureset005-nv
     gate:
       - tox-validate
       - rdoinfo-DLRN-check
@@ -3884,8 +3883,6 @@ projects:
       - rdoinfo-upper-constraints-update-pike
       - rdoinfo-upper-constraints-update-ocata
       - rdoinfo-upper-constraints-update-newton
-      - rdoinfo-buildsys-tags-update-newton-testing
-      - rdoinfo-buildsys-tags-update-newton-release
       - rdoinfo-buildsys-tags-update-ocata-testing
       - rdoinfo-buildsys-tags-update-ocata-release
       - rdoinfo-buildsys-tags-update-pike-testing
