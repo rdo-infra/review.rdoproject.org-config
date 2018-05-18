@@ -31,7 +31,7 @@
           set -e -x
           # Install requirements
           sudo yum install -y createrepo mock git centos-packager yum-utils
-          virtualenv .venv
+          virtualenv  --system-site-packages .venv
           . .venv/bin/activate
           pip install ruamel.yaml rdopkg
           # clone scripts and run
@@ -47,7 +47,7 @@
       - shell: |
           set -e
           # Install requirements
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install rdopkg
 
@@ -114,7 +114,7 @@
       - shell: |
           set +e -x
           pushd $ZUUL_PROJECT
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install rdopkg
 
@@ -230,7 +230,7 @@
       - rdo-prepare-workspace-post
       - shell: |
           set +e -x
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install git-review rdopkg ruamel.yaml Jinja2
           cd $ZUUL_PROJECT
@@ -338,7 +338,7 @@
       - rdo-prepare-workspace-post
       - shell: |
           set +e -x
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
@@ -423,7 +423,7 @@
           rm -rf ~/rdoinfo
           ln -s $PWD/rdoinfo ~/rdoinfo
           zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pushd rdo-infra/releng
           pip install .
@@ -643,7 +643,7 @@
       - shell: |
           set -e -x
           zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pushd rdo-infra/releng
           pip install .
@@ -674,7 +674,7 @@
           FAILED=0
           # Install requirements
           sudo yum install -y createrepo mock git centos-packager yum-utils
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install ruamel.yaml rdopkg
           # clone scripts and run
@@ -752,7 +752,7 @@
             ;;
           esac
           sudo yum install -y git centos-packager PyYAML
-          virtualenv .venv
+          virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install git+https://github.com/softwarefactory-project/graffiti
           pip install ruamel.yaml sh git-review
