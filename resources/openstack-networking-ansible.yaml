@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/networking-ansible-core:
+      description: Core developers for project networking-ansible
+      members:
+      - dradez@redhat.com
+      - woppin@gmail.com
+      - jlibosva@redhat.com
+    openstack/networking-ansible-ptl:
+      description: Project team lead for project networking-ansible
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-networking-ansible-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-ansible-core
+          owner = group openstack/networking-ansible-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-ansible-core
+          label-Code-Review = -2..+2 group openstack/networking-ansible-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-ansible-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-ansible-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/networking-ansible-core
+          label-Verified = -2..+2 group openstack/networking-ansible-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/networking-ansible-core
+          label-Workflow = -1..+1 group openstack/networking-ansible-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-ansible-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-ansible-core
+      - openstack/networking-ansible-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-networking-ansible:
+      file: |
+        [access "refs/*"]
+          read = group openstack/networking-ansible-core
+          owner = group openstack/networking-ansible-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/networking-ansible-core
+          label-Code-Review = -2..+2 group openstack/networking-ansible-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/networking-ansible-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/networking-ansible-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/networking-ansible-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/networking-ansible-core
+          label-Workflow = -1..+0 group openstack/networking-ansible-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/networking-ansible-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/networking-ansible-core
+      - openstack/networking-ansible-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/networking-ansible:
+      acl: openstack-networking-ansible
+      description: Mirror of upstream networking-ansible (mirror + patches)
+    openstack/networking-ansible-distgit:
+      acl: openstack-networking-ansible-distgit
+      description: Packaging of upstream networking-ansible
+      default-branch: rpm-master
+      branches:
+        master: '0'

@@ -900,6 +900,14 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
+  - name: openstack/networking-ansible
+    template:
+      - name: package-check-jobs
+
+  - name: openstack/networking-ansible-distgit
+    template:
+      - name: package-distgit-check-jobs
+
   - name: openstack/networking-arista
     template:
       - name: package-check-jobs
@@ -2530,16 +2538,6 @@ projects:
     template:
       - name: noop
 
-  - name: rdo-infra/fedora-stable-config
-    check:
-      - fedora-stable-repoclosure
-      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
-      # - fedora-stable-image-build-nv
-    gate:
-      - fedora-stable-repoclosure
-      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
-      # - fedora-stable-image-build-nv
-
   - name: rdo-infra/rdo-dashboards
     template:
       - name: noop
@@ -2565,6 +2563,9 @@ projects:
     template:
       - name: weirdo-gate-jobs
 
+  - name: rdo-jobs
+    template:
+      - name: noop
   - name: rdo_gating_scripts
     template:
       - name: noop
@@ -3771,6 +3772,16 @@ projects:
       - centos-opstools-rpmlint
       - centos-opstools-rpmbuild
 
+  - name: rdo-infra/fedora-stable-config
+    check:
+      - fedora-stable-repoclosure
+      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
+      # - fedora-stable-image-build-nv
+    gate:
+      - fedora-stable-repoclosure
+      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
+      # - fedora-stable-image-build-nv
+
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
       - gate-tox-ansible-lint
@@ -3900,6 +3911,3 @@ projects:
           - gate-weirdo-dlrn-master-puppet-scenario003
           - gate-weirdo-dlrn-master-puppet-scenario004
 
-  - name: rdo-jobs
-    template:
-      - name: noop
