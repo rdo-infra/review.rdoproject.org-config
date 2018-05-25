@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/metalsmith-core:
+      description: Core developers for project metalsmith
+      members:
+      - divius.inside@gmail.com
+    openstack/metalsmith-ptl:
+      description: Project team lead for project metalsmith
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-metalsmith-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/metalsmith-core
+          owner = group openstack/metalsmith-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/metalsmith-core
+          label-Code-Review = -2..+2 group openstack/metalsmith-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/metalsmith-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/metalsmith-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/metalsmith-core
+          label-Verified = -2..+2 group openstack/metalsmith-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/metalsmith-core
+          label-Workflow = -1..+1 group openstack/metalsmith-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/metalsmith-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/metalsmith-core
+      - openstack/metalsmith-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-metalsmith:
+      file: |
+        [access "refs/*"]
+          read = group openstack/metalsmith-core
+          owner = group openstack/metalsmith-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/metalsmith-core
+          label-Code-Review = -2..+2 group openstack/metalsmith-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/metalsmith-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/metalsmith-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/metalsmith-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/metalsmith-core
+          label-Workflow = -1..+0 group openstack/metalsmith-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/metalsmith-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/metalsmith-core
+      - openstack/metalsmith-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/metalsmith:
+      acl: openstack-metalsmith
+      description: Mirror of upstream metalsmith (mirror + patches)
+    openstack/metalsmith-distgit:
+      acl: openstack-metalsmith-distgit
+      description: Packaging of upstream metalsmith
+      default-branch: rpm-master
+      branches:
+        master: '0'
