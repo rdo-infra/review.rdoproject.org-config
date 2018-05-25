@@ -38,9 +38,9 @@
       - rdo-prepare-workspace
       - rdo-log-setup
       - build-octavia-image:
-          release: {release}
+          release: '{release}'
       - upload-octavia-image:
-          release: {release}
+          release: '{release}'
     publishers:
       - rdo-rsync-logs
     triggers:
