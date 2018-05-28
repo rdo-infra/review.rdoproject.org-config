@@ -157,6 +157,10 @@ jobs:
   - name: ^gate-tripleo-ci-centos-7-.*-queens(?!(-branch)).*$
     branch: ^stable/queens$
 
+  - name: ^DLRN-rpmbuild-rpm-packaging-fedora$
+    voting: false
+    branch: ^master$
+
   ####
   # TripleO job filters
   ####
@@ -331,6 +335,7 @@ projects:
   - name: openstack/rpm-packaging
     openstack-check:
       - DLRN-rpmbuild-rpm-packaging
+      - DLRN-rpmbuild-rpm-packaging-fedora
 
   - name: openstack/releases
     openstack-post:
