@@ -374,6 +374,113 @@
           """
           EOF
 
+- builder:
+    name: DLRN-prepare-fedora-rpm-packaging
+    builders:
+      - shell: |
+          sed -i "s%^config_opts\['chroot_setup_cmd'\].*%config_opts\['chroot_setup_cmd'\] \= 'install basesystem rpm-build python2-devel gcc make python-sqlalchemy python-webob ghostscript graphviz python-sphinx python-eventlet python-six python-pbr python3-pbr git coreutils glibc-langpack-en openstack-macros'%" DLRN/scripts/fedora.cfg
+
+- builder:
+    name: DLRN-build-rpm-packaging
+    builders:
+      - shell: |
+          set +e
+          # FIXME(jpena) some packages are moving to use singlespec, which
+          # requires an up to date openstack-macros package in the builder,
+          # and not just in the mock buildroot.
+          sudo yum -y install https://buildlogs.centos.org/centos/7/cloud/x86_64/openstack-pike/common/openstack-macros-2018.1.0-0.noarch.rpm
+          pushd DLRN
+          # FIXME(jpena) use test patch for avoid issues when building from master: https://softwarefactory-project.io/r/11232
+          git config --global user.email "jenkins@review.rdoproject.org"
+          git config --global user.name "CI Test Bot"
+          git fetch https://softwarefactory-project.io/r/DLRN refs/changes/32/11232/2 && git cherry-pick FETCH_HEAD
+          # Setup virtualenv with tox and use it
+          tox -epy27 --notest
+          . .tox/py27/bin/activate
+          # Use latest pymod2pkg from Git, to avoid waiting for new releases
+          pip install --upgrade git+https://github.com/openstack/pymod2pkg
+          # Prepare config
+          if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then    # stable branch
+              repo_branch=$(sed "s#stable/##" <<< "${ZUUL_BRANCH}")
+              # We only support Ocata and later as stable repos
+              if [ "$repo_branch" = "newton" ]; then
+                exit 0
+              fi
+              baseurl="{baseurl}/${repo_branch}/repos/"
+              use_version_from_spec="1"
+          else
+              # master
+              baseurl="{baseurl}/repos/"
+              use_version_from_spec="1"
+          fi
+
+          repo="http://github.com/openstack/rpm-packaging"
+          directory="/openstack"
+          skip="openstack-macros"
+          pkginfo_driver="dlrn.drivers.gitrepo.GitRepoDriver"
+          branch="${ZUUL_BRANCH}"
+          target={target}
+
+          # Update the configuration
+          sed -i "s%#repo=.*%repo=${repo}%" projects.ini
+          sed -i "s%#directory=.*%directory=${directory}%" projects.ini
+          sed -i "s%#skip=.*%skip=${skip}%" projects.ini
+          sed -i "s%#use_version_from_spec=.*%use_version_from_spec=${use_version_from_spec}%" projects.ini
+          sed -i "s%#allow_tarball=.*%allow_tarball=1%" projects.ini
+          sed -i "s%pkginfo_driver=.*%pkginfo_driver=${pkginfo_driver}%" projects.ini
+          sed -i "s%baseurl=.*%baseurl=${baseurl}%" projects.ini
+          sed -i "s%source=.*%source=${branch}%" projects.ini
+          sed -i "s%distro=.*%distro=${branch}%" projects.ini
+          sed -i "s%target=.*%target=${target}%" projects.ini
+
+          # Prepare directories
+          mkdir -p data/repos
+
+          if [ -e /usr/bin/zuul-cloner ]; then
+            zuul-cloner --workspace data/ git://git.openstack.org openstack/rpm-packaging --branch ${branch}
+            mv data/openstack/rpm-packaging data/package_info
+          else
+            # We're outside the gate, just do a regular git clone
+            pushd data/
+            # rm -rf first for idempotency
+            rm -rf package_info
+            git clone "git://git.openstack.org/openstack/rpm-packaging" package_info
+            cd package_info
+            git checkout ${branch}
+            popd
+          fi
+
+          # Find out which packages are being tested
+          pushd data/package_info
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACMT HEAD~1)
+          PACKAGES_TO_BUILD=""
+          for spec in $CHANGED_FILES; do
+            filename=$(echo $spec | awk -F/ '{print $NF}')
+            extension=$(echo $filename | awk -F. '{print $NF}')
+            if [ "$extension" = "j2" ]; then
+                # Remove the .spec.j2 extension
+                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD --package-name $(echo $filename | awk 'BEGIN{FS=OFS="."}{NF--; NF--; print}')"
+            fi
+          done
+          popd
+          if [ ! -n "${PACKAGES_TO_BUILD}" ]; then
+            exit 0
+          fi
+
+          timeout --signal=SIGKILL 5400 dlrn --config-file projects.ini --head-only $PACKAGES_TO_BUILD --dev --local --verbose-mock
+          ret=$?
+
+          mkdir -p logs
+          rsync -avzr data/repos logs/centos
+          # Clean up mock cache, just in case there is a change for the next run
+          mock -r data/dlrn-1.cfg --scrub=all
+
+          popd
+          mkdir logs
+          cp -a DLRN/logs/* logs/
+          exit $ret
+
+
 - job:
     name: 'DLRN-rpmbuild'
     defaults: rdo-global
@@ -442,106 +549,15 @@
     node: rdo-centos-7
 
 - job:
-    name: 'DLRN-rpmbuild-rpm-packaging'
+    name: 'DLRN-rpmbuild-rpm-packaging-centos'
     defaults: rdo-global
     builders:
       - rdo-prepare-workspace
       - rdo-log-setup
       - prepare-dlrn
-      - shell: |
-          set +e -x
-          # FIXME(jpena): some packages are moving to use singlespec, which
-          # requires an up to date openstack-macros package in the builder,
-          # and not just in the mock buildroot.
-          sudo yum -y install https://buildlogs.centos.org/centos/7/cloud/x86_64/openstack-pike/common/openstack-macros-2018.1.0-0.noarch.rpm
-          pushd DLRN
-          # FIXME(jpena): use test patch for avoid issues when building from master: https://softwarefactory-project.io/r/11232
-          git config --global user.email "jenkins@review.rdoproject.org"
-          git config --global user.name "CI Test Bot"
-          git fetch https://softwarefactory-project.io/r/DLRN refs/changes/32/11232/2 && git cherry-pick FETCH_HEAD
-          # Setup virtualenv with tox and use it
-          tox -epy27 --notest
-          . .tox/py27/bin/activate
-          # Use latest pymod2pkg from Git, to avoid waiting for new releases
-          pip install --upgrade git+https://github.com/openstack/pymod2pkg
-          # Prepare config
-          if [[ "${ZUUL_BRANCH}" =~ stable/ ]]; then    # stable branch
-              repo_branch=$(sed "s#stable/##" <<< "${ZUUL_BRANCH}")
-              # We only support Ocata and later as stable repos
-              if [ "$repo_branch" = "newton" ]; then
-                exit 0
-              fi
-              baseurl=http://rpm-packaging-ci.rdoproject.org/${repo_branch}/repos/
-              use_version_from_spec="1"
-          else
-              # master
-              baseurl=http://rpm-packaging-ci.rdoproject.org/repos/
-              use_version_from_spec="1"
-          fi
-
-          repo="http://github.com/openstack/rpm-packaging"
-          directory="/openstack"
-          skip="openstack-macros"
-          pkginfo_driver="dlrn.drivers.gitrepo.GitRepoDriver"
-          branch=${ZUUL_BRANCH}
-
-          # Update the configuration
-          sed -i "s%#repo=.*%repo=${repo}%" projects.ini
-          sed -i "s%#directory=.*%directory=${directory}%" projects.ini
-          sed -i "s%#skip=.*%skip=${skip}%" projects.ini
-          sed -i "s%#use_version_from_spec=.*%use_version_from_spec=${use_version_from_spec}%" projects.ini
-          sed -i "s%#allow_tarball=.*%allow_tarball=1%" projects.ini
-          sed -i "s%pkginfo_driver=.*%pkginfo_driver=${pkginfo_driver}%" projects.ini
-          sed -i "s%baseurl=.*%baseurl=${baseurl}%" projects.ini
-          sed -i "s%source=.*%source=${branch}%" projects.ini
-          sed -i "s%distro=.*%distro=${branch}%" projects.ini
-
-          # Prepare directories
-          mkdir -p data/repos
-
-          if [ -e /usr/bin/zuul-cloner ]; then
-            zuul-cloner --workspace data/ git://git.openstack.org openstack/rpm-packaging --branch ${branch}
-            mv data/openstack/rpm-packaging data/package_info
-          else
-            # We're outside the gate, just do a regular git clone
-            pushd data/
-            # rm -rf first for idempotency
-            rm -rf package_info
-            git clone "git://git.openstack.org/openstack/rpm-packaging" package_info
-            cd package_info
-            git checkout ${branch}
-            popd
-          fi
-
-          # Find out which packages are being tested
-          pushd data/package_info
-          CHANGED_FILES=$(git diff --name-only --diff-filter=ACMT HEAD~1)
-          PACKAGES_TO_BUILD=""
-          for spec in $CHANGED_FILES; do
-            filename=$(echo $spec | awk -F/ '{print $NF}')
-            extension=$(echo $filename | awk -F. '{print $NF}')
-            if [ "$extension" = "j2" ]; then
-                # Remove the .spec.j2 extension
-                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD --package-name $(echo $filename | awk 'BEGIN{FS=OFS="."}{NF--; NF--; print}')"
-            fi
-          done
-          popd
-          if [ ! -n "${PACKAGES_TO_BUILD}" ]; then
-            exit 0
-          fi
-
-          timeout --signal=SIGKILL 5400 dlrn --config-file projects.ini --head-only $PACKAGES_TO_BUILD --dev --local --verbose-mock
-          ret=$?
-
-          mkdir -p logs
-          rsync -avzr data/repos logs/centos
-          # Clean up mock cache, just in case there is a change for the next run
-          mock -r data/dlrn-1.cfg --scrub=all
-
-          popd
-          mkdir logs
-          cp -a DLRN/logs/* logs/
-          exit $ret
+      - DLRN-build-rpm-packaging:
+          target: 'centos'
+          baseurl: 'https://rpm-packaging-ci.rdoproject.org/'
     publishers:
       - rdo-rsync-logs
     triggers:
@@ -553,6 +569,30 @@
            credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
            variable: LOG_SSH_KEY
     node: rdo-centos-7
+
+- job:
+    name: 'DLRN-rpmbuild-rpm-packaging-fedora'
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - rdo-log-setup
+      - prepare-dlrn
+      - DLRN-fedora-stable-mock
+#      - DLRN-prepare-fedora-rpm-packaging
+      - DLRN-build-rpm-packaging:
+          target: 'fedora'
+          baseurl: 'https://fedora-rpm-packaging-ci.rdoproject.org/'
+    publishers:
+      - rdo-rsync-logs
+    triggers:
+      - zuul
+    wrappers:
+      - timestamps
+      - credentials-binding:
+        - file:
+           credential-id: 4b4632bd-f44b-446d-a8ca-b57eabef0a7c
+           variable: LOG_SSH_KEY
+    node: rdo-fedora-26
 
 # Job to check the non-regression of quality of the new packages built
 # by DLRN (i.e, distgit reviews)
