@@ -26,7 +26,7 @@
           echo "Clean workspace"
           rm -Rf ./*
           echo "Clone $ZUUL_PROJECT"
-          zuul-cloner https://review.rdoproject.org/r $ZUUL_PROJECT
+          /usr/zuul-env/bin/zuul-cloner https://review.rdoproject.org/r $ZUUL_PROJECT
 
 
 ## Useful job template
