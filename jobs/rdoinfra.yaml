@@ -30,7 +30,7 @@
           cd $ZUUL_PROJECT
           # Copy file containing token for weirdo into the jobs folder
           cp -f $WEIRDO_TOKEN_FILE ./jenkins/jobs/weirdo_token
-          # Ensure that there's no failure before pushing
+          # Ensure that there is no failure before pushing
           tox -e jjb |grep -v -i -e authtoken -e auth-token
           # Update jobs
           source .tox/jjb/bin/activate
@@ -176,8 +176,8 @@
               dest: 'rdo-infra-playbooks/roles/opstools-ansible'
           EOF
 
-          # Zuul clone rdo-infra-playbooks and it's roles at their expected location
-          zuul-cloner -m $CLONEMAP \
+          # Zuul clone rdo-infra-playbooks and it is roles at their expected location
+          /usr/zuul-env/bin/zuul-cloner -m $CLONEMAP \
             https://review.rdoproject.org/r \
             rdo-infra/rdo-infra-playbooks \
             rdo-infra/ansible-role-rdo-base \
