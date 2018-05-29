@@ -342,7 +342,7 @@
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
-              zuul-cloner http://review.rdoproject.org/r rdoinfo
+              /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r rdoinfo
           fi
           if [ "${ZUUL_REF}" == 'master' ]; then
               RELEASE="rocky"
@@ -417,12 +417,12 @@
       - shell: |
           set -e -x
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
-              zuul-cloner http://review.rdoproject.org/r rdoinfo
+              /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r rdoinfo
           fi
           # Currently releng requires rdoinfo to be in $HOME/rdoinfo
           rm -rf ~/rdoinfo
           ln -s $PWD/rdoinfo ~/rdoinfo
-          zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
+          /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pushd rdo-infra/releng
@@ -642,7 +642,7 @@
       - rdo-prepare-workspace
       - shell: |
           set -e -x
-          zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
+          /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r rdo-infra/releng
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pushd rdo-infra/releng

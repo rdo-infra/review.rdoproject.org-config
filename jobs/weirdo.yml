@@ -15,8 +15,8 @@
               dest: 'weirdo/playbooks/roles/\1'
           EOF
 
-          # Zuul clone WeIRDO and it's roles at their expected location
-          zuul-cloner -m $CLONEMAP \
+          # Zuul clone WeIRDO and its roles at their expected location
+          /usr/zuul-env/bin/zuul-cloner -m $CLONEMAP \
             https://review.rdoproject.org/r \
             rdo-infra/weirdo \
             rdo-infra/ansible-role-weirdo-common \
@@ -25,12 +25,16 @@
             rdo-infra/ansible-role-weirdo-packstack \
             rdo-infra/ansible-role-weirdo-puppet-openstack
 
+          # TODO(pabelanger): This is to workaround puppet-openstack-integration
+          # trying to use zuul-cloner
+          sudo rm -rf /usr/zuul-env
+
 - builder:
     name: weirdo-ansible-playbook
     builders:
         - shell: |
             # WeIRDO uses ARA for ansible-playbook run visualization
-            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
+            export ARA_DATABASE="sqlite:///$WORKSPACE/ara.sqlite"
 
             # Backwards compat for project and openstack_release
             # (dmsimard) TODO: Clean this up ASAP
@@ -70,34 +74,30 @@
                 -e delorean_deps_url=$delorean_deps_url \
                 -e enable_puppet_modules_rpm=true
 
-- builder:
-    name: weirdo-collect-logs
-    builders:
-      - shell: |
-            # WeIRDO uses ARA for ansible-playbook run visualization
-            export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
-
-            # Generate ARA playbook analysis (don't fail job if generation fails)
-            sudo -E weirdo/.tox/ansible-playbook/bin/ara generate html /var/log/weirdo/ara || true
-
-            mkdir logs
-            sudo cp -a /var/log/weirdo/* logs/
-            # Copy database (experimental)
-            sudo mkdir logs/ara-database
-            sudo cp $WORKSPACE/ara-$JOB_NAME.sqlite logs/ara-database/ansible.sqlite
-
-            # Ensure permissions allow artifact uploading
-            sudo chown -R "$(id -u).$(id -g)" logs
-
 - publisher:
     name: weirdo-publish-logs
     publishers:
       - postbuildscript:
           builders:
-            - weirdo-collect-logs
+            - shell: |
+                #!/bin/bash
+                # WeIRDO uses ARA for ansible-playbook run visualization
+                export ARA_DATABASE="sqlite:///$WORKSPACE/ara-sqlite"
+
+                # Generate ARA playbook analysis (do not fail job if generation fails)
+                sudo -E weirdo/.tox/ansible-playbook/bin/ara generate html /var/log/weirdo/ara || true
+
+                mkdir logs
+                sudo cp -a /var/log/weirdo/* logs/
+                # Copy database (experimental)
+                sudo mkdir logs/ara-database
+                sudo cp $WORKSPACE/ara.sqlite logs/ara-database/ansible.sqlite
+
+                # Ensure permissions allow artifact uploading
+                sudo chown -R "$(id -u).$(id -g)" logs
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - rdo-rsync-logs
+      - devstack-logs
 
 - job:
     name: gate-weirdo-ansible-lint
@@ -127,7 +127,7 @@
       - zuul
     node: rdo-centos-7
 
-# WeIRDO's own gate jobs
+# WeIRDOs own gate jobs
 - job-template:
     name: 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
     defaults: rdo-global
@@ -145,6 +145,8 @@
     triggers:
         - zuul
     wrappers:
+      - build-timeout:
+          timeout: '90'
       - timestamps
       - credentials-binding:
         - file:
