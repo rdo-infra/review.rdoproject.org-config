@@ -471,7 +471,7 @@
           ret=$?
 
           mkdir -p logs
-          rsync -avzr data/repos logs/centos
+          rsync -avzr data/repos logs/{target}
           # Clean up mock cache, just in case there is a change for the next run
           mock -r data/dlrn-1.cfg --scrub=all
 
