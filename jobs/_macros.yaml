@@ -19,6 +19,19 @@
               copy-console: true
               copy-after-failure: true
 
+# NOTE(pabelanger): This publisher is only used by zuul-migrate, don't expect it
+# to actually work.
+- publisher:
+    name: devstack-logs
+    publishers:
+      - scp:
+          site: 'sflogs'
+          files:
+            - target: 'logs/$LOG_PATH'
+              source: 'logs/**'
+              keep-hierarchy: true
+              copy-after-failure: true
+
 - publisher:
     name: artifacts-dir
     publishers:
