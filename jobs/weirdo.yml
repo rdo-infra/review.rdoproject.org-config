@@ -15,8 +15,8 @@
               dest: 'weirdo/playbooks/roles/\1'
           EOF
 
-          # Zuul clone WeIRDO and it's roles at their expected location
-          zuul-cloner -m $CLONEMAP \
+          # Zuul clone WeIRDO and its roles at their expected location
+          /usr/zuul-env/bin/zuul-cloner -m $CLONEMAP \
             https://review.rdoproject.org/r \
             rdo-infra/weirdo \
             rdo-infra/ansible-role-weirdo-common \
@@ -77,7 +77,7 @@
             # WeIRDO uses ARA for ansible-playbook run visualization
             export ARA_DATABASE="sqlite:///$WORKSPACE/ara-$JOB_NAME.sqlite"
 
-            # Generate ARA playbook analysis (don't fail job if generation fails)
+            # Generate ARA playbook analysis (do not fail job if generation fails)
             sudo -E weirdo/.tox/ansible-playbook/bin/ara generate html /var/log/weirdo/ara || true
 
             mkdir logs
@@ -127,7 +127,7 @@
       - zuul
     node: rdo-centos-7
 
-# WeIRDO's own gate jobs
+# WeIRDOs own gate jobs
 - job-template:
     name: 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'
     defaults: rdo-global

@@ -40,7 +40,7 @@
           repository="${logs}/centos/current"
 
           # The rdoinfo-DLRN-check job may create different repos (centos-rpm-master, centos-pike-rdo)
-          # when it builds packages for more than one release. In that case, let's try to find the
+          # when it builds packages for more than one release. In that case, let us try to find the
           # right one
           curl -o /dev/null -sIf "${repository}"
           if [ $? -ne 0 ]; then
@@ -186,7 +186,7 @@
 
               eval $(sqlite3 -line $db "select location_href as pkgfile from packages where name = '$name' and arch != 'src';"|sed 's/ //g')
 
-              # if there is no previous package, it means that's new
+              # if there is no previous package, it means that is new
               # packages so just run rpmlint on the packages and exit
               if [ -z "$pkgfile" ]; then
                   rpmlint *.rpm | tee rpmlint.new.txt
