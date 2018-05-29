@@ -6,7 +6,7 @@
       - shell: |
           set -e
           rm -Rf config build
-          zuul-cloner http://gerrit/r config
+          /usr/zuul-env/bin/zuul-cloner http://gerrit/r config
           # Prepare a default configuration for zuul and nodepool
           mkdir -p build/nodepool build/zuul build/repoxplorer
           cp ~jenkins/defconf/zuul.conf build/zuul/zuul.conf
