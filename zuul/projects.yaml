@@ -3826,33 +3826,33 @@ projects:
 
   - name: rdo-infra/ansible-role-rdo-base
     check:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
       - rdo-infra-playbooks-integration-base
     gate:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
       - rdo-infra-playbooks-integration-base
 
   # TODO: Only run these jobs when required
   - name: rdo-infra/rdo-infra-playbooks
     check:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
       - rdo-infra-playbooks-integration-base
       - rdo-infra-playbooks-integration-logserver-nv
       - rdo-infra-playbooks-integration-sensu-client
       - rdo-infra-playbooks-integration-sensu-client-fedora-nv
       - rdo-infra-playbooks-integration-sensu-server
     gate:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
       - rdo-infra-playbooks-integration-base
       - rdo-infra-playbooks-integration-sensu-client
       - rdo-infra-playbooks-integration-sensu-server
 
   - name: rdo-infra/ansible-role-rdo-bot
     check:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
       - rdo-infra-playbooks-integration-sensu-server-nv
     gate:
-      - rdo-infra-ansible-lint
+      - gate-tox-ansible-lint
 
   - name: rdo-infra/releng
     check:

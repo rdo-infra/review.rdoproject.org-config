@@ -49,21 +49,6 @@
            credential-id: 2b9107c5-c511-41e4-9012-a97af25bd295
            variable: WEIRDO_TOKEN_FILE
 
-- job:
-    name: rdo-infra-ansible-lint
-    defaults: rdo-global
-    builders:
-      - rdo-prepare-workspace
-      - shell: |
-          set -e
-          virtualenv $WORKSPACE/ansible-lint
-          source $WORKSPACE/ansible-lint/bin/activate
-          pip install ansible-lint
-          find $WORKSPACE/$ZUUL_PROJECT -type f -not -name '*vault.yml' -regex '.*.y[a]?ml' -print0 | xargs -t -n1 -0 ansible-lint -x ANSIBLE0006,ANSIBLE0010,ANSIBLE0012,ANSIBLE0013,ANSIBLE0014
-    triggers:
-      - zuul
-    node: rdo-centos-7
-
 - builder:
     name: checkout-rdo-kolla-build
     builders:
