@@ -157,7 +157,7 @@ project-templates:
 
   - name: weirdo-gate-jobs
     check:
-      - gate-weirdo-ansible-lint
+      - gate-tox-ansible-lint
       - gate-weirdo-docs
       - gate-weirdo-integration-newton-packstack-scenario001
       - gate-weirdo-integration-ocata-packstack-scenario002
@@ -170,7 +170,7 @@ project-templates:
       - gate-weirdo-integration-master-puppet-scenario004
     gate:
       # TODO: Improve gate coverage once more capacity is available
-      - gate-weirdo-ansible-lint
+      - gate-tox-ansible-lint
       - gate-weirdo-docs
     experimental:
       - gate-weirdo-integration-newton-packstack-scenario003

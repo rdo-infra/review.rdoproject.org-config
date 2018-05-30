@@ -100,20 +100,6 @@
       - rdo-rsync-logs
 
 - job:
-    name: gate-weirdo-ansible-lint
-    defaults: rdo-global
-    builders:
-      - rdo-prepare-workspace
-      - weirdo-prepare
-      - shell: |
-          set +e
-          cd weirdo
-          tox -e ansible-lint
-    triggers:
-      - zuul
-    node: rdo-centos-7
-
-- job:
     name: gate-weirdo-docs
     defaults: rdo-global
     builders:
