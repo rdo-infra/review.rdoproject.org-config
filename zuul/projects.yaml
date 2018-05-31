@@ -2562,8 +2562,14 @@ projects:
       - name: noop
 
   - name: rdo-infra/sinkhole
-    template:
-      - name: noop
+    check:
+      - noop
+      - fedora-sinkhole-functional-nv
+      - centos-sinkhole-functional-nv
+    gate:
+      - noop
+      - fedora-sinkhole-functional-nv
+      - centos-sinkhole-functional-nv
 
   # Deprecated
   - name: rdo-infra/test-day-tools
