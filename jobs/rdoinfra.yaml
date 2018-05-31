@@ -292,7 +292,7 @@
               cp comps*xml $OUTPUT_DIR
           fi
           echo "INFO: Running synchronization using sinkhole"
-          sinkhole config_file --config fedora_config
+          sinkhole --config fedora_config config_file
           echo "INFO: Running repoclosure"
           dnf clean all
           repoquery --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
@@ -332,7 +332,7 @@
                       cp comps*xml $OUTPUT_DIR
                   fi
                   echo "INFO: Running synchronization using sinkhole"
-                  sinkhole config_file --config fedora_config
+                  sinkhole --config fedora_config config_file
                   echo "INFO: Running repoclosure"
                   popd
               done
@@ -576,7 +576,6 @@
     concurrent: false
     builders:
       - rdo-prepare-workspace
-      - rdo-log-setup
       - sinkhole-integration-test
     triggers:
       - zuul
@@ -590,7 +589,6 @@
     concurrent: false
     builders:
       - rdo-prepare-workspace
-      - rdo-log-setup
       - sinkhole-integration-test
     triggers:
       - zuul
