@@ -99,20 +99,6 @@
           script-only-if-failed: False
       - rdo-rsync-logs
 
-- job:
-    name: gate-weirdo-docs
-    defaults: rdo-global
-    builders:
-      - rdo-prepare-workspace
-      - weirdo-prepare
-      - shell: |
-          set +e
-          cd weirdo
-          tox -e docs
-    triggers:
-      - zuul
-    node: rdo-centos-7
-
 # WeIRDO's own gate jobs
 - job-template:
     name: 'gate-weirdo-integration-{openstack_release}-{project}-{scenario}'

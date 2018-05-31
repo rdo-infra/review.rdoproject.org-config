@@ -114,12 +114,6 @@ jobs:
   - name: gate-weirdo-integration-master-puppet-scenario004
     voting: false
 
-  # Only run docs jobs for docs
-  - name: ^gate-weirdo-docs$
-    files:
-      - ^docs/.*$
-      - ^.*\.rst$
-
   # -nv jobs are never voting.
   - name: ^.*-nv$
     voting: false
@@ -158,7 +152,7 @@ project-templates:
   - name: weirdo-gate-jobs
     check:
       - gate-tox-ansible-lint
-      - gate-weirdo-docs
+      - gate-tox-docs
       - gate-weirdo-integration-newton-packstack-scenario001
       - gate-weirdo-integration-ocata-packstack-scenario002
       - gate-weirdo-integration-pike-packstack-scenario002
@@ -171,7 +165,7 @@ project-templates:
     gate:
       # TODO: Improve gate coverage once more capacity is available
       - gate-tox-ansible-lint
-      - gate-weirdo-docs
+      - gate-tox-docs
     experimental:
       - gate-weirdo-integration-newton-packstack-scenario003
       - gate-weirdo-integration-ocata-packstack-scenario002
