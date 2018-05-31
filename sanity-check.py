@@ -33,6 +33,7 @@ IGNORED_PROJECTS = {
         'gating_scripts',
         'rdo',
         'rdo_gating_scripts',
+        'rdo-jobs',
         'testbranching',
         'testproject',
     ],
