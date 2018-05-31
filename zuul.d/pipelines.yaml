@@ -4,22 +4,35 @@
     description: |
       Newly uploaded patchsets enter this pipeline to receive an
       initial +/-1 Verified vote.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
     trigger:
       rdoproject.org:
         - event: patchset-created
+        - event: change-restored
         - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-    start:
-      rdoproject.org:
-        verified: 0
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*recheck
+        - event: comment-added
+          require-approval:
+            - Verified: [-1, -2]
+              username: zuul
+          approval:
+            - Workflow: 1
     success:
       rdoproject.org:
-        verified: 1
+        # Note that gerrit keywords are case-sensitive.
+        Verified: 1
       sqlreporter:
     failure:
       rdoproject.org:
-        verified: -1
+        Verified: -1
       sqlreporter:
 
 - pipeline:
