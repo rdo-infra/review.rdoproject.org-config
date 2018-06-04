@@ -1,0 +1,11 @@
+Performs tasks specific to Fedora stabilized repository in RDO, as removing
+official Fedora repositories configuration and adding the Fedora stabilized
+one.
+
+This element:
+
+- Downloads fedora stable repo .repo file under DIB_YUM_MINIMAL_BOOTSTRAP_REPOS to
+  be used by yum-minimal in root.d.
+- In cleanup.d, it removes existing .repo file from /etc/yum.repos.d and configures
+  fedora stable repository config.
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$DIB_YUM_MINIMAL_BOOTSTRAP_REPOS" ]; then
+    exit 0
+fi
+
+if [ ! -d $DIB_YUM_MINIMAL_BOOTSTRAP_REPOS ]; then
+    mkdir -p $DIB_YUM_MINIMAL_BOOTSTRAP_REPOS
+fi
+
+wget https://trunk.rdoproject.org/fedora/delorean-deps.repo -O $DIB_YUM_MINIMAL_BOOTSTRAP_REPOS/dib-mirror-rdo-fedora-stable.repo
+
