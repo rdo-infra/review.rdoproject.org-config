@@ -393,7 +393,7 @@
           # FIXME(jpena) use test patch for avoid issues when building from master: https://softwarefactory-project.io/r/11232
           git config --global user.email "jenkins@review.rdoproject.org"
           git config --global user.name "CI Test Bot"
-          git fetch https://softwarefactory-project.io/r/DLRN refs/changes/32/11232/2 && git cherry-pick FETCH_HEAD
+          git fetch https://softwarefactory-project.io/r/DLRN refs/changes/32/11232/4 && git cherry-pick FETCH_HEAD
           # Setup virtualenv with tox and use it
           tox -epy27 --notest
           . .tox/py27/bin/activate
