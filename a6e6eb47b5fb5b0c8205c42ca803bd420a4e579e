@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bab921fb_9003bab8",
+        "filename": "nodepool/elements/rdo-fedora-stable/cleanup.d/99-configure-fedora-stable-repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 233
+      },
+      "writtenOn": "2018-06-04T12:21:37Z",
+      "side": 1,
+      "message": "This likely needs to happen in the finalise.d phase, I believe the image will already be compressed and you won\u0027t be able to modify it.\n\nThen, you won\u0027t need sudo as it will be inside the chroot.",
+      "revId": "a6e6eb47b5fb5b0c8205c42ca803bd420a4e579e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab921fb_b06fde91",
         "filename": "nodepool/elements/rdo-fedora-stable/cleanup.d/99-configure-fedora-stable-repo",
         "patchSetId": 1
@@ -13,6 +30,23 @@
       "writtenOn": "2018-06-04T11:17:04Z",
       "side": 1,
       "message": "why not using curl? It would avoid installing wget though",
+      "revId": "a6e6eb47b5fb5b0c8205c42ca803bd420a4e579e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab921fb_30318ea3",
+        "filename": "nodepool/elements/rdo-fedora-stable/package-installs.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 233
+      },
+      "writtenOn": "2018-06-04T12:21:37Z",
+      "side": 1,
+      "message": "agree, switching to curl should mean we can drop this dependency.",
       "revId": "a6e6eb47b5fb5b0c8205c42ca803bd420a4e579e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
