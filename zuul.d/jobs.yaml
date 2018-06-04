@@ -20,6 +20,9 @@
       - playbooks/base/post-logs.yaml
     roles:
       - zuul: openstack-infra/zuul-jobs
+    vars:
+      ara_report_type: database
+      ara_report_path: ara-report
     timeout: 1800
     post-timeout: 1800
     nodeset:
