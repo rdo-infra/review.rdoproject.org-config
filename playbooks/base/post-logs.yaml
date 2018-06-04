@@ -5,11 +5,10 @@
       fileserver: "{{ site_rdologs }}"
     - role: ara-report
 
-- hosts: "{{ site_rdologs.fqdn }}"
-  tasks:
-    # Use a block because play vars doesn't take precedence on roles vars
-    - block:
-        - import_role: name=upload-logs
-      vars:
-        zuul_log_url: "{{ site_rdologs.url }}"
-        zuul_logserver_root: "{{ site_rdologs.path }}"
+
+- hosts: "{{ site_logs.fqdn }}"
+  gather_facts: False
+  roles:
+    - role: upload-logs
+      zuul_log_url: "{{ site_logs.url }}"
+      zuul_logserver_root: "{{ site_logs.path }}"
