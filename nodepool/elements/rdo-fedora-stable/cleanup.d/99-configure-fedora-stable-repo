@@ -1,0 +1,6 @@
+#!/bin/bash -xe
+
+sudo rm -f $TMP_MOUNT_PATH/etc/yum.repos.d/*.repo
+sudo curl https://trunk.rdoproject.org/fedora/delorean-deps.repo -o $TMP_MOUNT_PATH/etc/yum.repos.d/rdo-fedora-stable.repo
+
+rm -rf $DIB_YUM_MINIMAL_BOOTSTRAP_REPOS
