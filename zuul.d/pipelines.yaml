@@ -124,6 +124,24 @@
       sqlreporter:
 
 - pipeline:
+    name: experimental
+    description: On-demand pipeline for requesting a run against a set of jobs that are not yet gating. Leave review comment of "check experimental" to run jobs in this pipeline.
+    success-message: Build succeeded (experimental pipeline).
+    failure-message: Build failed (experimental pipeline).
+    manager: independent
+    precedence: normal
+    trigger:
+      rdoproject.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+    success:
+      rdoproject.org: {}
+      sqlreporter:
+    failure:
+      rdoproject.org: {}
+      sqlreporter:
+
+- pipeline:
     name: merge-check
     description: >
       Each time a change merges, this pipeline verifies that all open changes
