@@ -64,20 +64,19 @@ diskimages:
       DIB_GRUB_TIMEOUT: '0'
   - name: rdo-fedora-stable
     elements:
-      - fedora
+      - fedora-minimal
       - nodepool-minimal
       - simple-init
       - zuul-cloner-pip
       - jenkins-worker
       - rdo-base
+      - rdo-fedora-stable
       - vm
     env-vars:
-      DIB_RELEASE: '27'
+      DIB_RELEASE: '28'
       QEMU_IMG_OPTIONS: compat=0.10
       DIB_GRUB_TIMEOUT: '0'
-      DIB_CLOUD_IMAGES: https://images.rdoproject.org/fedora-stable
-      BASE_IMAGE_FILE: Fedora-Cloud-Base-RDO-28-latest.qcow2
-
+      DIB_YUM_MINIMAL_BOOTSTRAP_REPOS: '/var/lib/nodepool/temp-fedora-stable-yum.repos.d'
 
 labels:
   - name: rdo-centos-7
