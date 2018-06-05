@@ -13,3 +13,8 @@
     - add-build-sshkey
     - prepare-workspace
     - validate-host
+    # TODO(pabelanger): sf.io needs to be to use rdo-cloud / regionone for
+    # nodepool clouds.yaml, then we can remove this hardcoded value.
+    - role: configure-mirrors
+      mirror_fqdn: mirror.regionone.rdo-cloud.rdoproject.org
+      set_apt_mirrors_trusted: True
