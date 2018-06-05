@@ -2,3 +2,8 @@
 
 virtualenv --system-site-packages /venv
 /venv/bin/pip install --prefix /usr zuul==2.6.0
+
+# NOTE(pabelanger): This is only done as part of our zuulv3 migration, we expect
+# to be deleting these elements shortly
+virtualenv /usr/zuul-env
+/usr/zuul-env/bin/pip install zuul==2.6.0
