@@ -81,7 +81,7 @@ diskimages:
 
 labels:
   - name: rdo-centos-7
-    min-ready: 2
+    min-ready: 1
     image: rdo-centos-7
     providers:
       - name: rdo-cloud
@@ -114,7 +114,7 @@ providers:
     boot-timeout: 240
     clean-floating-ips: true
     cloud: rdo-cloud
-    max-servers: 30
+    max-servers: 25
     pool: public
     rate: 0.25
     networks:
