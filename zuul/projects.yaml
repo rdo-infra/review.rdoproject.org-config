@@ -3793,12 +3793,10 @@ projects:
   - name: rdo-infra/fedora-stable-config
     check:
       - fedora-stable-repoclosure
-      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
-      # - fedora-stable-image-build-nv
+      - fedora-stable-image-build-nv
     gate:
       - fedora-stable-repoclosure
-      # Disable until we have workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1576926
-      # - fedora-stable-image-build-nv
+      - fedora-stable-image-build-nv
 
   - name: rdo-infra/ansible-role-rdo-kolla-build
     check:
