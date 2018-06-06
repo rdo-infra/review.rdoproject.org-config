@@ -7,6 +7,546 @@
         - noop
 
 - project:
+    name: rdo-infra/ansible-role-weirdo-common
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
+    name: rdo-infra/ansible-role-weirdo-kolla
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
+    name: rdo-infra/ansible-role-weirdo-logs
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
+    name: rdo-infra/ansible-role-weirdo-packstack
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
+    name: rdo-infra/ansible-role-weirdo-puppet-openstack
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
+    name: rdo-infra/weirdo
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+        - legacy-weirdo-integration-newton-packstack-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-pike-packstack-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-master-packstack-scenario003:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-newton-puppet-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-pike-puppet-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario003:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+    experimental:
+      jobs:
+        - legacy-weirdo-integration-newton-packstack-scenario003:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-ocata-packstack-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-pike-packstack-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-master-packstack-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/puppet.*$
+        - legacy-weirdo-integration-newton-puppet-scenario003:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-ocata-puppet-scenario002:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-pike-puppet-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+    gate:
+      jobs:
+        - legacy-weirdo-ansible-lint
+        - legacy-weirdo-docs:
+            files:
+              - ^docs/.*$
+              - ^.*\.rst$
+
+- project:
     name: rdo-jobs
     templates:
       - system-required

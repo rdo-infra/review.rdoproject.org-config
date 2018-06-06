@@ -42,84 +42,6 @@ jobs:
   - name: ^gate-rpmlint$
     branch: ^rpm-master$
 
-  ####
-  # WeIRDO job filters
-  ####
-  # Don't run integration tests for docs and other things
-  - name: ^gate-weirdo-integration-.*$
-    skip-if:
-      - project: rdo-infra/weirdo
-        all-files-match-any:
-          - ^docs/.*$
-          - ^.*README.rst$
-          - ^.gitignore$
-          - ^playbooks/logs-ci-centos.yml$
-      - project: rdo-infra/ansible-role-weirdo-common
-        all-files-match-any:
-          - ^README.rst$
-      - project: rdo-infra/ansible-role-weirdo-logs
-        all-files-match-any:
-          - ^README.rst$
-      - project: rdo-infra/ansible-role-weirdo-kolla
-        all-files-match-any:
-          - ^README.rst$
-      - project: rdo-infra/ansible-role-weirdo-packstack
-        all-files-match-any:
-          - ^README.rst$
-      - project: rdo-infra/ansible-role-weirdo-puppet-openstack
-        all-files-match-any:
-          - ^README.rst$
-
-  # Only run kolla integration jobs for kolla
-  - name: ^gate-weirdo-integration-.*-kolla-.*$
-    voting: false
-    skip-if:
-      - project: rdo-infra/weirdo
-        all-files-match-any:
-          - ^playbooks/kolla.*$
-      - project: rdo-infra/ansible-role-weirdo-packstack
-        all-files-match-any:
-          - ^.*$
-      - project: rdo-infra/ansible-role-weirdo-puppet-openstack
-        all-files-match-any:
-          - ^.*$
-
-  # Only run packstack integration jobs for packstack
-  - name: ^gate-weirdo-integration-.*-packstack-.*$
-    skip-if:
-      - project: rdo-infra/weirdo
-        all-files-match-any:
-          - ^playbooks/puppet.*$
-      - project: rdo-infra/ansible-role-weirdo-kolla
-        all-files-match-any:
-          - ^.*$
-      - project: rdo-infra/ansible-role-weirdo-puppet-openstack
-        all-files-match-any:
-          - ^.*$
-
-  # Only run puppet-openstack integration jobs for puppet-openstack
-  - name: ^gate-weirdo-integration-.*-puppet-.*$
-    skip-if:
-      - project: rdo-infra/weirdo
-        all-files-match-any:
-          - ^playbooks/packstack.*$
-      - project: rdo-infra/ansible-role-weirdo-kolla
-        all-files-match-any:
-          - ^.*$
-      - project: rdo-infra/ansible-role-weirdo-packstack
-        all-files-match-any:
-          - ^.*$
-
-  # scenario004 is not ready to gate yet
-  - name: gate-weirdo-integration-master-puppet-scenario004
-    voting: false
-
-  # Only run docs jobs for docs
-  - name: ^gate-weirdo-docs$
-    files:
-      - ^docs/.*$
-      - ^.*\.rst$
-
   # -nv jobs are never voting.
   - name: ^.*-nv$
     voting: false
@@ -154,33 +76,6 @@ project-templates:
       - pike-distgit-cbs-final-build
       - queens-distgit-cbs-final-build
       - common-distgit-cbs-final-build
-
-  - name: weirdo-gate-jobs
-    check:
-      - gate-weirdo-ansible-lint
-      - gate-weirdo-docs
-      - gate-weirdo-integration-newton-packstack-scenario001
-      - gate-weirdo-integration-ocata-packstack-scenario002
-      - gate-weirdo-integration-pike-packstack-scenario002
-      - gate-weirdo-integration-master-packstack-scenario003
-      - gate-weirdo-integration-newton-puppet-scenario001
-      - gate-weirdo-integration-ocata-puppet-scenario002
-      - gate-weirdo-integration-pike-puppet-scenario002
-      - gate-weirdo-integration-master-puppet-scenario003
-      - gate-weirdo-integration-master-puppet-scenario004
-    gate:
-      # TODO: Improve gate coverage once more capacity is available
-      - gate-weirdo-ansible-lint
-      - gate-weirdo-docs
-    experimental:
-      - gate-weirdo-integration-newton-packstack-scenario003
-      - gate-weirdo-integration-ocata-packstack-scenario002
-      - gate-weirdo-integration-pike-packstack-scenario001
-      - gate-weirdo-integration-master-packstack-scenario001
-      - gate-weirdo-integration-newton-puppet-scenario003
-      - gate-weirdo-integration-ocata-puppet-scenario002
-      - gate-weirdo-integration-pike-puppet-scenario001
-      - gate-weirdo-integration-master-puppet-scenario001
 
 projects:
   - name: centos-opstools/kibana
@@ -2520,27 +2415,6 @@ projects:
     template:
       - name: noop
 
-  # Deprecated
-  - name: rdo-infra/ansible-role-weirdo-common
-    template:
-      - name: weirdo-gate-jobs
-
-  - name: rdo-infra/ansible-role-weirdo-kolla
-    template:
-      - name: weirdo-gate-jobs
-
-  - name: rdo-infra/ansible-role-weirdo-logs
-    template:
-      - name: weirdo-gate-jobs
-
-  - name: rdo-infra/ansible-role-weirdo-packstack
-    template:
-      - name: weirdo-gate-jobs
-
-  - name: rdo-infra/ansible-role-weirdo-puppet-openstack
-    template:
-      - name: weirdo-gate-jobs
-
   - name: rdo-infra/centos-release-openstack
     template:
       - name: noop
@@ -2575,10 +2449,6 @@ projects:
   - name: rdo-infra/test-day-tools
     template:
       - name: noop
-
-  - name: rdo-infra/weirdo
-    template:
-      - name: weirdo-gate-jobs
 
   - name: rdo_gating_scripts
     template:
