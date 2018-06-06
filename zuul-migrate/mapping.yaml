@@ -17,8 +17,8 @@ job-mapping:
   - old: noop
     new: noop
 
-  - old: gate-tox-ansible-lint
-    new: tox-ansible-lint
+  - old: ^(centos-opstools-tox|gate-tox-ansible-lint)
+    new: tox-linters
 
   - old: gate-tox-docs
     new: tox-docs
@@ -26,15 +26,27 @@ job-mapping:
   - old: tox-flake8
     new: tox-flake8
 
+# Suffixes to strip from the final new name from the old ones
+strip-suffixes:
+  - nv
+
 skip-macros:
   - rdo-log-setup
   - rdo-rsync-logs
 
 projects:
+  - centos-opstools/opstools-ansible
+  - rdo-infra/ansible-role-logserver
+  - rdo-infra/ansible-role-rdo-base
+  - rdo-infra/ansible-role-rdo-bot
+  - rdo-infra/ansible-role-rdo_dashboards
+  - rdo-infra/ansible-role-rdo-kolla-build
+  - rdo-infra/ansible-role-rdomonitoring
   - rdo-infra/ansible-role-weirdo-common
   - rdo-infra/ansible-role-weirdo-logs
   - rdo-infra/ansible-role-weirdo-kolla
   - rdo-infra/ansible-role-weirdo-packstack
   - rdo-infra/ansible-role-weirdo-puppet-openstack
+  - rdo-infra/rdo-infra-playbooks
   - rdo-infra/weirdo
   - rdo-jobs

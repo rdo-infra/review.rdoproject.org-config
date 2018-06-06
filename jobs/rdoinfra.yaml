@@ -148,9 +148,11 @@
                 sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - rdo-rsync-logs
+      - devstack-logs
     node: rdo-centos-7
     wrappers:
+      - build-timeout:
+          timeout: '90'
       - timestamps
       - credentials-binding:
         - file:
@@ -394,7 +396,7 @@
                   sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - rdo-rsync-logs
+      - devstack-logs
     node: '{image}'
     wrappers:
       - timestamps
