@@ -265,7 +265,7 @@
           popd
 
 - builder:
-    name: fedora-stable-sync-repoclosure
+    name: fedora-stable-sync
     builders:
       - shell: |
           set -e
@@ -304,13 +304,21 @@
           fi
           echo "INFO: Running synchronization using sinkhole"
           sinkhole --config fedora_config config_file
-          echo "INFO: Running repoclosure"
-          dnf clean all
-          repoquery --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
-          repoclosure --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp
           if [ -f $OUTPUT_DIR/comps*xml ];then
               rm $OUTPUT_DIR/comps*xml
           fi
+
+- builder:
+    name: fedora-stable-repoclosure
+    builders:
+      - shell: |
+          set -e
+          cd $ZUUL_PROJECT
+          OUTPUT_DIR=$(grep output_dir fedora_config | cut -d= -f2 | tr -d '[:space:]')
+          dnf clean all
+          repoquery --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp -q -a > $WORKSPACE/logs/repoquery_output.txt
+          echo "INFO: Running repoclosure"
+          repoclosure --repofrompath=temp,file://${OUTPUT_DIR} --disablerepo='*' --enablerepo=temp
 
 - builder:
     name: sinkhole-integration-test
@@ -546,7 +554,8 @@
     builders:
       - rdo-prepare-workspace
       - rdo-log-setup
-      - fedora-stable-sync-repoclosure
+      - fedora-stable-sync
+      - fedora-stable-repoclosure
     triggers:
       - zuul
     publishers:
@@ -566,7 +575,7 @@
     builders:
       - rdo-prepare-workspace
       - rdo-log-setup
-      - fedora-stable-sync-repoclosure
+      - fedora-stable-sync
       - fedora-stable-dib
     triggers:
       - zuul
