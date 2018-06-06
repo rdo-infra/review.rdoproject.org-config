@@ -26,11 +26,21 @@ job-mapping:
   - old: tox-flake8
     new: tox-flake8
 
+# Suffixes to strip from the final new name from the old ones
+strip-suffixes:
+  - nv
+
 skip-macros:
   - rdo-log-setup
   - rdo-rsync-logs
 
 projects:
+  - rdo-infra/ansible-role-logserver
+  - rdo-infra/ansible-role-rdo-base
+  - rdo-infra/ansible-role-rdo-bot
+  - rdo-infra/ansible-role-rdo_dashboards
+  - rdo-infra/ansible-role-rdo-kolla-build
+  - rdo-infra/ansible-role-rdomonitoring
   - rdo-infra/ansible-role-weirdo-common
   - rdo-infra/ansible-role-weirdo-logs
   - rdo-infra/ansible-role-weirdo-kolla
