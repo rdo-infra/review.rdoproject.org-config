@@ -26,7 +26,10 @@
           echo "Clean workspace"
           rm -Rf ./*
           echo "Clone $ZUUL_PROJECT"
-          /usr/zuul-env/bin/zuul-cloner https://review.rdoproject.org/r $ZUUL_PROJECT
+          # zuul-cloner is installed as /usr/zuul-env/bin/zuul-cloner
+          # in nodepool images
+          export PATH=$PATH:/usr/zuul-env/bin
+          zuul-cloner https://review.rdoproject.org/r $ZUUL_PROJECT
 
 
 ## Useful job template
