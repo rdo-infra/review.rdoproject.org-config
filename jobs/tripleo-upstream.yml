@@ -809,7 +809,8 @@
           timeout: 180
       - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset030'
-          release: master
+          release:
+            - master
           suffix: ''
           type: 'periodic-multinode-1ctlr-featureset030'
           node: upstream-centos-7-2-node
