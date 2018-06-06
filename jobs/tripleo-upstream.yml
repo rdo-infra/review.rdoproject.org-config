@@ -849,10 +849,20 @@
             - zuul
           branch-override: 'stable/{release}'
           timeout: 180
+      - 'periodic-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-multinode-1ctlr-featureset031'
+          release: master
+          suffix: ''
+          type: 'periodic-multinode-1ctlr-featureset031'
+          node: upstream-centos-7-2-node
+          triggers:
+            - zuul
+          branch-override: default
+          timeout: 180
       - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset036-oc-ffu'
           release: queens
-          suffix: '-nv'
+      i    suffix: '-nv'
           type: 'multinode-1ctlr-featureset036'
           node: upstream-centos-7-2-node
           trigger: gate
