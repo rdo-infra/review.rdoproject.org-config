@@ -341,16 +341,15 @@
           popd
 
 - builder:
-    name: fedora-stable-imagefactory
+    name: fedora-stable-dib
     builders:
       - shell: |
           set -e
           mkdir -p $WORKSPACE/logs
           cd $ZUUL_PROJECT
           OUTPUT_DIR=$(grep output_dir fedora_config | cut -d= -f2 | tr -d '[:space:]')
-          if [ -d imagefactory ]; then
-              cd imagefactory
-              sudo bash -x build-image.sh $OUTPUT_DIR
+          if [ -d images/dib ]; then
+              bash -x images/dib/build-image-dib.sh $OUTPUT_DIR
           fi
 
 - job-template:
@@ -557,12 +556,12 @@
       - rdo-prepare-workspace
       - rdo-log-setup
       - fedora-stable-sync-repoclosure
-      - fedora-stable-imagefactory
+      - fedora-stable-dib
     triggers:
       - zuul
     publishers:
       - rdo-rsync-logs
-    node: rdo-fedora-26
+    node: rdo-centos-7
     wrappers:
       - timestamps
       - credentials-binding:
