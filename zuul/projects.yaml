@@ -2399,18 +2399,6 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: rdo-infra/ansible-role-logserver
-    template:
-      - name: noop
-
-  - name: rdo-infra/ansible-role-rdo_dashboards
-    template:
-      - name: noop
-
-  - name: rdo-infra/ansible-role-rdomonitoring
-    template:
-      - name: noop
-
   - name: rdo-infra/centos-release-openstack
     template:
       - name: noop
@@ -3642,18 +3630,6 @@ projects:
       - centos-opstools-rpmbuild
       - centos-opstools-sensu-common-distgit-cbs-final-build
 
-  - name: centos-opstools/opstools-ansible
-    check:
-      - centos-opstools-tox
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-      - rdo-infra-playbooks-integration-sensu-client-nv
-      - rdo-infra-playbooks-integration-sensu-server-nv
-    gate:
-      - centos-opstools-tox
-      - centos-opstools-rpmlint
-      - centos-opstools-rpmbuild
-
   - name: rdo-infra/fedora-stable-config
     check:
       - fedora-stable-repoclosure
@@ -3661,13 +3637,6 @@ projects:
     gate:
       - fedora-stable-repoclosure
       - fedora-stable-image-build
-
-  - name: rdo-infra/ansible-role-rdo-kolla-build
-    check:
-      - gate-tox-ansible-lint
-      - gate-rdo-kolla-build-containers
-    gate:
-      - gate-tox-ansible-lint
 
   - name: rdo-infra/rdo-container-registry
     check:
@@ -3688,36 +3657,6 @@ projects:
       - puppet-lint
       - puppet-syntax
       - puppet-spec
-
-  - name: rdo-infra/ansible-role-rdo-base
-    check:
-      - gate-tox-ansible-lint
-      - rdo-infra-playbooks-integration-base
-    gate:
-      - gate-tox-ansible-lint
-      - rdo-infra-playbooks-integration-base
-
-  # TODO: Only run these jobs when required
-  - name: rdo-infra/rdo-infra-playbooks
-    check:
-      - gate-tox-ansible-lint
-      - rdo-infra-playbooks-integration-base
-      - rdo-infra-playbooks-integration-logserver-nv
-      - rdo-infra-playbooks-integration-sensu-client
-      - rdo-infra-playbooks-integration-sensu-client-fedora-nv
-      - rdo-infra-playbooks-integration-sensu-server
-    gate:
-      - gate-tox-ansible-lint
-      - rdo-infra-playbooks-integration-base
-      - rdo-infra-playbooks-integration-sensu-client
-      - rdo-infra-playbooks-integration-sensu-server
-
-  - name: rdo-infra/ansible-role-rdo-bot
-    check:
-      - gate-tox-ansible-lint
-      - rdo-infra-playbooks-integration-sensu-server-nv
-    gate:
-      - gate-tox-ansible-lint
 
   - name: rdo-infra/releng
     check:
