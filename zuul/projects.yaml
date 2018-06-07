@@ -78,14 +78,6 @@ project-templates:
       - common-distgit-cbs-final-build
 
 projects:
-  - name: centos-opstools/kibana
-    template:
-      - name: noop
-
-  - name: gating_scripts
-    template:
-      - name: noop
-
   - name: openstack/UcsSdk
     template:
       - name: package-check-jobs
@@ -2399,26 +2391,6 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: rdo-infra/centos-release-openstack
-    template:
-      - name: noop
-
-  - name: rdo-infra/example-distgit
-    template:
-      - name: noop
-
-  - name: rdo-infra/rdo-dashboards
-    template:
-      - name: noop
-
-  - name: rdo-infra/rdo-release
-    template:
-      - name: noop
-
-  - name: rdo-infra/rdobot
-    template:
-      - name: noop
-
   - name: rdo-infra/sinkhole
     check:
       - fedora-sinkhole-functional
@@ -2426,24 +2398,6 @@ projects:
     gate:
       - fedora-sinkhole-functional
       - centos-sinkhole-functional
-
-  # Deprecated
-  - name: rdo-infra/test-day-tools
-    template:
-      - name: noop
-
-  - name: rdo_gating_scripts
-    template:
-      - name: noop
-
-  - name: testbranching
-    template:
-      - name: noop
-
-  # project for testing new tests
-  - name: testproject
-    template:
-      - name: noop
 
   - name: centos-opstools/opstools-doc
     check:
