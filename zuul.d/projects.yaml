@@ -7,6 +7,77 @@
         - noop
 
 - project:
+    name: centos-opstools/opstools-ansible
+    check:
+      jobs:
+        - tox-linters
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - legacy-rdo-infra-playbooks-integration-sensu-client:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-server:
+            voting: false
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - tox-linters
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+
+- project:
+    name: rdo-infra/ansible-role-logserver
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/ansible-role-rdo-base
+    check:
+      jobs:
+        - tox-linters
+        - legacy-rdo-infra-playbooks-integration-base
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+        - legacy-rdo-infra-playbooks-integration-base
+
+- project:
+    name: rdo-infra/ansible-role-rdo-bot
+    check:
+      jobs:
+        - tox-linters
+        - legacy-rdo-infra-playbooks-integration-sensu-server:
+            voting: false
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+
+- project:
+    name: rdo-infra/ansible-role-rdo-kolla-build
+    check:
+      jobs:
+        - tox-linters
+        - legacy-rdo-kolla-build-containers
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+
+- project:
+    name: rdo-infra/ansible-role-rdo_dashboards
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/ansible-role-rdomonitoring
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: rdo-infra/ansible-role-weirdo-common
     templates:
       - system-required
@@ -404,6 +475,30 @@
             files:
               - ^docs/.*$
               - ^.*\.rst$
+
+- project:
+    name: rdo-infra/rdo-infra-playbooks
+    check:
+      jobs:
+        - tox-linters
+        - legacy-rdo-infra-playbooks-integration-base
+        - legacy-rdo-infra-playbooks-integration-logserver:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-client:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-client-fedora:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-server:
+            voting: false
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+        - legacy-rdo-infra-playbooks-integration-base
+        - legacy-rdo-infra-playbooks-integration-sensu-client:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-server:
+            voting: false
 
 - project:
     name: rdo-infra/weirdo
