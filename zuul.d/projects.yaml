@@ -7,7 +7,15 @@
         - noop
 
 - project:
+    name: centos-opstools/kibana
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: centos-opstools/opstools-ansible
+    templates:
+      - system-required
     check:
       jobs:
         - tox-linters
@@ -25,6 +33,12 @@
         - legacy-centos-opstools-rpmbuild
 
 - project:
+    name: gating_scripts
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: rdo-infra/ansible-role-logserver
     templates:
       - noop
@@ -32,6 +46,8 @@
 
 - project:
     name: rdo-infra/ansible-role-rdo-base
+    templates:
+      - system-required
     check:
       jobs:
         - tox-linters
@@ -44,6 +60,8 @@
 
 - project:
     name: rdo-infra/ansible-role-rdo-bot
+    templates:
+      - system-required
     check:
       jobs:
         - tox-linters
@@ -56,6 +74,8 @@
 
 - project:
     name: rdo-infra/ansible-role-rdo-kolla-build
+    templates:
+      - system-required
     check:
       jobs:
         - tox-linters
@@ -477,7 +497,27 @@
               - ^.*\.rst$
 
 - project:
+    name: rdo-infra/centos-release-openstack
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/example-distgit
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/rdo-dashboards
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: rdo-infra/rdo-infra-playbooks
+    templates:
+      - system-required
     check:
       jobs:
         - tox-linters
@@ -499,6 +539,24 @@
             voting: false
         - legacy-rdo-infra-playbooks-integration-sensu-server:
             voting: false
+
+- project:
+    name: rdo-infra/rdo-release
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/rdobot
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: rdo-infra/test-day-tools
+    templates:
+      - noop
+      - system-required
 
 - project:
     name: rdo-infra/weirdo
@@ -644,4 +702,22 @@
 - project:
     name: rdo-jobs
     templates:
+      - system-required
+
+- project:
+    name: rdo_gating_scripts
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: testbranching
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: testproject
+    templates:
+      - noop
       - system-required

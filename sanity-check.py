@@ -50,6 +50,13 @@ IGNORED_PROJECTS = {
         'rdo-jobs',
         'testbranching',
         'testproject',
+        'centos-opstools/kibana',
+        'rdo-infra/centos-release-openstack',
+        'rdo-infra/example-distgit',
+        'rdo-infra/rdo-dashboards',
+        'rdo-infra/rdo-release',
+        'rdo-infra/rdobot',
+        'rdo-infra/test-day-tools',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
