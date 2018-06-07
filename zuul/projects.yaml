@@ -2563,13 +2563,11 @@ projects:
 
   - name: rdo-infra/sinkhole
     check:
-      - noop
-      - fedora-sinkhole-functional-nv
-      - centos-sinkhole-functional-nv
+      - fedora-sinkhole-functional
+      - centos-sinkhole-functional
     gate:
-      - noop
-      - fedora-sinkhole-functional-nv
-      - centos-sinkhole-functional-nv
+      - fedora-sinkhole-functional
+      - centos-sinkhole-functional
 
   # Deprecated
   - name: rdo-infra/test-day-tools
