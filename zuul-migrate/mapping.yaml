@@ -1,7 +1,7 @@
 # default-node tells the migration script which node the new base job
 # uses. The migration script reads label names from the nodepool config and
 # replaces node names in jobs with node variants.
-default-node: dib-centos-7
+default-node: rdo-centos-7
 # List of job mapping data. In each entry:
 # old
 #    matches v2 job names. If it starts with a ^ it's a regex. if it doesn't
@@ -36,6 +36,7 @@ projects:
   - centos-opstools/opstools-ansible
   - gating_scripts
   - rdo_gating_scripts
+  - rdoinfo
   - rdo-infra/ansible-role-logserver
   - rdo-infra/ansible-role-rdo-base
   - rdo-infra/ansible-role-rdo-bot
