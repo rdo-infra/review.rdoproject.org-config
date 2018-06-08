@@ -17,14 +17,11 @@ job-mapping:
   - old: noop
     new: noop
 
-  - old: ^(centos-opstools-tox|gate-tox-ansible-lint)
+  - old: ^(centos-opstools-tox|gate-tox-ansible-lint|tox-flake8)
     new: tox-linters
 
   - old: gate-tox-docs
     new: tox-docs
-
-  - old: tox-flake8
-    new: tox-flake8
 
 # Suffixes to strip from the final new name from the old ones
 strip-suffixes:
@@ -53,9 +50,12 @@ projects:
   - rdo-infra/centos-release-openstack
   - rdo-infra/example-distgit
   - rdo-infra/rdobot
+  - rdo-infra/rdo-container-registry
   - rdo-infra/rdo-dashboards
   - rdo-infra/rdo-infra-playbooks
+  - rdo-infra/puppet-dlrn
   - rdo-infra/rdo-release
+  - rdo-infra/releng
   - rdo-infra/test-day-tools
   - rdo-infra/weirdo
   - rdo-jobs

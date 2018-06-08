@@ -508,7 +508,7 @@
                   sudo chown -R "$(id -u).$(id -g)" $WORKSPACE/logs
           script-only-if-succeeded: False
           script-only-if-failed: False
-      - rdo-rsync-logs
+      - devstack-logs
     node: rdo-centos-7
     wrappers:
       - timestamps
