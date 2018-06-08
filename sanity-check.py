@@ -57,6 +57,9 @@ IGNORED_PROJECTS = {
         'rdo-infra/rdo-release',
         'rdo-infra/rdobot',
         'rdo-infra/test-day-tools',
+        'rdo-infra/puppet-dlrn',
+        'rdo-infra/rdo-container-registry',
+        'rdo-infra/releng',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
