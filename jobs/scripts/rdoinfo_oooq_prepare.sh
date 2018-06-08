@@ -34,7 +34,13 @@ ZUUL_REF=$(echo $ZUUL_REF |cut -f4 -d /)
 job="validate-buildsys-tags"
 LOG_PATH="$BASE_LOG_PATH/$ZUUL_PIPELINE/$job/$ZUUL_REF"
 logs="https://logs.rdoproject.org/$LOG_PATH/"
-# If we couldn't find a working repository, give up
+
+# NOTE(pabelanger): Override logs for zuulv3 jobs.
+if [[ -d /home/zuul ]]; then
+    logs={{{{ buildset_artifacts_url }}}}
+fi
+
+# If we could not find a working repository, give up
 curl -o $CREPOS_FILE -sf "$logs/repos/changed_repos.txt" || exit 1
 
 for tag in $O_RELEASE $C_RELEASE
@@ -68,10 +74,10 @@ function create_config(){{
     echo "ipa_image_url: http://images.rdoproject.org/$RELEASE/rdo_trunk/current-tripleo/ironic-python-agent.tar"
     echo "images:"
     echo "  - name: overcloud-full"
-    echo "    url: \"{{{{ overcloud_image_url }}}}\""
+    echo "    url: http://images.rdoproject.org/$RELEASE/rdo_trunk/current-tripleo/overcloud-full.tar"
     echo "    type: tar"
     echo "  - name: ipa_images"
-    echo "    url: \"{{{{ ipa_image_url }}}}\""
+    echo "    url: http://images.rdoproject.org/$RELEASE/rdo_trunk/current-tripleo/ironic-python-agent.tar"
     echo "    type: tar"
     echo "repo_cmd_before: |"
     echo "  sudo yum remove -y rdo-release centos-release-openstack-* centos-release-ceph-* || true;"
