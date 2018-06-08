@@ -40,6 +40,7 @@
           bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
           bash ./validate_updates.sh $WORKSPACE/logs
           popd
+          ln -s logs buildset
 
 - builder:
     name: find-dependencies-rebuilds
@@ -208,6 +209,7 @@
           exit $ret
     publishers:
       - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -491,6 +493,7 @@
       - validate-buildsys-tags
     publishers:
       - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -559,6 +562,7 @@
           exit $FAILED
     publishers:
       - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -615,6 +619,7 @@
           exit $FAILED
     publishers:
       - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -655,7 +660,11 @@
           export PARENT_JOB="validate-buildsys-tags"
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags
-          bash ./launch_weirdo_jobs.sh
+          # NOTE(pabelanger): Override logs for zuulv3 jobs.
+          if [[ -d /home/zuul ]]; then
+              export logs={{ buildset_artifacts_url }}
+          fi
+          bash -x ./launch_weirdo_jobs.sh
           popd
     triggers:
       - zuul
@@ -717,6 +726,7 @@
 
     publishers:
       - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -889,6 +899,7 @@
     publishers:
       - collect-tripleo-logs
       - rdo-rsync-logs
+      - devstack-logs
 
 - project:
     name: gate-rdoinfo-tripleo-quickstart
