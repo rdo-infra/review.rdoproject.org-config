@@ -509,6 +509,37 @@
       - system-required
 
 - project:
+    name: rdo-infra/puppet-dlrn
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-puppet-lint
+        - legacy-puppet-syntax
+        - legacy-puppet-spec
+    gate:
+      jobs:
+        - legacy-puppet-lint
+        - legacy-puppet-syntax
+        - legacy-puppet-spec
+
+- project:
+    name: rdo-infra/rdo-container-registry
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - tox-docs
+        - legacy-rdo-registry-integration
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+        - tox-docs
+        - legacy-rdo-registry-integration
+
+- project:
     name: rdo-infra/rdo-dashboards
     templates:
       - noop
@@ -551,6 +582,18 @@
     templates:
       - noop
       - system-required
+
+- project:
+    name: rdo-infra/releng
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+    gate:
+      queue: whitebox-tempest-plugin
+      jobs:
+        - tox-linters
 
 - project:
     name: rdo-infra/test-day-tools
