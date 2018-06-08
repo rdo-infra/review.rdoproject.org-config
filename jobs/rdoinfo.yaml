@@ -40,6 +40,7 @@
           bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
           bash ./validate_updates.sh $WORKSPACE/logs
           popd
+          ln -s logs buildset
 
 - builder:
     name: find-dependencies-rebuilds
@@ -207,7 +208,7 @@
           cp -a DLRN/logs/* logs/
           exit $ret
     publishers:
-      - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -490,7 +491,7 @@
       - rdo-log-setup
       - validate-buildsys-tags
     publishers:
-      - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -655,7 +656,11 @@
           export PARENT_JOB="validate-buildsys-tags"
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags
-          bash ./launch_weirdo_jobs.sh
+          # NOTE(pabelanger): Override logs for zuulv3 jobs.
+          if [[ -d /home/zuul ]]; then
+              export logs={{ buildset_artifacts_url }}
+          fi
+          bash -ex ./launch_weirdo_jobs.sh
           popd
     triggers:
       - zuul
