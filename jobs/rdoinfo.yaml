@@ -207,7 +207,7 @@
           cp -a DLRN/logs/* logs/
           exit $ret
     publishers:
-      - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -490,7 +490,7 @@
       - rdo-log-setup
       - validate-buildsys-tags
     publishers:
-      - rdo-rsync-logs
+      - devstack-logs
     triggers:
       - zuul
     wrappers:
@@ -655,7 +655,15 @@
           export PARENT_JOB="validate-buildsys-tags"
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags
-          bash ./launch_weirdo_jobs.sh
+          if [ -z $BASE_LOG_PATH ]; then
+            # NOTE(pabelanger): We are running under zuulv3 here, so setup some
+            # missing variables. Obviously this should be cleaned up after we
+            # migrate.
+            export BASE_LOG_PATH={{ zuul.change[-2:] }}/{{ zuul.change }}/{{ zuul.patchset }}
+            export JOB_NAME=legacy-validate-buildsys-tags
+            export ZUUL_REF={{ zuul.build[:7] }}
+          fi
+          bash -ex ./launch_weirdo_jobs.sh
           popd
     triggers:
       - zuul
@@ -833,7 +841,7 @@
       - 'rdoinfo-buildsys-tags-update-{release}-{phase}'
 
 - job-template:
-    name: 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}'
+    name: 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}'
     node: '{node}'
     wrappers:
       - build-timeout:
@@ -893,7 +901,7 @@
 - project:
     name: gate-rdoinfo-tripleo-quickstart
     jobs:
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset016'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset016'
@@ -904,7 +912,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-singlenode-featureset023'
           suffix: '-nv'
           type: 'gate-singlenode-featureset023'
@@ -915,7 +923,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-singlenode-featureset023'
           suffix: '-nv'
           type: 'gate-singlenode-featureset023'
@@ -926,7 +934,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset006'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset006'
@@ -937,7 +945,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset006'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset006'
@@ -948,7 +956,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset005'
@@ -959,7 +967,7 @@
             - zuul
           branch-override: default
           timeout: 180
-      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}{suffix}':
+      - 'rdoinfo-tripleo-{openstack_release}-{buildsys_phase}-{jobname}-{node}{suffix}':
           jobname: 'centos-7-multinode-1ctlr-featureset005'
           suffix: '-nv'
           type: 'gate-multinode-1ctlr-featureset005'
