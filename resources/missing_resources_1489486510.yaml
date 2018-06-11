@@ -247,32 +247,6 @@ resources:
       - rdo-infra/ci-config-ptl
       - rdo-ci-ptl
       - rdo-ci-core
-    985bd7b183f7754a0ac231b7b23f9b9e:
-      file: |
-        [access "refs/*"]
-          read = group rdo-infra/ansible-role-rdo-kolla-build-core
-          owner = group rdo-infra/ansible-role-rdo-kolla-build-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-infra/ansible-role-rdo-kolla-build-core
-            label-Code-Review = -2..+2 group rdo-infra/ansible-role-rdo-kolla-build-ptl
-            label-Verified = -2..+2 group rdo-infra/ansible-role-rdo-kolla-build-ptl
-            label-Workflow = -1..+1 group rdo-infra/ansible-role-rdo-kolla-build-core
-            label-Workflow = -1..+1 group rdo-infra/ansible-role-rdo-kolla-build-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-infra/ansible-role-rdo-kolla-build-ptl
-            read = group rdo-infra/ansible-role-rdo-kolla-build-core
-            read = group Registered Users
-        [access "refs/meta/config"]
-            read = group rdo-infra/ansible-role-rdo-kolla-build-core
-            read = group Registered Users
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = fast forward only
-      groups:
-      - rdo-infra/ansible-role-rdo-kolla-build-core
-      - rdo-infra/ansible-role-rdo-kolla-build-ptl
     9afb7bc027afc82a3824527e1114349a:
       file: |
         [access "refs/*"]
@@ -429,14 +403,6 @@ resources:
       members:
       - alan.pevec@redhat.com
       - admin@review.rdoproject.org
-    rdo-infra/ansible-role-rdo-kolla-build-core:
-      description: Core developers for project rdo-infra/ansible-role-rdo-kolla-build
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ansible-role-rdo-kolla-build-ptl:
-      description: Project team lead for project rdo-infra/ansible-role-rdo-kolla-build
-      members:
-      - admin@review.rdoproject.org
     rdo-infra/ansible-role-rdo_dashboards-core:
       description: Core developers for project rdo-infra/ansible-role-rdo_dashboards
       members:
@@ -545,9 +511,6 @@ resources:
     rdo:
       acl: 9afb7bc027afc82a3824527e1114349a
       description: Virtual project
-    rdo-infra/ansible-role-rdo-kolla-build:
-      acl: 985bd7b183f7754a0ac231b7b23f9b9e
-      description: ''
     rdo-infra/ansible-role-rdo_dashboards:
       acl: 8cec1c71a402347fc376e3be37cf74f5
       description: ''
