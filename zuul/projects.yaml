@@ -53,12 +53,6 @@ project-templates:
     gate:
       - noop
 
-  - name: package-check-jobs
-    check:
-      - tox-validate
-    gate:
-      - tox-validate
-
   - name: package-distgit-check-jobs
     check:
       - DLRN-rpmbuild:
@@ -78,145 +72,53 @@ project-templates:
       - common-distgit-cbs-final-build
 
 projects:
-  - name: openstack/UcsSdk
-    template:
-      - name: package-check-jobs
-
   - name: openstack/UcsSdk-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ansible-pacemaker
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ansible-pacemaker-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ansible-role-container-registry
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ansible-role-container-registry-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ansible-role-redhat-subscription
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ansible-role-redhat-subscription-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ansible-role-tripleo-modify-image
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ansible-role-tripleo-modify-image-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/aodh
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/aodhclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/app-catalog-ui
-    template:
-      - name: package-check-jobs
 
   - name: openstack/app-catalog-ui-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/automaton
-    template:
-      - name: package-check-jobs
-
   - name: openstack/automaton-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/barbican
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/barbican-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/barbican-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/barbicanclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/castellan
-    template:
-      - name: package-check-jobs
-
   - name: openstack/castellan-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ceilometer
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/ceilometerclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/ceilometermiddleware
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/cinder
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/cinder-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/cinder-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/cinderclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/cisco-ironic-contrib
-    template:
-      - name: package-check-jobs
-
   - name: openstack/cisco-ironic-contrib-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/cliff
-    template:
-      - name: package-check-jobs
-
   - name: openstack/cliff-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/cloudkitty
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/cloudkitty-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/cloudkitty-dashboard-distgit
     template:
@@ -226,77 +128,37 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/cloudkittyclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/cloudkittyclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/collectd-ceilometer-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/collectd-ceilometer-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/collectd-gnocchi
-    template:
-      - name: package-check-jobs
-
   - name: openstack/collectd-gnocchi-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/congress
-    template:
-      - name: package-check-jobs
 
   - name: openstack/congress-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/congress-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/congress-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/congressclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/congressclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/cursive
-    template:
-      - name: package-check-jobs
-
   - name: openstack/cursive-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/debtcollector
-    template:
-      - name: package-check-jobs
-
   - name: openstack/debtcollector-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/designate
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/designate-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/designate-dashboard-distgit
     template:
@@ -306,17 +168,9 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/designate-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/designate-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/designateclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/designateclient-distgit
     template:
@@ -330,137 +184,57 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/django_openstack_auth
-    template:
-      - name: package-check-jobs
-
   - name: openstack/django_openstack_auth-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/dracclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/dracclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ec2-api
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ec2-api-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ec2api-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ec2api-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/futurist
-    template:
-      - name: package-check-jobs
-
   - name: openstack/futurist-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/glance_store
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/glanceclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/glare
-    template:
-      - name: package-check-jobs
 
   - name: openstack/glare-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/glareclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/glareclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/gnocchi
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/gnocchiclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/hacking
-    template:
-      - name: package-check-jobs
 
   - name: openstack/hacking-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/hardware
-    template:
-      - name: package-check-jobs
-
   - name: openstack/hardware-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/heat-agents
-    template:
-      - name: package-check-jobs
 
   - name: openstack/heat-agents-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/heat-dashboard
-    template:
-      - name: package-check-jobs
-
   - name: openstack/heat-dashboard-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/heat-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/heat-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/heat-templates
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/heat-translator
-    template:
-      - name: package-check-jobs
-
   - name: openstack/heat-translator-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/heatclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/horizon
-    template:
-      - name: package-check-jobs
 
   - name: openstack/instack-distgit
     template:
@@ -474,10 +248,6 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ironic-inspector-client
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ironic-inspector-client-distgit
     template:
       - name: package-distgit-check-jobs
@@ -485,10 +255,6 @@ projects:
   - name: openstack/ironic-inspector-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ironic-lib
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ironic-lib-distgit
     template:
@@ -498,53 +264,25 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ironic-staging-drivers
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ironic-staging-drivers-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ironic-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ironic-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ironic-ui
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ironic-ui-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/ironicclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/ironicclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/k8sclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/k8sclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/karbor
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/karbor-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/karbor-dashboard-distgit
     template:
@@ -554,153 +292,69 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/karborclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/karborclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/keystone
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/keystone-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/keystone-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/keystoneauth1
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/keystoneclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/keystonemiddleware
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/kolla
-    template:
-      - name: package-check-jobs
-
   - name: openstack/kolla-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/kuryr
-    template:
-      - name: package-check-jobs
 
   - name: openstack/kuryr-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/kuryr-kubernetes
-    template:
-      - name: package-check-jobs
-
   - name: openstack/kuryr-kubernetes-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/kuryr-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/kuryr-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/magnum
-    template:
-      - name: package-check-jobs
-
   - name: openstack/magnum-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/magnum-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/magnum-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/magnum-ui
-    template:
-      - name: package-check-jobs
-
   - name: openstack/magnum-ui-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/magnumclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/magnumclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/manila
-    template:
-      - name: package-check-jobs
-
   - name: openstack/manila-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/manila-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/manila-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/manila-ui
-    template:
-      - name: package-check-jobs
-
   - name: openstack/manila-ui-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/manilaclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/manilaclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/metalsmith
-    template:
-      - name: package-check-jobs
-
   - name: openstack/metalsmith-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/microversion-parse
-    template:
-      - name: package-check-jobs
-
   - name: openstack/microversion-parse-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/mistral-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/mistral-dashboard-distgit
     template:
@@ -710,69 +364,33 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/mistral-extra
-    template:
-      - name: package-check-jobs
-
   - name: openstack/mistral-extra-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/mistral-lib
-    template:
-      - name: package-check-jobs
 
   - name: openstack/mistral-lib-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/mistral-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/mistral-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/mistralclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/mistralclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/monascaclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/monascaclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/mox3
-    template:
-      - name: package-check-jobs
 
   - name: openstack/mox3-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/murano
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/murano-agent
-    template:
-      - name: package-check-jobs
-
   - name: openstack/murano-agent-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/murano-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/murano-dashboard-distgit
     template:
@@ -782,209 +400,89 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/murano-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/murano-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/muranoclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/muranoclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-ansible
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-ansible-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-arista
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-arista-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-bagpipe
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-bagpipe-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-baremetal
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-baremetal-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-bgpvpn
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/networking-bigswitch
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-bigswitch-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-cisco
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-cisco-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-fujitsu
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-fujitsu-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-generic-switch
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-generic-switch-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-l2gw
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-l2gw-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-l2gw-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-l2gw-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-mlnx
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-mlnx-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-odl
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-odl-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-ovn
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-ovn-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/networking-sfc
-    template:
-      - name: package-check-jobs
 
   - name: openstack/networking-sfc-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/networking-vsphere
-    template:
-      - name: package-check-jobs
-
   - name: openstack/networking-vsphere-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/neutron-dynamic-routing
-    template:
-      - name: package-check-jobs
 
   - name: openstack/neutron-dynamic-routing-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/neutron-fwaas
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/neutron-lbaas
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/neutron-lbaas-dashboard
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/neutron-lib
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/neutron-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/neutron-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/neutron-vpnaas
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/neutronclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/novaclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/novajoin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/novajoin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/novajoin-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/novajoin-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/octavia-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/octavia-dashboard-distgit
     template:
@@ -994,53 +492,25 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/octavia-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/octavia-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/octaviaclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/octaviaclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/openstack-macros
-    template:
-      - name: package-check-jobs
-
   - name: openstack/openstack-macros-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/openstack-puppet-modules
-    template:
-      - name: package-check-jobs
 
   - name: openstack/openstack-puppet-modules-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/openstack-selinux
-    template:
-      - name: package-check-jobs
-
   - name: openstack/openstack-selinux-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/openstackclient
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/openstacksdk
-    template:
-      - name: package-check-jobs
 
   - name: openstack/openstacksdk-distgit
     template:
@@ -1050,25 +520,9 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/os-brick
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/os-client-config
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/os-cloud-config
-    template:
-      - name: package-check-jobs
-
   - name: openstack/os-collect-config-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/os-faults
-    template:
-      - name: package-check-jobs
 
   - name: openstack/os-faults-distgit
     template:
@@ -1082,201 +536,61 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/os-service-types
-    template:
-      - name: package-check-jobs
-
   - name: openstack/os-service-types-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/os-testr
-    template:
-      - name: package-check-jobs
 
   - name: openstack/os-testr-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/os-traits
-    template:
-      - name: package-check-jobs
-
   - name: openstack/os-traits-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/os-vif
-    template:
-      - name: package-check-jobs
 
   - name: openstack/os-vif-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/os-win
-    template:
-      - name: package-check-jobs
-
   - name: openstack/os-win-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/os-xenapi
-    template:
-      - name: package-check-jobs
 
   - name: openstack/os-xenapi-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/osc-lib
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-cache
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-concurrency
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-config
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-context
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-db
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-i18n
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-log
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-messaging
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-middleware
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-policy
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-privsep
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-reports
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-rootwrap
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-serialization
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-service
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-sphinx
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-utils
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-versionedobjects
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/oslo-vmware
-    template:
-      - name: package-check-jobs
-
   - name: openstack/oslo-vmware-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/oslotest
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/osops-tools-monitoring-oschecks
-    template:
-      - name: package-check-jobs
 
   - name: openstack/osops-tools-monitoring-oschecks-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/osprofiler
-    template:
-      - name: package-check-jobs
-
   - name: openstack/osprofiler-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/oswin-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/oswin-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/ovsdbapp
-    template:
-      - name: package-check-jobs
-
   - name: openstack/ovsdbapp-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/packstack
-    template:
-      - name: package-check-jobs
 
   - name: openstack/packstack-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/panko
-    template:
-      - name: package-check-jobs
-
   - name: openstack/panko-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/pankoclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/pankoclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/patrole
-    template:
-      - name: package-check-jobs
 
   - name: openstack/patrole-distgit
     template:
@@ -1286,65 +600,29 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/proliantutils
-    template:
-      - name: package-check-jobs
-
   - name: openstack/proliantutils-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/pycadf
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/rally
-    template:
-      - name: package-check-jobs
 
   - name: openstack/rally-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/reno
-    template:
-      - name: package-check-jobs
-
   - name: openstack/reno-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/requestsexceptions
-    template:
-      - name: package-check-jobs
 
   - name: openstack/requestsexceptions-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/rsd-lib
-    template:
-      - name: package-check-jobs
-
   - name: openstack/rsd-lib-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/rsdclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/rsdclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/sahara
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/sahara-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/sahara-dashboard-distgit
     template:
@@ -1354,137 +632,65 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/sahara-image-elements
-    template:
-      - name: package-check-jobs
-
   - name: openstack/sahara-image-elements-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/sahara-tests
-    template:
-      - name: package-check-jobs
 
   - name: openstack/sahara-tests-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/saharaclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/saharaclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/scciclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/scciclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/senlin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/senlin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/senlinclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/senlinclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/shade
-    template:
-      - name: package-check-jobs
-
   - name: openstack/shade-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/shaker
-    template:
-      - name: package-check-jobs
 
   - name: openstack/shaker-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/stevedore
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/sushy
-    template:
-      - name: package-check-jobs
-
   - name: openstack/sushy-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/swift
-    template:
-      - name: package-check-jobs
 
   - name: openstack/swift-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/swift3
-    template:
-      - name: package-check-jobs
-
   - name: openstack/swift3-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/swiftclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/swiftclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tacker
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tacker-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/tackerclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/tackerclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tap-as-a-service
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tap-as-a-service-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/taskflow
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/telemetry-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/telemetry-tempest-plugin-distgit
     template:
@@ -1494,33 +700,17 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tempest-horizon
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tempest-horizon-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/tempest-lib
-    template:
-      - name: package-check-jobs
 
   - name: openstack/tempest-lib-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tempestconf
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tempestconf-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/tooz
-    template:
-      - name: package-check-jobs
 
   - name: openstack/tooz-distgit
     template:
@@ -1529,10 +719,6 @@ projects:
   - name: openstack/tripleo-common-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/tripleo-common-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/tripleo-common-tempest-plugin-distgit
     template:
@@ -1550,10 +736,6 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tripleo-incubator
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tripleo-incubator-distgit
     template:
       - name: package-distgit-check-jobs
@@ -1566,45 +748,21 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tripleo-repos
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tripleo-repos-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/tripleo-ui
-    template:
-      - name: package-check-jobs
 
   - name: openstack/tripleo-ui-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tripleo-validations
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tripleo-validations-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/tripleoclient
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tripleoclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/trove
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/trove-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/trove-dashboard-distgit
     template:
@@ -1614,37 +772,17 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/trove-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/trove-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/troveclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/troveclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/virtualbmc
-    template:
-      - name: package-check-jobs
-
   - name: openstack/virtualbmc-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/vitrage
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/vitrage-dashboard
-    template:
-      - name: package-check-jobs
 
   - name: openstack/vitrage-dashboard-distgit
     template:
@@ -1654,738 +792,321 @@ projects:
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/vitrage-tempest-plugin
-    template:
-      - name: package-check-jobs
-
   - name: openstack/vitrage-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/vitrageclient
-    template:
-      - name: package-check-jobs
 
   - name: openstack/vitrageclient-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/vmware-nsx
-    template:
-      - name: package-check-jobs
-
   - name: openstack/vmware-nsx-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/vmware-nsx-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/vmware-nsx-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/vmware-nsxlib
-    template:
-      - name: package-check-jobs
-
   - name: openstack/vmware-nsxlib-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/watcher
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/watcher-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/watcher-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/wsme
-    template:
-      - name: package-check-jobs
-
   - name: openstack/wsme-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: openstack/zaqar
-    template:
-      - name: package-check-jobs
-
-  - name: openstack/zaqar-tempest-plugin
-    template:
-      - name: package-check-jobs
 
   - name: openstack/zaqar-tempest-plugin-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: openstack/zaqarclient
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-aodh
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-apache
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-archive
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-archive-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-auditd
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-auditd-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-barbican
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-barbican-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-cassandra
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-cassandra-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-ceilometer
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-ceph
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-certmonger
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-certmonger-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-cinder
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-collectd
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-collectd-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-concat
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-congress
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-congress-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-contrail
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-contrail-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-corosync
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-corosync-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-datacat
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-datacat-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-designate
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-designate-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-dns
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-dns-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-ec2api
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-ec2api-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-elasticsearch
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-elasticsearch-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-etcd
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-etcd-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-fdio
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-fdio-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-firewall
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-firewall-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-fluentd
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-fluentd-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-git
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-git-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-glance
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-gnocchi
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-haproxy
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-haproxy-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-heat
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-horizon
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-horizon-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-inifile
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-inifile-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-ipaclient
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-ipaclient-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-ironic
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-ironic-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-java
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-java-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-kafka
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-kafka-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-keepalived
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-keepalived-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-keystone
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-kibana3
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-kibana3-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-kmod
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-kmod-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-lib-file_concat
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-lib-file_concat-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-logstash
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-logstash-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-magnum
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-magnum-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-manila
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-manila-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-memcached
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-memcached-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-midonet
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-midonet-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-midonet_openstack
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-midonet_openstack-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-mistral
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-mistral-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-module-data
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-module-data-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-mongodb
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-murano
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-murano-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-mysql
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-n1k-vsm
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-n1k-vsm-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-neutron
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-nova
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-nssdb
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-nssdb-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-ntp
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-ntp-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-octavia
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-octavia-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-opendaylight
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-opendaylight-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-openstack_extras
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-openstacklib
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-oslo
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-ovn
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-ovn-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-pacemaker
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-pacemaker-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-panko
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-panko-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-powerdns
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-powerdns-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-qdr
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-qdr-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-rabbitmq
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-redis
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-redis-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-remote
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-remote-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-rsync
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-rsync-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-sahara
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-sahara-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-sensu
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-sensu-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-snmp
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-snmp-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-ssh
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-ssh-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-staging
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-staging-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-stdlib
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-swift
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-swift-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-sysctl
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-systemd
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-systemd-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-tacker
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-tacker-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-tempest
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-timezone
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-timezone-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-tomcat
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-tomcat-distgit
     template:
       - name: package-distgit-check-jobs
 
-
   - name: puppet/puppet-tripleo-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-trove
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-trove-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-uchiwa
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-uchiwa-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-vcsrepo
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-vcsrepo-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-veritas_hyperscale
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-veritas_hyperscale-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-vitrage
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-vitrage-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-vlan
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-vlan-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-vswitch
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-vswitch-distgit
     template:
       - name: package-distgit-check-jobs
 
-  - name: puppet/puppet-xinetd
-    template:
-      - name: package-check-jobs
-
   - name: puppet/puppet-xinetd-distgit
     template:
       - name: package-distgit-check-jobs
-
-  - name: puppet/puppet-zaqar
-    template:
-      - name: package-check-jobs
-
-  - name: puppet/puppet-zookeeper
-    template:
-      - name: package-check-jobs
 
   - name: puppet/puppet-zookeeper-distgit
     template:
@@ -3599,13 +2320,6 @@ projects:
     gate:
       - tox-flake8
       - tox-validate
-
-  - name: openstack/octavia
-    template:
-      - name: package-check-jobs
-    periodic:
-      - octavia-build-amphora-master
-      - octavia-build-amphora-queens
 
   - name: rdo-infra/ci-config
     check:
