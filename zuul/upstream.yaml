@@ -87,7 +87,7 @@ pipelines:
   - name: openstack-periodic
     description: Jobs in this queue are triggered to run every few hours.
     manager: IndependentPipelineManager
-    precedence: high
+    precedence: normal
     trigger:
       timer:
         - time: '10 4,12,17,22 * * *'
