@@ -1,0 +1,6 @@
+- job:
+    name: legacy-DLRN-rpmbuild
+    parent: legacy-base
+    run: playbooks/legacy/DLRN-rpmbuild/run.yaml
+    post-run: playbooks/legacy/DLRN-rpmbuild/post.yaml
+    branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
