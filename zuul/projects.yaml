@@ -2330,8 +2330,12 @@ projects:
   - name: rdo-infra/ci-config
     check:
       - tox-jjb
+      - tox-py27
+      - tox-py37
     gate:
       - tox-jjb
+      - tox-py27
+      - tox-py37
     post:
       - publish-cico-jjb
 

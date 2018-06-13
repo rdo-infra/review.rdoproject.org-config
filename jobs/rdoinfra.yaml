@@ -20,6 +20,32 @@
            variable: WEIRDO_TOKEN_FILE
 
 - job:
+    name: 'tox-py27'
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - shell: |
+          set +e -o pipefail
+          cd $ZUUL_PROJECT
+          tox -e py27
+    triggers:
+      - zuul
+    node: rdo-centos-7
+
+- job:
+    name: 'tox-py35'
+    defaults: rdo-global
+    builders:
+      - rdo-prepare-workspace
+      - shell: |
+          set +e -o pipefail
+          cd $ZUUL_PROJECT
+          tox -e py35
+    triggers:
+      - zuul
+    node: rdo-centos-7
+
+- job:
     name: 'publish-cico-jjb'
     defaults: rdo-global
     concurrent: false
