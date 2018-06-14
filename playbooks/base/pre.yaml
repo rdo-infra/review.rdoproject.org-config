@@ -1,4 +1,8 @@
----
+- hosts: localhost
+  roles:
+    - role: emit-job-header
+      zuul_log_url: "https://logs.rdoproject.org"
+
 - hosts: all
   pre_tasks:
     # NOTE(pabelanger): Until we hit the validate-host role, we have a minimal
