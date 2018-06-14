@@ -17,4 +17,5 @@
     - add-build-sshkey
     - prepare-workspace
     - validate-host
-    - configure-mirrors
+    - role: configure-mirrors
+      mirror_fqdn: "mirror.{{ nodepool.region | lower }}.{{ nodepool.cloud | lower }}.rdoproject.org"
