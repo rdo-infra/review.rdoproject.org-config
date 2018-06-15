@@ -1,0 +1,44 @@
+- hosts: all
+  tasks:
+    - shell:
+        cmd: |
+          # TODO(pabelanger): migrate to bindep.txt
+          sudo yum -y install centos-packager createrepo
+
+    - name: Create koji centos cert
+      copy:
+        content: "{{ koji_centos_cert }}"
+        dest: ~/.centos.cert
+
+    - name: Create koji centos server ca
+      copy:
+        content: "{{ koji_centos_server_ca }}"
+        dest: ~/.centos-server-ca.cert
+
+    - name: Create koji centos upload ca
+      copy:
+        content: "{{ koji_centos_server_ca }}"
+        dest: ~/.centos-upload-ca.cert
+
+    - shell:
+        cmd: "./pkg-validate.sh cloud7-openstack-{{ zuul.branch|replace('-rdo', '') }}-el7 cbs"
+        chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
+
+    - shell:
+        cmd: |
+          # First, we create a chroot to be used in the installation
+          sudo mkdir -p /tmp/root/var/lib/rpm
+          sudo rpm --root /tmp/root --initdb
+          sudo yum -y install yum-utils
+          yumdownloader centos-release
+          sudo rpm --root /tmp/root -ivh --nodeps centos-release-*.rpm
+          # rpmfactory-temp-release-1.0-1 is built by the base-pkg-validation builder
+          # It defines two repositories: the newton one (from CBS) and the temporary CBS one that contains
+          # packages we freshly built within that Koji task
+          sudo rpm --root /tmp/root -i /home/jenkins/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm
+          # Packages in the temp repository contained only the packages fetched from CBS
+          # This should list the packages we just build in that Koji task
+          yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
+          pkgs=$(yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
+          # Here we install locally the kust built packages
+          sudo yum install --installroot=/tmp/root -y $pkgs
