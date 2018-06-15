@@ -23,9 +23,25 @@ job-mapping:
   - old: gate-tox-docs
     new: tox-docs
 
+  - old: ^(common|newton|ocata|pike|queens)-distgit-cbs-validate
+    new: distgit-cbs-validate
+
+  - old: ^(common|newton|ocata|pike|queens)-distgit-cbs-final-build
+    new: distgit-cbs-final-build
+
+  - old: DLRN-rpmbuild-fedora
+    new:
+        legacy-DLRN-rpmbuild-fedora:
+          branches: ^(master)|(rpm-master)$
+          nodeset: rdo-fedora-28
+          voting: false
+
 template-mapping:
   - old: package-check-jobs
     new: package-check-jobs
+
+  - old: package-distgit-check-jobs
+    new: package-distgit-check-jobs
 
 # Suffixes to strip from the final new name from the old ones
 strip-suffixes:
