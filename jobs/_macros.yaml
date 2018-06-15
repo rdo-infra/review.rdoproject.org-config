@@ -31,6 +31,10 @@
               source: 'logs/**'
               keep-hierarchy: true
               copy-after-failure: true
+            - target: 'logs/$LOG_PATH'
+              source: 'buildset/**'
+              keep-hierarchy: true
+              copy-after-failure: true
 
 - publisher:
     name: artifacts-dir
