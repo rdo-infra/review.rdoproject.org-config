@@ -73,3 +73,15 @@
           label: rdo-centos-7
     secrets:
       - site_logs
+
+- job:
+    name: distgit-cbs-validate
+    description: |
+      A job to validate cbs builds.
+    final: true
+    run: playbooks/distgit-cbs-validate/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos_cert
+      - koji_centos_server_ca
