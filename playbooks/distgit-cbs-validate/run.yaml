@@ -21,7 +21,7 @@
         dest: ~/.centos-upload-ca.cert
 
     - shell:
-        cmd: "./pkg-validate.sh cloud7-openstack-{{ zuul.branch|replace('-rdo', '') }}-el7 cbs"
+        cmd: "WORKSPACE={{ ansible_user_dir }} ./pkg-validate.sh cloud7-openstack-{{ zuul.branch|replace('-rdo', '') }}-el7 cbs"
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
 
     - shell:
