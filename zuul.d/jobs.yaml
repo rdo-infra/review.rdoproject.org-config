@@ -84,3 +84,14 @@
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: distgit-cbs-final-build
+    description: |
+      A job to for cbs final builds.
+    final: true
+    run: playbooks/distgit-cbs-final-build/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos
