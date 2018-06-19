@@ -95,3 +95,14 @@
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: opstools-common-distgit-cbs-validate
+    description: |
+      A job to validate opstools-common cbs builds.
+    final: true
+    run: playbooks/opstools-common-distgit-cbs-validate/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos
