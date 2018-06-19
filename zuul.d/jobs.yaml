@@ -79,6 +79,7 @@
     description: |
       A job to validate cbs builds.
     final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
@@ -90,6 +91,7 @@
     description: |
       A job to for cbs final builds.
     final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
@@ -101,6 +103,7 @@
     description: |
       A job to validate opstools-common cbs builds.
     final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-common-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
