@@ -136,6 +136,10 @@ function create_config(){{
     echo "undercloud_rpm_dependencies: >-"
     echo "  python-tripleoclient"
     echo "  ceph-ansible"
+    if [ $RELEASE = "master" ]; then
+        echo "update_containers: true"
+        echo "gating_repo_name: temp-*"
+    fi
 }}
 
 
