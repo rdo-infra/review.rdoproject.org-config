@@ -217,3 +217,15 @@
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: legacy-validate-dependencies-rebuilds
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
+    run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos
