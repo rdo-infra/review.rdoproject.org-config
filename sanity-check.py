@@ -760,6 +760,7 @@ IGNORED_PROJECTS = {
         'rdoinfo',
         'rdo-infra/sinkhole',
         'centos-opstools/opstools-doc',
+        'rdo-infra/fedora-stable-config",
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
