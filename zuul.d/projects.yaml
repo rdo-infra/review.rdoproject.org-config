@@ -5957,6 +5957,17 @@
         - tox-linters
 
 - project:
+    name: rdo-infra/sinkhole
+    check:
+      jobs:
+        - legacy-fedora-sinkhole-functional
+        - legacy-centos-sinkhole-functional
+    gate:
+      jobs:
+        - legacy-fedora-sinkhole-functional
+        - legacy-centos-sinkhole-functional
+
+- project:
     name: rdo-infra/test-day-tools
     templates:
       - noop
