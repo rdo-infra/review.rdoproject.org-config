@@ -759,6 +759,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/skydive',
         'rdoinfo',
         'rdo-infra/sinkhole',
+        'centos-opstools/opstools-doc',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',

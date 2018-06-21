@@ -108,6 +108,15 @@
         - opstools-common-distgit-cbs-final-build
 
 - project:
+    name: centos-opstools/opstools-doc
+    check:
+      jobs:
+        - legacy-centos-opstools-doc
+    gate:
+      jobs:
+        - legacy-centos-opstools-doc
+
+- project:
     name: centos-opstools/osops-tools-monitoring-oschecks
     templates:
       - system-required
