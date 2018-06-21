@@ -1047,3 +1047,25 @@
             - zuul
           branch-override: default
           timeout: 360
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset002'
+          release:
+            - master
+          suffix: ''
+          type: 'ovb-1ctlr_1comp-featureset002'
+          node: upstream-centos-7
+          trigger: gate
+          branch-override: default
+          timeout: 240
+      - '{trigger}-tripleo-ci-{jobname}-{release}{suffix}':
+          jobname: 'centos-7-ovb-1ctlr_1comp-featureset002'
+          release:
+            - queens
+            - pike
+            - ocata
+          suffix: ''
+          type: 'ovb-3ctlr_1comp-featureset002'
+          node: upstream-centos-7
+          trigger: gate
+          branch-override: 'stable/{release}'
+          timeout: 240
