@@ -102,12 +102,10 @@
         cmd: |
           set +e -x
           sudo yum install -y git centos-packager
-          # clone scripts and run
-          git clone http://review.rdoproject.org/r/gating_scripts
 
           FAILED=0
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
-          pushd gating_scripts
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
           # Rebuilding fedora builds with config fedora-dependency
           echo "INFO: Rebuilding fedora-dependencies packages"
           while read target build
