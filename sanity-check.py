@@ -757,6 +757,7 @@ IGNORED_PROJECTS = {
         'centos-opstools/rubygem-yajl-ruby',
         'centos-opstools/sensu',
         'centos-opstools/skydive',
+        'rdoinfo',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
