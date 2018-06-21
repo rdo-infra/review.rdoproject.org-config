@@ -314,3 +314,16 @@
       - name: git.opentsack.org/openstack/releases
     secrets:
       - rdoinfo_ssh
+
+- job:
+    name: legacy-rebuild-fedora-dependencies
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
+    run: playbooks/legacy-rebuild-fedora-dependencies/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos

@@ -1,5 +1,5 @@
 - hosts: all
-  name: Autoconverted job legacy-validate-dependencies-rebuilds from old job validate-dependencies-rebuilds
+  name: Autoconverted job legacy-rebuild-fedora-dependencies from old job rebuild-fedora-dependencies
   tasks:
 
     - name: Ensure legacy workspace directory
@@ -100,15 +100,14 @@
 
     - shell:
         cmd: |
-          set +e
+          set +e -x
           sudo yum install -y git centos-packager
 
           FAILED=0
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
-          rdo_rebuilds_file="$WORKSPACE/logs/rdo_rebuilds.txt"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
-          # Validate rebuilds of builds with config fedora-dependency
-          echo "INFO: Validating updates for fedora-dependencies packages"
+          # Rebuilding fedora builds with config fedora-dependency
+          echo "INFO: Rebuilding fedora-dependencies packages"
           while read target build
           do
               if [ -z $target -o -z $build ]; then
@@ -123,26 +122,12 @@
                   continue
               fi
               echo "INFO: validating $build on $target"
-              ./validate_rebuild_fedora.sh $target $build
+              ./rebuild_fedora.sh $target $build
               if [ $? -ne 0 ];then
-                  echo "ERROR: validation of $build failed on $target"
+                  echo "ERROR: rebuild of $build failed on $target"
                   FAILED=1
               fi
           done <<< "$(cat $fedora_rebuilds_file)"
-          # Check if builds with config rdo-dependency exist in CBS
-          echo "INFO: Validating updates for rdo-dependencies packages"
-          while read target build
-          do
-              if [ -z $target -o -z $build ]; then
-                  continue
-              fi
-              echo "INFO: Checking for $build on CBS"
-              cbs buildinfo $build|grep "No such build"
-              if [ $? -eq 0 ];then
-                  echo "ERROR: build $build does not exist in CBS"
-                  FAILED=1
-              fi
-          done <<< "$(cat $rdo_rebuilds_file)"
           popd
           exit $FAILED
         chdir: '{{ ansible_user_dir }}/workspace'
