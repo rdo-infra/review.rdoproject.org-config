@@ -5879,6 +5879,19 @@
       - system-required
 
 - project:
+    name: rdo-infra/fedora-stable-config
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-fedora-stable-repoclosure
+        - legacy-fedora-stable-image-build
+    gate:
+      jobs:
+        - legacy-fedora-stable-repoclosure
+        - legacy-fedora-stable-image-build
+
+- project:
     name: rdo-infra/puppet-dlrn
     templates:
       - system-required
