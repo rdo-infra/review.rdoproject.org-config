@@ -2,6 +2,9 @@
     name: config
     templates:
       - system-required
+    check:
+      jobs:
+        - tox-linters
 
 - project:
     name: centos-opstools/centos-release-opstools
