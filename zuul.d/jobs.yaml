@@ -286,3 +286,16 @@
       - name: rdoinfo
     secrets:
       - rdoinfo_ssh
+
+- job:
+    name: legacy-update-buildsys-tags
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
+    run: playbooks/legacy-update-buildsys-tags/run.yaml
+    required-projects:
+      - name: gating_scripts
+    secrets:
+      - koji_centos
