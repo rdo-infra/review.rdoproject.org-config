@@ -271,3 +271,18 @@
     secrets:
       - koji_centos
       - rdoinfo_ssh
+
+- job:
+    name: legacy-rdoinfo-upper-constraints-update
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/legacy-rdoinfo-upper-constraints-update/pre.yaml
+    run: playbooks/legacy-rdoinfo-upper-constraints-update/run.yaml
+    vars:
+      stable_releases: ocata pike queens master
+    required-projects:
+      - name: rdoinfo
+    secrets:
+      - rdoinfo_ssh
