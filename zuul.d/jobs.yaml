@@ -299,3 +299,16 @@
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: legacy-rdo-send-stable-release
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    run: playbooks/legacy-rdo-send-stable-release/run.yaml
+    required-projects:
+      - name: rdoinfo
+    secrets:
+      - rdoinfo_ssh
