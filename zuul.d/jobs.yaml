@@ -231,3 +231,43 @@
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: legacy-rdoinfo-buildsys-tags-update-testing
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run:
+      - playbooks/distgit-cbs-validate/pre.yaml
+      - playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
+    vars:
+      rdoinfo_phase: testing
+      stable_releases: pike ocata queens
+    required-projects:
+      - name: gating_scripts
+      - name: rdoinfo
+    secrets:
+      - koji_centos
+      - rdoinfo_ssh
+
+- job:
+    name: legacy-rdoinfo-buildsys-tags-update-release
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run:
+      - playbooks/distgit-cbs-validate/pre.yaml
+      - playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
+    vars:
+      rdoinfo_phase: release
+      stable_releases: pike ocata queens
+    required-projects:
+      - name: gating_scripts
+      - name: rdoinfo
+    secrets:
+      - koji_centos
+      - rdoinfo_ssh
