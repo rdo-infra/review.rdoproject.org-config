@@ -73,7 +73,7 @@
                 # When using reviews from openstack/releases to generate new releases
                 # we need to get the real commit (not the merge one) to search the
                 # review using gerrit API.
-                pushd openstack/releases
+                pushd {{ ansible_user_dir }}/{{ zuul.projects['git.openstack.org/openstack/releases'].src_dir }}
                 SUBJECT=$(git log --oneline $ZUUL_COMMIT|head -1|cut -d " " -f 2)
                 if [ $SUBJECT == "Merge" ]; then
                   REAL_COMMIT=$(git show $ZUUL_COMMIT|grep ^Merge:|awk '{print $(NF)}')
