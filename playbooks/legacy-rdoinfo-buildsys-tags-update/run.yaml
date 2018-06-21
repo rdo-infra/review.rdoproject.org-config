@@ -96,8 +96,8 @@
           cd $WORKSPACE/rdoinfo
           for RELEASE in {{ stable_releases }} ; do
             git reset --hard origin/master
-            python {{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags.py \
-              -c {{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml \
+            python {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags.py \
+              -c {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml \
               -r $RELEASE \
               -p $PHASE \
               $DEPS
