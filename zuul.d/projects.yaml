@@ -2,6 +2,9 @@
     name: config
     templates:
       - system-required
+    check:
+      jobs:
+        - tox-linters
 
 - project:
     name: centos-opstools/centos-release-opstools
@@ -109,6 +112,8 @@
 
 - project:
     name: centos-opstools/opstools-doc
+    templates:
+      - system-required
     check:
       jobs:
         - legacy-centos-opstools-doc
@@ -5994,6 +5999,8 @@
 
 - project:
     name: rdo-infra/sinkhole
+    templates:
+      - system-required
     check:
       jobs:
         - legacy-fedora-sinkhole-functional
