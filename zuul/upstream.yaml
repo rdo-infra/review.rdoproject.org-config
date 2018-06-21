@@ -190,6 +190,11 @@ jobs:
       - ^extraconfig/services/ipsec.*$
       - config/general_config/featureset042.*
 
+  - name: ^gate-tripleo-ci-centos-7-ovb-(1|3)ctlr_1comp-featureset002-.*$
+    files:
+      - config/general_config/featureset001.*
+      - config/general_config/featureset002.*
+
   - name: ^gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset0(01|35)-.*$
     skip-if:
         # The regex should match all tripleo projects
@@ -304,11 +309,8 @@ project-templates:
 
   - name: tripleo-ovb-experimental
     openstack-experimental:
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-queens
-      - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master
-      - gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master
+      - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master
+      - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master
       - gate-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-master
 
   - name: tripleo-ovb-001-experimental
