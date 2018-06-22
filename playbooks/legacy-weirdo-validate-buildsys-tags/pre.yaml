@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+    - name: Create weirdo token file
+      copy:
+        content: "{{ weirdo_token.token }}"
+        dest: {{ ansible_user_dir }}/token_file
