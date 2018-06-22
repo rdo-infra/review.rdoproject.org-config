@@ -173,6 +173,8 @@
     triggers:
         - zuul
     wrappers:
+      - build-timeout:
+          timeout: '90'
       - timestamps
       - credentials-binding:
         - file:
@@ -198,6 +200,8 @@
     triggers:
         - zuul
     wrappers:
+      - build-timeout:
+          timeout: '90'
       - timestamps
       - credentials-binding:
         - file:
