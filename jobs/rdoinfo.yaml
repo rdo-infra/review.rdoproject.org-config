@@ -37,6 +37,10 @@
           # clone scripts and run
           git clone http://review.rdoproject.org/r/gating_scripts
           pushd gating_scripts/buildsys-tags/
+          # define logs variable with the URL wher logs will be pushed
+          if [ -d /home/zuul ]; then
+              export logs="{{ zuul_log_url }}/{{ zuul_log_path }}/buildset"
+          fi
           bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
           bash ./validate_updates.sh $WORKSPACE/logs
           popd
