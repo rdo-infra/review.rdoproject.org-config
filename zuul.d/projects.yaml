@@ -4383,6 +4383,20 @@
       - system-required
 
 - project:
+    name: openstack/whitebox-tempest-plugin
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - legacy-tox-validate
+    gate:
+      queue: whitebox-tempest-plugin
+      jobs:
+        - tox-linters
+        - legacy-tox-validate
+
+- project:
     name: openstack/wsme
     templates:
       - package-check-jobs

@@ -78,14 +78,6 @@ project-templates:
       - common-distgit-cbs-final-build
 
 projects:
-  - name: openstack/whitebox-tempest-plugin
-    check:
-      - tox-flake8
-      - tox-validate
-    gate:
-      - tox-flake8
-      - tox-validate
-
   - name: rdo-infra/ci-config
     check:
       - tox-jjb
