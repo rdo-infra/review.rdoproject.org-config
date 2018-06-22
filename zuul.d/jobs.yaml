@@ -314,3 +314,14 @@
       - name: git.opentsack.org/openstack/releases
     secrets:
       - rdoinfo_ssh
+
+- job:
+    name: legacy-weirdo-validate-buildsys-tags
+    parent: legacy-base
+    pre-run: playbooks/legacy-weirdo-validate-buildsys-tags/pre.yaml
+    run: playbooks/legacy-weirdo-validate-buildsys-tags/run.yaml
+    required-projects:
+      - rdo-infra/releng
+      - rdo-infra/weirdo
+     secrets:
+       - weirdo_token
