@@ -1,0 +1,139 @@
+resources:
+  groups:
+    {{ project_prefix }}/{{ project_name }}-core:
+      description: Core developers for project {{ project_name }}
+      members:
+      {%- for item in project_maintainers %}
+      - {{ item }}
+      {%- endfor %}
+    {{ project_prefix }}/{{ project_name }}-ptl:
+      description: Project team lead for project {{ project_name }}
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    {{ project_prefix }}-{{ project_name }}-distgit:
+      file: |
+        [access "refs/*"]
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          owner = group {{ project_prefix }}/{{ project_name }}-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group {{ project_prefix }}/{{ project_name }}-core
+          label-Code-Review = -2..+2 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          {%- if project_prefix == "puppet" %}
+          label-Code-Review = -2..+2 group rdo-opm-core
+          {%- endif %}
+          submit = group {{ project_prefix }}/{{ project_name }}-ptl
+          submit = group rdo-superusers
+          {% if project_prefix == "puppet" -%}
+          submit = group rdo-opm-core
+          {% endif -%}
+          read = group Registered Users
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          read = group rdo-provenpackagers
+          {% if project_prefix == "puppet" -%}
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          {% endif -%}
+          abandon = group {{ project_prefix }}/{{ project_name }}-core
+          label-Verified = -2..+2 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          {% if project_prefix == "puppet" -%}
+          label-Verified = -2..+2 group rdo-opm-core
+          {% endif -%}
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-core
+          label-Workflow = -1..+1 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          {%- if project_prefix == "puppet" %}
+          label-Workflow = -1..+1 group rdo-opm-core
+          {%- endif %}
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          read = group rdo-provenpackagers
+          {%- if project_prefix == "puppet" %}
+          read = group rdo-opm-core
+          {%- endif %}
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - {{ project_prefix }}/{{ project_name }}-core
+      - {{ project_prefix }}/{{ project_name }}-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      {%- if project_prefix == "puppet" %}
+      - rdo-opm-core
+      {%- endif %}
+    {{ project_prefix }}-{{ project_name }}:
+      file: |
+        [access "refs/*"]
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          owner = group {{ project_prefix }}/{{ project_name }}-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group {{ project_prefix }}/{{ project_name }}-core
+          label-Code-Review = -2..+2 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          {% if project_prefix == "puppet" -%}
+          label-Code-Review = -2..+2 group rdo-opm-core
+          {% endif -%}
+          submit = group {{ project_prefix }}/{{ project_name }}-ptl
+          submit = group rdo-superusers
+          {% if project_prefix == "puppet" -%}
+          submit = group rdo-opm-core
+          {% endif -%}
+          read = group Registered Users
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          read = group rdo-provenpackagers
+          {% if project_prefix == "puppet" -%}
+          read = group rdo-opm-core
+          {% endif -%}
+          label-Verified = -2..+0 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          {% if project_prefix == "puppet" -%}
+          label-Verified = -2..+0 group rdo-opm-core
+          {% endif -%}
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-core
+          label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          {%- if project_prefix == "puppet" %}
+          label-Workflow = -1..+0 group rdo-opm-core
+          {%- endif %}
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group {{ project_prefix }}/{{ project_name }}-core
+          read = group rdo-provenpackagers
+          {%- if project_prefix == "puppet" %}
+          read = group rdo-opm-core
+          {%- endif %}
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - {{ project_prefix }}/{{ project_name }}-core
+      - {{ project_prefix }}/{{ project_name }}-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      {%- if project_prefix == "puppet" %}
+      - rdo-opm-core
+      {%- endif %}
+  repos:
+    {{ project_prefix }}/{{ project_name }}:
+      acl: {{ project_prefix }}-{{ project_name }}
+      description: Mirror of upstream {{ project_name }} (mirror + patches)
+    {{ project_prefix }}/{{ project_name }}-distgit:
+      acl: {{ project_prefix }}-{{ project_name }}-distgit
+      description: Packaging of upstream {{ project_name }}
+      default-branch: rpm-master
+      branches:
+        master: '0'
