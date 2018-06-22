@@ -311,7 +311,7 @@
     required-projects:
       - name: rdoinfo
       - name: rdo-infra/releng
-      - name: git.opentsack.org/openstack/releases
+      - name: git.openstack.org/openstack/releases
     secrets:
       - rdoinfo_ssh
 
@@ -321,7 +321,7 @@
     pre-run: playbooks/legacy-weirdo-validate-buildsys-tags/pre.yaml
     run: playbooks/legacy-weirdo-validate-buildsys-tags/run.yaml
     required-projects:
-      - rdo-infra/releng
-      - rdo-infra/weirdo
-     secrets:
-       - weirdo_token
+      - name: rdo-infra/releng
+      - name: rdo-infra/weirdo
+    secrets:
+      - weirdo_token
