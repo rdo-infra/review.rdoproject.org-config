@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+    - name: Create weirdo token file
+      copy:
+        content: "{{ weirdo_token.token }}"
+        dest: ~/token_file
