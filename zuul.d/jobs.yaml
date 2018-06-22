@@ -220,6 +220,17 @@
       - koji_centos
 
 - job:
+    name: publish-cico-jjb
+    description: |
+      A job to update ci.centos.org jenkins jobs.
+    final: true
+    run: playbooks/publish-cico-jjb/run.yaml
+    required-projects:
+      - name: rdo-infra/ci-config
+    secrets:
+      - ci_centos
+
+- job:
     name: legacy-validate-dependencies-rebuilds
     parent: legacy-base
     description: |
