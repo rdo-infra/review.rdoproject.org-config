@@ -301,6 +301,20 @@
       - koji_centos
 
 - job:
+    name: legacy-rebuild-fedora-dependencies
+    parent: legacy-base
+    description: |
+      This job needs to be update to drop legacy code!
+    final: true
+    pre-run: playbooks/distgit-cbs-validate/pre.yaml
+    run: playbooks/legacy-rebuild-fedora-dependencies/run.yaml
+    post-run: playbooks/legacy-rebuild-fedora-dependencies/post.yaml
+    required-projects:
+      - name: rdoinfo
+    secrets:
+      - koji_centos
+
+- job:
     name: legacy-rdo-send-stable-release
     parent: legacy-base
     description: |
