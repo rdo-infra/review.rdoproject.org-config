@@ -1,12 +1,4 @@
 - project:
-    name: config
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-
-- project:
     name: centos-opstools/centos-release-opstools
     templates:
       - system-required
@@ -794,6 +786,22 @@
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
+    name: centos-opstools/rubygem-http_connection
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
     name: centos-opstools/rubygem-http-cookie
     templates:
       - system-required
@@ -811,22 +819,6 @@
 
 - project:
     name: centos-opstools/rubygem-http-form_data
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http_connection
     templates:
       - system-required
     check:
@@ -1930,22 +1922,19 @@
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
+    name: config
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+
+- project:
     name: gating_scripts
     templates:
       - noop
       - system-required
 
-- project:
-    name: openstack/UcsSdk
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/UcsSdk-distgit
-    templates:
-      - package-distgit-check-jobs
-      - system-required
 
 - project:
     name: openstack/ansible-pacemaker
@@ -3704,12 +3693,6 @@
       - system-required
 
 - project:
-    name: review.rdoproject.org/openstack/packstack
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/packstack-distgit
     templates:
       - package-distgit-check-jobs
@@ -4269,6 +4252,18 @@
 
 - project:
     name: openstack/troveclient-distgit
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: openstack/UcsSdk
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: openstack/UcsSdk-distgit
     templates:
       - package-distgit-check-jobs
       - system-required
@@ -5428,6 +5423,12 @@
       - system-required
 
 - project:
+    name: rdo_gating_scripts
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: rdo-infra/ansible-role-logserver
     templates:
       - noop
@@ -5462,6 +5463,12 @@
         - tox-linters
 
 - project:
+    name: rdo-infra/ansible-role-rdo_dashboards
+    templates:
+      - noop
+      - system-required
+
+- project:
     name: rdo-infra/ansible-role-rdo-kolla-build
     templates:
       - system-required
@@ -5473,12 +5480,6 @@
       queue: ansible-role-rdo-base
       jobs:
         - tox-linters
-
-- project:
-    name: rdo-infra/ansible-role-rdo_dashboards
-    templates:
-      - noop
-      - system-required
 
 - project:
     name: rdo-infra/ansible-role-rdomonitoring
@@ -6177,12 +6178,6 @@
       - system-required
 
 - project:
-    name: rdo_gating_scripts
-    templates:
-      - noop
-      - system-required
-
-- project:
     name: rdoinfo
     templates:
       - system-required
@@ -6260,6 +6255,12 @@
         - legacy-rdoinfo-create-project
         - legacy-rdo-send-stable-release
         - legacy-update-buildsys-tags
+
+- project:
+    name: review.rdoproject.org/openstack/packstack
+    templates:
+      - package-check-jobs
+      - system-required
 
 - project:
     name: testbranching

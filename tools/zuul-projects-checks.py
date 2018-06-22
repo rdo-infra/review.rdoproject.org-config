@@ -52,9 +52,36 @@ def check_system_templates():
     return errors
 
 
+def normalize(s):
+    "Normalize string for comparison."
+    return s.lower().replace("_", "-")
+
+
+def check_projects_sorted():
+    """Check that the projects are in alphabetical order per section."""
+
+    print("\nChecking project list for alphabetical order")
+    print("============================================")
+
+    errors = False
+    last = ""
+    for entry in projects:
+        current = entry['project']['name']
+        if (normalize(last) > normalize(current)):
+            print("  ERROR: Wrong alphabetical order: %(last)s, %(current)s" %
+                  {"last": last, "current": current})
+            errors = True
+        last = current
+
+    if not errors:
+        print("... all fine.")
+    return errors
+
+
 def check_all():
 
     errors = check_system_templates()
+    errors = check_projects_sorted() or errors
 
     if errors:
         print("\nFound errors in zuul.d/projects.yaml!\n")
