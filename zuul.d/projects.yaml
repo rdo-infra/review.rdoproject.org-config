@@ -5892,6 +5892,20 @@
       - system-required
 
 - project:
+    name: rdo-infra/ci-config
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+    gate:
+      jobs:
+        - tox-linters
+    post:
+      jobs:
+        - publish-cico-jjb
+
+- project:
     name: rdo-infra/example-distgit
     templates:
       - noop
