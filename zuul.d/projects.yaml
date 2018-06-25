@@ -2080,12 +2080,6 @@
       - system-required
 
 - project:
-    name: openstack/ceilometer
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/ceilometer-distgit
     templates:
       - weirdo-dlrn-master-ceilometer
@@ -2104,21 +2098,9 @@
       - system-required
 
 - project:
-    name: openstack/ceilometermiddleware
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/ceilometermiddleware-distgit
     templates:
       - weirdo-dlrn-master-ceilometer
-      - system-required
-
-- project:
-    name: openstack/cinder
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -2356,12 +2338,6 @@
       - system-required
 
 - project:
-    name: openstack/django_openstack_auth
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/django_openstack_auth-distgit
     templates:
       - package-distgit-check-jobs
@@ -2419,12 +2395,6 @@
     name: openstack/glance-distgit
     templates:
       - weirdo-dlrn-master-glance
-      - system-required
-
-- project:
-    name: openstack/glance_store
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -2560,12 +2530,6 @@
       - system-required
 
 - project:
-    name: openstack/heat-templates
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/heat-templates-distgit
     templates:
       - weirdo-dlrn-master-heat
@@ -2593,12 +2557,6 @@
     name: openstack/heatclient-distgit
     templates:
       - weirdo-dlrn-master-heat
-      - system-required
-
-- project:
-    name: openstack/horizon
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -2758,12 +2716,6 @@
       - system-required
 
 - project:
-    name: openstack/keystone
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/keystone-distgit
     templates:
       - weirdo-dlrn-master-keystone
@@ -2803,12 +2755,6 @@
     name: openstack/keystoneclient-distgit
     templates:
       - weirdo-dlrn-master-keystone
-      - system-required
-
-- project:
-    name: openstack/keystonemiddleware
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -2914,12 +2860,6 @@
       - system-required
 
 - project:
-    name: openstack/manila
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/manila-distgit
     templates:
       - package-distgit-check-jobs
@@ -2935,12 +2875,6 @@
     name: openstack/manila-tempest-plugin-distgit
     templates:
       - package-distgit-check-jobs
-      - system-required
-
-- project:
-    name: openstack/manila-ui
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -3346,21 +3280,9 @@
       - system-required
 
 - project:
-    name: openstack/neutron-fwaas
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/neutron-fwaas-distgit
     templates:
       - weirdo-dlrn-master-neutron
-      - system-required
-
-- project:
-    name: openstack/neutron-lbaas
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -3403,12 +3325,6 @@
     name: openstack/neutron-tempest-plugin-distgit
     templates:
       - package-distgit-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutron-vpnaas
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -3470,16 +3386,6 @@
     templates:
       - package-distgit-check-jobs
       - system-required
-
-- project:
-    name: openstack/octavia
-    templates:
-      - package-check-jobs
-      - system-required
-    periodic:
-      jobs:
-        - legacy-octavia-build-amphora-master
-        - legacy-octavia-build-amphora-queens
 
 - project:
     name: openstack/octavia-dashboard
@@ -3590,21 +3496,9 @@
       - system-required
 
 - project:
-    name: openstack/os-brick
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/os-brick-distgit
     templates:
       - weirdo-dlrn-master-cinder
-      - system-required
-
-- project:
-    name: openstack/os-client-config
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -3725,12 +3619,6 @@
     name: openstack/os-xenapi-distgit
     templates:
       - package-distgit-check-jobs
-      - system-required
-
-- project:
-    name: openstack/osc-lib
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -4304,12 +4192,6 @@
       - system-required
 
 - project:
-    name: openstack/swift
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
     name: openstack/swift-distgit
     templates:
       - package-distgit-check-jobs
@@ -4765,12 +4647,6 @@
     name: openstack/wsme-distgit
     templates:
       - package-distgit-check-jobs
-      - system-required
-
-- project:
-    name: openstack/zaqar
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -6760,7 +6636,131 @@
         - legacy-update-buildsys-tags
 
 - project:
+    name: review.rdoproject.org/openstack/ceilometer
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ceilometermiddleware
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cinder
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/django_openstack_auth
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/glance_store
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/heat-templates
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/horizon
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/keystone
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/keystonemiddleware
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/manila
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/manila-ui
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/neutron-fwaas
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/neutron-lbaas
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/neutron-vpnaas
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/octavia
+    templates:
+      - package-check-jobs
+      - system-required
+    periodic:
+      jobs:
+        - legacy-octavia-build-amphora-master
+        - legacy-octavia-build-amphora-queens
+
+- project:
+    name: review.rdoproject.org/openstack/os-brick
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-client-config
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/osc-lib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/packstack
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/swift
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/zaqar
     templates:
       - package-check-jobs
       - system-required
