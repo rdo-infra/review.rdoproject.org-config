@@ -76,7 +76,7 @@
           if [[ -d /home/zuul ]]; then
               export logs={{ buildset_artifacts_url }}
           fi
-          bash -x ./launch_weirdo_jobs.sh
+          bash ./launch_weirdo_jobs.sh
           popd
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
