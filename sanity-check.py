@@ -847,6 +847,7 @@ IGNORED_PROJECTS = {
         'puppet/puppet-sysctl-distgit',
         'puppet/puppet-tempest-distgit',
         'puppet/puppet-zaqar-distgit',
+        'puppet/puppet-tripleo',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
