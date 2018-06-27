@@ -1936,6 +1936,33 @@
       - system-required
 
 - project:
+    name: git.openstack.org/openstack/releases
+    templates:
+      - system-required
+    openstack-post:
+      jobs:
+        - legacy-rdo-send-stable-release
+
+- project:
+    name: git.openstack.org/openstack/requirements
+    templates:
+      - system-required
+    openstack-post:
+      jobs:
+        - legacy-rdo-deps-uc-send-review
+
+- project:
+    name: git.openstack.org/openstack/rpm-packaging
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - legacy-DLRN-rpmbuild-rpm-packaging-centos
+        - legacy-DLRN-rpmbuild-rpm-packaging-fedora:
+            voting: false
+            branches: ^master$
+
+- project:
     name: openstack/ansible-pacemaker
     templates:
       - package-check-jobs
@@ -4420,6 +4447,12 @@
       - system-required
 
 - project:
+    name: openstack/tripleo-upgrade
+    templates:
+      - tripleo-upgrades-check
+      - system-required
+
+- project:
     name: openstack/tripleo-validations
     templates:
       - package-check-jobs
@@ -5673,6 +5706,12 @@
     name: puppet/puppet-tomcat-distgit
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: puppet/puppet-tripleo
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:

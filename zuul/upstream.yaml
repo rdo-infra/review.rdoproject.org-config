@@ -328,23 +328,6 @@ projects:
       - DLRN-rpmbuild:
         - rdo-kolla-build-integration
 
-  - name: openstack/requirements
-    openstack-post:
-      - rdo-deps-uc-send-review
-
-  - name: openstack/rpm-packaging
-    openstack-check:
-      - DLRN-rpmbuild-rpm-packaging-centos
-      - DLRN-rpmbuild-rpm-packaging-fedora
-
-  - name: openstack/releases
-    openstack-post:
-      - rdo-send-stable-release
-
-  - name: puppet/puppet-tripleo
-    template:
-      - name: package-check-jobs
-
   - name: openstack/tripleo-heat-templates
     template:
       - name: package-check-jobs
@@ -467,10 +450,6 @@ projects:
     template:
       - name: tripleo-ovb-check
       - name: tripleo-ovb-experimental
-
-  - name: openstack/tripleo-upgrade
-    template:
-      - name: tripleo-upgrades-check
 
   - name: openstack/diskimage-builder
     template:
