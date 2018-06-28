@@ -1,0 +1,11 @@
+- hosts: all
+  tasks:
+    - shell:
+        cmd: |
+          source $WORKSPACE/hash_info.sh
+          export TOCI_JOBTYPE="{{ toci_jobtype }}"
+          export SUCCESS="{{ zuul_success | bool }}"
+          export DLRNAPI_PASSWORD="{{ dlrnapi.password }}"
+          bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+        chdir: '{{ ansible_user_dir }}/workspace'
+      environment: '{{ zuul | zuul_legacy_vars }}'
