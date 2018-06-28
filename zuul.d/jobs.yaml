@@ -362,3 +362,12 @@
       - name: rdoinfo
     secrets:
       - rdoinfo_ssh
+
+- job:
+    name: legacy-tripleo-ci-periodic-base
+    parent: base
+    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    require-projects:
+      - name: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
