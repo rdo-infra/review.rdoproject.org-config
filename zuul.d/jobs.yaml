@@ -372,3 +372,12 @@
       - name: rdoinfo
     secrets:
       - github
+
+- job:
+    name: legacy-tripleo-ci-periodic-base
+    parent: base
+    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - name: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
