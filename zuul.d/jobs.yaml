@@ -362,3 +362,77 @@
       - name: rdoinfo
     secrets:
       - rdoinfo_ssh
+
+# FIXME(ykarel) Try to use jobs defined in poi
+- job:
+    name: puppet-openstack-base
+    pre-run: playbooks/puppet-openstack-integration/prepare-node-common.yaml
+    abstract: true
+    vars:
+      use_puppetlabs: false
+
+- job:
+    name: puppet-openstack-integration-base
+    abstract: true
+    parent: puppet-openstack-base
+    required-projects:
+      - git.openstack.org/openstack/openstack
+      - git.openstack.org/openstack/puppet-ceph
+      - git.openstack.org/openstack/puppet-glance
+      - git.openstack.org/openstack/puppet-keystone
+      - git.openstack.org/openstack/puppet-openstack-integration
+      - git.openstack.org/openstack/puppet-openstack_extras
+      - git.openstack.org/openstack/puppet-openstacklib
+      - git.openstack.org/openstack/puppet-oslo
+      - git.openstack.org/openstack/puppet-swift
+      - git.openstack.org/openstack/puppet-tempest
+      - git.openstack.org/openstack/puppet-vswitch
+      - git.openstack.org/openstack/tempest
+
+- job:
+    name: puppet-openstack-integration-run-base
+    parent: puppet-openstack-integration-base
+    abstract: true
+    pre-run: playbooks/puppet-openstack-integration/prepare-node-integration.yaml
+    run: playbooks/puppet-openstack-integration/run-integration-tests.yaml
+    post-run: playbooks/puppet-openstack-integration/upload-logs.yaml
+    timeout: 5400
+    irrelevant-files:
+      - ^.*\.md$
+      - ^doc/.*$
+      - ^metadata.json$
+      - ^releasenotes/.*$
+      - ^spec/.*$
+      - ^requirements.txt$
+      - ^test-requirements.txt$
+      - ^LICENSE$
+      - ^.gitignore$
+    roles:
+      - zuul: git.openstack.org/openstack-infra/zuul-jobs
+
+- job:
+    name: puppet-openstack-integration-5
+    parent: puppet-openstack-integration-run-base
+    abstract: true
+    vars:
+      puppet: 5
+
+- job:
+    name: puppet-openstack-integration-5-scenario-py3
+    parent: puppet-openstack-integration-5
+    abstract: true
+    vars:
+      scenario: scenario-py3
+      puppet: 5
+
+- job:
+    name: puppet-openstack-integration-5-scenario-py3-tempest-fedora-28
+    parent: puppet-openstack-integration-5-scenario-py3
+    nodeset: rdo-fedora-28
+    branches: ^master
+
+- job:
+    name: puppet-openstack-integration-5-scenario-py3-tempest-centos-7
+    parent: puppet-openstack-integration-5-scenario-py3
+    nodeset: upstream-centos-7
+    branches: ^master
