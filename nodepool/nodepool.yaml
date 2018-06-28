@@ -95,18 +95,18 @@ labels:
     providers:
       - name: rdo-cloud
   - name: upstream-centos-7
-    min-ready: 3
+    min-ready: 0
     image: upstream-centos-7
     ready-script: configure_mirror_host.sh
     providers:
       - name: rdo-cloud-tripleo
   - name: upstream-centos-7-2-node
-    min-ready: 3
+    min-ready: 0
     image: upstream-centos-7
     providers:
       - name: rdo-cloud-tripleo
     ready-script: multinode_setup_host.sh
-    subnodes: 1
+    subnodes: 0
 
 providers:
   - name: rdo-cloud
