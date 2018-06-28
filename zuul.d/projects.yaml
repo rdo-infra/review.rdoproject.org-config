@@ -6815,3 +6815,14 @@
     templates:
       - noop
       - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-openstack-integration
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - puppet-openstack-integration-5-scenario-py3-tempest-centos-7:
+            voting: false
+        - puppet-openstack-integration-5-scenario-py3-tempest-fedora-28:
+            voting: false
