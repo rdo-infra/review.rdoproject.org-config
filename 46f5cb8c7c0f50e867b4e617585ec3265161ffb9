@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab921fb_aa5f540d",
+        "filename": "playbooks/legacy-tripleo-ci-base/post.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 233
+      },
+      "writtenOn": "2018-06-28T16:02:11Z",
+      "side": 1,
+      "message": "Can you just have:\n  export SUCCESS\u003d\"{{ zuul_success|bool }}\"",
+      "revId": "46f5cb8c7c0f50e867b4e617585ec3265161ffb9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab921fb_8a9b70c9",
+        "filename": "zuul.d/jobs.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 233
+      },
+      "writtenOn": "2018-06-28T16:02:11Z",
+      "side": 1,
+      "message": "this isn\u0027t right, we want this to parent to base. That way in rdo-job, we can write a new job that will parent to this, for periodic job.",
+      "revId": "46f5cb8c7c0f50e867b4e617585ec3265161ffb9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
