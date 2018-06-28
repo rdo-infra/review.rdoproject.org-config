@@ -1,0 +1,21 @@
+- hosts: all
+  tasks:
+    - name: Set fact for successful runs
+      set_fact:
+        toci_success: "true"
+      when: zuul_success | bool
+
+    - name: Set fact for failed runs
+      set_fact:
+        toci_success: "false"
+      when: not (zuul_success | bool)
+
+    - shell:
+        cmd: |
+          source $WORKSPACE/hash_info.sh
+          export TOCI_JOBTYPE="{{ toci_jobtype }}"
+          export SUCCESS="{{ toci_success }}"
+          export DLRNAPI_PASSWORD="{{ dlrnapi.password }}"
+          bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+        chdir: '{{ ansible_user_dir }}/workspace'
+      environment: '{{ zuul | zuul_legacy_vars }}'

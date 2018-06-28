@@ -362,3 +362,10 @@
       - name: rdoinfo
     secrets:
       - rdoinfo_ssh
+
+- job:
+    name: legacy-tripleo-ci-base
+    parent: legacy-base
+    post-run: playbooks/legacy-tripleo-ci-base/post.yaml
+    secrets:
+      - dlrnapi
