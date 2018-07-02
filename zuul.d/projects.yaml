@@ -6328,9 +6328,13 @@
     check:
       jobs:
         - tox-linters
+        - tox-py27
+        - tox-py35
     gate:
       jobs:
         - tox-linters
+        - tox-py27
+        - tox-py35
     post:
       jobs:
         - publish-cico-jjb
