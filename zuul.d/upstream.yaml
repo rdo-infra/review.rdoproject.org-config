@@ -15,10 +15,12 @@
         current-patchset: True
     trigger:
       openstack.org:
-        - event: patchset-created
-        - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|verify-rdo)
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
     success:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
