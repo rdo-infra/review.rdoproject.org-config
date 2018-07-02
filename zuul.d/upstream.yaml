@@ -31,33 +31,6 @@
       sqlreporter:
 
 - pipeline:
-    name: openstack-check-verified
-    description: |
-        Patchsets that have been verified from upstream OpenStack (check pipeline).
-    success-message: Build succeeded (gate pipeline).
-    failure-message: |
-      Build failed (gate pipeline).  For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
-    manager: independent
-    precedence: normal
-    require:
-      openstack.org:
-        open: True
-        current-patchset: True
-    trigger:
-      openstack.org:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|verify-rdo)
-        - event: comment-added
-          approval:
-            - Verified: 1
-          username: zuul
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
-
-- pipeline:
     name: openstack-experimental
     description: |
         Upstream patchsets that have to be checked against a set of experimental jobs.
