@@ -1936,6 +1936,70 @@
       - system-required
 
 - project:
+    name: git.openstack.org/openstack/glance
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/heat
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/neutron
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/nova
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
     name: git.openstack.org/openstack/puppet-openstack-integration
     templates:
       - system-required
@@ -1945,6 +2009,111 @@
             voting: false
         - puppet-openstack-integration-5-scenario-py3-tempest-fedora-28:
             voting: false
+
+- project:
+    name: git.openstack.org/openstack/python-glanceclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-heatclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-ironic-inspector-client
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-ironicclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-mistralclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-neutronclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/python-novaclient
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
 
 - project:
     name: git.openstack.org/openstack/releases
@@ -2525,6 +2694,7 @@
       - package-distgit-check-jobs
       - system-required
 
+
 - project:
     name: openstack/heat-agents
     templates:
@@ -2616,10 +2786,42 @@
       - system-required
 
 - project:
+    name: openstack/ironic
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
     name: openstack/ironic-distgit
     templates:
       - package-distgit-check-jobs
       - system-required
+
+- project:
+    name: openstack/ironic-inspector
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
 
 - project:
     name: openstack/ironic-inspector-client
@@ -2650,6 +2852,22 @@
     templates:
       - package-distgit-check-jobs
       - system-required
+
+- project:
+    name: openstack/ironic-python-agent
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
 
 - project:
     name: openstack/ironic-python-agent-distgit
@@ -2956,6 +3174,22 @@
     templates:
       - package-distgit-check-jobs
       - system-required
+
+- project:
+    name: openstack/mistral
+    templates:
+      - package-check-jobs
+      - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
 
 - project:
     name: openstack/mistral-dashboard
