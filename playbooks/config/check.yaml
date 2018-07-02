@@ -1,0 +1,55 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Set speculative config path
+      set_fact:
+        config_root: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
+
+    - name: Copy embedded resources.sh
+      copy:
+        src: files/resources.sh
+        dest: "{{ config_root }}/resources.sh"
+        mode: 0700
+
+    - name: Copy embedded sanity-check
+      copy:
+        src: files/sanity-check.py
+        dest: "{{ config_root }}/sanity-check.py"
+        mode: 0700
+
+    - name: Check gerrit replication
+      command: git config -f gerrit/replication.config -l
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Check gerrit commentlinks
+      command: env - python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Check policy file
+      command: env - python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Copy service_user password in workspace
+      copy:
+        content: "{{ sf_service_user.password }}"
+        dest: "{{ config_root }}/.service_user_password"
+      no_log: true
+
+    - name: Check resources changes
+      command: "env - {{ config_root }}/resources.sh validate"
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Remove password
+      file:
+        path: "{{ config_root }}/.service_user_password"
+        state: absent
+      no_log: true
+
+    - name: Run sanity-check.py
+      command: ./sanity-check.py
+      args:
+        chdir: "{{ config_root }}"
