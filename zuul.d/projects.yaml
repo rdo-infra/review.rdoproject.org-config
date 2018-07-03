@@ -1,1927 +1,4 @@
 - project:
-    name: centos-opstools/centos-release-opstools
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-
-- project:
-    name: centos-opstools/collectd
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-perfmon-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-perfmon-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/fluentd
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/intel-cmt-cat
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-perfmon-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-perfmon-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/kibana
-    templates:
-      - noop
-      - system-required
-
-- project:
-    name: centos-opstools/opstools-ansible
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - legacy-rdo-infra-playbooks-integration-sensu-client:
-            voting: false
-        - legacy-rdo-infra-playbooks-integration-sensu-server:
-            voting: false
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - tox-linters
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-
-- project:
-    name: centos-opstools/opstools-ansible-distgit
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/opstools-doc
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-doc
-    gate:
-      jobs:
-        - legacy-centos-opstools-doc
-
-- project:
-    name: centos-opstools/osops-tools-monitoring-oschecks
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/python-fluent-logger
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-addressable
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-aruba
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-atomic
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-backports
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-bacon
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-builder
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-childprocess
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-concurrent-ruby
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-contracts
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-cookiejar
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-cool.io
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-coveralls
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-cucumber
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-cucumber-core
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-cucumber-wire
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-diff-lcs
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-docile
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-domain_name
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-elasticsearch
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-elasticsearch-api
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-elasticsearch-transport
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-em-http-request
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-em-http-server
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-em-redis-unified
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-em-socksify
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-em-worker
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-eventmachine
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-excon
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fakeweb
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-faraday
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-ffi
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-collectd-nest
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-elasticsearch
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-grok-parser
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-kubernetes_metadata_filter
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-rewrite-tag-filter
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-secure-forward
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-fluent-plugin-viaq_data_model
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-gherkin
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http_connection
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http-cookie
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http-form_data
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-http_parser.rb
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-i18n
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-idn
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-introspection
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-json
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-kubeclient
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-launchy
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-lru_redux
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-metaclass
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-mime-types
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-mime-types-data
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-minitest
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-mocha
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-msgpack
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-multi_json
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-multi_test
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-netrc
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-oj
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-parse-cron
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-power_assert
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-proxifier
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-public_suffix
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rack
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-recursive-open-struct
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-resolve-hostname
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rest-client
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rr
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec-core
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec-expectations
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec-its
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec-mocks
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-rspec-support
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extension
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-check-dependencies
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-debug
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-json
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-occurrences
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-only-check-output
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-ruby-hash
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-extensions-system-profile
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-json
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-logger
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-redis
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-settings
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-spawn
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sensu-transport
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-session
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-shoulda
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-sigdump
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-simplecov
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-simplecov-html
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-string-scrub
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-term-ansicolor
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-test-unit
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-test-unit-rr
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-thor
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-thread_safe
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-tins
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-tzinfo
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-tzinfo-data
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-unf
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-unf_ext
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-uuidtools
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-fluentd-012-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/rubygem-yajl-ruby
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-common-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/sensu
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-110-distgit-cbs-final-build
-
-- project:
-    name: centos-opstools/skydive
-    templates:
-      - system-required
-    check:
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-validate
-    gate:
-      queue: centos-release-opstools
-      jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
-        - opstools-sensu-common-distgit-cbs-final-build
-
-- project:
     name: config
     templates:
       - system-required
@@ -7090,6 +5167,1929 @@
         - legacy-rdoinfo-create-project
         - legacy-rdo-send-stable-release
         - legacy-update-buildsys-tags
+
+- project:
+    name: review.rdoproject.org/centos-opstools/centos-release-opstools
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+
+- project:
+    name: review.rdoproject.org/centos-opstools/collectd
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/fluentd
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/intel-cmt-cat
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/kibana
+    templates:
+      - noop
+      - system-required
+
+- project:
+    name: review.rdoproject.org/centos-opstools/opstools-ansible
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - legacy-rdo-infra-playbooks-integration-sensu-client:
+            voting: false
+        - legacy-rdo-infra-playbooks-integration-sensu-server:
+            voting: false
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - tox-linters
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+
+- project:
+    name: review.rdoproject.org/centos-opstools/opstools-ansible-distgit
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/opstools-doc
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-doc
+    gate:
+      jobs:
+        - legacy-centos-opstools-doc
+
+- project:
+    name: review.rdoproject.org/centos-opstools/osops-tools-monitoring-oschecks
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/python-fluent-logger
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-addressable
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-aruba
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-atomic
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-backports
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-bacon
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-builder
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-childprocess
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-concurrent-ruby
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-contracts
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-cookiejar
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-cool.io
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-coveralls
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-cucumber
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-cucumber-core
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-cucumber-wire
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-diff-lcs
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-docile
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-domain_name
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-elasticsearch
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-elasticsearch-api
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-elasticsearch-transport
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-em-http-request
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-em-http-server
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-em-redis-unified
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-em-socksify
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-em-worker
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-eventmachine
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-excon
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fakeweb
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-faraday
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-ffi
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-collectd-nest
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-elasticsearch
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-grok-parser
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-kubernetes_metadata_filter
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-rewrite-tag-filter
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-secure-forward
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-viaq_data_model
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-gherkin
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-http
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-http_connection
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-http-cookie
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-http-form_data
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-http_parser.rb
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-i18n
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-idn
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-introspection
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-json
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-kubeclient
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-launchy
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-lru_redux
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-metaclass
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-mime-types
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-mime-types-data
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-minitest
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-mocha
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-msgpack
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-multi_json
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-multi_test
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-netrc
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-oj
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-parse-cron
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-power_assert
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-proxifier
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-public_suffix
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rack
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-recursive-open-struct
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-resolve-hostname
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rest-client
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rr
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec-core
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec-expectations
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec-its
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec-mocks
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-rspec-support
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extension
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-check-dependencies
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-debug
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-json
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-occurrences
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-only-check-output
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-ruby-hash
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-system-profile
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-json
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-logger
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-redis
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-settings
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-spawn
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sensu-transport
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-session
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-shoulda
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-sigdump
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-simplecov
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-simplecov-html
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-string-scrub
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-term-ansicolor
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-test-unit
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-test-unit-rr
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-thor
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-thread_safe
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-tins
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-tzinfo
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-tzinfo-data
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-unf
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-unf_ext
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-uuidtools
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-fluentd-012-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/rubygem-yajl-ruby
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-common-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/sensu
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-110-distgit-cbs-final-build
+
+- project:
+    name: review.rdoproject.org/centos-opstools/skydive
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
     name: review.rdoproject.org/openstack/ceilometer
