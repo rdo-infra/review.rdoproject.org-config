@@ -2024,6 +2024,12 @@
       - tripleo-ovb-experimental
 
 - project:
+    name: git.openstack.org/openstack/paunch
+    templates:
+      - system-required
+      - tripleo-ovb-check
+
+- project:
     name: git.openstack.org/openstack/puppet-openstack-integration
     templates:
       - system-required
@@ -2033,6 +2039,13 @@
             voting: false
         - puppet-openstack-integration-5-scenario-py3-tempest-fedora-28:
             voting: false
+
+- project:
+    name: git.openstack.org/openstack/puppet-tripleo
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
 
 - project:
     name: git.openstack.org/openstack/python-glanceclient
@@ -2140,6 +2153,38 @@
             branches: ^stable/(0.6.x|ocata)$
 
 - project:
+    name: git.openstack.org/openstack/python-tempestconf
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
+            branches: ^master$
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master:
+            branches: ^master$
+
+- project:
+    name: git.openstack.org/openstack/python-tripleoclient
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+
+- project:
     name: git.openstack.org/openstack/releases
     templates:
       - system-required
@@ -2180,7 +2225,29 @@
             branches: ^master$
 
 - project:
+    name: git.openstack.org/openstack/tripleo-common
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+    openstack-check:
+      jobs:
+        - legacy-rdo-kolla-build-integration:
+            dependencies:
+              - legacy-DLRN-rpmbuild
+            branches: ^(master|stable/pike)$
+        - legacy-DLRN-rpmbuild:
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+
+- project:
     name: git.openstack.org/openstack/tripleo-image-elements
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+
+- project:
+    name: git.openstack.org/openstack/tripleo-puppet-elements
     templates:
       - system-required
       - tripleo-ovb-check
@@ -2581,6 +2648,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-check:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -2603,6 +2671,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-check:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -2850,6 +2919,7 @@
 
 - project:
     name: openstack/instack
+    # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - package-check-jobs
       - system-required
@@ -2864,6 +2934,7 @@
 
 - project:
     name: openstack/instack-undercloud
+    # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - package-check-jobs
       - system-required
@@ -2881,6 +2952,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -2903,6 +2975,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -2949,6 +3022,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -3271,6 +3345,7 @@
     templates:
       - package-check-jobs
       - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -4321,13 +4396,6 @@
       - system-required
 
 - project:
-    name: openstack/paunch
-    templates:
-      - package-check-jobs
-      - tripleo-ovb-check
-      - system-required
-
-- project:
     name: openstack/paunch-distgit
     templates:
       - package-distgit-check-jobs
@@ -4346,14 +4414,6 @@
       - system-required
 
 - project:
-    name: openstack/puppet-tripleo
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-
-- project:
     name: openstack/pycadf
     templates:
       - package-check-jobs
@@ -4364,38 +4424,6 @@
     templates:
       - weirdo-dlrn-master-oslo
       - system-required
-
-- project:
-    name: openstack/python-tempestconf
-    templates:
-      - system-required
-    openstack-check:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
-            branches: ^master$
-    openstack-experimental:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master:
-            branches: ^master$
-
-- project:
-    name: openstack/python-tripleoclient
-    templates:
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
 
 - project:
     name: openstack/rally
@@ -4746,22 +4774,6 @@
       - system-required
 
 - project:
-    name: openstack/tripleo-common
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-    openstack-check:
-      jobs:
-        - legacy-rdo-kolla-build-integration:
-            dependencies:
-              - legacy-DLRN-rpmbuild
-            branches: ^(master|stable/pike)$
-        - legacy-DLRN-rpmbuild:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-
-- project:
     name: openstack/tripleo-common-distgit
     templates:
       - package-distgit-check-jobs
@@ -4814,14 +4826,6 @@
     templates:
       - package-distgit-check-jobs
       - system-required
-
-- project:
-    name: openstack/tripleo-puppet-elements
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
 
 - project:
     name: openstack/tripleo-puppet-elements-distgit
