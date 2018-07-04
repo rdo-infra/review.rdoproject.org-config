@@ -375,7 +375,7 @@
 
 - job:
     name: legacy-tripleo-ci-periodic-base
-    parent: base
+    parent: legacy-dsvm-base
     post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
     required-projects:
       - name: rdo-infra/ci-config
