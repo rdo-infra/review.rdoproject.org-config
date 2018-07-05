@@ -381,3 +381,11 @@
       - name: rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: publish-rdoproject-artifacts
+    post-run: playbooks/publish-rdoproject-artifacts/post.yaml
+    secrets:
+      - secret: site_images
+        name: fileserver
+
