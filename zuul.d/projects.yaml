@@ -7182,8 +7182,10 @@
       - system-required
     periodic:
       jobs:
-        - legacy-octavia-build-amphora-master
-        - legacy-octavia-build-amphora-queens
+        - legacy-octavia-build-amphora-master:
+            branches: ^master$
+        - legacy-octavia-build-amphora-queens:
+            branches: ^master$
 
 - project:
     name: review.rdoproject.org/openstack/os-brick
