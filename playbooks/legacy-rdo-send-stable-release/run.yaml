@@ -50,7 +50,7 @@
           cat >> ~/.ssh/config << EOF
 
           Host review.rdoproject.org
-            IdentityFile $SSH_KEY
+            IdentityFile ~/.ssh/rdoinfo_id_rsa
           EOF
           chmod 600 ~/.ssh/config
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
