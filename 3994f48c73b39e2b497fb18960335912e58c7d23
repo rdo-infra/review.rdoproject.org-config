@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab921fb_af5abf81",
+        "filename": "playbooks/octavia-build-amphora/post.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 233
+      },
+      "writtenOn": "2018-07-05T13:37:34Z",
+      "side": 1,
+      "message": "I think for this we should take the time to make it a native zuulv3 job, this is because I don\u0027t think it will be too much work.  We have an add-fileserver role:\n\n  http://git.openstack.org/cgit/openstack-infra/zuul-jobs/tree/roles/add-fileserver\n\nWhich does almost this, but helps protect the SSH key, by doing it from the executor.  Basically, we no longer push directly from the remote node, we should copy the data back to zuul-executor (localhost) then have it publish to images.r.o.\n\nYou should be able to reuse a lot of openstack-publish-artifacts job upstream:\n\n  http://git.openstack.org/cgit/openstack-infra/project-config/tree/zuul.d/jobs.yaml#n131",
+      "revId": "3994f48c73b39e2b497fb18960335912e58c7d23",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
