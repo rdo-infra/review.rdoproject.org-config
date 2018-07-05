@@ -1,0 +1,32 @@
+- hosts: all
+  tasks:
+    - name: Create SSH directory
+      file:
+        dest: ~/.ssh
+        mode: 0700
+        state: directory
+
+    - name: Create uploader SSH private key
+      copy:
+        content: "{{ site_logs.ssh_private_key }}"
+        dest: ~/.ssh/uploader_id_rsa
+        mode: 0600
+
+    - name: Upload image
+      shell:
+        cmd: |
+          if [ "{{ zuul.branch }}" == master ]; then
+            export RELEASE=master
+          else
+            export RELEASE=$(echo "{{ zuul.branch }}" | cut -d/ -f 2)
+          fi
+          export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/uploader_id_rsa"
+          rsync_cmd="rsync --verbose --archive --delay-updates --relative"
+          UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/octavia/$RELEASE
+          if [ -f amphora-x64-haproxy-centos.qcow2 ]; then
+              curdate=$(date +%Y%m%d-%H%M%S)
+              mv amphora-x64-haproxy-centos.qcow2 amphora-x64-haproxy-centos-$curdate.qcow2
+              ln -s amphora-x64-haproxy-centos-$curdate.qcow2 amphora-x64-haproxy-centos.qcow2
+              $rsync_cmd amphora-*.qcow2 $UPLOAD_URL
+          fi
+        chdir: '{{ zuul.project.src_dir }}'

@@ -249,6 +249,15 @@
             branches: ^master$
 
 - project:
+    name: git.openstack.org/openstack/octavia
+    templates:
+      - system-required
+    periodic:
+      jobs:
+        - octavia-build-amphora:
+            branches: ^(master|stable/queens)$
+
+- project:
     name: git.openstack.org/openstack/python-tripleoclient
     templates:
       - system-required
@@ -7180,10 +7189,6 @@
     templates:
       - package-check-jobs
       - system-required
-    periodic:
-      jobs:
-        - legacy-octavia-build-amphora-master
-        - legacy-octavia-build-amphora-queens
 
 - project:
     name: review.rdoproject.org/openstack/os-brick
