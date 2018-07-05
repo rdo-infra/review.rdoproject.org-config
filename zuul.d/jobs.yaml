@@ -512,3 +512,16 @@
       - openstack/tripleo-upgrade
     secrets:
       - rdo_registry
+
+- job:
+    name: publish-rdoproject-artifacts
+    post-run: playbooks/publish-rdoproject-artifacts/post.yaml
+    secrets:
+      - secret: site_images
+        name: fileserver
+
+- job:
+    name: octavia-build-amphora
+    parent: publish-rdoproject-artifacts
+    run: playbooks/octavia-build-amphora/run.yaml
+    post-run: playbooks/octavia-build-amphora/post.yaml
