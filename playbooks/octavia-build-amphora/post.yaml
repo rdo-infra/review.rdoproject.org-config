@@ -1,0 +1,25 @@
+- hosts: all
+  tasks:
+    - name: Copy images from /images/ on node
+      synchronize:
+        src: '{{ zuul.project.src_dir }}/images/'
+        dest: '{{ zuul.executor.work_root }}/artifacts/'
+        mode: pull
+        copy_links: true
+        verify_host: true
+        rsync_opts:
+          - --include=/**
+          - --include=*/
+          - --exclude=*
+          - --prune-empty-dirs
+
+- hosts: localhost
+  roles:
+    - role: add-fileserver
+      when: zuul_success | bool
+
+- hosts: "{{ fileserver.fqdn }}"
+  gather_facts: False
+  roles:
+    - role: publish-artifacts-to-fileserver
+      when: zuul_success | bool

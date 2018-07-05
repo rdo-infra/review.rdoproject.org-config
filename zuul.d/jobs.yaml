@@ -381,3 +381,12 @@
       - name: rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: octavia-build-amphora
+    parent: base
+    run: playbooks/octavia-build-amphora/run.yaml
+    post-run: playbooks/octavia-build-amphora/post.yaml
+    secrets:
+      - secret: site_images
+        name: fileserver
