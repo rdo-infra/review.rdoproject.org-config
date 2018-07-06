@@ -6,6 +6,12 @@
       jobs:
         - config-check
         - tox-linters
+    gate:
+      jobs:
+        - config-check
+    post:
+      jobs:
+        - config-update
 
 - project:
     name: gating_scripts
