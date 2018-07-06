@@ -26,7 +26,7 @@ trap "rm -f $VALIDATED_OUTPUT && rm -f $APPLIED_OUTPUT" EXIT
     username="SF_SERVICE_USER"
     cookie_payload=$(python <<SCRIPT
 from sfmanager import sfauth
-print(sfauth.get_cookie('$GATEWAY_URL', username='$username', password=open('.service_user_password').read()))
+print(sfauth.get_cookie('$GATEWAY_URL', username='$username', password=open('.service_user_password').read().strip()))
 SCRIPT
 )
     [ -z "$cookie_payload" ] && {
