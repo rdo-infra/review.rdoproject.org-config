@@ -96,20 +96,14 @@
         cmd: |
           export RELEASE=master
           export PROMOTE_NAME=consistent
-          export DLRNAPI_PASSWORD="{{ dlrnapi.password }}"
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ ansible_user_dir }}/workspace'
-      # TODO: test ansible dictionary combinaison to inject dlrn password in environ and remove the no_log...
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      no_log: true
+      environment: '{{ zuul | zuul_legacy_vars | combine('DLRNAPI_PASSWORD': dlrnapi.password) }}'
 
     - shell:
         cmd: |
           export RELEASE=master
           export PROMOTE_NAME=tripleo-ci-testing
-          export DLRNAPI_PASSWORD="{{ dlrnapi.password }}"
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ ansible_user_dir }}/workspace'
-      # TODO: test ansible dictionary combinaison to inject dlrn password in environ and remove the no_log...
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      no_log: true
+      environment: '{{ zuul | zuul_legacy_vars | combine('DLRNAPI_PASSWORD': dlrnapi.password) }}'
