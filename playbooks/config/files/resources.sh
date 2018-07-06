@@ -3,6 +3,7 @@
 set -e
 
 GATEWAY="https://review.rdoproject.org"
+ENDPOINT="${GATEWAY}/manage/v2/resources/"
 
 APPLIED_OUTPUT="applied-output"
 VALIDATED_OUTPUT="validated-output"
@@ -15,29 +16,25 @@ trap "rm -f $VALIDATED_OUTPUT && rm -f $APPLIED_OUTPUT" EXIT
 }
 
 [ "$1" == "validate" ] && {
-    [ -n "$2" ] && {
-        echo "Requesting a resources validation for $GATEWAY_URL"
-        # We are going to call a remote resources endpoint
-        # We need a cauth cookie - request by username/passowrd
-        [ ! -f .service_user_password ] && {
-            echo "Unable to find service user password file"
-            exit 1
-        }
-        username="SF_SERVICE_USER"
-        cookie_payload=$(python <<SCRIPT
+    echo "Requesting a resources validation for $GATEWAY_URL"
+    # We are going to call a remote resources endpoint
+    # We need a cauth cookie - request by username/passowrd
+    [ ! -f .service_user_password ] && {
+        echo "Unable to find service user password file"
+        exit 1
+    }
+    username="SF_SERVICE_USER"
+    cookie_payload=$(python <<SCRIPT
 from sfmanager import sfauth
 print(sfauth.get_cookie('$GATEWAY_URL', username='$username', password=open('.service_user_password').read()))
 SCRIPT
 )
-        [ -z "$cookie_payload" ] && {
-            echo "Unabled to fetch the AUTH_PUB_TKT cookie"
-            exit 1
-        }
-        ENDPOINT="$GATEWAY_URL/manage/v2/resources/"
-        COOKIE="--cookie 'auth_pubtkt=$cookie_payload'"
-    } || {
-        COOKIE=""
+    [ -z "$cookie_payload" ] && {
+        echo "Unabled to fetch the AUTH_PUB_TKT cookie"
+        exit 1
     }
+    ENDPOINT="$GATEWAY_URL/manage/v2/resources/"
+    COOKIE="--cookie 'auth_pubtkt=$cookie_payload'"
 }
 
 
