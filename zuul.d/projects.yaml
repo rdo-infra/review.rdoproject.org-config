@@ -4,7 +4,8 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
 
 - project:
     name: gating_scripts
