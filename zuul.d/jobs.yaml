@@ -381,3 +381,30 @@
       - name: rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: config-check
+    description: Validate the config repo.
+    run: playbooks/config/check.yaml
+    secrets:
+      - sf_service_user
+    nodeset:
+      nodes: []
+    allowed-projects:
+      - config
+
+- semaphore:
+    name: semaphore-config-update
+    max: 1
+
+- job:
+    name: config-update
+    description: Deploy config repo updates
+    run: playbooks/config/update.yaml
+    semaphore: semaphore-config-update
+    secrets:
+      - site_install_server
+    nodeset:
+      nodes: []
+    allowed-projects:
+      - config
