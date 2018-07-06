@@ -19,7 +19,8 @@
     - validate-host
 
   tasks:
-    - import_role: configure-mirrors
+    - import_role:
+        name: configure-mirrors
       vars:
         mirror_fqdn: "mirror.{{ nodepool.region | lower }}.{{ nodepool.cloud | lower }}.rdoproject.org"
       ignore_errors: yes
