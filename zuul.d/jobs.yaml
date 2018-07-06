@@ -421,6 +421,30 @@
       - dlrnapi
 
 - job:
+    name: legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+    parent: legacy-tripleo-ci-periodic-base
+    run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/post.yaml
+    timeout: 1800
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack-infra/tripleo-ci
+    secrets:
+      - dlrnapi
+
+- job:
+    name: legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+    parent: legacy-tripleo-ci-periodic-base
+    run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/post.yaml
+    timeout: 1800
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack-infra/tripleo-ci
+    secrets:
+      - dlrnapi
+
+- job:
     name: legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     parent: legacy-tripleo-ci-periodic-base
     run: playbooks/legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/run.yaml
