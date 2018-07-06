@@ -110,13 +110,8 @@
 - project:
     name: git.openstack.org/openstack/puppet-openstack-integration
     templates:
+      - puppet-openstack-integration-python3-jobs
       - system-required
-    openstack-experimental:
-      jobs:
-        - puppet-openstack-integration-5-scenario-py3-tempest-centos-7:
-            voting: false
-        - puppet-openstack-integration-5-scenario-py3-tempest-fedora-28:
-            voting: false
 
 - project:
     name: git.openstack.org/openstack/puppet-tripleo
@@ -3517,6 +3512,7 @@
     name: puppet/puppet-glance
     templates:
       - package-check-jobs
+      - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
@@ -3649,6 +3645,7 @@
     name: puppet/puppet-keystone
     templates:
       - package-check-jobs
+      - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
