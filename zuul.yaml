@@ -1,0 +1,11 @@
+- job:
+    name: test-secrets
+    parent: run-test-command
+    secrets:
+      fake_tenant
+    vars:
+      test_command: "echo {{ fake_tenant.openrc }}"
+- project:
+    check:
+      jobs:
+        - test-secrets
