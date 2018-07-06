@@ -23,10 +23,10 @@
         group: '{{ ansible_user }}'
         mode: 0755
 
-    - name: Copy resources.j2 to /tmp
+    - name: Copy resource.j2 to /tmp
       copy:
-        src: resources.j2
-        dest: '/tmp/resources.j2'
+        src: resource.j2
+        dest: '/tmp/resource.j2'
         owner: '{{ ansible_user }}'
         group: '{{ ansible_user }}'
         mode: 0755
