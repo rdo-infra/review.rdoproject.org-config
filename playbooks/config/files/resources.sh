@@ -2,8 +2,8 @@
 
 set -e
 
-GATEWAY="https://review.rdoproject.org"
-ENDPOINT="${GATEWAY}/manage/v2/resources/"
+GATEWAY_URL="https://review.rdoproject.org"
+ENDPOINT="${GATEWAY_URL}/manage/v2/resources/"
 
 APPLIED_OUTPUT="applied-output"
 VALIDATED_OUTPUT="validated-output"
@@ -33,7 +33,6 @@ SCRIPT
         echo "Unabled to fetch the AUTH_PUB_TKT cookie"
         exit 1
     }
-    ENDPOINT="$GATEWAY_URL/manage/v2/resources/"
     COOKIE="--cookie 'auth_pubtkt=$cookie_payload'"
 }
 
