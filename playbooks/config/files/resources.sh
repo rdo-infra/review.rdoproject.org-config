@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "This shouldn't happen"
+exit 42
+
 set -e
 
 GATEWAY="https://review.rdoproject.org"
