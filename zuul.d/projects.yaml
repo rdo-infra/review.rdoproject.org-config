@@ -21,7 +21,8 @@
     check:
       jobs:
         - config-check
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
     gate:
       jobs:
         - config-check
