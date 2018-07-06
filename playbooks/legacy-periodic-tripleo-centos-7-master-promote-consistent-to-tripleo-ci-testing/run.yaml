@@ -106,4 +106,4 @@
           export PROMOTE_NAME=tripleo-ci-testing
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars | combine('DLRNAPI_PASSWORD': dlrnapi.password) }}'
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
