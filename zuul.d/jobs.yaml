@@ -377,18 +377,18 @@
       - github
 
 - job:
-    name: legacy-tripleo-ci-periodic-base
+    name: tripleo-ci-periodic-base
     parent: legacy-dsvm-base
-    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - name: rdo-infra/ci-config
     secrets:
       - dlrnapi
 
 - job:
-    name: legacy-tripleo-ci-periodic-base-upload
-    parent: legacy-tripleo-ci-periodic-base
-    pre-run: playbooks/legacy-tripleo-ci-periodic-base-upload/pre.yaml
+    name: tripleo-ci-periodic-base-upload
+    parent: tripleo-ci-periodic-base
+    pre-run: playbooks/tripleo-ci-periodic-base-upload/pre.yaml
     secrets:
       - uploader_ssh_key
 
@@ -419,10 +419,10 @@
     allowed-projects:
       - config
 - job:
-    name: legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
     required-projects:
       - openstack-infra/devstack-gate
@@ -431,10 +431,10 @@
       - dlrnapi
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
     required-projects:
       - openstack-infra/devstack-gate
@@ -443,10 +443,10 @@
       - dlrnapi
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
     required-projects:
       - openstack-infra/devstack-gate
@@ -455,10 +455,10 @@
       - dlrnapi
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
     required-projects:
       - openstack-infra/devstack-gate
@@ -467,10 +467,10 @@
       - dlrnapi
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-master-containers-build
+    name: periodic-tripleo-centos-7-master-containers-build
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-master-containers-build/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-master-containers-build/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-master-containers-build/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-master-containers-build/post.yaml
     timeout: 10800
     vars:
       toci_jobtype: periodic-singlenode-featureset023
@@ -483,10 +483,10 @@
       - rdo_registry
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-pike-containers-build
+    name: periodic-tripleo-centos-7-pike-containers-build
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-pike-containers-build/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-pike-containers-build/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-pike-containers-build/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-pike-containers-build/post.yaml
     timeout: 10800
     vars:
       toci_jobtype: periodic-singlenode-featureset023
@@ -499,10 +499,10 @@
       - rdo_registry
 
 - job:
-    name: legacy-periodic-tripleo-centos-7-queens-containers-build
+    name: periodic-tripleo-centos-7-queens-containers-build
     parent: legacy-dsvm-base
-    run: playbooks/legacy-periodic-tripleo-centos-7-queens-containers-build/run.yaml
-    post-run: playbooks/legacy-periodic-tripleo-centos-7-queens-containers-build/post.yaml
+    run: playbooks/periodic-tripleo-centos-7-queens-containers-build/run.yaml
+    post-run: playbooks/periodic-tripleo-centos-7-queens-containers-build/post.yaml
     timeout: 10800
     vars:
       toci_jobtype: periodic-singlenode-featureset023
