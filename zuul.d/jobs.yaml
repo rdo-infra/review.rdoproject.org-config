@@ -410,7 +410,7 @@
       - config
 - job:
     name: legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-    parent: legacy-tripleo-ci-periodic-base
+    parent: legacy-dsvm-base
     run: playbooks/legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
@@ -422,7 +422,7 @@
 
 - job:
     name: legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
-    parent: legacy-tripleo-ci-periodic-base
+    parent: legacy-dsvm-base
     run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
@@ -434,7 +434,7 @@
 
 - job:
     name: legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-    parent: legacy-tripleo-ci-periodic-base
+    parent: legacy-dsvm-base
     run: playbooks/legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
@@ -446,7 +446,7 @@
 
 - job:
     name: legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-    parent: legacy-tripleo-ci-periodic-base
+    parent: legacy-dsvm-base
     run: playbooks/legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing/post.yaml
     timeout: 1800
