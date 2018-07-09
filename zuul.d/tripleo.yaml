@@ -7,7 +7,7 @@
       - system-required
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -88,7 +88,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
             branches: ^stable/queens$
             irrelevant-files:
               - ^.*\.md$
@@ -169,7 +169,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
             branches: ^stable/pike$
             irrelevant-files:
               - ^.*\.md$
@@ -250,7 +250,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
             branches: ^stable/(0.6.x|ocata)$
             irrelevant-files:
               - ^.*\.md$
@@ -331,7 +331,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -422,7 +422,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -503,7 +503,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -584,7 +584,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -667,7 +667,7 @@
               - tox.ini
     openstack-experimental:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
+        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -682,7 +682,7 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
-        - legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
+        - tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -697,132 +697,132 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
-        - legacy-experimental-tripleo-centos-7-master-containers-build
+        - experimental-tripleo-centos-7-master-containers-build
     openstack-periodic:
       jobs:
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload:
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-singlenode-featureset027-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-singlenode-featureset027-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-containers-build
-        - legacy-periodic-tripleo-centos-7-master-containers-build:
+              - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-centos-7-master-containers-build:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-queens-upload:
+              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-queens-upload:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-queens:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-queens:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-containers-build
-        - legacy-periodic-tripleo-centos-7-queens-containers-build:
+              - periodic-tripleo-centos-7-queens-containers-build
+        - periodic-tripleo-centos-7-queens-containers-build:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
+              - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     openstack-periodic-24hr:
       jobs:
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-pike-upload:
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-pike-upload:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike:
+              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike:
+              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-pike:
+              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-pike:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-pike:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-pike:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-pike:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-containers-build
-        - legacy-periodic-tripleo-centos-7-pike-containers-build:
+              - periodic-tripleo-centos-7-pike-containers-build
+        - periodic-tripleo-centos-7-pike-containers-build:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-ocata-upload:
+              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-ocata-upload:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+              - periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata:
+              - periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata:
             dependencies:
-              - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
-        - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+              - periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
 
 - project:
     name: git.openstack.org/openstack/tripleo-heat-templates
@@ -832,7 +832,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht:
             branches: ^master$
             files:
               - ^extraconfig/services/ipsec.*$
@@ -850,7 +850,7 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht:
             branches: ^stable/queens$
             files:
               - ^extraconfig/services/ipsec.*$
@@ -875,7 +875,7 @@
       - system-required
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -890,7 +890,7 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens:
             branches: ^stable/queens$
             irrelevant-files:
               - ^.*\.md$
@@ -915,7 +915,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -996,7 +996,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -1077,7 +1077,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -1168,7 +1168,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -1249,7 +1249,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
@@ -1330,7 +1330,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
             branches: ^master$
             irrelevant-files:
               - ^.*\.md$
