@@ -418,6 +418,7 @@
     templates:
       - system-required
       - tripleo-upgrades-check-branchless
+      - tripleo-browbeat-check-branchless
       - tripleo-ovb-check
       - tripleo-ovb-experimental
     openstack-check:
@@ -825,6 +826,18 @@
         - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
 
 - project:
+    name: git.openstack.org/openstack/browbeat
+    templates:
+      - tripleo-browbeat-check-branchless
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
+
     name: git.openstack.org/openstack/tripleo-heat-templates
     templates:
       - system-required
@@ -910,6 +923,7 @@
     name: git.openstack.org/openstack/tripleo-quickstart
     templates:
       - tripleo-upgrades-check-branchless
+      - tripleo-browbeat-check-branchless
       - system-required
       - tripleo-ovb-check
       - tripleo-ovb-experimental
@@ -1163,6 +1177,7 @@
     name: git.openstack.org/openstack/tripleo-quickstart-extras
     templates:
       - tripleo-upgrades-check-branchless
+      - tripleo-browbeat-check-branchless
       - system-required
       - tripleo-ovb-check
       - tripleo-ovb-experimental
