@@ -410,6 +410,7 @@
 - job:
     name: config-update
     description: Deploy config repo updates
+    final: true
     run: playbooks/config/update.yaml
     semaphore: semaphore-config-update
     secrets:
