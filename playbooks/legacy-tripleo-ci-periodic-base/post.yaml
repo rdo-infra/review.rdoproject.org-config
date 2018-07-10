@@ -4,6 +4,7 @@
         cmd: |
           source $WORKSPACE/hash_info.sh
           export TOCI_JOBTYPE="{{ toci_jobtype }}"
+          export LOG_PATH="{{ zuul_log_path }}"
           export SUCCESS="{{ zuul_success | bool }}"
           bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/dlrnapi_report.sh
         chdir: '{{ ansible_user_dir }}/workspace'
