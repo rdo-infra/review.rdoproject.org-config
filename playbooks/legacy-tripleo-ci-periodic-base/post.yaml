@@ -1,5 +1,8 @@
 - hosts: primary:tripleo-ovb-centos-7
   tasks:
+    - name: Set zuul-log-path fact
+      include_role:
+        name: set-zuul-log-path-fact
     - shell:
         cmd: |
           source $WORKSPACE/hash_info.sh
