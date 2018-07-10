@@ -386,6 +386,13 @@
       - dlrnapi
 
 - job:
+    name: legacy-tripleo-ci-periodic-base-upload
+    parent: legacy-tripleo-ci-periodic-base
+    pre-run: playbooks/legacy-tripleo-ci-periodic-base-upload/pre.yaml
+    secrets:
+      - uploader_ssh_key
+
+- job:
     name: config-check
     description: Validate the config repo.
     run: playbooks/config/check.yaml
