@@ -872,6 +872,7 @@ IGNORED_PROJECTS = {
         'openstack/tripleo-ipsec',
         'openstack/tripleo-puppet-elements',
         'openstack-infra/tripleo-ci',
+        'openstack/browbeat',
     ],
     'gerritbot': [
         'openstack/whitebox-tempest-plugin',
