@@ -825,6 +825,20 @@
         - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
 
 - project:
+    name: git.openstack.org/openstack/browbeat
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+#    openstack-check:
+#      jobs:
+#        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+#            branches: ^master$
+#    openstack-experimental:
+#      jobs:
+#        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+#            branches: ^master$
+
     name: git.openstack.org/openstack/tripleo-heat-templates
     templates:
       - system-required
@@ -1158,6 +1172,10 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+#        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+#            branches: ^master$
+#            irrelevant-files:
+#            ...
 
 - project:
     name: git.openstack.org/openstack/tripleo-quickstart-extras
@@ -1411,3 +1429,7 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+#        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+#            branches: ^master$
+#            irrelevant-files:
+#            ...
