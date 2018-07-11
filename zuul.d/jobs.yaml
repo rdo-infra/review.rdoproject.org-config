@@ -513,3 +513,19 @@
       - openstack/tripleo-upgrade
     secrets:
       - rdo_registry
+
+- job:
+    name: triple-ovb-base
+    abstract: yes
+    pre-run: playbooks/ovb-create-stack.yaml
+    post-run: playbooks/ovb-delete-stack.yaml
+    roles:
+      - zuul: config
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack/tripleo-quickstart
+      - openstack/tripleo-quickstart-extras
+      - openstack/tripleo-upgrade
+    secrets:
+      - tripleo_ci_nodepool_tenant_credentials
+
