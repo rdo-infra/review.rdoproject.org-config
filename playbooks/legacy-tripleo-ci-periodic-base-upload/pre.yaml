@@ -1,8 +1,16 @@
 - hosts: all
   tasks:
 
-    - name: Write out upload ssh key
+    - name: Create SSH private key tempfile
+      tempfile:
+        state: file
+      register: ssh_private_key_tmp
+
+    - name: Create SSH private key from secret
       copy:
-        dest: "/tmp/id_rsa_uploader"
         content: "{{ uploader_ssh_key.ssh_private_key }}"
+        dest: "{{ ssh_private_key_tmp.path }}"
         mode: 0600
+
+    - name: Create SSH private key from secret
+      debug: var=
