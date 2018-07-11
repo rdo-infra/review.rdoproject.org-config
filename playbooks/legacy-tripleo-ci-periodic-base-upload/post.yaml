@@ -1,0 +1,38 @@
+- hosts: all
+  tasks:
+
+    block:
+
+      - name: Create SSH private key tempfile
+        tempfile:
+          state: file
+        register: ssh_private_key_tmp
+
+      - name: Create SSH private key from secret
+        copy:
+          content: "{{ uploader_ssh_key.ssh_private_key }}"
+          dest: "{{ ssh_private_key_tmp.path }}"
+          mode: 0600
+
+      - name: Add fileserver ssh key
+        command: "ssh-add {{ ssh_private_key_tmp.path }}"
+
+      - name: Remove SSH private key from disk
+        command: "shred {{ ssh_private_key_tmp.path }}"
+
+      - shell:
+          cmd: |
+            export RELEASE={{ release }}
+            mkdir -p $WORKSPACE/logs/images-upload/
+            bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
+            bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/upload-cloud-images.sh
+            echo export UPLOAD_EXIT_VALUE=$? >> $WORKSPACE/hash_info.sh
+            cp $HOME/.__repo_setup.sh.log $WORKSPACE/logs/images-upload
+          chdir: '{{ ansible_user_dir }}/workspace'
+        environment: '{{ zuul | zuul_legacy_vars }}'
+
+    always:
+      - name: remove ssh key
+        command: ssh-add -D
+
+    when: zuul_success|bool
