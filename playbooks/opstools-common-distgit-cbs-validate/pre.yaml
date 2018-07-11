@@ -1,0 +1,21 @@
+- hosts: all
+  tasks:
+    - shell:
+        cmd: |
+          # TODO(pabelanger): migrate to bindep.txt
+          sudo yum -y install centos-packager createrepo
+
+    - name: Create koji centos cert
+      copy:
+        content: "{{ cbs_opstools.private_key }}"
+        dest: ~/.centos.cert
+
+    - name: Create koji centos server ca
+      copy:
+        content: "{{ cbs_optools.server_ca_cert }}"
+        dest: ~/.centos-server-ca.cert
+
+    - name: Create koji centos upload ca
+      copy:
+        content: "{{ cbs_optools.server_ca_cert }}"
+        dest: ~/.centos-upload-ca.cert
