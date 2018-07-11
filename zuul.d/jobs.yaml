@@ -387,6 +387,7 @@
 
 - job:
     name: legacy-tripleo-ci-periodic-base-upload
+    final: true
     parent: legacy-tripleo-ci-periodic-base
     pre-run: playbooks/legacy-tripleo-ci-periodic-base-upload/pre.yaml
     secrets:
