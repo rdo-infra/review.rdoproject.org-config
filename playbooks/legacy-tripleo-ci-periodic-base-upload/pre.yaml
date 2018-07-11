@@ -1,8 +1,0 @@
-- hosts: all
-  tasks:
-
-    - name: Write out upload ssh key
-      copy:
-        dest: "/tmp/id_rsa_uploader"
-        content: "{{ uploader_ssh_key.ssh_private_key }}"
-        mode: 0600
