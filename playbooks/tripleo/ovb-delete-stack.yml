@@ -1,0 +1,21 @@
+---
+- name: Launch inner ansible playbook to delete OVB test env
+  hosts: provisioner-node
+  tasks:
+    - shell:
+        cmd: |
+            export ANSIBLE_ROLES_PATH=/home/zuul/src/git.openstack.org/openstack/tripleo-quickstart-extras/roles
+            ansible-playbook \
+            -e ovb_manage_stack_mode="create" \
+            -e local_working_dir={{ ansible_user_dir }} \
+            -e cleanup_stacks_keypairs=false \
+            -e release={{ zuul.branch }} \
+            -e existing_key_location={{ ansible_user_dir }}/env_key \
+            -e os_username={{ tripleoci_nodepool_tenant_credentials.username }} \
+            -e os_password={{ tripleoci_nodepool_tenant_credentials.password }} \
+            -e os_tenant_name={{ tripleoci_nodepool_tenant_credentials.tenant_name }} \
+            -e os_auth_url={{ tripleoci_nodepool_tenant_credentials.auth_url }} \
+            -e add_keypair=false \
+            -e ovb_setup_user=true \
+            /home/zuul/src/git.openstack.org/openstack/tripleo-quickstart-extras/playbooks/ovb-delete-stack.yaml
+      no_log: true

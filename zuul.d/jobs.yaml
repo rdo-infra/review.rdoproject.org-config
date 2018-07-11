@@ -514,3 +514,19 @@
       - openstack/tripleo-upgrade
     secrets:
       - rdo_registry
+
+- job:
+    name: tripleo-ovb-base
+    abstract: true
+    pre-run: playbooks/ovb-create-stack.yaml
+    post-run: playbooks/ovb-delete-stack.yaml
+    required-projects:
+      - openstack/tripleo-quickstart
+      - openstack/tripleo-quickstart-extras
+    nodeset:
+      nodes:
+        - name: provisioner-node
+          label: rdo-centos-7
+    secrets:
+      - tripleoci_nodepool_tenant_credentials
+
