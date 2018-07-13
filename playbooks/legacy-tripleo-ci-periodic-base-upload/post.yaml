@@ -14,18 +14,11 @@
           dest: "{{ ssh_private_key_tmp.path }}"
           mode: 0600
 
-      - name: Start ssh agent and add the key
-        shell: |
-          eval "$(ssh-agent)"
-          ssh-add {{ ssh_private_key_tmp.path }}
-        args:
-          executable: /bin/bash
-
-      - name: Remove SSH private key from disk
-        command: "shred {{ ssh_private_key_tmp.path }}"
-
       - shell:
           cmd: |
+            eval "$(ssh-agent)"
+            ssh-add {{ ssh_private_key_tmp.path }}
+            shred {{ ssh_private_key_tmp.path }}
             export RELEASE={{ release }}
             mkdir -p $WORKSPACE/logs/images-upload/
             bash -xe $WORKSPACE/rdo-infra/ci-config/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
