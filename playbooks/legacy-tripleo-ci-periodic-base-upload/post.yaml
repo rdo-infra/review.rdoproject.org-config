@@ -36,7 +36,10 @@
         environment: '{{ zuul | zuul_legacy_vars }}'
 
       always:
-        - name: remove ssh key
-          command: ssh-add -D
+        - name: Kill ssh-agent
+          shell: |
+            pkill ssh-agent
+          args:
+            executable: /bin/bash
 
       when: zuul_success|bool
