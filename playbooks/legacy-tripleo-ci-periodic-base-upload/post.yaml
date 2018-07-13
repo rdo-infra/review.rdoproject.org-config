@@ -37,6 +37,10 @@
 
       always:
         - name: remove ssh key
-          command: ssh-add -D
+          shell: |
+            eval "$(ssh-agent)"
+            ssh-add -D
+          args:
+            executable: /bin/bash
 
       when: zuul_success|bool
