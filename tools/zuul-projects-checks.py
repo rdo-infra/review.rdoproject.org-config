@@ -31,9 +31,8 @@ def check_system_templates():
     print("=====================================")
     for entry in projects:
         project = entry['project']
-        # TODO(mordred) Generalize this, but for now, avoid doing this check
-        # on ansible.
-        if project['name'] == 'ansible/ansible':
+        # TODO(pabelanger): Skip this as it only sets up default-branch
+        if project['name'] == '^review.rdoproject.org/openstack/*-distgit':
             continue
         try:
             correct = False
