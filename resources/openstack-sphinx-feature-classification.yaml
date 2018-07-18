@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/sphinx-feature-classification-core:
+      description: Core developers for project sphinx-feature-classification
+      members:
+      - amoralej@redhat.com
+    openstack/sphinx-feature-classification-ptl:
+      description: Project team lead for project sphinx-feature-classification
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sphinx-feature-classification-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sphinx-feature-classification-core
+          owner = group openstack/sphinx-feature-classification-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sphinx-feature-classification-core
+          label-Code-Review = -2..+2 group openstack/sphinx-feature-classification-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sphinx-feature-classification-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sphinx-feature-classification-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/sphinx-feature-classification-core
+          label-Verified = -2..+2 group openstack/sphinx-feature-classification-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sphinx-feature-classification-core
+          label-Workflow = -1..+1 group openstack/sphinx-feature-classification-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sphinx-feature-classification-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sphinx-feature-classification-core
+      - openstack/sphinx-feature-classification-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sphinx-feature-classification:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sphinx-feature-classification-core
+          owner = group openstack/sphinx-feature-classification-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sphinx-feature-classification-core
+          label-Code-Review = -2..+2 group openstack/sphinx-feature-classification-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sphinx-feature-classification-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sphinx-feature-classification-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sphinx-feature-classification-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sphinx-feature-classification-core
+          label-Workflow = -1..+0 group openstack/sphinx-feature-classification-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sphinx-feature-classification-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sphinx-feature-classification-core
+      - openstack/sphinx-feature-classification-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sphinx-feature-classification:
+      acl: openstack-sphinx-feature-classification
+      description: Mirror of upstream sphinx-feature-classification (mirror + patches)
+    openstack/sphinx-feature-classification-distgit:
+      acl: openstack-sphinx-feature-classification-distgit
+      description: Packaging of upstream sphinx-feature-classification
+      default-branch: rpm-master
+      branches:
+        master: '0'
