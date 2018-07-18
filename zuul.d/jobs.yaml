@@ -108,30 +108,9 @@
     secrets:
       - site_logs
 
-# See the procedure described above "base" before making changes to
-# this job.
 - job:
     name: base-test
-    parent: null
-    abstract: true
-    description: |
-      A job to test changes to the base job without disturbing the
-      main job in production.  Not for general use.
-    pre-run: playbooks/base-test/pre.yaml
-    post-run:
-      - playbooks/base-test/post-ssh.yaml
-      - playbooks/base-test/post-logs.yaml
-    roles:
-      - zuul: openstack-infra/zuul-jobs
-      - zuul: rdo-jobs
-    timeout: 1800
-    post-timeout: 1800
-    nodeset:
-      nodes:
-        - name: rdo-centos-7
-          label: rdo-centos-7
-    secrets:
-      - site_logs
+    parent: base-minimal-test
 
 - job:
     name: distgit-cbs-validate
