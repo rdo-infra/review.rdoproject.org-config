@@ -825,6 +825,15 @@
         - legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing
 
 - project:
+    name: git.openstack.org/openstack/browbeat
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
+            files:
+              - ansible/oooq/browbeat-minimal.yml
+
+- project:
     name: git.openstack.org/openstack/tripleo-heat-templates
     templates:
       - system-required
