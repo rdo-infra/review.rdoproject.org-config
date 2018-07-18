@@ -77,37 +77,13 @@
     secrets:
       - site_logs
 
+# TODO(pabelanger): Move this job to rdo-jobs, so we can start speculative
+# testing.
 - job:
     name: base
-    parent: null
-    abstract: true
-    description: |
-      The base job for RDO's installation of Zuul.
+    parent: base-minimal
 
-      All jobs ultimately inherit from this.  It runs a pre-playbook
-      which copies all of the job's prepared git repos on to all of
-      the nodes in the nodeset.  It runs a post-playbook which copies
-      all of the files in the logs/ subdirectory of the executor
-      work directory to the logserver.
-
-      It also sets default timeout and nodeset values (which may be
-      overidden).
-    pre-run: playbooks/base/pre.yaml
-    post-run:
-      - playbooks/base/post-ssh.yaml
-      - playbooks/base/post-logs.yaml
-    roles:
-      - zuul: openstack-infra/zuul-jobs
-      - zuul: rdo-jobs
-    timeout: 1800
-    post-timeout: 1800
-    nodeset:
-      nodes:
-        - name: rdo-centos-7
-          label: rdo-centos-7
-    secrets:
-      - site_logs
-
+# TODO(pabelanger): Delete this job once base has moved to rdo-jobs.
 - job:
     name: base-test
     parent: base-minimal-test
