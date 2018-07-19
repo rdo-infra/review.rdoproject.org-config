@@ -77,17 +77,6 @@
     secrets:
       - site_logs
 
-# TODO(pabelanger): Move this job to rdo-jobs, so we can start speculative
-# testing.
-- job:
-    name: base
-    parent: base-minimal
-
-# TODO(pabelanger): Delete this job once base has moved to rdo-jobs.
-- job:
-    name: base-test
-    parent: base-minimal-test
-
 - job:
     name: distgit-cbs-validate
     description: |
