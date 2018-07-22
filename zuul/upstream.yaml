@@ -194,7 +194,7 @@ jobs:
     skip-if:
         # The regex should match all tripleo projects
       - project: ^openstack(-infra)?/.*(puppet|tripleo|paunch|config|instack).*$
-        irrelevant-files:
+        all-files-match-any:
           - ^coe/kubernetes.*$
           - ^coe/openshift.*$
           - ^docker/services/.*ovn.*$
