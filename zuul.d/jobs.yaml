@@ -364,10 +364,10 @@
       - rdoinfo_ssh
 
 - job:
-    name: legacy-config-distgit-mirror-github
+    name: config-distgit-mirror-github
     parent: legacy-base
-    pre-run: playbooks/legacy-config-distgit-mirror-github/pre.yaml
-    run: playbooks/legacy-config-distgit-mirror-github/run.yaml
+    pre-run: playbooks/config/distgit-mirror-github/pre.yaml
+    run: playbooks/config/distgit-mirror-github/run.yaml
     required-projects:
       - name: rdoinfo
     secrets:
