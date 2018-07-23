@@ -837,6 +837,13 @@
               - ansible/oooq/browbeat-minimal.yml
 
 - project:
+    name: git.openstack.org/openstack/tripleo-common
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+
+- project:
     name: git.openstack.org/openstack/tripleo-heat-templates
     templates:
       - system-required
