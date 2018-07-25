@@ -2133,6 +2133,12 @@
       - system-required
 
 - project:
+    name: openstack/osc-placement-distgit
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: openstack/oslo-cache
     templates:
       - package-check-jobs
@@ -2853,23 +2859,6 @@
     templates:
       - package-distgit-check-jobs
       - system-required
-
-- project:
-    name: openstack/tripleo-common
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-    openstack-check:
-      jobs:
-        - legacy-rdo-kolla-build-integration:
-            dependencies:
-              - legacy-DLRN-rpmbuild
-            branches: ^(master|stable/pike)$
-        - legacy-DLRN-rpmbuild:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
 
 - project:
     name: openstack/tripleo-common-distgit
@@ -7228,6 +7217,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/osc-placement
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/packstack
     templates:
       - package-check-jobs
@@ -7244,6 +7239,23 @@
     templates:
       - package-check-jobs
       - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tripleo-common
+    # TODO(pabelanger): Why does this run OVB jobs?
+    templates:
+      - package-check-jobs
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+    openstack-check:
+      jobs:
+        - legacy-rdo-kolla-build-integration:
+            dependencies:
+              - legacy-DLRN-rpmbuild
+            branches: ^(master|stable/pike)$
+        - legacy-DLRN-rpmbuild:
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
 
 - project:
     name: review.rdoproject.org/openstack/zaqar
