@@ -2133,6 +2133,12 @@
       - system-required
 
 - project:
+    name: openstack/osc-placement-distgit
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: openstack/oslo-cache
     templates:
       - package-check-jobs
@@ -7223,6 +7229,12 @@
 
 - project:
     name: review.rdoproject.org/openstack/osc-lib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/osc-placement
     templates:
       - package-check-jobs
       - system-required
