@@ -1,7 +1,7 @@
 # NOTE(pabelanger): distgit project don't have a master branch, default to
 # rpm-master. Long term, we should consider moving back to master here.
 - project:
-    name: ^review.rdoproject.org/openstack/*-distgit
+    name: ^review.rdoproject.org/openstack/*-distgit$
     default-branch: rpm-master
 
 - project:
@@ -1977,7 +1977,7 @@
       - system-required
 
 - project:
-    name: openstack/openstackclient-distgit
+    name: review.rdoproject.org/openstack/openstackclient-distgit
     templates:
       - weirdo-dlrn-master-nova
       - system-required
