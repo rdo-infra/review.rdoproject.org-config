@@ -1977,12 +1977,6 @@
       - system-required
 
 - project:
-    name: openstack/openstackclient-distgit
-    templates:
-      - weirdo-dlrn-master-nova
-      - system-required
-
-- project:
     name: openstack/openstacksdk
     templates:
       - package-check-jobs
@@ -7197,6 +7191,12 @@
       jobs:
         - legacy-octavia-build-amphora-master
         - legacy-octavia-build-amphora-queens
+
+- project:
+    name: review.rdoproject.org/openstack/openstackclient-distgit
+    templates:
+      - weirdo-dlrn-master-nova
+      - system-required
 
 - project:
     name: review.rdoproject.org/openstack/os-brick
