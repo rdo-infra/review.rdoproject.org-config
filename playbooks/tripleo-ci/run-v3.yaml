@@ -1,0 +1,88 @@
+- hosts: all
+  name: Common tasks for nodes preparation
+  tasks:
+
+    - name: Include common vars
+      include_vars:
+        file: "common.yaml"
+
+    - name: Swap is essential as we are not meeting memory requirements
+      include_role:
+        name: configure-swap
+
+    - name: Ensure legacy workspace directory
+      file:
+        path: '{{ workspace }}'
+        state: directory
+
+    - name: Hard link tripleo-ci to openstack namespace dir
+      shell:
+        cmd: |
+          set -e
+          set -x
+          # we still need all the repos under the same root directory, but instead of using
+          # zuul-cloner, use the wrapped commands directly
+          cp -dRl /home/zuul/src/git.openstack.org/openstack-infra/tripleo-ci .
+        executable: /bin/bash
+        chdir: '{{ tripleo_root }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
+
+- hosts:
+    - primary
+    - centos-7
+  name: tripleo CI jobs runner
+  tasks:
+
+    - name: Include environment_type vars
+      include_vars:
+        file: "environment_type/{{ environment_type }}.yaml"
+
+    - name: render toci_gate_test script
+      template:
+        src: templates/toci_gate_test.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/toci_gate_test.sh"
+        mode: 0755
+        force: yes
+
+    - name: render toci_quickstart script
+      template:
+        src: templates/toci_quickstart.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/toci_quickstart.sh"
+        mode: 0755
+        force: yes
+
+    - name: render common_vars script
+      template:
+        src: templates/common_vars.bash.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/scripts/common_vars.bash"
+        force: yes
+
+    - name: render oooq_common_functions script
+      template:
+        src: templates/oooq_common_functions.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/scripts/oooq_common_functions.sh"
+        force: yes
+
+    - shell:
+        cmd: |
+          set -e
+          set -x
+          export TOCI_JOBTYPE={{ toci_jobtype }}
+          # ZUUL does not set these for periodic jobs
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+          # Compatibility with zuul v3 variables
+          export JOB_NAME={{ zuul.job }}
+          export LOG_PATH={{ zuul.change[-2:] }}/{{ zuul.change }}/{{ zuul.patchset }}/{{ zuul.pipeline }}/{{ zuul.job }}/{{ zuul.build[:7] }}
+          export BRANCH_OVERRIDE="{{ branch_override | default('default') }}"
+          if [ "$BRANCH_OVERRIDE" != "default" ] ; then
+              export OVERRIDE_ZUUL_BRANCH=$BRANCH_OVERRIDE
+          fi
+          export PYTHONUNBUFFERED=true
+          export TRIPLEO_ROOT={{ tripleo_root }}
+          # NOTE(trown) We can move this into the multinode environment file once we
+          # migrate the 2-node jobs over to zuulv3
+          bash -xe $TRIPLEO_ROOT/tripleo-ci/toci_gate_test.sh
+        executable: /bin/bash
+        chdir: '{{ tripleo_root }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
