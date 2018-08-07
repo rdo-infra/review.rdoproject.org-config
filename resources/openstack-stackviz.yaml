@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/stackviz-core:
+      description: Core developers for project stackviz
+      members:
+      - arxcruz@redhat.com
+    openstack/stackviz-ptl:
+      description: Project team lead for project stackviz
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-stackviz-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/stackviz-core
+          owner = group openstack/stackviz-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/stackviz-core
+          label-Code-Review = -2..+2 group openstack/stackviz-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/stackviz-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/stackviz-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/stackviz-core
+          label-Verified = -2..+2 group openstack/stackviz-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/stackviz-core
+          label-Workflow = -1..+1 group openstack/stackviz-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/stackviz-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/stackviz-core
+      - openstack/stackviz-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-stackviz:
+      file: |
+        [access "refs/*"]
+          read = group openstack/stackviz-core
+          owner = group openstack/stackviz-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/stackviz-core
+          label-Code-Review = -2..+2 group openstack/stackviz-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/stackviz-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/stackviz-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/stackviz-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/stackviz-core
+          label-Workflow = -1..+0 group openstack/stackviz-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/stackviz-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/stackviz-core
+      - openstack/stackviz-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/stackviz:
+      acl: openstack-stackviz
+      description: Mirror of upstream stackviz (mirror + patches)
+    openstack/stackviz-distgit:
+      acl: openstack-stackviz-distgit
+      description: Packaging of upstream stackviz
+      default-branch: rpm-master
+      branches:
+        master: '0'
