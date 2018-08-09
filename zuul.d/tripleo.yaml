@@ -746,6 +746,54 @@
             dependencies:
               - legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-rocky-upload:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-singlenode-featureset027-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-rocky:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-containers-build
+        - legacy-periodic-tripleo-centos-7-rocky-containers-build:
+            dependencies:
+              - legacy-periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
+        - legacy-periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
+    openstack-periodic-24hr:
+      jobs:
         - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-queens-upload:
             dependencies:
               - legacy-periodic-tripleo-centos-7-queens-containers-build
@@ -786,8 +834,6 @@
             dependencies:
               - legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
         - legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-    openstack-periodic-24hr:
-      jobs:
         - legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-pike-upload:
             dependencies:
               - legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
