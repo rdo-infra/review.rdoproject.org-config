@@ -300,6 +300,7 @@
         - legacy-DLRN-rpmbuild-rpm-packaging-centos
         - legacy-DLRN-rpmbuild-rpm-packaging-fedora:
             voting: false
+            timeout: 1800
             branches: ^master$
 
 - project:
@@ -5892,6 +5893,7 @@
             branches: ^(master|stable/pike)$
         - legacy-DLRN-rpmbuild:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            timeout: 1800
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-common-distgit
