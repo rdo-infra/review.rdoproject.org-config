@@ -540,3 +540,10 @@
       - openstack/tripleo-upgrade
     secrets:
       - rdo_registry
+
+- job:
+    name: publish-rdoproject-artifacts
+    post-run: playbooks/publish-rdoproject-artifacts/post.yaml
+    secrets:
+      - secret: site_images
+        name: fileserver
