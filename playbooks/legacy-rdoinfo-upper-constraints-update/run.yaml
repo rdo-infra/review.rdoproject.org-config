@@ -80,8 +80,8 @@
               GIT_SUFFIX="?h=stable/$RELEASE"
               UC_BRANCH="$RELEASE"
             else
-              UC_BRANCH="rocky-uc"
-              UC_BRANCH_PY3="rocky-py3-uc"
+              UC_BRANCH="stein-uc"
+              UC_BRANCH_PY3="stein-py3-uc"
               GIT_SUFFIX=""
             fi
             curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
