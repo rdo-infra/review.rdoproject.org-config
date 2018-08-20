@@ -1,5 +1,7 @@
 - hosts: localhost
   roles:
+    - role: log-inventory
+      zuul_log_url: "https://logs.rdoproject.org"
     - role: emit-job-header
       zuul_log_url: "https://logs.rdoproject.org"
 
