@@ -70,8 +70,7 @@
           popd
           export PARENT_JOB="validate-buildsys-tags"
           export WEIRDO_TOKEN_FILE="{{ ansible_user_dir }}/token_file"
-          git clone http://review.rdoproject.org/r/gating_scripts
-          pushd gating_scripts/buildsys-tags
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags
           # NOTE(pabelanger): Override logs for zuulv3 jobs.
           if [[ -d /home/zuul ]]; then
               export logs={{ buildset_artifacts_url }}
