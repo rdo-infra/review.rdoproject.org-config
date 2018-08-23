@@ -26,6 +26,23 @@
       - system-required
 
 - project:
+    name: git.openstack.org/openstack/diskimage-builder
+    templates:
+      - package-check-jobs
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+
+- project:
     name: git.openstack.org/openstack/glance
     templates:
       - system-required
@@ -508,23 +525,6 @@
 
 - project:
     name: openstack/dib-utils
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-check:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-
-- project:
-    name: openstack/diskimage-builder
     templates:
       - package-check-jobs
       - system-required
