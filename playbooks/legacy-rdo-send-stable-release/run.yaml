@@ -65,7 +65,6 @@
             case $ZUUL_PROJECT in
               rdoinfo )
                 pushd rdoinfo
-                git checkout $ZUUL_COMMIT
                 popd
                 $BASE_CMD -r $r -p ~/rdoinfo
               ;;
@@ -74,11 +73,11 @@
                 # we need to get the real commit (not the merge one) to search the
                 # review using gerrit API.
                 pushd {{ ansible_user_dir }}/{{ zuul.projects['git.openstack.org/openstack/releases'].src_dir }}
-                SUBJECT=$(git log --oneline $ZUUL_COMMIT|head -1|cut -d " " -f 2)
+                SUBJECT=$(git log --oneline|head -1|cut -d " " -f 2)
                 if [ $SUBJECT == "Merge" ]; then
-                  REAL_COMMIT=$(git show $ZUUL_COMMIT|grep ^Merge:|awk '{print $(NF)}')
+                  REAL_COMMIT=$(git show|grep ^Merge:|awk '{print $(NF)}')
                 else
-                  REAL_COMMIT=$ZUUL_COMMIT
+                  REAL_COMMIT=$(git show|head -1|awk '{print $2}')
                 fi
                 $BASE_CMD -r $r -n commit:$REAL_COMMIT
                 popd
