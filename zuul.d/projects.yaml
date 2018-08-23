@@ -26,6 +26,38 @@
       - system-required
 
 - project:
+    name: git.openstack.org/openstack/dib-utils
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+
+- project:
+    name: git.openstack.org/openstack/diskimage-builder
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-check:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+
+- project:
     name: git.openstack.org/openstack/glance
     templates:
       - system-required
@@ -44,6 +76,86 @@
     name: git.openstack.org/openstack/heat
     templates:
       - system-required
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/instack
+    # TODO(pabelanger): Why does this run OVB jobs?
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+
+- project:
+    name: git.openstack.org/openstack/instack-undercloud
+    # TODO(pabelanger): Why does this run OVB jobs?
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+
+- project:
+    name: git.openstack.org/openstack/ironic
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/ironic-inspector
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/ironic-python-agent
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
+    openstack-experimental:
+      jobs:
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
+            branches: ^stable/queens$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
+            branches: ^stable/pike$
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
+            branches: ^stable/(0.6.x|ocata)$
+
+- project:
+    name: git.openstack.org/openstack/mistral
+    templates:
+      - system-required
+    # TODO(pabelanger): Why does this run OVB jobs?
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
@@ -112,6 +224,13 @@
       - system-required
       - tripleo-ovb-check
       - tripleo-ovb-experimental
+
+- project:
+    name: git.openstack.org/openstack/paunch
+    # TODO(pabelanger): Why does this run OVB jobs?
+    templates:
+      - system-required
+      - tripleo-ovb-check
 
 - project:
     name: git.openstack.org/openstack/puppet-glance
@@ -314,6 +433,22 @@
             branches: ^master$
 
 - project:
+    name: git.openstack.org/openstack/tripleo-common
+    # TODO(pabelanger): Why does this run OVB jobs?
+    templates:
+      - system-required
+      - tripleo-ovb-check
+      - tripleo-ovb-experimental
+    openstack-check:
+      jobs:
+        - legacy-rdo-kolla-build-integration:
+            dependencies:
+              - legacy-DLRN-rpmbuild
+            branches: ^(master|stable/pike)$
+        - legacy-DLRN-rpmbuild:
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+
+- project:
     name: git.openstack.org/openstack/tripleo-image-elements
     templates:
       - system-required
@@ -321,1953 +456,17 @@
       - tripleo-ovb-experimental
 
 - project:
-    name: openstack/ansible-pacemaker
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ansible-role-container-registry
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ansible-role-redhat-subscription
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ansible-role-tripleo-modify-image
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/aodh
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/aodhclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/app-catalog-ui
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/automaton
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/barbican
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/barbican-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/barbicanclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/castellan
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ceilometerclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cinder-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cinderclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cisco-ironic-contrib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cliff
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cloudkitty
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cloudkitty-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cloudkittyclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/collectd-ceilometer-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/collectd-gnocchi
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/congress
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/congress-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/congressclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/cursive
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/debtcollector
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/designate
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/designate-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/designate-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/designateclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/dib-utils
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-check:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-
-- project:
-    name: openstack/diskimage-builder
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-check:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-
-- project:
-    name: openstack/dracclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ec2-api
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ec2api-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/futurist
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/glanceclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/glare
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/glareclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/gnocchi
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/gnocchiclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/hacking
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/hardware
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/heat-agents
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/heat-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/heat-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/heat-translator
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/heatclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/instack
+    name: git.openstack.org/openstack/tripleo-puppet-elements
     # TODO(pabelanger): Why does this run OVB jobs?
     templates:
-      - package-check-jobs
       - system-required
       - tripleo-ovb-check
       - tripleo-ovb-experimental
 
 - project:
-    name: openstack/instack-undercloud
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-
-- project:
-    name: openstack/ironic
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-experimental:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-
-- project:
-    name: openstack/ironic-inspector
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-experimental:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-
-- project:
-    name: openstack/ironic-inspector-client
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ironic-lib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ironic-python-agent
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-experimental:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-
-- project:
-    name: openstack/ironic-staging-drivers
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ironic-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ironic-ui
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ironicclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/k8sclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/karbor
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/karbor-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/karborclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/keystone-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/keystoneauth1
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/keystoneclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/kolla
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/kuryr
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/kuryr-kubernetes
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/kuryr-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/magnum
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/magnum-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/magnum-ui
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/magnumclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/manila-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/manilaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/metalsmith
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/microversion-parse
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mistral
-    templates:
-      - package-check-jobs
-      - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-    openstack-experimental:
-      jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            branches: ^master$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens:
-            branches: ^stable/queens$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            branches: ^stable/pike$
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata:
-            branches: ^stable/(0.6.x|ocata)$
-
-- project:
-    name: openstack/mistral-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mistral-extra
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mistral-lib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mistral-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mistralclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/monascaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/mox3
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/murano
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/murano-agent
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/murano-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/murano-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/muranoclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-ansible
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-arista
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-bagpipe
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-baremetal
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-bgpvpn
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-bigswitch
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-cisco
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-fujitsu
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-generic-switch
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-l2gw
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-l2gw-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-mlnx
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-odl
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-ovn
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-sfc
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/networking-vsphere
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutron-dynamic-routing
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutron-lbaas-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutron-lib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutron-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/neutronclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/novaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/novajoin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/novajoin-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/octavia-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/octavia-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/octaviaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/openstack-macros
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/openstack-puppet-modules
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/openstack-selinux
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/openstackclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/openstacksdk
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-cloud-config
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-faults
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-service-types
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-testr
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-traits
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-vif
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-win
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/os-xenapi
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-cache
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-concurrency
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-config
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-context
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-db
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-i18n
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-log
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-messaging
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-middleware
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-policy
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-privsep
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-reports
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-rootwrap
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-serialization
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-service
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-sphinx
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-utils
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-versionedobjects
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslo-vmware
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oslotest
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/osops-tools-monitoring-oschecks
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/osprofiler
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/oswin-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/ovsdbapp
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/panko
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/pankoclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/patrole
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/paunch
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - system-required
-      - package-check-jobs
-      - tripleo-ovb-check
-
-- project:
-    name: openstack/proliantutils
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/pycadf
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/rally
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/reno
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/requestsexceptions
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/rsd-lib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/rsdclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/sahara
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/sahara-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/sahara-image-elements
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/sahara-tests
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/saharaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/scciclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/senlin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/senlinclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/shade
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/shaker
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/stevedore
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/sushy
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/swift3
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/swiftclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tacker
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tackerclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tap-as-a-service
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/taskflow
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/telemetry-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tempest-horizon
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tempest-lib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tempestconf
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tooz
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleo-common-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleo-incubator
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleo-puppet-elements
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-
-- project:
-    name: openstack/tripleo-repos
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleo-ui
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleo-upgrade
+    name: git.openstack.org/openstack/tripleo-upgrade
     templates:
       - tripleo-upgrades-check
-      - system-required
-
-- project:
-    name: openstack/tripleo-validations
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/tripleoclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/trove
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/trove-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/trove-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/troveclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/UcsSdk
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/virtualbmc
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vitrage
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vitrage-dashboard
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vitrage-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vitrageclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vmware-nsx
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vmware-nsx-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/vmware-nsxlib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/watcher
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/watcher-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/whitebox-tempest-plugin
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-        - legacy-tox-validate
-    gate:
-      queue: whitebox-tempest-plugin
-      jobs:
-        - tox-linters
-        - legacy-tox-validate
-
-- project:
-    name: openstack/wsme
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/zaqar-tempest-plugin
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: openstack/zaqarclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-aodh
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-apache
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-archive
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-auditd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-barbican
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-cassandra
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ceilometer
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ceph
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-certmonger
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-cinder
-    templates:
-      - package-check-jobs
-      - system-required
-- project:
-    name: puppet/puppet-collectd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-concat
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-congress
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-contrail
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-corosync
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-datacat
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-designate
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-dns
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ec2api
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-elasticsearch
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-etcd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-fdio
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-firewall
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-fluentd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-git
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-glance
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-gnocchi
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-haproxy
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-heat
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-horizon
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-inifile
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ipaclient
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ironic
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-java
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-kafka
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-keepalived
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-keystone
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-kibana3
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-kmod
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-lib-file_concat
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-logstash
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-magnum
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-manila
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-memcached
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-midonet
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-midonet_openstack
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-mistral
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-module-data
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-mongodb
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-murano
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-mysql
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-n1k-vsm
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-neutron
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-nova
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-nssdb
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ntp
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-octavia
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-opendaylight
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-openstack_extras
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-openstacklib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-oslo
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ovn
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-pacemaker
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-panko
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-powerdns
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-qdr
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-rabbitmq
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-redis
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-remote
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-rsync
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-sahara
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-sensu
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-snmp
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-ssh
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-staging
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-stdlib
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-swift
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-sysctl
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-systemd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-tacker
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-tempest
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-timezone
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-tomcat
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-tripleo
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-trove
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-uchiwa
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-vcsrepo
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-veritas_hyperscale
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-vitrage
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-vlan
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-vswitch
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-xinetd
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-zaqar
-    templates:
-      - package-check-jobs
-      - system-required
-
-- project:
-    name: puppet/puppet-zookeeper
-    templates:
-      - package-check-jobs
       - system-required
 
 - project:
@@ -4194,10 +2393,22 @@
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-pacemaker
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-pacemaker-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-container-registry
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4208,10 +2419,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-role-redhat-subscription
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-role-redhat-subscription-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-tripleo-modify-image
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4222,10 +2445,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/aodh
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/aodh-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-aodh
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/aodhclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4236,10 +2471,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/app-catalog-ui
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/app-catalog-ui-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/automaton
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4250,10 +2497,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/barbican
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/barbican-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-barbican
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/barbican-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4264,10 +2523,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/barbicanclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/barbicanclient-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-barbican
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/castellan
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4288,6 +2559,12 @@
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-ceilometer
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ceilometerclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4324,10 +2601,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cinder-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cinder-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cinderclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4338,6 +2627,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cisco-ironic-contrib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cisco-ironic-contrib-distgit
     default-branch: rpm-master
     templates:
@@ -4345,10 +2640,29 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cliff
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cliff-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+
+- project:
+    name: review.rdoproject.org/openstack/cloudkitty
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cloudkitty-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4366,10 +2680,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cloudkittyclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cloudkittyclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/collectd-ceilometer-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4380,10 +2706,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/collectd-gnocchi
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/collectd-gnocchi-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/congress
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4394,10 +2732,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/congress-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/congress-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/congressclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4408,6 +2758,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cursive
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cursive-distgit
     default-branch: rpm-master
     templates:
@@ -4415,10 +2771,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/debtcollector
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/debtcollector-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/designate
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/designate-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4436,10 +2810,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/designate-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/designate-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/designateclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4477,10 +2863,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/dracclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/dracclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ec2-api
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4491,10 +2889,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ec2api-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ec2api-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/futurist
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4525,10 +2935,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/glanceclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/glanceclient-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-glance
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/glare
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4539,10 +2961,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/glareclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/glareclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/gnocchi
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4553,10 +2987,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/gnocchiclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/gnocchiclient-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-gnocchi
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/hacking
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4567,6 +3013,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/hardware
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/hardware-distgit
     default-branch: rpm-master
     templates:
@@ -4574,10 +3026,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/heat-agents
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/heat-agents-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/heat-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4592,6 +3056,12 @@
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-heat
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/heat-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4615,10 +3085,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/heat-translator
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/heat-translator-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/heatclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4663,6 +3145,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ironic-inspector-client
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ironic-inspector-client-distgit
     default-branch: rpm-master
     templates:
@@ -4674,6 +3162,12 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ironic-lib
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4691,10 +3185,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ironic-staging-drivers
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ironic-staging-drivers-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ironic-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4705,10 +3211,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ironic-ui
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ironic-ui-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ironicclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4719,10 +3237,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/k8sclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/k8sclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/karbor
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/karbor-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4737,6 +3273,12 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/karborclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4760,6 +3302,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/keystone-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/keystone-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
@@ -4767,10 +3315,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/keystoneauth1
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/keystoneauth1-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-keystone
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/keystoneclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4794,10 +3354,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/kolla
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/kolla-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/kuryr
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4808,10 +3380,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/kuryr-kubernetes
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/kuryr-kubernetes-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/kuryr-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4822,10 +3406,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/magnum
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/magnum-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/magnum-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4836,10 +3432,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/magnum-ui
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/magnum-ui-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/magnumclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4863,6 +3471,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/manila-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/manila-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
@@ -4883,10 +3497,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/manilaclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/manilaclient-distgit
     default-branch: rpm-masterv
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/metalsmith
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4897,10 +3523,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/microversion-parse
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/microversion-parse-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/mistral-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4918,10 +3556,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/mistral-extra
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/mistral-extra-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/mistral-lib
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4932,10 +3582,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/mistral-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/mistral-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/mistralclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4946,10 +3608,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/monascaclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/monascaclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/mox3
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4960,10 +3634,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/murano
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/murano-agent
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/murano-agent-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/murano-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4981,10 +3673,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/murano-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/murano-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/muranoclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -4995,10 +3699,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-ansible
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-ansible-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-arista
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5009,10 +3725,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-bagpipe
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-bagpipe-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-baremetal
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5023,10 +3751,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-bgpvpn
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-bgpvpn-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-networking-bgpvpn
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-bigswitch
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5037,10 +3777,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-cisco
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-cisco-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-fujitsu
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5051,10 +3803,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-generic-switch
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-generic-switch-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-l2gw
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5065,10 +3829,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-l2gw-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-l2gw-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-mlnx
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5079,10 +3855,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-odl
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-odl-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-ovn
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5093,10 +3881,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/networking-sfc
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/networking-sfc-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/networking-vsphere
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5111,6 +3911,12 @@
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-neutron
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/neutron-dynamic-routing
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5140,6 +3946,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/neutron-lbaas-dashboard
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/neutron-lbaas-dashboard-distgit
     default-branch: rpm-master
     templates:
@@ -5154,10 +3966,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/neutron-lib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/neutron-lib-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-neutron
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/neutron-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5181,6 +4005,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/neutronclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/neutronclient-distgit
     default-branch: rpm-master
     templates:
@@ -5195,6 +4025,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/novaclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/novaclient-distgit
     default-branch: rpm-master
     templates:
@@ -5202,10 +4038,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/novajoin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/novajoin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/novajoin-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5217,6 +4065,12 @@
 
 - project:
     name: review.rdoproject.org/openstack/octavia
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/octavia-dashboard
     templates:
       - package-check-jobs
       - system-required
@@ -5236,10 +4090,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/octavia-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/octavia-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/octaviaclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5250,10 +4116,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/openstack-macros
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/openstack-macros-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/openstack-puppet-modules
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5264,6 +4142,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/openstack-selinux
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/openstack-selinux-distgit
     default-branch: rpm-master
     templates:
@@ -5271,10 +4155,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/openstackclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/openstackclient-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-nova
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/openstacksdk
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5318,6 +4214,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/os-cloud-config
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/os-cloud-config-distgit
     default-branch: rpm-master
     templates:
@@ -5329,6 +4231,12 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-faults
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5353,10 +4261,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/os-service-types
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/os-service-types-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-testr
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5367,10 +4287,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/os-traits
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/os-traits-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-vif
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5381,10 +4313,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/os-win
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/os-win-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-xenapi
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5421,10 +4365,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-cache
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-cache-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-concurrency
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5435,10 +4391,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-config
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-config-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-context
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5449,10 +4417,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-db
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-db-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-i18n
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5463,10 +4443,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-log
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-log-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-messaging
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5477,10 +4469,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-middleware
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-middleware-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-policy
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5491,10 +4495,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-privsep
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-privsep-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-reports
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5505,10 +4521,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-rootwrap
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-rootwrap-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-serialization
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5519,10 +4547,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-service
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-service-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-sphinx
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5533,10 +4573,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-utils
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-utils-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-oslo
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-versionedobjects
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5547,10 +4599,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-vmware
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-vmware-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslotest
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5561,10 +4625,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/osops-tools-monitoring-oschecks
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/osops-tools-monitoring-oschecks-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/osprofiler
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5575,10 +4651,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oswin-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oswin-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ovsdbapp
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5602,6 +4690,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/panko
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/panko-distgit
     default-branch: rpm-master
     templates:
@@ -5609,10 +4703,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/pankoclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/pankoclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/patrole
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5630,10 +4736,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/proliantutils
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/proliantutils-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/pycadf
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5644,10 +4762,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/rally
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/rally-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/reno
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5658,10 +4788,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/requestsexceptions
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/requestsexceptions-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/rsd-lib
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5672,10 +4814,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/rsdclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/rsdclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/sahara
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/sahara-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5693,10 +4853,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/sahara-image-elements
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/sahara-image-elements-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/sahara-tests
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5707,10 +4879,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/saharaclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/saharaclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/scciclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5721,10 +4905,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/senlin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/senlin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/senlinclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5735,10 +4931,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/shade
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/shade-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/shaker
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5762,10 +4970,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/stevedore
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/stevedore-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-nova
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/sushy
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5789,10 +5009,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/swift3
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/swift3-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/swiftclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5803,10 +5035,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tacker
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tacker-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tackerclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5817,6 +5061,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tap-as-a-service
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tap-as-a-service-distgit
     default-branch: rpm-master
     templates:
@@ -5824,10 +5074,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/taskflow
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/taskflow-distgit
     default-branch: rpm-master
     templates:
       - weirdo-dlrn-master-glance
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/telemetry-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5845,10 +5107,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tempest-horizon
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tempest-horizon-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tempest-lib
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5859,10 +5133,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tempestconf
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tempestconf-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tooz
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5873,27 +5159,16 @@
       - system-required
 
 - project:
-    name: review.rdoproject.org/openstack/tripleo-common
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - package-check-jobs
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-    openstack-check:
-      jobs:
-        - legacy-rdo-kolla-build-integration:
-            dependencies:
-              - legacy-DLRN-rpmbuild
-            branches: ^(master|stable/pike)$
-        - legacy-DLRN-rpmbuild:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-
-- project:
     name: review.rdoproject.org/openstack/tripleo-common-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tripleo-common-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5925,6 +5200,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleo-incubator
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleo-incubator-distgit
     default-branch: rpm-master
     templates:
@@ -5946,10 +5227,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleo-repos
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleo-repos-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tripleo-ui
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5960,6 +5253,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleo-validations
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleo-validations-distgit
     default-branch: rpm-master
     templates:
@@ -5967,10 +5266,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleoclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleoclient-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/trove
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/trove-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -5988,10 +5305,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/trove-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/trove-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/troveclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6002,6 +5331,12 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/UcsSdk
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/UcsSdk-distgit
     default-branch: rpm-master
     templates:
@@ -6009,10 +5344,28 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/virtualbmc
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/virtualbmc-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/vitrage
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/vitrage-dashboard
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6030,10 +5383,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/vitrage-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/vitrage-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/vitrageclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6044,10 +5409,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/vmware-nsx
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/vmware-nsx-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/vmware-nsx-tempest-plugin
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6058,10 +5435,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/vmware-nsxlib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/vmware-nsxlib-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/watcher
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6072,10 +5461,36 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/watcher-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/watcher-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/whitebox-tempest-plugin
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - legacy-tox-validate
+    gate:
+      queue: whitebox-tempest-plugin
+      jobs:
+        - tox-linters
+        - legacy-tox-validate
+
+- project:
+    name: review.rdoproject.org/openstack/wsme
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
@@ -6099,10 +5514,22 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/zaqar-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/zaqar-tempest-plugin-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/zaqarclient
+    templates:
+      - package-check-jobs
       - system-required
 
 - project:
