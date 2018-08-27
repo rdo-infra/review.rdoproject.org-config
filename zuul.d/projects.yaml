@@ -4979,6 +4979,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/stackviz
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/stackviz-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/stevedore
     templates:
       - package-check-jobs
