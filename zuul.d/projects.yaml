@@ -7001,10 +7001,13 @@
         - legacy-weirdo-validate-buildsys-tags:
             dependencies:
               - legacy-validate-buildsys-tags
-        - legacy-rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset016:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
+        # FIXME(ykarel) These are running against rocky buildsys tags update and testing
+        # changes + trunk builds + trunk promoted containers, which are not ideal, so
+        # temporary removing the job, can be re enabled later.
+        #- legacy-rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset016:
+        #   dependencies:
+        #     - legacy-validate-buildsys-tags
+        #   voting: false
         - legacy-rdoinfo-tripleo-pike-testing-centos-7-multinode-1ctlr-featureset006:
             dependencies:
               - legacy-validate-buildsys-tags
