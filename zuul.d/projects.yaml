@@ -4784,6 +4784,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/rally-openstack
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/rally-openstack-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/reno
     templates:
       - package-check-jobs
