@@ -442,22 +442,6 @@
             branches: ^master$
 
 - project:
-    name: git.openstack.org/openstack/tripleo-common
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - system-required
-      - tripleo-ovb-check
-      - tripleo-ovb-experimental
-    openstack-check:
-      jobs:
-        - legacy-rdo-kolla-build-integration:
-            dependencies:
-              - legacy-DLRN-rpmbuild
-            branches: ^(master|stable/pike)$
-        - legacy-DLRN-rpmbuild:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-
-- project:
     name: git.openstack.org/openstack/tripleo-image-elements
     templates:
       - system-required
