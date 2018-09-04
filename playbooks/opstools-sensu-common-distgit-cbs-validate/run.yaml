@@ -21,7 +21,7 @@
           # This should list the packages we just build in that Koji task
           yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
           pkgs=$(yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
-          # Force installation of python-setuptools as is required for some packages (skydive, ansible)
+          # Force installation of python-setuptools as is required for some packages (ansible)
           sudo yum install --installroot=/tmp/root --disableexcludes=all -y python-setuptools
           # Here we install locally the kust built packages
           sudo yum install --installroot=/tmp/root -y $pkgs
