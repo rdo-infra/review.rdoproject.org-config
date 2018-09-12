@@ -83,7 +83,7 @@
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install git+https://github.com/softwarefactory-project/graffiti
-          pip install ruamel.yaml sh git-review
+          pip install 'ruamel.yaml<=0.15.0' sh git-review
           mkdir -p ~/.ssh
           cat >> ~/.ssh/config << EOF
 

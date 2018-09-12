@@ -37,7 +37,7 @@
           virtualenv .venv
           . .venv/bin/activate
           pip install -r requirements.txt
-          pip install ruamel.yaml
+          pip install 'ruamel.yaml<=0.15.0'
           pip install --upgrade urllib3
           popd
           # Set up git configuration

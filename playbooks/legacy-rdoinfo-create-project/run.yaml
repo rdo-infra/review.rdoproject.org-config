@@ -58,7 +58,7 @@
           set +e -x
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
-          pip install git-review rdopkg ruamel.yaml Jinja2
+          pip install git-review rdopkg 'ruamel.yaml<=0.15.0' Jinja2
           cd $ZUUL_PROJECT
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)

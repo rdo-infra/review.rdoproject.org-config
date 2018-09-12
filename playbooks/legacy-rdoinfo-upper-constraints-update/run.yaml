@@ -71,7 +71,7 @@
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-          sudo pip install ruamel.yaml git-review
+          sudo pip install 'ruamel.yaml<=0.15' git-review
           cd $ZUUL_PROJECT
           for RELEASE in {{ stable_releases }} ; do
             # Ensure we have a fresh repo for each release
