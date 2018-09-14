@@ -665,6 +665,8 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
     openstack-experimental:
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
@@ -891,8 +893,6 @@
       jobs:
         - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
             branches: ^master$
-            files:
-              - ansible/oooq/browbeat-minimal.yml
 
 - project:
     name: git.openstack.org/openstack/tripleo-common
@@ -945,6 +945,8 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
 
 - project:
     name: git.openstack.org/openstack/tripleo-ipsec
@@ -1235,6 +1237,8 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
 
 - project:
     name: git.openstack.org/openstack/tripleo-quickstart-extras
@@ -1488,3 +1492,5 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
+            branches: ^master$
