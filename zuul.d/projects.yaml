@@ -1,6 +1,6 @@
-# NOTE(pabelanger): distgit project don't have a master branch, default to
-# rpm-master. Long term, we should consider moving back to master here.
 - project:
+    # NOTE(pabelanger): distgit project don't have a master branch, default to
+    # rpm-master. Long term, we should consider moving back to master here.
     name: ^review.rdoproject.org/openstack/*-distgit
     default-branch: rpm-master
 
@@ -2418,6 +2418,18 @@
 - project:
     name: review.rdoproject.org/openstack/ansible-role-redhat-subscription-distgit
     default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-tripleo-keystone
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-tripleo-keystone-distgit
     templates:
       - package-distgit-check-jobs
       - system-required
