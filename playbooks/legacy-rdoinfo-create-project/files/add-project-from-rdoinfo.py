@@ -40,8 +40,12 @@ def add_project_resources(prefix, name, maintainers):
                                 indent=4, block_seq_indent=2))
 
     # And also to the Zuul configuration
+
+    yml = yaml.YAML()
+    yml.indent(mapping=2, sequence=4, offset=2)
+
     with open("zuul.d/projects.yaml") as infile:
-        info = yaml.load(infile, Loader=yaml.RoundTripLoader)
+        info = yml.load(infile)
 
     data = yaml.comments.CommentedMap(
         [('project', yaml.comments.CommentedMap(
@@ -74,10 +78,22 @@ def add_project_resources(prefix, name, maintainers):
               (project_prefix, project_name))
 
     info = sorted(info, key=lambda i: i['project']['name'])
+    yml.dump(info, open('zuul.d/projects.yaml', 'w'))
 
-    with open('zuul.d/projects.yaml', 'w') as outfile:
-        outfile.write(yaml.dump(info, Dumper=yaml.RoundTripDumper,
-                                indent=4, block_seq_indent=2))
+    # Strip the extra 2 spaces that ruamel.yaml appends because we told it
+    # to indent an extra 2 spaces. Because the top level entry is a list it
+    # applies that indentation at the top. It doesn't indent the comment lines
+    # extra though, so don't do them.
+    with open('zuul.d/projects.yaml', 'r') as fp:
+        content = fp.readlines()
+    with open('zuul.d/projects.yaml', 'w') as fp:
+        for line in content:
+            if '#' in line:
+                fp.write(line)
+            elif len(line) < 2:
+                fp.write(line)
+            else:
+                fp.write(line[2:])
 
 if __name__ == '__main__':
     add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3])

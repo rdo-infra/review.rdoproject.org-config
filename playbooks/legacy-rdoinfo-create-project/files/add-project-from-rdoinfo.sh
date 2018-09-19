@@ -37,7 +37,7 @@ git add resources/*.yaml
 git add gerritbot/*.yaml
 echo -e $COMMIT_MSG | git commit -F-
 git add zuul.d/*.yaml
-COMMIT_MSG="Add Zuul definitions for rally-openstack $PROJECT_NAME\n\nNote that this review will fail to pass CI until the corresponding entries \nhave been created in the softwarefactory-project.io config repo."
+COMMIT_MSG="Add Zuul definitions for $PROJECT_NAME\n\nNote that this review will fail to pass CI until the corresponding entries \nhave been created in the softwarefactory-project.io config repo."
 echo -e $COMMIT_MSG | git commit -F-
 git review -y -t "add-${PROJECT_NAME}" < /dev/null
 popd
