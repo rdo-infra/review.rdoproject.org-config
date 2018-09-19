@@ -51,11 +51,6 @@ def check_system_templates():
     return errors
 
 
-def normalize(s):
-    "Normalize string for comparison."
-    return s.lower().replace("_", "-")
-
-
 def check_projects_sorted():
     """Check that the projects are in alphabetical order per section."""
 
@@ -66,7 +61,7 @@ def check_projects_sorted():
     last = ""
     for entry in projects:
         current = entry['project']['name']
-        if (normalize(last) > normalize(current)):
+        if (last > current):
             print("  ERROR: Wrong alphabetical order: %(last)s, %(current)s" %
                   {"last": last, "current": current})
             errors = True
