@@ -77,7 +77,7 @@ def add_project_resources(prefix, name, maintainers):
 
     with open('zuul.d/projects.yaml', 'w') as outfile:
         outfile.write(yaml.dump(info, Dumper=yaml.RoundTripDumper,
-                                indent=4, block_seq_indent=2))
+                                indent=2, block_seq_indent=0))
 
 if __name__ == '__main__':
     add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3])
