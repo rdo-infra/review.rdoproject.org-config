@@ -1,0 +1,100 @@
+---
+# This file contains parent layouts for all TripleO RDO Cloud related jobs.
+# Do not add children specific layout here.
+
+- job:
+    name: tripleo-ci-base-ovb-rdo
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-ovb
+    timeout: 10800
+    vars:
+      environment_type: ovb
+    nodeset: tripleo-ovb-centos-7-primary
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
+    name: tripleo-ci-base-multinode-rdo
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-multinode
+    vars:
+      environment_type: multinode
+    nodeset: two-centos-7-nodes
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
+    name: tripleo-ci-base-singlenode-rdo
+    abstract: true
+    description: |
+        Base abstract job for singlenode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-singlenode
+    vars:
+      environment_type: singlenode
+    nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
+    name: tripleo-ci-base-standalone-rdo
+    abstract: true
+    description: |
+        Base abstract job for standalone in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-standalone
+    vars:
+      environment_type: standalone
+    nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+
+- job:
+    name: tripleo-ci-base-ovb-periodic
+    parent: tripleo-ci-base-ovb-rdo
+    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-ovb-periodic-upload
+    parent: tripleo-ci-base-ovb-periodic
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-upload/post.yaml
+    secrets:
+      - uploader_ssh_key
+
+- job:
+    name: tripleo-ci-base-multinode-periodic
+    parent: tripleo-ci-base-multinode-rdo
+    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-singlenode-periodic
+    parent: tripleo-ci-base-singlenode-rdo
+    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-multinode-rdoinfo
+    parent: tripleo-ci-base-multinode-rdo
+    roles:
+      - zuul: rdo-infra/rdo-jobs
+    pre-run:
+      - playbooks/legacy/pre-rdoinfo.yaml
+    required-projects:
+      - rdoinfo
+    vars:
+      phase: release
+
