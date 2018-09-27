@@ -1,8 +1,0 @@
-#!/bin/sh -ex
-sudo cp /var/lib/nodepool/.ssh/nodepool_rsa.pub $TMP_HOOKS_PATH/id_rsa.pub
-# Also install jenkins key
-cat /var/lib/nodepool/.ssh/jenkins_rsa.pub | sudo tee -a $TMP_HOOKS_PATH/id_rsa.pub
-# If there's an extra key, set it up too
-if [ -n "${NODEPOOL_SSH_KEY}" ]; then
-    echo "${NODEPOOL_SSH_KEY}" | sudo tee -a $TMP_HOOKS_PATH/id_rsa.pub
-fi
