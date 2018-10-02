@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_688c8f7f",
+        "filename": "playbooks/tripleo-rdo-base/pre.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-10-02T10:38:08Z",
+      "side": 1,
+      "message": "This looks a bit convoluted to me. Would it work if we just used a template file?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "dbff76d4e76116ce9314197eb48b4cf1a31b06a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_8891239c",
+        "filename": "playbooks/tripleo-rdo-base/pre.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-10-02T10:38:08Z",
+      "side": 1,
+      "message": "Not a big deal, but you can make it more ansible-like if you use:\n\n  copy:\n    src: \"/path/.ssh/{{ item }}\"\n    dest: \"/etc/nodepool/{{ item }}\"\n    remote_src: yes\n\nAlso, your current command does not use chdir, so it might start from the wrong directory.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "dbff76d4e76116ce9314197eb48b4cf1a31b06a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_a892a79d",
+        "filename": "playbooks/tripleo-rdo-base/pre.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-10-02T10:38:08Z",
+      "side": 1,
+      "message": "Is this path still correct? We have no more jenkins around.",
+      "range": {
+        "startLine": 57,
+        "startChar": 49,
+        "endLine": 57,
+        "endChar": 56
+      },
+      "revId": "dbff76d4e76116ce9314197eb48b4cf1a31b06a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_28ed7725",
+        "filename": "playbooks/tripleo-rdo-base/pre.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-10-02T10:38:08Z",
+      "side": 1,
+      "message": "In theory, we should stop using zuul_legacy_vars once we migrate legacy jobs. Not sure how we should proceed here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "dbff76d4e76116ce9314197eb48b4cf1a31b06a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
