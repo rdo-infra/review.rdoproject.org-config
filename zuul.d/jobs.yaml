@@ -538,3 +538,55 @@
     secrets:
       - secret: site_images
         name: fileserver
+
+- job:
+    name: periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: master
+
+- job:
+    name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: rocky
+
+- job:
+    name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: queens
+
+- job:
+    name: periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: pike
+
+- job:
+    name: periodic-tripleo-centos-7-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    vars:
+       release: master
+
+- job:
+    name: periodic-tripleo-centos-7-pike-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    vars:
+       # release is for the build, override is for undercloud install
+       release: pike
+       branch_override: 'stable/pike'
+
+- job:
+    name: periodic-tripleo-centos-7-queens-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    vars:
+       release: queens
+       branch_override: 'stable/queens'
+
+- job:
+    name: periodic-tripleo-centos-7-rocky-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    vars:
+       release: rocky
+       branch_override: 'stable/rocky'
