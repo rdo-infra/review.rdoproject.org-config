@@ -85,3 +85,13 @@
       - rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: tripleo-ci-base-multinode-rdoinfo
+    parent: tripleo-ci-base-multinode-rdo
+    pre-run:
+      - playbooks/legacy/pre-rdoinfo.yaml
+    required-projects:
+      - rdoinfo
+    vars:
+      phase: release
