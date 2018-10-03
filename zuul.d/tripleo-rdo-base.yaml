@@ -85,3 +85,22 @@
       - rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: tripleo-ci-base-singlenode-containers-build
+    parent: tripleo-ci-base-singlenode-rdo
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-containers-build/post.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    secrets:
+      - rdo_registry
+
+- job:
+    name: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-singlenode-rdo
+    timeout: 1800
+    run: playbooks/legacy-tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
