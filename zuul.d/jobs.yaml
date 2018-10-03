@@ -538,3 +538,55 @@
     secrets:
       - secret: site_images
         name: fileserver
+
+- job:
+    name: periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    branches: '^master$'
+
+- job:
+    name: periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    branches: '^stable/pike$'
+
+- job:
+    name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    branches: '^stable/queens$'
+
+- job:
+    name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    branches: '^stable/rocky$'
+
+- job:
+    name: periodic-tripleo-centos-7-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    branches: '^master$'
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-containers-build/post.yaml
+    vars:
+       featureset: '023'
+
+- job:
+    name: periodic-tripleo-centos-7-pike-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    branches: '^stable/pike$'
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-containers-build/post.yaml
+    vars:
+       featureset: '023'
+
+- job:
+    name: periodic-tripleo-centos-7-queens-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    branches: '^stable/queens$'
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-containers-build/post.yaml
+    vars:
+       featureset: '023'
+
+- job:
+    name: periodic-tripleo-centos-7-rocky-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    branches: '^stable/rocky$'
+    post-run: playbooks/legacy-tripleo-ci-periodic-base-containers-build/post.yaml
+    vars:
+       featureset: '023'
