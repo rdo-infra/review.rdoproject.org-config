@@ -13,7 +13,7 @@
       environment_type: ovb
     nodeset: tripleo-ovb-centos-7-primary
     pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yml
 
 - job:
     name: tripleo-ci-base-multinode-rdo
@@ -25,7 +25,7 @@
       environment_type: multinode
     nodeset: two-centos-7-nodes
     pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yml
 
 - job:
     name: tripleo-ci-base-singlenode-rdo
@@ -37,7 +37,7 @@
       environment_type: singlenode
     nodeset: single-centos-7-node
     pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yml
 
 - job:
     name: tripleo-ci-base-standalone-rdo
@@ -49,7 +49,7 @@
       environment_type: standalone
     nodeset: single-centos-7-node
     pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yml
 
 
 - job:
