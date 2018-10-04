@@ -55,33 +55,34 @@
       rdoci: {}
       sqlreporter:
 
-- pipeline:
-    name: openstack-periodic
-    post-review: true
-    description: Jobs in this queue are triggered to run every few hours.
-    manager: independent
-    precedence: high
-    trigger:
-      timer:
-        - time: '20 4,9,14,20 * * *'
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
+# Comment pipelines while testing new periodic jobs.
+#- pipeline:
+#    name: openstack-periodic
+#    post-review: true
+#    description: Jobs in this queue are triggered to run every few hours.
+#    manager: independent
+#    precedence: high
+#    trigger:
+#      timer:
+#        - time: '45 4,9,14,22 * * *'
+#    success:
+#      sqlreporter:
+#    failure:
+#      sqlreporter:
 
-- pipeline:
-    name: openstack-periodic-24hr
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically once a day.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 4 * * *'
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
+#- pipeline:
+#    name: openstack-periodic-24hr
+#    post-review: true
+#    description: Jobs in this queue are triggered to run periodically once a day.
+#    manager: independent
+#    precedence: normal
+#    trigger:
+#      timer:
+#        - time: '0 4 * * *'
+#    success:
+#      sqlreporter:
+#    failure:
+#      sqlreporter:
 
 - pipeline:
     name: openstack-post
