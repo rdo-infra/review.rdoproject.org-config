@@ -62,26 +62,27 @@
     manager: independent
     precedence: high
     trigger:
+      # Temp change from '45 4,9,14,22 * * *'
       timer:
-        - time: '20 4,9,14,20 * * *'
+        - time: '00 10 * * *'
     success:
       sqlreporter:
     failure:
       sqlreporter:
 
-- pipeline:
-    name: openstack-periodic-24hr
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically once a day.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 4 * * *'
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
+#- pipeline:
+#    name: openstack-periodic-24hr
+#    post-review: true
+#    description: Jobs in this queue are triggered to run periodically once a day.
+#    manager: independent
+#    precedence: normal
+#    trigger:
+#      timer:
+#        - time: '0 4 * * *'
+#    success:
+#      sqlreporter:
+#    failure:
+#      sqlreporter:
 
 - pipeline:
     name: openstack-post
