@@ -55,7 +55,7 @@
 - job:
     name: tripleo-ci-base-ovb-periodic
     parent: tripleo-ci-base-ovb-rdo
-    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - rdo-infra/ci-config
     secrets:
@@ -71,7 +71,7 @@
 - job:
     name: tripleo-ci-base-multinode-periodic
     parent: tripleo-ci-base-multinode-rdo
-    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - rdo-infra/ci-config
     secrets:
@@ -80,7 +80,7 @@
 - job:
     name: tripleo-ci-base-singlenode-periodic
     parent: tripleo-ci-base-singlenode-rdo
-    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - rdo-infra/ci-config
     secrets:
