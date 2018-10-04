@@ -983,6 +983,10 @@
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
 
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+            voting: false
+
 - project:
     name: git.openstack.org/openstack/tripleo-quickstart-extras
     templates:
@@ -1155,3 +1159,12 @@
               - manifests/profile/base/neutron/plugins/ml2/opendaylight.pp
               - manifests/profile/base/neutron/plugins/ovs/opendaylight.pp
               - tox.ini
+
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
+            branches: ^master$
+            voting: false
+
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-branch:
+            branches: ^master$
+            voting: false
+
