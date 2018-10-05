@@ -1,0 +1,38 @@
+- hosts: all
+  vars:
+    workspace: "{{ ansible_user_dir }}/workspace"
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
+  tasks:
+
+    - block:
+
+      - name: Create SSH private key tempfile
+        tempfile:
+          state: file
+        register: ssh_private_key_tmp
+
+      - name: Create SSH private key from secret
+        copy:
+          content: "{{ uploader_ssh_key.ssh_private_key }}"
+          dest: "{{ ssh_private_key_tmp.path }}"
+          mode: 0600
+
+      - shell:
+          cmd: |
+            eval "$(ssh-agent)"
+            ssh-add {{ ssh_private_key_tmp.path }}
+            shred {{ ssh_private_key_tmp.path }}
+            export RELEASE={{ release }}
+            mkdir -p {{ workspace }}/logs/images-upload/
+            bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
+            bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/upload-cloud-images.sh
+            echo export UPLOAD_EXIT_VALUE=$? >> {{ workspace }}/hash_info.sh
+            cp $HOME/.__repo_setup.sh.log {{ workspace }}/logs/images-upload
+          chdir: '{{ ansible_user_dir }}/workspace'
+        environment: '{{ zuul | zuul_legacy_vars }}'
+
+      always:
+        - name: Kill ssh-agent
+          command: "pkill ssh-agent"
+
+      when: zuul_success|bool
