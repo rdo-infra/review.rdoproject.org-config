@@ -54,8 +54,12 @@
 
 - job:
     name: tripleo-ci-base-ovb-periodic
+    abstract: true
     parent: tripleo-ci-base-ovb-rdo
+    run: playbooks/tripleo-ci-periodic-base/run-v3.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    roles:
+      - zuul: git.openstack.org/openstack-infra/tripleo-ci
     required-projects:
       - rdo-infra/ci-config
     secrets:
@@ -63,6 +67,7 @@
 
 - job:
     name: tripleo-ci-base-ovb-periodic-upload
+    abstract: true
     parent: tripleo-ci-base-ovb-periodic
     post-run: playbooks/legacy-tripleo-ci-periodic-base-upload/post.yaml
     secrets:
@@ -70,8 +75,12 @@
 
 - job:
     name: tripleo-ci-base-multinode-periodic
+    abstract: true
     parent: tripleo-ci-base-multinode-rdo
+    run: playbooks/tripleo-ci-periodic-base/run-v3.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    roles:
+      - zuul: git.openstack.org/openstack-infra/tripleo-ci
     required-projects:
       - rdo-infra/ci-config
     secrets:
@@ -79,8 +88,12 @@
 
 - job:
     name: tripleo-ci-base-singlenode-periodic
+    abstract: true
     parent: tripleo-ci-base-singlenode-rdo
+    run: playbooks/tripleo-ci-periodic-base/run-v3.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    roles:
+      - zuul: git.openstack.org/openstack-infra/tripleo-ci
     required-projects:
       - rdo-infra/ci-config
     secrets:

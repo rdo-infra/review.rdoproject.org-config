@@ -1,0 +1,126 @@
+- hosts: all
+  name: Common tasks for nodes preparation
+  tasks:
+
+    - name: Include common vars
+      include_vars:
+        file: "/home/zuul/src/git.openstack.org/openstack-infra/tripleo-ci/playbooks/tripleo-ci/vars/common.yaml"
+
+    - name: Swap is essential as we are not meeting memory requirements
+      include_role:
+        name: configure-swap
+
+    - name: Set legacy log path
+      include_role:
+        name: set-zuul-log-path-fact
+
+    - name: Ensure legacy workspace directory
+      file:
+        path: '{{ workspace }}'
+        state: directory
+
+    - name: Ensure legacy logs directory
+      file:
+        path: '{{ workspace }}/logs'
+        state: directory
+
+    - name: Hard link tripleo-ci to openstack namespace dir
+      shell:
+        cmd: |
+          set -e
+          set -x
+          # we still need all the repos under the same root directory, but instead of using
+          # zuul-cloner, use the wrapped commands directly
+          cp -dRl /home/zuul/src/git.openstack.org/openstack-infra/tripleo-ci .
+        executable: /bin/bash
+        chdir: '{{ tripleo_root }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
+
+
+    - set_fact:
+        zuul_dump: "{{ {'zuul': zuul} }}"
+
+    - name: Dump zuul variables on the host to pass it to inner ansible
+      copy:
+        content: "{{ zuul_dump|to_nice_yaml }}"
+        dest: "{{ workspace }}/logs//zuul-variables.yaml"
+
+- hosts:
+    - primary
+    - centos-7
+  name: tripleo CI jobs runner
+  tasks:
+    - block:
+      - name: Check overridable settings
+        fail:
+          msg: "ERROR: {{ item }} is not overridable."
+        when: item not in ['run_tempest', 'tempest_whitelist', 'test_black_regex']
+        with_items: "{{ featureset_override }}"
+      - name: Generate featureset overriding file
+        template:
+          src: templates/featureset-override.j2
+          dest: "{{ tripleo_root }}/tripleo-ci/featureset-override.yaml"
+          mode: 0755
+          force: yes
+      - name: Include some extra for generating toci scripts
+        set_fact:
+          extra_vars: "--extra-vars @{{ tripleo_root }}/tripleo-ci/featureset-override.yaml"
+      when: featureset_override is defined
+
+    - name: render toci_gate_test script
+      template:
+        src: templates/toci_gate_test.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/toci_gate_test.sh"
+        mode: 0755
+        force: yes
+
+    - name: render toci_quickstart script
+      template:
+        src: templates/toci_quickstart.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/toci_quickstart.sh"
+        mode: 0755
+        force: yes
+
+    - name: render common_vars script
+      template:
+        src: templates/common_vars.bash.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/scripts/common_vars.bash"
+        force: yes
+
+    - name: render oooq_common_functions script
+      template:
+        src: templates/oooq_common_functions.sh.j2
+        dest: "{{ tripleo_root }}/tripleo-ci/scripts/oooq_common_functions.sh"
+        force: yes
+
+    - shell:
+        cmd: |
+          set -e
+          set -x
+          {% if nodes is defined %}
+          export TOCI_JOBTYPE={{ environment_type }}-{{ nodes }}-featureset{{ featureset }}
+          {% else %}
+          export TOCI_JOBTYPE={{ environment_type }}-featureset{{ featureset }}
+          {% endif %}
+
+          # ZUUL does not set these for periodic jobs
+          export ZUUL_BRANCH=${ZUUL_BRANCH:-master}
+          export ZUUL_REF=${ZUUL_REF:-None}
+
+          # Compatibility with zuul v3 variables
+          export JOB_NAME={{ zuul.job }}
+          export LOG_PATH={{ zuul_log_path }}
+
+          export BRANCH_OVERRIDE="{{ branch_override | default('default') }}"
+          if [ "$BRANCH_OVERRIDE" != "default" ] ; then
+              export OVERRIDE_ZUUL_BRANCH=$BRANCH_OVERRIDE
+          fi
+
+          export PYTHONUNBUFFERED=true
+          export TRIPLEO_ROOT={{ tripleo_root }}
+          # NOTE(trown) We can move this into the multinode environment file once we
+          # migrate the 2-node jobs over to zuulv3
+          bash -xe $TRIPLEO_ROOT/tripleo-ci/toci_gate_test.sh
+        executable: /bin/bash
+        chdir: '{{ tripleo_root }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
