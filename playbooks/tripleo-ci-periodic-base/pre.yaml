@@ -1,0 +1,14 @@
+- hosts: primary
+  vars:
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
+    workspace: "{{ ansible_user_dir }}/workspace"
+  tasks:
+
+    - name: Populate hash.info required for dlrn reporting
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
+        chdir: '{{ workspace }}'
+      environment: "{{ zuul | zuul_legacy_vars }}"
