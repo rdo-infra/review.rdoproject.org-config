@@ -6,7 +6,7 @@
 
     - name: Populate hash.info required for dlrn reporting
       shell: |
-          export WORKSPACE={{ workspace }}
+          export WORKSPACE="{{ workspace }}"
           mkdir -p $WORKSPACE/logs
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
