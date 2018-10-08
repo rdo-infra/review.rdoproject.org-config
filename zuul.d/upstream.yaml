@@ -55,7 +55,6 @@
       rdoci: {}
       sqlreporter:
 
-# Temp changing pipeline to trigger 1 day/month while debugging periodic jobs
 - pipeline:
     name: openstack-periodic
     post-review: true
@@ -64,13 +63,12 @@
     precedence: high
     trigger:
       timer:
-        - time: '45 4,9,14,22 1 * *'
+        - time: '45 4,9,14,22 * * *'
     success:
       sqlreporter:
     failure:
       sqlreporter:
 
-# Temp changing pipeline to trigger 1 day/month while debugging periodic jobs
 - pipeline:
     name: openstack-periodic-24hr
     post-review: true
@@ -79,7 +77,7 @@
     precedence: normal
     trigger:
       timer:
-        - time: '0 4 1 * *'
+        - time: '0 4 * * *'
     success:
       sqlreporter:
     failure:
