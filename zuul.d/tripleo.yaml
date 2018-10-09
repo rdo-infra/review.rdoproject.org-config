@@ -750,7 +750,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master:
             branches: ^master$
             files:
               - ^extraconfig/services/ipsec.*$
@@ -768,7 +768,7 @@
               - ^spec/.*$
               - ^test-requirements.txt$
               - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens:
             branches: ^stable/queens$
             files:
               - ^extraconfig/services/ipsec.*$
