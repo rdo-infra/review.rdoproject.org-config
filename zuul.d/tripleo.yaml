@@ -750,26 +750,7 @@
       - tripleo-ovb-experimental
     openstack-check:
       jobs:
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht:
-            branches: ^master$
-            files:
-              - ^extraconfig/services/ipsec.*$
-              - config/general_config/featureset042.*
-            irrelevant-files:
-              - ^.*\.md$
-              - ^.*\.rst$
-              - ^Puppetfile.*$
-              - ^doc/.*$
-              - ^etc/.*$
-              - ^metadata.json$
-              - ^releasenotes/.*$
-              - ^requirements.txt$
-              - ^setup.*$
-              - ^spec/.*$
-              - ^test-requirements.txt$
-              - tox.ini
-        - legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht:
-            branches: ^stable/queens$
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
             files:
               - ^extraconfig/services/ipsec.*$
               - config/general_config/featureset042.*
@@ -787,7 +768,6 @@
               - ^test-requirements.txt$
               - tox.ini
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master:
-            branches: ^master$
             irrelevant-files:
               - ^.*\.md$
               - ^.*\.rst$
@@ -808,23 +788,7 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master:
-            branches: ^master$
-            irrelevant-files:
-              - ^.*\.md$
-              - ^.*\.rst$
-              - ^Puppetfile.*$
-              - ^doc/.*$
-              - ^etc/.*$
-              - ^metadata.json$
-              - ^releasenotes/.*$
-              - ^requirements.txt$
-              - ^setup.*$
-              - ^spec/.*$
-              - ^test-requirements.txt$
-              - tox.ini
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens:
-            branches: ^stable/queens$
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
             irrelevant-files:
               - ^.*\.md$
               - ^.*\.rst$
