@@ -16,6 +16,7 @@
       - tripleo-ovb
       - ovb-experimental
       - ovb-browbeat
+      - ovb-tripleo-ha-utils
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
@@ -222,6 +223,12 @@
       - ovb-experimental
 
 - project:
+    name: git.openstack.org/openstack/tripleo-ha-utils
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset041
+
+- project:
     name: git.openstack.org/openstack/tripleo-heat-templates
     templates:
       - system-required
@@ -265,6 +272,7 @@
       - ovb-branchless
       - ovb-experimental
       - ovb-browbeat
+      - ovb-tripleo-ha-utils
 
 - project:
     name: git.openstack.org/openstack/tripleo-quickstart-extras
@@ -275,3 +283,4 @@
       - ovb-branchless
       - ovb-experimental
       - ovb-browbeat
+      - ovb-tripleo-ha-utils
