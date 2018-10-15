@@ -9,8 +9,6 @@
         Base abstract job for OVB in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-ovb
     timeout: 10800
-    vars:
-      environment_type: ovb
     nodeset: tripleo-ovb-centos-7-primary
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
@@ -21,8 +19,6 @@
     description: |
         Base abstract job for multinode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-multinode
-    vars:
-      environment_type: multinode
     nodeset: two-centos-7-nodes
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
@@ -33,8 +29,6 @@
     description: |
         Base abstract job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-singlenode
-    vars:
-      environment_type: singlenode
     nodeset: single-centos-7-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
@@ -45,8 +39,6 @@
     description: |
         Base abstract job for standalone in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone
-    vars:
-      environment_type: standalone
     nodeset: single-centos-7-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
