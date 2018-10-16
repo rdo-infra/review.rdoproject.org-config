@@ -33,7 +33,7 @@
         cmd: |
           set -e +x
           cd $ZUUL_PROJECT
-          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/rdo-create-project
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo_gating_scripts'].src_dir }}/rdo-create-project
           virtualenv .venv
           . .venv/bin/activate
           pip install -r requirements.txt
@@ -51,7 +51,7 @@
                   # Remove the initial openstack/ or puppet/ part
                   project_short=$(echo $project | awk -F/ '{print $2}')
                   echo "Creating GitHub project for $project_short"
-                  {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/rdo-create-project/rdo-create-project-github.py --token {{ github.api_key }} --org rdo-packages --skip-deploy-key create --name $project_short
+                  {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo_gating_scripts'].src_dir }}/rdo-create-project/rdo-create-project-github.py --token {{ github.api_key }} --org rdo-packages --skip-deploy-key create --name $project_short
               done
             fi
           done
