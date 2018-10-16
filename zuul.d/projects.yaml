@@ -157,7 +157,31 @@
       - tripleo-ovb
 
 - project:
+    name: git.openstack.org/openstack/puppet-cinder
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
     name: git.openstack.org/openstack/puppet-glance
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-heat
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-horizon
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-ironic
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
@@ -169,7 +193,43 @@
       - system-required
 
 - project:
+    name: git.openstack.org/openstack/puppet-mistral
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-neutron
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-nova
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
     name: git.openstack.org/openstack/puppet-openstack-integration
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-openstack_extras
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-openstacklib
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
+
+- project:
+    name: git.openstack.org/openstack/puppet-swift
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
@@ -180,6 +240,12 @@
       - system-required
       - tripleo-ovb
       - ovb-experimental
+
+- project:
+    name: git.openstack.org/openstack/puppet-zaqar
+    templates:
+      - puppet-openstack-integration-python3-jobs
+      - system-required
 
 - project:
     name: git.openstack.org/openstack/python-glanceclient
