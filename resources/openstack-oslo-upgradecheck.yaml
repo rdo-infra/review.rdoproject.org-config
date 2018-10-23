@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/oslo-upgradecheck-core:
+      description: Core developers for project oslo-upgradecheck
+      members:
+      - amoralej@redhat.com
+    openstack/oslo-upgradecheck-ptl:
+      description: Project team lead for project oslo-upgradecheck
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-upgradecheck-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-upgradecheck-core
+          owner = group openstack/oslo-upgradecheck-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-upgradecheck-core
+          label-Code-Review = -2..+2 group openstack/oslo-upgradecheck-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-upgradecheck-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-upgradecheck-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/oslo-upgradecheck-core
+          label-Verified = -2..+2 group openstack/oslo-upgradecheck-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-upgradecheck-core
+          label-Workflow = -1..+1 group openstack/oslo-upgradecheck-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-upgradecheck-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-upgradecheck-core
+      - openstack/oslo-upgradecheck-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-upgradecheck:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-upgradecheck-core
+          owner = group openstack/oslo-upgradecheck-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-upgradecheck-core
+          label-Code-Review = -2..+2 group openstack/oslo-upgradecheck-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-upgradecheck-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-upgradecheck-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-upgradecheck-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-upgradecheck-core
+          label-Workflow = -1..+0 group openstack/oslo-upgradecheck-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-upgradecheck-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-upgradecheck-core
+      - openstack/oslo-upgradecheck-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-upgradecheck:
+      acl: openstack-oslo-upgradecheck
+      description: Mirror of upstream oslo-upgradecheck (mirror + patches)
+    openstack/oslo-upgradecheck-distgit:
+      acl: openstack-oslo-upgradecheck-distgit
+      description: Packaging of upstream oslo-upgradecheck
+      default-branch: rpm-master
+      branches:
+        master: '0'
