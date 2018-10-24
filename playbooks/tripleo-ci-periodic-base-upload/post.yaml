@@ -27,7 +27,7 @@
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/upload-cloud-images.sh
             echo export UPLOAD_EXIT_VALUE=$? >> {{ workspace }}/hash_info.sh
-            cp $HOME/.__repo_setup.sh.log {{ workspace }}/logs/images-upload
+            cp $HOME/*repo_setup*log {{ workspace }}/logs/images-upload || true
           chdir: '{{ ansible_user_dir }}/workspace'
         environment: '{{ zuul | zuul_legacy_vars }}'
 
