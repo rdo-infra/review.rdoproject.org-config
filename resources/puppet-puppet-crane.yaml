@@ -1,0 +1,109 @@
+resources:
+  groups:
+    puppet/puppet-crane-core:
+      description: Core developers for project puppet-crane
+      members:
+      - dprince@redhat.com
+    puppet/puppet-crane-ptl:
+      description: Project team lead for project puppet-crane
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-crane-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-crane-core
+          owner = group puppet/puppet-crane-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-crane-core
+          label-Code-Review = -2..+2 group puppet/puppet-crane-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-crane-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-crane-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          abandon = group puppet/puppet-crane-core
+          label-Verified = -2..+2 group puppet/puppet-crane-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-crane-core
+          label-Workflow = -1..+1 group puppet/puppet-crane-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-crane-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-crane-core
+      - puppet/puppet-crane-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-crane:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-crane-core
+          owner = group puppet/puppet-crane-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-crane-core
+          label-Code-Review = -2..+2 group puppet/puppet-crane-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-crane-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-crane-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-crane-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-crane-core
+          label-Workflow = -1..+0 group puppet/puppet-crane-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-crane-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-crane-core
+      - puppet/puppet-crane-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-crane:
+      acl: puppet-puppet-crane
+      description: Mirror of upstream puppet-crane (mirror + patches)
+    puppet/puppet-crane-distgit:
+      acl: puppet-puppet-crane-distgit
+      description: Packaging of upstream puppet-crane
+      default-branch: rpm-master
+      branches:
+        master: '0'
