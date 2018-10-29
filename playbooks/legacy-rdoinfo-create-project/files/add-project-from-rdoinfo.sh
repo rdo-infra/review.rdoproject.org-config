@@ -41,3 +41,25 @@ COMMIT_MSG="Add Zuul definitions for $PROJECT_NAME\n\nNote that this review will
 echo -e $COMMIT_MSG | git commit -F-
 git review -y -t "add-${PROJECT_NAME}" < /dev/null
 popd
+
+git clone https://softwarefactory-project.io/r/config /tmp/sf-config
+pushd /tmp/sf-config
+git checkout master
+git reset --hard origin/master
+
+python ~/add-project-on-sf.py $PREFIX $PROJECT_NAME
+
+cat >> ~/.ssh/config << EOF
+
+Host softwarefactory-project.io
+  IdentityFile ~/.ssh/rdoinfo_id_rsa
+EOF
+ssh-keyscan -p 29418 softwarefactory-project.io >> ~/.ssh/known_hosts
+
+git checkout -b new-project-$PROJECT_NAME
+git review -s -v
+COMMIT_MSG="Create project info for $PROJECT_NAME in RDO\n\nThis is an automatically created commit, make sure you check the Zuul\nconfiguration to see if it matches the project needs.\n\n"
+git add zuul/*.yaml
+echo -e $COMMIT_MSG | git commit -F-
+git review -y -t "add-${PROJECT_NAME}" < /dev/null
+popd
