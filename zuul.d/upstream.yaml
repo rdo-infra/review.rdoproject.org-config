@@ -15,10 +15,11 @@
         current-patchset: True
     trigger:
       openstack.org:
-        - event: patchset-created
-        - event: change-restored
+        # event based triggers are disabled, see http://lists.openstack.org/pipermail/openstack-dev/2018-November/136321.html
+        # - event: patchset-created
+        # - event: change-restored
         - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|verify-rdo)
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check-rdo)
     success:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
