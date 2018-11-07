@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/tripleo-ansible-core:
+      description: Core developers for project tripleo-ansible
+      members:
+      - jrouleau@redhat.com
+    openstack/tripleo-ansible-ptl:
+      description: Project team lead for project tripleo-ansible
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-ansible-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ansible-core
+          owner = group openstack/tripleo-ansible-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ansible-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ansible-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ansible-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ansible-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/tripleo-ansible-core
+          label-Verified = -2..+2 group openstack/tripleo-ansible-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-ansible-core
+          label-Workflow = -1..+1 group openstack/tripleo-ansible-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ansible-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ansible-core
+      - openstack/tripleo-ansible-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-ansible:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ansible-core
+          owner = group openstack/tripleo-ansible-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ansible-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ansible-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ansible-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ansible-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-ansible-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-ansible-core
+          label-Workflow = -1..+0 group openstack/tripleo-ansible-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ansible-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ansible-core
+      - openstack/tripleo-ansible-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-ansible:
+      acl: openstack-tripleo-ansible
+      description: Mirror of upstream tripleo-ansible (mirror + patches)
+    openstack/tripleo-ansible-distgit:
+      acl: openstack-tripleo-ansible-distgit
+      description: Packaging of upstream tripleo-ansible
+      default-branch: rpm-master
+      branches:
+        master: '0'
