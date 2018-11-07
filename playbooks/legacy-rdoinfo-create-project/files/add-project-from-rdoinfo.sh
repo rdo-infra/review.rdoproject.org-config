@@ -56,6 +56,9 @@ Host softwarefactory-project.io
 EOF
 ssh-keyscan -p 29418 softwarefactory-project.io >> ~/.ssh/known_hosts
 
+git config user.name "rdo-trunk"
+git config user.email "javier.pena@redhat.com"
+git config gitreview.username "rdo-trunk"
 git checkout -b new-project-$PROJECT_NAME
 git review -s -v
 COMMIT_MSG="Create project info for $PROJECT_NAME in RDO\n\nThis is an automatically created commit, make sure you check the Zuul\nconfiguration to see if it matches the project needs.\n\n"
