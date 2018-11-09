@@ -57,7 +57,7 @@ EOF
 export ANSIBLE_ROLES_PATH="$QUICKSTART_VENV/usr/local/share/tripleo-quickstart/roles/"
 ANSIBLE_ROLES_PATH="$ANSIBLE_ROLES_PATH:$QUICKSTART_VENV/usr/local/share/ansible/roles/"
 
-export REPO_CONFIG="$QUICKSTART_VENV/config/release/tripleo-ci/promotion-testing-hash-${RELEASE}.yml"
+export REPO_CONFIG="$QUICKSTART_VENV/config/release/tripleo-ci/CentOS-7/promotion-testing-hash-${RELEASE}.yml"
 . $QUICKSTART_VENV/bin/activate
 rm -rf $QUICKSTART_VENV/ansible_facts_cache
 
