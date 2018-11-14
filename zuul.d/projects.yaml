@@ -5216,6 +5216,10 @@
     templates:
       - package-distgit-check-jobs
       - system-required
+    check:
+      jobs:
+        - legacy-rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset010:
+            voting: false
 
 - project:
     name: review.rdoproject.org/openstack/trove
