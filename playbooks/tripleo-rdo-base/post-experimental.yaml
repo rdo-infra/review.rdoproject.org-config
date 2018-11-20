@@ -1,0 +1,8 @@
+---
+- hosts: tripleo-ovb-centos-7
+  vars:
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    workspace: "{{ ansible_user_dir }}/workspace"
+  tasks:
+    - name: Dummy tasks
+      shell: echo "Post" - {{ ci_config_repo }} - {{ workspace }}
