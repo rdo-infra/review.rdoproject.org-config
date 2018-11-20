@@ -14,6 +14,20 @@
       - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
+    name: tripleo-ci-base-ovb-rdo-experimental
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-ovb
+    timeout: 10800
+    nodeset: tripleo-ovb-centos-7-primary
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre-experimental.yaml
+    post-run: playbooks/tripleo-rdo-base/post-experimental.yaml
+    secrets:
+      - cloudcreds
+
+- job:
     name: tripleo-ci-base-multinode-rdo
     abstract: true
     description: |
