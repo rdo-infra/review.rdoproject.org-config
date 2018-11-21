@@ -95,6 +95,15 @@
       - config
     secrets:
       - dlrnapi
+- job:
+    name: tripleo-ci-base-standalone-periodic
+    parent: tripleo-ci-base-standalone-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
 
 - job:
     name: tripleo-ci-base-singlenode-containers-build
