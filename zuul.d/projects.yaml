@@ -5,6 +5,15 @@
     default-branch: rpm-master
 
 - project:
+    name: ceph/ceph-ansible
+NOTE(jpena): just a check to see if the CI job complains
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - noop
+
+- project:
     name: config
     templates:
       - system-required

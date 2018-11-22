@@ -1,0 +1,39 @@
+---
+- pipeline:
+    name: github-check
+    description: |
+      Newly uploaded patchsets on GitHub enter this pipeline to receive an
+      initial +/-1 Verified vote.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      github.com:
+# NOTE(jpena): while the pipeline and jobs are tested, we will only trigger jobs via a keyword
+#        - event: pull_request
+#          action:
+#            - opened
+#            - changed
+#            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo)\s*$
+    start:
+      github.com:
+        status: 'pending'
+        status-url: "https://review.rdoproject.org/zuul/status"
+        comment: false
+    success:
+      github.com:
+        status: 'success'
+      sqlreporter:
+    failure:
+      github.com:
+        status: 'failure'
+      sqlreporter:
