@@ -5,6 +5,14 @@
     default-branch: rpm-master
 
 - project:
+    name: ceph/ceph-ansible
+    templates:
+      - system-required
+    check:
+      jobs:
+        - noop
+
+- project:
     name: config
     templates:
       - system-required
