@@ -7018,6 +7018,12 @@
         - legacy-update-buildsys-tags
 
 - project:
+    name: ceph/ceph-ansible
+    check:
+      jobs:
+        - noop
+
+- project:
     name: review.rdoproject.org/testbranching
     templates:
       - noop
