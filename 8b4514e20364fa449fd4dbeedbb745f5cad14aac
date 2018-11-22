@@ -16,6 +16,24 @@
       "revId": "8b4514e20364fa449fd4dbeedbb745f5cad14aac",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_044ba0b1",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2018-11-22T13:19:17Z",
+      "side": 1,
+      "message": "In config projects, only the master branch is used for all the jobs. What you can do, is do the mapping in the untrusted projects branch. For example,\n\nIf the integration job is defined in ceph-ansible,\nthen master branch definition would requires nova-distgit@rpm-master,\nthen 3.2 branch definition would requires nova-distgit@rpm-queens, ...\n\nOr the other way around, if the job is defined in rdoproject, then we\u0027ll store each ceph-ansible version in the right osp branch name.",
+      "parentUuid": "9abe1de1_a45bd486",
+      "revId": "8b4514e20364fa449fd4dbeedbb745f5cad14aac",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
