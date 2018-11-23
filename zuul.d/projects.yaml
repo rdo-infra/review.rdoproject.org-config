@@ -7063,6 +7063,26 @@
             voting: false
             branches: ^(rpm-)?master$
         - legacy-rdoinfo-DLRN-check
+        - legacy-rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset030:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^deps.yml$
+        - legacy-rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset030:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^deps.yml$
+        - legacy-rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset030:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^deps.yml$
+        - legacy-validate-buildsys-tags
+
     gate:
       queue: whitebox-tempest-plugin
       jobs:
