@@ -4100,6 +4100,20 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/openvswitch-distgit
+    default-branch: stein-rdo
+    templates:
+      - system-required
+    check:
+      jobs:
+        - distgit-cbs-validate:
+            branches: ^(?!rpm-master).*$
+    gate:
+      jobs:
+        - distgit-cbs-final-build:
+            branches: ^(?!rpm-master).*$
+
+- project:
     name: review.rdoproject.org/openstack/os-apply-config-distgit
     default-branch: rpm-master
     templates:
