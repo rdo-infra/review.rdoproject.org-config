@@ -1,0 +1,90 @@
+resources:
+  groups:
+    openstack/openvswitch-core:
+      description: Core developers for project openvswitch
+      members:
+      - dalvarez@redhat.com
+      - nusiddiq@redhat.com
+      - timothy.redaelli@gmail.com
+    openstack/openvswitch-ptl:
+      description: Project team lead for project openvswitch
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-openvswitch-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openvswitch-core
+          owner = group openstack/openvswitch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openvswitch-core
+          label-Code-Review = -2..+2 group openstack/openvswitch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openvswitch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openvswitch-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/openvswitch-core
+          label-Verified = -2..+2 group openstack/openvswitch-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/openvswitch-core
+          label-Workflow = -1..+1 group openstack/openvswitch-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openvswitch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openvswitch-core
+      - openstack/openvswitch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-openvswitch:
+      file: |
+        [access "refs/*"]
+          read = group openstack/openvswitch-core
+          owner = group openstack/openvswitch-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/openvswitch-core
+          label-Code-Review = -2..+2 group openstack/openvswitch-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/openvswitch-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/openvswitch-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/openvswitch-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/openvswitch-core
+          label-Workflow = -1..+0 group openstack/openvswitch-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/openvswitch-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/openvswitch-core
+      - openstack/openvswitch-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/openvswitch-distgit:
+      acl: openstack-openvswitch-distgit
+      description: Packaging of upstream openvswitch
