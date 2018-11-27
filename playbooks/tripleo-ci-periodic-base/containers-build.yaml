@@ -16,6 +16,7 @@
           chdir: '{{ workspace }}'
         environment: "{{ zuul | zuul_legacy_vars | combine({'REGISTRY_PASSWORD': rdo_registry.token}) }}"
 
+      always:
       - shell:
           cmd: |
             export LOG_PATH="{{ workspace }}/logs"
@@ -26,6 +27,7 @@
           chdir: '{{ workspace }}'
         environment: '{{ zuul | zuul_legacy_vars }}'
       when: zuul_success|bool
+
     - debug:
         msg: "Containers build for {{ release }} skipped, run has failed."
       when: not zuul_success|bool
