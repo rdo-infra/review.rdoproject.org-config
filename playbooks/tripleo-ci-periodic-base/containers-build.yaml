@@ -17,6 +17,7 @@
           chdir: "{{ workspace }}"
         environment: "{{ zuul | zuul_legacy_vars | combine({'REGISTRY_PASSWORD': rdo_registry.token}) }}"
 
+      always:
       - name: Copy logs to logpath
         shell: |
             export LOG_PATH="{{ workspace }}/logs"
