@@ -25,7 +25,8 @@
             sudo chown -R "$(id -u).$(id -g)" $LOG_PATH
           chdir: '{{ workspace }}'
         environment: '{{ zuul | zuul_legacy_vars }}'
-      when: zuul_success|bool
+        when: zuul_success|bool
+
     - debug:
         msg: "Containers build for {{ release }} skipped, run has failed."
       when: not zuul_success|bool
