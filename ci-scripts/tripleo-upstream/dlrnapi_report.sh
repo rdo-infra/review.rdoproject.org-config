@@ -1,5 +1,5 @@
 source $WORKSPACE/hash_info.sh
-if [[ "$SUCCESS" = "true" ]]; then
+if [ "$SUCCESS" = "true" ] || [ "$SUCCESS" = "True" ]; then
     echo "REPORTING SUCCESS TO DLRN API"
 else
     echo "REPORTING FAILURE TO DLRN API"
