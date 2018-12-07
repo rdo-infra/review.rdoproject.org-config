@@ -82,6 +82,9 @@
         - periodic-tripleo-ci-centos-7-standalone-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build
+        - periodic-tripleo-ci-fedora-28-centos-7-containers-standalone-master:
+            dependencies:
+              - periodic-tripleo-centos-7-master-containers-build
         - periodic-tripleo-centos-7-master-containers-build:
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
