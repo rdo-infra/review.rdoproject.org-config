@@ -34,7 +34,7 @@ cat << EOF > $WORKSPACE/playbook.yml
     kolla_push: true
     kolla_tag: "$TESTING_TAG"
     openstack_release: "$RELEASE"
-    trunk_repository: "https://trunk.rdoproject.org/centos7-$RELEASE/$TESTING_TAG/delorean.repo"
+    trunk_repository: "https://trunk.rdoproject.org/${OS_NAME:-centos7}-$RELEASE/$TESTING_TAG/delorean.repo"
   tasks:
     - include_role:
         name: "rdo-kolla-build"
