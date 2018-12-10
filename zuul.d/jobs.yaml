@@ -466,6 +466,13 @@
       release: pike
 
 - job:
+    name: periodic-tripleo-fedora-28-master-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    nodeset: single-fedora-28-node
+    vars:
+      release: master
+
+- job:
     name: periodic-tripleo-centos-7-master-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
@@ -492,3 +499,10 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
+
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    nodeset: single-fedora-28-node
+    vars:
+       release: master
