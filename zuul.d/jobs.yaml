@@ -492,3 +492,10 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
+
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
