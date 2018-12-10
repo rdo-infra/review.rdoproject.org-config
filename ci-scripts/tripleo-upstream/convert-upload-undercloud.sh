@@ -57,7 +57,13 @@ EOF
 export ANSIBLE_ROLES_PATH="$QUICKSTART_VENV/usr/local/share/tripleo-quickstart/roles/"
 ANSIBLE_ROLES_PATH="$ANSIBLE_ROLES_PATH:$QUICKSTART_VENV/usr/local/share/ansible/roles/"
 
-export REPO_CONFIG="$QUICKSTART_VENV/config/release/tripleo-ci/CentOS-7/promotion-testing-hash-${RELEASE}.yml"
+DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
+
+if [ "${DISTRO}" = "fedora28" ]; then
+    DISTRO_CFG="Fedora-28"
+fi
+
+export REPO_CONFIG="$QUICKSTART_VENV/config/release/tripleo-ci/${DISTRO_CFG:-"CentOS-7"}/promotion-testing-hash-${RELEASE}.yml"
 . $QUICKSTART_VENV/bin/activate
 rm -rf $QUICKSTART_VENV/ansible_facts_cache
 
@@ -78,7 +84,7 @@ export FULL_HASH=$(grep -o -E '[0-9a-f]{40}_[0-9a-f]{8}' < /etc/yum.repos.d/delo
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 rsync_cmd="rsync --verbose --archive --delay-updates --relative"
-UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/rdo_trunk
+UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/${DISTRO}/$RELEASE/rdo_trunk
 mkdir $FULL_HASH
 mv undercloud.qcow2 undercloud.qcow2.md5 $FULL_HASH
 
