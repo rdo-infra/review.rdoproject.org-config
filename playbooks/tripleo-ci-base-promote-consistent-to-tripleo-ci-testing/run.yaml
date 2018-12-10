@@ -13,9 +13,29 @@
         cmd: |
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=consistent
+          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ workspace }}'
       environment: '{{ zuul | zuul_legacy_vars }}'
+
+    - name: Temporary hash info creation for fedora in mixed distribution job
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          cp {{ workspace }}/logs/hash_info.sh {{ workspace }}/logs/hash_info_fedora.sh
+          cp {{ workspace }}/logs/hash_info.sh {{ workspace }}/logs/hash_info_centos.sh
+
+          DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"
+          sed -i -e 's/DLRNAPI_URL=*/DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"/g' {{ workspace }}/logs/hash_info_fedora.sh
+          source {{ workspace }}/logs/hash_info_fedora.sh
+          # We need to find a way to get distro hash from a commit hash
+          DISTRO_HASH=function(COMMIT_HASH)
+          sed -i -e 's/DISTRO_HASH=*/DISTRO_HASH=$DISTRO_HASH/g' {{ workspace }}/logs/hash_info_fedora.sh
+          FULL_HASH=${COMMIT_HASH}_${DISTRO_HASH:0:8}
+          sed -i -e 's/FULL_HASH=*/FULL_HASH=$FULL_HASH/g' {{ workspace }}/logs/hash_info_fedora.sh
+        chdir: "{{ workspace }}"
+      when: {{ fedora_centos_mixed_distribution_job|default(false) }}
 
     - shell:
         cmd: |
@@ -24,3 +44,15 @@
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+
+    - name: Temporary hash promotion for fedora in mixed distribution job
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          cp {{ workspace }}/logs/hash_info_fedora.sh {{ workspace }}/logs/hash_info.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+          cp {{ workspace }}/logs/hash_info_centos.sh {{ workspace }}/logs/hash_info.sh
+        chdir: '{{ workspace }}'
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+      when: {{ fedora_centos_mixed_distribution_job|default(false) }}
