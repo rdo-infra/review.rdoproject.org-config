@@ -13,14 +13,46 @@
         cmd: |
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=consistent
+          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ workspace }}'
       environment: '{{ zuul | zuul_legacy_vars }}'
 
-    - shell:
+    - name: Promote consistent to tripleo-ci-testing for centos repo
+      shell:
         cmd: |
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+        chdir: '{{ workspace }}'
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+
+
+    - name: Promote consistent to tripleo-ci-testing for fedora repo if an equivalent exists
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"
+          sed -i -e 's/DLRNAPI_URL=*/DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"/g' {{ workspace }}/logs/hash_info.sh
+
+          source {{ workspace }}/logs/hash_info.sh
+          # Since both fedora and centos repos are created from the same rpm-master branch in distgit
+          # Commit hash and distro hash in both repos will be the same, but there's a catch:
+          # Not all the packages in centos are available in fedora, so we may have a hash in centos
+          # built over a package that doesn't exist in fedora, so the dlrn hash will have no equivalent there.
+          # We test here if the hash exists in fedora, and block the job otherwise.
+          source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
+          activate_dlrnapi_venv
+
+          # If the hash combination doesn't exist the API will report 404 and the command will exit 1
+          dlrnapi --url $DLRNAPI_URL repo_status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+          if [[ "$?" == "1" ]]; then
+            echo "$COMMIT_HASH and $DISTRO_HASH hashes on centos does not have an equivalent in fedora. Skipping this run"
+            exit 1
+          fi
+
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
