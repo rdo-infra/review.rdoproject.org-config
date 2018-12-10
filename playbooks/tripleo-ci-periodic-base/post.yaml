@@ -17,5 +17,36 @@
           export LOG_PATH="{{ zuul_log_path }}"
           export SUCCESS="{{ zuul_success | bool }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+          # Pass also the new naming scheme as JOBTYPE to report to DLRN
+          # In this way each job will report success/failure with the new name
+          # and the old name, and we can use one or the other in the promotion
+          # criteria
+          export TOCI_JOBTYPE="{{ zuul.job }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+
+    - name: Temporary task to report to centos api endpoint in mixed distribution jobs
+      shell:
+        cmd: |
+          cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/hash_info.sh
+          source {{ workspace }}/hash_info.sh
+          {% if nodes is defined %}
+          export TOCI_JOBTYPE="periodic-{{ environment_type }}-{{ nodes }}-featureset{{ featureset }}"
+          {% else %}
+          export TOCI_JOBTYPE="periodic-{{ environment_type }}-featureset{{ featureset }}"
+          {% endif %}
+          export LOG_PATH="{{ zuul_log_path }}"
+          export SUCCESS="{{ zuul_success | bool }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+          # Pass also the new naming scheme as JOBTYPE to report to DLRN
+          # In this way each job will report success/failure with the new name
+          # and the old name, and we can use one or the other in the promotion
+          # criteria
+          export TOCI_JOBTYPE="{{ zuul.job }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
+          cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
+        chdir: '{{ workspace }}'
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+      when: {{ fedora_centos_mixed_distribution_job|default(false) }}
+
