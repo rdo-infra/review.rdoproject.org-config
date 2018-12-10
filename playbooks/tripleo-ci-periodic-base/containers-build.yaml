@@ -12,6 +12,7 @@
       - name: Run container build script
         shell: |
             export RELEASE="{{ release }}"
+            export OS_NAME="{{ os_name }}"
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/build-containers-images.sh
         args:
           chdir: "{{ workspace }}"
