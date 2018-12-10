@@ -23,6 +23,7 @@
             ssh-add {{ ssh_private_key_tmp.path }}
             shred {{ ssh_private_key_tmp.path }}
             export RELEASE={{ release }}
+            export DISTRO_NAME={{ distro_name }}
             mkdir -p {{ workspace }}/logs/images-upload/
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/convert-upload-undercloud.sh
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/upload-cloud-images.sh
