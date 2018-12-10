@@ -3,13 +3,43 @@
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
-
     - name: Populate hash.info required for dlrn reporting
       shell: |
-          export WORKSPACE="{{ workspace }}"
+         export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
+          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
       args:
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
+
+    - name: Temporary hash info creation for fedora in mixed distribution job
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          cp {{ workspace }}/logs/hash_info.sh {{ workspace }}/logs/hash_info_fedora.sh
+          cp {{ workspace }}/logs/hash_info.sh {{ workspace }}/logs/hash_info_centos.sh
+
+          DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"
+          sed -i -e 's/DLRNAPI_URL=*/DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"/g' {{ workspace }}/logs/hash_info_fedora.sh
+          source {{ workspace }}/logs/hash_info_fedora.sh
+          # Since both fedora and centos repos are created from the same rpm-master branch in distgit
+          # Commit hash and distro hash in both repos will be the same, but there's a catch.
+          # Not all the packages in centos are available in fedora, so we may have an hash in centos
+          # built over a package that doesn't exist in fedora, so the dlrn hash will have no equivalent there
+          # We test here if the hash exists in fedora, and block the job in case.
+          # We need to find a way to get distro hash from a commit hash
+          source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
+          activate_dlrnapi_venv
+
+          # If the hash combination doesn't exist the API will report 404 and the command will exit 1
+          dlrnapi --url $DLRNAPI_URL --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+          if [[ "$?" == "1" ]]; then
+            echo "current consistent hash on centos does not have an equivalent in fedora. Skipping this run"
+            exit 1
+          fi
+
+        chdir: "{{ workspace }}"
+      when: {{ fedora_centos_mixed_distribution_job|default(false) }}
