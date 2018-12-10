@@ -23,6 +23,8 @@ else
     CPU_ARCH="-$CPU_ARCH"
 fi
 
+DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
+
 cat << EOF > $WORKSPACE/playbook.yml
 ---
 - name: Build Kolla images
@@ -30,11 +32,14 @@ cat << EOF > $WORKSPACE/playbook.yml
   become: yes
   become_user: root
   vars:
+    kolla_base: "${DISTRO_NAME}"
+    kolla_virtualenv: "{{ kolla_tmpdir }}/.tox/build-${DISTRO_NAME}-binary"
     kolla_namespace: "tripleo${RELEASE}${CPU_ARCH}"
     kolla_push: true
     kolla_tag: "$TESTING_TAG"
     openstack_release: "$RELEASE"
-    trunk_repository: "https://trunk.rdoproject.org/centos7-$RELEASE/$TESTING_TAG/delorean.repo"
+    trunk_repository: "https://trunk.rdoproject.org/${DISTRO}-$RELEASE/$TESTING_TAG/delorean.repo"
+    trunk_deps_repository: "https://trunk.rdoproject.org/${DISTRO}-$RELEASE/delorean-deps.repo"
   tasks:
     - include_role:
         name: "rdo-kolla-build"
