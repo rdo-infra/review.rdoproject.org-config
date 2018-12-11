@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_c92c9404",
+        "filename": "playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2018-12-11T11:05:41Z",
+      "side": 1,
+      "message": "fedora_dlrnapi_url: \"https://trunk.rdoproject.org/api-fedora-{{ release }}\"",
+      "revId": "9751f95944462a1b04622ba5a5cd566974f9ce19",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_4941a4a8",
+        "filename": "playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2018-12-11T11:05:41Z",
+      "side": 1,
+      "message": "No need for this if we use fedora_dlrnapi_url",
+      "revId": "9751f95944462a1b04622ba5a5cd566974f9ce19",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_69390841",
+        "filename": "playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2018-12-11T11:05:41Z",
+      "side": 1,
+      "message": "Use fedora_dlrnapi_url",
+      "revId": "9751f95944462a1b04622ba5a5cd566974f9ce19",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_a9f2806d",
+        "filename": "playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2018-12-11T11:05:41Z",
+      "side": 1,
+      "message": "We can get the list with somthing like \ndlrnapi --url https://trunk.rdoproject.org/api-centos-master-uc promotion-get  --promote-name current-tripleo --offset 16 --limit 10\n\nAnd go back in time chaging offset, then search for distro hash looking at commmit hash.",
+      "range": {
+        "startLine": 33,
+        "startChar": 31,
+        "endLine": 33,
+        "endChar": 42
+      },
+      "revId": "9751f95944462a1b04622ba5a5cd566974f9ce19",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
