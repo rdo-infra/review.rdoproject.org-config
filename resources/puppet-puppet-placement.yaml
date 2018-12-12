@@ -1,0 +1,109 @@
+resources:
+  groups:
+    puppet/puppet-placement-core:
+      description: Core developers for project puppet-placement
+      members:
+      - lyarwood@redhat.com
+    puppet/puppet-placement-ptl:
+      description: Project team lead for project puppet-placement
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-placement-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-placement-core
+          owner = group puppet/puppet-placement-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-placement-core
+          label-Code-Review = -2..+2 group puppet/puppet-placement-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-placement-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-placement-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          abandon = group puppet/puppet-placement-core
+          label-Verified = -2..+2 group puppet/puppet-placement-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-placement-core
+          label-Workflow = -1..+1 group puppet/puppet-placement-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-placement-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-placement-core
+      - puppet/puppet-placement-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-placement:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-placement-core
+          owner = group puppet/puppet-placement-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-placement-core
+          label-Code-Review = -2..+2 group puppet/puppet-placement-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-placement-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-placement-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-placement-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-placement-core
+          label-Workflow = -1..+0 group puppet/puppet-placement-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-placement-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-placement-core
+      - puppet/puppet-placement-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-placement:
+      acl: puppet-puppet-placement
+      description: Mirror of upstream puppet-placement (mirror + patches)
+    puppet/puppet-placement-distgit:
+      acl: puppet-puppet-placement-distgit
+      description: Packaging of upstream puppet-placement
+      default-branch: rpm-master
+      branches:
+        master: '0'
