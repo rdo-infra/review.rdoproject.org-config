@@ -17,7 +17,7 @@
   block:
 
     - name: Find out all servers
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name"
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name | grep {{ idnum }}"
       register: servers
 
     - name: Dump console log of servers
