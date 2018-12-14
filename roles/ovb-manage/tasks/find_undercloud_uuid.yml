@@ -7,7 +7,7 @@
 
   - name: Set UUID of undercloud
     set_fact:
-        undercloud_uuid: "{{ js.stdout | from_json | json_query('uuid') }}"
+        undercloud_uuid: '{{ js.stdout | from_json | json_query("uuid") }}'
   when: cloud_name == 'vexxhost'
 
 - block:
@@ -18,5 +18,5 @@
 
   - name: Set UUID of undercloud
     set_fact:
-        undercloud_uuid: "{{ jsr.stdout) | from_json | json_query('uuid') }}"
+        undercloud_uuid: '{{ jsr.stdout | from_json | json_query("uuid") }}'
   when: cloud_name == 'rdocloud'
