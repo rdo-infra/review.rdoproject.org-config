@@ -1,9 +1,10 @@
 ---
 - name: Find out UUID of instance
-  shell: curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null
+  shell: >-
+    curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null |
+    python -c 'import json, sys; print json.load(sys.stdin)["uuid"]'
   register: js
-  no_log: true
 
 - name: Set UUID of undercloud
   set_fact:
-    undercloud_uuid: "{{ js.stdout | from_json | json_query('uuid') }}"
+    undercloud_uuid: "{{ js.stdout }}"
