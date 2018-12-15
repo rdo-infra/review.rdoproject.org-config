@@ -1,22 +1,22 @@
 ---
 - block:
   - name: Find UUID of instance for vexxhost
-    shell: cat /mnt/config/openstack/latest/meta_data.json
+    shell: cat /mnt/config/openstack/latest/meta_data.json | jq -r '.uuid'
     register: js
     no_log: true
 
   - name: Set UUID of undercloud
     set_fact:
-        undercloud_uuid: '{{ js.stdout | from_json | json_query("uuid") }}'
+        undercloud_uuid: '{{ js.stdout }}'
   when: cloud_name == 'vexxhost'
 
 - block:
   - name: Find out UUID of instance
-    shell: curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null
+    shell: curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null | jq -r '.uuid'
     register: jsr
     no_log: true
 
   - name: Set UUID of undercloud
     set_fact:
-        undercloud_uuid: '{{ jsr.stdout | from_json | json_query("uuid") }}'
+        undercloud_uuid: '{{ jsr.stdout }}'
   when: cloud_name == 'rdocloud'
