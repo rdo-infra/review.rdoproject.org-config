@@ -11,6 +11,9 @@
 - name: Generate OVB parameters template
   include: generate_template.yml
 
+- name: Find out undercloud host ID
+  include: find_undercloud_uuid.yml
+
 - name: Generate clouds.yaml file
   template:
     src: clouds.yaml.j2
@@ -58,9 +61,6 @@
       shell: >
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f json -c outputs
       register: stack_outputs
-
-    - name: Find out undercloud host ID
-      include: find_undercloud_uuid.yml
 
     - name: Find ID of provision network
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack network show provision-{{ idnum }} -f value -c id"

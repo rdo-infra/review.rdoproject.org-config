@@ -7,6 +7,9 @@
   set_fact:
     idnum: "{{ idnum_shell.stdout }}"
 
+- name: Find out undercloud host ID
+  include: find_undercloud_uuid.yml
+
 - name: Generate clouds.yaml file
   template:
     src: clouds.yaml.j2
@@ -24,9 +27,6 @@
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item }}-console.log"
       loop: "{{ servers.stdout_lines }}"
       ignore_errors: true
-
-    - name: Find out undercloud host ID
-      include: find_undercloud_uuid.yml
 
     - name: List ports of undercloud for delete
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack port list --server {{ undercloud_uuid }} --network {{ item.net }} -f value -c id"
