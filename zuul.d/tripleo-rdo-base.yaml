@@ -7,6 +7,15 @@
     abstract: true
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-ovb-tebroker
+    timeout: 10800
+    nodeset: tripleo-ovb-centos-7-primary
+
+- job:
+    name: tripleo-ci-base-ovb-tebroker
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
     parent: tripleo-ci-base-ovb
     timeout: 10800
     nodeset: tripleo-ovb-centos-7-primary
@@ -14,10 +23,10 @@
       - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
-    name: tripleo-ci-base-ovb-rdo-exp
+    name: tripleo-ci-base-ovb-notebroker
     abstract: true
     description: |
-        Base abstract job for OVB in RDO CI zuulv3 jobs
+        Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
     parent: tripleo-ci-base-ovb
     timeout: 10800
     nodeset: tripleo-ovb-centos-7-primary
@@ -27,6 +36,9 @@
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     secrets:
       - cloud_secrets
+
+
+
 
 - job:
     name: tripleo-ci-base-multinode-rdo
