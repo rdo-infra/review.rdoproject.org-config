@@ -34,8 +34,8 @@
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
       register: result
       until: ("COMPLETE" in result.stdout) or ("FAILED" in result.stdout) or result.rc != 0
-      retries: 10
-      delay: 30
+      retries: 18
+      delay: 100
 
     - name: Dump stderr in case of command failure
       debug:
