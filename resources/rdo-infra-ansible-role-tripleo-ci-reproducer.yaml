@@ -1,0 +1,38 @@
+resources:
+  groups:
+    rdo-infra/ansible-role-tripleo-ci-reproducer:
+      description: 'Core developers for project Tripleo CI reproducer role'
+      members:
+      - rlandy@redhat.com
+      - sshnaidm@redhat.com
+      - weshayutin@redhat.com
+      - gcerami@redhat.com
+      - ellorent@redhat.com
+  acls:
+    rdo-infra/ansible-role-tripleo-ci-reproducer:
+      file: |
+        [access "refs/*"]
+            read = group rdo-infra/ansible-role-tripleo-ci-reproducer
+            owner = group rdo-infra/ansible-role-tripleo-ci-reproducer
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer
+            submit = group rdo-infra/ansible-role-tripleo-ci-reproducer
+            read = group Registered Users
+            read = group rdo-infra/ansible-role-tripleo-ci-reproducer
+            label-Verified = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-infra/ansible-role-tripleo-ci-reproducer
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-infra/ansible-role-tripleo-ci-reproducer
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-infra/ansible-role-tripleo-ci-reproducer
+  repos:
+    rdo-infra/ansible-role-tripleo-ci-reproducer:
+      acl: rdo-infra/ansible-role-tripleo-ci-reproducer
+      description: "Tripleo CI zuul based reproducer"
