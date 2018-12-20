@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/os-resource-classes-core:
+      description: Core developers for project os-resource-classes
+      members:
+      - lyarwood@redhat.com
+    openstack/os-resource-classes-ptl:
+      description: Project team lead for project os-resource-classes
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-os-resource-classes-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-resource-classes-core
+          owner = group openstack/os-resource-classes-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-resource-classes-core
+          label-Code-Review = -2..+2 group openstack/os-resource-classes-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-resource-classes-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-resource-classes-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/os-resource-classes-core
+          label-Verified = -2..+2 group openstack/os-resource-classes-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/os-resource-classes-core
+          label-Workflow = -1..+1 group openstack/os-resource-classes-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-resource-classes-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-resource-classes-core
+      - openstack/os-resource-classes-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-os-resource-classes:
+      file: |
+        [access "refs/*"]
+          read = group openstack/os-resource-classes-core
+          owner = group openstack/os-resource-classes-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/os-resource-classes-core
+          label-Code-Review = -2..+2 group openstack/os-resource-classes-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/os-resource-classes-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/os-resource-classes-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/os-resource-classes-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/os-resource-classes-core
+          label-Workflow = -1..+0 group openstack/os-resource-classes-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/os-resource-classes-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/os-resource-classes-core
+      - openstack/os-resource-classes-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/os-resource-classes:
+      acl: openstack-os-resource-classes
+      description: Mirror of upstream os-resource-classes (mirror + patches)
+    openstack/os-resource-classes-distgit:
+      acl: openstack-os-resource-classes-distgit
+      description: Packaging of upstream os-resource-classes
+      default-branch: rpm-master
+      branches:
+        master: '0'
