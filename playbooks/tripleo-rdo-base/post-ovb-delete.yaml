@@ -12,3 +12,4 @@
         ovb_manage_stack_mode: delete
         ovb_working_dir: "{{ workspace }}/ovb"
         logs_dir: "{{ workspace }}/logs"
+      when: remove_ovb_after_job|default(true)|bool
