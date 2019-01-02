@@ -241,6 +241,7 @@
     final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
+    post-run: playbooks/legacy-validate-dependencies-rebuilds/post.yaml
     required-projects:
       - name: gating_scripts
     secrets:
