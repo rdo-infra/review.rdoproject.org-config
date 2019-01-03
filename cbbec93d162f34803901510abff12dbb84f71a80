@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad0253b_7ecec584",
+        "filename": "ci-scripts/tripleo-upstream/build-containers-images.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2019-01-03T12:18:30Z",
+      "side": 1,
+      "message": "This could end with centos-7-28 if DISTRO_NAME is not set\n\nbetter do\n\n${DISTRO_NAME:-centos}-${RELEASE:-7}\n\nBut again could en with fedora-7 for example, but this is better I think",
+      "range": {
+        "startLine": 37,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 84
+      },
+      "revId": "cbbec93d162f34803901510abff12dbb84f71a80",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
