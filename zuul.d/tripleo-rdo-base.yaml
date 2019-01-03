@@ -137,3 +137,10 @@
       - config
     secrets:
       - dlrnapi
+
+- job:
+    name: tripleo-ci-reproducer-base
+    abstract: true
+    pre-run: playbooks/tripleo-ci-reproducer-base/pre.yaml
+    secrets:
+      - tripleo_gerrit_ssh_key
