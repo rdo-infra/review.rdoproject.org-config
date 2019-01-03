@@ -1,0 +1,7 @@
+- hosts: all
+  tasks:
+    - name: Delete TripleO Gerrit SSH private key
+      copy:
+        path: "~/.ssh/id_rsa_tripleo_gerrit"
+        state: absent
+
