@@ -143,5 +143,8 @@
     abstract: true
     pre-run: playbooks/tripleo-ci-reproducer-base/pre.yaml
     post-run: playbooks/tripleo-ci-reproducer-base/post.yaml
+    vars:
+      tripleo_gerrit_key_name: id_rsa_tripleo_gerrit
+      tripleo_gerrit_key_path: "~/.ssh/{{ tripleo_gerrit_key_name }}"
     secrets:
       - tripleo_gerrit_ssh_key

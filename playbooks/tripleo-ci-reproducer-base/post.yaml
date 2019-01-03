@@ -2,6 +2,6 @@
   tasks:
     - name: Delete TripleO Gerrit SSH private key
       file:
-        path: "~/.ssh/id_rsa_tripleo_gerrit"
+        path: "{{ tripleo_gerrit_key_path }}"
         state: absent
 

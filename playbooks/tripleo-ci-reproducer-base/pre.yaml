@@ -3,6 +3,6 @@
     - name: Create TripleO Gerrit SSH private key from secret
       copy:
         content: "{{ tripleo_gerrit_ssh_key.ssh_private_key }}"
-        dest: "~/.ssh/id_rsa_tripleo_gerrit"
+        dest: "{{ tripleo_gerrit_key_path }}"
         mode: 0600
 
