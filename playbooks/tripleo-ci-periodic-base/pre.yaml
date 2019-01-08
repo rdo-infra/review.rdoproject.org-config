@@ -3,32 +3,13 @@
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
-    - name: Populate hash.info required for dlrn reporting
-      shell:
-        cmd: |
-          export WORKSPACE="{{ workspace }}"
-          export RELEASE="{{ release }}"
-          export PROMOTE_NAME=tripleo-ci-testing
-          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
-          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
-          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
-      args:
-        chdir: '{{ workspace }}'
-      environment: "{{ zuul | zuul_legacy_vars }}"
 
-    - name: Temporary hash info creation for centos in mixed distribution job
-      shell:
-        cmd: |
+    - name: Populate hash.info required for dlrn reporting
+      shell: |
           export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
-          export DLRNAPI_DISTRO="CentOS"
-          export DLRNAPI_DISTRO_VERSION="7"
-          cp {{ workspace }}/logs/hash_info.sh {{ workspace  }}/logs/hash_info_fedora.sh
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
-          cp {{ workspace }}/logs/hash_info.sh {{ workspace  }}/logs/hash_info_centos.sh
-          cp {{ workspace }}/logs/hash_info_fedora.sh {{ workspace  }}/logs/hash_info.sh
       args:
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
-      when: fedora_centos_mixed_distribution_job|default(false)
