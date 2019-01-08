@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/ansible-role-atos-hsm-core:
+      description: Core developers for project ansible-role-atos-hsm
+      members:
+      - alee@redhat.com
+      - jasorior@redhat.com
+    openstack/ansible-role-atos-hsm-ptl:
+      description: Project team lead for project ansible-role-atos-hsm
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-role-atos-hsm-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-atos-hsm-core
+          owner = group openstack/ansible-role-atos-hsm-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-atos-hsm-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-atos-hsm-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-atos-hsm-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-atos-hsm-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-role-atos-hsm-core
+          label-Verified = -2..+2 group openstack/ansible-role-atos-hsm-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-role-atos-hsm-core
+          label-Workflow = -1..+1 group openstack/ansible-role-atos-hsm-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-atos-hsm-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-atos-hsm-core
+      - openstack/ansible-role-atos-hsm-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-role-atos-hsm:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-atos-hsm-core
+          owner = group openstack/ansible-role-atos-hsm-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-atos-hsm-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-atos-hsm-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-atos-hsm-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-atos-hsm-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-role-atos-hsm-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-role-atos-hsm-core
+          label-Workflow = -1..+0 group openstack/ansible-role-atos-hsm-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-atos-hsm-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-atos-hsm-core
+      - openstack/ansible-role-atos-hsm-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-role-atos-hsm:
+      acl: openstack-ansible-role-atos-hsm
+      description: Mirror of upstream ansible-role-atos-hsm (mirror + patches)
+    openstack/ansible-role-atos-hsm-distgit:
+      acl: openstack-ansible-role-atos-hsm-distgit
+      description: Packaging of upstream ansible-role-atos-hsm
+      default-branch: rpm-master
+      branches:
+        master: '0'
