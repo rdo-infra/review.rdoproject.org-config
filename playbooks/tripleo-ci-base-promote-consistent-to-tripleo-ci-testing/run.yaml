@@ -47,10 +47,11 @@
           source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
           activate_dlrnapi_venv
 
+          echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in fedora"
           # If the hash combination doesnt exist the API will report 404 and the command will exit 1
           dlrnapi --url $DLRNAPI_URL repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
           if [[ "$?" == "1" ]]; then
-            echo "$COMMIT_HASH and $DISTRO_HASH hashes on centos does not have an equivalent in fedora. Skipping this run"
+            echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in fedora"
             exit 1
           fi
 
@@ -58,3 +59,7 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
       when: release == "master"
+      register: result
+      retries: 20
+      delay: 30
+      until: result is succeeded
