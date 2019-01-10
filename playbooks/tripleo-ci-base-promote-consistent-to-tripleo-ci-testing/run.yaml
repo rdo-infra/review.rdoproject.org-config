@@ -36,9 +36,10 @@
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
           DLRNAPI_URL="https://trunk.rdoproject.org/api-fedora-$RELEASE"
-          sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/logs/hash_info.sh
+          sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
 
-          source {{ workspace }}/logs/hash_info.sh
+          source {{ workspace }}/hash_info.sh
+          cp {{ workspace }}/hash_info.sh {{ workspace }}/logs/hash_info.sh
           # Since both fedora and centos repos are created from the same rpm-master branch in distgit
           # Commit hash and distro hash in both repos will be the same, but theres a catch:
           # Not all the packages in centos are available in fedora, so we may have a hash in centos
