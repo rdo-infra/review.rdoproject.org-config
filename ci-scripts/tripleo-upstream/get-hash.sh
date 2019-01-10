@@ -13,6 +13,8 @@ trap deactivate_dlrnapi_venv EXIT
 activate_dlrnapi_venv
 
 set -u
+: ${DLRNAPI_DISTRO:="CentOS"}
+: ${DLRNAPI_DISTRO_VERSION:="7"}
 
 curl -sLo $WORKSPACE/commit.yaml https://trunk.rdoproject.org/centos7-$RELEASE/$PROMOTE_NAME/commit.yaml
 
