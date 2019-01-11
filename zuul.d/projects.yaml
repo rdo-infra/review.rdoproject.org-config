@@ -3627,8 +3627,40 @@
     name: review.rdoproject.org/openstack/mox3-distgit
     default-branch: rpm-master
     templates:
-      - package-distgit-check-jobs
+      # FIXME(jpena) Once we get a release > 0.26.0, we can go back to the template
+      # - package-distgit-check-jobs
       - system-required
+    check:
+      jobs:
+        - legacy-rpmlint:
+            dependencies:
+              - legacy-DLRN-rpmbuild-pinned
+            branches: ^rpm-master$
+        - legacy-DLRN-build-tripleo:
+            dependencies:
+              - legacy-DLRN-rpmbuild-pinned
+            voting: false
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+        - legacy-DLRN-rpmbuild-pinned:
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+        - legacy-DLRN-rpmbuild-fedora-pinned:
+            branches: ^(master)|(rpm-master)$
+            nodeset: rdo-fedora-28
+            voting: false
+        - distgit-cbs-validate:
+            branches: ^ocata-rdo$
+        - distgit-cbs-validate:
+            branches: ^pike-rdo$
+        - distgit-cbs-validate:
+            branches: ^queens-rdo$
+        - distgit-cbs-validate:
+            branches: ^(?!rpm-master).*$
+    gate:
+      jobs:
+        - legacy-DLRN-rpmbuild-pinned:
+            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+        - distgit-cbs-final-build:
+            branches: ^(?!rpm-master).*$
 
 - project:
     name: review.rdoproject.org/openstack/murano
