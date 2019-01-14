@@ -24,10 +24,12 @@
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_DISTRO="CentOS"
           export DLRNAPI_DISTRO_VERSION="7"
-          cp {{ workspace }}/logs/hash_info.sh {{ workspace  }}/logs/hash_info_fedora.sh
+          cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
+          cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/logs/hash_info_fedora.sh
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
-          cp {{ workspace }}/logs/hash_info.sh {{ workspace  }}/logs/hash_info_centos.sh
-          cp {{ workspace }}/logs/hash_info_fedora.sh {{ workspace  }}/logs/hash_info.sh
+          cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_centos.sh
+          cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/logs/hash_info_centos.sh
+          cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
       args:
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
