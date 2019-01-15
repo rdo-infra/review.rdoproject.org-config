@@ -290,6 +290,16 @@
       - ovb-experimental
       - vexxhost-experimental
       - ovb-browbeat
+    openstck-check:
+      jobs:
+        - tripleo-ci-reproducer-fedora-28-libvirt
+            files:
+              - ^roles/libvirt/*$
+              - ^library/*$
+        - tripleo-ci-reproducer-centos-7-libvirt
+            files:
+              - ^roles/libvirt/*$
+              - ^library/*$
 
 - project:
     name: git.openstack.org/openstack/tripleo-quickstart-extras
