@@ -20,7 +20,7 @@
   block:
 
     - name: Find out all servers
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name | grep {{ idnum }}"
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name --name {{ idnum }}"
       register: servers
 
     - name: Dump console log of servers
@@ -35,11 +35,13 @@
         - { net: "public-{{ idnum }}", delete: "{% if net_iso and net_iso != 'none' %}true{% endif %}" }
       register: undercloud_ports
       when: item.delete|bool
+      ignore_errors: true
 
     - name: Delete undercloud ports of OVB networks
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack port delete {{ item.stdout }}"
       loop: "{{ undercloud_ports.results }}"
       when: '"stdout" in item and item.stdout'
+      ignore_errors: true
 
     - name: Wait a little until ports are deleted
       pause:
