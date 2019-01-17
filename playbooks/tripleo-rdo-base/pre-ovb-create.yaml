@@ -2,6 +2,8 @@
 - hosts: all
   vars:
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    ovb_repo_source_dir: "{{ ansible_user_dir }}/{{ zuul.projects['git.openstack.org/openstack/openstack-virtual-baremetal'].src_dir }}"
+    ovb_clone: false
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
 
