@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/sahara-plugin-vanilla-core:
+      description: Core developers for project sahara-plugin-vanilla
+      members:
+      - tenobreg@redhat.com
+      - ltoscano@redhat.com
+    openstack/sahara-plugin-vanilla-ptl:
+      description: Project team lead for project sahara-plugin-vanilla
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sahara-plugin-vanilla-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-plugin-vanilla-core
+          owner = group openstack/sahara-plugin-vanilla-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-plugin-vanilla-core
+          label-Code-Review = -2..+2 group openstack/sahara-plugin-vanilla-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-plugin-vanilla-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-plugin-vanilla-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/sahara-plugin-vanilla-core
+          label-Verified = -2..+2 group openstack/sahara-plugin-vanilla-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sahara-plugin-vanilla-core
+          label-Workflow = -1..+1 group openstack/sahara-plugin-vanilla-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-plugin-vanilla-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-plugin-vanilla-core
+      - openstack/sahara-plugin-vanilla-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sahara-plugin-vanilla:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sahara-plugin-vanilla-core
+          owner = group openstack/sahara-plugin-vanilla-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sahara-plugin-vanilla-core
+          label-Code-Review = -2..+2 group openstack/sahara-plugin-vanilla-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sahara-plugin-vanilla-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sahara-plugin-vanilla-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sahara-plugin-vanilla-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sahara-plugin-vanilla-core
+          label-Workflow = -1..+0 group openstack/sahara-plugin-vanilla-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sahara-plugin-vanilla-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sahara-plugin-vanilla-core
+      - openstack/sahara-plugin-vanilla-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sahara-plugin-vanilla:
+      acl: openstack-sahara-plugin-vanilla
+      description: Mirror of upstream sahara-plugin-vanilla (mirror + patches)
+    openstack/sahara-plugin-vanilla-distgit:
+      acl: openstack-sahara-plugin-vanilla-distgit
+      description: Packaging of upstream sahara-plugin-vanilla
+      default-branch: rpm-master
+      branches:
+        master: '0'
