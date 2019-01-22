@@ -1,27 +1,38 @@
 resources:
   groups:
+    rdo-infra/ansible-role-tripleo-ci-reproducer-ptl:
+      description: 'Project team lead for project Triple CI reproducer role'
+      members:
+        - admin@review.rdoproject.org
     rdo-infra/ansible-role-tripleo-ci-reproducer:
       description: 'Core developers for project Tripleo CI reproducer role'
       members:
-      - rlandy@redhat.com
-      - sshnaidm@redhat.com
-      - weshayutin@gmail.com
-      - gcerami@redhat.com
-      - ellorent@redhat.com
+        - rlandy@redhat.com
+        - sshnaidm@redhat.com
+        - weshayutin@gmail.com
+        - gcerami@redhat.com
+        - ellorent@redhat.com
   acls:
     rdo-infra/ansible-role-tripleo-ci-reproducer:
       file: |
         [access "refs/*"]
             read = group rdo-infra/ansible-role-tripleo-ci-reproducer
-            owner = group rdo-infra/ansible-role-tripleo-ci-reproducer
+            owner = group rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
+            owner = group rdo-superusers
         [access "refs/heads/*"]
             label-Code-Review = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer
-            submit = group rdo-infra/ansible-role-tripleo-ci-reproducer
+            label-Code-Review = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
+            label-Code-Review = -2..+2 group rdo-superusers
+            submit = group rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
+            submit = group rdo-superusers
             read = group Registered Users
             read = group rdo-infra/ansible-role-tripleo-ci-reproducer
-            label-Verified = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer
+            read = group rdo-provenpackagers
+            label-Verified = -2..+2 group rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
+            label-Verified = -2..+2 group rdo-superusers
             label-Workflow = -1..+0 group Registered Users
             label-Workflow = -1..+1 group rdo-infra/ansible-role-tripleo-ci-reproducer
+            label-Workflow = -1..+1 group rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
         [access "refs/meta/config"]
             read = group Registered Users
             read = group rdo-infra/ansible-role-tripleo-ci-reproducer
@@ -32,6 +43,8 @@ resources:
             action = rebase if necessary
       groups:
       - rdo-infra/ansible-role-tripleo-ci-reproducer
+      - rdo-infra/ansible-role-tripleo-ci-reproducer-ptl
+      - rdo-superusers
   repos:
     rdo-infra/ansible-role-tripleo-ci-reproducer:
       acl: rdo-infra/ansible-role-tripleo-ci-reproducer
