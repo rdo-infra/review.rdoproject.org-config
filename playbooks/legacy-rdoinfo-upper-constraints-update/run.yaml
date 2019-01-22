@@ -90,7 +90,7 @@
             if [ "$RELEASE" = "master" ]; then
                 ./update-uc.py $UC_BRANCH_PY3
             fi
-            DIFF=$(git diff rdo.yml)
+            DIFF=$(git diff *.yml */*.yml)
             if [ -n "$DIFF" ]; then
               # Check for an open change, if so reuse it
               change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
@@ -110,9 +110,15 @@
               git review -s -v
               echo -e $COMMIT_MSG | git commit -F- rdo.yml
               # Just in case, check if there are changes between this version and the current review
-              curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
-              diff rdo.yml rdo_current.yml
-              if [ $? -ne 0 ]; then
+              DIFF_RDO=0
+              for i in $(ls *yml */*yml 2>/dev/null); do
+                  curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/$i/content |base64 -d > $i.current
+                  diff $i $i.current
+                  if [ $? -ne 0 ]; then
+                      DIFF_RDO=1
+                  fi
+              done
+              if [ $DIFF_RDO -ne 0 ]; then
                   git review -t "rdoinfo-uc-update-$RELEASE" < /dev/null
               fi
             fi
