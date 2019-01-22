@@ -90,6 +90,7 @@
             if [ "$RELEASE" = "master" ]; then
                 ./update-uc.py $UC_BRANCH_PY3
             fi
+            # amoralej - i need to update this diff for rdoinfo reorg
             DIFF=$(git diff rdo.yml)
             if [ -n "$DIFF" ]; then
               # Check for an open change, if so reuse it
@@ -110,6 +111,7 @@
               git review -s -v
               echo -e $COMMIT_MSG | git commit -F- rdo.yml
               # Just in case, check if there are changes between this version and the current review
+              # amoralej i need to fix this for rdoinfo reorg
               curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/rdo.yml/content |base64 -d > rdo_current.yml
               diff rdo.yml rdo_current.yml
               if [ $? -ne 0 ]; then
