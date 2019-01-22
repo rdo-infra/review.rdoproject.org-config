@@ -66,7 +66,7 @@
               -l $change_list \
               -r $RELEASE \
               -p $PHASE
-          DIFF=$(git diff deps.yml)
+          DIFF=$(git diff *.yml */*.yml)
           if [ -n "$DIFF" ]; then
             mkdir -p ~/.ssh
             cat >> ~/.ssh/config << EOF
@@ -87,9 +87,14 @@
             git review -s -v
             echo -e $COMMIT_MSG | git commit -F- deps.yml
             # Just in case, check if there are changes between this version and the current review
-            curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/deps.yml/content |base64 -d > deps_current.yml
-            diff deps.yml deps_current.yml
-            if [ $? -ne 0 ]; then
+            for i in $(ls *yml */*yml 2>/dev/null); do
+                curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/$i/content |base64 -d > $i.current
+                diff yml $i $i.current
+                if [ $? -ne 0 ]; then
+                    DIFF_RDO=1
+                fi
+            done
+            if [ $DIFF_RDO -ne 0 ]; then
                 git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
             fi
             popd
