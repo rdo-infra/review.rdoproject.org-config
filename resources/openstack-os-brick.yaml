@@ -18,6 +18,7 @@ resources:
           owner = group rdo-superusers
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group openstack/os-brick-core
+          label-Code-Review = -2..+2 group openstack/cinder-core
           label-Code-Review = -2..+2 group openstack/os-brick-ptl
           label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Code-Review = -2..+2 group rdo-superusers
@@ -27,9 +28,11 @@ resources:
           read = group openstack/os-brick-core
           read = group rdo-provenpackagers
           abandon = group openstack/os-brick-core
+          abandon = group openstack/cinder-core
           label-Verified = -2..+2 group openstack/os-brick-ptl
           label-Verified = -2..+2 group rdo-superusers
           label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cinder-core
           label-Workflow = -1..+1 group openstack/os-brick-core
           label-Workflow = -1..+1 group openstack/os-brick-ptl
           label-Workflow = -1..+1 group rdo-provenpackagers
