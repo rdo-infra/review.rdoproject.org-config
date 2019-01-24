@@ -1,13 +1,10 @@
+# This file is managed by ansible, do not edit directly
 ---
 - pipeline:
     name: check
     description: |
       Newly uploaded patchsets enter this pipeline to receive an
       initial +/-1 Verified vote.
-    success-message: Build succeeded (check pipeline).
-    failure-message: |
-      Build failed (check pipeline).  For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: independent
     require:
       rdoproject.org:
@@ -25,14 +22,16 @@
               username: zuul
           approval:
             - Workflow: 1
+    start:
+      rdoproject.org:
+        verified: 0
     success:
       rdoproject.org:
-        # Note that gerrit keywords are case-sensitive.
-        Verified: 1
+        verified: 1
       sqlreporter:
     failure:
       rdoproject.org:
-        Verified: -1
+        verified: -1
       sqlreporter:
 
 - pipeline:
@@ -47,6 +46,7 @@
       http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: dependent
     precedence: high
+    post-review: True
     require:
       rdoproject.org:
         open: True
@@ -88,11 +88,34 @@
     trigger:
       rdoproject.org:
         - event: ref-updated
-          ref: ^(?!refs/).*$
+          ref: ^refs/heads/.*$
+    success:
+      sqlreporter:
+    failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "root@localhost"
+        subject: '[Zuul] Job failed in post pipeline: {change.project}'
+      sqlreporter:
+
+- pipeline:
+    name: pre-release
+    description: When a commit is tagged with a pre-release tag, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    post-review: True
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
       sqlreporter:
     failure:
       sqlreporter:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "root@localhost"
+        subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
 
 - pipeline:
     name: release
@@ -103,10 +126,14 @@
     trigger:
       rdoproject.org:
         - event: ref-updated
-          ref: ^refs/tags/[0-9]+(\.[0-9]+)*$
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
       sqlreporter:
     failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "root@localhost"
+        subject: '[Zuul] Job failed in release pipeline: {change.project}'
       sqlreporter:
 
 - pipeline:
@@ -121,6 +148,10 @@
     success:
       sqlreporter:
     failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "root@localhost"
+        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
       sqlreporter:
 
 - pipeline:

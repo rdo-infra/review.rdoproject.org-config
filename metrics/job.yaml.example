@@ -1,0 +1,112 @@
+# You can copy this example to create a dashboard for a specific job.
+dashboard:
+  title: Jobs
+  rows:
+  - height: 100px
+    panels:
+    - content: '**Job JOB_NAME metrics**
+        This dashboard is managed in the config repository. If you would like to
+        make changes, edit the yaml file in config/metrics'
+      title: Description
+      type: text
+    title: Description
+  - height: 320px
+    showTitle: true
+    title: Job status JOB_NAME
+    panels:
+    - title: Success
+      span: 6
+      type: graph
+      yaxes:
+      - min: 0
+      - min: 0
+      targets:
+      - alias: "$4: $10"
+        groupBy:
+        - params:
+          - $__interval
+          type: time
+        - params:
+          - '0'
+          type: fill
+        # Replace period with underscore on the FQDN
+        # eg managesf_sftests_com
+        measurement: /zuul.tenant.local.pipeline.*.project.FQDN.JOB_NAME.master.job.*/
+        orderByTime: ASC
+        resultFormat: time_series
+        select:
+        - - params:
+            - value
+            type: field
+          - params: []
+            type: count
+        tags:
+        - key: metric_type
+          operator: '='
+          value: counter
+    - title: Failed
+      span: 6
+      type: graph
+      yaxes:
+      - min: 0
+      - min: 0
+      targets:
+      - alias: "$4: $10"
+        groupBy:
+        - params:
+          - $__interval
+          type: time
+        - params:
+          - '0'
+          type: fill
+        # Replace period with underscore on the FQDN
+        # eg managesf_sftests_com
+        measurement: /zuul.tenant.local.pipeline.*.project.FQDN.JOB_NAME.master.job.*.FAILURE/
+        orderByTime: ASC
+        resultFormat: time_series
+        select:
+        - - params:
+            - value
+            type: field
+          - params: []
+            type: count
+        tags:
+        - key: metric_type
+          operator: '='
+          value: counter
+  - height: 320px
+    showTitle: false
+    title: Job duration JOB_NAME
+    panels:
+    - title: Duration
+      type: graph
+      span: 12
+      yaxes:
+      - &id003
+        format: ms
+        label: time
+      - *id003
+      targets:
+      - alias: "$4: $10"
+        groupBy:
+        - params:
+          - $__interval
+          type: time
+        - params:
+          - '0'
+          type: fill
+        # Replace period with underscore on the FQDN
+        # eg managesf_sftests_com
+        measurement: /zuul.tenant.local.pipeline.*.project.FQDN.JOB_NAME.master.job.*.SUCCESS/
+        orderByTime: ASC
+        resultFormat: time_series
+        select:
+        - - params:
+            - mean
+            type: field
+          - params: []
+            type: distinct
+        tags:
+        - key: metric_type
+          operator: '='
+          value: timing

@@ -411,33 +411,43 @@
     secrets:
       - uploader_ssh_key
 
-- job:
-    name: config-check
-    description: Validate the config repo.
-    run: playbooks/config/check.yaml
-    secrets:
-      - sf_service_user
-    nodeset:
-      nodes: []
-    allowed-projects:
-      - config
-
 - semaphore:
     name: semaphore-config-update
     max: 1
 
 - job:
-    name: config-update
-    description: Deploy config repo updates
+    name: config-check
+    parent: base
     final: true
-    run: playbooks/config/update.yaml
-    semaphore: semaphore-config-update
-    secrets:
-      - site_install_server
-    nodeset:
-      nodes: []
     allowed-projects:
       - config
+    description: Validate the config repo.
+    run: playbooks/config/check.yaml
+    post-run: playbooks/config/check-fetch-artifacts.yaml
+    secrets:
+      - service_user
+    vars:
+      zuul_log_url: "https://review.rdoproject.org/logs"
+      gateway_url: "https://review.rdoproject.org"
+      tenant_config: True
+      master_sf_url: https://softwarefactory-project.io
+    nodeset:
+      nodes: []
+
+- job:
+    name: config-update
+    parent: base
+    final: true
+    allowed-projects:
+      - config
+    description: Deploy config repo update.
+    run: playbooks/config/update.yaml
+    secrets:
+      - site_install_server
+      - site_tenant_update
+    semaphore: semaphore-config-update
+    nodeset:
+      nodes: []
 
 - job:
     name: publish-rdoproject-artifacts

@@ -28,12 +28,14 @@ IGNORED_PROJECTS = {
         'testbranching',
         'testproject',
         'demo-project',
+        'sf-jobs',
     ],
     'gerritbot': [
         'demo-project',
         'openstack/whitebox-tempest-plugin',
         'testbranching',
         'testproject',
+        'sf-jobs',
     ]
 }
 
