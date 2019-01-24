@@ -4,7 +4,21 @@
     curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null |
     python -c 'import json, sys; print json.load(sys.stdin)["uuid"]'
   register: js
+  ignore_errors: true
+
+- name: Find out UUID of instance
+  shell: >-
+    cat /mnt/config/openstack/latest/meta_data.json 2>/dev/null |
+    python -c 'import json, sys; print json.load(sys.stdin)["uuid"]'
+  register: js2
+  when: js is failed
 
 - name: Set UUID of undercloud
   set_fact:
     undercloud_uuid: "{{ js.stdout }}"
+  when: js is success
+
+- name: Set UUID of undercloud
+  set_fact:
+    undercloud_uuid: "{{ js2.stdout }}"
+  when: js is failed
