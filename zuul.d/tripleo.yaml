@@ -274,7 +274,10 @@
 - project:
     name: git.openstack.org/openstack/openstack-virtual-baremetal
     templates:
-      - ovb-001-check
+      - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
+          branches: stable/1.0
+      - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master:
+          branches: master
       - ovb-experimental
 
 - project:
