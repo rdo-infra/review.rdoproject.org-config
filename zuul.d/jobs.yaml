@@ -263,6 +263,7 @@
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
+      - name: rdo-infra/releng
     secrets:
       - koji_centos
       - rdoinfo_ssh
@@ -283,6 +284,7 @@
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
+      - name: rdo-infra/releng
     secrets:
       - koji_centos
       - rdoinfo_ssh
@@ -388,6 +390,7 @@
     run: playbooks/legacy-rdo-deps-uc-send-review/run.yaml
     required-projects:
       - rdoinfo
+      - rdo-infra/releng
     secrets:
       - rdoinfo_ssh
 

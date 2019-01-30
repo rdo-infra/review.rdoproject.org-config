@@ -35,6 +35,11 @@
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg
+          # Install releng, needed for add-buildsys-tags.py script
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
+          pip install .
+          popd
+
           if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
               /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r \
                 rdoinfo
