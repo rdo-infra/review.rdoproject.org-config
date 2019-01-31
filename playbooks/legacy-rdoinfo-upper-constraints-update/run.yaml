@@ -71,10 +71,12 @@
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-          sudo pip install 'ruamel.yaml<=0.15' git-review
+          virtualenv --system-site-packages ~/.venv
+          source ~/.venv/bin/activate
+          pip install 'ruamel.yaml<=0.15' git-review
           # Install releng, needed for update_uc command
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
-          sudo pip install .
+          pip install .
           popd
 
           cd $ZUUL_PROJECT

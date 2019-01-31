@@ -86,7 +86,7 @@
           pip install 'ruamel.yaml<=0.15.0' sh git-review
           # Install releng, needed for update_uc command
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
-          sudo pip install .
+          pip install .
           popd
 
           mkdir -p ~/.ssh
