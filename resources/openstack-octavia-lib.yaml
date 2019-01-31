@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/octavia-lib-core:
+      description: Core developers for project octavia-lib
+      members:
+      - nmagnezi@redhat.com
+      - cgoncalves@redhat.com
+      - bcafarel@redhat.com
+    openstack/octavia-lib-ptl:
+      description: Project team lead for project octavia-lib
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-octavia-lib-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/octavia-lib-core
+          owner = group openstack/octavia-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/octavia-lib-core
+          label-Code-Review = -2..+2 group openstack/octavia-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/octavia-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/octavia-lib-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/octavia-lib-core
+          label-Verified = -2..+2 group openstack/octavia-lib-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/octavia-lib-core
+          label-Workflow = -1..+1 group openstack/octavia-lib-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/octavia-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/octavia-lib-core
+      - openstack/octavia-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-octavia-lib:
+      file: |
+        [access "refs/*"]
+          read = group openstack/octavia-lib-core
+          owner = group openstack/octavia-lib-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/octavia-lib-core
+          label-Code-Review = -2..+2 group openstack/octavia-lib-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/octavia-lib-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/octavia-lib-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/octavia-lib-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/octavia-lib-core
+          label-Workflow = -1..+0 group openstack/octavia-lib-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/octavia-lib-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/octavia-lib-core
+      - openstack/octavia-lib-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/octavia-lib:
+      acl: openstack-octavia-lib
+      description: Mirror of upstream octavia-lib (mirror + patches)
+    openstack/octavia-lib-distgit:
+      acl: openstack-octavia-lib-distgit
+      description: Packaging of upstream octavia-lib
+      default-branch: rpm-master
+      branches:
+        master: '0'
