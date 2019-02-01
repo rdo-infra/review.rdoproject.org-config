@@ -124,7 +124,7 @@
               git config gitreview.username "rdo-trunk"
               git checkout -b proposal
               git review -s -v
-              echo -e $COMMIT_MSG | git commit -F- rdo.yml deps.yml
+              echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
               # Just in case, check if there are changes between this version and the current review
               DIFF_RDO=0
               for i in $(ls *yml */*yml 2>/dev/null); do
