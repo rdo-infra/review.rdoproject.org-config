@@ -7273,6 +7273,41 @@
         - legacy-tox-validate
         - legacy-rdoinfo-DLRN-check
         - legacy-validate-dependencies-rebuilds
+        - legacy-weirdo-dlrn-master-packstack-scenario003:
+            dependencies:
+              - legacy-rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/stein-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario001:
+            dependencies:
+              - legacy-rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/stein-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario002:
+            dependencies:
+              - legacy-rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/stein-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario003:
+            dependencies:
+              - legacy-rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/stein-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario004:
+            dependencies:
+              - legacy-rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/stein-uc.yml$
         - legacy-weirdo-validate-buildsys-tags:
             dependencies:
               - legacy-validate-buildsys-tags
@@ -7280,87 +7315,66 @@
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
-            irrelevant-files:
-              - ^rdo.yml$
-        - rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset016:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
-            irrelevant-files:
-              - ^rdo.yml$
-        - rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset016:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
-            irrelevant-files:
-              - ^rdo.yml$
-        - rdoinfo-tripleo-pike-testing-centos-7-multinode-1ctlr-featureset006:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
-        - rdoinfo-tripleo-pike-release-centos-7-multinode-1ctlr-featureset006:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
-        - legacy-validate-buildsys-tags
-    experimental:
-      jobs:
-        - legacy-weirdo-dlrn-master-packstack-scenario003:
-            dependencies:
-              - legacy-rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-        - legacy-weirdo-dlrn-master-puppet-scenario001:
-            dependencies:
-              - legacy-rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-        - legacy-weirdo-dlrn-master-puppet-scenario002:
-            dependencies:
-              - legacy-rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-        - legacy-weirdo-dlrn-master-puppet-scenario003:
-            dependencies:
-              - legacy-rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-        - legacy-weirdo-dlrn-master-puppet-scenario004:
-            dependencies:
-              - legacy-rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-        - legacy-rdoinfo-DLRN-check
-        - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset030:
-            dependencies:
-              - legacy-validate-buildsys-tags
-            voting: false
             files:
-              - ^deps.yml$
+              - ^buildsys-tags/cloud7-openstack-stein-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset010:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^deps.yml$
+              - ^buildsys-tags/cloud7-openstack-stein-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-7-standalone-featureset052:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^deps.yml$
+              - ^buildsys-tags/cloud7-openstack-stein-testing.yml$
+        - rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset016:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-rocky-testing.yml$
+        - rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset016:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-queens-testing.yml$
+        - rdoinfo-tripleo-pike-testing-centos-7-multinode-1ctlr-featureset006:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-pike-testing.yml$
+        - rdoinfo-tripleo-pike-release-centos-7-multinode-1ctlr-featureset006:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-pike-release.yml$
+        - legacy-validate-buildsys-tags
+    experimental:
+      jobs:
+        # Keeps ovn jobs as experimental
+        - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset030:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-stein-testing.yml$
         - rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset030:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^deps.yml$
+              - ^buildsys-tags/cloud7-openstack-rocky-testing.yml$
         - rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset030:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^deps.yml$
+              - ^buildsys-tags/cloud7-openstack-queens-testing.yml$
         - legacy-validate-buildsys-tags
 
     gate:
