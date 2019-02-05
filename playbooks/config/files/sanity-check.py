@@ -29,6 +29,8 @@ IGNORED_PROJECTS = {
         'testproject',
         'demo-project',
         'sf-jobs',
+        'test-project',
+        'test-project-2',
     ],
     'gerritbot': [
         'demo-project',
@@ -36,6 +38,8 @@ IGNORED_PROJECTS = {
         'testbranching',
         'testproject',
         'sf-jobs',
+        'test-project',
+        'test-project-2',
     ]
 }
 
