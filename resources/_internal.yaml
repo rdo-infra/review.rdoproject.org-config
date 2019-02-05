@@ -1,0 +1,60 @@
+# This file is managed by ansible, do not edit directly
+---
+resources:
+  tenants:
+    rdoproject.org:
+      description: "The rdoproject.org tenant."
+      url: "https://review.rdoproject.org/manage"
+      default-connection: gerrit
+
+
+  projects:
+    internal:
+      tenant: rdoproject.org
+      description: Internal configuration project
+      source-repositories:
+        - config:
+            zuul/config-project: True
+        - sf-jobs
+        - zuul-jobs:
+            connection: gerrit
+            zuul/include: [job]
+            zuul/shadow: sf-jobs
+
+  repos:
+    config:
+      description: Config repository
+      acl: config-acl
+    sf-jobs:
+      description: Local job repository
+      acl: config-acl
+
+  acls:
+    config-acl:
+      file: |
+        [access "refs/*"]
+          read = group config-core
+          owner = group config-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group config-core
+          label-Code-Review = -2..+2 group config-ptl
+          label-Verified = -2..+2 group config-ptl
+          label-Workflow = -1..+1 group config-core
+          label-Workflow = -1..+1 group config-ptl
+          label-Workflow = -1..+0 group Registered Users
+          rebase = group config-core
+          abandon = group config-core
+          submit = group config-ptl
+          read = group config-core
+          read = group Registered Users
+        [access "refs/meta/config"]
+          read = group config-core
+          read = group Registered Users
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = fast forward only
+      groups:
+        - config-ptl
+        - config-core

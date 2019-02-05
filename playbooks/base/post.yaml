@@ -1,0 +1,24 @@
+# This file is managed by ansible, do not edit directly
+---
+- hosts: localhost
+  roles:
+    - role: add-fileserver
+      fileserver: "{{ site_sflogs }}"
+    - role: ara-report
+      # This depends-on https://review.openstack.org/577675
+      ara_report_run: True
+      ara_report_type: database
+      ara_report_path: ara-report
+
+- hosts: "{{ site_sflogs.fqdn }}"
+  gather_facts: false
+  tasks:
+    # Use a block because play vars doesn't take precedence on roles vars
+    - block:
+        - import_role: name=upload-logs
+        - import_role: name=emit-job-report
+        - import_role: name=buildset-artifacts-location
+      vars:
+        zuul_log_url: "https://review.rdoproject.org/logs"
+        zuul_logserver_root: "{{ site_sflogs.path }}"
+

@@ -1,0 +1,11 @@
+This directory contains the zuul main.yaml configuration files.
+
+To test a new repository with zuul, add a file *my-project.yaml*:
+- tenant:
+    name: 'local'
+    source:
+      gerrit:
+        untrusted-projects:
+          - my-project-repo-name
+
+Documentation is available here: https://softwarefactory-project.io/docs/zuul
