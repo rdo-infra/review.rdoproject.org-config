@@ -487,6 +487,12 @@
        release: master
 
 - job:
+    name: periodic-tripleo-centos-7-master-containers-build-upstream
+    parent: tripleo-ci-base-singlenode-rdo-containers-build-upstream
+    vars:
+       release: master
+
+- job:
     name: periodic-tripleo-centos-7-pike-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
