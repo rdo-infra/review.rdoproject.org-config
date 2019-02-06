@@ -23,6 +23,12 @@
 - name: Install heat stack
   block:
 
+    - name: Create a key in case of extranode
+      shell: |
+        ssh-keygen -N "" -f ~/extranode-id_rsa;
+        {{ ovb_working_dir }}/.venv/bin/openstack keypair create --public-key ~/extranode-id_rsa.pub {{ extra_key_name }}-{{ idnum }};
+      when: extra_node|bool
+
     - name: Create a stack
       shell: |
         {{ ovb_working_dir }}/.venv/bin/python {{ ovb_repo_directory }}/bin/deploy.py {{ ovb_args }};
