@@ -18,8 +18,9 @@ nodes_config:
     3ctlr_1comp: 4
     1ctlr_1comp: 2
     1ctlr_1comp_1ceph: 3
-    3ctlr_1comp_1supp: 5
+    3ctlr_1comp_1supp: 4
 node_count: "{{ nodes_config[nodes] }}"
+extra_node: "{{ nodes | regex_replace('.*(\\d+)supp', '\\1') | int | default(0) }}"
 
 clouds_yaml: "/tmp/clouds.yaml"
 cloud_name: rdocloud # or vexxhost
@@ -62,3 +63,4 @@ undercloud_args: >-
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
     {%- else -%}{%- endif -%}
 role_args: ''
+extra_node_key_name: extranode-key
