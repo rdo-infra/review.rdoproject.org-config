@@ -480,11 +480,25 @@
     vars:
       release: pike
 
+#TODO(marios): remove this once we switch to using the new
+#periodic-tripleo-centos-7-master-containers-build-push defined below
 - job:
     name: periodic-tripleo-centos-7-master-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
        release: master
+
+- job:
+    name: periodic-tripleo-centos-7-master-containers-build-push
+    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+    vars:
+       release: master
+       push_tag: ci-squad-testing #TODO(marios) change this after testing "tripleo-ci-testing"
+       push_containers: false #TODO(marios) change this after merge & see it run
+       push_registry: trunk.registry.rdoproject.org
+    secrets:
+      - rdo_registry
 
 - job:
     name: periodic-tripleo-centos-7-pike-containers-build
