@@ -368,6 +368,18 @@
               - ^roles/tripleo-inventory/.*$
               - ^playbooks/baremetal-full-freeipa.*$
               - ^playbooks/baremetal-full-deploy.*$
+        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master:
+            files:
+              - roles/validate-tempest/vars/tempest_skip_master.yml
+        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-queens:
+            files:
+              - roles/validate-tempest/vars/tempest_skip_queens.yml
+        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike:
+            files:
+              - roles/validate-tempest/vars/tempest_skip_pike.yml
+        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-rocky:
+            files:
+              - roles/validate-tempest/vars/tempest_skip_rocky.yml
 
 - project:
     name: git.openstack.org/openstack/novajoin
