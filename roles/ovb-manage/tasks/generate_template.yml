@@ -16,7 +16,7 @@
     replace: "{{ item.1 }}"
   loop:
     - - 'bmc_image:.*'
-      - 'bmc_image: bmc-template'
+      - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
     - - 'key_name:.*'
       - 'key_name: {{ key_name }}'
     - - 'node_count:.*'
