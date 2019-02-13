@@ -38,6 +38,17 @@
       - cloud_secrets
 
 - job:
+    name: tripleo-ci-base-baremetal-rdo
+    abstract: true
+    description: |
+        Base abstract job for Baremetal in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-baremetal
+    timeout: 10800
+    nodeset: tripleo-ovb-centos-7-primary
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
     name: tripleo-ci-base-multinode-rdo
     abstract: true
     description: |
@@ -94,6 +105,16 @@
     post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
     secrets:
       - uploader_ssh_key
+
+- job:
+    name: tripleo-ci-base-baremetal-periodic
+    parent: tripleo-ci-base-baremetal-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
 
 - job:
     name: tripleo-ci-base-multinode-periodic
