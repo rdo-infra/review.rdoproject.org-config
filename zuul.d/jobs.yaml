@@ -492,6 +492,7 @@
     name: periodic-tripleo-centos-7-master-containers-build-push
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+    files: [] #otherwise it wont run in periodic cos upstream job has files:
     vars:
        release: master
        push_tag: ci-squad-testing #TODO(marios) change this after testing "tripleo-ci-testing"
