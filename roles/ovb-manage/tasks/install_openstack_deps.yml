@@ -1,46 +1,65 @@
 ---
-- name: Install epel
-  package:
-    name: epel-release
-  become: true
-  register: epel_install
+- name: Check if binary is in virtualenv
+  stat:
+    path: "{{ ovb_working_dir }}/.venv/bin/openstack"
+  register: client_path
 
-- name: Install packages
-  package:
-    name: "{{ item }}"
-  loop:
-    - gcc
-    - python-pip
-    - python-virtualenv
-  become: true
+- block:
 
-- name: Install openstack clients in venv
-  pip:
-    name: "{{ item.0 }}"
-    virtualenv: "{{ ovb_working_dir }}/.venv"
-    version: "{{ item.1 }}"
-  loop:
-    - - python-openstackclient
-      - 3.14.3 # queens
-    - - python-heatclient
-      - 1.14.0 # queens
-    - - python-novaclient
-      - 10.1.0 # queens
-    - - python-neutronclient
-      - 6.7.0 # queens
-
-- name: Remove epel if changed
-  block:
-
-    - name: Remove epel-release
+    - name: Install epel
       package:
         name: epel-release
-        state: absent
+      become: true
+      register: epel_install
+      until: epel_install is success
+      retries: 3
+      delay: 30
 
-    - name: Clean up
-      command: |
-        rm -rf /etc/yum.repos.d/*rpmsave
-        {{ ansible_pkg_mgr }} clean all
+    - name: Install packages
+      package:
+        name: "{{ item }}"
+      loop:
+        - gcc
+        - python-pip
+        - python-virtualenv
+      become: true
+      register: pip_install
+      until: pip_install is success
+      retries: 3
+      delay: 30
 
-  become: true
-  when: epel_install is changed
+    - name: Install openstack clients in venv
+      pip:
+        name: "{{ item.0 }}"
+        virtualenv: "{{ ovb_working_dir }}/.venv"
+        version: "{{ item.1 }}"
+      loop:
+        - - python-openstackclient
+          - 3.14.3 # queens
+        - - python-heatclient
+          - 1.14.0 # queens
+        - - python-novaclient
+          - 10.1.0 # queens
+        - - python-neutronclient
+          - 6.7.0 # queens
+      register: python_pkgs
+      until: python_pkgs is success
+      retries: 3
+      delay: 30
+
+    - name: Remove epel if changed
+      block:
+
+        - name: Remove epel-release
+          package:
+            name: epel-release
+            state: absent
+
+        - name: Clean up
+          command: |
+            rm -rf /etc/yum.repos.d/*rpmsave
+            {{ ansible_pkg_mgr }} clean all
+
+      become: true
+      when: epel_install is changed
+  when: not client_path.stat.exists|bool
