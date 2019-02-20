@@ -271,6 +271,7 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
             files:
               - ^run_vexxhost_job$
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
     name: git.openstack.org/openstack/openstack-virtual-baremetal
@@ -280,7 +281,13 @@
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             branches: stable/1.0
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
+            branches: stable/1.0
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master:
+            branches: master
+    openstack-experimental:
+      jobs:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-ovb-master:
             branches: master
 
 
