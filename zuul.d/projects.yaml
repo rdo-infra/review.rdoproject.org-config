@@ -485,7 +485,8 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-centos-opstools-rpmlint
         - legacy-centos-opstools-rpmbuild
         - legacy-rdo-infra-playbooks-integration-sensu-client:
@@ -495,7 +496,8 @@
     gate:
       queue: centos-release-opstools
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-centos-opstools-rpmlint
         - legacy-centos-opstools-rpmbuild
 
@@ -5731,12 +5733,14 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-tox-validate
     gate:
       queue: whitebox-tempest-plugin
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-tox-validate
 
 - project:
@@ -6501,12 +6505,14 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-infra-playbooks-integration-base
     gate:
       queue: ansible-role-rdo-base
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-infra-playbooks-integration-base
 
 - project:
@@ -6515,13 +6521,15 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-infra-playbooks-integration-sensu-server:
             voting: false
     gate:
       queue: ansible-role-rdo-base
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
 
 - project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo-kolla-build
@@ -6529,12 +6537,14 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-kolla-build-containers
     gate:
       queue: ansible-role-rdo-base
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
 
 - project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo_dashboards
@@ -6979,10 +6989,12 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
     gate:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
     post:
       jobs:
         - publish-cico-jjb
@@ -7027,14 +7039,18 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - tox-docs
+            nodeset: container-centos
         - legacy-rdo-registry-integration
     gate:
       queue: ansible-role-rdo-base
       jobs:
-        - tox-linters
-        - tox-docs
+        - tox-linters:
+            nodeset: container-centos
+        - tox-docs:
+            nodeset: container-centos
         - legacy-rdo-registry-integration
 
 - project:
@@ -7049,7 +7065,8 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-infra-playbooks-integration-base
         - legacy-rdo-infra-playbooks-integration-sensu-client:
             voting: false
@@ -7060,7 +7077,8 @@
     gate:
       queue: ansible-role-rdo-base
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
         - legacy-rdo-infra-playbooks-integration-base
         - legacy-rdo-infra-playbooks-integration-sensu-client:
             voting: false
@@ -7085,11 +7103,13 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
     gate:
       queue: whitebox-tempest-plugin
       jobs:
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
 
 - project:
     name: review.rdoproject.org/rdo-infra/sinkhole
@@ -7275,7 +7295,8 @@
       - system-required
     check:
       jobs:
-        - legacy-tox-validate
+        - legacy-tox-validate:
+            nodeset: container-centos
         - legacy-rdoinfo-DLRN-check
         - legacy-validate-dependencies-rebuilds
         - legacy-weirdo-dlrn-master-packstack-scenario003:
