@@ -21,14 +21,16 @@
     check:
       jobs:
         - config-check
-        - tox-linters
+        - tox-linters:
+            nodeset: container-centos
     gate:
       jobs:
         - config-check
     post:
       jobs:
         - config-update
-        - legacy-config-distgit-mirror-github
+        - legacy-config-distgit-mirror-github:
+            nodeset: container-centos
 
 - project:
     name: gating_scripts
