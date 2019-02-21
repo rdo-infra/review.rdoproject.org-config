@@ -7260,6 +7260,10 @@
     name: review.rdoproject.org/rdo-jobs
     templates:
       - system-required
+    check:
+      - tripleo-build-containers-jobs:
+          files:
+            - ^zuul.c/build-containers.yaml$
 
 - project:
     name: review.rdoproject.org/rdo_gating_scripts
