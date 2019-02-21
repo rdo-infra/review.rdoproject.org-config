@@ -10,13 +10,14 @@
 - project:
     name: git.openstack.org/openstack-infra/tripleo-ci
     templates:
-      - system-required
-      - tripleo-upgrades-check-branchless
       - ovb-branchless
-      - tripleo-ovb
-      - ovb-experimental
-      - vexxhost-experimental
       - ovb-browbeat
+      - ovb-experimental
+      - system-required
+      - tripleo-build-containers-jobs
+      - tripleo-ovb
+      - tripleo-upgrades-check-branchless
+      - vexxhost-experimental
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
