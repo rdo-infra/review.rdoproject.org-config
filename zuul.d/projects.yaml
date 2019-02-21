@@ -104,6 +104,7 @@
     name: git.openstack.org/openstack/kolla
     templates:
       - system-required
+      - tripleo-build-containers-jobs
 
 - project:
     name: git.openstack.org/openstack/mistral
@@ -384,8 +385,9 @@
 - project:
     name: git.openstack.org/openstack/tripleo-repos
     templates:
-      - tripleo-ovb
       - system-required
+      - tripleo-build-containers-jobs
+      - tripleo-ovb
 
 - project:
     name: git.openstack.org/openstack/tripleo-upgrade
