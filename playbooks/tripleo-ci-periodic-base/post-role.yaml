@@ -1,5 +1,7 @@
 - name: Report results after job run
   hosts: primary:tripleo-ovb-centos-7
-  include_role:
-    name: dlrn-report
-    tasks_from: dlrn-report-results.yml
+  tasks:
+    - name: Report job results
+      include_role:
+        name: dlrn-report
+        tasks_from: dlrn-report-results.yml
