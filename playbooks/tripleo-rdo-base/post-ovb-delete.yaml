@@ -7,6 +7,13 @@
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
 
+    - name: Collect logs before environment is deleted
+      shell: |
+        echo "Running collect logs now, before the nodes are destroyed"
+        /usr/bin/timeout --preserve-status 40m bash {{ workspace }}/logs/collect_logs.sh  > {{ workspace }}/logs/quickstart_collect_logs.log
+        mv {{ workspace }}/logs/collect_logs.sh {{ workspace }}/logs/ovb_collect_logs.sh
+      ignore_errors: true
+
     - name: Delete OVB environment
       include_role:
         name: ovb-manage
