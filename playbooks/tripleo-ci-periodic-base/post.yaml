@@ -49,4 +49,3 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
       when: fedora_centos_mixed_distribution_job|default(false)
-
