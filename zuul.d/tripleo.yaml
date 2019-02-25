@@ -356,3 +356,9 @@
               - ^roles/tripleo-inventory/.*$
               - ^playbooks/baremetal-full-freeipa.*$
               - ^playbooks/baremetal-full-deploy.*$
+
+- project:
+    name: git.openstack.org/openstack/novajoin
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
