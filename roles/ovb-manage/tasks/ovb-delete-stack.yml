@@ -23,8 +23,8 @@
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name --name {{ idnum }}"
       register: servers
 
-    - name: Dump console log of servers
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item }}-console.log"
+    - name: Dump console log of servers, removing stack id
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
       loop: "{{ servers.stdout_lines }}"
       ignore_errors: true
       environment:
