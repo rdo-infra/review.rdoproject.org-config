@@ -5,6 +5,12 @@
     rdo_registry_url: "{{ lookup('env', 'REGISTRY_URL') | default('trunk.registry.rdoproject.org', true) }}"
 
   tasks:
+    - name: Install python docker
+      become: true
+      package:
+        name:
+          - python-docker
+
     - name: Login to RDO registry
       docker_login:
         registry_url: "{{ rdo_registry_url }}"
