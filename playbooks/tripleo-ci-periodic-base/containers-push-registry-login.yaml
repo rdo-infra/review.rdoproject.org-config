@@ -15,6 +15,7 @@
       docker_login:
         registry_url: "{{ rdo_registry_url }}"
         username: "{{ rdo_registry_user }}"
-        password: "{{ rdo_registry_sf.token }}"
+        password: "{{ rdo_registry.token }}"
         email: "{{ rdo_registry_email | default(omit, true) }}"
         reauthorize: true
+      no_log: true
