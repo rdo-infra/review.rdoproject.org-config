@@ -492,15 +492,20 @@
     name: periodic-tripleo-master-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
        release: master
        push_tag: ci-squad-testing #TODO(marios) change this after testing "tripleo-ci-testing"
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
        buildcontainers_override_repos: tripleo-ci-testing
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
     secrets:
       - rdo_registry
+      - dlrnapi
 
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
