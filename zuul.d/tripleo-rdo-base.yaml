@@ -127,7 +127,8 @@
     name: tripleo-ci-base-singlenode-containers-build
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo
-    post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-build.yaml
     post-timeout: 10800
     required-projects:
       - config
