@@ -127,12 +127,17 @@
     name: tripleo-ci-base-singlenode-containers-build
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo
-    post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-build.yaml
+      - playbooks/tripleo-ci-periodic-base/post.yaml
     post-timeout: 10800
     required-projects:
       - config
     secrets:
       - rdo_registry
+      - dlrnapi
     vars:
        featureset: '023'
 
