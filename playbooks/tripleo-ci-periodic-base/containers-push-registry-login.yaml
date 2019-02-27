@@ -3,13 +3,18 @@
     rdo_registry_user: "{{ lookup('env', 'REGISTRY_USERNAME') | default('unused', true) }}"
     rdo_registry_email: "{{ lookup('env', 'REGISTRY_EMAIL') | default(omit, true) }}"
     rdo_registry_url: "{{ lookup('env', 'REGISTRY_URL') | default('trunk.registry.rdoproject.org', true) }}"
+    python_docker: { yum: 'python-docker', dnf: 'python3-docker' }
 
   tasks:
+    - name: Gather ansible_pkg_mgr if not defined
+      setup:
+        gather_subset: "!min,pkg_mgr"
+      when: ansible_pkg_mgr is not defined
+
     - name: Install python docker
       become: true
       package:
-        name:
-          - python-docker
+        name: "{{ python_docker[ansible_pkg_manager] }}"
 
     - name: Login to RDO registry
       docker_login:
