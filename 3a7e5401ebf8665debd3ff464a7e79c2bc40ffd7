@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "557e8ee2_f6ad4786",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2019-02-27T14:14:08Z",
+      "side": 1,
+      "message": "Not sure about this, ansible_python_interpreter at zuul is harcoded to python2 and we cannot change that",
+      "revId": "3a7e5401ebf8665debd3ff464a7e79c2bc40ffd7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f927f3c6_625dfbd2",
+        "filename": "zuul.d/jobs.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2019-02-27T14:14:08Z",
+      "side": 1,
+      "message": "Don\u0027t we need buildcontainers_override_repos here ?",
+      "revId": "3a7e5401ebf8665debd3ff464a7e79c2bc40ffd7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "787f72ec_be5225ee",
+        "filename": "zuul.d/jobs.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 517
+      },
+      "writtenOn": "2019-02-27T14:14:08Z",
+      "side": 1,
+      "message": "What about create a periodic-tripleo-master-containers-build-abstract base job with all this and do some inheritance for centos7 and fedora28 jobs that just override nodeset ?",
+      "revId": "3a7e5401ebf8665debd3ff464a7e79c2bc40ffd7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b054bc2_dd1e8a48",
         "filename": "zuul.d/jobs.yaml",
         "patchSetId": 1
