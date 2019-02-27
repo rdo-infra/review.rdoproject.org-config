@@ -1,7 +1,0 @@
-- name: Set up dlrn reporting variables
-  hosts: primary:tripleo-ovb-centos-7
-  tasks:
-    - name: Set up vars for reporting
-      include_role:
-        name: dlrn-report
-        tasks_from: dlrn-vars-setup.yml
