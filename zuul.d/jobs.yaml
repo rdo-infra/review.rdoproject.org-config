@@ -488,8 +488,8 @@
     vars:
        release: master
 
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build-push
+- job: periodic-tripleo-master-containers-build-push-base
+    abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
@@ -497,8 +497,14 @@
        push_tag: ci-squad-testing #TODO(marios) change this after testing "tripleo-ci-testing"
        push_containers: false #TODO(marios) change this after merge & see it run
        push_registry: trunk.registry.rdoproject.org
+       buildcontainers_override_repos: tripleo-ci-testing
     secrets:
       - rdo_registry
+
+- job:
+    name: periodic-tripleo-centos-7-master-containers-build-push
+    parent: periodic-tripleo-master-containers-build-push-base
+    nodeset: single-centos-7-node
 
 - job:
     name: periodic-tripleo-centos-7-pike-containers-build
@@ -522,9 +528,16 @@
        release: rocky
        branch_override: 'stable/rocky'
 
+#TODO(marios): remove this once we switch to using the new
+#periodic-tripleo-fedora-28-master-containers-build-push defined below
 - job:
     name: periodic-tripleo-fedora-28-master-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     nodeset: single-upstream-fedora-28-node
     vars:
        release: master
+
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build-push
+    parent: periodic-tripleo-master-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
