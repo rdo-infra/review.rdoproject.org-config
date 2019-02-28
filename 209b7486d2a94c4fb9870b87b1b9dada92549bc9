@@ -34,6 +34,23 @@
       "revId": "209b7486d2a94c4fb9870b87b1b9dada92549bc9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "293fef89_76e08f3b",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-02-28T12:02:32Z",
+      "side": 1,
+      "message": "13:54 \u003c quiquell\u003e marios: \nhttps://github.com/openstack-infra/zuul/blob/62e0c131908298a36689b045638d04de35ebaac7/zuul/executor/server.py#L1633\n13:54 \u003c quiquell\u003e marios: they harcode ansible_python_interpreter before running the playbooks\n13:54 \u003c quiquell\u003e marios: so everything that runs directly from zuul-executor is python2\n13:55 \u003c marios\u003e quiquell: so we have a problem with 636160\n13:56 \u003c marios\u003e quiquell: https://review.openstack.org/#/c/636160/ i mean \n13:58 \u003c quiquell\u003e marios: it\u0027s using virtualenv_python\n13:58 \u003c quiquell\u003e marios: so it override to virtualenv3 that is python3 so we are good\n13:58 \u003c quiquell\u003e marios: problem is using ansible modules\n13:58 \u003c marios\u003e quiquell: ah right it sets up venv\n13:58 \u003c quiquell\u003e marios: you cannot specify python version at docker login\n13:58 \u003c marios\u003e quiquell: ok gonna update its simpler just python-docker...\n13:59 \u003c quiquell\u003e marios: but let\u0027s test that\n13:59 \u003c quiquell\u003e marios: let\u0027s see if it fails at fedora28 with python3",
+      "revId": "209b7486d2a94c4fb9870b87b1b9dada92549bc9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
