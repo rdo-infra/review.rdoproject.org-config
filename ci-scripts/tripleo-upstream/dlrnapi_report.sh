@@ -6,7 +6,6 @@ else
 fi
 sudo pip install dlrnapi-client
 dlrnapi --url $DLRNAPI_URL \
-    --username review_rdoproject_org \
     report-result \
     --commit-hash $COMMIT_HASH \
     --distro-hash $DISTRO_HASH \

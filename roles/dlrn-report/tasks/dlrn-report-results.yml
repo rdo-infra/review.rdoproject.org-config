@@ -22,7 +22,11 @@
       export TOCI_JOBTYPE="{{ zuul.job }}"
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
     chdir: '{{ workspace }}'
-  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+  environment: |
+    {{ zuul | zuul_legacy_vars | combine({
+      'DLRNAPI_PASSWORD': dlrnapi.password,
+      'DLRNAPI_USER': dlrnapi_user
+      }) }}
 
 - name: Temporary task to report to centos api endpoint in mixed distribution jobs
   shell:
@@ -45,5 +49,9 @@
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
       cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
     chdir: '{{ workspace }}'
-  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+  environment: |
+    {{ zuul | zuul_legacy_vars | combine({
+      'DLRNAPI_PASSWORD': dlrnapi.password,
+      'DLRNAPI_USER': dlrnapi_user
+      }) }}
   when: fedora_centos_mixed_distribution_job|default(false)
