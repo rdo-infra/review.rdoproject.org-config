@@ -495,7 +495,7 @@
     pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
        release: master
-       push_tag: ci-squad-testing #TODO(marios) change this after testing "tripleo-ci-testing"
+       push_tag: tripleo-ci-testing
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
        buildcontainers_override_repos: tripleo-ci-testing
