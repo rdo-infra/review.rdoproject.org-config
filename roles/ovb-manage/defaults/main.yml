@@ -19,6 +19,7 @@ nodes_config:
     1ctlr_1comp: 2
     1ctlr_1comp_1ceph: 3
     3ctlr_1comp_1supp: 4
+    1ctlr_2comp_1supp: 3
 node_count: "{{ nodes_config[nodes] }}"
 extra_node: "{{ nodes | regex_replace('.*(\\d+)supp', '\\1') | int | default(0) }}"
 
