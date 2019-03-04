@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "17cee07f_78e747e3",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-03-04T15:48:59Z",
+      "side": 1,
+      "message": "adding for completeness, this happened earlier on freenode oooq thanks quiquell:\n\n12:21 \u003c quiquell\u003e marios: let me ask at #zuul channel\n12:22 \u003c quiquell\u003e want to know what plan they have for ansible_python_interpreter\n12:25 \u003c marios\u003e quiquell: thanks, i\u0027ll update for now and will fix again if needed. we\u0027re running out of time. like we need to merge that, then merge more ontop to enable push to the registry etc (we talk on scrum this afternoon about it)\n12:26 \u003c quiquell\u003e marios: ack, python-docker will work for sure, we will fix it if needed for python3-docker\n12:26 \u003c marios\u003e thnks quiquell \n...\n12:34 \u003c quiquell\u003e marios: pytho3 + zuul -\u003e have to merge this https://review.openstack.org/#/q/topic:python3-interpreter\n12:35 \u003c marios\u003e quiquell: cool thanks man (so py2 for now)\n12:35 \u003c quiquell\u003e marios: yep\n12:36 \u003c marios\u003e quiquell: updated thanks https://review.rdoproject.org/r/19026\n\n\n(and I took that update i.e. v7 only py27 not changing the login for python3-docker when I squished into https://review.rdoproject.org/r/#/c/18975/ ) thanks!",
+      "parentUuid": "7ee18952_3a1e4389",
+      "revId": "346bf9ef72e938252d16158e2b86ee82217e00e9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a0c9c57_08d6a8a9",
         "filename": "zuul.d/jobs.yaml",
         "patchSetId": 6
