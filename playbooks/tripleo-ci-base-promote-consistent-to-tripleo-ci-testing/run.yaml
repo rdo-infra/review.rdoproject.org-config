@@ -29,7 +29,6 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
 
-
     - block:
         - name: Promote consistent to tripleo-ci-testing for fedora repo if an equivalent exists
           shell:
@@ -67,4 +66,4 @@
           until: result is succeeded
       rescue:
         - debug:
-            msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in fedora. Fedora mixed job on this run will test *AND REPORT* on the old hash"
+            msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in DLRN fedora."

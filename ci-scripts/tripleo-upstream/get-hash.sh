@@ -17,13 +17,22 @@ set -u
 : ${DLRNAPI_DISTRO_VERSION:="7"}
 
 DLRNAPI_URL="https://trunk.rdoproject.org/api-${DLRNAPI_DISTRO,,}-$RELEASE"
-if [[ "$RELEASE" = "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
+if [[ "$RELEASE" == "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
     # for master we have two DLRN builders, use the "upper constraint" one that
     # places restrictions on the maximum version of all dependencies
     export DLRNAPI_URL="${DLRNAPI_URL}-uc"
 fi
 
-HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
+# NO release or version in fedora url e.g. https://trunk.rdoproject.org/centos7-master/consistent/commit.yaml
+# vs https://trunk.rdoproject.org/fedora/consistent/commit.yaml
+# for fedora master trunk.rdoproject.org/fedora
+if [[ "$RELEASE" == "master"  && "${DLRNAPI_DISTRO,,}" == "fedora" ]]; then
+    HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}/$PROMOTE_NAME/commit.yaml
+# for fedora stein  trunk.rdoproject.org/fedora-stein
+# will need an elif here
+else
+    HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
+fi
 
 curl -sLo $WORKSPACE/commit.yaml $HASHES_URL
 
