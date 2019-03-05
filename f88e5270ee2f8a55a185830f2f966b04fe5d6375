@@ -73,6 +73,29 @@
       "revId": "f88e5270ee2f8a55a185830f2f966b04fe5d6375",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b246ee76_0111a817",
+        "filename": "zuul.d/tripleo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 138
+      },
+      "writtenOn": "2019-03-05T19:44:10Z",
+      "side": 1,
+      "message": "Please remove this job...\n\nThe job dependency in openstack-periodic should be.\n\nAt the top\n * periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing\n * * periodic-tripleo-centos-7-master-containers-build-push\n * * * centos-7 test jobs\n * * periodic-tripleo-fedora-28-master-containers-build-push\n * * * fedora-28 test jobs\n\nBecause periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing promotes the tripleo-ci-testing hash for both CentOS-7 and Fedora-28 at the same time.\n\nhttps://github.com/rdo-infra/review.rdoproject.org-config/blob/master/playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml#L23-L70",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 90
+      },
+      "revId": "f88e5270ee2f8a55a185830f2f966b04fe5d6375",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
