@@ -27,11 +27,13 @@
           export PROMOTE_NAME=tripleo-ci-testing
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
+      when: ansible_distribution|lower  == "centos"
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
 
 
     - block:
         - name: Promote consistent to tripleo-ci-testing for fedora repo if an equivalent exists
+          when: ansible_distribution|lower  == "fedora"
           shell:
             cmd: |
               export RELEASE="{{ release }}"

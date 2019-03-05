@@ -23,7 +23,13 @@ if [[ "$RELEASE" = "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
     export DLRNAPI_URL="${DLRNAPI_URL}-uc"
 fi
 
-HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
+# NO release or version in fedora url e.g. https://trunk.rdoproject.org/centos7-master/consistent/commit.yaml
+# vs https://trunk.rdoproject.org/fedora/consistent/commit.yaml
+if [[ "${DLRNAPI_DISTRO,,}" = "fedora" ]]; then
+    HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}/$PROMOTE_NAME/commit.yaml
+else
+    HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
+fi
 
 curl -sLo $WORKSPACE/commit.yaml $HASHES_URL
 
