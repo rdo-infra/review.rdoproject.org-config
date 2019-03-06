@@ -19,6 +19,7 @@
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ workspace }}'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
     - name: Promote consistent to tripleo-ci-testing for centos repo
       shell:
@@ -28,6 +29,7 @@
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+      changed_when: true
 
     - block:
         - name: Promote consistent to tripleo-ci-testing for fedora repo if an equivalent exists

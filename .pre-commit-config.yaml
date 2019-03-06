@@ -1,0 +1,8 @@
+---
+repos:
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v3.5.1
+    hooks:
+      - id: ansible-lint
+        files: (playbooks|roles).*(tripleo|dlrn|ovb).*\.(yaml|yml)$
+        entry: ansible-lint -v
