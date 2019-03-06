@@ -15,6 +15,7 @@
       args:
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
+      changed_when: true
 
     - name: Temporary hash info creation for centos in mixed distribution job
       shell:
