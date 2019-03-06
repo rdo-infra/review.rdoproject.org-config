@@ -17,7 +17,8 @@
           dest: "{{ ssh_private_key_tmp.path }}"
           mode: 0600
 
-      - shell:
+      - name: Upload image
+        shell:
           cmd: |
             eval "$(ssh-agent)"
             ssh-add {{ ssh_private_key_tmp.path }}

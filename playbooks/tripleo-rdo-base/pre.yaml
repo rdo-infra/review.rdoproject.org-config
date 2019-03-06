@@ -50,6 +50,7 @@
       with_items:
         - id_rsa
         - id_rsa.pub
+      changed_when: true
 
     - name: Add sudoers role for zuul-sudo-grep.sh
       copy:
@@ -61,6 +62,7 @@
     - name: Validate sudoers config after edits
       command: "/usr/sbin/visudo -c"
       become: true
+      changed_when: false
 
     - name: Show the environment passed in to job shell scripts
       shell:
@@ -68,6 +70,7 @@
           env
         executable: /bin/bash
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: false
 
     # TODO(pabelanger): We need to patch zuul to remove this.
     - name: Workaround hardcoded /home/zuul/workspace in zuul_legacy_vars
@@ -87,6 +90,9 @@
         executable: /bin/bash
       environment: '{{ zuul | zuul_legacy_vars }}'
       when: ansible_user_id == "zuul-worker"
+      changed_when: true
+      tags:
+        - skip_ansible_lint
 
     - name: Ensure legacy workspace directory
       file:
