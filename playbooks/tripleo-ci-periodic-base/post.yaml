@@ -8,6 +8,7 @@
         name: set-zuul-log-path-fact
     - shell:
         cmd: |
+          export WORKSPACE="{{ workspace }}"
           source {{ workspace }}/hash_info.sh
           {% if nodes is defined %}
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-{{ nodes }}-featureset{{ featureset }}"
@@ -29,6 +30,7 @@
     - name: Temporary task to report to centos api endpoint in mixed distribution jobs
       shell:
         cmd: |
+          export WORKSPACE="{{ workspace }}"
           cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/hash_info.sh
           source {{ workspace }}/hash_info.sh
           {% if nodes is defined %}
