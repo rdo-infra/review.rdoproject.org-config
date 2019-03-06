@@ -2,13 +2,13 @@
   vars:
     workspace: "{{ ansible_user_dir }}/workspace"
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    dlrnapi_user: review_rdoproject_org
   tasks:
     - name: Set zuul-log-path fact
       include_role:
         name: set-zuul-log-path-fact
     - shell:
         cmd: |
-          export WORKSPACE="{{ workspace }}"
           source {{ workspace }}/hash_info.sh
           {% if nodes is defined %}
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-{{ nodes }}-featureset{{ featureset }}"
@@ -30,7 +30,6 @@
     - name: Temporary task to report to centos api endpoint in mixed distribution jobs
       shell:
         cmd: |
-          export WORKSPACE="{{ workspace }}"
           cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/hash_info.sh
           source {{ workspace }}/hash_info.sh
           {% if nodes is defined %}
