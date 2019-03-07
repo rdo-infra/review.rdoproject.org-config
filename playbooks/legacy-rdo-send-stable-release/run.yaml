@@ -60,11 +60,17 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="ocata pike queens rocky"
+          RELEASES="ocata pike queens rocky stein"
+          MASTER_RELEASE="stein"
           for r in $RELEASES;do
+            if [ $r == $MASTER_RELEASE ]; then
+              TAG_OPTION=" -t ${r}-uc"
+            else
+              TAG_OPTION=""
+            fi
             case $ZUUL_PROJECT in
               rdoinfo )
-                $BASE_CMD -r $r -p ~/rdoinfo
+                $BASE_CMD -r $r -p ~/rdoinfo $TAG_OPTION
               ;;
               openstack/releases )
                 # When using reviews from openstack/releases to generate new releases
@@ -77,7 +83,7 @@
                 else
                   REAL_COMMIT=$(git show|head -1|awk '{print $2}')
                 fi
-                $BASE_CMD -r $r -n commit:$REAL_COMMIT
+                $BASE_CMD -r $r -n commit:$REAL_COMMIT $TAG_OPTION
                 popd
               ;;
             esac
