@@ -480,14 +480,6 @@
     vars:
       release: pike
 
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-centos-7-master-containers-build-push defined below
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: master
-
 - job:
     name: periodic-tripleo-master-containers-build-push-base
     abstract: true
@@ -533,13 +525,4 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
-
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-fedora-28-master-containers-build-push defined above
-- job:
-    name: periodic-tripleo-fedora-28-master-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    nodeset: single-upstream-fedora-28-node
-    vars:
-       release: master
 
