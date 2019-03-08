@@ -16,6 +16,7 @@
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-featureset{{ featureset }}"
           {% endif %}
           export LOG_PATH="{{ zuul_log_path }}"
+          export LOG_HOST_URL="{{ log_host_url | default('https://logs.rdoproject.org') }}"
           export SUCCESS="{{ zuul_success | bool }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           # Pass also the new naming scheme as JOBTYPE to report to DLRN
@@ -38,6 +39,7 @@
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-featureset{{ featureset }}"
           {% endif %}
           export LOG_PATH="{{ zuul_log_path }}"
+          export LOG_HOST_URL="{{ log_host_url | default('https://logs.rdoproject.org') }}"
           export SUCCESS="{{ zuul_success | bool }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
           # Pass also the new naming scheme as JOBTYPE to report to DLRN

@@ -10,7 +10,7 @@ dlrnapi --url $DLRNAPI_URL \
     --commit-hash $COMMIT_HASH \
     --distro-hash $DISTRO_HASH \
     --job-id $TOCI_JOBTYPE \
-    --info-url "https://logs.rdoproject.org/$LOG_PATH" \
+    --info-url "$LOG_HOST_URL/$LOG_PATH" \
     --timestamp $(date +%s) \
     --success $SUCCESS
 
