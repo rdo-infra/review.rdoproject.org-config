@@ -484,6 +484,10 @@
 #periodic-tripleo-centos-7-master-containers-build-push defined below
 - job:
     name: periodic-tripleo-centos-7-master-containers-build
+    description: |
+      Containers build job using the old/deprecated method that installs the
+      undercloud and builds containers using a bash script. This job is
+      replaced by its successor *-push and needs to be removed from zuul.
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
        release: master
@@ -504,11 +508,17 @@
 
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
+    description: |
+      Containers build job using the new method calling openstack command
+      from an ansible playbook.
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-centos-7-node
 
 - job:
     name: periodic-tripleo-fedora-28-master-containers-build-push
+    description: |
+      Containers build job using the new method calling openstack command
+      from an ansible playbook.
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-upstream-fedora-28-node
 
@@ -538,6 +548,10 @@
 #periodic-tripleo-fedora-28-master-containers-build-push defined above
 - job:
     name: periodic-tripleo-fedora-28-master-containers-build
+    description: |
+      Containers build job using the old/deprecated method that installs the
+      undercloud and builds containers using a bash script. This job is
+      replaced by its successor *-push and needs to be removed from zuul.
     parent: tripleo-ci-base-singlenode-containers-build
     nodeset: single-upstream-fedora-28-node
     vars:
