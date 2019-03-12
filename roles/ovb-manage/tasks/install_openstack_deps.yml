@@ -14,6 +14,7 @@
       until: epel_install is success
       retries: 3
       delay: 30
+      when: 'ansible_distribution != "Fedora"'
 
     - name: Install packages
       package:
@@ -61,5 +62,8 @@
             {{ ansible_pkg_mgr }} clean all
 
       become: true
-      when: epel_install is changed
+      when:
+        - 'ansible_distribution != "Fedora"'
+        - epel_install is changed
+
   when: not client_path.stat.exists|bool
