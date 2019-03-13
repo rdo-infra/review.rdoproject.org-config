@@ -8,7 +8,7 @@
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-ovb-notebroker
-    timeout: 10800
+    timeout: 12600
     nodeset: tripleo-ovb-centos-7-primary
 
 - job:
@@ -17,7 +17,7 @@
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
     parent: tripleo-ci-base-ovb
-    timeout: 10800
+    timeout: 12600
     nodeset: tripleo-ovb-centos-7-primary
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
@@ -28,7 +28,7 @@
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
     parent: tripleo-ci-base-ovb
-    timeout: 10800
+    timeout: 12600
     nodeset: tripleo-ovb-centos-7-primary
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
