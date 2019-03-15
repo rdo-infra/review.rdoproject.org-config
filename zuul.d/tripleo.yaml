@@ -38,6 +38,7 @@
         - legacy-experimental-tripleo-centos-7-master-containers-build
     openstack-periodic:
       jobs:
+        ##### master #####
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
@@ -96,6 +97,66 @@
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        ##### stable/stein #####
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-stein-upload:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-singlenode-featureset027-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-standalone-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-fedora-28-standalone-stein:
+            dependencies:
+              - periodic-tripleo-fedora-28-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario001-standalone-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario002-standalone-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario003-standalone-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario004-standalone-stein:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-containers-build-push
+        - periodic-tripleo-centos-7-stein-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-fedora-28-stein-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+        ##### stable/rocky #####
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-rocky-upload:
             dependencies:
               - periodic-tripleo-centos-7-rocky-containers-build-push
