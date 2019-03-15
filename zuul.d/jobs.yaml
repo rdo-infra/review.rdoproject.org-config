@@ -463,6 +463,12 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: stein
+
+- job:
     name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -489,18 +495,29 @@
        release: master
 
 - job:
-    name: periodic-tripleo-master-containers-build-push-base
+    name: periodic-tripleo-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
-       release: master
        push_tag: tripleo-ci-testing
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
        buildcontainers_override_repos: tripleo-ci-testing
     secrets:
       - rdo_registry
+
+- job:
+    name: periodic-tripleo-master-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
+    vars:
+       release: master
+
+- job:
+    name: periodic-tripleo-stein-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
+    vars:
+       release: stein
 
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
