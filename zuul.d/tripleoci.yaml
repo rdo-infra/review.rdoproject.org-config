@@ -66,6 +66,20 @@
        release: master
 
 - job:
+    name: periodic-tripleo-centos-7-stein-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    vars:
+       release: stein
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: stein
+
+- job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
