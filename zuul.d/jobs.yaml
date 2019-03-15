@@ -463,6 +463,12 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: stein
+
+- job:
     name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -480,21 +486,14 @@
     vars:
       release: pike
 
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-centos-7-master-containers-build-push defined below
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: master
 
+### --------------- THE NEW CONTAINERS BUILD PUSH JOB -------------------
 - job:
-    name: periodic-tripleo-master-containers-build-push-base
+    name: periodic-tripleo-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
-       release: master
        push_tag: tripleo-ci-testing
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
@@ -502,15 +501,52 @@
     secrets:
       - rdo_registry
 
+### rocky
+- job:
+    name: periodic-tripleo-stein-7-rocky-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    vars:
+       release: rocky
+
+- job:
+    name: periodic-tripleo-fedora-28-rocky-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: rocky
+
+### stein
+- job:
+    name: periodic-tripleo-stein-7-stein-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    vars:
+       release: stein
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: stein
+
+### master
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
+    vars:
+       release: master
 
 - job:
     name: periodic-tripleo-fedora-28-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
     nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
+
+### ---------------- THE OLD WAY ------------------
 
 - job:
     name: periodic-tripleo-centos-7-pike-containers-build
@@ -534,17 +570,13 @@
        release: rocky
        branch_override: 'stable/rocky'
 
+#TODO(marios): remove this once we switch to using the new
+#periodic-tripleo-centos-7-master-containers-build-push defined below
 - job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
-    nodeset: single-centos-7-node
+    name: periodic-tripleo-centos-7-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
     vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-       push_tag: tripleo-ci-testing
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
+       release: master
 
 #TODO(marios): remove this once we switch to using the new
 #periodic-tripleo-fedora-28-master-containers-build-push defined above
