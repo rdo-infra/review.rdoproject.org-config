@@ -7,7 +7,8 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
 
-    - shell:
+    - name: clone
+      shell:
         cmd: |
           set -e -x
           if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
@@ -28,8 +29,10 @@
           popd
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: rdo-deps-uc-send-review
+      shell:
         cmd: |
           set +e -x
           virtualenv --system-site-packages .venv
@@ -107,3 +110,4 @@
           fi
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true

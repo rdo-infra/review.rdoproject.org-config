@@ -7,7 +7,8 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
 
-    - shell:
+    - name: clone
+      shell:
         cmd: |
           echo "[DEBUG]: JJB template name: {template-name}"
 
@@ -57,8 +58,10 @@
           fi
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: launch_weirdo_jobs
+      shell:
         cmd: |
           set -e -x
           /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r \
@@ -79,3 +82,4 @@
           popd
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true

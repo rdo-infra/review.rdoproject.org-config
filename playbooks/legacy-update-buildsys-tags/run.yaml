@@ -7,7 +7,8 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
 
-    - shell:
+    - name: clone
+      shell:
         cmd: |
           echo "[DEBUG]: JJB template name: {template-name}"
 
@@ -57,8 +58,10 @@
           fi
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: graffiti
+      shell:
         cmd: |
           set +e
           FAILED=0
@@ -79,7 +82,7 @@
           if [ -s $WORKSPACE/logs/info/register.yaml ]; then
               echo "INFO: Executing CBS register actions"
               cat $WORKSPACE/logs/info/register.yaml
-              graffiti --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml register -f $WORKSPACE/logs/info/register.yaml
+              graffiti --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml register -f $WORKSPACE/logs/info/register.yaml  # noqa 204
               if [ $? -ne 0 ]; then
                   FAILED=1
                   echo "ERROR: Executing CBS register actions"
@@ -89,7 +92,7 @@
           if [ -s $WORKSPACE/logs/info/tags.yaml ]; then
               echo "INFO: Executing CBS tag actions"
               cat $WORKSPACE/logs/info/tags.yaml
-              graffiti --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml tag -f $WORKSPACE/logs/info/tags.yaml
+              graffiti --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml tag -f $WORKSPACE/logs/info/tags.yaml  # noqa 204
               if [ $? -ne 0 ]; then
                   FAILED=1
                   echo "ERROR: Executing CBS tag actions"
@@ -100,3 +103,4 @@
           exit $FAILED
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true

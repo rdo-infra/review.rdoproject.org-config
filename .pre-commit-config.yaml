@@ -1,8 +1,9 @@
 ---
 repos:
   - repo: https://github.com/ansible/ansible-lint
-    rev: v3.5.1
+    rev: v4.1.0a0
     hooks:
       - id: ansible-lint
-        files: (playbooks|roles).*(tripleo|dlrn|ovb).*\.(yaml|yml)$
-        entry: ansible-lint -v
+        # TODO(ssbarnea): migrate towards .*\.(yaml|yml)$ pattern
+        files: (playbooks|roles).*(tripleo|dlrn|ovb|legacy).*\.(yaml|yml)$
+        entry: ansible-lint --force-color -v

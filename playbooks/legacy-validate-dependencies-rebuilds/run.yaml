@@ -7,7 +7,8 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
 
-    - shell:
+    - name: clone
+      shell:
         cmd: |
           echo "[DEBUG]: JJB template name: {template-name}"
 
@@ -57,8 +58,10 @@
           fi
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: create rdo_rebuilds_file
+      shell:
         cmd: |
           set -e
           # Install requirements
@@ -97,8 +100,10 @@
           popd
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: cbs buildinfo
+      shell:
         cmd: |
           set +e
           sudo yum install -y git centos-packager
@@ -147,3 +152,4 @@
           exit $FAILED
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
