@@ -39,7 +39,8 @@
         group: '{{ ansible_user }}'
         mode: 0755
 
-    - shell:
+    - name: clone
+      shell:
         cmd: |
           set -e -x
           if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
@@ -60,8 +61,10 @@
           popd
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: add-project-from-rdoinfo
+      shell:
         cmd: |
           set +e -x
           virtualenv --system-site-packages .venv
@@ -86,3 +89,4 @@
           done
         chdir: '{{ ansible_user_dir }}/workspace'
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
