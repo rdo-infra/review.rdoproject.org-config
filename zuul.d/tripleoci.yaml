@@ -32,6 +32,26 @@
        release: master
 
 - job:
+    name: periodic-tripleo-containers-build-push-base
+    abstract: true
+    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+    vars:
+       push_tag: tripleo-ci-testing
+       push_containers: true
+       push_registry: trunk.registry.rdoproject.org
+       buildcontainers_override_repos: tripleo-ci-testing
+       featureset: containers-build # needed for dlrn report in post.yaml
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    required-projects:
+      - config
+    secrets:
+      - rdo_registry
+      - dlrnapi
+
+- job:
     name: periodic-tripleo-master-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
