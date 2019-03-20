@@ -513,6 +513,30 @@
     nodeset: single-upstream-fedora-28-node
 
 - job:
+    name: periodic-tripleo-stein-containers-build-push-base
+    abstract: true
+    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+    vars:
+       release: stein
+       push_tag: tripleo-ci-testing
+       push_containers: true
+       push_registry: trunk.registry.rdoproject.org
+       buildcontainers_override_repos: tripleo-ci-testing
+    secrets:
+      - rdo_registry
+
+- job:
+    name: periodic-tripleo-centos-7-stein-containers-build-push
+    parent: periodic-tripleo-stein-containers-build-push-base
+    nodeset: single-centos-7-node
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-stein-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+
+- job:
     name: periodic-tripleo-centos-7-pike-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
