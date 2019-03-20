@@ -503,6 +503,8 @@
       - playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
     secrets:
       - rdo_registry
       - dlrnapi
