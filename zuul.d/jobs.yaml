@@ -492,21 +492,7 @@
     name: periodic-tripleo-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    pre-run: playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
     vars:
-       push_tag: tripleo-ci-testing
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
-    secrets:
-      - rdo_registry
-
-- job:
-    name: periodic-tripleo-master-containers-build-push-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    vars:
-       release: master
        push_tag: tripleo-ci-testing
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
@@ -524,13 +510,24 @@
 
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
+    vars:
+       release: master
 
 - job:
     name: periodic-tripleo-fedora-28-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
+    parent: periodic-tripleo-containers-build-push-base
     nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
+
+- job:
+    name: periodic-tripleo-centos-7-rocky-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    vars:
+       release: rocky
 
 - job:
     name: periodic-tripleo-centos-7-pike-containers-build
@@ -553,18 +550,6 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
-    nodeset: single-centos-7-node
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-       push_tag: tripleo-ci-testing
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
 
 #TODO(marios): remove this once we switch to using the new
 #periodic-tripleo-fedora-28-master-containers-build-push defined above
