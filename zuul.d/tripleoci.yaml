@@ -38,11 +38,11 @@
        release: master
 
 - job:
-    name: periodic-tripleo-master-containers-build-push-base
+    name: periodic-tripleo-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     vars:
-       release: master
+       push_tag: tripleo-ci-testing
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
        buildcontainers_override_repos: tripleo-ci-testing
@@ -57,6 +57,13 @@
     secrets:
       - rdo_registry
       - dlrnapi
+
+- job:
+    name: periodic-tripleo-master-containers-build-push-base
+    abstract: true
+    parent: periodic-tripleo-containers-build-push-base
+    vars:
+       release: master
 
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
