@@ -58,25 +58,18 @@
       - dlrnapi
 
 - job:
-    name: periodic-tripleo-master-containers-build-push-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    name: periodic-tripleo-centos-7-master-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
     vars:
        release: master
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
-       featureset: containers-build # needed for dlrn report in post.yaml
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-    secrets:
-      - rdo_registry
-      - dlrnapi
+
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
 
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
@@ -97,20 +90,18 @@
        branch_override: 'stable/stein'
 
 - job:
-    name: periodic-tripleo-centos-7-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
+    name: periodic-tripleo-centos-7-rocky-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
-
-- job:
-    name: periodic-tripleo-fedora-28-master-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
-    nodeset: single-upstream-fedora-28-node
+    override-checkout: 'stable/rocky'
+    vars:
+       release: rocky
+       branch_override: 'stable/rocky'
 
 - job:
     name: periodic-tripleo-centos-7-pike-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
-       # release is for the build, override is for undercloud install
        release: pike
        branch_override: 'stable/pike'
 
@@ -122,25 +113,13 @@
        branch_override: 'stable/queens'
 
 #TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-centos-7-rocky-containers-build-push defined below
+#periodic-tripleo-centos-7-rocky-containers-build-push defined above
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
        release: rocky
        branch_override: 'stable/rocky'
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push
-    parent: periodic-tripleo-master-containers-build-push-base
-    nodeset: single-centos-7-node
-    override-checkout: 'stable/rocky'
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
 
 #TODO(marios): remove this once we switch to using the new
 #periodic-tripleo-fedora-28-master-containers-build-push defined above
