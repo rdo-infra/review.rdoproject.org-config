@@ -70,6 +70,8 @@
        release: queens
        branch_override: 'stable/queens'
 
+#TODO(marios): remove this once we switch to using the new
+#periodic-tripleo-centos-7-rocky-containers-build-push defined below
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
