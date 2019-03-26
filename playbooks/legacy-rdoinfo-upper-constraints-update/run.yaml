@@ -90,16 +90,11 @@
               GIT_SUFFIX="?h=stable/$RELEASE"
               UC_BRANCH="$RELEASE"
             else
-              UC_BRANCH="stein-uc"
-              UC_BRANCH_PY3="stein-py3-uc"
+              UC_BRANCH="train-uc"
               GIT_SUFFIX=""
             fi
             curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
             update_uc -t $UC_BRANCH
-            # We have a special case for master, with two tags
-            if [ "$RELEASE" = "master" ]; then
-                update_uc -t $UC_BRANCH_PY3
-            fi
             DIFF=$(git diff *.yml */*.yml)
             if [ -n "$DIFF" ]; then
               # Check for an open change, if so reuse it
