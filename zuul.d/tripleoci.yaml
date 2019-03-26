@@ -90,6 +90,7 @@
     name: periodic-tripleo-centos-7-rocky-containers-build-push
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-centos-7-node
+    override-checkout: 'stable/rocky'
     vars:
        release: rocky
        branch_override: 'stable/rocky'
