@@ -53,6 +53,14 @@
       - dlrnapi
 
 - job:
+    name: periodic-tripleo-centos-7-stein-containers-build-push
+    parent: periodic-tripleo-master-containers-build-push-base
+    nodeset: single-centos-7-node
+    override-checkout: 'stable/stein'
+    vars:
+       release: stein
+
+- job:
     name: periodic-tripleo-centos-7-master-containers-build-push
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-centos-7-node
