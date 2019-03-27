@@ -48,7 +48,7 @@
                 rdoinfo
           fi
           if [ "${ZUUL_BRANCH}" == 'master' ]; then
-              RELEASE="stein"
+              RELEASE="train"
           else
               RELEASE="${ZUUL_BRANCH/stable\//}"
           fi
