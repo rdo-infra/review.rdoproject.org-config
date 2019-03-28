@@ -62,6 +62,15 @@
        branch_override: 'stable/stein'
 
 - job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-master-containers-build-push-base
+    nodeset: single-fedora-28-node
+    override-checkout: 'stable/stein'
+    vars:
+       release: stein
+       branch_override: 'stable/stein'
+
+- job:
     name: periodic-tripleo-centos-7-master-containers-build-push
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-centos-7-node
