@@ -8,7 +8,7 @@
         cmd: |
           export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ release }}"
-          export PROMOTE_NAME=tripleo-ci-testing
+          export PROMOTE_NAME="{{ buildcontainers_override_repos | default('tripleo-ci-testing') }}"
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
@@ -22,7 +22,7 @@
         cmd: |
           export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ release }}"
-          export PROMOTE_NAME=tripleo-ci-testing
+          export PROMOTE_NAME="{{ buildcontainers_override_repos | default('tripleo-ci-testing') }}
           export DLRNAPI_DISTRO="CentOS"
           export DLRNAPI_DISTRO_VERSION="7"
           cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
