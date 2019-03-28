@@ -6,6 +6,12 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: stein
+
+- job:
     name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -56,6 +62,15 @@
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-master-containers-build-push-base
     nodeset: single-centos-7-node
+    override-checkout: 'stable/stein'
+    vars:
+       release: stein
+       branch_override: 'stable/stein'
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-master-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
     override-checkout: 'stable/stein'
     vars:
        release: stein
