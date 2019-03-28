@@ -7,6 +7,18 @@
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
 
+    - name: set collection timeout
+      set_fact:
+        collect_timeout_sec: "{{ zuul.post_timeout|default(3600) -  copy_logs_time|default(300) }}"
+
+    - name: Collect logs from OVB before deleting nodes
+      shell: >-
+        timeout --preserve-status -s 15
+        -k {{ [collect_timeout_sec|int, 60]|sum|string }} {{ collect_timeout_sec|string }}
+        bash {{ workspace }}/logs/collect_logs.sh;
+        mv {{ workspace }}/logs/collect_logs.sh {{ workspace }}/logs/ovb_collect_logs.sh;
+      changed_when: true
+
     - name: Delete OVB environment
       include_role:
         name: ovb-manage
