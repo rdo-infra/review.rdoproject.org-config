@@ -61,7 +61,7 @@
               bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
             chdir: '{{ workspace }}'
           environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
-          when: release == "master"
+          when: release in ["master", "stein"]
           register: result
           retries: 20
           delay: 30
