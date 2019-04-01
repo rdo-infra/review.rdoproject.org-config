@@ -129,3 +129,9 @@
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
        release: master
+
+- job:
+    name: periodic-tripleo-ci-reproducer-update-images
+    run: tripleo-ci-reproducer-base/update-images.yaml
+    secrets:
+      - cloud_secrets
