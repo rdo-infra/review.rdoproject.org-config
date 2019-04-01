@@ -1,0 +1,45 @@
+- hosts: primary
+  vars:
+    clouds_yaml: 
+      clouds: 
+        nodepool: 
+          auth: "{{ cloud_secrets.rdocloud }}"
+  tasks:
+    - name: Install package requirements
+      become: true
+      package:
+        name: 
+          - libguestfs-tools
+          - python2-openstacksdk
+          - python2-openstackclient
+          - python-libselinux
+    - name: Creatre config dir
+      file: 
+        path: "{{ ansible_user_dir }}/.config/openstack/"
+        state: directory
+    - name: Create clouds.yaml
+      copy:
+        content: "{{ clouds_yaml | to_nice_yaml }}"
+        dest: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    - name: Downloaded latest images and customize them
+      shell: |
+        set -xe
+        image_name=$(curl -k https://nb02.openstack.org/images/ | grep {{ item.name }} | sed 's/.*href="//g' | sed 's/">.*//' |grep "qcow2$" | sort | tail -n 1)
+        curl -k https://nb02.openstack.org/images/$image_name --output ~/$image_name
+        image_path=~/$image_name
+        if [ ! -f $image_path ]; then
+          openstack --os-cloud nodepool \
+            image save --file $image_path ${image_name%.*}
+        fi
+        virt-customize -vx --smp 2 -m 2048 -a $image_path {{ item.virt_customize_args }} 
+        openstack --os-cloud nodepool image delete {{ image.dest }}
+        openstack --os-cloud nodepool image create --property upstream_image=${image_name%.*} --property visibility=shared --disk-format qcow2 --container-format bare --min-disk 8 --file $image_path {{ item.dest }}
+      with_items:
+        - name: "centos-7"
+          dest: "upstream-tripleo-ci-reproducer-centos-7"
+          virt_customize_args: "--run-command 'yum install -y cloud-init; systemctl enable cloud-init'"
+        - name: "fedora-28"
+          dest: "upstream-tripleo-ci-reproducer-fedora-28"
+          virt_customize_args: "--run-command 'dnf install -y cloud-init; systemctl enable cloud-init' --selinux-relabel"
+      environment:
+        LIBGUESTFS_BACKEND: direct
