@@ -29,6 +29,7 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
       changed_when: true
+      when: report_dlrn|default(true)|bool
 
     - name: Temporary task to report to centos api endpoint in mixed distribution jobs
       shell:
@@ -53,4 +54,6 @@
           cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
-      when: fedora_centos_mixed_distribution_job|default(false)
+      when:
+        - report_dlrn|default(true)|bool
+        - fedora_centos_mixed_distribution_job|default(false)
