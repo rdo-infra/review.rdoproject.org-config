@@ -12,6 +12,7 @@
           - python-docker
 
     - name: Login to RDO registry
+      become: "{{ item }}"
       docker_login:
         registry_url: "{{ rdo_registry_url }}"
         username: "{{ rdo_registry_user }}"
@@ -19,3 +20,6 @@
         email: "{{ rdo_registry_email | default(omit, true) }}"
         reauthorize: true
       when: push_containers|default(true)|bool
+      with_items:
+        - true
+        - false
