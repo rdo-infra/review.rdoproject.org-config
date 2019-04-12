@@ -18,6 +18,12 @@
       - tripleo-ovb
       - tripleo-upgrades-check-branchless
       - vexxhost-experimental
+    openstack-check:
+      jobs:
+        - tripleo-ci-reproducer-fedora-28-libvirt-standalone-dryrun:
+            files:
+              - ^roles/.*$
+
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
