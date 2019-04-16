@@ -328,7 +328,8 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
             files:
               - ^run_vexxhost_job$
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
+            voting: false
 
 - project:
     name: git.openstack.org/openstack/openstack-virtual-baremetal
@@ -340,6 +341,7 @@
             branches: stable/1.0
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
             branches: stable/1.0
+            voting: false
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master:
             branches: master
     openstack-experimental:
@@ -386,6 +388,7 @@
               - ^roles/libvirt/.*$
               - ^library/.*$
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
+            voting: false
             files:
               - config/general_config/featureset039.*
               - ^roles/freeipa-setup/.*$
@@ -406,6 +409,7 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
+            voting: false
             files:
               - config/general_config/featureset039.*
               - ^roles/freeipa-setup/.*$
@@ -429,7 +433,8 @@
     name: git.openstack.org/openstack/novajoin
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
+          voting: false
 
 - project:
     name: git.openstack.org/openstack/tripleo-image-elements
