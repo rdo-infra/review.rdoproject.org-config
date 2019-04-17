@@ -77,6 +77,15 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
+- job:
+    name: tripleo-ci-base-standalone-upgrade-rdo
+    abstract: true
+    description: |
+        Base abstract job for standalone upgrade in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-standalone-upgrade
+    nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
     name: tripleo-ci-base-ovb-periodic
@@ -117,6 +126,16 @@
 - job:
     name: tripleo-ci-base-standalone-periodic
     parent: tripleo-ci-base-standalone-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-standalone-upgrade-periodic
+    parent: tripleo-ci-base-standalone-upgrade-rdo
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
