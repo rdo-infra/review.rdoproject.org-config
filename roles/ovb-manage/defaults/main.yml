@@ -50,6 +50,13 @@ cloud_settings:
         bmc_flavor: ci.m1.small
         extra_node_flavor: ci.m1.small
         baremetal_image: CentOS-7-x86_64-GenericCloud
+    upshift:
+        public_ip_net: provider_net_shared
+        undercloud_flavor: m1.xlarge
+        baremetal_flavor: ci.m1.large
+        bmc_flavor: ci.m1.small
+        extra_node_flavor: ci.m1.small
+        baremetal_image: CentOS-7-x86_64-GenericCloud-released-latest
 
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
