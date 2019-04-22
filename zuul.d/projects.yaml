@@ -37,36 +37,36 @@
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/ansible-role-container-registry
+    name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/dib-utils
-    templates:
-      - system-required
-      - ovb-001-check
-
-- project:
-    name: git.openstack.org/openstack/diskimage-builder
+    name: opendev.org/openstack/dib-utils
     templates:
       - system-required
       - ovb-001-check
 
 - project:
-    name: git.openstack.org/openstack/glance
+    name: opendev.org/openstack/diskimage-builder
+    templates:
+      - system-required
+      - ovb-001-check
+
+- project:
+    name: opendev.org/openstack/glance
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/heat
+    name: opendev.org/openstack/heat
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/instack
+    name: opendev.org/openstack/instack
     # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - system-required
@@ -74,57 +74,57 @@
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/instack-undercloud
+    name: opendev.org/openstack/instack-undercloud
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/ironic
+    name: opendev.org/openstack/ironic
     templates:
       - system-required
     # TODO(pabelanger): Why does this run OVB jobs?
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/ironic-inspector
+    name: opendev.org/openstack/ironic-inspector
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/ironic-python-agent
+    name: opendev.org/openstack/ironic-python-agent
     templates:
       - system-required
     # TODO(pabelanger): Why does this run OVB jobs?
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/kolla
+    name: opendev.org/openstack/kolla
     templates:
       - system-required
       - tripleo-build-containers-jobs
 
 - project:
-    name: git.openstack.org/openstack/mistral
+    name: opendev.org/openstack/mistral
     templates:
       - system-required
       - ovb-001-experimental
 - project:
-    name: git.openstack.org/openstack/neutron
-    templates:
-      - system-required
-      - ovb-001-experimental
-
-- project:
-    name: git.openstack.org/openstack/nova
+    name: opendev.org/openstack/neutron
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/octavia
+    name: opendev.org/openstack/nova
+    templates:
+      - system-required
+      - ovb-001-experimental
+
+- project:
+    name: opendev.org/openstack/octavia
     templates:
       - system-required
     periodic:
@@ -133,120 +133,120 @@
             branches: ^(master|stable/queens)$
 
 - project:
-    name: git.openstack.org/openstack/os-apply-config
+    name: opendev.org/openstack/os-apply-config
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/os-collect-config
+    name: opendev.org/openstack/os-collect-config
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/os-net-config
+    name: opendev.org/openstack/os-net-config
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/os-refresh-config
+    name: opendev.org/openstack/os-refresh-config
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/paunch
+    name: opendev.org/openstack/paunch
     # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - system-required
       - tripleo-ovb
 
 - project:
-    name: git.openstack.org/openstack/puppet-cinder
+    name: opendev.org/openstack/puppet-cinder
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-glance
+    name: opendev.org/openstack/puppet-glance
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-heat
+    name: opendev.org/openstack/puppet-heat
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-horizon
+    name: opendev.org/openstack/puppet-horizon
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-ironic
+    name: opendev.org/openstack/puppet-ironic
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-keystone
+    name: opendev.org/openstack/puppet-keystone
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-mistral
+    name: opendev.org/openstack/puppet-mistral
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-neutron
+    name: opendev.org/openstack/puppet-neutron
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-nova
+    name: opendev.org/openstack/puppet-nova
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-openstack-integration
+    name: opendev.org/openstack/puppet-openstack-integration
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-openstack_extras
+    name: opendev.org/openstack/puppet-openstack_extras
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-openstacklib
+    name: opendev.org/openstack/puppet-openstacklib
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-swift
+    name: opendev.org/openstack/puppet-swift
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/puppet-tripleo
+    name: opendev.org/openstack/puppet-tripleo
     templates:
       - system-required
       - tripleo-ovb
@@ -256,56 +256,56 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
-    name: git.openstack.org/openstack/puppet-zaqar
+    name: opendev.org/openstack/puppet-zaqar
     templates:
       - puppet-openstack-integration-python3-jobs
       - system-required
 
 - project:
-    name: git.openstack.org/openstack/python-glanceclient
+    name: opendev.org/openstack/python-glanceclient
     templates:
       - system-required
       - ovb-experimental
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-heatclient
+    name: opendev.org/openstack/python-heatclient
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-ironic-inspector-client
+    name: opendev.org/openstack/python-ironic-inspector-client
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-ironicclient
+    name: opendev.org/openstack/python-ironicclient
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-mistralclient
+    name: opendev.org/openstack/python-mistralclient
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-neutronclient
+    name: opendev.org/openstack/python-neutronclient
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-novaclient
+    name: opendev.org/openstack/python-novaclient
     templates:
       - system-required
       - ovb-001-experimental
 
 - project:
-    name: git.openstack.org/openstack/python-tempestconf
+    name: opendev.org/openstack/python-tempestconf
     templates:
       - system-required
       - ovb-001-check
@@ -323,14 +323,14 @@
             branches: ^master$
 
 - project:
-    name: git.openstack.org/openstack/python-tripleoclient
+    name: opendev.org/openstack/python-tripleoclient
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/releases
+    name: opendev.org/openstack/releases
     templates:
       - system-required
     openstack-post:
@@ -338,7 +338,7 @@
         - legacy-rdo-send-stable-release
 
 - project:
-    name: git.openstack.org/openstack/requirements
+    name: opendev.org/openstack/requirements
     templates:
       - system-required
     openstack-post:
@@ -346,7 +346,7 @@
         - legacy-rdo-deps-uc-send-review
 
 - project:
-    name: git.openstack.org/openstack/rpm-packaging
+    name: opendev.org/openstack/rpm-packaging
     templates:
       - system-required
     openstack-check-rdo:
@@ -357,7 +357,7 @@
             branches: ^master$
 
 - project:
-    name: git.openstack.org/openstack/tempest
+    name: opendev.org/openstack/tempest
     templates:
       - system-required
     openstack-experimental:
@@ -368,14 +368,14 @@
             branches: ^master$
 
 - project:
-    name: git.openstack.org/openstack/tripleo-image-elements
+    name: opendev.org/openstack/tripleo-image-elements
     templates:
       - system-required
       - tripleo-ovb
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/tripleo-puppet-elements
+    name: opendev.org/openstack/tripleo-puppet-elements
     # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - system-required
@@ -383,14 +383,14 @@
       - ovb-experimental
 
 - project:
-    name: git.openstack.org/openstack/tripleo-repos
+    name: opendev.org/openstack/tripleo-repos
     templates:
       - system-required
       - tripleo-build-containers-jobs
       - tripleo-ovb
 
 - project:
-    name: git.openstack.org/openstack/tripleo-upgrade
+    name: opendev.org/openstack/tripleo-upgrade
     templates:
       - tripleo-upgrades-check
       - system-required

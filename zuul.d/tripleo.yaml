@@ -2,13 +2,13 @@
 # needs to first be cleaned up, it is too large.
 
 - project:
-    name: git.openstack.org/openstack/puppet-pacemaker
+    name: opendev.org/openstack/puppet-pacemaker
     templates:
       - system-required
       - tripleo-ovb
 
 - project:
-    name: git.openstack.org/openstack-infra/tripleo-ci
+    name: opendev.org/openstack/tripleo-ci
     templates:
       - ovb-branchless
       - ovb-browbeat
@@ -297,13 +297,13 @@
         - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
 
 - project:
-    name: git.openstack.org/openstack/browbeat
+    name: opendev.org/x/browbeat
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053
 
 - project:
-    name: git.openstack.org/openstack/tripleo-common
+    name: opendev.org/openstack/tripleo-common
     templates:
       - system-required
       - tripleo-ovb
@@ -311,7 +311,7 @@
       - vexxhost-experimental
 
 - project:
-    name: git.openstack.org/openstack/tripleo-heat-templates
+    name: opendev.org/openstack/tripleo-heat-templates
     templates:
       - system-required
       - tripleo-ovb
@@ -333,7 +333,7 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
-    name: git.openstack.org/openstack/openstack-virtual-baremetal
+    name: opendev.org/openstack/openstack-virtual-baremetal
     templates:
       - ovb-experimental
     openstack-check:
@@ -351,7 +351,7 @@
 
 
 - project:
-    name: git.openstack.org/openstack/tripleo-ipsec
+    name: opendev.org/openstack/tripleo-ipsec
     templates:
       - system-required
     openstack-check:
@@ -372,7 +372,7 @@
               - tox.ini
 
 - project:
-    name: git.openstack.org/openstack/tripleo-quickstart
+    name: opendev.org/openstack/tripleo-quickstart
     templates:
       - tripleo-upgrades-check-branchless
       - system-required
@@ -396,7 +396,7 @@
               - ^playbooks/baremetal-full-deploy.*$
 
 - project:
-    name: git.openstack.org/openstack/tripleo-quickstart-extras
+    name: opendev.org/openstack/tripleo-quickstart-extras
     templates:
       - tripleo-upgrades-check-branchless
       - system-required
@@ -428,13 +428,13 @@
               - roles/validate-tempest/vars/tempest_skip_rocky.yml
 
 - project:
-    name: git.openstack.org/openstack/novajoin
+    name: opendev.org/x/novajoin
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
-    name: git.openstack.org/openstack/tripleo-image-elements
+    name: opendev.org/openstack/tripleo-image-elements
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001

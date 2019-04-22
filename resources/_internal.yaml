@@ -15,8 +15,8 @@ resources:
         - config:
             zuul/config-project: True
         - rdo-jobs
-        - openstack-infra/zuul-jobs:
-            connection: openstack.org
+        - zuul/zuul-jobs:
+            connection: opendev.org
             zuul/include: [job]
             zuul/shadow: rdo-jobs
 
