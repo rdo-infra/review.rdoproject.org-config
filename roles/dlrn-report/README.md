@@ -17,7 +17,7 @@ Role Variables
 Dependencies
 ------------
 
-This playbook depends on the playbooks and roles in git.openstack.org/openstack-infra/tripleo-ci.
+This playbook depends on the playbooks and roles in opendev.org/openstack/tripleo-ci.
 
 Example Playbook
 ----------------
