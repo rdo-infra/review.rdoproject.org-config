@@ -1,6 +1,6 @@
 #!/bin/bash
 # Retrieves or updates an existing repository for
-# git.openstack.org/openstack-infra/project-config for the purpose of re-using
+# opendev.org/openstack/project-config for the purpose of re-using
 # the nodepool elements and scripts from it.
 
 # This is set up as a cron on nodepool-builder instances as such:
@@ -8,7 +8,7 @@
 # Logs available with "journalctl -t project-config-nodepool.sh"
 
 LOCKFILE="/tmp/project-config-nodepool.lock"
-SERVER="git.openstack.org"
+SERVER="opendev.org"
 DIR="/opt/git"
 NAMESPACE="openstack-infra"
 PROJECT="project-config"

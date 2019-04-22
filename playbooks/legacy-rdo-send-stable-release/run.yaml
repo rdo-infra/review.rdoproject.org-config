@@ -15,8 +15,8 @@
           # Source is review.rdoproject.org
           GIT_URL=https://review.rdoproject.org/r
           elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
-          # Source is git.openstack.org
-          GIT_URL=https://git.openstack.org
+          # Source is opendev.org
+          GIT_URL=https://opendev.org
           fi
           echo "Clean workspace"
           rm -Rf ./*
@@ -79,7 +79,7 @@
                 # When using reviews from openstack/releases to generate new releases
                 # we need to get the real commit (not the merge one) to search the
                 # review using gerrit API.
-                pushd {{ ansible_user_dir }}/{{ zuul.projects['git.openstack.org/openstack/releases'].src_dir }}
+                pushd {{ ansible_user_dir }}/{{ zuul.projects['opendev.org/openstack/releases'].src_dir }}
                 SUBJECT=$(git log --oneline|head -1|cut -d " " -f 2)
                 if [ $SUBJECT == "Merge" ]; then
                   REAL_COMMIT=$(git show|grep ^Merge:|awk '{print $(NF)}')
