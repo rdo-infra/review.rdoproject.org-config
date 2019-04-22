@@ -41,7 +41,7 @@
       - playbooks/base-minimal/post-ssh.yaml
       - playbooks/base-minimal/post-logs.yaml
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: zuul/zuul-jobs
       - zuul: rdo-jobs
     timeout: 1800
     post-timeout: 1800
@@ -66,7 +66,7 @@
       - playbooks/base-minimal-test/post-ssh.yaml
       - playbooks/base-minimal-test/post-logs.yaml
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: zuul/zuul-jobs
       - zuul: rdo-jobs
     timeout: 1800
     post-timeout: 1800
