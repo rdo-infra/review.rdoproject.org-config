@@ -56,6 +56,20 @@
       sqlreporter:
 
 - pipeline:
+    name: openstack-periodic
+    post-review: true
+    description: Jobs in this queue are triggered to run every few hours.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '10 6,10,14,18,22 * * *'
+    success:
+      sqlreporter:
+    failure:
+      sqlreporter:
+
+- pipeline:
     name: openstack-periodic-master
     post-review: true
     description: Jobs in this queue are triggered to run every few hours.
