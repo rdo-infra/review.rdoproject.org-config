@@ -43,7 +43,7 @@
           # pipelines prefixed by "openstack-".
           GIT_SOURCE="https://review.rdoproject.org/r"
           if [[ "${ZUUL_PIPELINE}" =~ "openstack-" ]]; then
-              GIT_SOURCE="https://git.openstack.org"
+              GIT_SOURCE="https://opendev.org"
           fi
 
           git config --global http.postBuffer 524288000
@@ -87,13 +87,13 @@
             # Ensure we have a fresh repo for each release
             git reset --hard origin/master
             if [ "$RELEASE" != "master" ]; then
-              GIT_SUFFIX="?h=stable/$RELEASE"
+              GIT_BRANCH="stable/$RELEASE"
               UC_BRANCH="$RELEASE"
             else
               UC_BRANCH="train-uc"
-              GIT_SUFFIX=""
+              GIT_BRANCH="master"
             fi
-            curl -o upper-constraints.txt "http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt$GIT_SUFFIX"
+            curl -o upper-constraints.txt "https://opendev.org/openstack/requirements/raw/branch/${GIT_BRANCH}/upper-constraints.txt"
             update_uc -t $UC_BRANCH
             DIFF=$(git diff *.yml */*.yml)
             if [ -n "$DIFF" ]; then
