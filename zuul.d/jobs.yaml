@@ -41,8 +41,8 @@
       - playbooks/base-minimal/post-ssh.yaml
       - playbooks/base-minimal/post-logs.yaml
     roles:
-      - zuul: zuul/zuul-jobs
-      - zuul: rdo-jobs
+      - zuul: opendev.org/zuul/zuul-jobs
+      - zuul: review.rdoproject.org/rdo-jobs
     timeout: 1800
     post-timeout: 1800
     nodeset:
@@ -66,8 +66,8 @@
       - playbooks/base-minimal-test/post-ssh.yaml
       - playbooks/base-minimal-test/post-logs.yaml
     roles:
-      - zuul: zuul/zuul-jobs
-      - zuul: rdo-jobs
+      - zuul: opendev.org/zuul/zuul-jobs
+      - zuul: review.rdoproject.org/rdo-jobs
     timeout: 1800
     post-timeout: 1800
     nodeset:
@@ -85,7 +85,7 @@
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - koji_centos
 
@@ -97,7 +97,7 @@
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - koji_centos
 
@@ -109,7 +109,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-common-distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -121,7 +121,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-common-distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -133,7 +133,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-fluentd-012-distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -145,7 +145,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-fluentd-012-distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -157,7 +157,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-perfmon-common-distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -169,7 +169,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-perfmon-common-distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -181,7 +181,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-sensu-110-distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -193,7 +193,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-sensu-110-distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -205,7 +205,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-sensu-common-distgit-cbs-validate/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -217,7 +217,7 @@
     pre-run: playbooks/opstools-common-distgit-cbs-validate/pre.yaml
     run: playbooks/opstools-sensu-common-distgit-cbs-final-build/run.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - cbs_opstools
 
@@ -228,7 +228,7 @@
     final: true
     run: playbooks/publish-cico-jjb/run.yaml
     required-projects:
-      - name: rdo-infra/ci-config
+      - name: review.rdoproject.org/rdo-infra/ci-config
     secrets:
       - ci_centos
       - weirdo_token
@@ -243,7 +243,7 @@
     run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
     post-run: playbooks/legacy-validate-dependencies-rebuilds/post.yaml
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - koji_centos
 
@@ -261,9 +261,9 @@
       rdoinfo_phase: testing
       stable_releases: pike ocata queens rocky stein
     required-projects:
-      - name: gating_scripts
-      - name: rdoinfo
-      - name: rdo-infra/releng
+      - name: review.rdoproject.org/gating_scripts
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo-infra/releng
     secrets:
       - koji_centos
       - rdoinfo_ssh
@@ -282,9 +282,9 @@
       rdoinfo_phase: release
       stable_releases: pike ocata queens rocky stein
     required-projects:
-      - name: gating_scripts
-      - name: rdoinfo
-      - name: rdo-infra/releng
+      - name: review.rdoproject.org/gating_scripts
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo-infra/releng
     secrets:
       - koji_centos
       - rdoinfo_ssh
@@ -300,8 +300,8 @@
     vars:
       stable_releases: ocata pike queens rocky stein master
     required-projects:
-      - name: rdoinfo
-      - name: rdo-infra/releng
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo-infra/releng
     secrets:
       - rdoinfo_ssh
 
@@ -315,7 +315,7 @@
     run: playbooks/legacy-update-buildsys-tags/run.yaml
     timeout: 10800
     required-projects:
-      - name: gating_scripts
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - koji_centos
 
@@ -329,8 +329,8 @@
     run: playbooks/legacy-rebuild-fedora-dependencies/run.yaml
     post-run: playbooks/legacy-rebuild-fedora-dependencies/post.yaml
     required-projects:
-      - name: rdoinfo
-      - name: gating_scripts
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/gating_scripts
     secrets:
       - koji_centos
 
@@ -343,8 +343,8 @@
     pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdo-send-stable-release/run.yaml
     required-projects:
-      - name: rdoinfo
-      - name: rdo-infra/releng
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo-infra/releng
       - name: opendev.org/openstack/releases
     secrets:
       - rdoinfo_ssh
@@ -356,8 +356,8 @@
     run: playbooks/legacy-weirdo-validate-buildsys-tags/run.yaml
     timeout: 10800
     required-projects:
-      - name: rdo-infra/releng
-      - name: rdo-infra/weirdo
+      - name: review.rdoproject.org/rdo-infra/releng
+      - name: review.rdoproject.org/rdo-infra/weirdo
       - name: review.rdoproject.org/gating_scripts
     secrets:
       - weirdo_token
@@ -368,7 +368,7 @@
     pre-run: playbooks/legacy-rdoinfo-create-project/pre.yaml
     run: playbooks/legacy-rdoinfo-create-project/run.yaml
     required-projects:
-      - name: rdoinfo
+      - name: review.rdoproject.org/rdoinfo
     secrets:
       - rdoinfo_ssh
 
@@ -378,8 +378,8 @@
     pre-run: playbooks/legacy-config-distgit-mirror-github/pre.yaml
     run: playbooks/legacy-config-distgit-mirror-github/run.yaml
     required-projects:
-      - name: rdoinfo
-      - name: rdo_gating_scripts
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo_gating_scripts
     secrets:
       - github
 
@@ -389,8 +389,8 @@
     pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdo-deps-uc-send-review/run.yaml
     required-projects:
-      - rdoinfo
-      - rdo-infra/releng
+      - name: review.rdoproject.org/rdoinfo
+      - name: review.rdoproject.org/rdo-infra/releng
     secrets:
       - rdoinfo_ssh
 
@@ -400,7 +400,7 @@
     parent: legacy-dsvm-base
     post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
     required-projects:
-      - name: rdo-infra/ci-config
+      - name: review.rdoproject.org/rdo-infra/ci-config
     secrets:
       - dlrnapi
 
@@ -420,7 +420,7 @@
     parent: base
     final: true
     allowed-projects:
-      - config
+      - name: review.rdoproject.org/config
     description: Validate the config repo.
     run: playbooks/config/check.yaml
     post-run: playbooks/config/check-fetch-artifacts.yaml
@@ -439,7 +439,7 @@
     parent: base
     final: true
     allowed-projects:
-      - config
+      - name: review.rdoproject.org/config
     description: Deploy config repo update.
     run: playbooks/config/update.yaml
     secrets:
