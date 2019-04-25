@@ -9,6 +9,7 @@
     - name: Create openstack config dir
       file:
         path: ~/.config/openstack/
+        state: directory
     - name: Generate clouds config with ovb-test credentials
       template:
         src: ovb-test.clouds.yaml.j2
