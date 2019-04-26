@@ -10,3 +10,10 @@ clouds:
       auth_url: {{ cloud_secrets.ovb_test.auth_url }}
       user_domain_name: {{ cloud_secrets.ovb_test.user_domain_name }}
       project_domain_name: {{ cloud_secrets.ovb_test.project_domain_name }}
+    regions:
+      - name: regionOne
+        values:
+          networks:
+            - name: 38.145.32.0/22
+              routes_externally: true
+            - name: private
