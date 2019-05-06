@@ -1,0 +1,109 @@
+resources:
+  groups:
+    puppet/puppet-watcher-core:
+      description: Core developers for project puppet-watcher
+      members:
+      - ykarel@redhat.com
+    puppet/puppet-watcher-ptl:
+      description: Project team lead for project puppet-watcher
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    puppet-puppet-watcher-distgit:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-watcher-core
+          owner = group puppet/puppet-watcher-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-watcher-core
+          label-Code-Review = -2..+2 group puppet/puppet-watcher-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-watcher-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-watcher-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          abandon = group rdo-opm-core
+          abandon = group puppet/puppet-watcher-core
+          label-Verified = -2..+2 group puppet/puppet-watcher-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Verified = -2..+2 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group puppet/puppet-watcher-core
+          label-Workflow = -1..+1 group puppet/puppet-watcher-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-watcher-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-watcher-core
+      - puppet/puppet-watcher-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+    puppet-puppet-watcher:
+      file: |
+        [access "refs/*"]
+          read = group puppet/puppet-watcher-core
+          owner = group puppet/puppet-watcher-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group puppet/puppet-watcher-core
+          label-Code-Review = -2..+2 group puppet/puppet-watcher-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-opm-core
+          submit = group puppet/puppet-watcher-ptl
+          submit = group rdo-superusers
+          submit = group rdo-opm-core
+          read = group Registered Users
+          read = group puppet/puppet-watcher-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+          label-Verified = -2..+0 group puppet/puppet-watcher-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+0 group rdo-opm-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group puppet/puppet-watcher-core
+          label-Workflow = -1..+0 group puppet/puppet-watcher-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+0 group rdo-opm-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group puppet/puppet-watcher-core
+          read = group rdo-provenpackagers
+          read = group rdo-opm-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - puppet/puppet-watcher-core
+      - puppet/puppet-watcher-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-opm-core
+  repos:
+    puppet/puppet-watcher:
+      acl: puppet-puppet-watcher
+      description: Mirror of upstream puppet-watcher (mirror + patches)
+    puppet/puppet-watcher-distgit:
+      acl: puppet-puppet-watcher-distgit
+      description: Packaging of upstream puppet-watcher
+      default-branch: rpm-master
+      branches:
+        master: '0'
