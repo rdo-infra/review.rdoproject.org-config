@@ -7,9 +7,10 @@
   tasks:
     - name: Install python docker
       become: true
-      package:
+      pip:
         name:
-          - python-docker
+          - docker
+          - docker-py
 
     - name: Login to RDO registry
       become: "{{ item }}"
