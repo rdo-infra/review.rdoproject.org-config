@@ -1,4 +1,7 @@
 set -e
+
+IMAGES_HOST=${IMAGES_HOST:-"images.rdoproject.org"}
+
 echo ======== UPLOAD CLOUD IMAGES
 export FULL_HASH=$(grep -o -E '[0-9a-f]{40}_[0-9a-f]{8}' < /etc/yum.repos.d/delorean.repo)
 
@@ -12,9 +15,9 @@ rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
 if [ -n "$DISTRO" ]; then
-    UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
+    UPLOAD_URL=uploader@$IMAGES_HOST:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
 else
-    UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/rdo_trunk
+    UPLOAD_URL=uploader@$IMAGES_HOST:/var/www/html/images/$RELEASE/rdo_trunk
 fi
 
 # Check if directory $FULL_HASH exists, if not create it.
