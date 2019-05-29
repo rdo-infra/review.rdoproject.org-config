@@ -15,6 +15,8 @@
     regexp: "{{ item.0 }}"
     replace: "{{ item.1 }}"
   loop:
+    - - 'baremetal_image:.*'
+      - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
     - - 'bmc_image:.*'
       - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
     - - 'key_name:.*'
