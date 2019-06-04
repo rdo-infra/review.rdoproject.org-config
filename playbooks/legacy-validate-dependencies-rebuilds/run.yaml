@@ -120,10 +120,10 @@
                   continue
               fi
               echo "INFO: Checking for $build on CBS"
-              cbs buildinfo $build 2>&1|grep "No such build"
+              cbs buildinfo $build 2>&1|grep "State:.*COMPLETE"
               # If build already exist in CBS, do not need to rebuild
               # it from fedora
-              if [ $? -ne 0 ];then
+              if [ $? -eq 0 ];then
                   echo "INFO: build $build exists in CBS"
                   continue
               fi
@@ -142,8 +142,8 @@
                   continue
               fi
               echo "INFO: Checking for $build on CBS"
-              cbs buildinfo $build 2>&1|grep "No such build"
-              if [ $? -eq 0 ];then
+              cbs buildinfo $build 2>&1|grep "State:.*COMPLETE"
+              if [ $? -ne 0 ];then
                   echo "ERROR: build $build does not exist in CBS"
                   FAILED=1
               fi
