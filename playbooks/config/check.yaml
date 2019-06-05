@@ -80,7 +80,7 @@
       no_log: true
 
     - name: Check resources changes
-      command: env - /usr/bin/managesf-resources remote-validate --cache-dir {{ config_root }}/../.resources --log-output {{ config_root }}/build/resources-engine.log --remote-gateway {{ gateway_url }}
+      command: env - /usr/bin/managesf-resources remote-validate --remote-gateway {{ gateway_url }}
       args:
         chdir: "{{ config_root }}"
 
