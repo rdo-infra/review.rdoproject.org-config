@@ -461,3 +461,23 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
+
+- project:
+    name: opendev.org/openstack/ironic-python-agent
+    templates:
+      - ovb-001-check
+
+- project:
+    name: opendev.org/openstack/ironic
+    templates:
+      - ovb-001-check
+
+- project:
+    name: opendev.org/openstack/ironic-inspector
+    templates:
+      - ovb-001-check
+
+- project:
+    name: opendev.org/openstack/python-ironic-inspector-client
+    templates:
+      - ovb-001-check
