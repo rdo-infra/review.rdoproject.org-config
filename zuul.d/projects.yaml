@@ -130,7 +130,7 @@
     periodic:
       jobs:
         - octavia-build-amphora:
-            branches: ^(master|stable/queens)$
+            branches: ^(?!stable/(ocata|pike)).*$
 
 - project:
     name: opendev.org/openstack/os-apply-config
