@@ -259,7 +259,7 @@
     run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      stable_releases: pike ocata queens rocky stein
+      stable_releases: queens rocky stein
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
@@ -280,7 +280,7 @@
     run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      stable_releases: pike ocata queens rocky stein
+      stable_releases: queens rocky stein
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
@@ -298,7 +298,7 @@
     pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdoinfo-upper-constraints-update/run.yaml
     vars:
-      stable_releases: ocata pike queens rocky stein master
+      stable_releases: queens rocky stein master
     required-projects:
       - name: rdoinfo
       - name: rdo-infra/releng
