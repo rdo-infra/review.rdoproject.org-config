@@ -1,0 +1,53 @@
+resources:
+  groups:
+    rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl:
+      description: 'Project team lead for project Triple CI zuul-runner role'
+      members:
+        - admin@review.rdoproject.org
+    rdo-infra/ansible-role-tripleo-ci-zuul-runner:
+      description: 'Core developers for project Tripleo CI reproducer role'
+      members:
+        - rlandy@redhat.com
+        - sshnaidm@redhat.com
+        - weshayutin@gmail.com
+        - gcerami@redhat.com
+        - arxcruz@redhat.com
+        - marios@redhat.com
+        - tdecacqu@redhat.com
+  acls:
+    rdo-infra/ansible-role-tripleo-ci-zuul-runner:
+      file: |
+        [access "refs/*"]
+            read = group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+            owner = group rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+            owner = group rdo-superusers
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+            label-Code-Review = -2..+2 group rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+            label-Code-Review = -2..+2 group rdo-superusers
+            submit = group rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+            submit = group rdo-superusers
+            read = group Registered Users
+            read = group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+            rebase = group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+            label-Verified = -2..+2 group rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+            label-Verified = -2..+2 group rdo-superusers
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+            label-Workflow = -1..+1 group rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-infra/ansible-role-tripleo-ci-zuul-runner
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-infra/ansible-role-tripleo-ci-zuul-runner
+      - rdo-infra/ansible-role-tripleo-ci-zuul-runner-ptl
+      - rdo-superusers
+  repos:
+    rdo-infra/ansible-role-tripleo-ci-zuul-runner:
+      acl: rdo-infra/ansible-role-tripleo-ci-zuul-runner
+      description: "Tripleo CI zuul based zuul-runner reproducer"
