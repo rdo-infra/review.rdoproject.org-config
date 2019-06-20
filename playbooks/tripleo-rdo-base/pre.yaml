@@ -99,3 +99,46 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
       when: ansible_user_id != "zuul-worker"
+
+    # The main goal for these tasks is to pre login to registry and generate the auth
+    # credentials cache for each available method, then clean up any interference
+    - block:
+      become: true
+        - name: Install podman
+          package:
+            name: podman
+            state: present
+        - name: Login to trunk registry
+          command: podman login trunk.registry.rdoproject.org -u unused --password '{{ rdo_registry.token }}'
+          no_log: true
+      rescue:
+        - debug:
+            msg: "Warning: Unable to Login with podman"
+        - name: Remove everything
+      always:
+        - name: Remove everything
+          package:
+            name:
+               - podman
+            state: absent
+
+    - block:
+      become: true
+        - name: Install docker
+          package:
+            name: docker
+            state: present
+        - name: Login to trunk registry
+          command: docker login trunk.registry.rdoproject.org -u unused --password '{{ rdo_registry.token }}'
+          no_log: true
+      rescue:
+        - debug:
+            msg: "Warning: Unable to Login with docker"
+      always:
+        - name: Remove everything
+          package:
+            name:
+               - docker
+            state: absent
+
+
