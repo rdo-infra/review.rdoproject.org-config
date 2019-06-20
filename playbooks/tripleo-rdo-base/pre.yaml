@@ -99,3 +99,22 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
       when: ansible_user_id != "zuul-worker"
+
+    # THe main goal for these three tasks is to create the /root/.docker/config.json
+    # containing the auth token for rdo registry.
+    - name: Install docker
+      package:
+        name: docker
+        state: present
+
+    - name: Login to trunk registry
+      command: docker login trunk.registry.rdoproject.org --password-stdin
+      args:
+        stdin: "{{ rdo_registry.token }}"
+      no_log: true
+
+    - name: Remove DOcker
+      package:
+        name: docker
+        state: absent
+
