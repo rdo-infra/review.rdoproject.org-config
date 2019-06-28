@@ -103,6 +103,27 @@
        use_buildah: true
 
 - job:
+    name: periodic-tripleo-rhel-8-master-containers-buildah
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-rhel-8-node
+    host-vars:
+      primary:
+        ansible_python_interpreter: /usr/bin/python3
+      localhost:
+        ansible_python_interpreter: /usr/bin/python3
+    vars:
+      release: master
+      use_buildah: true
+      kolla_base_image: rhel
+      # Keep string empty, or kolla will try to download delorean repos on its own
+      buildcontainers_rpm_setup_config: ""
+      kolla_base_tag: 8.0-126
+      kolla_base: rhel
+      kolla_base_pull: false
+      push_containers: true
+      mirror_fqdn: 'https://trunk.rdoproject.org'
+
+- job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
