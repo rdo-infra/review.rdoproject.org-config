@@ -69,3 +69,41 @@
       rescue:
         - debug:
             msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in DLRN fedora."
+
+    # This is a copy of the Fedora block above.
+    # Adding a new block as the Fedora block could be removed shortly.
+    - block:
+        - name: Promote consistent to tripleo-ci-testing for RHEL repo if an equivalent exists
+          shell:
+            cmd: |
+              export RELEASE="{{ release }}"
+              export PROMOTE_NAME=tripleo-ci-testing
+              DLRNAPI_URL="https://trunk.rdoproject.org/api-rhel8-$RELEASE"
+              sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
+              source {{ workspace }}/hash_info.sh
+              cp {{ workspace }}/hash_info.sh {{ workspace }}/logs/hash_info.sh
+              # Since both RHEL and centos repos are created from the same rpm-master branch in distgit
+              # Commit hash and distro hash in both repos will be the same, but theres a catch:
+              # Not all the packages in centos are available in RHEL, so we may have a hash in centos
+              # built over a package that doesnt exist in RHEL, so the dlrn hash will have no equivalent there.
+              # We poll for a while waiting for it become available before continuing
+              source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
+              activate_dlrnapi_venv
+              echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
+              # If the hash combination doesn't exist the API will report 404 and the command will exit 1
+              dlrnapi --url $DLRNAPI_URL repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+              if [[ "$?" == "1" ]]; then
+                echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in RHEL"
+                exit 1
+              fi
+              bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+            chdir: '{{ workspace }}'
+          environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+          when: release in ["master"]
+          register: result
+          retries: 20
+          delay: 30
+          until: result is succeeded
+      rescue:
+        - debug:
+            msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in DLRN RHEL."
