@@ -15,6 +15,12 @@
       setup:
         gather_subset: 'network'
 
+    - name: Ensure libselinux-python is installed
+      become: yes
+      package:
+        name: libselinux-python
+        state: present
+
   roles:
     - add-build-sshkey
     - start-zuul-console
