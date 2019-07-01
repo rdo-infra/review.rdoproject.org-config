@@ -15,6 +15,24 @@
       setup:
         gather_subset: 'network'
 
+    - name: Try getenforce and capture result for selinux install
+      command: getenforce
+      register: getenforce_result
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install libselinux-python*-libselinux when Enforcing/Permissive
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - libselinux-python*
+        - python*-libselinux
+      when:
+        - ("Enforcing" in getenforce_result.stdout_lines|default([]) or
+           "Permissive" in getenforce_result.stdout_lines|default([]) )
+
   roles:
     - add-build-sshkey
     - start-zuul-console
