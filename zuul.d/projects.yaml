@@ -45,13 +45,13 @@
     name: opendev.org/openstack/dib-utils
     templates:
       - system-required
-      - ovb-001-check
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/diskimage-builder
     templates:
       - system-required
-      - ovb-001-check
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/glance
@@ -84,21 +84,20 @@
     name: opendev.org/openstack/ironic
     templates:
       - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
-      - ovb-001-experimental
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/ironic-inspector
     templates:
       - system-required
-      - ovb-001-experimental
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/ironic-python-agent
     templates:
       - system-required
     # TODO(pabelanger): Why does this run OVB jobs?
-      - ovb-001-experimental
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/kolla
@@ -278,7 +277,7 @@
     name: opendev.org/openstack/python-ironic-inspector-client
     templates:
       - system-required
-      - ovb-001-experimental
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/python-ironicclient
@@ -7547,3 +7546,9 @@
     templates:
       - noop
       - system-required
+
+- project:
+    name: opendev.org/x/novajoin
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
