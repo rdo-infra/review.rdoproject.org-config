@@ -87,6 +87,19 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
+# Used as the base downstream job for rhel-8 image builds. The actual image building is done in the
+# upstream parent tripleo-build-images-base via zuul inheritance of the pre-run/run playbooks. This
+# minimises duplication between up/downstream and we exercise the same code in all jobs.
+- job:
+    name: tripleo-ci-base-singlenode-rdo-build-images
+    abstract: true
+    description: |
+        Base abstract tripleo image build job for singlenode RDO CI zuulv3 jobs
+    parent: tripleo-build-images-base
+    nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
 - job:
     name: tripleo-ci-base-ovb-periodic
     parent: tripleo-ci-base-ovb-rdo
