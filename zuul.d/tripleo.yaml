@@ -57,6 +57,16 @@
     openstack-periodic-master:
       jobs:
         ##### master #####
+        # new buildimage jobs https://tree.taiga.io/project/tripleo-ci-board/task/1151
+        - periodic-tripleo-rhel-8-master-buildimage-overcloud-full:
+            dependencies:
+              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-rhel-8-master-buildimage-overcloud-hardened-full:
+            dependencies:
+              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-rhel-8-master-buildimage-ironic-python-agent:
+            dependencies:
+              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
