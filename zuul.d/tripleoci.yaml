@@ -29,6 +29,47 @@
     vars:
       release: pike
 
+ # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
+ # will also need a post for upload/rsync images (site_logs secret logserver)
+- job:
+    name: periodic-tripleo-rhel-8-master-buildimage-base
+    abstract: true
+    parent: tripleo-ci-base-singlenode-rdo-build-images
+    nodeset: single-rhel-8-node
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - site_logs
+    vars:
+      tripleo_image_os: rhel8
+      # We are using the rcm-guest for storing the guest for now. It already has rhui repos
+      # installed. See https://tree.taiga.io/project/tripleo-ci-board/task/1167 for more info
+      rhel_image_source: http://38.145.34.141/rcm-guest/images/rhel8/master/rdo_trunk/tripleo-ci-testing/rhel-8.0-guest-rhui.qcow2
+
+- job:
+    name: periodic-tripleo-rhel-8-master-buildimage-overcloud-full
+    parent: periodic-tripleo-rhel-8-master-buildimage-base
+    vars:
+      tripleo_image_type: overcloud-full
+
+- job:
+    name: periodic-tripleo-rhel-8-master-buildimage-overcloud-hardened-full
+    parent: periodic-tripleo-rhel-8-master-buildimage-base
+    vars:
+      tripleo_image_type: overcloud-hardened-full
+
+- job:
+    name: periodic-tripleo-rhel-8-master-buildimage-ironic-python-agent
+    parent: periodic-tripleo-rhel-8-master-buildimage-base
+    vars:
+      tripleo_image_type: ironic-python-agent
+
 - job:
     name: periodic-tripleo-containers-build-push-base
     abstract: true
