@@ -1,0 +1,19 @@
+---
+- hosts: all
+  name: Setup for building overcloud images
+  tasks:
+    - name: Include common buildimage vars
+      include_vars:
+        file: "common.yaml"
+
+    # dib_rhel_image used in tripleo-ci build-images role build j2 template
+    - name: Set dib_rhel_image fact used by upstream tripleo-ci build-image
+      set_fact:
+        dib_rhel_image: "{{ rhel_image_source | urlsplit('path') | basename }}"
+        cacheable: true
+
+    - name: Download rhel source image
+      get_url:
+        url: "{{ rhel_image_source }}"
+        dest: "{{ workspace }}/{{ dib_rhel_image }}"
+

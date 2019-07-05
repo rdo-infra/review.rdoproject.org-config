@@ -1,0 +1,8 @@
+rhel_guest_image: "{{ rhel_image }}"
+workspace: "{{ ansible_user_dir }}/workspace"
+image_files:
+  ipa: ["ironic-python-agent.initramfs", "ironic-python-agent.kernel",
+        "ironic-python-agent.tar"]
+  full: ["overcloud-full.qcow2", "overcloud-full.initrd",
+         "overcloud-full.vmlinuz"]
+
