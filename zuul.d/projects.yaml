@@ -66,14 +66,6 @@
       - ovb-001-experimental
 
 - project:
-    name: opendev.org/openstack/instack
-    # TODO(pabelanger): Why does this run OVB jobs?
-    templates:
-      - system-required
-      - tripleo-ovb
-      - ovb-experimental
-
-- project:
     name: opendev.org/openstack/instack-undercloud
     templates:
       - system-required
@@ -84,7 +76,7 @@
     name: opendev.org/openstack/ironic
     templates:
       - system-required
-      - ovb-001-lite
+      - ovb-experimental
 
 - project:
     name: opendev.org/openstack/ironic-inspector
@@ -96,7 +88,6 @@
     name: opendev.org/openstack/ironic-python-agent
     templates:
       - system-required
-    # TODO(pabelanger): Why does this run OVB jobs?
       - ovb-001-lite
 
 - project:
@@ -164,7 +155,7 @@
     # TODO(pabelanger): Why does this run OVB jobs?
     templates:
       - system-required
-      - tripleo-ovb
+      - ovb-001-lite
 
 - project:
     name: opendev.org/openstack/puppet-cinder
@@ -264,7 +255,6 @@
     name: opendev.org/openstack/python-glanceclient
     templates:
       - system-required
-      - ovb-experimental
       - ovb-001-experimental
 
 - project:
