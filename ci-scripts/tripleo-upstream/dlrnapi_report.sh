@@ -4,7 +4,8 @@ if [ "$SUCCESS" = "true" ] || [ "$SUCCESS" = "True" ]; then
 else
     echo "REPORTING FAILURE TO DLRN API"
 fi
-pip install --user dlrnapi-client shyaml
+$(python_cmd) -m install --user dlrnapi-client shyaml
+PATH=$PATH:/home/$USER/.local/bin
 dlrnapi --url $DLRNAPI_URL \
     report-result \
     --commit-hash $COMMIT_HASH \
