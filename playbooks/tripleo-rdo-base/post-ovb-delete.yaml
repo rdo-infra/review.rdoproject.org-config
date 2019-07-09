@@ -18,6 +18,7 @@
         bash {{ workspace }}/logs/collect_logs.sh;
         mv {{ workspace }}/logs/collect_logs.sh {{ workspace }}/logs/ovb_collect_logs.sh;
       changed_when: true
+      failed_when: false
 
     - name: Delete OVB environment
       include_role:
