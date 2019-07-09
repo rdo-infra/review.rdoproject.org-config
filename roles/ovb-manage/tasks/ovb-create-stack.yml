@@ -112,6 +112,13 @@
 
   always:
 
+    - name: Delete CREATE_FAILED stack
+      shell: |
+        {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y
+        {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }}-extra -y
+      when: '"CREATE_FAILED" in result.stdout'
+      failed_when: false
+
     - name: remove clouds.yaml file
       file:
         path: "{{ clouds_yaml }}"
