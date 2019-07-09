@@ -222,22 +222,22 @@ resources:
       file: |
         [project]
         [access "refs/*"]
-          read = group rdo-ci-core
+          read = group tripleo-ci-core
           owner = group rdo-ci-ptl
             removeReviewer = group rdo-ci-ptl
         [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdo-ci-core
+            label-Code-Review = -2..+2 group tripleo-ci-core
             label-Code-Review = -2..+2 group rdo-ci-ptl
             label-Verified = -2..+2 group rdo-infra/ci-config-ptl
-            label-Workflow = -1..+1 group rdo-ci-core
+            label-Workflow = -1..+1 group tripleo-ci-core
             label-Workflow = -1..+1 group rdo-ci-ptl
             label-Workflow = -1..+0 group Registered Users
             submit = group rdo-ci-ptl
             read = group Registered Users
-            read = group rdo-ci-core
+            read = group tripleo-ci-core
         [access "refs/meta/config"]
             read = group Registered Users
-            read = group rdo-ci-core
+            read = group tripleo-ci-core
         [receive]
             requireChangeId = true
         [submit]
@@ -246,7 +246,7 @@ resources:
       groups:
       - rdo-infra/ci-config-ptl
       - rdo-ci-ptl
-      - rdo-ci-core
+      - tripleo-ci-core
     9afb7bc027afc82a3824527e1114349a:
       file: |
         [access "refs/*"]
@@ -393,6 +393,18 @@ resources:
       - rlandy@redhat.com
       - sshnaidm@redhat.com
       - trown@redhat.com
+      - weshayutin@gmail.com
+    tripleo-ci-core:
+      description: ''
+      members:
+      - arxcruz@gmail.com
+      - chkumar246@gmail.com
+      - gcerami@redhat.com
+      - marios@redhat.com
+      - rfolco@redhat.com
+      - rlandy@redhat.com
+      - ssbarnea@redhat.com
+      - sshnaidm@redhat.com
       - weshayutin@gmail.com
     rdo-ci-ptl:
       description: ''
