@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2824c75f_6a584d54",
+        "filename": "ci-scripts/tripleo-upstream/dlrnapi_report.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-09T16:22:30Z",
+      "side": 1,
+      "message": "This is incorrect, use \"~\" to get user home. \nCurrent code fails for root for example. Also fails when $USER is not defined, which can also happen.\n\nAlso, posix spec say that .local/bin must be *before* current path because otherwise you would not be able to use user-install tools, it will always use system ones when those are installed.\n\nThis why new bash (fedora 30+ and rhel 8 defaults to adding this folder at the begining of PATH and not the end. \n\nPS. I know that because I was the one driving https://fedoraproject.org/wiki/Changes/UserPathPrioritization",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "74c773c7a140e829975c4b02719cf278afddd449",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
