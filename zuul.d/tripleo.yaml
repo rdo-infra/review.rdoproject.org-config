@@ -18,6 +18,18 @@
       - tripleo-ovb
       - tripleo-upgrades-check-branchless
       - vexxhost-experimental
+    openstack-check:
+      jobs:
+        - rdo-tox-molecule-rhel8:
+            files:
+              - ^test-requirements.txt$
+              - ^requirements.txt$
+              - ^setup.*$
+              - tox.ini
+              - tripleo-repos
+              - molecule
+            required-projects:
+              - name: opendev.org/openstack/tripleo-repos
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
