@@ -18,6 +18,17 @@
       - tripleo-ovb
       - tripleo-upgrades-check-branchless
       - vexxhost-experimental
+    openstack-check:
+      jobs:
+        # TODO: make this run special rhel8 molecule job
+        - rdo-tox-molecule:
+            files:
+              - ^test-requirements.txt$
+              - ^requirements.txt$
+              - ^setup.*$
+              - tox.ini
+              - molecule
+              # todo: make pattern more generic to avoid needing to update it too often
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
