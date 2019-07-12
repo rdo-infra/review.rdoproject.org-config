@@ -1,5 +1,8 @@
 ---
-ovb_working_dir: "/tmp/ovb"
+# do not use /tmp based location because virtualenv creation can fail, likely
+# due to default selinux pemissions on /tmp:
+# ERROR: The executable /tmp/ovb/.venv/bin/python could not be run: [Errno 13] Permission denied
+ovb_working_dir: "~/ovb"
 logs_dir: "{{ ovb_working_dir }}/logs"
 failed_log: "{{ logs_dir }}/failed_ovb_stack.log"
 nodes_file: "{{ ovb_working_dir }}/instackenv.json"

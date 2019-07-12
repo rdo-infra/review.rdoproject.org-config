@@ -21,6 +21,7 @@
     mode: 0755
 
 - name: Install heat stack
+  when: not test_mode | default(false)
   block:
 
     - name: Create a key in case of extranode
