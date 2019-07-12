@@ -73,8 +73,13 @@ undercloud_args: >-
     {%- else -%}{%- endif -%}
 role_args: ''
 extra_node_key_name: extranode-key
+install_epel: true
 pip_packages:
 - python-openstackclient==3.14.3 # queens
 - python-heatclient==1.14.0 # queens
 - python-novaclient==10.1.0 # queens
 - python-neutronclient==6.7.0 # queens
+packages:
+  - gcc
+  - python-pip
+  - python-virtualenv
