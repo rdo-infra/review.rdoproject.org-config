@@ -1,0 +1,15 @@
+# there is no EPEL-8 available yet
+install_epel: false
+
+packages:
+  - gcc
+  - python3-pip
+  - python3-virtualenv
+
+# based on lastest stein versions picked from
+# https://releases.openstack.org/stein/index.html#service-client-projects
+pip_packages:
+  - python-openstackclient==3.18.0
+  - python-heatclient==1.17.0
+  - python-novaclient==13.0.1
+  - python-neutronclient==6.12.0
