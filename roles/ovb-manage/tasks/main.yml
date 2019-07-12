@@ -1,4 +1,20 @@
 ---
+- name: gather facts
+  when: ansible_python is not defined
+  setup:
+    gather_subset: python
+
+- name: Include OS specific variables
+  include_vars: "{{ item }}"
+  failed_when: false
+  loop:
+      - "family-{{ ansible_os_family | lower }}.yml"
+      - "family-{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+      - "{{ ansible_distribution | lower }}.yml"
+      - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
+      - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version.split('.')[0:2] | join('-') | lower }}.yml"
+      - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version.split('.')[0:3] | join('-') | lower }}.yml"
+
 - name: Ensure local working dir exists
   file:
     path: "{{ ovb_working_dir }}"

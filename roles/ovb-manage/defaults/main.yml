@@ -73,8 +73,15 @@ undercloud_args: >-
     {%- else -%}{%- endif -%}
 role_args: ''
 extra_node_key_name: extranode-key
+install_epel: true
+# based on lastest stein versions picked from
+# https://releases.openstack.org/stein/index.html#service-client-projects
 pip_packages:
-- python-openstackclient==3.14.3 # queens
-- python-heatclient==1.14.0 # queens
-- python-novaclient==10.1.0 # queens
-- python-neutronclient==6.7.0 # queens
+  - python-openstackclient==3.18.0
+  - python-heatclient==1.17.0
+  - python-novaclient==13.0.1
+  - python-neutronclient==6.12.0
+packages:
+  - gcc
+  - python-pip
+  - python-virtualenv
