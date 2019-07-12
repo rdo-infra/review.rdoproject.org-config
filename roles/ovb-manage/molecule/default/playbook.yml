@@ -1,0 +1,52 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    # -- begin fixes
+    - name: gather needed facts
+      when: ansible_distribution is not defined
+      setup:
+        gather_subset: distribution,pkg_mgr
+
+    - name: install deps
+      action: "{{ ansible_pkg_mgr }}"
+      args:
+        name:
+          - git
+        update_cache: true
+    # -- end fixes
+
+    - name: create /mnt/config/openstack/latest
+      file:
+        path: /mnt/config/openstack/latest
+        state: directory
+
+    - name: mock meta_data.json
+      copy:
+        content: |
+          {
+          "uuid": "12345678-1234-1234-1234-123456789012"
+          }
+        dest: /mnt/config/openstack/latest/meta_data.json
+
+    - name: import ovb-manage role
+      vars:
+        # TODO(ssbarnea): create should be implicit and not required
+        ovb_manage_stack_mode: create
+        # tells to skip code that we cannot test in isolation
+        test_mode: true
+        # do not use /tmp based location because virtualenv creation can fail
+        # when mounted with noexec (tmpfs):
+        # ERROR: The executable /tmp/ovb/.venv/bin/python could not be run: [Errno 13] Permission denied
+        ovb_working_dir: "~/ovb"
+        # TMPDIR workaround for hardened tmpfs
+        # https://stackoverflow.com/a/52283655/99834
+        # in production we use it with extra_node=1
+        extra_node: 1
+        passenv:
+          TMPDIR: /var/tmp
+      include_role:
+        name: ovb-manage
