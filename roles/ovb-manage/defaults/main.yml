@@ -73,3 +73,22 @@ undercloud_args: >-
     {%- else -%}{%- endif -%}
 role_args: ''
 extra_node_key_name: extranode-key
+client_list:
+  CentOS-7:
+     - - python-openstackclient
+       - 3.14.3 # queens
+     - - python-heatclient
+       - 1.14.0 # queens
+     - - python-novaclient
+       - 10.1.0 # queens
+     - - python-neutronclient
+       - 6.7.0 # queens
+  RedHat-8:
+     - - python3-openstackclient
+       - 3.19.0
+     - - python3-heatclient
+       - 1.17.0
+     - - python3-novaclient
+       - 14.1.0
+     - - python3-neutronclient
+       - 6.12.0
