@@ -21,6 +21,8 @@
     mode: 0755
 
 - name: Install heat stack
+  # notest tells molecule to skip during functional testing
+  tags: notest
   block:
 
     - name: Create a key in case of extranode
