@@ -1,0 +1,60 @@
+---
+# The MOLECULE_ vars used here are not officialy endorsed by molecule, but we
+# hope a future version will add implicit support for them.
+driver:
+  name: docker
+log: true
+platforms:
+
+  - name: ${MOLECULE_PLATFORM:-centos7}
+    hostname: ${MOLECULE_PLATFORM:-centos7}
+    image: ${MOLECULE_IMAGE:-centos:7}
+    dockerfile: ../Dockerfile.j2
+    easy_install:
+      - pip
+    environment: &env
+      http_proxy: "{{ lookup('env', 'http_proxy') }}"
+      https_proxy: "{{ lookup('env', 'https_proxy') }}"
+    registry:
+      url: ${MOLECULE_CONTAINER_REGISTRY_URL:-docker.io}
+
+  - name: rhel8
+    hostname: rhel8
+    image: ubi8/python-36
+    dockerfile: ../Dockerfile.j2
+    easy_install:
+      - pip
+    environment:
+      <<: *env
+    registry:
+      url: registry.access.redhat.com
+
+  # Disabled as pull images is currently broken
+  # - name: rhel8
+  #   hostname: rhel8
+  #   image: rhel8/rhel8-rhui:8.0-126
+  #   dockerfile: ../Dockerfile.j2
+  #   pkg_extras: python-setuptools
+  #   easy_install:
+  #     - pip
+  #   environment:
+  #     <<: *env
+  #   registry:
+  #     url: trunk.registry.rdoproject.org
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+  inventory:
+    host_vars:
+      rhel8:
+        ansible_python_interpreter: "/usr/bin/python3"
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - destroy
+lint:
+  enabled: false
