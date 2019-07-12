@@ -14,35 +14,20 @@
       until: epel_install is success
       retries: 3
       delay: 30
-      when: 'ansible_distribution != "Fedora"'
+      when: ansible_distribution not in ['Fedora', 'RedHat']
 
     - name: Install packages
       package:
-        name: "{{ item }}"
-      loop:
-        - gcc
-        - python-pip
-        - python-virtualenv
-      become: true
-      register: pip_install
-      until: pip_install is success
-      retries: 3
-      delay: 30
+        name: "{{ packages }}"
 
     - name: Install openstack clients in venv
+      environment:
+        # workaround for hardened tmpfs
+        # https://stackoverflow.com/a/52283655/99834
+        TMPDIR: /var/tmp
       pip:
-        name: "{{ item.0 }}"
+        name: "{{ pip_packages }}"
         virtualenv: "{{ ovb_working_dir }}/.venv"
-        version: "{{ item.1 }}"
-      loop:
-        - - python-openstackclient
-          - 3.14.3 # queens
-        - - python-heatclient
-          - 1.14.0 # queens
-        - - python-novaclient
-          - 10.1.0 # queens
-        - - python-neutronclient
-          - 6.7.0 # queens
       register: python_pkgs
       until: python_pkgs is success
       retries: 3
@@ -60,10 +45,12 @@
           command: |
             rm -rf /etc/yum.repos.d/*rpmsave
             {{ ansible_pkg_mgr }} clean all
+          args:
+            warn: False
 
       become: true
       when:
-        - 'ansible_distribution != "Fedora"'
+        - ansible_distribution not in ['Fedora', 'RedHat']
         - epel_install is changed
 
   when: not client_path.stat.exists|bool
