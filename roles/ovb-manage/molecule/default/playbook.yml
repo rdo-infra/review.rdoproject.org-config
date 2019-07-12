@@ -1,0 +1,25 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    # -- begin fixes
+    - name: gather needed facts
+      when: ansible_distribution is not defined
+      setup:
+        gather_subset: distribution,pkg_mgr
+
+    - name: install deps
+      package:
+        name:
+          - git
+    # -- end fixes
+
+    - name: import ovb-manage role
+      vars:
+        # TODO(ssbarnea): create should be implicit and not required
+        ovb_manage_stack_mode: create
+      include_role:
+        name: ovb-manage
