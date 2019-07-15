@@ -435,6 +435,15 @@
       - ovb-browbeat
     openstack-check:
       jobs:
+        - rdo-tox-molecule-rhel8:
+            files:
+              - ^playbooks/.*
+              - ^requirements.txt$
+              - ^roles/.*
+              - ^setup.*$
+              - ^test-requirements.txt$
+              - ^tox.ini$
+              - .*molecule.*
         - tripleo-ci-reproducer-fedora-28-libvirt-standalone-dryrun:
             files:
               - ^roles/libvirt/.*$
