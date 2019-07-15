@@ -12,8 +12,13 @@ rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
 if [ -n "$DISTRO" ]; then
-    UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
+    if [[ "$DISTRO" =~ "rhel" ]]; then
+        UPLOAD_URL=uploader@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
+    else
+        UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
+    fi
 else
+    # Legacy url for very old ditro-unaware jobs
     UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/rdo_trunk
 fi
 
