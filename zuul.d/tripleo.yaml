@@ -357,7 +357,12 @@
     name: opendev.org/openstack/tripleo-ansible
     templates:
       - system-required
-      - tripleo-ovb
+      - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
+          files:
+            - ^tripleo_ansible/.*
+      - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035:
+          files:
+            - ^tripleo_ansible/.*
 
 - project:
     name: opendev.org/openstack/openstack-virtual-baremetal
