@@ -42,6 +42,11 @@
       - system-required
 
 - project:
+    name: opendev.org/openstack/ansible-config_template
+    templates:
+      - system-required
+
+- project:
     name: opendev.org/openstack/dib-utils
     templates:
       - system-required
@@ -2404,6 +2409,19 @@
 
 - project:
     name: review.rdoproject.org/openstack/ansible-role-container-registry-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-config_template
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-config_template-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
