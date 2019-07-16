@@ -135,6 +135,16 @@
         - periodic-tripleo-rhel-8-master-containers-build-push:
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-ci-rhel-8-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-buildah
+        - periodic-tripleo-rhel-8-master-buildimage-ironic-python-agent:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-buildimage-overcloud-full
+        - periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-buildimage-ironic-python-agent
+              - periodic-tripleo-rhel-8-master-containers-buildah
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
     openstack-periodic-latest-released:
       jobs:
