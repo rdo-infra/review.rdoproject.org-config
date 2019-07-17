@@ -34,7 +34,7 @@ git config user.email "javier.pena@redhat.com"
 git config gitreview.username "rdo-trunk"
 git checkout -b new-project-$PROJECT_NAME
 git review -s -v
-COMMIT_MSG="Create project for $PROJECT_NAME\n\nThis is an automatically created commit, make sure you check the Zuul\nconfiguration to see if it matches the project needs.\n\nNote that a an additional review is required on [1].\n\n[1] - http://softwarefactory-project.io/r/gitweb?p=config.git;a=blob;f=zuul/rdo.yaml"
+COMMIT_MSG="Create project for $PROJECT_NAME\n\nThis is an automatically created commit, make sure you check the Zuul\nconfiguration to see if it matches the project needs.\n\nNote that a an additional review is required on [1].\n\n[1] - http://review.rdoproject.org/r/gitweb?p=config.git;a=blob;f=zuul/rdo.yaml"
 git add resources/*.yaml
 git add gerritbot/*.yaml
 echo -e $COMMIT_MSG | git commit -F-
