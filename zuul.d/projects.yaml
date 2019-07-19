@@ -438,6 +438,22 @@
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
+    name: review.rdoproject.org/centos-opstools/collectd-sensubility
+    templates:
+      - system-required
+    check:
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-validate
+    gate:
+      queue: centos-release-opstools
+      jobs:
+        - legacy-centos-opstools-rpmlint
+        - legacy-centos-opstools-rpmbuild
+        - opstools-perfmon-common-distgit-cbs-final-build
+
+- project:
     name: review.rdoproject.org/centos-opstools/fluentd
     templates:
       - system-required
