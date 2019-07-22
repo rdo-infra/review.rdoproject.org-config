@@ -1,0 +1,29 @@
+---
+#
+# Thse jobs whould be exact copies of the jobthey are trying to stage
+#
+# Any job defined here will not run directly on any patch in config, but
+# should be triggered in testproject once any change in the staging environment
+# is merged
+- project-template:
+    name: tripleo-staging
+    check:
+      jobs:
+        - staging-tripleo-ci-base-singlenode-rdo
+    files:
+      - ^staging/triggers/.*$
+
+# Staging clone of tripleo-ci-base-singlenode-rdo
+- job:
+    name: staging-tripleo-ci-base-singlenode-rdo
+    description: |
+        Base abstract job for singlenode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-singlenode
+    nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - staging/playbooks/tripleo-rdo-base/login.yaml # remove staging/
+    run: tests/functional/tripleo-rdo-base/login.yaml # NOCOPY
+    secrets:
+      - rdo_registry
+

@@ -1,0 +1,16 @@
+- block:
+    - name: Remove podman
+      package:
+        name:
+           - podman
+        state: absent
+      when: podman_install|changed
+
+    - name: Remove docker
+      package:
+        name:
+           - docker
+        state: absent
+      when: docker_install|changed
+  become: true
+
