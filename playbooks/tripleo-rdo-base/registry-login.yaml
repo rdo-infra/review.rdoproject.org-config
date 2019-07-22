@@ -1,4 +1,8 @@
+# We cannot rely on an external role to have no_log wrapper around
+# the credentials, so we are wrapping the whole role with a global
+# no_log
 - hosts: all
+  no_log: true
   vars:
     container_registry_logins:
         trunk.registry.rdoproject.org:
@@ -7,4 +11,21 @@
     - include_role:
         name: ansible-role-container-registry
         tasks_from: registry-login.yml
+      when: registry_login_enabled
 
+# Fauk fast if authentication did not work
+
+- hosts: all
+  vars:
+    docker_login_cache: /root/.docker/config.json
+  tasks:
+    - name: stat cache file
+      stat:
+        path: "{{ docker_login_cache }}"
+      register: cache_file
+    - name: validate presence of docker auth cache
+      assert:
+        that:
+          - cache_file.stat.exists
+        fail_msg: No auth cache file created, probably authentication failed
+        success_msg: Docker auth cache file present
