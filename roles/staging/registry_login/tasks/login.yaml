@@ -1,0 +1,19 @@
+
+- block:
+    - name: Login to trunk registry
+      command: podman login trunk.registry.rdoproject.org -u unused --password '{{ rdo_registry.token }}'
+      no_log: true
+  rescue:
+    - debug:
+        msg: "Warning: Unable to Login with podman"
+  become: true
+
+- block:
+    - name: Login to trunk registry
+      command: docker login trunk.registry.rdoproject.org -u unused --password '{{ rdo_registry.token }}'
+      no_log: true
+  rescue:
+    - debug:
+        msg: "Warning: Unable to Login with docker"
+  become: true
+
