@@ -1,10 +1,27 @@
+# We cannot rely on an external role to have no_log wrapper around
+# the credentials, so we are wrapping the whole role with a global
+# no_log
 - hosts: all
+  no_log: true
   vars:
     container_registry_logins:
         trunk.registry.rdoproject.org:
             unused: "{{ rdo_registry.token }}"
+    docker_login_cache: /root/.docker/config.json
   tasks:
-    - include_role:
-        name: ansible-role-container-registry
-        tasks_from: registry-login.yml
+    - name: Include login
+      when: registry_login_enabled
+      block:
+        - include_role:
+            name: ansible-role-container-registry
+            tasks_from: registry-login.yml
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int < 8
 
+        - include_role:
+            name: tripleo-podman
+            tasks_from: tripleo_podman_login.yml
+          when:
+            (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
+            or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
