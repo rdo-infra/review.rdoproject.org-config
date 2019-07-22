@@ -1,0 +1,29 @@
+- hosts: all
+  vars:
+    docker_login_cache: /root/.docker/config.json
+    podman_login_cache: /root/.docker/config.json
+    docker_socket: /var/run/docker.sock
+  tasks:
+    - block:
+        - name: verify docker login credentials were created
+          stat:
+            path: "{{ docker_login_cache }}"
+      rescue:
+        - debug:
+            msg: Unable to find docker credential cache
+
+    - block:
+        - name: verify podman login credentials were created
+          stat:
+            path: "{{ podman_login_cache }}"
+      rescue:
+        - debug:
+            msg: Unable to find podman credential cache
+
+    - block:
+        - name: ensure docker package is still available after login
+          stat:
+            path: "{{ docker_socket }}"
+      rescue:
+        - debug:
+            msg: Unable to find docker socket file

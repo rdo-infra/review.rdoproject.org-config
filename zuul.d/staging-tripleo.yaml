@@ -1,0 +1,21 @@
+---
+
+- project-template:
+    name: tripleo-staging
+    check:
+      jobs:
+        - staging-tripleo-ci-base-singlenode-rdo
+    files:
+      - ^staging/triggers/.*$
+
+- job:
+    name: staging-tripleo-ci-base-singlenode-rdo
+    abstract: true
+    description: |
+        Base abstract job for singlenode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-singlenode
+    nodeset: single-centos-7-node
+    pre-run:
+      - staging/playbooks/tripleo-rdo-base/pre.yaml
+    run: tests/functional/tripleo-rdo-base/pre.yaml
+
