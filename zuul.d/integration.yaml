@@ -1,0 +1,11 @@
+# This is to test integration of the ansible-role-container-registry role
+# to check if it breaks the login
+- job:
+    name: registry-login-integration
+    parent: tripleo-ci-base-singlenode-rdo
+    run: playbooks/tripleo-rdo-base/registry-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+    vars:
+      rdo_registry:
+          token: test
