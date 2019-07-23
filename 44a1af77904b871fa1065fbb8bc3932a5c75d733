@@ -70,6 +70,30 @@
       "revId": "44a1af77904b871fa1065fbb8bc3932a5c75d733",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29dec399_bb7661b4",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-23T08:47:48Z",
+      "side": 1,
+      "message": "It is relevant as it enables us to perform functional testing in subsequent changes like the ovg-manage one which depends on this one. Without enabling the job first, we cannot run functional testing. The first step is to enable an empty job, once this is done, we can add extra tests in other changes. That is a a well known limitation of using a trusted repo: you cannot modify the jobs run on it on the same change you are testing.\nAlso that jobs use no credentials, so there are no security risks involved.",
+      "parentUuid": "ba4867df_7c3d7565",
+      "range": {
+        "startLine": 25,
+        "startChar": 10,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "44a1af77904b871fa1065fbb8bc3932a5c75d733",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
