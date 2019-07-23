@@ -3,6 +3,8 @@
 # https://tree.taiga.io/project/tripleo-ci-board/us/1169
 - hosts: all
   name: Archive, MD5 sum and upload build images
+  vars:
+    workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
     - name: ironic-python-agent
       archive:

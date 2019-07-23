@@ -1,6 +1,8 @@
 ---
 - hosts: all
   name: Setup for building overcloud images
+  vars:
+    workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
     # Set facts used by upstream tripleo-ci build-images role. The build-images
     # jinja template reads these + exports DIB variables before building
