@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d1bd7ec6_43cce85e",
+        "filename": "roles/ovb-manage/defaults/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-23T12:29:31Z",
+      "side": 1,
+      "message": "I usually restrain myself from making absolute remarkings like \"any linux system\" because when it comes to configuration management, it is impossible to fully constraint all possible source of failures.\n\nThis issue for example is easily reproductible if /tmp is mounted with noexec, which happens to be a recommended security measure on linux.\n\nThis also happens to be default when using tmpfs, so it can really happen in real life, like when running inside a container.\n\nIf you are really concerned about changing current code behavior, you should state it. I can change it and override the value of `ovb_working_dir` inside playbook.yml in order\nto make the tests passing and avoiding to change the code of the role itself. \n\nAs you probably observed, I did the same with other issues found with the role.\n\nWould this be an acceptable workaround?",
+      "parentUuid": "2aa26086_898bdd74",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "c70b0cc78d9b164b2d9614fef5a803220e2afbfc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db9a4638_fee3dc1e",
         "filename": "roles/ovb-manage/tasks/install_openstack_deps.yml",
         "patchSetId": 9
