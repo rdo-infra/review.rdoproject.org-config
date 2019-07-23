@@ -14,7 +14,8 @@
       until: epel_install is success
       retries: 3
       delay: 30
-      when: 'ansible_distribution != "Fedora"'
+      # TODO(arxcruz): Once we have epel-release for RHEL, revert this commit
+      when: ansible_distribution != "Fedora" or (ansible_distribution == "RedHat" and major_release != '8')
 
     - name: Install packages
       package:
@@ -63,7 +64,8 @@
 
       become: true
       when:
-        - 'ansible_distribution != "Fedora"'
+        # TODO(arxcruz): Once we have epel-release for RHEL, revert this commit
+        - ansible_distribution != "Fedora" or (ansible_distribution == "RedHat" and major_release != '8')
         - epel_install is changed
 
   when: not client_path.stat.exists|bool
