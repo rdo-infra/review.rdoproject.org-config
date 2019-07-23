@@ -1,0 +1,34 @@
+- hosts: all
+  vars:
+  tasks:
+    - name: install vsftpd
+      package:
+        name: vsftpd
+        state: present
+
+    - name: create fake image file
+      copy:
+        content: test
+        dest: /var/ftp/pub/rhel_image.qcow2
+
+    - name: enable and start vsftp
+      service:
+        name: vsftpd
+        state: started
+
+    - set_fact:
+        rhel_image: ftp://localhost/pub/rhel_image.qcow2
+
+# would be better to make it a role instead
+- name: Include playbook pre.yaml to test 
+  include: ../../../../playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml 
+
+
+- hosts: all
+  vars:
+    workspace: {{ ansible_user_dir }}/workspace
+  tasks:
+    - name: Check image has been downloaded correctly
+      file:
+        path: {{ workspace }}/rhel_image.qcow2
+        state: present

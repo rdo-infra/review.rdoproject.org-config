@@ -1,0 +1,31 @@
+- hosts: all
+  tasks:
+    - name: create fake image file
+      copy:
+        content: test
+        dest: {{ workspace }}/ironic-python-agent.initramfs
+    - name:
+      shell:
+          touch {{ workspace  }}/ironic-python-agent.initramfs
+          touch {{ workspace  }}/ironic-python-agent.kernel
+          touch {{ workspace  }}/openstack-full.qcow2
+          touch {{ workspace  }}/openstack-full.initrd
+          touch {{ workspace  }}/openstack-full.vmlinuz
+
+# would be better to make it a role instead
+- name: Include playbook pre.yaml to test 
+  include: ../../../../playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
+
+- hosts: all
+  vars:
+    workspace: {{ ansible_user_dir }}/workspace
+  tasks:
+    - name: Ensure all the file exist in correct places
+      file:
+        path: {{ item }}
+        state: present
+      with_item:
+         - {{ workspace }}/ironic-python-agent.tar
+         - {{ workspace }}/ironic-python-agent.tar.md5
+         - {{ workspace }}/overcloud-full.tar
+         - {{ workspace }}/overcloud-full.tar.md5
