@@ -9,7 +9,8 @@
       become: true
       package:
         name:
-          - python-docker
+          - "{% if ansible_python.version.major == 3 -%}python3-docker{%-
+              else -%}python-docker{%- endif -%}"
 
     - name: Login to RDO registry
       become: "{{ item }}"
