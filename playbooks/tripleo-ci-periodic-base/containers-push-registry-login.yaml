@@ -8,8 +8,13 @@
     - name: Install python docker
       become: true
       package:
-        name:
-          - python-docker
+        name: >
+            {% if ansible_pkg_mgr == "dnf" and ansible_distribution|lower  == "redhat" %}
+            python3-docker
+            {% else %}
+            python-docker
+            {% endif %}
+
 
     - name: Login to RDO registry
       become: "{{ item }}"
