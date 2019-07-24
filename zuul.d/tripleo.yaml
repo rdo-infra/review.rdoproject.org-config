@@ -16,6 +16,7 @@
       - system-required
       - tripleo-build-containers-jobs
       - tripleo-ovb
+      - tripleo-buildimage-job
       - tripleo-upgrades-check-branchless
       - vexxhost-experimental
     openstack-check:
@@ -340,6 +341,7 @@
       - tripleo-ovb
       - ovb-experimental
       - vexxhost-experimental
+      - tripleo-buildimage-job
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
@@ -485,6 +487,43 @@
 
 - project:
     name: opendev.org/openstack/tripleo-image-elements
+    templates:
+        - tripleo-buildimage-job
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
+
+- project:
+    name: opendev.org/openstack/heat-agents
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/instack-undercloud
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/ironic
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/ironic-python-agent
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/python-tripleoclient
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/tripleo-puppet-elements
+    templates:
+        - tripleo-buildimage-job
+
+- project:
+    name: opendev.org/openstack/tripleo-repos
+    templates:
+        - tripleo-buildimage-job
