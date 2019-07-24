@@ -8,7 +8,8 @@
     # jinja template reads these + exports DIB variables before building
     - name: Set dib_local_image and other facts used by tripleo-ci build-image role build template
       set_fact:
-        dib_local_image: "{{ rhel_image_source | urlsplit('path') | basename }}"
+        dib_local_image_filename: "{{ rhel_image_source | urlsplit('path') | basename }}"
+        dib_local_image: "{{ workspace }}/{{ dib_local_image_filename }}"
         dib_node_dist: "rhel"
         dib_release: "8"
         dib_yum_repo_conf: " /etc/yum.repos.d/delorean.repo /etc/yum.repos.d/osp15-deps.repo /etc/yum.repos.d/rh-cloud.repo "
@@ -17,5 +18,4 @@
     - name: Download rhel source image
       get_url:
         url: "{{ rhel_image_source }}"
-        dest: "{{ workspace }}/{{ dib_local_image }}"
-
+        dest: "{{ dib_local_image }}"
