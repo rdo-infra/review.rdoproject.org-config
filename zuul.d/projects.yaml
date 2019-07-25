@@ -24,6 +24,13 @@
         - tox-linters
         - rdo-tox-molecule:
             voting: false
+            files:
+              - ^requirements.txt$
+              - ^roles/.*
+              - ^setup.*$
+              - ^test-requirements.txt$
+              - ^tox.ini$
+              - .*molecule.*
     gate:
       jobs:
         - config-check
