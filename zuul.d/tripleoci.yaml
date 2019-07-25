@@ -32,21 +32,12 @@
  # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
  # will also need a post for upload/rsync images (site_logs secret logserver)
 - job:
-    name: periodic-tripleo-rhel-8-master-buildimage-base
+    name: tripleo-rhel-8-master-buildimage-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-build-images
     nodeset: single-rhel-8-node
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-      - playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
     required-projects:
       - config
-    secrets:
-      - site_logs
-      - dlrnapi
     host-vars:
       primary:
         ansible_python_interpreter: /usr/bin/python3
@@ -59,7 +50,22 @@
       rhel_image_source: http://38.145.34.141/rcm-guest/images/rhel8/master/rdo_trunk/tripleo-ci-testing/rhel-8.0-guest-rhui.qcow2
 
 - job:
-    name: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
+    name: periodic-tripleo-rhel-8-master-buildimage-base
+    abstract: true
+    parent: tripleo-rhel-8-master-buildimage-base
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - site_logs
+
+- job:
+    name: periodic-tripleo-rhel-8-master-buildimage-overcloud-full-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
     post-run:
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
