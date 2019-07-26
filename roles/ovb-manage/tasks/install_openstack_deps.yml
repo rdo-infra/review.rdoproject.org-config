@@ -4,7 +4,8 @@
     path: "{{ ovb_working_dir }}/.venv/bin/openstack"
   register: client_path
 
-- block:
+- when: not client_path.stat.exists|bool
+  block:
 
     - name: Install epel
       package:
@@ -49,6 +50,10 @@
       delay: 30
 
     - name: Remove epel if changed
+      when:
+        - 'ansible_distribution != "Fedora"'
+        - epel_install is changed
+      become: true
       block:
 
         - name: Remove epel-release
@@ -60,10 +65,3 @@
           command: |
             rm -rf /etc/yum.repos.d/*rpmsave
             {{ ansible_pkg_mgr }} clean all
-
-      become: true
-      when:
-        - 'ansible_distribution != "Fedora"'
-        - epel_install is changed
-
-  when: not client_path.stat.exists|bool
