@@ -84,12 +84,15 @@
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
     vars:
        push_containers: true
+       push_containers_podman: true
        push_registry: trunk.registry.rdoproject.org
        buildcontainers_override_repos: tripleo-ci-testing
        featureset: containers-build # needed for dlrn report in post.yaml
     pre-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
+    run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
