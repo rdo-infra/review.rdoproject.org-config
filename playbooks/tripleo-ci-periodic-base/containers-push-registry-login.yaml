@@ -5,22 +5,23 @@
     rdo_registry_url: "{{ lookup('env', 'REGISTRY_URL') | default('trunk.registry.rdoproject.org', true) }}"
 
   tasks:
-    - name: Install python docker
-      become: true
-      package:
-        name:
-          - "{% if ansible_python.version.major == 3 -%}python3-docker{%-
-              else -%}python-docker{%- endif -%}"
+    - name: Container Logging to RDO registry for RHEL 7 and Fedora 28
+      when: ansible_distribution|lower != 'redhat'
+      block:
+        - name: Install python docker
+          become: true
+          package:
+            name: python-docker
 
-    - name: Login to RDO registry
-      become: "{{ item }}"
-      docker_login:
-        registry_url: "{{ rdo_registry_url }}"
-        username: "{{ rdo_registry_user }}"
-        password: "{{ rdo_registry.token }}"
-        email: "{{ rdo_registry_email | default(omit, true) }}"
-        reauthorize: true
-      when: push_containers|default(true)|bool
-      with_items:
-        - true
-        - false
+        - name: Login to RDO registry
+          become: "{{ item }}"
+          docker_login:
+            registry_url: "{{ rdo_registry_url }}"
+            username: "{{ rdo_registry_user }}"
+            password: "{{ rdo_registry.token }}"
+            email: "{{ rdo_registry_email | default(omit, true) }}"
+            reauthorize: true
+          when: push_containers|default(true)|bool
+          with_items:
+            - true
+            - false
