@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89bac95f_a3f11f5d",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-26T10:04:06Z",
+      "side": 1,
+      "message": "name does not match condition, which would be true for any redhat distro, regardless the version.",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "2f55a6a9e4ad836c8eaed47d755c81d2aad794c0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b562033_30bf7080",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-26T10:04:06Z",
+      "side": 1,
+      "message": "you want `set -ex` here as you want to fail, and not to ignore failures.",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "2f55a6a9e4ad836c8eaed47d755c81d2aad794c0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9b0a8ad_640d14a1",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-26T10:04:06Z",
+      "side": 1,
+      "message": "also this condition makes no sense to me becaus AFAIK, we only run \"redhat\" distros on RDO.\n\n\nThis task does not mention for this platform this would be needed, or why is not needed for the other ones.",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "2f55a6a9e4ad836c8eaed47d755c81d2aad794c0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd0ffc1c_6adbdc7a",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-07-26T10:04:06Z",
+      "side": 1,
+      "message": "i do not see any reason to use a block here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "2f55a6a9e4ad836c8eaed47d755c81d2aad794c0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
