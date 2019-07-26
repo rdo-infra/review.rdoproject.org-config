@@ -90,6 +90,8 @@
     pre-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
+    run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
