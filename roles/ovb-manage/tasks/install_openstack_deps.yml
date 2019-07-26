@@ -4,51 +4,35 @@
     path: "{{ ovb_working_dir }}/.venv/bin/openstack"
   register: client_path
 
-- block:
+- when: not client_path.stat.exists|bool
+  block:
 
     - name: Install epel
+      when: install_epel
       package:
         name: epel-release
       become: true
-      register: epel_install
-      until: epel_install is success
+      register: epel_installed
+      until: epel_installed is success
       retries: 3
       delay: 30
-      when: 'ansible_distribution != "Fedora"'
 
     - name: Install packages
       package:
-        name: "{{ item }}"
-      loop:
-        - gcc
-        - python-pip
-        - python-virtualenv
-      become: true
-      register: pip_install
-      until: pip_install is success
-      retries: 3
-      delay: 30
+        name: "{{ packages }}"
 
     - name: Install openstack clients in venv
       pip:
-        name: "{{ item.0 }}"
+        name: "{{ pip_packages }}"
         virtualenv: "{{ ovb_working_dir }}/.venv"
-        version: "{{ item.1 }}"
-      loop:
-        - - python-openstackclient
-          - 3.14.3 # queens
-        - - python-heatclient
-          - 1.14.0 # queens
-        - - python-novaclient
-          - 10.1.0 # queens
-        - - python-neutronclient
-          - 6.7.0 # queens
       register: python_pkgs
       until: python_pkgs is success
       retries: 3
       delay: 30
 
     - name: Remove epel if changed
+      when: epel_installed is changed
+      become: true
       block:
 
         - name: Remove epel-release
@@ -60,10 +44,5 @@
           command: |
             rm -rf /etc/yum.repos.d/*rpmsave
             {{ ansible_pkg_mgr }} clean all
-
-      become: true
-      when:
-        - 'ansible_distribution != "Fedora"'
-        - epel_install is changed
-
-  when: not client_path.stat.exists|bool
+          args:
+            warn: False
