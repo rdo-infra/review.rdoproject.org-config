@@ -154,6 +154,8 @@
 - job:
     name: periodic-tripleo-rhel-8-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     nodeset: single-rhel-8-node
     host-vars:
       primary:
@@ -169,7 +171,9 @@
       kolla_base_tag: 8.0-126
       kolla_base: rhel
       kolla_base_pull: false
-      push_containers: true
+      # set push_containers to false as build containers are pushing using podman
+      push_containers: false
+      push_containers_podman: true
 
 - job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
