@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3227a35a_c5ee5d20",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2019-07-26T16:22:22Z",
+      "side": 1,
+      "message": "you also need to run this task only when containers are build successfully. Othewise job will fail will with POST_FAILURE\u003e",
+      "revId": "614bd0b96031a074641c267fbc1769a51badaa84",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63f78a01_000bf900",
         "filename": "zuul.d/tripleoci.yaml",
         "patchSetId": 9
@@ -73,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "a76822b8_81aeabbc",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2019-07-26T16:22:22Z",
+      "side": 1,
+      "message": "you need to set push_containers to false for rhel8 job. Can you override it in that job.",
+      "parentUuid": "f34deee3_384b6906",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 28
+      },
+      "revId": "614bd0b96031a074641c267fbc1769a51badaa84",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b3f1a4_156744a4",
         "filename": "zuul.d/tripleoci.yaml",
         "patchSetId": 9
@@ -108,6 +149,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "12b3f1a4_156744a4",
+      "range": {
+        "startLine": 94,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 81
+      },
+      "revId": "614bd0b96031a074641c267fbc1769a51badaa84",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e19e19bf_17e96a8d",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2019-07-26T16:22:22Z",
+      "side": 1,
+      "message": "Adding it in run will override the main playbook run so containers will never be build. why not adding it only in rhel8 container build job?",
+      "parentUuid": "41b420a3_ceaa333d",
       "range": {
         "startLine": 94,
         "startChar": 6,
