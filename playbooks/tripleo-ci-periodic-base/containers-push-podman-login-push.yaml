@@ -1,0 +1,26 @@
+- hosts: primary
+  vars:
+    rdo_registry_user: "{{ lookup('env', 'REGISTRY_USERNAME') | default('unused', true) }}"
+
+  tasks:
+    - name: Container Push for RHEL 8 only
+      when: ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "8" and zuul_success|bool
+      block:
+        - name: Install podman
+          become: true
+          package:
+            name: podman
+            state: present
+
+        - name: Push container to RDO registry
+          when: push_containers_podman|default(false)|bool
+          become: true
+          no_log: True
+          shell: |
+            set -e
+            for container in $(awk {'print $1":"$2'} containers-successfully-built.log); do
+                podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} $container
+                echo "$container push successfully!" >> {{ workspace }}/container_push.log
+            done >> {{ workspace }}/podman_push.log 2>> {{ workspace }}/podman_push_error.log
+          args:
+            chdir: '{{ workspace }}'
