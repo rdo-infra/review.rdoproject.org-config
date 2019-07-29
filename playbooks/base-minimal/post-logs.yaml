@@ -4,7 +4,11 @@
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
     - role: ara-report
-
+    - role: log-classify
+      logclassify_model_store_url: https://softwarefactory-project.io/logs/classifiers/tripleo
+      logclassify_zuul_web: https://softwarefactory-project.io/zuul/api/tenant/rdoproject.org
+      logclassify_model_dir: /var/lib/log-classify
+      logclassify_local_dir: "{{ zuul.executor.log_root }}"
 
 - hosts: "{{ site_logs.fqdn }}"
   gather_facts: False
