@@ -4,11 +4,17 @@
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
     - role: ara-report
-
+    - role: log-classify
+      logclassify_model_store_url: https://logs.rdoproject.org/classifiers
+      logclassify_zuul_web: https://softwarefactory-project.io/zuul/api/tenant/rdoproject.org
+      logclassify_model_dir: /var/lib/log-classify
+      logclassify_local_dir: "{{ zuul.executor.log_root }}"
 
 - hosts: "{{ site_logs.fqdn }}"
   gather_facts: False
   roles:
+    - role: name=upload-log-classify-model
+      logclassify_model_root: /var/www/html/review.rdoproject.org/classifiers
     - role: upload-logs
       zuul_log_url: "{{ site_logs.url }}"
       zuul_logserver_root: "{{ site_logs.path }}"
