@@ -18,9 +18,9 @@
           no_log: True
           shell: |
             set -e
-            for container in $(awk {'print $1":"$2'} containers-successfully-built.log); do
+            for container in $(awk {'print $1":"$2'} {{ ansible_user_dir }}/workspace/containers-successfully-built.log); do
                 podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} $container
-                echo "$container push successfully!" >> {{ workspace }}/container_push.log
-            done >> {{ workspace }}/podman_push.log 2>> {{ workspace }}/podman_push_error.log
+                echo "$container push successfully!" >> {{ ansible_user_dir }}/workspace/container_push.log
+            done >> {{ ansible_user_dir }}/workspace/podman_push.log 2>> {{ ansible_user_dir }}/workspace/podman_push_error.log
           args:
-            chdir: '{{ workspace }}'
+            chdir: '{{ ansible_user_dir }}/workspace'
