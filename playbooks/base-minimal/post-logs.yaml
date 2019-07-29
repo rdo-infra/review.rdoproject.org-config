@@ -4,7 +4,7 @@
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
     - role: ara-report
-
+    - role: log-classify-run
 
 - hosts: "{{ site_logs.fqdn }}"
   gather_facts: False

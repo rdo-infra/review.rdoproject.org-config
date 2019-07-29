@@ -1,0 +1,26 @@
+# Set optin to False to disable log-classify
+logclassify_optin: true
+
+# Anomaly distance threshold (between 0.0 and 1.0)
+logclassify_threshold: 0.2
+# Context to include
+logclassify_before_context: 3
+logclassify_after_context: 2
+
+# How old (in days) can a built model be used
+logclassify_model_age: 8
+# Build a model per project (instead of per job)
+logclassify_model_per_project: false
+
+logclassify_static_location: https://softwarefactory-project.io/static
+logclassify_model_store_url: http://logs.rdoproject.org/classifiers
+logclassify_zuul_web: https://softwarefactory-project.io/zuul/api/tenant/rdoproject.org
+logclassify_tmp_dir: /tmp/log-classify
+
+# Logs path
+logclassify_local_dir: "{{ zuul.executor.log_root }}"
+
+# Enable log-classify --debug
+logclassify_debug: false
+
+logclassify_max_run_time: 900
