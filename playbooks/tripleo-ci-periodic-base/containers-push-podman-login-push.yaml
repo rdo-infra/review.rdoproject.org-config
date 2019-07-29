@@ -1,6 +1,7 @@
 - hosts: primary
   vars:
     rdo_registry_user: "{{ lookup('env', 'REGISTRY_USERNAME') | default('unused', true) }}"
+    workspace: "{{ ansible_user_dir }}/workspace"
 
   tasks:
     - name: Container Push for RHEL 8 only
