@@ -11,9 +11,9 @@
       shell:
         cmd: |
           source {{ workspace }}/hash_info.sh
-          {% if nodes is defined %}
+          {% if nodes is defined and featureset is defined %}
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-{{ nodes }}-featureset{{ featureset }}"
-          {% else %}
+          {% elif featureset is defined %}
           export TOCI_JOBTYPE="periodic-{{ environment_type }}-featureset{{ featureset }}"
           {% endif %}
           export LOG_PATH="{{ zuul_log_path }}"
