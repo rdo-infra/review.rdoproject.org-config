@@ -157,6 +157,8 @@
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     nodeset: single-rhel-8-node
+    secrets:
+      - rdo_registry
     host-vars:
       primary:
         ansible_python_interpreter: /usr/bin/python3
