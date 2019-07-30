@@ -24,11 +24,15 @@
       rdoci:
         Verified: 1
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: -1
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-experimental
@@ -51,9 +55,13 @@
     success:
       rdoci: {}
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoci: {}
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-regular
@@ -66,8 +74,12 @@
         - time: '10 6,10,14,18,22 * * *'
     success:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-master
@@ -80,8 +92,12 @@
         - time: '10 0,12,18 * * *'
     success:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-latest-released
@@ -94,8 +110,12 @@
         - time: '10 9,15,21 * * *'
     success:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-24hr
@@ -108,8 +128,12 @@
         - time: '0 4 * * *'
     success:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-post
@@ -123,8 +147,12 @@
           ref: ^refs/heads/.*$
     success:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-check-rdo
@@ -151,8 +179,12 @@
       rdoci:
         Verified: 1
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: -1
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
