@@ -11,19 +11,9 @@
       shell:
         cmd: |
           source {{ workspace }}/hash_info.sh
-          {% if nodes is defined and featureset is defined %}
-          export TOCI_JOBTYPE="periodic-{{ environment_type }}-{{ nodes }}-featureset{{ featureset }}"
-          {% elif featureset is defined %}
-          export TOCI_JOBTYPE="periodic-{{ environment_type }}-featureset{{ featureset }}"
-          {% endif %}
           export LOG_PATH="{{ zuul_log_path }}"
           export LOG_HOST_URL="{{ log_host_url | default('https://logs.rdoproject.org') }}"
           export SUCCESS="{{ zuul_success | bool }}"
-          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
-          # Pass also the new naming scheme as JOBTYPE to report to DLRN
-          # In this way each job will report success/failure with the new name
-          # and the old name, and we can use one or the other in the promotion
-          # criteria
           export TOCI_JOBTYPE="{{ zuul.job }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_report.sh
         chdir: '{{ workspace }}'
