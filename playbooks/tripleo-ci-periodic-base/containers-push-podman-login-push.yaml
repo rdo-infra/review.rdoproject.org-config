@@ -16,7 +16,6 @@
         - name: Push container to RDO registry
           when: push_containers_podman|default(false)|bool
           become: true
-          no_log: True
           shell: |
             set -e
             for container in $(awk {'print $1":"$2'} containers-successfully-built.log); do
