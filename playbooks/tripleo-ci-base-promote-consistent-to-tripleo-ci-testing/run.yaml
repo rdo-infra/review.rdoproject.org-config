@@ -90,7 +90,7 @@
               source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
               activate_dlrnapi_venv
               echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
-              # If the hash combination doesn't exist the API will report 404 and the command will exit 1
+              # If the hash combination doesnt exist the API will report 404 and the command will exit 1
               dlrnapi --url $DLRNAPI_URL repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
               if [[ "$?" == "1" ]]; then
                 echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in RHEL"
