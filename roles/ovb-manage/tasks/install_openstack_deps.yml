@@ -18,6 +18,7 @@
       delay: 30
 
     - name: Install packages
+      become: true
       package:
         name: "{{ packages }}"
 
