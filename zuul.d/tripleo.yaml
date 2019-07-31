@@ -105,9 +105,6 @@
         - periodic-tripleo-ci-centos-7-standalone-full-tempest-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-fedora-28-standalone-master:
-            dependencies:
-              - periodic-tripleo-fedora-28-master-containers-build-push
         - periodic-tripleo-ci-centos-7-scenario001-standalone-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
@@ -124,9 +121,6 @@
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
         - periodic-tripleo-centos-7-master-containers-build-push:
-            dependencies:
-              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-fedora-28-master-containers-build-push:
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-rhel-8-master-containers-build-push:
@@ -183,9 +177,6 @@
         - periodic-tripleo-ci-centos-7-standalone-stein:
             dependencies:
               - periodic-tripleo-centos-7-stein-containers-build-push
-        - periodic-tripleo-ci-fedora-28-standalone-stein:
-            dependencies:
-              - periodic-tripleo-fedora-28-stein-containers-build-push
         - periodic-tripleo-ci-centos-7-scenario001-standalone-stein:
             dependencies:
               - periodic-tripleo-centos-7-stein-containers-build-push
@@ -202,9 +193,6 @@
             dependencies:
               - periodic-tripleo-centos-7-stein-containers-build-push
         - periodic-tripleo-centos-7-stein-containers-build-push:
-            dependencies:
-              - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-fedora-28-stein-containers-build-push:
             dependencies:
               - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
