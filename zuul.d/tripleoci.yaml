@@ -109,25 +109,9 @@
        release: master
 
 - job:
-    name: periodic-tripleo-fedora-28-master-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-upstream-fedora-28-node
-    vars:
-       release: master
-
-- job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
-
-- job:
-    name: periodic-tripleo-fedora-28-stein-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-upstream-fedora-28-node
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -140,14 +124,6 @@
     name: periodic-tripleo-centos-7-master-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
-    vars:
-       release: master
-       use_buildah: true
-
-- job:
-    name: periodic-tripleo-fedora-28-master-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-upstream-fedora-28-node
     vars:
        release: master
        use_buildah: true
@@ -188,16 +164,6 @@
        branch_override: 'stable/stein'
        use_buildah: true
 
-- job:
-    name: periodic-tripleo-fedora-28-stein-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-upstream-fedora-28-node
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
-       use_buildah: true
-
 # --- end of master/stein buildah build jobs
 
 - job:
@@ -231,15 +197,6 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
-
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-fedora-28-master-containers-build-push defined above
-- job:
-    name: periodic-tripleo-fedora-28-master-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    nodeset: single-upstream-fedora-28-node
-    vars:
-       release: master
 
 #TODO(marios): remove this once we switch to using the new
 #periodic-tripleo-centos-7-master-containers-build-push defined above

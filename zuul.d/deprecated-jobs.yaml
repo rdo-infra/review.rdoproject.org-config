@@ -1,0 +1,51 @@
+---
+# zuul.d/deprecated-jobs.yaml
+# Zuul layout for TripleO deprecated jobs in RDO SF.
+# It contains all the deprecated jobs that should be removed from Zuul.
+
+## fedora jobs are deprecated and disabled in all pipelines
+
+# build jobs using docker
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    override-checkout: 'stable/stein'
+    vars:
+       release: stein
+       branch_override: 'stable/stein'
+
+# build jobs using buildah
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-buildah
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
+       use_buildah: true
+
+- job:
+    name: periodic-tripleo-fedora-28-stein-containers-buildah
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-upstream-fedora-28-node
+    override-checkout: 'stable/stein'
+    vars:
+       release: stein
+       branch_override: 'stable/stein'
+       use_buildah: true
+
+#TODO(marios): remove this once we switch to using the new
+#periodic-tripleo-fedora-28-master-containers-build-push defined above
+- job:
+    name: periodic-tripleo-fedora-28-master-containers-build
+    parent: tripleo-ci-base-singlenode-containers-build
+    nodeset: single-upstream-fedora-28-node
+    vars:
+       release: master
