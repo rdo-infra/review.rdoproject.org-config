@@ -7,6 +7,20 @@
   set_fact:
     idnum: "{{ idnum_shell.stdout }}"
 
+- name: Copy DNS file from job to keep it in logs
+  become: true
+  shell: cp /etc/resolv.conf /etc/resolv-from-job.conf
+  changed_when: true
+
+- name: Override DNS settings from job to known ones
+  become: true
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 127.0.0.1
+      nameserver 1.1.1.1
+      nameserver 8.8.8.8
+
 - name: Find out undercloud host ID
   include: find_undercloud_uuid.yml
 
