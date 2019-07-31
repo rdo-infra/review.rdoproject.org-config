@@ -138,11 +138,10 @@
         - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master:
             dependencies:
               - periodic-tripleo-rhel-8-buildimage-overcloud-full-master
-# Featureset 001 RHEL8 delayed until we are running on the correct tenant
-#        - periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-master:
-#            dependencies:
-#              - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
-#              - periodic-tripleo-rhel-8-containers-build-push
+        - periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
+              - periodic-tripleo-rhel-8-containers-build-push
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
     openstack-periodic-latest-released:
       jobs:

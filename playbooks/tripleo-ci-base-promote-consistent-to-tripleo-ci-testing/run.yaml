@@ -101,8 +101,9 @@
           environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
           when: release in ["master"]
           register: result
-          retries: 20
-          delay: 30
+          # rhel build times are lagging significantly
+          retries: 30
+          delay: 60
           until: result is succeeded
       rescue:
         - debug:
