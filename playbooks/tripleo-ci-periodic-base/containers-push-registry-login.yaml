@@ -10,19 +10,23 @@
         - ansible_distribution|lower != 'redhat'
         - push_containers|default(true)|bool
       block:
-        - name: Install python docker
+        - name: Ensure docker is installed
           become: true
           package:
-            name: python-docker
+            name: docker
+            state: present
+
+        - name: Ensure docker service is started
+          service:
+            name: docker
+            state: started
 
         - name: Login to RDO registry
           become: "{{ item }}"
-          docker_login:
-            registry_url: "{{ rdo_registry_url }}"
-            username: "{{ rdo_registry_user }}"
-            password: "{{ rdo_registry.token }}"
-            email: "{{ rdo_registry_email | default(omit, true) }}"
-            reauthorize: true
+          shell: >
+            docker login --password "{{ rdo_registry.token }}"
+                         --username "{{ rdo_registry_user }}"
+                         "{{ rdo_registry_url }}"
           with_items:
             - true
             - false
