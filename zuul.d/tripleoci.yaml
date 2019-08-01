@@ -61,6 +61,8 @@
 - job:
     name: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: overcloud-full
       release: master
