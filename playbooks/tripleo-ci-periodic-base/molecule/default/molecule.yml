@@ -1,0 +1,15 @@
+---
+driver:
+  name: delegated
+log: true
+platforms:
+  - name: localhost
+    groups:
+      - primary
+provisioner:
+  name: ansible
+scenario:
+  test_sequence:
+    - converge
+lint:
+  enabled: false
