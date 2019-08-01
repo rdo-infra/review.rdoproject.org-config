@@ -62,7 +62,6 @@
     required-projects:
       - config
     secrets:
-      - site_logs
       - dlrnapi
 
 - job:
@@ -73,7 +72,10 @@
     vars:
       tripleo_image_type: overcloud-full
       release: master
+    secrets:
+      - site_logs
 
+# This is not used in periodic
 - job:
     name: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
@@ -84,9 +86,13 @@
 - job:
     name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: ironic-python-agent
       release: master
+    secrets:
+      - site_logs
 
 - job:
     name: periodic-tripleo-containers-build-push-base
