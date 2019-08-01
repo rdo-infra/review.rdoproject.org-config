@@ -13,7 +13,12 @@
 
       - name: Create SSH private key from secret
         copy:
-          content: "{{ uploader_ssh_key.ssh_private_key }}"
+          content: >-
+            {% if ansible_distribution|lower == 'redhat' -%}
+            "{{ site_logs.ssh_private_key }}"
+            {%- else -%}
+            "{{ uploader_ssh_key.ssh_private_key }}"
+            {%- endif %}
           dest: "{{ ssh_private_key_tmp.path }}"
           mode: 0600
 
