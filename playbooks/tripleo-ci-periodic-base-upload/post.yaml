@@ -2,7 +2,7 @@
   vars:
     workspace: "{{ ansible_user_dir }}/workspace"
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
-    images_working_dir: "{{ ansible_user_dir }}/workspace"
+    images_working_dir: "{{ ansible_user_dir }}"
   tasks:
 
     - block:

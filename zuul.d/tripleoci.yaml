@@ -72,7 +72,7 @@
     vars:
       tripleo_image_type: overcloud-full
       image_tar_file: overcloud-full
-      images_working_dir: "{{ ansible_user_dir }}/workspace"
+      images_working_dir: "{{ ansible_user_dir }}"
       image_files_to_tar:
         - "{{ images_working_dir }}/overcloud-full.qcow2"
         - "{{ images_working_dir }}/overcloud-full.initrd"
@@ -97,7 +97,7 @@
     vars:
       tripleo_image_type: ironic-python-agent
       image_tar_file: ironic-python-agent
-      images_working_dir: "{{ ansible_user_dir }}/workspace"
+      images_working_dir: "{{ ansible_user_dir }}"
       image_files_to_tar:
         - "{{ images_working_dir }}/ironic-python-agent.initramfs"
         - "{{ images_working_dir }}/ironic-python-agent.kernel"
