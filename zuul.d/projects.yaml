@@ -22,15 +22,18 @@
       jobs:
         - config-check
         - tox-linters
-        - rdo-tox-molecule:
+        - rdo-tox-molecule: &molecule
             voting: false
             files:
               - ^requirements.txt$
+              - ^playbooks/.*
               - ^roles/.*
               - ^setup.*$
               - ^test-requirements.txt$
               - ^tox.ini$
               - .*molecule.*
+        - rdo-tox-molecule-rhel8-delegated:
+            <<: *molecule
     gate:
       jobs:
         - config-check
