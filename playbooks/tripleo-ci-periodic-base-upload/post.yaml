@@ -12,8 +12,6 @@
           path: "{{ image_files_to_tar }}"
           dest: "{{ images_working_dir }}/{{ image_tar_file }}.tar"
           format: tar
-        args:
-          chdir: "{{ images_working_dir }}"
 
       - name: Create md5sums
         shell: |
