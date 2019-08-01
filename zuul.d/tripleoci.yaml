@@ -71,6 +71,11 @@
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: overcloud-full
+      image_tar_file: overcloud-full
+      image_files_to_tar:
+        - overcloud-full.qcow2
+        - overcloud-full.initrd
+        - overcloud-full.vmlinuz
       release: master
     secrets:
       - site_logs
@@ -90,6 +95,10 @@
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: ironic-python-agent
+      image_tar_file: ironic-python-agent
+      image_files_to_tar:
+        - ironic-python-agent.initramfs
+        - ironic-python-agent.kernel
       release: master
     secrets:
       - site_logs
