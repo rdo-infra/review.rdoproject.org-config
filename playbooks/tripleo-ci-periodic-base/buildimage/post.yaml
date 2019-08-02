@@ -11,7 +11,7 @@
         path:
           - "{{ workspace }}/ironic-python-agent.initramfs"
           - "{{ workspace }}/ironic-python-agent.kernel"
-        dest: "{{ workspace }}/ironic-python-agent.tar"
+        dest: "{{ ansible_user_dir }}/ironic-python-agent.tar"
         format: tar
 
     - name: overcloud-full
@@ -20,7 +20,7 @@
           - "{{ workspace }}/overcloud-full.qcow2"
           - "{{ workspace }}/overcloud-full.initrd"
           - "{{ workspace }}/overcloud-full.vmlinuz"
-        dest: "{{ workspace }}/overcloud-full.tar"
+        dest: "{{ ansible_user_dir }}/overcloud-full.tar"
         format: tar
 
     - name: Create md5sums
@@ -29,6 +29,6 @@
           md5sum ironic-python-agent.tar > ironic-python-agent.tar.md5
           md5sum overcloud-full.tar > overcloud-full.tar.md5
       args:
-        chdir: "{{ workspace }}"
+        chdir: "{{ ansible_user_dir }}"
       changed_when: true
 
