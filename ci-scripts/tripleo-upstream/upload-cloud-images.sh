@@ -12,7 +12,7 @@ rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
 if [ -n "$DISTRO" ]; then
-    if [[ "$DISTRO" =~ "rhel" ]]; then
+    if [[ "$DISTRO" =~ "redhat" ]]; then
         UPLOAD_URL=uploader@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
     else
         UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
@@ -26,8 +26,12 @@ fi
 if [ ! -d $FULL_HASH ]; then
     mkdir $FULL_HASH
 fi
-mv overcloud-full.tar overcloud-full.tar.md5 $FULL_HASH
-mv ironic-python-agent.tar ironic-python-agent.tar.md5 $FULL_HASH
+if [ -f "overcloud-full.tar" ]; then
+    mv overcloud-full.tar overcloud-full.tar.md5 $FULL_HASH
+fi
+if [ -f "ironic-python-agent.tar" ]; then
+    mv ironic-python-agent.tar ironic-python-agent.tar.md5 $FULL_HASH
+fi
 
 $rsync_cmd $FULL_HASH $UPLOAD_URL
 $rsync_cmd --delete --include 'tripleo-ci-testing**' --exclude '*' ./ $UPLOAD_URL/
