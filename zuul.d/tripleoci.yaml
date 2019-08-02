@@ -75,7 +75,7 @@
       tripleo_image_type: overcloud-full
       release: master
     secrets:
-      - site_logs
+      - site_images_rcm
 
 # This is not used in periodic
 - job:
@@ -95,7 +95,7 @@
       tripleo_image_type: ironic-python-agent
       release: master
     secrets:
-      - site_logs
+      - site_images_rcm
 
 - job:
     name: periodic-tripleo-containers-build-push-base
