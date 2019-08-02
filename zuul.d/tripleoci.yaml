@@ -57,7 +57,6 @@
       - playbooks/tripleo-ci-periodic-base/pre.yaml
       - playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml
     post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
       - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
     vars:
       build_override_repos: tripleo-ci-testing
@@ -70,15 +69,10 @@
     name: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
     post-run:
+      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: overcloud-full
-      image_tar_file: overcloud-full
-      images_working_dir: "{{ ansible_user_dir }}"
-      image_files_to_tar:
-        - "{{ images_working_dir }}/overcloud-full.qcow2"
-        - "{{ images_working_dir }}/overcloud-full.initrd"
-        - "{{ images_working_dir }}/overcloud-full.vmlinuz"
       release: master
     secrets:
       - site_logs
@@ -95,14 +89,10 @@
     name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
     post-run:
+      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: ironic-python-agent
-      image_tar_file: ironic-python-agent
-      images_working_dir: "{{ ansible_user_dir }}"
-      image_files_to_tar:
-        - "{{ images_working_dir }}/ironic-python-agent.initramfs"
-        - "{{ images_working_dir }}/ironic-python-agent.kernel"
       release: master
     secrets:
       - site_logs
