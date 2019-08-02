@@ -59,6 +59,8 @@
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
       - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
+    vars:
+      build_override_repos: tripleo-ci-testing
     required-projects:
       - config
     secrets:

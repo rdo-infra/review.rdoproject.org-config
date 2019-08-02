@@ -13,7 +13,7 @@ DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
 if [ -n "$DISTRO" ]; then
     if [[ "$DISTRO" =~ "redhat" ]]; then
-        UPLOAD_URL=uploader@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
+        UPLOAD_URL=centos@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
     else
         UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
     fi
