@@ -4,7 +4,7 @@
 - hosts: all
   name: Archive and MD5 sum
   vars:
-    workspace: "{{ ansible_user_dir }}/workspace"
+    workspace: "{{ ansible_user_dir }}"
   tasks:
     - name: ironic-python-agent
       archive:
