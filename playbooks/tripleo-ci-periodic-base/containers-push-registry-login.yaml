@@ -23,10 +23,7 @@
             state: started
 
         - name: Login to RDO registry
-          become: "{{ item }}"
+          become: true
           shell: >
             docker login --password "{{ rdo_registry.token }}"
             --username "{{ rdo_registry_user }}" "{{ rdo_registry_url }}"
-          with_items:
-            - true
-            - false
