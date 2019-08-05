@@ -75,7 +75,7 @@
       tripleo_image_type: overcloud-full
       release: master
     secrets:
-      - site_images_rcm
+      - uploader_ssh_key
 
 # This is not used in periodic
 - job:
@@ -95,7 +95,7 @@
       tripleo_image_type: ironic-python-agent
       release: master
     secrets:
-      - site_images_rcm
+      - uploader_ssh_key
 
 - job:
     name: periodic-tripleo-containers-build-push-base
