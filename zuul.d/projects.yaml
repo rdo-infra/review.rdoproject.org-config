@@ -49,6 +49,10 @@
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
+    check:
+      jobs:
+        - rdo-tox-molecule:
+            voting: false
 
 - project:
     name: opendev.org/openstack/dib-utils
