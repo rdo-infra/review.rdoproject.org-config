@@ -149,6 +149,10 @@
 - job:
     name: periodic-tripleo-rhel-8-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
+    required-projects:
+      - name: opendev.org/openstack/tripleo-common
+      - name: opendev.org/openstack/kolla
+      - name: opendev.org/openstack/python-tripleoclient
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     nodeset: single-rhel-8-node
