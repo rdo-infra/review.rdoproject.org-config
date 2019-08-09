@@ -55,7 +55,6 @@
     parent: tripleo-rhel-8-master-buildimage-base
     pre-run:
       - playbooks/tripleo-ci-periodic-base/pre.yaml
-      - playbooks/tripleo-ci-periodic-base/buildimage/pre.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     vars:
@@ -69,7 +68,6 @@
     name: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
     post-run:
-      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: overcloud-full
@@ -89,7 +87,6 @@
     name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
     post-run:
-      - playbooks/tripleo-ci-periodic-base/buildimage/post.yaml
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: ironic-python-agent
