@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/ironic-python-agent-builder-core:
+      description: Core developers for project ironic-python-agent-builder
+      members:
+      - divius.inside@gmail.com
+      - jkreger@gmail.com
+    openstack/ironic-python-agent-builder-ptl:
+      description: Project team lead for project ironic-python-agent-builder
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ironic-python-agent-builder-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-python-agent-builder-core
+          owner = group openstack/ironic-python-agent-builder-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-python-agent-builder-core
+          label-Code-Review = -2..+2 group openstack/ironic-python-agent-builder-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-python-agent-builder-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-python-agent-builder-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ironic-python-agent-builder-core
+          label-Verified = -2..+2 group openstack/ironic-python-agent-builder-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ironic-python-agent-builder-core
+          label-Workflow = -1..+1 group openstack/ironic-python-agent-builder-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-python-agent-builder-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-python-agent-builder-core
+      - openstack/ironic-python-agent-builder-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ironic-python-agent-builder:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ironic-python-agent-builder-core
+          owner = group openstack/ironic-python-agent-builder-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ironic-python-agent-builder-core
+          label-Code-Review = -2..+2 group openstack/ironic-python-agent-builder-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ironic-python-agent-builder-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ironic-python-agent-builder-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ironic-python-agent-builder-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ironic-python-agent-builder-core
+          label-Workflow = -1..+0 group openstack/ironic-python-agent-builder-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ironic-python-agent-builder-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ironic-python-agent-builder-core
+      - openstack/ironic-python-agent-builder-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ironic-python-agent-builder:
+      acl: openstack-ironic-python-agent-builder
+      description: Mirror of upstream ironic-python-agent-builder (mirror + patches)
+    openstack/ironic-python-agent-builder-distgit:
+      acl: openstack-ironic-python-agent-builder-distgit
+      description: Packaging of upstream ironic-python-agent-builder
+      default-branch: rpm-master
+      branches:
+        master: '0'
