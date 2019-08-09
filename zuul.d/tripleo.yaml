@@ -31,6 +31,10 @@
               - .*molecule.*
         - tripleo-ci-rhel-8-standalone-rdo:
             voting: false
+        - tripleo-build-containers-rhel-8-master:
+            voting: false
+            files:
+              - roles/build-containers
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
