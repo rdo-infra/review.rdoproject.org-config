@@ -172,7 +172,7 @@
 - job:
     name: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     abstract: true
-    timeout: 1800
+    timeout: 2000
     run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/post.yaml
     required-projects:
