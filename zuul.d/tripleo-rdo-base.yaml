@@ -155,6 +155,9 @@
       - config
     secrets:
       - dlrnapi
+    vars:
+      featureset_override:
+        tempest_run_concurrency: 2
 
 - job:
     name: tripleo-ci-base-singlenode-containers-build
