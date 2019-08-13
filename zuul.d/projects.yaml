@@ -49,6 +49,9 @@
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
+    openstack-check:
+      jobs:
+        - registry-login-rdo-integration-centos-7
 
 - project:
     name: opendev.org/openstack/dib-utils
@@ -5522,6 +5525,11 @@
     templates:
       - package-check-jobs
       - system-required
+    openstack-check:
+      jobs:
+        - registry-login-rdo-integration-redhat-8:
+            files:
+              - ^tripleo_ansible/roles/tripleo-podman/.*$
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-ansible-distgit
