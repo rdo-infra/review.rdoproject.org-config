@@ -30,6 +30,27 @@
               - .*molecule.*
         - tripleo-ci-rhel-8-standalone-rdo:
             voting: false
+        # Restrict files: to only the tripleo-ci things from upstream.
+        # More info https://tree.taiga.io/project/tripleo-ci-board/us/1228
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo:
+            voting: false
+            files: &scen1_standalone_files
+              - roles/run-test/.*$
+              - roles/common/.*$
+              - roles/prepare-node/.*$
+              - roles/ceph-loop-device/.* # scen1/4 ceph$
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo:
+            voting: false
+            files: &scen2_standalone_files
+              - roles/run-test/.*$
+              - roles/prepare-node/.*$
+              - roles/common/.*$
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo:
+            voting: false
+            files: *scen2_standalone_files #shared
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo:
+            voting: false
+            files: *scen1_standalone_files #shared
         - tripleo-build-containers-rhel-8-master:
             voting: false
             files:
@@ -140,6 +161,18 @@
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-ci-rhel-8-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario001-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario002-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario003-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario004-standalone-master:
             dependencies:
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master:
