@@ -28,8 +28,7 @@
               - ^test-requirements.txt$
               - ^tox.ini$
               - .*molecule.*
-        - tripleo-ci-rhel-8-standalone-rdo:
-            voting: false
+        - tripleo-ci-rhel-8-standalone-rdo
         - tripleo-build-containers-rhel-8-master:
             voting: false
             files:
@@ -41,21 +40,10 @@
               - ^(playbooks|roles)/tripleo-repos/.*$
     openstack-experimental:
       jobs:
-        - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
-            branches: ^master$
-            irrelevant-files:
-              - ^.*\.md$
-              - ^.*\.rst$
-              - ^Puppetfile.*$
-              - ^doc/.*$
-              - ^etc/.*$
-              - ^metadata.json$
-              - ^releasenotes/.*$
-              - ^requirements.txt$
-              - ^setup.*$
-              - ^spec/.*$
-              - ^test-requirements.txt$
-              - tox.ini
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
         - legacy-experimental-tripleo-centos-7-master-containers-build
     openstack-regular:
       jobs:
@@ -152,6 +140,18 @@
             dependencies:
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-ci-rhel-8-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario001-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario002-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario003-standalone-master:
+            dependencies:
+              - periodic-tripleo-rhel-8-master-containers-build-push
+        - periodic-tripleo-ci-rhel-8-scenario004-standalone-master:
             dependencies:
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master:
