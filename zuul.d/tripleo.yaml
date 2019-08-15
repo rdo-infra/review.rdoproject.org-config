@@ -345,6 +345,12 @@
       - ovb-experimental
       - vexxhost-experimental
       - tripleo-buildimages-jobs
+    openstack-check:
+      jobs:
+        - tripleo-build-containers-rhel-8-master:
+            files:
+              - ^container-images/.*$
+              - ^contrib/.*$
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
