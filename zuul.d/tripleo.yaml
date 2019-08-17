@@ -33,7 +33,12 @@
         - tripleo-build-containers-rhel-8-master:
             voting: false
             files:
-              - roles/build-containers
+              - ^playbooks/.*$
+              - ^(playbooks|roles)/tripleo-buildcontainers/.*$
+              - ^roles/build-containers/.*$
+              - ^roles/prepare-node/.*$
+              - ^roles/common/.*$
+              - ^(playbooks|roles)/tripleo-repos/.*$
     openstack-experimental:
       jobs:
         - tripleo-ci-centos-7-multinode-1ctlr-featureset016:
