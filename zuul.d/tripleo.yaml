@@ -67,6 +67,10 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035
     openstack-periodic-master:
       jobs:
+        # just vexxhost job running, no promotion related, remove after moving to vexxhost
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
+            vars:
+              force_non_periodic: true
         ##### master #####
         # new buildimage jobs https://tree.taiga.io/project/tripleo-ci-board/task/1151
         - periodic-tripleo-rhel-8-buildimage-overcloud-full-master:
