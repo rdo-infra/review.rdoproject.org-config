@@ -5,6 +5,7 @@
 - job:
     name: tripleo-ci-base-ovb-rdo
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-ovb-notebroker
@@ -14,6 +15,7 @@
 - job:
     name: tripleo-ci-base-ovb-tebroker
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
     parent: tripleo-ci-base-ovb
@@ -25,6 +27,7 @@
 - job:
     name: tripleo-ci-base-ovb-notebroker
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
     parent: tripleo-ci-base-ovb
@@ -40,6 +43,7 @@
 - job:
     name: tripleo-ci-base-multinode-rdo
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for multinode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-multinode
@@ -50,6 +54,7 @@
 - job:
     name: tripleo-ci-base-singlenode-rdo
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-singlenode
@@ -60,6 +65,7 @@
 - job:
     name: tripleo-ci-base-singlenode-rdo-containers-build-push
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract container build job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-build-containers-base
@@ -70,6 +76,7 @@
 - job:
     name: tripleo-ci-base-standalone-rdo
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for standalone in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone
@@ -80,6 +87,7 @@
 - job:
     name: tripleo-ci-base-standalone-upgrade-rdo
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract job for standalone upgrade in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone-upgrade
@@ -93,6 +101,7 @@
 - job:
     name: tripleo-ci-base-singlenode-rdo-build-images
     abstract: true
+    ansible-version: 2.8
     description: |
         Base abstract tripleo image build job for singlenode RDO CI zuulv3 jobs
     parent: tripleo-build-images-base
@@ -172,6 +181,7 @@
 - job:
     name: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     abstract: true
+    ansible-version: 2.8
     timeout: 2000
     run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml
     post-run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/post.yaml
@@ -182,6 +192,7 @@
 
 - job:
     name: tripleo-ci-reproducer-base
+    ansible-version: 2.8
     abstract: true
     pre-run: playbooks/tripleo-ci-reproducer-base/pre.yaml
     post-run: playbooks/tripleo-ci-reproducer-base/post.yaml
