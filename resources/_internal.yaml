@@ -20,14 +20,6 @@ resources:
             zuul/include: [job]
             zuul/shadow: rdo-jobs
 
-  repos:
-    config:
-      description: Config repository
-      acl: config-acl
-    rdo-jobs:
-      description: RDO Zuul roles and jobs
-      acl: config-acl
-
   acls:
     config-acl:
       file: |
@@ -62,3 +54,11 @@ resources:
         - config-ptl
         - config-core
         - rdo-provenpackagers
+
+  repos:
+    config:
+      description: Config repository
+      acl: config-acl
+    rdo-jobs:
+      description: RDO Zuul roles and jobs
+      acl: config-acl
