@@ -297,44 +297,6 @@
             dependencies:
               - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-        ##### stable/pike #####
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-pike-upload:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset021-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-containers-build
-        - periodic-tripleo-centos-7-pike-containers-build:
-            dependencies:
-              - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
 
 - project:
     name: opendev.org/x/browbeat
@@ -486,9 +448,6 @@
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-queens:
             files:
               - roles/validate-tempest/vars/tempest_skip_queens.yml
-        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-pike:
-            files:
-              - roles/validate-tempest/vars/tempest_skip_pike.yml
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-rocky:
             files:
               - roles/validate-tempest/vars/tempest_skip_rocky.yml
