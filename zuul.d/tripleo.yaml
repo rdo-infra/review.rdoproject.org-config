@@ -59,12 +59,24 @@
         - legacy-experimental-tripleo-centos-7-master-containers-build
     openstack-regular:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-branch
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-branch
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053:
+            vars:
+              force_non_periodic: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
+            vars:
+              force_non_periodic: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-branch:
+            vars:
+              force_non_periodic: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-branch:
+            vars:
+              force_non_periodic: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
+            vars:
+              force_non_periodic: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035:
+            vars:
+              force_non_periodic: true
     openstack-periodic-master:
       jobs:
         # just vexxhost job running, no promotion related, remove after moving to vexxhost
