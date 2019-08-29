@@ -333,6 +333,12 @@
             files:
               - ^container-images/.*$
               - ^contrib/.*$
+    openstack-experimental:
+      jobs:
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
@@ -354,6 +360,12 @@
             files:
               - ^run_vexxhost_job$
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
+    openstack-experimental:
+      jobs:
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
