@@ -43,7 +43,6 @@
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo
     openstack-regular:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053:
@@ -148,9 +147,6 @@
             dependencies:
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-ci-rhel-8-scenario003-standalone-master:
-            dependencies:
-              - periodic-tripleo-rhel-8-master-containers-build-push
-        - periodic-tripleo-ci-rhel-8-scenario004-standalone-master:
             dependencies:
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master:
@@ -338,7 +334,6 @@
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
@@ -365,7 +360,6 @@
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
