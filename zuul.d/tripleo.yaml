@@ -38,6 +38,11 @@
               - ^roles/prepare-node/.*$
               - ^roles/common/.*$
               - ^(playbooks|roles)/tripleo-repos/.*$
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
+            voting: false
+            files:
+              - ^toci-quickstart/config/testenv/ovb-vexxhost.yml$
+              - ^toci-quickstart/config/testenv/ovb.yml$
     openstack-experimental:
       jobs:
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
