@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/tobiko-core:
+      description: Core developers for project tobiko
+      members:
+      - skaplons@redhat.com
+      - abregman@redhat.com
+    openstack/tobiko-ptl:
+      description: Project team lead for project tobiko
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tobiko-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tobiko-core
+          owner = group openstack/tobiko-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tobiko-core
+          label-Code-Review = -2..+2 group openstack/tobiko-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tobiko-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tobiko-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/tobiko-core
+          label-Verified = -2..+2 group openstack/tobiko-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tobiko-core
+          label-Workflow = -1..+1 group openstack/tobiko-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tobiko-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tobiko-core
+      - openstack/tobiko-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tobiko:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tobiko-core
+          owner = group openstack/tobiko-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tobiko-core
+          label-Code-Review = -2..+2 group openstack/tobiko-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tobiko-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tobiko-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tobiko-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tobiko-core
+          label-Workflow = -1..+0 group openstack/tobiko-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tobiko-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tobiko-core
+      - openstack/tobiko-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tobiko:
+      acl: openstack-tobiko
+      description: Mirror of upstream tobiko (mirror + patches)
+    openstack/tobiko-distgit:
+      acl: openstack-tobiko-distgit
+      description: Packaging of upstream tobiko
+      default-branch: rpm-master
+      branches:
+        master: '0'
