@@ -510,6 +510,10 @@
     name: opendev.org/openstack/python-tripleoclient
     templates:
         - tripleo-buildimages-jobs
+    openstack-check:
+      jobs:
+        - tripleo-build-containers-rhel-8-master:
+            voting: false
 
 - project:
     name: opendev.org/openstack/tripleo-puppet-elements
