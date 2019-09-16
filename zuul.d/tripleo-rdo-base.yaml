@@ -30,12 +30,22 @@
     parent: tripleo-ci-base-ovb
     timeout: 12600
     nodeset: tripleo-ovb-centos-7-primary
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
       - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     secrets:
       - cloud_secrets
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
 
 - job:
     name: tripleo-ci-base-multinode-rdo
@@ -46,6 +56,17 @@
     nodeset: two-centos-7-nodes
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
 
 - job:
     name: tripleo-ci-base-singlenode-rdo
@@ -56,6 +77,17 @@
     nodeset: single-centos-7-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
 
 - job:
     name: tripleo-ci-base-singlenode-rdo-containers-build-push
@@ -76,26 +108,6 @@
     nodeset: single-centos-7-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
-
-- job:
-    name: tripleo-ci-base-standalone-rdo-fake
-    abstract: true
-    description: |
-        Base abstract job for standalone in RDO CI zuulv3 jobs
-    parent: tripleo-ci-base-standalone
-    nodeset: single-centos-7-node
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - config
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-    secrets:
-      - rdo_registry
 
 - job:
     name: tripleo-ci-base-standalone-upgrade-rdo

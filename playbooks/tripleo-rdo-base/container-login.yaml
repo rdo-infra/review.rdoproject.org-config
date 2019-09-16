@@ -3,7 +3,7 @@
   tasks:
     - name: Include login
       no_log: true
-      when: registry_login_enabled
+      when: registry_login_enabled|default(false)|bool
       vars:
         container_registry_logins:
           trunk.registry.rdoproject.org:
