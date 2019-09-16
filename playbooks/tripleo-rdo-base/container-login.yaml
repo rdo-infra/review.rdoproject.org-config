@@ -6,7 +6,7 @@
       when: registry_login_enabled
       vars:
         container_registry_logins:
-        trunk.registry.rdoproject.org:
+          trunk.registry.rdoproject.org:
             unused: "{{ rdo_registry.token }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         docker_login_cache: /root/.docker/config.json
