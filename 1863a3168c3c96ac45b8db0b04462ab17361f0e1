@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0243d8e8_fb41ee0f",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2019-09-17T13:08:59Z",
+      "side": 1,
+      "message": "I think the key here is setting \"quiet: yes\" in the assert module, see [1].\n\nLooking at the previous version output, it was not the fail_msg that leaked the key, it was a message coming from ansible itself. Thus, I think it will keep on leaking until we make it quiet.\n\n[1] - https://docs.ansible.com/ansible/latest/modules/assert_module.html",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "1863a3168c3c96ac45b8db0b04462ab17361f0e1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
