@@ -32,6 +32,4 @@
       assert:
         that: item.rc == 0
         fail_msg: |
-          Role authentication failed with {{ item.rc }} return code:
-          {{ item.stdout }}
-          {{ item.stderr }}
+          Role authentication failed with {{ item.rc }} return code.
