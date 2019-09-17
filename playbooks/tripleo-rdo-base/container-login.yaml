@@ -25,24 +25,11 @@
             (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
              or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
 
-    - name: Verify Login for docker
+    - name: Verify registry login(s)
       when:
-        - ansible_distribution == "CentOS"
-        - ansible_distribution_major_version|int < 8
+        - registry_login_enabled
+      loop: "{{ (registry_login_docker.results | default([])) + (registry_login_podman.results | default([])) }}"
       assert:
-        that:
-          - registry_login_docker is defined
-          - '"unauthorized" in registry_login_docker.results.0.stdout'
-        success_msg: Role got to the authentication phase and correctly failed
-        fail_msg: Role failed authentication for an Unknown reason.
-
-    - name: Assert role has worked in (CentOS|RedHat) 8
-      when:
-        (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
-        or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
-      assert:
-        that:
-          - registry_login_podman is defined
-          - '"invalid username/password" in registry_login_podman.results.0.stdout'
-        success_msg: Role got to the authentication phase and correctly failed
-        fail_msg: Role failed authentication for {{ registry_login_podman.results.0 }}.
+        that: item.rc == 0
+        fail_msg: |
+          Role authentication failed with {{ item.rc }} return code.
