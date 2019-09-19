@@ -169,7 +169,9 @@
               - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-    openstack-periodic-latest-released:
+    # This will be come Train
+    # openstack-periodic-latest-released:
+    openstack-periodic-24hr:
       jobs:
         ##### stable/stein #####
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-stein-upload:
@@ -227,7 +229,7 @@
             dependencies:
               - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
-    openstack-periodic-24hr:
+    openstack-periodic-weekend:
       jobs:
         ##### stable/rocky #####
         - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-rocky-upload:
