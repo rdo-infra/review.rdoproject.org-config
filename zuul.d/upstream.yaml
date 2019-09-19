@@ -136,6 +136,27 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-periodic-wednesday-weekend
+    post-review: true
+    description: Jobs in this queue are triggered to run periodically three times a week - on Wednesday and the weekend.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+          # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
+          # The first weekday is Monday.
+          #  If Monday is day 1, Saturday and Sunday should be 6,0
+        - time: '0 6 * * 0,3,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-post
     post-review: true
     description: This pipeline runs jobs that operate after each change is merged.
