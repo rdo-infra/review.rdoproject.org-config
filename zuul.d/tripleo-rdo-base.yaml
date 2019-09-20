@@ -157,12 +157,22 @@
 - job:
     name: tripleo-ci-base-ovb-periodic
     parent: tripleo-ci-base-ovb-rdo
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - config
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
     secrets:
       - dlrnapi
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
 
 - job:
     name: tripleo-ci-base-ovb-periodic-upload
