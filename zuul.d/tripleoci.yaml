@@ -6,6 +6,12 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: train
+
+- job:
     name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -116,6 +122,15 @@
     nodeset: single-centos-7-node
     vars:
        release: master
+
+- job:
+    name: periodic-tripleo-centos-7-train-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
 
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
