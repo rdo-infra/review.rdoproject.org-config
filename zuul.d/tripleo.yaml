@@ -169,8 +169,106 @@
               - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-    # This will be come Train
-    # openstack-periodic-latest-released:
+    openstack-periodic-latest-released:
+      jobs:
+        # Periodic vexxhost job, not in promotion
+        # - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-vexxhost:
+        #     dependencies:
+        #       - periodic-tripleo-centos-7-train-containers-build-push
+        ##### stable/train #####
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-train-upload:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset021-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-singlenode-featureset027-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-standalone-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-standalone-full-tempest-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario001-standalone-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario002-standalone-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario003-standalone-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-scenario004-standalone-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-standalone-upgrade-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-centos-7-train-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+        # RHEL-8 DLRN packages are not available so RHEL-8 periodic jobs are disabled
+        # https://tree.taiga.io/project/morucci-software-factory/us/3011
+        # new buildimage jobs https://tree.taiga.io/project/tripleo-ci-board/task/1151
+        #    - periodic-tripleo-rhel-8-buildimage-overcloud-full-train:
+        #        dependencies:
+        #          - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+        #    - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train:
+        #        dependencies:
+        #          - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+        #    - periodic-tripleo-rhel-8-train-containers-build-push:
+        #        dependencies:
+        #          - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+        #    - periodic-tripleo-ci-rhel-8-standalone-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-ci-rhel-8-scenario001-standalone-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-ci-rhel-8-scenario002-standalone-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-ci-rhel-8-scenario003-standalone-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-ci-rhel-8-scenario004-standalone-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-buildimage-overcloud-full-train
+        #    - periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-train:
+        #        dependencies:
+        #          - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train
+        #          - periodic-tripleo-rhel-8-train-containers-build-push
+        #    - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
     openstack-periodic-24hr:
       jobs:
         ##### stable/stein #####
