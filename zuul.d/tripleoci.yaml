@@ -6,6 +6,12 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    vars:
+      release: train
+
+- job:
     name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -89,6 +95,31 @@
       - uploader_ssh_key
 
 - job:
+    name: periodic-tripleo-rhel-8-buildimage-overcloud-full-train
+    parent: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+# This is not used in periodic
+- job:
+    name: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-train
+    parent: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-master
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+- job:
+    name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train
+    parent: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+- job:
     name: periodic-tripleo-containers-build-push-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
@@ -117,6 +148,16 @@
     vars:
        release: master
 
+# Is this still needed? Replace with buildah jobs?
+- job:
+    name: periodic-tripleo-centos-7-train-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
@@ -126,7 +167,7 @@
        release: stein
        branch_override: 'stable/stein'
 
-# --- end of master/stein docker build jobs
+# --- end of master/train/stein docker build jobs
 
 # buildah master/stein build jobs
 - job:
@@ -164,6 +205,24 @@
       push_containers_podman: true
 
 - job:
+    name: periodic-tripleo-centos-7-train-containers-buildah
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+       use_buildah: true
+
+- job:
+    name: periodic-tripleo-rhel-8-train-containers-build-push
+    parent: periodic-tripleo-rhel-8-master-containers-build-push
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+- job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
@@ -173,7 +232,7 @@
        branch_override: 'stable/stein'
        use_buildah: true
 
-# --- end of master/stein buildah build jobs
+# --- end of master/train/stein buildah build jobs
 
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push
