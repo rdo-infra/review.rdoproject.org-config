@@ -49,3 +49,13 @@
               - '"invalid username/password" in registry_login_podman.results.0.stderr'
             success_msg: Role got to the authentication phase and correctly failed
             fail_msg: Role failed authentication with {{ registry_login_podman.results.0.stderr }}.
+        # Workaround for https://github.com/ansible/ansible/issues/32868
+        - name: Validate rdoproject registry login
+          shell: >
+            docker build -t trunk.registry.rdoproject.org/tripleomaster/nop - &&
+            docker push trunk.registry.rdoproject.org/tripleomaster/nop
+          args:
+            stdin: |
+              FROM scratch
+              CMD touch foo
+              ENTRYPOINT ""
