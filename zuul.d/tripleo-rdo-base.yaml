@@ -8,7 +8,9 @@
     description: |
         Base abstract job for OVB in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-ovb-notebroker
-    timeout: 12600
+    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
+    # often in train and stein. https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
+    timeout: 14400
     nodeset: tripleo-ovb-centos-7-primary
 
 - job:
