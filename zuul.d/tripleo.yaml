@@ -31,6 +31,8 @@
         - tripleo-ci-rhel-8-standalone-rdo
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
         - tripleo-build-containers-rhel-8-master:
             voting: false
             files:
@@ -46,8 +48,6 @@
               - ^toci-quickstart/config/testenv/ovb-vexxhost.yml$
               - ^toci-quickstart/config/testenv/ovb.yml$
     openstack-experimental:
-      jobs:
-        - tripleo-ci-rhel-8-scenario003-standalone-rdo
     openstack-regular:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053:
@@ -443,6 +443,8 @@
               - ^contrib/.*$
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
     openstack-experimental:
       jobs:
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
@@ -469,11 +471,8 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo:
-            voting: false
-    openstack-experimental:
-      jobs:
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
@@ -497,6 +496,8 @@
             - .*.rst$
             - .*.txt$
             - .*molecule.*
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo
 
 - project:
     name: opendev.org/openstack/openstack-virtual-baremetal
@@ -566,6 +567,19 @@
         - tripleo-ci-rhel-8-scenario001-standalone-rdo:
             files:
               - config/release/tripleo-ci/RedHat-8/*
+              - config/general_config/featureset052.*
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo:
+            files:
+              - config/release/tripleo-ci/RedHat-8/*
+              - config/general_config/featureset052.*
+        - tripleo-ci-rhel-8-scenario003-standalone-rdo:
+            files:
+              - config/release/tripleo-ci/RedHat-8/*
+              - config/general_config/featureset052.*
+        - tripleo-ci-rhel-8-scenario004-standalone-rdo:
+            files:
+              - config/release/tripleo-ci/RedHat-8/*
+              - config/general_config/featureset052.*
 
 - project:
     name: opendev.org/openstack/tripleo-quickstart-extras
@@ -594,6 +608,12 @@
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-rocky:
             files:
               - roles/validate-tempest/vars/tempest_skip_rocky.yml
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo:
+            files:
+              - roles/standalone/*
+        - tripleo-ci-rhel-8-scenario002-standalone-rdo:
+            files:
+              - roles/standalone/*
 
 - project:
     name: opendev.org/openstack/ansible-role-collect-logs
@@ -626,8 +646,8 @@
         - tripleo-buildimages-jobs
     openstack-check:
       jobs:
-        - tripleo-build-containers-rhel-8-master:
-            voting: false
+        - tripleo-build-containers-rhel-8-master
+        - tripleo-ci-rhel-8-scenario001-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-puppet-elements
