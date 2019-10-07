@@ -145,8 +145,8 @@
       timer:
           # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
           # The first weekday is Monday.
-          #  If Monday is day 1, Saturday and Sunday should be 6,0
-        - time: '0 6 * * 0,3,6'
+          #  If Monday is day 1, Saturday and Sunday should be 6,7
+        - time: '0 6 * * 3,6,7'
     success:
       sqlreporter:
       mqtt:
