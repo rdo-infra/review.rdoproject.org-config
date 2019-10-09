@@ -368,6 +368,16 @@
             branches: ^master$
 
 - project:
+    name: opendev.org/openstack/tripleo-common
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - molecule-tripleo-common:
+            files:
+              - .*
+
+- project:
     name: opendev.org/openstack/tripleo-image-elements
     templates:
       - system-required
