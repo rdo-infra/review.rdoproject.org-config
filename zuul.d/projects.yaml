@@ -330,6 +330,14 @@
       - ovb-experimental
 
 - project:
+    name: opendev.org/openstack/tripleo-common
+    openstack-check:
+      jobs:
+        - molecule-tripleo-common:
+            files:
+              - .*
+
+- project:
     name: opendev.org/openstack/releases
     templates:
       - system-required
