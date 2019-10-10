@@ -259,7 +259,7 @@
     run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      stable_releases: queens rocky stein
+      stable_releases: queens rocky stein train
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
@@ -280,7 +280,7 @@
     run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      stable_releases: queens rocky stein
+      stable_releases: queens rocky stein train
     required-projects:
       - name: gating_scripts
       - name: rdoinfo
