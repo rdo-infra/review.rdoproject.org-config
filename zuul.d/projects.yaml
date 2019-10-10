@@ -352,7 +352,7 @@
     openstack-check-rdo:
       jobs:
         - legacy-DLRN-rpmbuild-rpm-packaging-centos:
-            branches: ^(?!master).*$
+            branches: ^(stable/(queens|rocky|stein))$
         - legacy-DLRN-rpmbuild-rpm-packaging-fedora:
             branches: ^master$
 
