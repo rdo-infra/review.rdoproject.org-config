@@ -1,0 +1,9 @@
+---
+- name: "Retag and push image {{ image }} w/ _arch tag suffix"
+  command: >
+    {{ cmd }}
+  with_items:
+    - "podman tag {{ image }}:{{ version_hash }} {{ image }}:{{ version_hash }}_{{ ansible_architecture }}"
+    - "podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} {{ image }}:{{ version_hash }}_{{ ansible_architecture }}"
+  loop_control:
+    loop_var: "cmd"
