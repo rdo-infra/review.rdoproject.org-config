@@ -342,6 +342,7 @@
     final: true
     pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdo-send-stable-release/run.yaml
+    timeout: 5400
     required-projects:
       - name: rdoinfo
       - name: rdo-infra/releng
