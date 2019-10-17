@@ -7487,14 +7487,26 @@
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud7-openstack-train-testing.yml$
+              - ^buildsys-tags/cloud7-openstack-ussuri-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset010:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud7-openstack-train-testing.yml$
+              - ^buildsys-tags/cloud7-openstack-ussuri-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-7-standalone-featureset052:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-ussuri-testing.yml$
+        - rdoinfo-tripleo-train-centos-7-scenario001-standalone:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-train-testing.yml$
+        - rdoinfo-tripleo-train-testing-centos-7-standalone-featureset052:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
@@ -7529,6 +7541,12 @@
       jobs:
         # Keeps ovn jobs as experimental
         - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset030:
+            dependencies:
+              - legacy-validate-buildsys-tags
+            voting: false
+            files:
+              - ^buildsys-tags/cloud7-openstack-ussuri-testing.yml$
+        - rdoinfo-tripleo-train-testing-centos-7-multinode-1ctlr-featureset030:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
