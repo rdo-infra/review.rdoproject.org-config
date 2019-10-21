@@ -5,39 +5,34 @@
 
   tasks:
     - name: Container Push for RHEL 8 only
-      when: ansible_distribution|lower == "redhat" and ansible_distribution_major_version == "8" and zuul_success|bool
+      when:
+        - ansible_distribution|lower == "redhat"
+        - ansible_distribution_major_version == "8"
+        - zuul_success|bool
+        - push_containers_podman | default(false) | bool
+      become: true
       block:
         - name: Install podman
-          become: true
           package:
             name: podman
             state: present
 
-        - name: Push container to RDO registry
-          when: push_containers_podman|default(false)|bool
-          become: true
-          no_log: True
-          shell: |
-            set -e
-            for container in $(awk {'print $1":"$2'} containers-successfully-built.log); do
-                podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} docker://${container}
-                echo "$container push successfully!" >> {{ workspace }}/container_push.log
-            done >> {{ workspace }}/podman_push.log 2>> {{ workspace }}/podman_push_error.log
-          args:
-            chdir: '{{ workspace }}'
-
-    - name: Retrieve list of built x86_64 images and re-push w/ _arch tag suffix
-      when:
-        - ansible_architecture == "x86_64"
-        - push_containers_podman | default(false) | bool
-      block:
         - name: Retrieve built images
-          command: "awk '{ print $1 }' {{ workspace }}/containers-successfully-built.log"
+          command: "awk '{ print $1\":\"$2 }' {{ workspace }}/containers-successfully-built.log"
           register: built_images
-        - name: Tag w/ _arch suffix and push retagged images
+
+        - name: Push container to RDO registry
+          vars:
+            image: "{{ item }}"
+          include: push.yaml
+          static: no
+          with_items: "{{ built_images.stdout_lines }}"
+
+        - name: Tag w/ _arch suffix and push retagged images (x86_64)
           vars:
             image: "{{ item }}"
           include: tag.yaml
           static: no
           with_items: "{{ built_images.stdout_lines }}"
-      become: true
+          when:
+            - ansible_architecture == "x86_64"
