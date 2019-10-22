@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7f6ad01_53defd9a",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-10-22T15:34:52Z",
+      "side": 1,
+      "message": "just wondering was this part of moving the push container into push.yml necessary for this bug/task or just a tidy up. \n\nif just tidy up i wouldn\u0027t include it i.e. make review simpler for merging quickly.",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eefd70a_058432dd",
+        "filename": "playbooks/tripleo-ci-periodic-base/push.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-10-22T15:34:52Z",
+      "side": 1,
+      "message": "but we lose the \u0027logging\u0027 from the original -                echo \"$container push successfully!\" \u003e\u003e {{ workspace }}/container_push.log\n-            done \u003e\u003e {{ workspace }}/podman_push.log 2\u003e\u003e {{ workspace }}/podman_push_error.log",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c8822b8_98a12d32",
+        "filename": "playbooks/tripleo-ci-periodic-base/tag.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-10-22T15:34:52Z",
+      "side": 1,
+      "message": "why shell is better than command (somethign something environment variables?)",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
