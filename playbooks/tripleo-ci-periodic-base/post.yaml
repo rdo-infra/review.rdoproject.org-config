@@ -29,7 +29,9 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
       changed_when: true
-      when: delorean_repo_file.stat.exists
+      when:
+        - delorean_repo_file.stat.exists
+        - force_periodic | default(false) | bool
 
     - name: Report to DLRN
       shell:
