@@ -7,30 +7,6 @@
     - name: Set zuul-log-path fact
       include_role:
         name: set-zuul-log-path-fact
-
-    # TODO(rfolco): find a better way of checking the hash used in delorean.repo
-    # note that the filename is hardcoded and might change in tripleo-repos
-    - name: Check if delorean.repo exists
-      stat:
-        path: /etc/yum.repos.d/delorean.repo
-      register: delorean_repo_file
-
-    - name: Re-populate hash_info w/ actual hash used
-      shell:
-        cmd: |
-          export WORKSPACE="{{ workspace }}"
-          export RELEASE="{{ release }}"
-          # e.g. 11/c9/11c9839df8d9b5abb46f2c7bee2c8db975f77867_2932899d
-          export PROMOTE_NAME=$(grep -o -E '[0-9a-f]{2}/[0-9a-f]{2}/[0-9a-f]{40}_[0-9a-f]{8}' < /etc/yum.repos.d/delorean.repo) || :
-          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
-          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
-          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
-      args:
-        chdir: '{{ workspace }}'
-      environment: "{{ zuul | zuul_legacy_vars }}"
-      changed_when: true
-      when: delorean_repo_file.stat.exists
-
     - name: Report to DLRN
       shell:
         cmd: |
