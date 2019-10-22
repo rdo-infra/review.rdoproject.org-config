@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da6d5a07_dd19d02e",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-10-22T15:58:55Z",
+      "side": 1,
+      "message": "I had to refactor how we retrieve the list of built containers, getting image:tag instead of just image. This is the root of this change, where hash is missing.\n\nWith the new task above to retrieve images, we can remove the for loop in the shell and just run the podman push iterating over the registered ansible var \"built_images\".\n\nFinally, replicated the same idea of tag.yaml to push, where we explicitly show the command for each command.\n\nThe optimizations are tied to the fix and have been tested locally.",
+      "parentUuid": "a7f6ad01_53defd9a",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eefd70a_058432dd",
         "filename": "playbooks/tripleo-ci-periodic-base/push.yaml",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5ee50dab_a07873d1",
+        "filename": "playbooks/tripleo-ci-periodic-base/push.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-10-22T15:58:55Z",
+      "side": 1,
+      "message": "we just log stderr and stout to a single log, I don\u0027t see any reasons to split it out.",
+      "parentUuid": "5eefd70a_058432dd",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c8822b8_98a12d32",
         "filename": "playbooks/tripleo-ci-periodic-base/tag.yaml",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-10-22T15:34:52Z",
       "side": 1,
       "message": "why shell is better than command (somethign something environment variables?)",
+      "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b8e1103_4ede1bd6",
+        "filename": "playbooks/tripleo-ci-periodic-base/tag.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-10-22T15:58:55Z",
+      "side": 1,
+      "message": "multiple commands or redirects don\u0027t work w/ command",
+      "parentUuid": "1c8822b8_98a12d32",
       "revId": "42d4aa4adc72c9841467f29cae52f1cb7f115652",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
