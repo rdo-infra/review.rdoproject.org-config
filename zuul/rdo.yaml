@@ -1076,7 +1076,11 @@
           # don't gate them, so they could wedge our config.
         - include: []
           projects:
+          - ansible/molecule
+          - ansible/ansible-lint
           - ceph/ceph-ansible
           - gnocchixyz/gnocchi
           - containers/buildah
           - containers/libpod
+          - pycontribs/selinux
+          - pycontribs/pytest-molecule
