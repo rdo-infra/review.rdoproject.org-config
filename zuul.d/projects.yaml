@@ -12,11 +12,33 @@
       queue: ceph
       jobs:
         - tripleo-ceph-integration-master
+        - tripleo-ceph-integration-train
         - tripleo-ceph-integration-rocky
         - tripleo-ceph-integration-queens
         - distgit-rpm-tripleo-master-testing-centos-7-standalone-featureset016:
             dependencies:
               - tripleo-ceph-integration-master
+        - distgit-rpm-tripleo-master-testing-centos-7-standalone-featureset019:
+            dependencies:
+              - tripleo-ceph-integration-master
+        - distgit-rpm-tripleo-4-testing-centos-7-standalone-featureset016:
+            dependencies:
+              - tripleo-ceph-integration-train
+        - distgit-rpm-tripleo-4-testing-centos-7-standalone-featureset019:
+            dependencies:
+              - tripleo-ceph-integration-train
+        - distgit-rpm-tripleo-3-testing-centos-7-standalone-featureset016:
+            dependencies:
+              - tripleo-ceph-integration-rocky
+        - distgit-rpm-tripleo-3-testing-centos-7-standalone-featureset019:
+            dependencies:
+              - tripleo-ceph-integration-rocky
+        - distgit-rpm-tripleo-3-testing-centos-7-standalone-featureset016:
+            dependencies:
+              - tripleo-ceph-integration-queens
+        - distgit-rpm-tripleo-3-testing-centos-7-standalone-featureset019:
+            dependencies:
+              - tripleo-ceph-integration-queens
 
 - project:
     name: config
