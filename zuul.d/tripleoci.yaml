@@ -153,6 +153,8 @@
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
     override-checkout: 'stable/train'
+    #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
+    timeout: 9000
     vars:
        release: train
        branch_override: 'stable/train'
