@@ -58,7 +58,7 @@
               bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
             chdir: '{{ workspace }}'
           environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
-          when: release in ["train", "master"]
+          when: release in ["master"]
           register: result
           # rhel build times are lagging significantly
           # see hashes in https://trunk.rdoproject.org/centos7-master/report.html
