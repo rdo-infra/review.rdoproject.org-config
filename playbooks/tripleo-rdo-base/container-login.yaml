@@ -11,6 +11,16 @@
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         docker_login_cache: /root/.docker/config.json
       block:
+
+        - name: Set IP forwarding on before docker starts
+          become: true
+          sysctl:
+            name: net.ipv4.ip_forward
+            value: '1'
+            sysctl_set: yes
+            state: present
+            reload: yes
+
         - include_role:
             name: ansible-role-container-registry
             tasks_from: registry-login.yml
