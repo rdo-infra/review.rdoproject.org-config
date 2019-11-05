@@ -687,17 +687,3 @@
       jobs:
         - tripleo-ci-rhel-8-standalone-rdo:
             voting: false
-
-- project:
-    name: opendev.org/openstack/kolla
-    openstack-check:
-      jobs:
-        - tripleo-build-containers-rhel-8-master:
-            voting: false
-            files:
-              - ^.zuul.d/centos.yaml$
-              - ^docker/.*$
-              - ^kolla/.*$
-              - ^requirements.txt$
-              - ^setup.cfg$
-              - ^setup.py$
