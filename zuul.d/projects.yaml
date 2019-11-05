@@ -359,7 +359,8 @@
       - system-required
     openstack-post:
       jobs:
-        - legacy-rdo-deps-uc-send-review
+        - legacy-rdo-deps-uc-send-review:
+            branches: ^(?!master)$
 
 - project:
     name: opendev.org/openstack/rpm-packaging
