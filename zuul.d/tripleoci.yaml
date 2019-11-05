@@ -139,6 +139,15 @@
       - rdo_registry
       - dlrnapi
 
+- job:
+    name: periodic-tripleo-centos-7-master-nova-containers-build
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    vars:
+       release: master
+       push_containers: false
+       component_ci_service: nova
+
 # TODO(rfolco): These jobs that build containers w/ docker for master and
 # stein should go away as soon as the buildah ones (below) are running well
 - job:
