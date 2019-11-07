@@ -34,6 +34,14 @@
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
         - tripleo-ci-rhel-8-scenario004-standalone-rdo
         - tripleo-build-containers-rhel-8-master:
+            files:
+              - ^playbooks/.*$
+              - ^(playbooks|roles)/tripleo-buildcontainers/.*$
+              - ^roles/build-containers/.*$
+              - ^roles/prepare-node/.*$
+              - ^roles/common/.*$
+              - ^(playbooks|roles)/tripleo-repos/.*$
+        - tripleo-build-containers-rhel-8-train-branch:
             voting: false
             files:
               - ^playbooks/.*$
