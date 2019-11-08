@@ -451,6 +451,10 @@
             files:
               - ^container-images/.*$
               - ^contrib/.*$
+        - tripleo-build-containers-rhel-8-train:
+            files:
+              - ^container-images/.*$
+              - ^contrib/.*$
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-rhel-8-scenario002-standalone-rdo
         - tripleo-ci-rhel-8-scenario003-standalone-rdo
@@ -663,6 +667,7 @@
     openstack-check:
       jobs:
         - tripleo-build-containers-rhel-8-master
+        - tripleo-build-containers-rhel-8-train
         - tripleo-ci-rhel-8-scenario001-standalone-rdo
 
 - project:
