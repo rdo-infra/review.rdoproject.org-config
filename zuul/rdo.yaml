@@ -946,6 +946,9 @@
         - openstack/tripleo-ci:
             include:
             - job
+        - openstack/tripleo-ansible:
+            include:
+            - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
         - include: []
@@ -1057,7 +1060,6 @@
           - openstack/rpm-packaging
           - openstack/swift
           - openstack/tempest
-          - openstack/tripleo-ansible
           - openstack/tripleo-common
           - openstack/tripleo-ha-utils
           - openstack/tripleo-heat-templates
