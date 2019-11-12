@@ -1,11 +1,16 @@
 - hosts: all
   tasks:
-    - shell:
-        cmd: "WORKSPACE={{ ansible_user_dir }} ./pkg-validate.sh cloud7-openstack-{{ zuul.branch|replace('-rdo', '') }}-el7 cbs"
+    - name: run pkg-validate.sh
+      shell:
+        cmd: |
+          export WORKSPACE={{ ansible_user_dir }}
+          ./pkg-validate.sh cloud7-openstack-{{ zuul.branch|replace('-rdo', '') }}-el7 cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
 
-    - shell:
+    - name: test install
+      shell:
         cmd: |
           # First, we create a chroot to be used in the installation
           sudo mkdir -p /tmp/root/var/lib/rpm
@@ -23,3 +28,4 @@
           pkgs=$(yum --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
           # Here we install locally the kust built packages
           sudo yum install --installroot=/tmp/root -y $pkgs
+      changed_when: true

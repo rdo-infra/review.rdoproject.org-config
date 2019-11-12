@@ -1,9 +1,13 @@
 ---
 repos:
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v4.1.0a0
+    rev: v4.1.1a5
     hooks:
       - id: ansible-lint
-        # TODO(ssbarnea): migrate towards .*\.(yaml|yml)$ pattern
-        files: (playbooks|roles).*(tripleo|dlrn|ovb|legacy).*\.(yaml|yml)$
-        entry: ansible-lint --force-color -v
+        always_run: true
+        pass_filenames: false
+        # do not add file filters here as ansible-lint does not give reliable
+        # results when called with individual files.
+        # https://github.com/ansible/ansible-lint/issues/611
+        verbose: true
+        entry: ansible-lint --force-color -p -v
