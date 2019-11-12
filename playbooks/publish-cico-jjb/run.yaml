@@ -5,16 +5,20 @@
         content: "{{ ci_centos.jjb_config }}"
         dest: ~/.jjb_config.ini
 
-    - shell:
-        cmd: tox -evenv --notest
+    - name: Run tox --notest
+      command: tox -evenv --notest
+      args:
         chdir: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
+      changed_when: true
 
     - name: Create weirdo_token secret
       copy:
         content: "{{ weirdo_token.token }}"
         dest: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}/jenkins/jobs/weirdo_token"
 
-    - shell:
-        cmd: .tox/venv/bin/jenkins-jobs --conf ~/.jjb_config.ini update jenkins/jobs
+    - name: Run jenkins-jobs
+      command: .tox/venv/bin/jenkins-jobs --conf ~/.jjb_config.ini update jenkins/jobs
+      args:
         chdir: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
       no_log: true
+      changed_when: true
