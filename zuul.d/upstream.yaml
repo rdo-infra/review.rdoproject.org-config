@@ -157,6 +157,24 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-periodic-component-compute
+    post-review: true
+    description: Compute component-ci jobs triggered to run periodically once a day.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 2 * * *'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-post
     post-review: true
     description: This pipeline runs jobs that operate after each change is merged.
