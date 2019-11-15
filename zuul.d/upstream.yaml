@@ -156,6 +156,30 @@
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
+# Component pipelines:
+# Note that while these pipelines are kicked on a periodic basis,
+# they are not named periodic-* due to:
+# https://github.com/openstack/tripleo-ci/blob/master/roles/common/vars/main.yaml#L25
+# The component pipelines use current-tripleo and the latest of the component
+# under test.
+- pipeline:
+    name: openstack-component-compute
+    post-review: true
+    description: Compute component-ci jobs triggered to run periodically once a day.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 2 * * *'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
 - pipeline:
     name: openstack-post
     post-review: true
