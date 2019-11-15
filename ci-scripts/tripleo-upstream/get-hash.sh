@@ -22,6 +22,9 @@ if [[ "$RELEASE" == "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
     # places restrictions on the maximum version of all dependencies
     export DLRNAPI_URL="${DLRNAPI_URL}-uc"
 fi
+if [[ "$COMPONENT_NAME" != '' && "$RELEASE" == "master" ]]; then
+    export DLRNAPI_URL="https://trunk-staging.rdoproject.org/api-${DLRNAPI_DISTRO,,}-$RELEASE/component/$COMPONENT_NAME"
+fi
 
 # NO release or version in fedora url e.g. https://trunk.rdoproject.org/centos7-master/consistent/commit.yaml
 # vs https://trunk.rdoproject.org/fedora/consistent/commit.yaml
@@ -30,6 +33,8 @@ if [[ "$RELEASE" == "master"  && "${DLRNAPI_DISTRO,,}" == "fedora" ]]; then
     HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}/$PROMOTE_NAME/commit.yaml
 # for fedora stein  trunk.rdoproject.org/fedora-stein
 # will need an elif here
+elif [[ "$COMPONENT_NAME" != '' ]]; then
+    HASHES_URL=https://trunk-staging.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/component/$COMPONENT_NAME/$PROMOTE_NAME/commit.yaml
 else
     HASHES_URL=https://trunk.rdoproject.org/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
 fi
@@ -46,6 +51,7 @@ export RELEASE=$RELEASE
 export FULL_HASH=$FULL_HASH
 export COMMIT_HASH=$COMMIT_HASH
 export DISTRO_HASH=$DISTRO_HASH
+export COMPONENT_NAME=$COMPONENT_NAME
 EOF
 
 
