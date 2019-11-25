@@ -44,6 +44,7 @@
       - playbooks/tripleo-rdo-base/container-login.yaml
       - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
+    cleanup-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     secrets:
       - cloud_secrets
       - rdo_registry
