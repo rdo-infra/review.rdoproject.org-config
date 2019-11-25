@@ -73,6 +73,7 @@
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     vars:
+      tripleo_image_os: centos7
       build_override_repos: tripleo-ci-testing
     required-projects:
       - config
