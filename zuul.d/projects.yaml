@@ -371,9 +371,9 @@
       - system-required
     openstack-check-rdo:
       jobs:
-        - legacy-DLRN-rpmbuild-rpm-packaging-centos:
+        - DLRN-rpmbuild-rpm-packaging-centos:
             branches: ^(stable/(queens|rocky|stein))$
-        - legacy-DLRN-rpmbuild-rpm-packaging-fedora:
+        - DLRN-rpmbuild-rpm-packaging-fedora:
             branches: ^(master|stable/train)$
 
 - project:
@@ -2662,16 +2662,16 @@
       jobs:
         - legacy-rpmlint:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-fedora-pinned:
+        - DLRN-rpmbuild-fedora-pinned:
             branches: ^(master)|(rpm-master)$
             nodeset: rdo-fedora-28
             voting: false
@@ -2679,7 +2679,7 @@
             branches: ^(?!rpm-master).*$
     gate:
       jobs:
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
@@ -3770,16 +3770,16 @@
       jobs:
         - legacy-rpmlint:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-fedora-pinned:
+        - DLRN-rpmbuild-fedora-pinned:
             branches: ^(master)|(rpm-master)$
             nodeset: rdo-fedora-28
             voting: false
@@ -3787,7 +3787,7 @@
             branches: ^(?!rpm-master).*$
     gate:
       jobs:
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
@@ -4796,16 +4796,16 @@
       jobs:
         - legacy-rpmlint:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-fedora-pinned:
+        - DLRN-rpmbuild-fedora-pinned:
             branches: ^(master)|(rpm-master)$
             nodeset: rdo-fedora-28
             voting: false
@@ -4813,7 +4813,7 @@
             branches: ^(?!rpm-master).*$
     gate:
       jobs:
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
@@ -5598,16 +5598,16 @@
       jobs:
         - legacy-rpmlint:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
-              - legacy-DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - legacy-DLRN-rpmbuild-fedora-pinned:
+        - DLRN-rpmbuild-fedora-pinned:
             branches: ^(master)|(rpm-master)$
             nodeset: rdo-fedora-28
             voting: false
@@ -5615,7 +5615,7 @@
             branches: ^(?!rpm-master).*$
     gate:
       jobs:
-        - legacy-DLRN-rpmbuild-pinned:
+        - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
