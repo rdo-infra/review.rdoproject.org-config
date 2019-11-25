@@ -127,7 +127,7 @@
     post-run:
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
-      tripleo_image_type: overcloud-full
+      tripleo_image_type: ironic-python-agent
       release: master
     secrets:
       - uploader_ssh_key
