@@ -14,12 +14,19 @@
         - tripleo-ceph-integration-master
         - tripleo-ceph-integration-rocky
         - tripleo-ceph-integration-queens
+        - tripleo-ceph-integration-train
         - tripleo-ceph-integration-rhel-8-scenario001-standalone:
             dependencies:
               - tripleo-ceph-integration-master
         - tripleo-ceph-integration-rhel-8-scenario004-standalone:
             dependencies:
               - tripleo-ceph-integration-master
+        - tripleo-ceph-integration-rhel-scenario001-standalone-train:
+            dependencies:
+              - tripleo-ceph-integration-train
+        - tripleo-ceph-integration-rhel-scenario004-standalone-train:
+            dependencies:
+              - tripleo-ceph-integration-train
 
 - project:
     name: config
