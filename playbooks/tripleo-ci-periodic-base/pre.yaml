@@ -3,6 +3,11 @@
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
+    - name: set dlrnapi server for component jobs
+      set_fact:
+        dlrnapi_server: trunk-staging.rdoproject.org
+      when: job.component is defined
+
     - name: Populate hash.info required for dlrn reporting
       shell:
         cmd: |
@@ -11,6 +16,7 @@
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+          export DLRNAPI_SERVER="{{ dlrnapi_server | default('trunk.rdoproject.org') }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
       args:
         chdir: '{{ workspace }}'
