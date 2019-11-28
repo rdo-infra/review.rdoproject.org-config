@@ -31,6 +31,7 @@ IGNORED_PROJECTS = {
         'sf-jobs',
         'test-project',
         'test-project-2',
+        'smoke-test-vexxhost',
     ],
     'gerritbot': [
         'demo-project',
@@ -40,6 +41,7 @@ IGNORED_PROJECTS = {
         'sf-jobs',
         'test-project',
         'test-project-2',
+        'smoke-test-vexxhost',
     ]
 }
 
