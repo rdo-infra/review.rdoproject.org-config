@@ -1,0 +1,56 @@
+- hosts: all
+  vars:
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    workspace: "{{ ansible_user_dir }}/workspace"
+  tasks:
+
+    - name: Ensure legacy workspace directory
+      file:
+        path: '{{ workspace }}'
+        state: directory
+
+    - name: Create hash_info file with hashes from tripleo-ci-testing
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk-staging.rdoproject.org') }}"
+          export COMPONENT_NAME="{{ component_name | default('') }}"
+          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
+        chdir: '{{ workspace }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
+
+    - name: Check reports from DLRN
+      shell:
+        cmd: |
+          source {{ workspace }}/hash_info.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh
+        chdir: '{{ workspace }}'
+      environment:
+        - DLRNAPI_PASSWORD: "{{ dlrnapi.password }}"
+        - DLRNAPI_USERNAME: "{{ dlrnapi_user }}"
+      register: reported_jobs
+
+    # component promotion criteria
+    - assert:
+        that: "{{ reported_jobs.stdout | from_json | json_query(q) }} != []"
+      vars:
+        q: "[?contains(job_id, '{{ item }}')]"
+      loop:
+        - "periodic-tripleo-ci-centos-7-standalone-full-tempest-master"
+
+    - name: Promote tripleo-ci-testing to current-tripleo for component
+      shell:
+        cmd: |
+          export DLRNAPI_URL="https://trunk-staging.rdoproject.org/api-centos-master/component/{{ component_name }}"
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME="current-tripleo-{{ component_name }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+        chdir: '{{ workspace }}'
+      environment:
+        - DLRNAPI_PASSWORD: "{{ dlrnapi.password }}"
+        - DLRNAPI_USERNAME: "{{ dlrnapi_user }}"
+      changed_when: true

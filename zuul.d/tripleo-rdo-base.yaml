@@ -246,6 +246,20 @@
       - dlrnapi
 
 - job:
+    name: tripleo-ci-base-component-promote-to-current-tripleo
+    abstract: true
+    timeout: 2000
+    pre-run: playbooks/tripleo-ci-base-component-promote-to-current-tripleo/pre.yaml
+    run: playbooks/tripleo-ci-base-component-promote-to-current-tripleo/run.yaml
+    post-run: playbooks/tripleo-ci-base-component-promote-to-current-tripleo/post.yaml
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
+    vars:
+      dlrn_server_url: trunk-staging.rdoproject.org
+
+- job:
     name: tripleo-ci-reproducer-base
     abstract: true
     pre-run: playbooks/tripleo-ci-reproducer-base/pre.yaml
