@@ -435,6 +435,9 @@
         - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     openstack-periodic-component-compute:
       jobs:
+        - periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo:
+            dependencies:
+              - periodic-tripleo-ci-centos-7-standalone-compute-master
         - periodic-tripleo-ci-centos-7-standalone-compute-master:
             dependencies:
               - periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
