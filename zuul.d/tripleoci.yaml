@@ -37,6 +37,14 @@
       release: master
       component_name: compute
 
+# component pipeline component-compute-promote-to-current-tripleo definitions
+- job:
+    name: periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo
+    parent: tripleo-ci-base-component-promote-to-current-tripleo
+    vars:
+      release: master
+      component_name: compute
+
  # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
  # will also need a post for upload/rsync images (site_logs secret logserver)
 - job:
