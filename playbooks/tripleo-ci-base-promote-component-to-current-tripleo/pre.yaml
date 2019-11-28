@@ -1,0 +1,36 @@
+- hosts: all
+  vars:
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    workspace: "{{ ansible_user_dir }}/workspace"
+  tasks:
+
+    - name: Ensure legacy workspace directory
+      file:
+        path: '{{ workspace }}'
+        state: directory
+
+    - name: Create hash_info file with hashes from tripleo-ci-testing
+      shell:
+        cmd: |
+          export RELEASE="{{ release }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          export DLRNAPI_SERVER="trunk-staging.rdoproject.org"
+          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+          export COMPONENT_NAME="{{ component_name | default('') }}"
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
+        chdir: '{{ workspace }}'
+      environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true
+
+    # component promotion criteria
+    - name: Check reports from DLRN
+      shell:
+        cmd: |
+          source {{ workspace }}/hash_info.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh {{ item }}
+        chdir: '{{ workspace }}'
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+      changed_when: true
+      with_items:
+        - periodic-tripleo-ci-centos-7-standalone-compute-master

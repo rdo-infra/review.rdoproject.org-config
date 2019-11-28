@@ -7,11 +7,18 @@
     - name: Set zuul-log-path fact
       include_role:
         name: set-zuul-log-path-fact
+
+    - name: set dlrnapi server for component jobs
+      set_fact:
+        dlrnapi_server: trunk-staging.rdoproject.org
+      when: job.component is defined
+
     - name: Report to DLRN
       shell:
         cmd: |
           source {{ workspace }}/hash_info.sh
           export LOG_PATH="{{ zuul_log_path }}"
+          export DLRNAPI_SERVER="{{ dlrnapi_server | default('trunk.rdoproject.org') }}"
           export LOG_HOST_URL="{{ log_host_url | default('https://logs.rdoproject.org') }}"
           export SUCCESS="{{ zuul_success | bool }}"
           export TOCI_JOBTYPE="{{ zuul.job }}"
