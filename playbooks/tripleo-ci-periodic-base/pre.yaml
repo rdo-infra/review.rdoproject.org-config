@@ -11,6 +11,7 @@
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+          export DLRNAPI_SERVER="{{ dlrnapi_server | default('trunk.rdoproject.org') }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
       args:
         chdir: '{{ workspace }}'
