@@ -7493,39 +7493,39 @@
     check:
       jobs:
         - legacy-tox-validate
-        - legacy-rdoinfo-DLRN-check
+        - rdoinfo-DLRN-check
         - legacy-validate-dependencies-rebuilds
         - legacy-weirdo-dlrn-master-packstack-scenario003:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario001:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario002:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario003:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario004:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
@@ -7642,29 +7642,29 @@
         - legacy-validate-buildsys-tags
         - distgit-tripleo-master-testing-centos-7-standalone-featureset016:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset017:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset018:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset019:
             dependencies:
-              - legacy-rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
-        - legacy-rdoinfo-DLRN-check:
+        - rdoinfo-DLRN-check:
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
@@ -7673,7 +7673,7 @@
       queue: whitebox-tempest-plugin
       jobs:
         - legacy-tox-validate
-        - legacy-rdoinfo-DLRN-check
+        - rdoinfo-DLRN-check
         - legacy-validate-buildsys-tags
         - legacy-rebuild-fedora-dependencies
     periodic:
