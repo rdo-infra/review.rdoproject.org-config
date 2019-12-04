@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "d06ab4f6_27d0acde",
+        "filename": "ci-scripts/tripleo-upstream/get-hash.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-12-04T10:56:27Z",
+      "side": 1,
+      "message": "are we expecting to override that/where are we using it sorry for silly question i am not following this work much this sprint.\n\nEDIT: ok i see its probably just because you had to use it in many places here so its just better to have it in a variable?\n\nEDIT2: well you are using/passing it there https://review.rdoproject.org/r/#/c/23712/12/playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml",
+      "revId": "56023d54656f5d6c99431b969746b1c203481740",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "089cd488_36388a25",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-12-04T10:56:27Z",
+      "side": 1,
+      "message": "perhaps \u0027component\u0027 is redundant here, just cos the name is too damn long ;)\n\nI had the same when naming \"periodic-tripleo-ci-centos-7-standalone-compute-master\"   decided if there is a name of the component in there already like \u0027compute\u0027 or \u0027storage\u0027 or whatever then we don\u0027t need \u0027component\u0027 too",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "56023d54656f5d6c99431b969746b1c203481740",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32dc5352_7296f9e9",
         "filename": "zuul.d/upstream.yaml",
         "patchSetId": 12
@@ -13,6 +53,30 @@
       "writtenOn": "2019-12-04T10:34:35Z",
       "side": 1,
       "message": "Do we want to define separate pipeline for each component?\nHaving a single openstack-component-pipeline should be easier to query for all components.",
+      "range": {
+        "startLine": 166,
+        "startChar": 10,
+        "endLine": 166,
+        "endChar": 37
+      },
+      "revId": "56023d54656f5d6c99431b969746b1c203481740",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c5294e7_291559d3",
+        "filename": "zuul.d/upstream.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2019-12-04T10:56:27Z",
+      "side": 1,
+      "message": "i think it is a valid discussion and though we\u0027ve already touched it a couple times there is no clear winner. either way is cheap i mean to define more pipelines is easy enough if we decide to do that.\n\nHowever for the first one it doesn\u0027t matter its just compute for the POC so lets call openstack-component-compute.\n\nOnce we are adding another component we can either rename this and add the jobs into it or make a new one.",
+      "parentUuid": "32dc5352_7296f9e9",
       "range": {
         "startLine": 166,
         "startChar": 10,
