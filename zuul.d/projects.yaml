@@ -27,6 +27,16 @@
         - tripleo-ceph-integration-rhel-8-scenario004-standalone-train:
             dependencies:
               - tripleo-ceph-integration-train
+    openstack-periodic-weekend:
+      queue: ceph
+      jobs:
+        - periodic-tripleo-ceph-integration-master
+        - periodic-tripleo-ceph-integration-rhel-8-scenario001-standalone:
+            dependencies:
+              - periodic-tripleo-ceph-integration-master
+        - periodic-tripleo-ceph-integration-rhel-8-scenario004-standalone:
+            dependencies:
+              - periodic-tripleo-ceph-integration-master
 
 - project:
     name: config
