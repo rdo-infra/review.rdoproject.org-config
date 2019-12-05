@@ -24,9 +24,6 @@ if [[ "$RELEASE" == "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
     # places restrictions on the maximum version of all dependencies
     export DLRNAPI_URL="${DLRNAPI_URL}-uc"
 fi
-if [[ "$COMPONENT_NAME" != '' ]]; then
-    export DLRNAPI_URL="https://${DLRNAPI_SERVER}/api-${DLRNAPI_DISTRO,,}-$RELEASE/component/$COMPONENT_NAME"
-fi
 
 # NO release or version in fedora url e.g. https://trunk.rdoproject.org/centos7-master/consistent/commit.yaml
 # vs https://trunk.rdoproject.org/fedora/consistent/commit.yaml
