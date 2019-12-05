@@ -29,14 +29,6 @@
     vars:
       release: queens
 
-# component pipeline promote-consistent-to-tripleo-ci-testing definitions
-- job:
-    name: periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: master
-      component_name: compute
-
  # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
  # will also need a post for upload/rsync images (site_logs secret logserver)
 - job:

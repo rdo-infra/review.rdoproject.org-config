@@ -16,8 +16,6 @@
           export PROMOTE_NAME=consistent
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
-          export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
-          export COMPONENT_NAME="{{ component_name | default('') }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ workspace }}'
       environment: '{{ zuul | zuul_legacy_vars }}'
