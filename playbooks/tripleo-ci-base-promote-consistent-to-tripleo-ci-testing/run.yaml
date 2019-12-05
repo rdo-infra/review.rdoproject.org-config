@@ -62,7 +62,7 @@
           environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
           when:
             - release in ["train", "master"]
-            - component_name is not defined or component_name|length > 0
+            - component_name is not defined or component_name|length < 1
           register: result
           # rhel build times are lagging significantly
           # see hashes in https://trunk.rdoproject.org/centos7-master/report.html
