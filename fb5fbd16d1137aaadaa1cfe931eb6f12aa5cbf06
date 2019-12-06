@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1a8c02fb_58b531b4",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "yes zuul dependency would be enough. This is just redundancy to approximate component jobs to integration jobs. And a form of ensuring the jobs are talking to dlrnapi as they should.",
+      "parentUuid": "5939ba82_2640311a",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd394973_b2dfedbb",
         "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
         "patchSetId": 11
@@ -47,6 +65,24 @@
       "writtenOn": "2019-12-06T17:22:56Z",
       "side": 1,
       "message": "So to block the promotion you\u0027re relying on the grep exit code. If it doesn\u0027t find the job, this will fail and nothing will proceed ? Sometimes we run our scripts with -e and -o pipefile, and this could not be optimal. Maybe a suggestion could be using the dlrnapi ansible module to get the list of jobs, then check this output in another task.",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "574aa1cb_f87f9aab",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "great idea.",
+      "parentUuid": "cd394973_b2dfedbb",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "fe1da0cf_7ec54ba6",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "you are right, will move all to run",
+      "parentUuid": "73bfcf74_527a11f3",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2db37ff1_1e89c877",
         "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml",
         "patchSetId": 11
@@ -81,6 +135,24 @@
       "writtenOn": "2019-12-05T20:53:52Z",
       "side": 1,
       "message": "since this is component only, we could change the dlrnurl default - but ok for now",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "daa817da_82cade4f",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "changing",
+      "parentUuid": "2db37ff1_1e89c877",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "a49c8180_35a0235d",
+        "filename": "playbooks/tripleo-ci-periodic-base/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "this is common between all jobs, so for component we rely on parent jobs to define it somehow",
+      "parentUuid": "57f03f5e_fd47f5e1",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d677252e_61c7273d",
         "filename": "playbooks/tripleo-ci-periodic-base/pre.yaml",
         "patchSetId": 11
@@ -115,6 +205,24 @@
       "writtenOn": "2019-12-05T20:53:52Z",
       "side": 1,
       "message": "Thanks",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89066b9f_dff32c3c",
+        "filename": "playbooks/tripleo-ci-periodic-base/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "thanks for point it out",
+      "parentUuid": "d677252e_61c7273d",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "02dcebe0_6c1ca3fa",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "common to all child jobs, so defined it here",
+      "parentUuid": "ca71908e_daada520",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a65180c4_fafeb061",
         "filename": "zuul.d/tripleoci.yaml",
         "patchSetId": 11
@@ -149,6 +275,24 @@
       "writtenOn": "2019-12-06T17:22:56Z",
       "side": 1,
       "message": "no dlrn_server_url here because it\u0027s in the parent job",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29fe13bc_c8388b78",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-06T17:39:02Z",
+      "side": 1,
+      "message": "better to share the var in the parent, isn\u0027t it?",
+      "parentUuid": "a65180c4_fafeb061",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
