@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "80baa3da_b8f47ecf",
+        "filename": "ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-12-06T18:08:27Z",
+      "side": 1,
+      "message": "Not sure where this script is called from but it\na) missing shebang line\nb) missing bash strict mode: set -euxo pipefile (x being optional).",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 30
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "608d5889_6f16984d",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-12-06T18:08:27Z",
+      "side": 1,
+      "message": "My impression is that  getting a hash does not alter any system state, so change_when must be false inthis case.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b18cb1ac_5dd677d9",
         "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
         "patchSetId": 11
@@ -83,6 +129,29 @@
       "side": 1,
       "message": "great idea.",
       "parentUuid": "cd394973_b2dfedbb",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eea3c2b_1dcc6b48",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-12-06T18:08:27Z",
+      "side": 1,
+      "message": "the same: true only if it alters system state, if it doesn\u0027t it should be false.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 24
+      },
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
