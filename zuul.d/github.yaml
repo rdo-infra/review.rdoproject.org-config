@@ -32,12 +32,14 @@
     success:
       github.com:
         status: 'success'
+        status-url: 'https://review.rdoproject.org/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
+        status-url: 'https://review.rdoproject.org/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
