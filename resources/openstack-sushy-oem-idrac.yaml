@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/sushy-oem-idrac-core:
+      description: Core developers for project sushy-oem-idrac
+      members:
+      - etingof@gmail.com
+      - divius.inside@gmail.com
+    openstack/sushy-oem-idrac-ptl:
+      description: Project team lead for project sushy-oem-idrac
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sushy-oem-idrac-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-oem-idrac-core
+          owner = group openstack/sushy-oem-idrac-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-oem-idrac-core
+          label-Code-Review = -2..+2 group openstack/sushy-oem-idrac-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-oem-idrac-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-oem-idrac-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/sushy-oem-idrac-core
+          label-Verified = -2..+2 group openstack/sushy-oem-idrac-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sushy-oem-idrac-core
+          label-Workflow = -1..+1 group openstack/sushy-oem-idrac-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-oem-idrac-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sushy-oem-idrac-core
+      - openstack/sushy-oem-idrac-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sushy-oem-idrac:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-oem-idrac-core
+          owner = group openstack/sushy-oem-idrac-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-oem-idrac-core
+          label-Code-Review = -2..+2 group openstack/sushy-oem-idrac-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-oem-idrac-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-oem-idrac-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sushy-oem-idrac-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sushy-oem-idrac-core
+          label-Workflow = -1..+0 group openstack/sushy-oem-idrac-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-oem-idrac-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sushy-oem-idrac-core
+      - openstack/sushy-oem-idrac-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sushy-oem-idrac:
+      acl: openstack-sushy-oem-idrac
+      description: Mirror of upstream sushy-oem-idrac (mirror + patches)
+    openstack/sushy-oem-idrac-distgit:
+      acl: openstack-sushy-oem-idrac-distgit
+      description: Packaging of upstream sushy-oem-idrac
+      default-branch: rpm-master
+      branches:
+        master: '0'
