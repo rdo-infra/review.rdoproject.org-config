@@ -32,18 +32,19 @@
       when: extra_node|bool
 
     - name: Create a stack
-      shell: |
-        {{ ovb_working_dir }}/.venv/bin/python {{ ovb_repo_directory }}/bin/deploy.py {{ ovb_args }};
+      command: |
+        {{ ovb_working_dir }}/.venv/bin/python {{ ovb_repo_directory }}/bin/deploy.py {{ ovb_args }}
       args:
         chdir: "{{ ovb_repo_directory }}"
 
     - name: Wait until stack is created of failed
-      shell: >-
+      command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
       register: result
       until: ("COMPLETE" in result.stdout) or ("FAILED" in result.stdout) or result.rc != 0
       retries: 18
       delay: 100
+      changed_when: false
 
     - name: Dump stderr in case of command failure
       debug:
@@ -57,7 +58,7 @@
       when: '"FAILED" in result.stdout'
 
     - name: Show stack status
-      shell: >-
+      command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
 
     - name: Fail if stack did not deploy successfully
@@ -66,40 +67,40 @@
       when: '"CREATE_COMPLETE" not in result.stdout'
 
     - name: Return floating ip outputs
-      shell: >
+      command: >
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f json -c outputs
       register: stack_outputs
 
     - name: Find ID of provision network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack network show provision-{{ idnum }} -f value -c id"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack network show provision-{{ idnum }} -f value -c id"
       register: provision_id
 
     - name: Find ID of public network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack network show public-{{ idnum }} -f value -c id"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack network show public-{{ idnum }} -f value -c id"
       register: public_id
       when: net_iso and net_iso != 'none'
 
     - name: Attach instance to provision OVB network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ provision_id.stdout }}"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ provision_id.stdout }}"
 
     - name: Attach instance to public OVB network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ public_id.stdout }}"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ public_id.stdout }}"
       when: net_iso and net_iso != 'none'
 
     - name: Find ports in provision network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ provision_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ provision_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: provision_port
 
     - name: Find ports in public network
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ public_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ public_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: public_port
       when: net_iso and net_iso != 'none'
 
     - name: Disable security in provision ports
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ provision_port.stdout }} --no-security-group --disable-port-security"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ provision_port.stdout }} --no-security-group --disable-port-security"
 
     - name: Disable security in public ports
-      shell: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ public_port.stdout }} --no-security-group --disable-port-security"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ public_port.stdout }} --no-security-group --disable-port-security"
       when: net_iso and net_iso != 'none'
 
     - name: Build nodes.json file to be used as instackenv.json
@@ -111,6 +112,7 @@
       args:
         chdir: "{{ ovb_working_dir }}"
       register: nodes_json
+      changed_when: true
 
   always:
 

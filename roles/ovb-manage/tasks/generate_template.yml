@@ -8,6 +8,7 @@
       - "{{ ovb_working_dir }}/env-{{ idnum }}-compute.yaml"
     - - "{{ ovb_repo_directory }}/environments/base-extra-node.yaml"
       - "{{ ovb_working_dir }}/env-{{ idnum }}-extra.yaml"
+  changed_when: true
 
 - name: Customize the base template
   replace:
