@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "b18cb1ac_5dd677d9",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "this is the part taht decides if we promote or not. If we leave it in pre, then when it fails it will be marked as a PRE fail in zuul, and the job will be retried three times. Is this the behaviour we want ?",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5939ba82_2640311a",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is needed. This job is run as a dependency on the component job. If the job fails, this job is not run. So this check may be redundant.",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd394973_b2dfedbb",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "So to block the promotion you\u0027re relying on the grep exit code. If it doesn\u0027t find the job, this will fail and nothing will proceed ? Sometimes we run our scripts with -e and -o pipefile, and this could not be optimal. Maybe a suggestion could be using the dlrnapi ansible module to get the list of jobs, then check this output in another task.",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73bfcf74_527a11f3",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "Why are we getting the hash twice ? once here and once in pre ?",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2db37ff1_1e89c877",
         "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml",
         "patchSetId": 11
@@ -19,6 +87,23 @@
     },
     {
       "key": {
+        "uuid": "57f03f5e_fd47f5e1",
+        "filename": "playbooks/tripleo-ci-periodic-base/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "If you\u0027re creating a different parent for the component jon, will it ever happen that this variable will be set up the trunk-staging in this particular playbook ? If the veriable is not speficied here, the default in the script is already the same",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d677252e_61c7273d",
         "filename": "playbooks/tripleo-ci-periodic-base/pre.yaml",
         "patchSetId": 11
@@ -30,6 +115,40 @@
       "writtenOn": "2019-12-05T20:53:52Z",
       "side": 1,
       "message": "Thanks",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca71908e_daada520",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "We can remove this then ?",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a65180c4_fafeb061",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 63
+      },
+      "writtenOn": "2019-12-06T17:22:56Z",
+      "side": 1,
+      "message": "no dlrn_server_url here because it\u0027s in the parent job",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
