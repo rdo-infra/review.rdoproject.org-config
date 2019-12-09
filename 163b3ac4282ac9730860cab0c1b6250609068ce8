@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8af95166_c9978c95",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-12-09T14:07:56Z",
+      "side": 1,
+      "message": "This is not my invention, look at https://review.rdoproject.org/zuul/builds?pipeline\u003dperiodic\n\n\"periodic\" pipeline is documented clearly to be used for jobs that run every 24h.",
+      "parentUuid": "e88edb56_8a7860ea",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 13
+      },
+      "revId": "163b3ac4282ac9730860cab0c1b6250609068ce8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0993278_767f4584",
         "filename": "zuul.d/projects.yaml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-09T13:10:25Z",
       "side": 1,
       "message": "should be named different not to confuse with check jobs",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "163b3ac4282ac9730860cab0c1b6250609068ce8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db2aabea_4d67f27c",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 371
+      },
+      "writtenOn": "2019-12-09T14:07:56Z",
+      "side": 1,
+      "message": "They run in different pipelines and I see of no practical reason to duplicate all jobs in order to expose information that already provided by the pipeline attribute.\n\nAdding the periodic prefix would create extra configuration to maintain.\n\nIn fact it would even make harder to query combined executions of the same job (PRs and periodics).\n\nAlso I did not see any documentation requiring adding the periodic prefix to job names.",
+      "parentUuid": "f0993278_767f4584",
       "range": {
         "startLine": 74,
         "startChar": 9,
