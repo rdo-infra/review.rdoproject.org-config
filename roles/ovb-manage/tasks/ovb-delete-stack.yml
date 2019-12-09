@@ -39,7 +39,7 @@
       register: servers
 
     - name: Dump console log of servers, removing stack id
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
       loop: "{{ servers.stdout_lines }}"
       ignore_errors: true
       environment:
