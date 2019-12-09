@@ -15,12 +15,11 @@
         current-patchset: True
     trigger:
       github.com:
-# NOTE(jpena): while the pipeline and jobs are tested, we will only trigger jobs via a keyword
-#        - event: pull_request
-#          action:
-#            - opened
-#            - changed
-#            - reopened
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
         - event: pull_request
           action: comment
           comment: (?i)^\s*(recheck|check-rdo)\s*$
