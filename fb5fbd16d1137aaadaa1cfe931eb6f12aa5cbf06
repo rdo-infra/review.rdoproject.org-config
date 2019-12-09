@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0657e87_679c5329",
+        "filename": "ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-09T14:48:33Z",
+      "side": 1,
+      "message": "ack, copied it from an existing one: https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/ci-scripts/tripleo-upstream/dlrnapi_report.sh",
+      "parentUuid": "80baa3da_b8f47ecf",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 30
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bf4eaca_44ef2331",
         "filename": "ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-09T10:34:14Z",
       "side": 1,
       "message": "do we need to verify that actually exists before proceeding\n\n(well actualy set-eu as @zbr says will do the trick unless i\u0027ts already set elsewhere that then includes this?",
+      "range": {
+        "startLine": 2,
+        "startChar": 43,
+        "endLine": 2,
+        "endChar": 44
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5358a2f_81086ffe",
+        "filename": "ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-09T14:48:33Z",
+      "side": 1,
+      "message": "will add set -eu (if not switching gears to dlrn_api ansible module)",
+      "parentUuid": "1bf4eaca_44ef2331",
       "range": {
         "startLine": 2,
         "startChar": 43,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7b41dd6d_155d5c85",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-09T14:48:33Z",
+      "side": 1,
+      "message": "oops!",
+      "parentUuid": "608d5889_6f16984d",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b18cb1ac_5dd677d9",
         "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
         "patchSetId": 11
@@ -82,6 +154,24 @@
       "writtenOn": "2019-12-06T17:22:56Z",
       "side": 1,
       "message": "this is the part taht decides if we promote or not. If we leave it in pre, then when it fails it will be marked as a PRE fail in zuul, and the job will be retried three times. Is this the behaviour we want ?",
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc450304_11e887ca",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-09T14:48:33Z",
+      "side": 1,
+      "message": "will do it in run",
+      "parentUuid": "b18cb1ac_5dd677d9",
       "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -169,6 +259,30 @@
       "writtenOn": "2019-12-06T18:08:27Z",
       "side": 1,
       "message": "the same: true only if it alters system state, if it doesn\u0027t it should be false.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "fb5fbd16d1137aaadaa1cfe931eb6f12aa5cbf06",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2c7887_9bfb9884",
+        "filename": "playbooks/tripleo-ci-base-promote-component-to-current-tripleo/pre.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 502
+      },
+      "writtenOn": "2019-12-09T14:48:33Z",
+      "side": 1,
+      "message": "that\u0027s true :)",
+      "parentUuid": "5eea3c2b_1dcc6b48",
       "range": {
         "startLine": 34,
         "startChar": 20,
