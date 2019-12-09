@@ -69,6 +69,11 @@
     templates:
       - system-required
       - podman-jobs
+    openstack-regular:
+      jobs:
+        - podman-package-centos-8
+        - podman-package-fedora-30
+        - podman-package-rhel-8
 
 - project:
     name: opendev.org/openstack/ansible-role-container-registry
