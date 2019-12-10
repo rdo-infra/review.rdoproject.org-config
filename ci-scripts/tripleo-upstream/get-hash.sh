@@ -16,9 +16,10 @@ set -u
 : ${DLRNAPI_DISTRO:="CentOS"}
 : ${DLRNAPI_DISTRO_VERSION:="7"}
 : ${DLRNAPI_SERVER:="trunk.rdoproject.org"}
+: ${HTTP_PROTOCOL="https"}
 : ${COMPONENT_NAME:=""}
 
-DLRNAPI_URL="https://${DLRNAPI_SERVER}/api-${DLRNAPI_DISTRO,,}-$RELEASE"
+DLRNAPI_URL="${HTTP_PROTOCOL}://${DLRNAPI_SERVER}/api-${DLRNAPI_DISTRO,,}-$RELEASE"
 if [[ "$RELEASE" == "master"  && "$DLRNAPI_DISTRO" == "CentOS" ]]; then
     # for master we have two DLRN builders, use the "upper constraint" one that
     # places restrictions on the maximum version of all dependencies
@@ -29,13 +30,13 @@ fi
 # vs https://trunk.rdoproject.org/fedora/consistent/commit.yaml
 # for fedora master trunk.rdoproject.org/fedora
 if [[ "$RELEASE" == "master"  && "${DLRNAPI_DISTRO,,}" == "fedora" ]]; then
-    HASHES_URL=https://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}/$PROMOTE_NAME/commit.yaml
+    HASHES_URL=${HTTP_PROTOCOL}://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}/$PROMOTE_NAME/commit.yaml
 # for fedora stein  trunk.rdoproject.org/fedora-stein
 # will need an elif here
 elif [[ "$COMPONENT_NAME" != '' ]]; then
-    HASHES_URL=https://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/component/$COMPONENT_NAME/$PROMOTE_NAME/commit.yaml
+    HASHES_URL=${HTTP_PROTOCOL}://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/component/$COMPONENT_NAME/$PROMOTE_NAME/commit.yaml
 else
-    HASHES_URL=https://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
+    HASHES_URL=${HTTP_PROTOCOL}://${DLRNAPI_SERVER}/${DLRNAPI_DISTRO,,}${DLRNAPI_DISTRO_VERSION}-$RELEASE/$PROMOTE_NAME/commit.yaml
 fi
 
 curl -sLo $WORKSPACE/commit.yaml $HASHES_URL
