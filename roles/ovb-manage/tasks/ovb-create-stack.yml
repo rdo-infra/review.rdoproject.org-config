@@ -1,7 +1,9 @@
 ---
 - name: Generate idnum for all run-related entities
   set_fact:
-    idnum: "{{ tmp.idnum }}"
+    idnum: >-
+      {% if 'change' in zuul|default({}) and 'patchset' in zuul|default({}) -%}
+      {{ zuul.change }}_{{ zuul.patchset }}_{% endif %}{{ tmp.idnum }}
 
 - name: Dump idnum for later stack deletion
   copy:
