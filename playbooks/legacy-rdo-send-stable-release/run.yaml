@@ -31,6 +31,27 @@
       environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
 
+    - name: Load RDO releases data
+      include_vars:
+        file: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}/rdo.yml"
+        name: rdo
+
+    - name: Get RDO maintained releases
+      set_fact:
+        releases_maintained: "{{ rdo.releases | selectattr('status', 'match', '^maintained$') | map(attribute='name') | list }}"
+
+    - name: Get RDO releases in extended maintenance
+      set_fact:
+        releases_ext_maintenance: "{{ rdo.releases | selectattr('status', 'match', '^extended maintenance$') | map(attribute='name') | list }}"
+
+    - name: Set a list of RDO release in maintenance and extended maintenance
+      set_fact:
+        releases: "{{ releases_maintained | union(releases_ext_maintenance) }}"
+
+    - name: Get RDO master release
+      set_fact:
+        master_release: "{{ rdo.releases | selectattr('status', 'match', '^development$') | map(attribute='name') | join(',') }}"
+
     - name: rdo-send-stable-release
       shell:
         cmd: |
@@ -63,8 +84,8 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="queens rocky stein train ussuri"
-          MASTER_RELEASE="ussuri"
+          RELEASES="{{ releases | join(' ') }}"
+          MASTER_RELEASE="{{ master_release }}"
           for r in $RELEASES;do
             if [ $r == $MASTER_RELEASE ]; then
               TAG_OPTION=" -t ${r}-uc"
