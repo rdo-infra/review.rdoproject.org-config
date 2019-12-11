@@ -3,7 +3,8 @@
     name: github-check
     description: |
       Newly uploaded patchsets on GitHub enter this pipeline to receive an
-      initial +/-1 Verified vote.
+      initial +/-1 Verified vote. Should be used by production ready jobs,
+      for experimental ones github-manual pipeline.
     success-message: Build succeeded (check pipeline).
     failure-message: |
       Build failed (check pipeline).  For information on how to proceed, see
@@ -15,12 +16,52 @@
         current-patchset: True
     trigger:
       github.com:
-# NOTE(jpena): while the pipeline and jobs are tested, we will only trigger jobs via a keyword
-#        - event: pull_request
-#          action:
-#            - opened
-#            - changed
-#            - reopened
+       - event: pull_request
+         action:
+           - opened
+           - changed
+           - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo)\s*$
+    start:
+      github.com:
+        status: 'pending'
+        status-url: "https://review.rdoproject.org/zuul/status/change/${change.number},${change.patchset}"
+        comment: false
+    success:
+      github.com:
+        status: 'success'
+        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        comment: false
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      github.com:
+        status: 'failure'
+        status-url: 'https://review.rdoproject.org/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
+        comment: false
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: github-manual
+    description: |
+      Used for testing new or experimental jobs by manually trigerring them
+      with magic comment `check-rdo`.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      github.com:
         - event: pull_request
           action: comment
           comment: (?i)^\s*(recheck|check-rdo)\s*$
