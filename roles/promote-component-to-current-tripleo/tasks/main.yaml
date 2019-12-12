@@ -1,0 +1,9 @@
+---
+- name: get the hash to promote
+  include: get-hash.yaml
+
+- name: check if all jobs in component promotion criteria passed
+  include: check-promotion-criteria.yaml
+
+- name: promote from tripleo-ci-testing to current-tripleo-<component>
+  include: promote-hash.yaml
