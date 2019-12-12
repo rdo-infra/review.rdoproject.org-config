@@ -1,0 +1,8 @@
+---
+# get-hash is common to any promotion
+- name: get the hash to promote
+  include: get-hash.yaml
+
+# promote primary distro is common to any promotion
+- name: promote hash
+  include: promote-primary-distro.yaml

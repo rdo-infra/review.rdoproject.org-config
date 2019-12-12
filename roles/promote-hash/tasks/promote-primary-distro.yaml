@@ -1,15 +1,16 @@
----
 - name: Ensure legacy workspace directory
   file:
     path: '{{ workspace }}'
     state: directory
 
-- name: Promote consistent to tripleo-ci-testing for primary repo
+- name: Promote hash label from {{ promote_source }} to {{ promote_target }}
   shell:
     cmd: |
       export RELEASE="{{ release }}"
-      export PROMOTE_NAME=tripleo-ci-testing
+      export PROMOTE_NAME="{{ promote_target }}"
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
     chdir: '{{ workspace }}'
-  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password}) }}"
+  environment:
+    - DLRNAPI_PASSWORD: "{{ dlrnapi.password }}"
+    - DLRNAPI_USERNAME: "{{ dlrnapi_user }}"
   changed_when: true
