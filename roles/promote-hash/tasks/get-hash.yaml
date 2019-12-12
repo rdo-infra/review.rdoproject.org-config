@@ -1,21 +1,18 @@
----
 - name: Ensure legacy workspace directory
   file:
     path: '{{ workspace }}'
     state: directory
 
-- name: Create hash_info file with hashes from consistent
+- name: Create hash_info file with hashes from {{ promote_source }}
   shell:
     cmd: |
-      # component_release is defined when only the component has different
-      # release value than the rest of the product
-      export RELEASE="{{ component_release | default(release) }}"
-      export PROMOTE_NAME=consistent
-      export DLRNAPI_DISTRO="{{ ansible_distribution }}"
-      export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+      export RELEASE="{{ release }}"
+      export PROMOTE_NAME"{{ promote_source }}"
       export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
       export HTTP_PROTOCOL="{{ http_protocol | default('https') }}"
       export COMPONENT_NAME="{{ component | default('') }}"
+      export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+      export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
     chdir: '{{ workspace }}'
   environment: '{{ zuul | zuul_legacy_vars }}'
