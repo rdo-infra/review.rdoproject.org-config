@@ -35,7 +35,7 @@
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
       release: master
-      component_name: compute
+      component: compute
       dlrn_server_url: "trunk-staging.rdoproject.org"
 
 - job:
@@ -43,7 +43,7 @@
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
       release: master
-      component_name: keystone
+      component: keystone
       dlrn_server_url: "trunk-staging.rdoproject.org"
 
 # component pipeline component-compute-promote-to-current-tripleo definitions
@@ -52,7 +52,7 @@
     parent: tripleo-ci-base-component-promote-to-current-tripleo
     vars:
       release: master
-      component_name: compute
+      component: compute
 
  # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
  # will also need a post for upload/rsync images (site_logs secret logserver)

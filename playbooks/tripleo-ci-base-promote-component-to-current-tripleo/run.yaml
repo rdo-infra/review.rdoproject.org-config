@@ -15,7 +15,7 @@
           export RELEASE="{{ release }}"
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk-staging.rdoproject.org') }}"
-          export COMPONENT_NAME="{{ component_name | default('') }}"
+          export COMPONENT_NAME="{{ component | default('') }}"
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
@@ -47,9 +47,9 @@
     - name: Promote tripleo-ci-testing to current-tripleo for component
       shell:
         cmd: |
-          export DLRNAPI_URL="https://trunk-staging.rdoproject.org/api-centos-master/component/{{ component_name }}"
+          export DLRNAPI_URL="https://trunk-staging.rdoproject.org/api-centos-master/component/{{ component }}"
           export RELEASE="{{ release }}"
-          export PROMOTE_NAME="current-tripleo-{{ component_name }}"
+          export PROMOTE_NAME="current-tripleo-{{ component }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
       environment:
