@@ -1,0 +1,32 @@
+- hosts: all
+  tasks:
+    - name: Ensure legacy workspace directory
+      file:
+        path: '{{ workspace }}'
+        state: directory
+
+    - name: Check reports from DLRN
+      shell:
+        cmd: |
+          source {{ workspace }}/hash_info.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh
+        chdir: '{{ workspace }}'
+      environment:
+        - DLRNAPI_PASSWORD: "{{ dlrnapi.password }}"
+        - DLRNAPI_USERNAME: "{{ dlrnapi_user }}"
+      register: reported_jobs
+
+    # component promotion criteria
+    - name: load criteria for component promotion
+      include_vars:
+        file: "{{ ci_config_repo }}/ci-scripts/dlrnapi_promoter/config/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/{{ release }}-component.yaml"
+        name: "criteria"
+
+    # noqa 301
+    - name: ensure promotion criteria is met
+      assert:
+        that: "{{ reported_jobs.stdout | from_json | json_query(query) }} != []"
+      vars:
+        query: "[?contains(job_id, '{{ item }}')]"
+        hash: "current-tripleo-{{ component }}"
+      loop: "{{ criteria[hash] }}"
