@@ -12,12 +12,15 @@
     - name: Create hash_info file with hashes from tripleo-ci-testing
       shell:
         cmd: |
-          export RELEASE="{{ release }}"
+          # component_release is defined when only the component has different
+          # release value than the rest of the product
+          export RELEASE="{{ component_release | release }}"
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk-staging.rdoproject.org') }}"
           export COMPONENT_NAME="{{ component | default('') }}"
           export DLRNAPI_DISTRO="{{ ansible_distribution }}"
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+          export HTTP_PROTOCOL="{{ http_protocol | default('https') }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
         chdir: '{{ workspace }}'
       environment: '{{ zuul | zuul_legacy_vars }}'
@@ -47,8 +50,11 @@
     - name: Promote tripleo-ci-testing to current-tripleo for component
       shell:
         cmd: |
+          # This will only work for upstream master
           export DLRNAPI_URL="https://trunk-staging.rdoproject.org/api-centos-master/component/{{ component }}"
-          export RELEASE="{{ release }}"
+          # component_release is defined when only the component has different
+          # release value than the rest of the product
+          export RELEASE="{{ component_release | release }}"
           export PROMOTE_NAME="current-tripleo-{{ component }}"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
