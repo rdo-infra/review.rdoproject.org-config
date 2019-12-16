@@ -6,6 +6,7 @@
 - name: Create hash_info file with hashes from {{ promote_source }}
   shell:
     cmd: |
+      export WORKSPACE="{{ workspace }}"
       export RELEASE="{{ release }}"
       export PROMOTE_NAME="{{ promote_source }}"
       export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
