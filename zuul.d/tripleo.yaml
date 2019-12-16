@@ -437,9 +437,6 @@
         - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     openstack-component-compute:
       jobs:
-        - periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo:
-            dependencies:
-              - periodic-tripleo-ci-centos-7-standalone-compute-master
         - periodic-tripleo-ci-centos-7-standalone-compute-master:
             dependencies:
               - periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
@@ -456,6 +453,10 @@
             dependencies:
               - periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
+    openstack-promote-component:
+      jobs:
+        - periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo
+        - periodic-tripleo-centos-7-master-component-keystone-promote-to-current-tripleo
 
 - project:
     name: opendev.org/x/browbeat
