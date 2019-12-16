@@ -46,13 +46,20 @@
       component: keystone
       dlrn_server_url: "trunk-staging.rdoproject.org"
 
-# component pipeline component-compute-promote-to-current-tripleo definitions
+# component pipeline promote-to-current-tripleo definitions
 - job:
     name: periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo
     parent: tripleo-ci-base-component-promote-to-current-tripleo
     vars:
       release: master
       component: compute
+
+- job:
+    name: periodic-tripleo-centos-7-master-component-keystone-promote-to-current-tripleo
+    parent: tripleo-ci-base-component-promote-to-current-tripleo
+    vars:
+      release: master
+      component: keystone
 
  # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
  # will also need a post for upload/rsync images (site_logs secret logserver)
