@@ -1,8 +1,11 @@
 - hosts: all
-  vars:
-    promote_source: consistent
-    promote_target: tripleo-ci-testing
   tasks:
+
+    - name: set promote labels
+      set_fact:
+        promote_source: consistent
+        promote_target: tripleo-ci-testing
+
     - name: Create hash_info file with hashes from consistent
       include_role:
         name: promote-hash

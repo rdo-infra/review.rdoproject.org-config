@@ -1,8 +1,11 @@
 - hosts: all
-  vars:
-    promote_source: tripleo-ci-testing
-    promote_target: "current-tripleo-{{ component }}"
   tasks:
+
+    - name: set promote labels
+      set_fact:
+        promote_source: tripleo-ci-testing
+        promote_target: "current-tripleo-{{ component }}"
+
     - name: Create hash_info file with hashes from {{ promote_source }}
       include_role:
         name: promote-hash
