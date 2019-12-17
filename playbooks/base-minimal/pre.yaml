@@ -19,3 +19,7 @@
     - add-build-sshkey
     - start-zuul-console
     - validate-host
+
+  post_tasks:
+    - import_role: name=ensure-output-dirs
+      when: ansible_user_dir is defined
