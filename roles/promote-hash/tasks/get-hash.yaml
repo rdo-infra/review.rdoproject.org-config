@@ -7,7 +7,7 @@
   shell:
     cmd: |
       export WORKSPACE="{{ workspace }}"
-      export RELEASE="{{ release }}"
+      export RELEASE="{{ component_release | default(release) }}"
       export PROMOTE_NAME="{{ promote_source }}"
       export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
       export HTTP_PROTOCOL="{{ http_protocol | default('https') }}"

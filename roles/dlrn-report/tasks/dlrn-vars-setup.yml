@@ -22,7 +22,7 @@
   shell:
     cmd: |
       export WORKSPACE="{{ workspace }}"
-      export RELEASE="{{ release }}"
+      export RELEASE="{{ component_release | default(release) }}"
       export PROMOTE_NAME=tripleo-ci-testing
       export DLRNAPI_DISTRO="CentOS"
       export DLRNAPI_DISTRO_VERSION="7"
