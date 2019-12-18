@@ -6849,7 +6849,14 @@
         - legacy-weirdo-integration-master-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
@@ -6883,6 +6890,9 @@
             irrelevant-files:
               - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
@@ -6936,7 +6946,16 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^.*$
@@ -6976,6 +6995,10 @@
               - ^.*$
               - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -7022,7 +7045,14 @@
         - legacy-weirdo-integration-master-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
@@ -7053,6 +7083,9 @@
             irrelevant-files:
               - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
@@ -7102,7 +7135,16 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^.*$
@@ -7138,6 +7180,10 @@
               - ^.*$
               - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -7188,7 +7234,14 @@
         - legacy-weirdo-integration-master-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario004:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
@@ -7223,6 +7276,9 @@
             irrelevant-files:
               - ^README.rst$
         - legacy-weirdo-integration-master-puppet-scenario001:
+            irrelevant-files:
+              - ^README.rst$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
@@ -7443,10 +7499,25 @@
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
         - legacy-weirdo-integration-master-puppet-scenario004:
             voting: false
             irrelevant-files:
               - ^.*README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+            voting: false
+            irrelevant-files:
+              - ^README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
@@ -7516,6 +7587,13 @@
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
+        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+            irrelevant-files:
+              - ^README.rst$
+              - ^.gitignore$
+              - ^docs/.*$
+              - ^playbooks/logs-ci-centos.yml$
+              - ^playbooks/packstack.*$
     gate:
       jobs:
         - legacy-weirdo-ansible-lint
@@ -7561,9 +7639,23 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario001-centos8:
+            dependencies:
+              - rdoinfo-DLRN-check-centos8
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario002:
             dependencies:
               - rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/ussuri-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario002-centos8:
+            dependencies:
+              - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
@@ -7575,9 +7667,23 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario003-centos8:
+            dependencies:
+              - rdoinfo-DLRN-check-centos8
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario004:
             dependencies:
               - rdoinfo-DLRN-check
+            voting: false
+            branches: ^(rpm-)?master$
+            files:
+              - ^tags/ussuri-uc.yml$
+        - legacy-weirdo-dlrn-master-puppet-scenario004-centos8:
+            dependencies:
+              - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
