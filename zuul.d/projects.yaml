@@ -5695,6 +5695,18 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleo-operator-ansible
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tripleo-operator-ansible-distgit
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleo-puppet-elements-distgit
     default-branch: rpm-master
     templates:
