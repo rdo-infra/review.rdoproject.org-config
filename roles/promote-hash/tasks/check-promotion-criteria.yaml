@@ -15,11 +15,17 @@
 
 # TODO(rfolco): component promotion criteria is loaded from yaml file,
 # consolidate integration promotion to use the same method
-- name: load criteria for component promotion
+
+- name: fetch criteria file
   vars:
     criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
+  fetch:
+    dest: "{{ workspace }}/component-{{ release }}.yaml"
+    src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ release }}.yaml"
+
+- name: load criteria for component promotion
   include_vars:
-    file: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ release }}.yaml"
+    file: "{{ workspace }}/component-{{ release }}.yaml"
     name: "criteria"
 
 # noqa 301
