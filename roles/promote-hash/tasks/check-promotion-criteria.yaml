@@ -20,12 +20,12 @@
   vars:
     criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
   fetch:
-    dest: "{{ workspace }}/component-{{ release }}.yaml"
+    dest: "{{ workspace }}"
     src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ release }}.yaml"
 
 - name: load criteria for component promotion
   include_vars:
-    file: "{{ workspace }}/component-{{ release }}.yaml"
+    file: "{{ workspace }}/{{ release }}.yaml"
     name: "criteria"
 
 # noqa 301
