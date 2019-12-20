@@ -6,7 +6,7 @@ else
 fi
 pip_cmd=$(command -v pip || command -v pip3)
 $pip_cmd install --user dlrnapi-client shyaml
-PATH=$PATH:/home/$USER/.local/bin
+PATH=$PATH:$HOME/.local/bin
 dlrnapi --url $DLRNAPI_URL \
     report-result \
     --commit-hash $COMMIT_HASH \
