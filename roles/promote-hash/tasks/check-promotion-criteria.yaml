@@ -13,6 +13,11 @@
   register: reported_jobs
   changed_when: false
 
+- name: check for empty dlrnapi reports
+  fail:
+    msg: "FAILURE: No successful jobs reported to delorean api"
+  when: reported_jobs.stdout == [] or reported_jobs.stdout | length == 0
+
 # TODO(rfolco): component promotion criteria is loaded from yaml file,
 # consolidate integration promotion to use the same method
 
@@ -33,8 +38,8 @@
 - name: ensure promotion criteria is met
   assert:
     that: "reported_jobs.stdout | from_json | json_query(query) != []"
-    success_msg: "SUCCESS! Criteria matches for '{{ item }}'"
-    fail_msg: "FAILURE! Criteria DOES NOT match for '{{ item }}'"
+    success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
+    fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
   vars:
     query: "[?contains(job_id, '{{ item }}')]"
     hash: "current-tripleo-{{ component }}"
