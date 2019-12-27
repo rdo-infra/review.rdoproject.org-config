@@ -3,6 +3,8 @@
     path: '{{ workspace }}'
     state: directory
 
+# TODO(rfolco): component promotion criteria is loaded from yaml file,
+# consolidate integration promotion to use the same method
 - name: Check reports from DLRN
   shell:
     cmd: |
@@ -17,9 +19,6 @@
   fail:
     msg: "FAILURE: No successful jobs reported to delorean api"
   when: reported_jobs.stdout == '[]' or reported_jobs.stdout | length == 0
-
-# TODO(rfolco): component promotion criteria is loaded from yaml file,
-# consolidate integration promotion to use the same method
 
 - name: fetch criteria file
   vars:
@@ -37,7 +36,7 @@
 # noqa 301
 - name: ensure promotion criteria is met
   assert:
-    that: "reported_jobs.stdout | from_json | json_query(query) != []"
+    that: "{{ reported_jobs.stdout | from_json | json_query(query) }} != []"
     success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
     fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
   vars:
