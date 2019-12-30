@@ -14,11 +14,21 @@
   environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
   register: reported_jobs
   changed_when: false
+  when: not molecule_testing
 
-- name: check for empty dlrnapi reports
+- name: check for empty dlrnapi output
+  fail:
+    msg: "WARNING: delorean api retrieved empty/null output: '{{ reported_jobs.stdout }}'"
+  when:
+    - reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
+  ignore_errors: yes
+
+- name: fail if empty dlrnapi output (no jobs reported)
   fail:
     msg: "FAILURE: No successful jobs reported to delorean api"
-  when: reported_jobs.stdout == '[]' or reported_jobs.stdout | length == 0
+  when:
+    - not molecule_testing
+    - reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
 
 - name: fetch criteria file
   vars:
@@ -33,13 +43,41 @@
     file: "{{ workspace }}/{{ release }}.yaml"
     name: "criteria"
 
-# noqa 301
-- name: ensure promotion criteria is met
-  assert:
-    that: "{{ reported_jobs.stdout | from_json | json_query(query) }} != []"
-    success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
-    fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
-  vars:
-    query: "[?contains(job_id, '{{ item }}')]"
-    hash: "current-tripleo-{{ component }}"
-  loop: "{{ criteria[hash] }}"
+- name: debug reported jobs from dlrnapi output
+  debug:
+    msg: "DEBUG: Delorean API reported jobs => {{ reported_jobs.stdout }}"
+
+- block:
+    # noqa 301
+    - name: check promotion criteria
+      debug:
+        msg: "Promotion criteria: '{{ item }}'"
+      when:
+          - reported_jobs.stdout | json_query(query) != []
+      vars:
+        query: "[?contains(job_id, '{{ item }}')]"
+        hash: "current-tripleo-{{ component }}"
+      loop: "{{ criteria[hash] }}"
+
+    - name: criteria matches
+      debug:
+        msg: "Congratulations! Promotion criteria successfully matched w/ reported jobs"
+  rescue:
+    - name: criteria does not match
+      debug:
+        msg: "Oops! Promotion criteria does not match w/ reported jobs"
+  ignore_errors: yes
+
+- block:
+    # noqa 301
+    - name: check promotion criteria
+      assert:
+        that:
+          - reported_jobs.stdout | json_query(query) != []
+        success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
+        fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
+      vars:
+        query: "[?contains(job_id, '{{ item }}')]"
+        hash: "current-tripleo-{{ component }}"
+      loop: "{{ criteria[hash] }}"
+  when: not molecule_testing
