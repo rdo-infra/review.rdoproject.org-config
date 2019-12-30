@@ -1,0 +1,9 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: test check-promotion-criteria.yaml
+      include_tasks: ../../tasks/check-promotion-criteria.yaml

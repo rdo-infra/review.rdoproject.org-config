@@ -18,7 +18,7 @@
 - name: check for empty dlrnapi reports
   fail:
     msg: "FAILURE: No successful jobs reported to delorean api"
-  when: reported_jobs.stdout == '[]' or reported_jobs.stdout | length == 0
+  when: reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
 
 - name: fetch criteria file
   vars:
@@ -33,10 +33,20 @@
     file: "{{ workspace }}/{{ release }}.yaml"
     name: "criteria"
 
+- name: debug criteria query on dlrnapi stdout
+  debug:
+    msg: "{{ item }} : {{ reported_jobs.stdout | from_json | json_query(query) }}"
+  vars:
+    query: "[?contains(job_id, '{{ item }}')]"
+    hash: "current-tripleo-{{ component }}"
+  loop: "{{ criteria[hash] }}"
+  ignore_errors: true
+
 # noqa 301
 - name: ensure promotion criteria is met
   assert:
-    that: "{{ reported_jobs.stdout | from_json | json_query(query) }} != []"
+    that:
+      - reported_jobs.stdout | from_json | json_query(query) != []
     success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
     fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
   vars:
