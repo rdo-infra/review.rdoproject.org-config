@@ -1,0 +1,67 @@
+---
+
+- hosts: all
+  gather_facts: false
+  vars:
+    molecule_testing: true
+    workspace: "/tmp"
+    rdo_infra_ci_config: "{{ workspace }}/ci-config"
+    ansible_distribution: CentOS
+    ansible_distribution_major_version: 7
+    release: master
+    component: compute
+  tasks:
+
+    - name: emulate valid dlrnapi response
+      shell:
+        cmd: |
+          cat dlrnapi_output
+      register: valid_dlrnapi_output
+
+    - name: emulate empty dlrnapi call
+      shell:
+        cmd: |
+          echo '[]'
+      register: empty_dlrnapi_output
+
+    - name: emulate null dlrnapi response
+      shell:
+        cmd: |
+          echo ''
+      register: null_dlrnapi_output
+
+    - name: set local src dir for ci-config  # noqa 305
+      shell: "pwd"
+      args:
+        chdir: "{{ playbook_dir }}/../../../../"
+      register: ci_config_dir
+      delegate_to: localhost
+      changed_when: false
+
+    - name: install test requirements
+      pip:
+        requirements: "{{ ci_config_dir.stdout }}/test-requirements.txt"
+        virtualenv: "{{ workspace }}/.venv"
+      delegate_to: localhost
+
+    - name: install jmespath for json_query filter
+      pip:
+        name: jmespath
+        virtualenv: "{{ workspace }}/.venv"
+
+    - name: git clone ci-config repo
+      git:
+        repo: "https://github.com/rdo-infra/ci-config"
+        dest: "{{ rdo_infra_ci_config }}"
+
+    - name: test check-promotion-criteria.yaml
+      include_tasks: ../../tasks/check-promotion-criteria.yaml
+      vars:
+        # vars defined/changed in this playbook
+        reported_jobs: "{{ item }}"
+        ci_config_repo: "{{ ci_config_dir.stdout }}"
+      loop:
+        - "{{ valid_dlrnapi_output }}"
+        - "{{ empty_dlrnapi_output }}"
+        - "{{ null_dlrnapi_output }}"
+      ignore_errors: true
