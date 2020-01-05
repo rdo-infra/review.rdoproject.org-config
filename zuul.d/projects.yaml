@@ -91,6 +91,16 @@
         - podman-package-rhel-8
 
 - project:
+    name: github.com/pycontribs/selinux
+    templates:
+      - system-required
+    github-manual:
+      jobs:
+        - tox-linters:
+            vars:
+               tox_envlist: lint
+
+- project:
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
