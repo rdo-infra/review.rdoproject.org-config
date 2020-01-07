@@ -1,0 +1,51 @@
+- hosts: all
+  tasks:
+
+    - name: reqcheck the project
+      shell:
+        cmd: |
+          set +e -x
+          cat >> ~/.ssh/config << EOF
+
+          Host review.rdoproject.org
+            IdentityFile ~/.ssh/rdoinfo_id_rsa
+          EOF
+
+          ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+          virtualenv --system-site-packages ~/.venv
+          source ~/.venv/bin/activate
+          pip install 'ruamel.yaml<=0.15' git-review
+          # Install rdopkg
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['softwarefactory-project.io/rdopkg'].src_dir }}
+          pip install .
+          popd
+
+          COMMIT_MSG="Dependencies between spec and reqs files are not synced\n"
+          DISTGIT_PROJECT=$(rdopkg findpkg {{ zuul.project.name }} | sed -n "/^distgit/ s/distgit. \(.*\)/\1/p")
+          UPSTREAM_PROJECT=$(rdopkg findpkg {{ zuul.project.name }} | sed -n "/^upstream/ s/upstream. \(.*\)/\1/p")
+
+          git clone $DISTGIT_PROJECT distgit
+          pushd distgit
+          git remote add upstream $UPSTREAM_PROJECT
+          git fetch upstream
+          reqcheck=$(rdopkg reqcheck --strict)
+          if [ $? -ne 0 ]; then
+              ERROR_MSG=$(echo "$reqcheck" | awk 'BEGIN{ found=0} /VERSION MISMATCH/{found=1} /MISSING/{found=1}  {if (found) print }')
+              COMMIT_MSG+="$ERROR_MSG"
+              git config user.name "rdo-trunk"
+              git config user.email "javier.pena@redhat.com"
+              git config gitreview.username "rdo-trunk"
+              git checkout -b proposal
+              git review -s -v
+              # we need to inject a pseudo-modification to the spec file to have a
+              # change to commit
+              sed -i -e "\$a\\# REMOVEME: error caused by commit \\" *.spec
+              echo -e $COMMIT_MSG | git commit -F- *.spec
+              git review -t "reqcheck" < /dev/null
+          fi
+          popd
+        chdir: '{{ ansible_user_dir }}/workspace'
+      environment: '{{ zuul | zuul_legacy_vars }}'
+      changed_when: true

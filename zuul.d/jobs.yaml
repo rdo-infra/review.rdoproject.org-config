@@ -306,6 +306,19 @@
       - rdoinfo_ssh
 
 - job:
+    name: reqcheck
+    parent: legacy-base
+    final: true
+    pre-run: playbooks/reqcheck/pre.yaml
+    run: playbooks/reqcheck/run.yaml
+    nodeset: container-fedora
+    required-projects:
+      - name: rdoinfo
+      - name: rdopkg
+    secrets:
+      - rdoinfo_ssh
+
+- job:
     name: legacy-update-buildsys-tags
     parent: legacy-base
     description: |
