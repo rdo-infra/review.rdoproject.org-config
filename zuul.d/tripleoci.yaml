@@ -311,6 +311,31 @@
       push_containers_podman: true
 
 - job:
+    name: periodic-tripleo-centos-8-master-containers-build-push
+    parent: periodic-tripleo-containers-build-push-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
+    nodeset: single-centos-8-node
+    secrets:
+      - rdo_registry
+    vars:
+      release: master
+      use_buildah: true
+      # Keep string empty, or kolla will try to download delorean repos on its own
+      buildcontainers_rpm_setup_config: ""
+      # set push_containers to false as build containers are pushing using podman
+      push_containers: false
+      push_containers_podman: true
+
+- job:
+    name: periodic-tripleo-centos-8-train-containers-build-push
+    parent: periodic-tripleo-centos-8-master-containers-build-push
+    override-checkout: 'stable/train'
+    vars:
+      release: train
+      branch_override: 'stable/train'
+
+- job:
     name: periodic-tripleo-centos-7-train-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
     nodeset: single-centos-7-node
