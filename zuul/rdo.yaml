@@ -1087,7 +1087,6 @@
           # don't gate them, so they could wedge our config.
         - include: []
           projects:
-          - ansible/molecule
           - ansible/ansible-lint
           - ceph/ceph-ansible
           - gnocchixyz/gnocchi
@@ -1095,8 +1094,6 @@
           - containers/libpod
           - pycontribs/molecule-libvirt
           - pycontribs/molecule-openstack
-          - pycontribs/pytest-molecule
-          - pycontribs/selinux
 
       pagure.io:
         untrusted-projects:

@@ -106,18 +106,6 @@
                tox_envlist: devel
 
 - project:
-    name: github.com/pycontribs/selinux
-    templates:
-      - system-required
-    github-check:
-      jobs:
-        - tox-linters:
-            vars:
-               tox_envlist: lint
-        - tox-py27
-        - tox-py36
-
-- project:
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
