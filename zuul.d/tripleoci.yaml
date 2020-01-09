@@ -372,3 +372,25 @@
     parent: tripleo-ci-base-singlenode-containers-build
     vars:
        release: master
+
+# Vexxhost containers push jobs
+- job:
+    name: tripleo-centos-7-master-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: upstream-centos-7-vexxhost
+    vars:
+       push_registry: trunk.registry-vexxhost.rdoproject.org
+    secrets:
+      - name: rdo_registry
+        secret: rdo_vexxhost_registry
+      - dlrnapi
+- job:
+    name: tripleo-centos-7-train-containers-build-push-vexxhost
+    parent: periodic-tripleo-rhel-8-train-containers-build-push
+    nodeset: upstream-centos-7-vexxhost
+    vars:
+       push_registry: trunk.registry-vexxhost.rdoproject.org
+    secrets:
+      - name: rdo_registry
+        secret: rdo_vexxhost_registry
+      - dlrnapi
