@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a87bf89e_7f66640f",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2020-01-10T09:08:55Z",
+      "side": 1,
+      "message": "yeah but I *think* we need the secret in the job definition, when one of the job playbooks uses that secret. i.e. the containers-push-podman-login-push.yaml playbook here that pushes containers uses the rdo_registry secret\n\nOn the parent https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/tripleoci.yaml#L210 we have both as the tripleo-ci-periodic/pre uses dlrn and then registry login uses the registry secret.\n\nWe have the same on periodic-tripleo-rhel-8-master-containers-build-push defined above and from which i copied for the centos ... i think that is the reason but i am not sure\n\n\n[EDIT]: knew i\u0027d seen that somewhere/came across it before... documented there https://zuul-ci.org/docs/zuul/user/config.html#secret\n\n\n\"To use a secret, a Job must specify the secret in job.secrets. With one exception, secrets are bound to the playbooks associated with the specific job definition where they were declared. Additional pre or post playbooks which appear in child jobs will not have access to the secrets, nor will playbooks which override the main playbook (if any) of the job which declared the secret. This protects against jobs in other repositories declaring a job with a secret as a parent and then exposing that secret.\"",
+      "parentUuid": "e7b3b1e9_9be449ea",
+      "range": {
+        "startLine": 320,
+        "startChar": 6,
+        "endLine": 320,
+        "endChar": 20
+      },
+      "revId": "90625a89988f5020b74bd2b1180a2a46855639a3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8b029d0_3dc86263",
         "filename": "zuul.d/tripleoci.yaml",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9f5c06eb_60835ad4",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2020-01-10T09:08:55Z",
+      "side": 1,
+      "message": "you mean it will now default to py3 for the python interpreter?\n\nwe should also remove them from the rhel definition above but that can be a different review.",
+      "parentUuid": "afc3ebf5_e6b68015",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 52
+      },
+      "revId": "90625a89988f5020b74bd2b1180a2a46855639a3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ba29cc4_2d11fddc",
         "filename": "zuul.d/tripleoci.yaml",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2020-01-09T14:39:44Z",
       "side": 1,
       "message": "it\u0027s not enough, need:\n\n\n    override-checkout: \u0027stable/train\u0027\n    vars:\n       release: train\n       branch_override: \u0027stable/train\u0027",
+      "range": {
+        "startLine": 338,
+        "startChar": 1,
+        "endLine": 339,
+        "endChar": 20
+      },
+      "revId": "90625a89988f5020b74bd2b1180a2a46855639a3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "819fecb1_110aef61",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2020-01-10T09:08:55Z",
+      "side": 1,
+      "message": "thanks, doing",
+      "parentUuid": "9ba29cc4_2d11fddc",
       "range": {
         "startLine": 338,
         "startChar": 1,
