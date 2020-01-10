@@ -91,21 +91,6 @@
         - podman-package-rhel-8
 
 - project:
-    name: github.com/pycontribs/pytest-molecule
-    templates:
-      - system-required
-    github-check:
-      jobs:
-        - tox-linters:
-            vars:
-               tox_envlist: lint
-        - tox-py27
-        - tox-py36
-        - tox-py36:
-            vars:
-               tox_envlist: devel
-
-- project:
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
