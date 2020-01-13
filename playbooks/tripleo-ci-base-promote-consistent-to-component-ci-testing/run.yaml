@@ -1,19 +1,19 @@
 - hosts: all
   vars:
     promote_source: consistent
-    promote_target: tripleo-ci-testing
+    promote_target: component-ci-testing
   tasks:
     - name: Create hash_info file with hashes from consistent
       include_role:
         name: promote-hash
         tasks_from: get-hash.yaml
 
-    - name: Promote consistent to tripleo-ci-testing for primary (centos) repo
+    - name: Promote consistent to promote_target for primary (centos) repo
       include_role:
         name: promote-hash
         tasks_from: promote-primary-distro.yaml
 
-    - name: Promote consistent to tripleo-ci-testing for secondary (RHEL) repo if an equivalent exists
+    - name: Promote consistent to promote_target for secondary (RHEL) repo if an equivalent exists
       include_role:
         name: promote-hash
         tasks_from: promote-secondary-distro.yaml

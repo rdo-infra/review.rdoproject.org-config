@@ -446,26 +446,20 @@
         - periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     openstack-component-compute:
       jobs:
-        - periodic-tripleo-ci-centos-7-standalone-compute-master:
+        - periodic-tripleo-ci-centos-8-standalone-compute-master:
             dependencies:
-              - periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-master-compute-containers-build:
-            dependencies:
-              - periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
-    openstack-component-keystone:
+              - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
+        - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
+    openstack-component-security:
       jobs:
-        - periodic-tripleo-ci-centos-7-standalone-keystone-master:
+        - periodic-tripleo-ci-centos-8-standalone-security-master:
             dependencies:
-              - periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-master-keystone-containers-build:
-            dependencies:
-              - periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
+              - periodic-tripleo-centos-8-master-component-security-promote-consistent-to-component-ci-testing
+        - periodic-tripleo-centos-8-master-component-security-promote-consistent-to-component-ci-testing
     openstack-promote-component:
       jobs:
-        - periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo
-        - periodic-tripleo-centos-7-master-component-keystone-promote-to-current-tripleo
+        - periodic-tripleo-centos-8-master-component-compute-promote-to-promoted-components
+        - periodic-tripleo-centos-8-master-component-security-promote-to-promoted-components
 
 - project:
     name: opendev.org/x/browbeat
