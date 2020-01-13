@@ -184,6 +184,11 @@
               - periodic-tripleo-rhel-8-buildimage-overcloud-full-master
               - periodic-tripleo-rhel-8-master-containers-build-push
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
+        # centos8 #########################################################################
+        - periodic-tripleo-centos-8-master-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-8-master-promote-consistent-to-tripleo-ci-testing
+
     openstack-periodic-latest-released:
       jobs:
         # Periodic vexxhost job, not in promotion
@@ -287,6 +292,11 @@
               - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train
               - periodic-tripleo-rhel-8-buildimage-overcloud-full-train
               - periodic-tripleo-rhel-8-train-containers-build-push
+        # centos8 #########################################################################
+        - periodic-tripleo-centos-8-train-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+
     openstack-periodic-24hr:
       jobs:
         ##### stable/stein #####
