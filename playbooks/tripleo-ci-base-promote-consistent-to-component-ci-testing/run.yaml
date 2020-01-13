@@ -1,7 +1,7 @@
 - hosts: all
   vars:
     promote_source: consistent
-    promote_target: tripleo-ci-testing
+    promote_target: component-ci-testing
   tasks:
     - name: Create hash_info file with hashes from consistent
       include_role:
