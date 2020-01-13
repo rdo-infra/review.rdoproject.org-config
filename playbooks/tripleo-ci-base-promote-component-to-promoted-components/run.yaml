@@ -1,7 +1,7 @@
 - hosts: all
   vars:
     promote_source: tripleo-ci-testing
-    promote_target: "current-tripleo-{{ component }}"
+    promote_target: promoted-components
   tasks:
     - name: Create hash_info file with hashes from {{ promote_source }}
       include_role:

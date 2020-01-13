@@ -240,11 +240,11 @@
        featureset: '023'
 
 - job:
-    name: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    name: tripleo-ci-base-promote-consistent-to-component-ci-testing
     abstract: true
     timeout: 3000
-    run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/run.yaml
-    post-run: playbooks/tripleo-ci-base-promote-consistent-to-tripleo-ci-testing/post.yaml
+    run: playbooks/tripleo-ci-base-promote-consistent-to-component-ci-testing/run.yaml
+    post-run: playbooks/tripleo-ci-base-promote-consistent-to-component-ci-testing/post.yaml
     required-projects:
       - config
       - rdo-infra/ci-config
@@ -252,18 +252,18 @@
       - dlrnapi
 
 - job:
-    name: tripleo-ci-base-component-promote-to-current-tripleo
+    name: tripleo-ci-base-component-promote-to-promoted-components
     abstract: true
     timeout: 2000
-    run: playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml
-    post-run: playbooks/tripleo-ci-base-promote-component-to-current-tripleo/post.yaml
+    run: playbooks/tripleo-ci-base-promote-component-to-promoted-components/run.yaml
+    post-run: playbooks/tripleo-ci-base-promote-component-to-promoted-components/post.yaml
     required-projects:
       - config
       - rdo-infra/ci-config
     secrets:
       - dlrnapi
     vars:
-      dlrn_server_url: trunk-staging.rdoproject.org
+      dlrn_server_url: trunk.rdoproject.org
 
 - job:
     name: tripleo-ci-reproducer-base
