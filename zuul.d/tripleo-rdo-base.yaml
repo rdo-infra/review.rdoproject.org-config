@@ -268,18 +268,19 @@
       - dlrnapi
 
 - job:
-    name: tripleo-ci-base-component-promote-to-current-tripleo
-    abstract: true
-    timeout: 2000
-    run: playbooks/tripleo-ci-base-promote-component-to-current-tripleo/run.yaml
-    post-run: playbooks/tripleo-ci-base-promote-component-to-current-tripleo/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    secrets:
-      - dlrnapi
+    name: tripleo-ci-base-promote-consistent-to-component-ci-testing
+    parent: tripleo-ci-base-promote-hash
     vars:
-      dlrn_server_url: trunk-staging.rdoproject.org
+      promote_source: consistent
+      promote_target: component-ci-testing
+
+- job:
+    name: tripleo-ci-base-component-promote-to-promoted-components
+    parent: tripleo-ci-base-promote-hash
+    vars:
+      promote_source: component-ci-testing
+      promote_target: promoted-components
+      dlrn_server_url: trunk.rdoproject.org
 
 - job:
     name: tripleo-ci-reproducer-base
