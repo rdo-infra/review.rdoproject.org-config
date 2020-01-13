@@ -1,0 +1,16 @@
+- hosts: all
+  tasks:
+    - name: Create hash_info file with hashes from {{ promote_source }}
+      include_role:
+        name: get_hash
+        tasks_from: get_hash.yaml
+
+    - name: Promote {{ promote_source }} to {{ promote_target }} for primary (centos) repo
+      include_role:
+        name: promote-hash
+        tasks_from: promote-primary-distro.yaml
+
+    - name: Promote {{ promote_source }} to {{ promote_target }} for secondary (RHEL) repo if an equivalent exists
+      include_role:
+        name: promote-hash
+        tasks_from: promote-secondary-distro.yaml
