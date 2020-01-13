@@ -239,6 +239,20 @@
     vars:
        featureset: '023'
 
+# New integration pipeline
+- job:
+    name: tripleo-ci-base-promote-hash
+    abstract: true
+    timeout: 3000
+    nodeset: single-centos-8-node
+    run: playbooks/tripleo-ci-base-promote-hash/run.yaml
+    post-run: playbooks/tripleo-ci-base-promote-hash/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
 - job:
     name: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     abstract: true
