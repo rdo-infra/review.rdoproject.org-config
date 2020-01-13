@@ -1,5 +1,13 @@
 ---
 - job:
+    name: periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
+    parent: tripleo-ci-base-promote-hash
+    vars:
+      release: master
+      promote_source: promoted-components
+      promote_target: tripleo-ci-testing
+
+- job:
     name: periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
