@@ -8,6 +8,12 @@
         name: get_hash
         tasks_from: get_hash.yaml
 
+    - name: check component promotion criteria
+      include_role:
+        name: promote-hash
+        tasks_from: check-promotion-criteria.yaml
+      when: promote_target == 'promoted-components'
+
     - name: Promote {{ promote_source }} to {{ promote_target }} for primary (centos) repo
       include_role:
         name: promote-hash
@@ -17,3 +23,4 @@
       include_role:
         name: promote-hash
         tasks_from: promote-secondary-distro.yaml
+      when: component is not defined
