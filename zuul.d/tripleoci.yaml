@@ -31,32 +31,32 @@
 
 # component pipeline promote-consistent-to-tripleo-ci-testing definitions
 - job:
-    name: periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-master-component-compute-promote-consistent-to-component-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-component-ci-testing
     vars:
       release: master
       component: compute
       dlrn_server_url: "trunk-staging.rdoproject.org"
 
 - job:
-    name: periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
+    name: periodic-tripleo-centos-7-master-component-keystone-promote-consistent-to-component-ci-testing
+    parent: tripleo-ci-base-promote-consistent-to-component-ci-testing
     vars:
       release: master
       component: keystone
       dlrn_server_url: "trunk-staging.rdoproject.org"
 
-# component pipeline promote-to-current-tripleo definitions
+# component pipeline promote-to-promoted-components definitions
 - job:
-    name: periodic-tripleo-centos-7-master-component-compute-promote-to-current-tripleo
-    parent: tripleo-ci-base-component-promote-to-current-tripleo
+    name: periodic-tripleo-centos-7-master-component-compute-promote-to-promoted-components
+    parent: tripleo-ci-base-component-promote-to-promoted-components
     vars:
       release: master
       component: compute
 
 - job:
-    name: periodic-tripleo-centos-7-master-component-keystone-promote-to-current-tripleo
-    parent: tripleo-ci-base-component-promote-to-current-tripleo
+    name: periodic-tripleo-centos-7-master-component-keystone-promote-to-promoted-components
+    parent: tripleo-ci-base-component-promote-to-promoted-components
     vars:
       release: master
       component: keystone
