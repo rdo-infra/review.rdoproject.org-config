@@ -437,3 +437,11 @@
       release: train
       branch_override: 'stable/train'
       use_buildah: true
+
+- job:
+    name: tripleo-centos-7-stein-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base-vexxhost
+    override-checkout: 'stable/stein'
+    vars:
+      release: stein
+      branch_override: 'stable/stein'
