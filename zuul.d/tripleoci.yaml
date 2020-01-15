@@ -94,6 +94,7 @@
       build_override_repos: tripleo-ci-testing
     required-projects:
       - config
+      - rdo-infra/ci-config
     secrets:
       - dlrnapi
 
@@ -110,6 +111,7 @@
       build_override_repos: tripleo-ci-testing
     required-projects:
       - config
+      - rdo-infra/ci-config
     secrets:
       - dlrnapi
 
@@ -222,6 +224,7 @@
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - config
+      - rdo-infra/ci-config
     secrets:
       - rdo_registry
       - dlrnapi
@@ -245,6 +248,7 @@
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - config
+      - rdo-infra/ci-config
     secrets:
       - name: rdo_registry
         secret: rdo_vexxhost_registry
