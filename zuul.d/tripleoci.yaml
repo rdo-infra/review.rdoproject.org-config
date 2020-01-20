@@ -345,6 +345,10 @@
     vars:
       release: master
       use_buildah: true
+      kolla_base_tag: 8
+      kolla_base: centos
+      kolla_base_pull: false
+      kolla_base_image: centos
       # Keep string empty, or kolla will try to download delorean repos on its own
       buildcontainers_rpm_setup_config: ""
       # set push_containers to false as build containers are pushing using podman
