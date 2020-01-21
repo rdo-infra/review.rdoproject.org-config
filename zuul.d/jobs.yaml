@@ -40,6 +40,9 @@
     post-run:
       - playbooks/base-minimal/post-ssh.yaml
       - playbooks/base-minimal/post-logs.yaml
+    # vars:
+    #   # compression needed on rdo due to lack of space, on swift is not needed
+    #   zuul_log_compress: true
     roles:
       - zuul: zuul/zuul-jobs
       - zuul: rdo-jobs
@@ -68,6 +71,9 @@
     roles:
       - zuul: zuul/zuul-jobs
       - zuul: rdo-jobs
+    vars:
+      # compression needed on rdo due to lack of space, on swift is not needed
+      zuul_log_compress: true
     timeout: 1800
     post-timeout: 1800
     nodeset:
