@@ -1,6 +1,6 @@
 - hosts: primary:tripleo-ovb-centos-7
   vars:
-    rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
     - name: Populate hash.info required for dlrn reporting
@@ -13,7 +13,7 @@
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
           export COMPONENT_NAME="{{ component | default('') }}"
-          bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
       args:
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
@@ -29,7 +29,7 @@
           export DLRNAPI_DISTRO_VERSION="7"
           cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
           cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/logs/hash_info_fedora.sh
-          bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/get-hash.sh
           cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_centos.sh
           cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/logs/hash_info_centos.sh
           cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
