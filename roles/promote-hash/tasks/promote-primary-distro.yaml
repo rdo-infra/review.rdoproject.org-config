@@ -3,6 +3,17 @@
     path: '{{ workspace }}'
     state: directory
 
+  # TODO(chkumar246): https://review.rdoproject.org/r/#/c/24624/ and
+  # https://review.rdoproject.org/r/24623 moves the dlrnapi_venv script
+  # to ci-config repo but it is needed for promote-hash.sh script, we cannot
+  # move the same to ci-config as it requires secrets. Keep it as a workaround
+  # till we find better solution.
+- name: Copy dlrnapi_venv.sh script to config repo
+  copy:
+    src: "{{ rdo_infra_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh"
+    dest: "{{ ci_config_repo }}/ci-scripts/tripleo-upstream/"
+    force: no
+
 - name: Promote hash label from {{ promote_source }} to {{ promote_target }}
   shell:
     cmd: |
