@@ -20,7 +20,7 @@
           # Not all the packages in centos are available in RHEL, so we may have a hash in centos
           # built over a package that doesnt exist in RHEL, so the dlrn hash will have no equivalent there.
           # We poll for a while waiting for it become available before continuing
-          source {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_venv.sh
+          source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
           activate_dlrnapi_venv
           echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
           # If the hash combination doesnt exist the API will report 404 and the command will exit 1
