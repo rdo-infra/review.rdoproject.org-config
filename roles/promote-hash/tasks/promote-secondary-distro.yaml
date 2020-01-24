@@ -10,6 +10,7 @@
           export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ component_release | default(release) }}"
           export PROMOTE_NAME=tripleo-ci-testing
+          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream }}"
           DLRNAPI_URL="https://trunk.rdoproject.org/api-rhel8-$RELEASE"
           sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
           source {{ workspace }}/hash_info.sh
