@@ -2,8 +2,7 @@ set -e
 
 echo ======== PROMOTE HASH
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/dlrnapi_venv.sh
+source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
 
 trap deactivate_dlrnapi_venv EXIT
 activate_dlrnapi_venv
