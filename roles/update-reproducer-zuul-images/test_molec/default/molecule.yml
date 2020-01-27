@@ -1,0 +1,24 @@
+---
+driver:
+  name: delegated
+  options:
+    managed: false
+    ansible_connection_options:
+      ansible_connection: local
+log: true
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+provisioner:
+  name: ansible
+  verbose: vv
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - syntax
+    - converge
+    - verify
