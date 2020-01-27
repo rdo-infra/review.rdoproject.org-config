@@ -1,0 +1,14 @@
+---
+registry_server: docker.io
+container_namespace: rdoci
+original_namespace: zuul
+push_tag: stable
+container_command: podman
+containers:
+  - zuul
+  - zuul-scheduler
+  - zuul-web
+  - zuul-executor
+  - zuul-merger
+  - zuul-fingergw
+  - nodepool-launcher
