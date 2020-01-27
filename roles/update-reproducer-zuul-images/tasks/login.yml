@@ -1,0 +1,7 @@
+---
+- name: Login to registry
+  no_log: true
+  command: >-
+    {{ container_command }} login {{ registry_server }}
+    --username  {{ dockerio_rdoci.user }} --password {{ dockerio_rdoci.password }}
+  changed_when: true

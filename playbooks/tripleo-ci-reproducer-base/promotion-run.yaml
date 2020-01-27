@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+
+    - name: Install container engine
+      package:
+        name: podman
+      become: true
+
+    - name: Run role
+      include_role:
+        name: update-reproducer-zuul-images
+      vars:
+        container_command: podman
