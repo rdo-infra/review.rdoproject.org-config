@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+
+    - name: Run containers update
+      include_role:
+        name: update-reproducer-zuul-images
+        tasks_from: retag
+      vars:
+        container_command: echo
