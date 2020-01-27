@@ -452,3 +452,10 @@
     vars:
       release: stein
       branch_override: 'stable/stein'
+
+- job:
+    name: periodic-tripleo-centos-7-reproducer-update-images
+    parent: tripleo-ci-base-ovb-rdo
+    run: playbooks/tripleo-ci-reproducer-base/promotion-run.yaml
+    secrets:
+      - dockerio_rdoci
