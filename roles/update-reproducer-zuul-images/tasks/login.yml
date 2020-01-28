@@ -1,7 +1,14 @@
 ---
 - name: Login to registry
-  no_log: true
   command: >-
     {{ container_command }} login {{ registry_server }}
     --username  {{ dockerio_rdoci.user }} --password {{ dockerio_rdoci.password }}
   changed_when: true
+  register: res
+  ignore_errors: true
+  no_log: true
+
+- name: Fail
+  fail:
+    msg: "{{ res.stdout }} - {{ res.stderr }}"
+  when: res.rc != 0
