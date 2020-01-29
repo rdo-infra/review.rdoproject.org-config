@@ -55,6 +55,54 @@
         dest: "{{ rdo_infra_ci_config }}"
         version: master
 
+    - name: get-hash for component job (commit.yaml)
+      block:
+        - name: test get-hash.yaml for component job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            # should be component-ci-testing instead
+            promote_source: tripleo-ci-testing
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "8"
+            component: "compute"
+        - name: validate hash_info for component job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -z ${FULL_HASH+x} ]] || exit 1
+            [[ -z ${COMPONENT+x} ]] || exit 1
+
+    - name: get-hash for integration job (.md5)
+      block:
+        # TODO(rfolco): Remove this injection when md5
+        # are created by delorean
+        - name: inject a md5 file for testing
+          copy:
+            content: "d502da8dd4c7f74376f12076b3e5c4ad"
+            dest: "{{ worskpace }}/delorean.repo.md5"
+        - name: test get-hash.yaml for integration job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            promote_source: consistent
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "8"
+        - name: validate hash_info for component job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -z ${FULL_HASH+x} ]] || exit 1
+
+    - name: get-hash for legacy job (commit.yaml)
+      block:
+        - name: test get-hash.yaml for component job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            promote_source: consistent
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "7"
+        - name: validate hash_info for component job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -z ${FULL_HASH+x} ]] || exit 1
+
     - name: test check-promotion-criteria.yaml
       include_tasks: ../../tasks/check-promotion-criteria.yaml
       vars:
@@ -66,3 +114,6 @@
         - "{{ empty_dlrnapi_output }}"
         - "{{ null_dlrnapi_output }}"
       ignore_errors: true
+
+
+
