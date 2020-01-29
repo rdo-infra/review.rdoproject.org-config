@@ -1,14 +1,13 @@
 ---
 - hosts: all
+  become: true
   tasks:
 
     - name: Install container engine
       package:
         name: podman
-      become: true
 
     - name: Run role
-      become: true  # required for centos7
       include_role:
         name: update-reproducer-zuul-images
       vars:
