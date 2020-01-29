@@ -10,6 +10,8 @@
     ansible_distribution_major_version: 7
     release: master
     component: compute
+    zuul:
+      molecule: true
   tasks:
 
     - name: emulate valid dlrnapi response # noqa 301
@@ -54,6 +56,65 @@
         repo: "https://github.com/rdo-infra/ci-config"
         dest: "{{ rdo_infra_ci_config }}"
         version: master
+        force: yes
+
+    # TODO(rfolco): placeholder: remove me when #24693 is merged
+    - name: apply ci-config patch 24693 # noqa 301
+      args:
+        chdir: "{{ rdo_infra_ci_config }}"
+      shell: |
+        git fetch https://review.rdoproject.org/r/rdo-infra/ci-config refs/changes/93/24693/3 && git checkout FETCH_HEAD
+
+    - name: get-hash for component job (commit.yaml)
+      block:
+        - name: test get-hash.yaml for component job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            # should be component-ci-testing instead
+            promote_source: consistent
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "8"
+            component: "compute"
+        - name: validate hash_info for component job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -n ${FULL_HASH+x} ]] || exit 1
+            [[ -n ${COMPONENT_NAME+x} ]] || exit 1
+
+    - name: get-hash for integration job (.md5)
+      block:
+        # TODO(rfolco): Remove this injection when md5
+        # are created by delorean
+        - name: inject a md5 file for testing
+          copy:
+            content: "d502da8dd4c7f74376f12076b3e5c4ad"
+            dest: "{{ workspace }}/delorean.repo.md5"
+            force: yes
+        - name: test get-hash.yaml for integration job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            promote_source: consistent
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "8"
+            component: ''
+        - name: validate hash_info for integration job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -n ${FULL_HASH+x} ]] || exit 1
+
+    - name: get-hash for legacy job (commit.yaml)
+      block:
+        - name: test get-hash.yaml for legacy job
+          include_tasks: ../../tasks/get-hash.yaml
+          vars:
+            promote_source: consistent
+            ansible_distribution: "CentOS"
+            ansible_distribution_major_version: "7"
+            component: ''
+        - name: validate hash_info for legacy job
+          shell: |
+            source {{ workspace }}/hash_info.sh
+            [[ -n ${FULL_HASH+x} ]] || exit 1
 
     - name: test check-promotion-criteria.yaml
       include_tasks: ../../tasks/check-promotion-criteria.yaml
@@ -66,3 +127,6 @@
         - "{{ empty_dlrnapi_output }}"
         - "{{ null_dlrnapi_output }}"
       ignore_errors: true
+
+
+
