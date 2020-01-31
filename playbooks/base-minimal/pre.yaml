@@ -1,9 +1,9 @@
 - hosts: localhost
   roles:
     - role: log-inventory
-      zuul_log_url: "https://logs.rdoproject.org"
+      zuul_log_url: "https://logserver.rdoproject.org"
     - role: emit-job-header
-      zuul_log_url: "https://logs.rdoproject.org"
+      zuul_log_url: "https://logserver.rdoproject.org"
 
 - hosts: all
   pre_tasks:
