@@ -70,6 +70,30 @@
       "revId": "266d32d77050849dcbe2a62c89d8fd34edd09afb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceb417ab_cf770a8d",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2020-02-03T10:35:23Z",
+      "side": 1,
+      "message": "ack yes good point will do. not sure why i did it this way... it was harder in fact I spent time tracing it up the inheritance path to here...\n\n\n[EDIT]: hmm likely this is why i did it that way. https://github.com/rdo-infra/rdo-jobs/blob/master/zuul.d/ovb-jobs.yaml#L210-L276  \n\nthere are a bunch of periodic fs1 definitions for each of the branches and vexx ... worst case I\u0027ll just add the timeout to each of those np, just saying that\u0027s likely why i did it...",
+      "parentUuid": "32578371_2798bff5",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "266d32d77050849dcbe2a62c89d8fd34edd09afb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
