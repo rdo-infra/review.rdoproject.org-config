@@ -123,6 +123,9 @@
         - periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063-master:
+            dependencies:
+              - periodic-tripleo-centos-7-master-containers-build-push
         - periodic-tripleo-ci-centos-7-standalone-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
@@ -222,6 +225,9 @@
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
         - periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-train:
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063-train:
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
         - periodic-tripleo-ci-centos-7-standalone-train:
