@@ -250,6 +250,8 @@
       - rdo-infra/ci-config
     secrets:
       - dlrnapi
+    roles:
+      - zuul: rdo-infra/ci-config
 
 - job:
     name: tripleo-ci-base-component-promote-to-current-tripleo
@@ -264,6 +266,8 @@
       - dlrnapi
     vars:
       dlrn_server_url: trunk-staging.rdoproject.org
+    roles:
+      - zuul: rdo-infra/ci-config
 
 - job:
     name: tripleo-ci-reproducer-base
