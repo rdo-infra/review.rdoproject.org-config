@@ -1,3 +1,8 @@
+# DEPRECATED: replace w/ get_hash role from rdo-infra/ci-config
+- name: Deprecation warning
+  debug:
+    msg: "get-hash task is deprecated, use get_hash role from config repo."
+
 - name: Ensure legacy workspace directory
   file:
     path: '{{ workspace }}'

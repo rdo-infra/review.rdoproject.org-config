@@ -5,8 +5,8 @@
   tasks:
     - name: Create hash_info file with hashes from consistent
       include_role:
-        name: promote-hash
-        tasks_from: get-hash.yaml
+        name: get_hash
+        tasks_from: get_hash.yaml
 
     - name: Promote consistent to tripleo-ci-testing for primary (centos) repo
       include_role:
