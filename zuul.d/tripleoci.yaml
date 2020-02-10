@@ -339,6 +339,28 @@
       push_containers_podman: true
 
 - job:
+    name: periodic-tripleo-rhel-8-master-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base-vexxhost
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
+    nodeset: upstream-rhel-8-vexxhost
+    secrets:
+      - name: rdo_registry
+        secret: rdo_vexxhost_registry
+    vars:
+      release: master
+      use_buildah: true
+      kolla_base_image: rhel
+      # Keep string empty, or kolla will try to download delorean repos on its own
+      buildcontainers_rpm_setup_config: ""
+      kolla_base_tag: 8.0-126
+      kolla_base: rhel
+      kolla_base_pull: false
+      # set push_containers to false as build containers are pushing using podman
+      push_containers: false
+      push_containers_podman: true
+
+- job:
     name: periodic-tripleo-centos-8-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
     post-run:
@@ -346,6 +368,28 @@
     nodeset: single-centos-8-node
     secrets:
       - rdo_registry
+    vars:
+      release: master
+      use_buildah: true
+      kolla_base_tag: 8
+      kolla_base: centos
+      kolla_base_pull: false
+      kolla_base_image: centos
+      # Keep string empty, or kolla will try to download delorean repos on its own
+      buildcontainers_rpm_setup_config: ""
+      # set push_containers to false as build containers are pushing using podman
+      push_containers: false
+      push_containers_podman: true
+
+- job:
+    name: periodic-tripleo-centos-8-master-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base-vexxhost
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
+    nodeset: single-centos-8-node-vexxhost
+    secrets:
+      - name: rdo_registry
+        secret: rdo_vexxhost_registry
     vars:
       release: master
       use_buildah: true
@@ -459,3 +503,19 @@
     run: playbooks/tripleo-ci-reproducer-base/promotion-run.yaml
     secrets:
       - dockerio_rdoci
+
+- job:
+    name: periodic-tripleo-rhel-8-train-containers-build-push-vexxhost
+    parent: periodic-tripleo-rhel-8-master-containers-build-push-vexxhost
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+- job:
+    name: periodic-tripleo-centos-8-train-containers-build-push-vexxhost
+    parent: periodic-tripleo-centos-8-master-containers-build-push-vexxhost
+    override-checkout: 'stable/train'
+    vars:
+      release: train
+      branch_override: 'stable/train'
