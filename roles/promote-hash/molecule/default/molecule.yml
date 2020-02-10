@@ -38,16 +38,10 @@ provisioner:
     ANSIBLE_STDOUT_CALLBACK: yaml
 
 scenario:
-  name: default
   test_sequence:
     - prepare
     - converge
     - verify
 
-lint:
-  enabled: false
-
 verifier:
   name: testinfra
-  lint:
-    name: flake8
