@@ -11,8 +11,21 @@ rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
+# temporary patch to ensure rhel images
+# make it the right server while being migrated
+OLD_RHEL_SERVER=true
 if [ -n "$DISTRO" ]; then
     if [[ "$DISTRO" =~ "redhat" ]]; then
+        sudo yum install -y  nc || true
+        TEST_RHEL_SERVER=`nc -zv 38.145.34.141 22`
+        if $TEST_RHEL_SERVER; then
+            OLD_RHEL_SERVER=true
+        else:
+            OLD_RHEL_SERVER=false
+        fi
+
+if [ -n "$DISTRO" ]; then
+    if [[ "$DISTRO" =~ "redhat" ]] && [[ $OLD_RHEL_SERVER ]]; then
         UPLOAD_URL=centos@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
     else
         UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
