@@ -10,10 +10,15 @@ export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/nul
 rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
+USE_VEXXHOST_SERVER="${USE_VEXXHOST_SERVER}"
 
 if [ -n "$DISTRO" ]; then
     if [[ "$DISTRO" =~ "redhat" ]]; then
-        UPLOAD_URL=centos@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
+        if [[ "${USE_VEXXHOST_SERVER}" =~ "true" ]]; then
+            UPLOAD_URL=rcm-uploader@images.rdoproject.org:/var/www/html/images/rhel/images/$DISTRO/$RELEASE/rdo_trunk
+        else
+            UPLOAD_URL=centos@38.145.34.141:/var/www/rcm-guest/images/$DISTRO/$RELEASE/rdo_trunk
+        fi
     else
         UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
     fi
