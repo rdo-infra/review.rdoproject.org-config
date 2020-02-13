@@ -83,7 +83,6 @@
     name: distgit-cbs-validate
     description: |
       A job to validate cbs builds.
-    final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-validate/run.yaml
     required-projects:
@@ -95,13 +94,22 @@
     name: distgit-cbs-final-build
     description: |
       A job to for cbs final builds.
-    final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
     secrets:
       - koji_centos
+
+- job:
+    name: distgit-cbs-validate-centos8
+    parent: distgit-cbs-validate
+    nodeset: rdo-centos-8
+
+- job:
+    name: distgit-cbs-final-build-centos8
+    parent: distgit-cbs-final-build
+    nodeset: rdo-centos-8
 
 - job:
     name: opstools-common-distgit-cbs-validate
