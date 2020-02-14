@@ -225,6 +225,8 @@
     required-projects:
       - config
       - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
     secrets:
       - rdo_registry
       - dlrnapi
@@ -249,6 +251,8 @@
     required-projects:
       - config
       - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
     secrets:
       - name: rdo_registry
         secret: rdo_vexxhost_registry
@@ -368,8 +372,6 @@
     nodeset: single-centos-8-node
     secrets:
       - rdo_registry
-    roles:
-      - zuul: rdo-infra/ci-config
     vars:
       release: master
       use_buildah: true
@@ -392,8 +394,6 @@
     secrets:
       - name: rdo_registry
         secret: rdo_vexxhost_registry
-    roles:
-      - zuul: rdo-infra/ci-config
     vars:
       release: master
       use_buildah: true
