@@ -3,6 +3,12 @@
     rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
+    - name: Create hash_info file for dlrn reporting
+      include_role:
+        name: get_hash
+        tasks_from: get_hash.yaml
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version >= 8
+
     - name: Populate hash.info required for dlrn reporting
       shell:
         cmd: |
@@ -18,6 +24,7 @@
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars }}"
       changed_when: true
+      when: ansible_distribution_major_version < 8
 
     - name: Temporary hash info creation for centos in mixed distribution job
       shell:
