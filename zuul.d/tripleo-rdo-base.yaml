@@ -102,6 +102,8 @@
         Base abstract container build job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-build-containers-base
     nodeset: single-centos-7-node
+    roles:
+      - zuul: rdo-infra/ci-config
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
