@@ -697,6 +697,13 @@
         - tripleo-ci-rhel-8-scenario002-standalone-rdo:
             files:
               - roles/standalone/*
+        - tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001:
+            files:
+              - ^roles/overcloud.*$
+              - ^roles/baremetal.*$
+              - ^roles/validate.*$
+              - ^playbooks/.*$
+              - ^bindep.txt
 
 - project:
     name: opendev.org/openstack/ansible-role-collect-logs
