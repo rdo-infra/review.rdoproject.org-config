@@ -55,6 +55,12 @@
             files:
               - ^toci-quickstart/config/testenv/ovb-vexxhost.yml$
               - ^toci-quickstart/config/testenv/ovb.yml$
+        - tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001:
+            files:
+              - ^toci-quickstart/config/testenv/ovb.*$
+              - ^roles/prepare-node/.*$
+              - ^roles/common/.*$
+              - ^playbooks/.*$
     openstack-regular:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053:
