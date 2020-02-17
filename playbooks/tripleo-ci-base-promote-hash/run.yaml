@@ -1,4 +1,7 @@
 - hosts: all
+  vars:
+    workspace: "{{ ansible_user_dir }}/workspace"
+    rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
   tasks:
     - name: Create hash_info file with hashes from {{ promote_source }}
       include_role:
