@@ -88,9 +88,7 @@
       # We are using the rcm-guest for storing the guest for now. It already has rhui repos
       # installed. See https://tree.taiga.io/project/tripleo-ci-board/task/1167 for more info
       # Updated to rhel8.1 as part of https://bugs.launchpad.net/tripleo/+bug/1853028
-      rhel_image_source: https://images-vexxhost.rdoproject.org:4433/rcm-guest/images/rhel_base/rhel-8.1-base/rhel-8.1-x86_64-kvm.qcow2
-      # Use new image server
-      use_vexxhost_server: 'true'
+      rhel_image_source: https://images.rdoproject.org:4433/rcm-guest/images/rhel_base/rhel-8.1-base/rhel-8.1-x86_64-kvm.qcow2
 
 - job:
     name: periodic-tripleo-rhel-8-master-buildimage-base
