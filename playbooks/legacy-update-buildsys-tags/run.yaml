@@ -74,7 +74,9 @@
           # create_temporary_repos.sh will create input files for graffiti
           bash ./create_temporary_repos.sh $WORKSPACE/rdoinfo $WORKSPACE/logs
           popd
-          pip install  git+https://github.com/softwarefactory-project/graffiti
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['softwarefactory-project.io/graffiti'].src_dir }}
+          pip install .
+          popd
           # Files cbs_actions.txt, register.yaml and tags.yaml are created under $WORKSPACE/logs/info/
           # by create_temporary_repos.sh script
           # If there are register actions, they are executed first
