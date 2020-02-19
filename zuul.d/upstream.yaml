@@ -163,6 +163,96 @@
 # The component pipelines use current-tripleo and the latest of the component
 # under test.
 - pipeline:
+    name: openstack-component-barmetal
+    post-review: true
+    description: Baremetal component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 0 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-cinder
+    post-review: true
+    description: Cinder component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 1 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-clients
+    post-review: true
+    description: Clients component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 2 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-cloudops
+    post-review: true
+    description: Cloudops component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 3 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-common
+    post-review: true
+    description: Common component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 4 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-component-compute
     post-review: true
     description: Compute component-ci jobs triggered to run periodically once a day.
@@ -181,6 +271,78 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-component-glance
+    post-review: true
+    description: Glance component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 6 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-manila
+    post-review: true
+    description: Manila component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 7 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-network
+    post-review: true
+    description: Network component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 8 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-octavia
+    post-review: true
+    description: Octavia component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 9 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-component-security
     post-review: true
     description: Security component-ci jobs triggered to run periodically once a day.
@@ -189,6 +351,78 @@
     trigger:
       timer:
         - time: '0 3 * * *'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-swift
+    post-review: true
+    description: Swift component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 11 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-tempest
+    post-review: true
+    description: Tempest component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 12 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-tripleo
+    post-review: true
+    description: Tripleo component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 13 * * 5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-component-ui
+    post-review: true
+    description: UI component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 14 * * 5,6'
     success:
       sqlreporter:
       mqtt:
