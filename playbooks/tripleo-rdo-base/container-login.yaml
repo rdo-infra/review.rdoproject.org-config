@@ -28,6 +28,14 @@
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int < 8
 
+        - name: Install podman
+          include_role:
+            name: tripleo-podman
+            tasks_from: tripleo_podman_install.yml
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int >= 8
+
         - include_role:
             name: tripleo-podman
             tasks_from: tripleo_podman_login.yml
