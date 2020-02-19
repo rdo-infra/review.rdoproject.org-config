@@ -315,8 +315,9 @@
       jobs:
         - DLRN-rpmbuild-rpm-packaging-centos:
             branches: ^(stable/(queens|rocky|stein))$
-        - DLRN-rpmbuild-rpm-packaging-fedora:
+        - DLRN-rpmbuild-rpm-packaging-centos-8:
             branches: ^(master|stable/train)$
+            voting: false
 
 - project:
     name: opendev.org/openstack/tempest
