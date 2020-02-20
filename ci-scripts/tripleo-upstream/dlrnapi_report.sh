@@ -5,7 +5,7 @@ else
     echo "REPORTING FAILURE TO DLRN API"
 fi
 
-if [[ "$FULL_HASH" ~= *"_"* ]]; then
+if [[ "$FULL_HASH" == *"_"* ]]; then
     HASH_ARGS=" --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH"
 else
     HASH_ARGS="--agg-hash $FULL_HASH"
