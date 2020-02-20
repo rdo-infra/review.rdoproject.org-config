@@ -7,8 +7,10 @@ source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
 trap deactivate_dlrnapi_venv EXIT
 activate_dlrnapi_venv
 
-source $WORKSPACE/hash_info.sh
 : ${DLRNAPI_USERNAME:="review_rdoproject_org"}
+: ${HASH_INFO_FILE:="$WORKSPACE/hash_info.sh"}
+
+source $HASH_INFO_FILE
 
 set -u
 
