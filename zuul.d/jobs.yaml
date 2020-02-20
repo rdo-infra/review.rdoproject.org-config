@@ -71,10 +71,7 @@
       - zuul: rdo-jobs
     timeout: 1800
     post-timeout: 1800
-    nodeset:
-      nodes:
-        - name: rdo-centos-7
-          label: rdo-centos-7
+    nodeset: rdo-centos-7
     secrets:
       - secret: site_logserver
         name: site_logs
