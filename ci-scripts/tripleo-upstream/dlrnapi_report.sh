@@ -4,13 +4,19 @@ if [ "$SUCCESS" = "true" ] || [ "$SUCCESS" = "True" ]; then
 else
     echo "REPORTING FAILURE TO DLRN API"
 fi
+
+if [[ "$FULL_HASH" ~= *"_"* ]]; then
+    HASH_ARGS=" --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH"
+else
+    HASH_ARGS="--agg-hash $FULL_HASH"
+fi
+
 pip_cmd=$(command -v pip || command -v pip3)
 $pip_cmd install --user dlrnapi-client shyaml
 PATH=$PATH:$HOME/.local/bin
 dlrnapi --url $DLRNAPI_URL \
     report-result \
-    --commit-hash $COMMIT_HASH \
-    --distro-hash $DISTRO_HASH \
+    $HASH_ARGS \
     --job-id $TOCI_JOBTYPE \
     --info-url "$LOG_HOST_URL/$LOG_PATH" \
     --timestamp $(date +%s) \
