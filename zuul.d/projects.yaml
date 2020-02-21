@@ -316,8 +316,9 @@
         - DLRN-rpmbuild-rpm-packaging-centos:
             branches: ^(stable/(queens|rocky|stein))$
         - DLRN-rpmbuild-rpm-packaging-centos-8:
-            branches: ^(master|stable/train)$
-            voting: false
+            branches: ^master$
+        - DLRN-rpmbuild-rpm-packaging-centos-8-nv:
+            branches: ^stable/train$
 
 - project:
     name: opendev.org/openstack/tempest
