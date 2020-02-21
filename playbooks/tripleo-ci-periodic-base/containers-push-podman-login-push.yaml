@@ -4,9 +4,25 @@
     workspace: "{{ ansible_user_dir }}/workspace"
 
   tasks:
-    - name: Container Push for RHEL 8 only
+
+    - name: Debug environment information
+      block:
+        - name: debug ansible_distribution
+          deug:
+            msg: "ansible_distribution = {{ ansible_distribution }}"
+        - name: debug ansible_distribution_major_version
+          deug:
+            msg: "ansible_distribution_major_version = {{ ansible_distribution_major_version }}"
+        - name: debug zuul_success
+          deug:
+            msg: "zuul_success = {{ zuul_success }}"
+        - name: debug push_containers_podman
+          deug:
+            msg: "push_containers_podman = {{ push_containers_podman|default(false) }}"
+
+    - name: Container Push for RHEL8/CentOS8 using podman
       when:
-        - ansible_distribution|lower == "redhat"
+        - ansible_distribution|lower == "redhat" or ansible_distribution|lower == "centos"
         - ansible_distribution_major_version == "8"
         - zuul_success|bool
         - push_containers_podman | default(false) | bool
