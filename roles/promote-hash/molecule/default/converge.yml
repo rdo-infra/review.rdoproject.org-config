@@ -6,10 +6,9 @@
     molecule_testing: true
     workspace: "/tmp"
     rdo_infra_ci_config: "{{ workspace }}/ci-config"
-    ansible_distribution: CentOS
-    ansible_distribution_major_version: 7
     release: master
-    component: compute
+    ansible_distribution: CentOS
+    ansible_distribution_major_version: 8
   tasks:
 
     - name: emulate valid dlrnapi response # noqa 301
@@ -29,6 +28,12 @@
         cmd: |
           echo ''
       register: null_dlrnapi_output
+
+    - name: emulate dlrnapi (no match) response # noqa 301
+      shell:
+        cmd: |
+          cat dlrnapi_output_no_match
+      register: dlrnapi_output_no_match
 
     - name: set local src dir for ci-config  # noqa 305
       shell: "pwd"
@@ -55,14 +60,25 @@
         dest: "{{ rdo_infra_ci_config }}"
         version: master
 
-    - name: test check-promotion-criteria.yaml
-      include_tasks: ../../tasks/check-promotion-criteria.yaml
-      vars:
-        # vars defined/changed in this playbook
-        reported_jobs: "{{ item }}"
-        ci_config_repo: "{{ ci_config_dir.stdout }}"
-      loop:
-        - "{{ valid_dlrnapi_output }}"
-        - "{{ empty_dlrnapi_output }}"
-        - "{{ null_dlrnapi_output }}"
-      ignore_errors: true
+    - block:
+        - name: test check-promotion-criteria.yaml
+          include_tasks: ../../tasks/check-promotion-criteria.yaml
+          vars:
+            # vars defined/changed in this playbook
+            reported_jobs: "{{ dlrnapi_report }}"
+            ci_config_repo: "{{ ci_config_dir.stdout }}"
+            promote_source: component-ci-testing
+            promote_target: promoted-components
+            component: compute
+          with_items:
+            - "{{ null_dlrnapi_output }}"
+            - "{{ empty_dlrnapi_output }}"
+            - "{{ dlrnapi_output_no_match }}"
+            - "{{ valid_dlrnapi_output }}"
+          loop_control:
+            loop_var: "dlrnapi_report"
+      rescue:
+        - name: molecule test failed?
+          debug:
+            msg: "Molecule test for check-promotion-criteria failed."
+      ignore_errors: yes
