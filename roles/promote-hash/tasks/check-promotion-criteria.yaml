@@ -56,8 +56,7 @@
           - reported_jobs.stdout | json_query(query) != []
       vars:
         query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
+      loop: "{{ criteria[promote_target][component] }}"
 
     - name: criteria matches
       debug:
@@ -78,6 +77,5 @@
         fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
       vars:
         query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
+      loop: "{{ criteria[promote_target][component] }}"
   when: not molecule_testing
