@@ -47,6 +47,10 @@
   debug:
     msg: "DEBUG: Delorean API reported jobs => {{ reported_jobs.stdout }}"
 
+# TODO(rfolco): The two blocks below do the same thing. The first ignores
+# errors and the second one does not run in molecule env, so job stops when
+# criteria does not match.
+# GOAL: make this task testable in molecule in one single block
 - block:
     # noqa 301
     - name: check promotion criteria
@@ -55,9 +59,11 @@
       when:
           - reported_jobs.stdout | json_query(query) != []
       vars:
+        # job_id is how dlrnapi output retrieves job names from dlrnapi
+        # "job_id": "periodic-tripleo-ci-centos-7-standalone-compute-master"
+        # see roles/promote-hash/molecule/default/dlrnapi_output for example
         query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
+      loop: "{{ criteria[promote_target][component] }}"
 
     - name: criteria matches
       debug:
@@ -78,6 +84,5 @@
         fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
       vars:
         query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
+      loop: "{{ criteria[promote_target][component] }}"
   when: not molecule_testing
