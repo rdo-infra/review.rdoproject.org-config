@@ -8,6 +8,12 @@
         name: get_hash
         tasks_from: get_hash.yaml
 
+    - name: check reported jobs
+      include_role:
+        name: promote-hash
+        tasks_from: check-reported-jobs.yaml
+      when: promote_target == 'promoted-components'
+
     - name: check component promotion criteria
       include_role:
         name: promote-hash

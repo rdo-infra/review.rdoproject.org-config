@@ -3,81 +3,31 @@
     path: '{{ workspace }}'
     state: directory
 
-# TODO(rfolco): component promotion criteria is loaded from yaml file,
-# consolidate integration promotion to use the same method
-- name: Check reports from DLRN
-  shell:
-    cmd: |
-      source {{ workspace }}/hash_info.sh
-      bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh
-    chdir: '{{ workspace }}'
-  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
-  register: reported_jobs
-  changed_when: false
-  when: not molecule_testing
-
-- name: check for empty dlrnapi output
-  fail:
-    msg: "WARNING: delorean api retrieved empty/null output: '{{ reported_jobs.stdout }}'"
-  when:
-    - reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
-  ignore_errors: yes
-
-- name: fail if empty dlrnapi output (no jobs reported)
+- name: empty dlrnapi output (no jobs reported)
   fail:
     msg: "FAILURE: No successful jobs reported to delorean api"
   when:
-    - not molecule_testing
     - reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
 
-- name: fetch criteria file
-  vars:
-    criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
-  fetch:
-    dest: "{{ workspace }}/"
-    src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ release }}.yaml"
-    flat: yes
-
-- name: load criteria for component promotion
-  include_vars:
-    file: "{{ workspace }}/{{ release }}.yaml"
-    name: "criteria"
-
-- name: debug reported jobs from dlrnapi output
-  debug:
-    msg: "DEBUG: Delorean API reported jobs => {{ reported_jobs.stdout }}"
-
 - block:
-    # noqa 301
-    - name: check promotion criteria
-      debug:
-        msg: "Promotion criteria: '{{ item }}'"
-      when:
-          - reported_jobs.stdout | json_query(query) != []
+    - name: fetch criteria file
       vars:
-        query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
+        criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
+      fetch:
+        dest: "{{ workspace }}/"
+        src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ release }}.yaml"
+        flat: yes
 
-    - name: criteria matches
-      debug:
-        msg: "Congratulations! Promotion criteria successfully matched w/ reported jobs"
-  rescue:
-    - name: criteria does not match
-      debug:
-        msg: "Oops! Promotion criteria does not match w/ reported jobs"
-  ignore_errors: yes
+    - name: load criteria for component promotion
+      include_vars:
+        file: "{{ workspace }}/{{ release }}.yaml"
+        name: "criteria"
 
-- block:
-    # noqa 301
-    - name: check promotion criteria
-      assert:
-        that:
-          - reported_jobs.stdout | json_query(query) != []
-        success_msg: "SUCCESS: Criteria matches for '{{ item }}'"
-        fail_msg: "FAILURE: Criteria DOES NOT match for '{{ item }}'"
-      vars:
-        query: "[?contains(job_id, '{{ item }}')]"
-        hash: "current-tripleo-{{ component }}"
-      loop: "{{ criteria[hash] }}"
-  when: not molecule_testing
+    - name: query to match promotion criteria
+      include: criteria-query.yaml
+      with_items: "{{ criteria[promote_target][component] }}"
+      loop_control:
+        loop_var: "criteria_job"
+  when:
+    - reported_jobs.stdout | length > 0
+    - reported_jobs.stdout != '[]'
