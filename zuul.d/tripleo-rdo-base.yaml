@@ -14,6 +14,18 @@
     nodeset: tripleo-ovb-centos-7-primary
 
 - job:
+    name: tripleo-ci-base-ovb-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-ovb-notebroker
+    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
+    # often in train and stein.
+    # https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
+    timeout: 14400
+    nodeset: tripleo-ovb-centos-8-primary
+
+- job:
     name: tripleo-ci-base-ovb-tebroker
     abstract: true
     description: |
@@ -25,6 +37,17 @@
       - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
+    name: tripleo-ci-base-ovb-tebroker-centos-8
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
+    parent: tripleo-ci-base-ovb-centos-8
+    timeout: 12600
+    nodeset: tripleo-ovb-centos-8-primary
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
     name: tripleo-ci-base-ovb-notebroker
     abstract: true
     description: |
@@ -32,6 +55,33 @@
     parent: tripleo-ci-base-ovb
     timeout: 12600
     nodeset: tripleo-ovb-centos-7-primary
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - name: opendev.org/openstack/tripleo-ansible
+        override-checkout: master
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
+    post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
+    cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
+    secrets:
+      - cloud_secrets
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
+- job:
+    name: tripleo-ci-base-ovb-notebroker-centos-8
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
+    parent: tripleo-ci-base-ovb-centos-8
+    timeout: 12600
+    nodeset: tripleo-ovb-centos-8-primary
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -74,12 +124,56 @@
       registry_login_enabled: true
 
 - job:
+    name: tripleo-ci-base-multinode-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-multinode
+    nodeset: two-centos-8-nodes
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - name: opendev.org/openstack/tripleo-ansible
+        override-checkout: master
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
+- job:
     name: tripleo-ci-base-singlenode-rdo
     abstract: true
     description: |
         Base abstract job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-singlenode
     nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - name: opendev.org/openstack/tripleo-ansible
+        override-checkout: master
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
+- job:
+    name: tripleo-ci-base-singlenode-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for singlenode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-singlenode-centos-8
+    nodeset: single-centos-8-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -106,12 +200,44 @@
       - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
+    name: tripleo-ci-base-singlenode-rdo-containers-build-push-centos-8
+    abstract: true
+    description: |
+        Base abstract container build job for singlenode in RDO CI zuulv3 jobs
+    parent: tripleo-build-containers-base-centos-8
+    nodeset: single-centos-8-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
     name: tripleo-ci-base-standalone-rdo
     abstract: true
     description: |
         Base abstract job for standalone in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone
     nodeset: single-centos-7-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - name: opendev.org/openstack/tripleo-ansible
+        override-checkout: master
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
+- job:
+    name: tripleo-ci-base-standalone-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for standalone in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-standalone-centos-8
+    nodeset: single-centos-8-node
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -149,6 +275,28 @@
     vars:
       registry_login_enabled: true
 
+- job:
+    name: tripleo-ci-base-standalone-upgrade-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for standalone upgrade in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-standalone-upgrade-centos-8
+    nodeset: single-centos-8-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - name: opendev.org/openstack/tripleo-ansible
+        override-checkout: master
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
 # Used as the base downstream job for rhel-8 image builds. The actual image building is done in the
 # upstream parent tripleo-build-images-base via zuul inheritance of the pre-run/run playbooks. This
 # minimises duplication between up/downstream and we exercise the same code in all jobs.
@@ -163,8 +311,31 @@
       - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
+    name: tripleo-ci-base-singlenode-rdo-build-images-centos-8
+    abstract: true
+    description: |
+        Base abstract tripleo image build job for singlenode RDO CI zuulv3 jobs
+    parent: tripleo-build-images-base-centos-8
+    nodeset: single-centos-8-node
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+- job:
     name: tripleo-ci-base-ovb-periodic
     parent: tripleo-ci-base-ovb-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-ovb-periodic-centos-8
+    parent: tripleo-ci-base-ovb-rdo-centos-8
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
@@ -183,8 +354,28 @@
       - uploader_ssh_key
 
 - job:
+    name: tripleo-ci-base-ovb-periodic-upload-centos-8
+    parent: tripleo-ci-base-ovb-periodic-centos-8
+    post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    secrets:
+      - uploader_ssh_key
+
+- job:
     name: tripleo-ci-base-multinode-periodic
     parent: tripleo-ci-base-multinode-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-multinode-periodic-centos-8
+    parent: tripleo-ci-base-multinode-rdo-centos-8
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
@@ -207,9 +398,36 @@
       - zuul: rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: tripleo-ci-base-singlenode-periodic-centos-8
+    parent: tripleo-ci-base-singlenode-rdo-centos-8
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
 - job:
     name: tripleo-ci-base-standalone-periodic
     parent: tripleo-ci-base-standalone-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-standalone-periodic-centos-8
+    parent: tripleo-ci-base-standalone-rdo-centos-8
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
@@ -237,9 +455,38 @@
         tempest_run_concurrency: 2
 
 - job:
+    name: tripleo-ci-base-standalone-upgrade-periodic-centos-8
+    parent: tripleo-ci-base-standalone-upgrade-rdo-centos-8
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+    vars:
+      featureset_override:
+        tempest_run_concurrency: 2
+
+- job:
     name: tripleo-ci-base-singlenode-containers-build
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo
+    post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
+    post-timeout: 10800
+    required-projects:
+      - config
+    secrets:
+      - rdo_registry
+    vars:
+       featureset: '023'
+
+- job:
+    name: tripleo-ci-base-singlenode-containers-build-centos-8
+    abstract: true
+    parent: tripleo-ci-base-singlenode-rdo-centos-8
     post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
     post-timeout: 10800
     required-projects:
