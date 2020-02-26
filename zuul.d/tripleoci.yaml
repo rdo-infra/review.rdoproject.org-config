@@ -729,6 +729,7 @@
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-test
     parent: tripleo-ci-base-singlenode-containers-build
+    override-checkout: 'stable/rocky'
     vars:
        release: rocky
        branch_override: 'stable/rocky'
