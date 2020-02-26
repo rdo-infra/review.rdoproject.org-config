@@ -727,12 +727,14 @@
       branch_override: 'stable/train'
 
 - job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-test
-    parent: tripleo-ci-base-singlenode-containers-build
+    name: periodic-tripleo-centos-7-rocky-containers-build-push-test
+    parent: periodic-tripleo-containers-build-push-base
+    nodeset: single-centos-7-node
+    override-checkout: 'stable/rocky'
     vars:
        release: rocky
        branch_override: 'stable/rocky'
 
 - job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-test
+    name: periodic-tripleo-centos-7-rocky-containers-build-push-test
     parent: periodic-tripleo-containers-build-push-base-vexxhost
