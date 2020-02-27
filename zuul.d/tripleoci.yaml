@@ -738,3 +738,20 @@
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push-test
     parent: periodic-tripleo-containers-build-push-base-vexxhost
+
+- job:
+    name: periodic-tripleo-centos-7-master-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base-vexxhost
+    vars:
+       release: master
+       buildcontainers_venv: false
+
+- job:
+    name: periodic-tripleo-centos-7-train-containers-build-push-vexxhost
+    parent: periodic-tripleo-containers-build-push-base-vexxhost
+    override-checkout: 'stable/train'
+    #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
+    timeout: 9000
+    vars:
+       release: train
+       branch_override: 'stable/train'
