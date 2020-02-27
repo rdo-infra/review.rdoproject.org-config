@@ -343,6 +343,8 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
     secrets:
       - dlrnapi
 
@@ -383,6 +385,8 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
     secrets:
       - dlrnapi
 
@@ -409,6 +413,8 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
     secrets:
       - dlrnapi
 
@@ -435,6 +441,8 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
     secrets:
       - dlrnapi
 
@@ -467,6 +475,7 @@
     secrets:
       - dlrnapi
     vars:
+      promote_source: tripleo-ci-testing
       featureset_override:
         tempest_run_concurrency: 2
 
