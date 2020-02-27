@@ -10,4 +10,4 @@ dlrnapi --url $DLRNAPI_URL \
     repo-status  \
     --commit-hash $COMMIT_HASH \
     --distro-hash $DISTRO_HASH \
-    --success true
+    --success true | tee -a $WORKSPACE/repo_success_output.txt
