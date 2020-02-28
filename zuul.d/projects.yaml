@@ -2617,16 +2617,14 @@
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/ceilometermiddleware
@@ -3725,16 +3723,14 @@
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/murano
@@ -4316,14 +4312,12 @@
       jobs:
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-validate-centos8
     gate:
       jobs:
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/os-apply-config-distgit
@@ -4767,16 +4761,14 @@
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/oslo-upgradecheck
@@ -5581,16 +5573,14 @@
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
             branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8:
-            branches: ^(?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo)$
+        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-heat-templates-distgit

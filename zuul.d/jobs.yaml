@@ -99,11 +99,13 @@
     name: distgit-cbs-validate-centos8
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8
+    branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
 
 - job:
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8
+    branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
 
 - job:
     name: opstools-common-distgit-cbs-validate
