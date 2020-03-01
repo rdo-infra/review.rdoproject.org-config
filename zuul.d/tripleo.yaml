@@ -102,12 +102,6 @@
         - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-singlenode-featureset027-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
         - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master:
             dependencies:
               - periodic-tripleo-centos-7-master-containers-build-push
@@ -128,6 +122,12 @@
               - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
         # centos8 #########################################################################
+        - periodic-tripleo-ci-centos-8-multinode-1ctlr-featureset010-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
+        - periodic-tripleo-ci-centos-8-singlenode-featureset027-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
         - periodic-tripleo-ci-centos-8-standalone-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
