@@ -302,6 +302,33 @@
       - dlrnapi
 
 - job:
+    name: tripleo-centos-8-master-buildimage-base
+    abstract: true
+    parent: tripleo-ci-base-singlenode-rdo-build-images-centos-8
+    required-projects:
+      - config
+    vars:
+      tripleo_image_os: centos8
+      tripleo_image_source: http://images-vexxhost.rdoproject.org/CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2
+
+- job:
+    name: periodic-tripleo-centos-8-master-buildimage-base
+    abstract: true
+    parent: tripleo-centos-8-master-buildimage-base
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+    vars:
+      build_override_repos: tripleo-ci-testing
+      promote_source: tripleo-ci-testing
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
     name: periodic-tripleo-centos-7-master-buildimage-base
     abstract: true
     parent: tripleo-build-images-base
@@ -338,6 +365,17 @@
       release: master
 
 - job:
+    name: periodic-tripleo-centos-8-buildimage-overcloud-full-master
+    parent: periodic-tripleo-centos-8-master-buildimage-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    vars:
+      tripleo_image_type: overcloud-full
+      release: master
+    secrets:
+      - uploader_ssh_key
+
+- job:
     name: periodic-tripleo-centos-7-buildimage-overcloud-full-master
     parent: periodic-tripleo-centos-7-master-buildimage-base
     post-run:
@@ -351,6 +389,17 @@
 - job:
     name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
     parent: periodic-tripleo-rhel-8-master-buildimage-base
+    post-run:
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    vars:
+      tripleo_image_type: ironic-python-agent
+      release: master
+    secrets:
+      - uploader_ssh_key
+
+- job:
+    name: periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
+    parent: periodic-tripleo-centos-8-master-buildimage-base
     post-run:
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
