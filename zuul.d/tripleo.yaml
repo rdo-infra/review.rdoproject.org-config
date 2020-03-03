@@ -28,19 +28,6 @@
               - ^test-requirements.txt$
               - ^tox.ini$
               - .*molecule.*
-        - tripleo-ci-rhel-8-standalone-rdo
-        - tripleo-ci-rhel-8-scenario001-standalone-rdo
-        - tripleo-ci-rhel-8-scenario002-standalone-rdo
-        - tripleo-ci-rhel-8-scenario003-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo
-        - tripleo-build-containers-rhel-8-master:
-            files:
-              - ^playbooks/.*$
-              - ^(playbooks|roles)/tripleo-buildcontainers/.*$
-              - ^roles/build-containers/.*$
-              - ^roles/prepare-node/.*$
-              - ^roles/common/.*$
-              - ^(playbooks|roles)/tripleo-repos/.*$
         - tripleo-build-containers-rhel-8-train-branch:
             voting: false
             files:
@@ -538,13 +525,6 @@
             files:
               - ^container-images/.*$
               - ^contrib/.*$
-        - tripleo-ci-rhel-8-scenario001-standalone-rdo
-        - tripleo-ci-rhel-8-scenario002-standalone-rdo
-        - tripleo-ci-rhel-8-scenario003-standalone-rdo
-        - tripleo-ci-rhel-8-scenario004-standalone-rdo
-    openstack-experimental:
-      jobs:
-        - tripleo-ci-rhel-8-scenario003-standalone-rdo
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
@@ -738,9 +718,7 @@
         - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-build-containers-rhel-8-master
         - tripleo-build-containers-rhel-8-train
-        - tripleo-ci-rhel-8-scenario001-standalone-rdo
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
             files:
               - ^tripleoclient/.*/overcloud_node.*$
