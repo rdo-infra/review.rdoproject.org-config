@@ -23,6 +23,7 @@
             eval "$(ssh-agent)"
             ssh-add {{ ssh_private_key_tmp.path }}
             shred {{ ssh_private_key_tmp.path }}
+            export WORKSPACE={{ workspace }}
             export RELEASE={{ release }}
             export DISTRO_NAME="{{ ansible_distribution|lower }}"
             export DISTRO_VERSION="{{ ansible_distribution_major_version }}"

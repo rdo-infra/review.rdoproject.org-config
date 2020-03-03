@@ -1,6 +1,6 @@
 set -e
 echo ======== CONVERT OVERCLOUD IMAGE TO UNDERCLOUD IMAGE
-
+source $WORKSPACE/hash_info.sh
 
 : ${WORKSPACE:=$HOME}
 export QUICKSTART_VENV=$WORKSPACE/.quickstart
@@ -79,7 +79,6 @@ md5sum undercloud.qcow2 > undercloud.qcow2.md5
 echo ======== CONVERT COMPLETE
 
 echo ======== UPLOAD UNDERCLOUD IMAGE
-export FULL_HASH=$(grep -o -E '[0-9a-f]{40}_[0-9a-f]{8}' < /etc/yum.repos.d/delorean.repo)
 
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
