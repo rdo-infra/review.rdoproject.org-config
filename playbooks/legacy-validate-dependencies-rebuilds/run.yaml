@@ -88,7 +88,12 @@
                       continue
                   fi
                   build=$(rdopkg info -l . "name:^${pkg_name}$"| awk "/${tag}/{print \$2}")
-                  target=${tag//-candidate/-el7}
+                  if [[ "$tag" == *"cloud8"* ]]; then
+                     DIST_VER=8
+                  else
+                     DIST_VER=7
+                  fi
+                  target=${tag//-candidate/-el${DIST_VER}}
                   config=$(rdopkg info -l . "name:^${pkg_name}$"| awk '/^conf:/{print $2}')
                   if [ $config = "fedora-dependency" ]; then
                       echo "$target $build" | tee -a $fedora_rebuilds_file
