@@ -44,6 +44,7 @@ cat << EOF > $WORKSPACE/playbook.yml
     kolla_push: "${PUSH:-true}"
     kolla_tag: "$TESTING_TAG"
     openstack_release: "$RELEASE"
+    kolla_registry: "${CONTAINER_REGISTRY:-trunk.registry.rdoproject.org}"
     trunk_repository: "https://trunk.rdoproject.org/${DISTRO}-$RELEASE/$TESTING_TAG/delorean.repo"
     trunk_deps_repository: "https://trunk.rdoproject.org/${DISTRO}-$RELEASE/delorean-deps.repo"
   tasks:
