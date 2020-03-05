@@ -7173,15 +7173,8 @@
 - project:
     name: review.rdoproject.org/rdo-infra/fedora-stable-config
     templates:
+      - noop
       - system-required
-    check:
-      jobs:
-        - legacy-fedora-stable-repoclosure
-        - legacy-fedora-stable-image-build
-    gate:
-      jobs:
-        - legacy-fedora-stable-repoclosure
-        - legacy-fedora-stable-image-build
 
 - project:
     name: review.rdoproject.org/rdo-infra/puppet-dlrn
@@ -7230,8 +7223,6 @@
         - legacy-rdo-infra-playbooks-integration-base
         - legacy-rdo-infra-playbooks-integration-sensu-client:
             voting: false
-        - legacy-rdo-infra-playbooks-integration-sensu-client-fedora:
-            voting: false
         - legacy-rdo-infra-playbooks-integration-sensu-server:
             voting: false
     gate:
@@ -7274,11 +7265,9 @@
       - system-required
     check:
       jobs:
-        - legacy-fedora-sinkhole-functional
         - legacy-centos-sinkhole-functional
     gate:
       jobs:
-        - legacy-fedora-sinkhole-functional
         - legacy-centos-sinkhole-functional
 
 - project:
