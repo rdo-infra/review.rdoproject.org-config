@@ -130,7 +130,19 @@
         - periodic-tripleo-ci-centos-8-scenario004-standalone-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
+        - periodic-tripleo-ci-centos-8-scenario007-standalone-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
+        - periodic-tripleo-ci-centos-8-scenario010-standalone-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
         - periodic-tripleo-centos-8-master-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
+        - periodic-tripleo-centos-8-buildimage-overcloud-full-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
+        - periodic-tripleo-centos-8-buildimage-ironic-python-agent-master:
             dependencies:
               - periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
         - periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
