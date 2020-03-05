@@ -50,6 +50,7 @@ def add_project_resources(prefix, name, maintainers):
     data = yaml.comments.CommentedMap(
         [('project', yaml.comments.CommentedMap(
             [('name', "review.rdoproject.org/%s/%s-distgit" % (project_prefix, project_name)),
+             ('default-branch', 'rpm-master'),
              ('templates', yaml.comments.CommentedSeq(['package-distgit-check-jobs', 'system-required']))])
         )])
 
