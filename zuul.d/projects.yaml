@@ -7443,22 +7443,23 @@
     check:
       jobs:
         - legacy-tox-validate
-        - rdoinfo-DLRN-check
+        - rdoinfo-DLRN-check:
+            files:
+              - ^tags/queens.yml$
+              - ^tags/rocky.yml$
+              - ^tags/stein.yml$
+              - ^tags/train.yml$
+        - rdoinfo-DLRN-check-nv:
+            files:
+              - ^tags/ussuri-uc.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/train.yml$
               - ^tags/ussuri-uc.yml$
         - legacy-validate-dependencies-rebuilds
-        - legacy-weirdo-dlrn-master-packstack-scenario003:
+        - legacy-weirdo-dlrn-master-packstack-scenario003-centos8:
             dependencies:
-              - rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/ussuri-uc.yml$
-        - legacy-weirdo-dlrn-master-puppet-scenario001:
-            dependencies:
-              - rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
@@ -7470,13 +7471,6 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
-        - legacy-weirdo-dlrn-master-puppet-scenario002:
-            dependencies:
-              - rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario002-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
@@ -7484,23 +7478,9 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/ussuri-uc.yml$
-        - legacy-weirdo-dlrn-master-puppet-scenario003:
-            dependencies:
-              - rdoinfo-DLRN-check
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/ussuri-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario003-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/ussuri-uc.yml$
-        - legacy-weirdo-dlrn-master-puppet-scenario004:
-            dependencies:
-              - rdoinfo-DLRN-check
             voting: false
             branches: ^(rpm-)?master$
             files:
@@ -7624,30 +7604,29 @@
         - legacy-validate-buildsys-tags
         - distgit-tripleo-master-testing-centos-7-standalone-featureset016:
             dependencies:
-              - rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check-nv
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset017:
             dependencies:
-              - rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check-nv
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset018:
             dependencies:
-              - rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check-nv
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
         - distgit-tripleo-master-testing-centos-7-standalone-featureset019:
             dependencies:
-              - rdoinfo-DLRN-check
+              - rdoinfo-DLRN-check-nv
             voting: false
             files:
               - ^tags/ussuri-uc.yml$
-        - rdoinfo-DLRN-check:
-            voting: false
+        - rdoinfo-DLRN-check-nv:
             files:
               - ^tags/ussuri-uc.yml$
 
@@ -7655,7 +7634,16 @@
       queue: whitebox-tempest-plugin
       jobs:
         - legacy-tox-validate
-        - rdoinfo-DLRN-check
+        - rdoinfo-DLRN-check:
+            files:
+              - ^tags/queens.yml$
+              - ^tags/rocky.yml$
+              - ^tags/stein.yml$
+              - ^tags/train.yml$
+        - rdoinfo-DLRN-check-centos8:
+            files:
+              - ^tags/train.yml$
+              - ^tags/ussuri-uc.yml$
         - legacy-validate-buildsys-tags
         - legacy-rebuild-fedora-dependencies
     periodic:
