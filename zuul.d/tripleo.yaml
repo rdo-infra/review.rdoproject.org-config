@@ -77,32 +77,7 @@
               force_non_periodic: true
     openstack-periodic-master:
       jobs:
-        # Periodic vexxhost job, not in promotion
-        # - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost:
-        #     dependencies:
-        #       - periodic-tripleo-centos-7-master-containers-build-push
         ##### master #####
-        # new buildimage jobs https://tree.taiga.io/project/tripleo-ci-board/task/1151
-        - periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master:
-            dependencies:
-              - periodic-tripleo-centos-7-master-containers-build-push
-        - periodic-tripleo-centos-7-master-containers-build-push:
-            dependencies:
-              - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
-        # centos8 #########################################################################
         - periodic-tripleo-ci-centos-8-multinode-1ctlr-featureset010-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
