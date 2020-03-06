@@ -32,7 +32,7 @@ def check_system_templates():
     for entry in projects:
         project = entry['project']
         # TODO(pabelanger): Skip this as it only sets up default-branch
-        if project['name'] == '^review.rdoproject.org/openstack/*-distgit':
+        if project['name'] == '^review.rdoproject.org/openstack/.*-distgit':
             continue
         try:
             correct = False
