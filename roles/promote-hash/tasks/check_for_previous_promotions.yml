@@ -1,0 +1,21 @@
+- name: Ensure legacy workspace directory
+  file:
+    path: '{{ workspace }}'
+    state: directory
+
+- name: Check reports from DLRN
+  shell:
+    cmd: |
+      source {{ workspace }}/hash_info.sh
+      bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/check-commit-hash-promote-target.sh
+    chdir: '{{ workspace }}'
+  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+  changed_when: false
+
+- name: get the the dlrn output results
+  shell:
+    cmd: |
+       cat {{ workspace }}/commit_hash_promote_target_output.txt
+    chdir: '{{ workspace }}'
+  register: commit_hash_in_promote_target
+  changed_when: false

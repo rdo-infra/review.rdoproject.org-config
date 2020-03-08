@@ -8,22 +8,34 @@
         name: get_hash
         tasks_from: get_hash.yaml
 
-    - name: check reported jobs
+    - name: check if commit hash has already been promoted to target name
       include_role:
         name: promote-hash
-        tasks_from: check-reported-jobs.yaml
+        tasks_from: check_for_previous_promotions.yml
       when: promote_target == 'promoted-components'
 
-    - name: check component promotion criteria
-      include_role:
-        name: promote-hash
-        tasks_from: check-promotion-criteria.yaml
-      when: promote_target == 'promoted-components'
+    - when:
+        - promote_target == 'promoted-components'
+        - commit_hash_in_promote_target is defined
+        - commit_hash_in_promote_target.stdout | from_json | json_query(query) != []
+      block:
+        - name: check reported jobs
+          include_role:
+            name: promote-hash
+            tasks_from: check-reported-jobs.yaml
+
+        - name: check component promotion criteria
+          include_role:
+            name: promote-hash
+            tasks_from: check-promotion-criteria.yaml
+          when: promote_target == 'promoted-components'
 
     - name: Promote {{ promote_source }} to {{ promote_target }} for primary (centos) repo
       include_role:
         name: promote-hash
         tasks_from: promote-primary-distro.yaml
+      when:
+        - (commit_hash_in_promote_target is not defined) or (commit_hash_in_promote_target.stdout | from_json | json_query(query) == [])
 
     - name: Promote {{ promote_source }} to {{ promote_target }} for secondary (RHEL) repo if an equivalent exists
       include_role:
