@@ -60,6 +60,19 @@
         {{ ovb_working_dir }}/.venv/bin/openstack stack failures list --long {{ stack_name }} >> {{ failed_log }} 2>&1
       when: '"FAILED" in result.stdout'
 
+    - name: Find out all servers
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name --name {{ idnum }}"
+      register: servers
+      when: '"CREATE_FAILED" in result.stdout'
+
+    - name: Dump console log of servers, removing stack id
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
+      loop: "{{ servers.stdout_lines }}"
+      ignore_errors: true
+      environment:
+        PYTHONIOENCODING: 'utf-8'
+      when: '"CREATE_FAILED" in result.stdout'
+
     - name: Show stack status
       command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
