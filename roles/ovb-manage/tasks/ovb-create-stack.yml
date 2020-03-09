@@ -59,6 +59,14 @@
         {{ ovb_working_dir }}/.venv/bin/openstack stack failures list --long {{ stack_name }} >> {{ failed_log }} 2>&1
       when: '"FAILED" in result.stdout'
 
+    - name: Dump console of servers in stack
+        shell: |
+          for server in $({{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name | grep {{ idnum }}); do
+            echo -e "\nConsole log: $server\n*****************" >> {{ failed_log }}
+            {{ ovb_working_dir }}/.venv/bin/openstack console log show $server >> {{ failed_log }}
+          done
+      when: '"FAILED" in result.stdout'
+
     - name: Show stack status
       command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
