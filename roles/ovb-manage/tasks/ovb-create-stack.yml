@@ -56,7 +56,7 @@
     - name: Dump failed stack
       shell: |
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} 2>&1 | tee {{ failed_log }}
-        {{ ovb_working_dir }}/.venv/bin/openstackstack failures list --long {{ stack_name }} >> {{ failed_log }} 2>&1
+        {{ ovb_working_dir }}/.venv/bin/openstack stack failures list --long {{ stack_name }} >> {{ failed_log }} 2>&1
       when: '"FAILED" in result.stdout'
 
     - name: Show stack status
