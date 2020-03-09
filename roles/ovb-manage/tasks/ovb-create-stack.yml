@@ -118,6 +118,17 @@
 
   always:
 
+    - name: Find out all servers
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server list -f value -c Name --name {{ idnum }}"
+      register: servers
+
+    - name: Dump console log of servers, removing stack id
+      shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
+      loop: "{{ servers.stdout_lines }}"
+      ignore_errors: true
+      environment:
+        PYTHONIOENCODING: 'utf-8'
+
     - name: Delete CREATE_FAILED stack
       shell: |
         {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y
