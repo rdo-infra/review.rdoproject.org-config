@@ -7,7 +7,7 @@ pushd $HOME
 ls *.tar
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-rsync_cmd="rsync --verbose --archive --delay-updates --relative"
+rsync_cmd="rsync --verbose --archive --no-perms --no-owner --no-group --delay-updates --relative"
 
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
