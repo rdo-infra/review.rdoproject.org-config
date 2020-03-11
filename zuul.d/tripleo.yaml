@@ -110,7 +110,7 @@
         - periodic-tripleo-ci-centos-8-multinode-1ctlr-featureset010-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
-        - periodic-tripleo-ci-centos-8-singlenode-featureset027-master:
+        - periodic-tripleo-ci-centos-8-undercloud-containers-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
         - periodic-tripleo-ci-centos-8-standalone-master:
@@ -194,7 +194,7 @@
             nodeset: upstream-centos-7-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
-        - periodic-tripleo-ci-centos-7-singlenode-featureset027-train:
+        - periodic-tripleo-ci-centos-7-undercloud-containers-train:
             nodeset: single-centos-7-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
@@ -342,7 +342,7 @@
             nodeset: upstream-centos-7-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-stein-containers-build-push
-        - periodic-tripleo-ci-centos-7-singlenode-featureset027-stein:
+        - periodic-tripleo-ci-centos-7-undercloud-containers-stein:
             nodeset: single-centos-7-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-stein-containers-build-push
@@ -444,7 +444,7 @@
             nodeset: upstream-centos-7-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-rocky-containers-build-push
-        - periodic-tripleo-ci-centos-7-singlenode-featureset027-rocky:
+        - periodic-tripleo-ci-centos-7-undercloud-containers-rocky:
             nodeset: single-centos-7-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-rocky-containers-build-push
