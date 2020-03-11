@@ -68,6 +68,9 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             vars:
               force_non_periodic: true
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+            vars:
+              force_non_periodic: true
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035:
             vars:
               force_non_periodic: true
@@ -78,6 +81,11 @@
     openstack-periodic-master:
       jobs:
         ##### master #####
+        - periodic-tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
+              - periodic-tripleo-centos-8-buildimage-overcloud-full-master
+              - periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
         - periodic-tripleo-ci-centos-8-multinode-1ctlr-featureset010-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
@@ -738,6 +746,14 @@
               - .*.rst$
               - .*.txt$
               - .*molecule.*
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+            files:
+              - ^tripleo_ansible/.*
+            irrelevant-files:
+              - .*.md$
+              - .*.rst$
+              - .*.txt$
+              - .*molecule.*
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
             voting: false
             files:
@@ -754,7 +770,7 @@
       - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             branches: stable/1.0
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
             voting: false
@@ -874,6 +890,7 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001
 
 - project:
     name: opendev.org/openstack/heat-agents
