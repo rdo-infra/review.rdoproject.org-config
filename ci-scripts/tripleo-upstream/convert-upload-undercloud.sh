@@ -82,7 +82,7 @@ echo ======== UPLOAD UNDERCLOUD IMAGE
 
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-rsync_cmd="rsync --verbose --archive --no-perms --no-owner --no-group --delay-updates --relative"
+rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 
 if [ -n "$DISTRO" ]; then
     UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
@@ -93,8 +93,7 @@ fi
 mkdir $FULL_HASH
 mv undercloud.qcow2 undercloud.qcow2.md5 $FULL_HASH
 
-# Sync not a dir, but the content inside
-$rsync_cmd "$FULL_HASH/" "$UPLOAD_URL/$FULL_HASH"
+$rsync_cmd $FULL_HASH $UPLOAD_URL
 
 popd
 echo ======== UPLOAD UNDERCLOUD COMPLETE
