@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/validations-libs-core:
+      description: Core developers for project validations-libs
+      members:
+      - cjeanner@redhat.com
+      - gchamoul@redhat.com
+      - mbultel@redhat.com
+    openstack/validations-libs-ptl:
+      description: Project team lead for project validations-libs
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-validations-libs-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/validations-libs-core
+          owner = group openstack/validations-libs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/validations-libs-core
+          label-Code-Review = -2..+2 group openstack/validations-libs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/validations-libs-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/validations-libs-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/validations-libs-core
+          label-Verified = -2..+2 group openstack/validations-libs-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/validations-libs-core
+          label-Workflow = -1..+1 group openstack/validations-libs-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/validations-libs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/validations-libs-core
+      - openstack/validations-libs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-validations-libs:
+      file: |
+        [access "refs/*"]
+          read = group openstack/validations-libs-core
+          owner = group openstack/validations-libs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/validations-libs-core
+          label-Code-Review = -2..+2 group openstack/validations-libs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/validations-libs-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/validations-libs-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/validations-libs-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/validations-libs-core
+          label-Workflow = -1..+0 group openstack/validations-libs-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/validations-libs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/validations-libs-core
+      - openstack/validations-libs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/validations-libs:
+      acl: openstack-validations-libs
+      description: Mirror of upstream validations-libs (mirror + patches)
+    openstack/validations-libs-distgit:
+      acl: openstack-validations-libs-distgit
+      description: Packaging of upstream validations-libs
+      default-branch: rpm-master
+      branches:
+        master: '0'
