@@ -7,7 +7,7 @@ pushd $HOME
 ls *.tar
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-rsync_cmd="rsync --verbose --archive --no-perms --no-owner --no-group --delay-updates --relative"
+rsync_cmd="rsync --verbose --archive --delay-updates --relative"
 
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
@@ -33,8 +33,7 @@ if [ -f "ironic-python-agent.tar" ]; then
     mv ironic-python-agent.tar ironic-python-agent.tar.md5 $FULL_HASH
 fi
 
-# Sync not a dir, but the content inside
-$rsync_cmd "$FULL_HASH/" "$UPLOAD_URL/$FULL_HASH"
+$rsync_cmd $FULL_HASH $UPLOAD_URL
 $rsync_cmd --delete --include 'tripleo-ci-testing**' --exclude '*' ./ $UPLOAD_URL/
 # Creating link to tripleo-ci-testing with actual $FULL_HASH
 ln -s $FULL_HASH tripleo-ci-testing
