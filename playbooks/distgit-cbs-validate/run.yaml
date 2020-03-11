@@ -34,5 +34,5 @@
           sudo $YUM --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
           pkgs=$(sudo $YUM --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' --exclude='*.src' list available | awk '/temp$/ {printf "%s ", $1}')
           # Here we install locally the kust built packages
-          sudo $YUM install --installroot=/tmp/root -y $pkgs
+          sudo $YUM install --installroot=/tmp/root --enablerepo='validated-qemu-ev-el{{ ansible_distribution_major_version }}' -y $pkgs
       changed_when: true
