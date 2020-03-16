@@ -795,12 +795,9 @@
       - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ovb-master:
             branches: stable/1.0
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
-            voting: false
-            branches: stable/1.0
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ovb-master:
             branches: master
     openstack-experimental:
       jobs:
