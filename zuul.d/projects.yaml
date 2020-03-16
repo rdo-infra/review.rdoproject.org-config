@@ -89,12 +89,12 @@
         - podman-package-centos-8
         - podman-package-fedora-30
         - podman-package-rhel-8
-        - tripleo-podman-integration-rhel-8-scenario000-standalone:
+        - tripleo-podman-integration-centos-8-scenario000-standalone:
             dependencies:
-              - podman-package-rhel-8
-        - tripleo-podman-integration-rhel-8-standalone:
+              - podman-package-centos-8
+        - tripleo-podman-integration-centos-8-standalone:
             dependencies:
-              - podman-package-rhel-8
+              - podman-package-centos-8
 
 - project:
     name: opendev.org/openstack/ansible-role-container-registry
