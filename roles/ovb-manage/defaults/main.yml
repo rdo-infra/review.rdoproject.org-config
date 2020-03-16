@@ -37,6 +37,13 @@ identity_api_version: "{{ cloud_credentials.identity_api_version|default('') }}"
 os_user_domain_name: "{{ cloud_credentials.user_domain_name|default('') }}"
 os_project_domain_name: "{{ cloud_credentials.project_domain_name|default('') }}"
 
+rdo_baremetal_image: >-
+  {% if ansible_distribution_major_version is version("8", "==") -%}
+  CentOS-8-x86_64-GenericCloud-1911
+  {%- else -%}
+  CentOS-7-x86_64-GenericCloud-1804_02
+  {%- endif -%}
+
 cloud_settings:
     rdocloud:
         public_ip_net: 38.145.32.0/22
@@ -44,7 +51,7 @@ cloud_settings:
         baremetal_flavor: ci.m1.large
         bmc_flavor: ci.m1.medium
         extra_node_flavor: ci.m1.small
-        baremetal_image: CentOS-7-x86_64-GenericCloud-1804_02
+        baremetal_image: "{{ rdo_baremetal_image }}"
     vexxhost:
         public_ip_net: public
         undercloud_flavor: ci.m1.nodepool
