@@ -182,8 +182,10 @@
       - system-required
     periodic:
       jobs:
-        - octavia-build-amphora:
-            branches: ^(?!stable/(ocata|pike)).*$
+        - octavia-build-amphora-centos7:
+            branches: ^(stable/(queens|rocky|stein|train))$
+        - octavia-build-amphora-centos8:
+            branches: ^master$
 
 - project:
     name: opendev.org/openstack/os-apply-config
