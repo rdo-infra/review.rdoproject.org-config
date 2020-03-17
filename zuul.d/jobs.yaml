@@ -81,6 +81,7 @@
     run: playbooks/distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - koji_centos
 
@@ -92,6 +93,7 @@
     run: playbooks/distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - koji_centos
 
@@ -116,6 +118,7 @@
     run: playbooks/opstools-common-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -128,6 +131,7 @@
     run: playbooks/opstools-common-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -140,6 +144,7 @@
     run: playbooks/opstools-fluentd-012-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -152,6 +157,7 @@
     run: playbooks/opstools-fluentd-012-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -164,6 +170,7 @@
     run: playbooks/opstools-perfmon-common-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -176,6 +183,7 @@
     run: playbooks/opstools-perfmon-common-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -188,6 +196,7 @@
     run: playbooks/opstools-sensu-110-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -200,6 +209,7 @@
     run: playbooks/opstools-sensu-110-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -212,6 +222,7 @@
     run: playbooks/opstools-sensu-common-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -224,6 +235,7 @@
     run: playbooks/opstools-sensu-common-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - cbs_opstools
 
@@ -235,6 +247,7 @@
     run: playbooks/publish-cico-jjb/run.yaml
     required-projects:
       - name: rdo-infra/ci-config
+    nodeset: rdo-centos-7
     secrets:
       - ci_centos
       - weirdo_token
@@ -462,6 +475,7 @@
 - job:
     name: publish-rdoproject-artifacts
     post-run: playbooks/publish-rdoproject-artifacts/post.yaml
+    nodeset: rdo-centos-7
     secrets:
       - secret: site_images_vexxhost
         name: fileserver
