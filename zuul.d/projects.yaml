@@ -97,6 +97,20 @@
               - podman-package-centos-8
 
 - project:
+    name: github.com/rdo-infra/openshift-ansible
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - tox-docs
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+        - tox-docs
+
+- project:
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
