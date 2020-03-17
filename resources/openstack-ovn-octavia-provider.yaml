@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/ovn-octavia-provider-core:
+      description: Core developers for project ovn-octavia-provider
+      members:
+      - mjozefcz@redhat.com
+      - bhaley@redat.com
+      - flaviof@redhat.com
+    openstack/ovn-octavia-provider-ptl:
+      description: Project team lead for project ovn-octavia-provider
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ovn-octavia-provider-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovn-octavia-provider-core
+          owner = group openstack/ovn-octavia-provider-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovn-octavia-provider-core
+          label-Code-Review = -2..+2 group openstack/ovn-octavia-provider-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovn-octavia-provider-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovn-octavia-provider-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ovn-octavia-provider-core
+          label-Verified = -2..+2 group openstack/ovn-octavia-provider-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ovn-octavia-provider-core
+          label-Workflow = -1..+1 group openstack/ovn-octavia-provider-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovn-octavia-provider-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ovn-octavia-provider-core
+      - openstack/ovn-octavia-provider-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ovn-octavia-provider:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovn-octavia-provider-core
+          owner = group openstack/ovn-octavia-provider-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovn-octavia-provider-core
+          label-Code-Review = -2..+2 group openstack/ovn-octavia-provider-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovn-octavia-provider-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovn-octavia-provider-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ovn-octavia-provider-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ovn-octavia-provider-core
+          label-Workflow = -1..+0 group openstack/ovn-octavia-provider-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovn-octavia-provider-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ovn-octavia-provider-core
+      - openstack/ovn-octavia-provider-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ovn-octavia-provider:
+      acl: openstack-ovn-octavia-provider
+      description: Mirror of upstream ovn-octavia-provider (mirror + patches)
+    openstack/ovn-octavia-provider-distgit:
+      acl: openstack-ovn-octavia-provider-distgit
+      description: Packaging of upstream ovn-octavia-provider
+      default-branch: rpm-master
+      branches:
+        master: '0'
