@@ -7201,6 +7201,20 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/rdo-infra/openshift-ansible
+    templates:
+      - system-required
+    check:
+      jobs:
+        - tox-linters
+        - tox-docs
+    gate:
+      queue: ansible-role-rdo-base
+      jobs:
+        - tox-linters
+        - tox-docs
+
+- project:
     name: review.rdoproject.org/rdo-infra/puppet-dlrn
     templates:
       - system-required
