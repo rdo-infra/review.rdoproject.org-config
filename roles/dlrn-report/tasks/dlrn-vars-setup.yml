@@ -22,7 +22,7 @@
   args:
     chdir: '{{ workspace }}'
   environment: "{{ zuul | zuul_legacy_vars }}"
-  changed_when: ansible_distribution == "RedHat" or ansible_distribution_major_version|int < 8
+  when: ansible_distribution == "RedHat" or ansible_distribution_major_version|int < 8
 
 - name: Temporary hash info creation for centos in mixed distribution job
   shell:
