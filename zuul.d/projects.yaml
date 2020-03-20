@@ -37,6 +37,13 @@
         - periodic-tripleo-ceph-integration-centos-8-scenario004-standalone:
             dependencies:
               - tripleo-centos-8-ceph-integration-master
+        - periodic-tripleo-centos-8-ceph-integration-master
+        - periodic-tripleo-ceph-integration-centos-8-scenario001-standalone:
+            dependencies:
+              - periodic-tripleo-centos-8-ceph-integration-master
+        - periodic-tripleo-ceph-integration-centos-8-scenario004-standalone:
+            dependencies:
+              - periodic-tripleo-centos-8-ceph-integration-master
 
 - project:
     name: config
