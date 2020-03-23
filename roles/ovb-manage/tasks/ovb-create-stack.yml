@@ -89,6 +89,10 @@
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ public_id.stdout }}"
       when: net_iso and net_iso != 'none'
 
+    - name: Lock the undercloud node
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server lock {{ undercloud_uuid }}"
+      when: lock_undercloud_node|bool
+
     - name: Find ports in provision network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ provision_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: provision_port

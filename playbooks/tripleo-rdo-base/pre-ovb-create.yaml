@@ -15,3 +15,4 @@
         ovb_working_dir: "{{ workspace }}/ovb"
         logs_dir: "{{ workspace }}/logs"
         nodes_file: "{{ workspace }}/instackenv.json"
+        lock_undercloud_node: not remove_ovb_after_job|default(true)|bool
