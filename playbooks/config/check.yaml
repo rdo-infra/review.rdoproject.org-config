@@ -162,7 +162,7 @@
 
         - name: Validate zuul config syntax
           command: >
-            env - /opt/rh/rh-python35/root/bin/zuul -c zuul.conf tenant-conf-check
+            env - /bin/zuul -c zuul.conf tenant-conf-check
           args:
             chdir: "{{ config_root }}/build"
 
