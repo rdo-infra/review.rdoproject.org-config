@@ -1,0 +1,21 @@
+resources:
+  acls:
+    sf-jobs-acl:
+      file: "\n[access \"refs/*\"]\n  owner = group sf-jobs-core\n[access \"refs/heads/*\"\
+        ]\n  label-Code-Review = -2..+2 group sf-jobs-core\n  label-Verified = -2..+2\
+        \ group sf-jobs-core\n  label-Workflow = -1..+1 group sf-jobs-core\n  label-Workflow\
+        \ = -1..+0 group Registered Users\n  submit = group sf-jobs-core\n  read =\
+        \ group Registered Users\n[access \"refs/meta/config\"]\n  read = group sf-jobs-core\n\
+        \  read = group Registered Users\n[receive]\n  requireChangeId = true\n[submit]\n\
+        \  mergeContent = false\n  action = fast forward only\n"
+      groups:
+      - sf-jobs-core
+  groups:
+    sf-jobs-core:
+      description: The sf-jobs core group
+      members:
+      - admin@review.rdoproject.org
+  repos:
+    sf-jobs:
+      acl: sf-jobs-acl
+      description: The sf-jobs repository
