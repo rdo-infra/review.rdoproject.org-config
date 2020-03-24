@@ -883,12 +883,14 @@
               - roles/overcloud-deploy/templates/.*cell.*
               - roles/overcloud-deploy/tasks/.*cell.*
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
-            files:
+            files: &039_files
               - config/general_config/featureset039.*
-              - ^roles/freeipa-setup/.*$
-              - ^roles/tripleo-inventory/.*$
-              - ^playbooks/baremetal-full-freeipa.*$
-              - ^playbooks/baremetal-full-deploy.*$
+              - ^roles/freeipa-setup/.*
+              - ^roles/tripleo-inventory/.*
+              - ^playbooks/baremetal-full-freeipa.*
+              - ^playbooks/baremetal-full-deploy.*
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
+            files: *039_files
         - tripleo-ci-centos-8-ovb-1ctlr_2comp-featureset020:
             files:
               - roles/validate-tempest/vars/tempest_skip_master.yml
