@@ -132,7 +132,10 @@
         - periodic-tripleo-ci-centos-8-scenario012-standalone-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
-        - periodic-tripleo-ci-centos-8-standalone-full-tempest-master:
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-api-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-scenario-master:
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
         - periodic-tripleo-ci-centos-8-scenario000-multinode-oooq-container-updates-master:
@@ -604,7 +607,10 @@
         - periodic-tripleo-ci-centos-8-standalone-compute-master:
             dependencies:
               - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
-        - periodic-tripleo-ci-centos-8-standalone-full-tempest-compute-master:
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-api-compute-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-scenario-compute-master:
             dependencies:
               - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
         - periodic-tripleo-centos-8-master-component-compute-promote-consistent-to-component-ci-testing
@@ -691,7 +697,10 @@
         - periodic-tripleo-ci-centos-8-standalone-tempest-master:
             dependencies:
               - periodic-tripleo-centos-8-master-component-tempest-promote-consistent-to-component-ci-testing
-        - periodic-tripleo-ci-centos-8-standalone-full-tempest-tempest-master:
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-api-tempest-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-component-tempest-promote-consistent-to-component-ci-testing
+        - periodic-tripleo-ci-centos-8-standalone-full-tempest-scenario-tempest-master:
             dependencies:
               - periodic-tripleo-centos-8-master-component-tempest-promote-consistent-to-component-ci-testing
         - periodic-tripleo-centos-8-master-component-tempest-promote-consistent-to-component-ci-testing
