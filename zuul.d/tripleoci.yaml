@@ -493,10 +493,10 @@
     nodeset: upstream-centos-7-vexxhost
     vars:
       push_containers: true
-      push_registry: trunk.registry-vexxhost.rdoproject.org
+      push_registry: trunk.registry.rdoproject.org
       buildcontainers_override_repos: tripleo-ci-testing
       featureset: containers-build # needed for dlrn report in post.yaml
-      rdo_registry_url: trunk.registry-vexxhost.rdoproject.org
+      rdo_registry_url: trunk.registry.rdoproject.org
       registry_login_enabled: false
       promote_source: tripleo-ci-testing
     pre-run:
@@ -510,8 +510,7 @@
     roles:
       - zuul: rdo-infra/ci-config
     secrets:
-      - name: rdo_registry
-        secret: rdo_vexxhost_registry
+      - rdo_registry
       - dlrnapi
 
 - job:
@@ -606,8 +605,7 @@
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     nodeset: upstream-rhel-8-vexxhost
     secrets:
-      - name: rdo_registry
-        secret: rdo_vexxhost_registry
+      - rdo_registry
     vars:
       release: master
       use_buildah: true
@@ -647,8 +645,7 @@
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     nodeset: single-centos-8-node-vexxhost
     secrets:
-      - name: rdo_registry
-        secret: rdo_vexxhost_registry
+      - rdo_registry
     vars:
       release: master
       use_buildah: true
@@ -717,11 +714,10 @@
     required-projects:
       - config
     secrets:
-      - name: rdo_registry
-        secret: rdo_vexxhost_registry
+      - rdo_registry
     vars:
        featureset: '023'
-       rdo_container_registry: trunk.registry-vexxhost.rdoproject.org
+       rdo_container_registry: trunk.registry.rdoproject.org
 
 - job:
     name: periodic-tripleo-centos-7-queens-containers-build
