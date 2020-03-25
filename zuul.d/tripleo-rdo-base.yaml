@@ -72,7 +72,7 @@
       - cloud_secrets
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-ovb-notebroker-centos-8
@@ -99,7 +99,7 @@
       - cloud_secrets
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-multinode-rdo
@@ -121,7 +121,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-multinode-rdo-centos-8
@@ -143,7 +143,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-singlenode-rdo
@@ -165,7 +165,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-singlenode-rdo-centos-8
@@ -187,7 +187,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-singlenode-rdo-containers-build-push
@@ -229,7 +229,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-standalone-rdo-centos-8
@@ -251,7 +251,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-standalone-upgrade-rdo
@@ -273,7 +273,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 - job:
     name: tripleo-ci-base-standalone-upgrade-rdo-centos-8
@@ -295,7 +295,7 @@
     secrets:
       - rdo_registry
     vars:
-      registry_login_enabled: true
+      registry_login_enabled: false
 
 # Used as the base downstream job for rhel-8 image builds. The actual image building is done in the
 # upstream parent tripleo-build-images-base via zuul inheritance of the pre-run/run playbooks. This
