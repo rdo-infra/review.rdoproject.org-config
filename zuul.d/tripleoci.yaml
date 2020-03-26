@@ -544,7 +544,7 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: upstream-centos-7-vexxhost
     override-checkout: 'stable/train'
     #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
     timeout: 9000
@@ -555,7 +555,7 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: upstream-centos-7-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -599,27 +599,6 @@
       push_containers_podman: true
 
 - job:
-    name: periodic-tripleo-rhel-8-master-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: upstream-rhel-8-vexxhost
-    secrets:
-      - rdo_registry
-    vars:
-      release: master
-      use_buildah: true
-      kolla_base_image: rhel
-      # Keep string empty, or kolla will try to download delorean repos on its own
-      buildcontainers_rpm_setup_config: ""
-      kolla_base_tag: 8.0-126
-      kolla_base: rhel
-      kolla_base_pull: false
-      # set push_containers to false as build containers are pushing using podman
-      push_containers: false
-      push_containers_podman: true
-
-- job:
     name: periodic-tripleo-centos-8-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
     post-run:
@@ -639,27 +618,9 @@
       push_containers_podman: true
 
 - job:
-    name: periodic-tripleo-centos-8-master-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: single-centos-8-node-vexxhost
-    secrets:
-      - rdo_registry
-    vars:
-      release: master
-      use_buildah: true
-      kolla_base_tag: 8
-      kolla_base: centos
-      kolla_base_pull: false
-      kolla_base_image: centos
-      # set push_containers to false as build containers are pushing using podman
-      push_containers: false
-      push_containers_podman: true
-
-- job:
     name: periodic-tripleo-centos-8-train-containers-build-push
     parent: periodic-tripleo-centos-8-master-containers-build-push
+    nodeset: single-centos-8-node-vexxhost
     override-checkout: 'stable/train'
     vars:
       release: train
@@ -668,7 +629,7 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: upstream-centos-7-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -678,6 +639,7 @@
 - job:
     name: periodic-tripleo-rhel-8-train-containers-build-push
     parent: periodic-tripleo-rhel-8-master-containers-build-push
+    nodeset: upstream-rhel-8-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -686,7 +648,7 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: upstream-centos-7-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -698,80 +660,19 @@
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: upstream-centos-7-vexxhost
     override-checkout: 'stable/rocky'
     vars:
        release: rocky
        branch_override: 'stable/rocky'
 
 - job:
-    name: tripleo-ci-base-singlenode-containers-build-vexxhost
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo
-    post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
-    post-timeout: 10800
-    nodeset: single-centos-7-node-vexxhost
-    required-projects:
-      - config
-    secrets:
-      - rdo_registry
-    vars:
-       featureset: '023'
-       rdo_container_registry: trunk.registry.rdoproject.org
-
-- job:
     name: periodic-tripleo-centos-7-queens-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
+    nodeset: upstream-centos-7-vexxhost
     vars:
        release: queens
        branch_override: 'stable/queens'
-
-- job:
-    name: periodic-tripleo-centos-7-queens-containers-build-vexxhost
-    parent: tripleo-ci-base-singlenode-containers-build-vexxhost
-    vars:
-       release: queens
-       branch_override: 'stable/queens'
-
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-centos-7-rocky-containers-build-push defined above
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-
-#TODO(marios): remove this once we switch to using the new
-#periodic-tripleo-centos-7-master-containers-build-push defined above
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: master
-
-# Vexxhost containers push jobs
-- job:
-    name: tripleo-centos-7-master-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    vars:
-      release: master
-
-- job:
-    name: tripleo-centos-7-train-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    override-checkout: 'stable/train'
-    vars:
-      release: train
-      branch_override: 'stable/train'
-
-- job:
-    name: tripleo-centos-7-stein-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    override-checkout: 'stable/stein'
-    vars:
-      release: stein
-      branch_override: 'stable/stein'
 
 - job:
     name: periodic-tripleo-centos-7-reproducer-update-images
@@ -779,52 +680,3 @@
     run: playbooks/tripleo-ci-reproducer-base/promotion-run.yaml
     secrets:
       - dockerio_rdoci
-
-- job:
-    name: periodic-tripleo-rhel-8-train-containers-build-push-vexxhost
-    parent: periodic-tripleo-rhel-8-master-containers-build-push-vexxhost
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-- job:
-    name: periodic-tripleo-centos-8-train-containers-build-push-vexxhost
-    parent: periodic-tripleo-centos-8-master-containers-build-push-vexxhost
-    override-checkout: 'stable/train'
-    vars:
-      release: train
-      branch_override: 'stable/train'
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    override-checkout: 'stable/rocky'
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-
-- job:
-    name: periodic-tripleo-centos-7-stein-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
-
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    vars:
-       release: master
-       buildcontainers_venv: false
-
-- job:
-    name: periodic-tripleo-centos-7-train-containers-build-push-vexxhost
-    parent: periodic-tripleo-containers-build-push-base-vexxhost
-    override-checkout: 'stable/train'
-    #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
-    timeout: 9000
-    vars:
-       release: train
-       branch_override: 'stable/train'
