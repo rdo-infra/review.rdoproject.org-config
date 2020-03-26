@@ -26,6 +26,7 @@
       pip:
         name: "{{ pip_packages }}"
         virtualenv: "{{ ovb_working_dir }}/.venv"
+        extra_args: -c https://raw.githubusercontent.com/openstack/requirements/stable/stein/upper-constraints.txt
       register: python_pkgs
       until: python_pkgs is success
       retries: 3
