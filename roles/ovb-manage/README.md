@@ -38,6 +38,8 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 - env_args
 - failed_log
 - fail_in_remove
+- ipv6
+- ipv6_args
 - logs_dir
 - net_args
 - nodes_file
@@ -56,12 +58,12 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 Dependencies
 ------------
 
-This playbook depends on the  library and https://github.com/cybertron/openstack-virtual-baremetal.
+This playbook depends on the  library and https://opendev.org/openstack/openstack-virtual-baremetal.
 
 Example Playbook
 ----------------
 
-Playbooks to create the strack prior to TripleO Quickstart deployments will require:
+Playbooks to create the stack prior to TripleO Quickstart deployments will require:
 
 - name: Create the OVB stack
   hosts: localhost
