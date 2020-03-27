@@ -33,6 +33,7 @@ Parameters required to access the stack:
 
 
 Parameters used the env.yaml file to create the OVB heat stack (See defaults/main.yml for default values):
+- attach_to_ovb_networks
 - create_undercloud
 - env_args
 - failed_log
