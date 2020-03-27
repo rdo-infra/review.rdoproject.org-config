@@ -107,8 +107,7 @@
 
     - name: Disable security in public ports
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ public_port.stdout }} --no-security-group --disable-port-security"
-      when: net_iso and net_iso != 'none'
-      when: attach_to_ovb_networks|bool
+      when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
 
     - name: Build nodes.json file to be used as instackenv.json
       shell: >

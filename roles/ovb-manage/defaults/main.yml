@@ -52,6 +52,8 @@ cloud_settings:
         bmc_flavor: ci.m1.medium
         extra_node_flavor: ci.m1.small
         baremetal_image: "{{ rdo_baremetal_image }}"
+        radvd_flavor: ci.m1.small
+        radvd_image: "{{ rdo_baremetal_image }}"
     vexxhost:
         public_ip_net: public
         undercloud_flavor: ci.m1.nodepool
@@ -59,6 +61,8 @@ cloud_settings:
         bmc_flavor: ci.m1.small
         extra_node_flavor: ci.m1.small
         baremetal_image: CentOS-7-x86_64-GenericCloud
+        radvd_flavor: ci.m1.small
+        radvd_image: CentOS-7-x86_64-GenericCloud
     upshift:
         public_ip_net: provider_net_shared_2
         undercloud_flavor: ci.m1.xlarge
@@ -66,6 +70,8 @@ cloud_settings:
         bmc_flavor: ci.m1.medium
         extra_node_flavor: ci.m1.small
         baremetal_image: CentOS-7-x86_64-GenericCloud-released-latest
+        radvd_flavor: ci.m1.small
+        radvd_image: CentOS-7-x86_64-GenericCloud-released-latest
 
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
@@ -76,6 +82,8 @@ env_args: >-
     -e {{ ovb_repo_directory }}/environments/bmc-use-cache.yaml
     -e {{ ovb_repo_directory }}/environments/undercloud-floating-none.yaml
 net_args: ''
+ipv6: false
+ipv6_args: ''
 undercloud_args: >-
     {%-if not create_undercloud|bool -%}
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
