@@ -75,6 +75,8 @@ env_args: >-
     -e {{ ovb_repo_directory }}/environments/bmc-use-cache.yaml
     -e {{ ovb_repo_directory }}/environments/undercloud-floating-none.yaml
 net_args: ''
+ipv6: false
+ipv6_args: ''
 undercloud_args: >-
     {%-if not create_undercloud|bool -%}
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
