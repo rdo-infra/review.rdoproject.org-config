@@ -79,6 +79,34 @@
 
   when: extra_node|bool
 
+- block:
+    - name: Write IPv6 environment file
+      copy:
+        dest: "{{ ovb_working_dir }}/env-{{ idnum }}-ipv6.yaml"
+        content: |
+          # net_cidrs matching tripleo-heat-templates/network_data.yaml
+          parameter_defaults:
+            provision_net_ip_version: 6
+            provision_net_cidr: fd00:fd00:fd00:1000::/64
+            radvd_provision_address: fd00:fd00:fd00:1000::fffe
+            IPv6_dhcpv6-statefull: false
+            {% if net_iso in ['multi-nic', 'public-bond'] %}
+            public_net_ip_version: 6
+            overcloud_internal_net_ip_version: 6
+            overcloud_storage_net_ip_version: 6
+            overcloud_storage_mgmt_net_ip_version: 6
+            overcloud_tenant_net_ip_version: 6
+            public_net_cidr: '2001:db8:fd00:1000::/64'
+            overcloud_internal_net_cidr: fd00:fd00:fd00:2000::/64
+            overcloud_storage_net_cidr: fd00:fd00:fd00:3000::/64
+            overcloud_storage_mgmt_net_cidr: fd00:fd00:fd00:4000::/64
+            overcloud_tenant_net_cidr: fd00:fd00:fd00:5000::/64
+            {%- endif -%}
+    - name: Set IPv6 arguments
+      set_fact:
+        ipv6_args: -e {{ ovb_working_dir }}/env-{{ idnum }}-ipv6.yaml -e {{ ovb_repo_directory }}/environments/ipv6-radvd.yaml
+  when: ipv6
+
 - name: Set network isolation
   set_fact:
     net_args: >-
@@ -91,7 +119,7 @@
   set_fact:
     ovb_args: >-
       --name {{ stack_name }} --quintupleo --id {{ idnum }}
-      {{ env_args }} {{ undercloud_args }} {{ net_args }} {{ role_args }}
+      {{ env_args }} {{ undercloud_args }} {{ net_args }} {{ ipv6_args }} {{ role_args }}
 
 - name: Print ovb args
   debug:
