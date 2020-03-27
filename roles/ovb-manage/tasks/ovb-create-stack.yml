@@ -15,6 +15,7 @@
 
 - name: Find out undercloud host ID
   include: find_undercloud_uuid.yml
+  when: attach_to_ovb_networks|bool
 
 - name: Generate clouds.yaml file
   template:
@@ -84,26 +85,29 @@
 
     - name: Attach instance to provision OVB network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ provision_id.stdout }}"
+      when: attach_to_ovb_networks|bool
 
     - name: Attach instance to public OVB network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ public_id.stdout }}"
-      when: net_iso and net_iso != 'none'
+      when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
 
     - name: Find ports in provision network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ provision_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: provision_port
+      when: attach_to_ovb_networks|bool
 
     - name: Find ports in public network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ public_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: public_port
-      when: net_iso and net_iso != 'none'
+      when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
 
     - name: Disable security in provision ports
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ provision_port.stdout }} --no-security-group --disable-port-security"
+      when: attach_to_ovb_networks|bool
 
     - name: Disable security in public ports
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ public_port.stdout }} --no-security-group --disable-port-security"
-      when: net_iso and net_iso != 'none'
+      when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
 
     - name: Build nodes.json file to be used as instackenv.json
       shell: >
