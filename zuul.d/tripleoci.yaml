@@ -544,7 +544,7 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/train'
     #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
     timeout: 9000
@@ -555,7 +555,7 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -629,7 +629,7 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -639,7 +639,7 @@
 - job:
     name: periodic-tripleo-rhel-8-train-containers-build-push
     parent: periodic-tripleo-rhel-8-master-containers-build-push
-    nodeset: upstream-rhel-8-vexxhost
+    nodeset: single-rhel-8-node-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -648,7 +648,7 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -660,7 +660,7 @@
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/rocky'
     vars:
        release: rocky
@@ -669,7 +669,7 @@
 - job:
     name: periodic-tripleo-centos-7-queens-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
-    nodeset: upstream-centos-7-vexxhost
+    nodeset: single-centos-7-node-vexxhost
     vars:
        release: queens
        branch_override: 'stable/queens'
