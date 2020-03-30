@@ -382,15 +382,21 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - legacy-centos7-opstools-rpmlint
+        - legacy-centos7-opstools-rpmbuild
+        - legacy-centos8-opstools-rpmlint
+        - legacy-centos8-opstools-rpmbuild
+        - opstools-opstools8-collectd-5-distgit-cbs-validate
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - legacy-centos7-opstools-rpmlint
+        - legacy-centos7-opstools-rpmbuild
+        - legacy-centos8-opstools-rpmlint
+        - legacy-centos8-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
+        - opstools-opstools8-collectd-5-distgit-cbs-validate
 
 - project:
     name: review.rdoproject.org/centos-opstools/collectd-rabbitmq-monitoring

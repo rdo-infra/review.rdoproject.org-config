@@ -1,0 +1,22 @@
+- hosts: all
+  tasks:
+    - shell:
+        cmd: |
+          # TODO(pabelanger): migrate to bindep.txt
+          sudo dnf -y install centos-packager createrepo
+      changed_when: true
+
+    - name: Create koji centos cert
+      copy:
+        content: "{{ cbs_opstools.private_key }}"
+        dest: ~/.centos.cert
+
+    - name: Create koji centos server ca
+      copy:
+        content: "{{ cbs_opstools.server_ca_cert }}"
+        dest: ~/.centos-server-ca.cert
+
+    - name: Create koji centos upload ca
+      copy:
+        content: "{{ cbs_opstools.server_ca_cert }}"
+        dest: ~/.centos-upload-ca.cert
