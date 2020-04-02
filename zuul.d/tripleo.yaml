@@ -232,7 +232,11 @@
             nodeset: single-centos-7-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
-        - periodic-tripleo-ci-centos-7-standalone-full-tempest-train:
+        - periodic-tripleo-ci-centos-7-standalone-full-tempest-api-train:
+            nodeset: single-centos-7-node-vexxhost
+            dependencies:
+              - periodic-tripleo-centos-7-train-containers-build-push
+        - periodic-tripleo-ci-centos-7-standalone-full-tempest-scenario-train:
             nodeset: single-centos-7-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-7-train-containers-build-push
