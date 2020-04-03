@@ -262,7 +262,9 @@
     run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
     post-run: playbooks/legacy-validate-dependencies-rebuilds/post.yaml
     required-projects:
+      - name: rdoinfo
       - name: gating_scripts
+    nodeset: rdo-centos-8
     secrets:
       - koji_centos
 
@@ -353,6 +355,7 @@
     required-projects:
       - name: rdoinfo
       - name: gating_scripts
+    nodeset: rdo-centos-8
     secrets:
       - koji_centos
 
