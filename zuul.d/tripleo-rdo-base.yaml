@@ -60,8 +60,7 @@
       - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - opendev.org/openstack/ansible-role-container-registry
-      - name: opendev.org/openstack/tripleo-ansible
-        override-checkout: master
+      - opendev.org/openstack/tripleo-ansible
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -138,8 +137,7 @@
       - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - opendev.org/openstack/ansible-role-container-registry
-      - name: opendev.org/openstack/tripleo-ansible
-        override-checkout: master
+      - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
     vars:
@@ -160,8 +158,7 @@
       - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - opendev.org/openstack/ansible-role-container-registry
-      - name: opendev.org/openstack/tripleo-ansible
-        override-checkout: master
+      - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
     vars:
@@ -246,8 +243,7 @@
       - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - opendev.org/openstack/ansible-role-container-registry
-      - name: opendev.org/openstack/tripleo-ansible
-        override-checkout: master
+      - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
     vars:
@@ -268,8 +264,7 @@
       - zuul: opendev.org/openstack/tripleo-ansible
     required-projects:
       - opendev.org/openstack/ansible-role-container-registry
-      - name: opendev.org/openstack/tripleo-ansible
-        override-checkout: master
+      - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
     vars:
