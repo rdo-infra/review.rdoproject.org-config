@@ -15,7 +15,16 @@
       setup:
         gather_subset: 'network'
 
-  roles:
-    - add-build-sshkey
-    - start-zuul-console
-    - validate-host
+  tasks:
+    - include_role: name=start-zuul-console
+    - block:
+        - include_role: name=add-build-sshkey
+        - include_role: name=validate-host
+      when: "ansible_connection != 'kubectl'"
+    - block:
+        - include_role: name=prepare-workspace-openshift
+        - include_role: name=remove-zuul-sshkey
+      run_once: true
+      when: "ansible_connection == 'kubectl'"
+    - import_role: name=ensure-output-dirs
+      when: ansible_user_dir is defined
