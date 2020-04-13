@@ -261,6 +261,7 @@
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
     post-run: playbooks/legacy-validate-dependencies-rebuilds/post.yaml
+    timeout: 5400
     required-projects:
       - name: rdoinfo
       - name: gating_scripts
@@ -352,6 +353,7 @@
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/legacy-rebuild-fedora-dependencies/run.yaml
     post-run: playbooks/legacy-rebuild-fedora-dependencies/post.yaml
+    timeout: 5400
     required-projects:
       - name: rdoinfo
       - name: gating_scripts
