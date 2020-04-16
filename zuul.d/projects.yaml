@@ -3713,32 +3713,8 @@
     name: review.rdoproject.org/openstack/mox3-distgit
     default-branch: rpm-master
     templates:
-      # FIXME(jpena) Once we get a release > 0.26.0, we can go back to the template
-      # - package-distgit-check-jobs
+      - package-distgit-check-jobs
       - system-required
-    check:
-      jobs:
-        - rpmlint:
-            dependencies:
-              - DLRN-rpmbuild-pinned
-            branches: ^rpm-master$
-        - DLRN-build-tripleo:
-            dependencies:
-              - DLRN-rpmbuild-pinned
-            voting: false
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - distgit-cbs-validate:
-            branches: ^(?!rpm-master).*$
-        - distgit-cbs-validate-centos8
-    gate:
-      jobs:
-        - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
-        - distgit-cbs-final-build:
-            branches: ^(?!rpm-master).*$
-        - distgit-cbs-final-build-centos8
 
 - project:
     name: review.rdoproject.org/openstack/murano
