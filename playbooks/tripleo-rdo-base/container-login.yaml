@@ -28,7 +28,7 @@
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int < 8
 
-        - name: Install podman
+        - name: Install podman ( ussuri+ )
           include_role:
             name: tripleo_podman
             tasks_from: tripleo_podman_install.yml
@@ -36,6 +36,17 @@
           when:
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int >= 8
+            - not release is search("queens|rocky|stein|train")
+
+        - name: Install podman ( train only )
+          include_role:
+            name: tripleo-podman
+            tasks_from: tripleo_podman_install.yml
+            vars_from: "{{ ansible_os_family | lower }}.yml"
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int >= 8
+            - branch_override is defined and branch_override = 'stable/train'
 
         - include_role:
             name: tripleo_podman
