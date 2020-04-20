@@ -2614,22 +2614,31 @@
       jobs:
         - rpmlint:
             dependencies:
-              - DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-centos8-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-build-tripleo-centos8:
+            dependencies:
+              - DLRN-rpmbuild-centos8-pinned
+            voting: false
+            branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-final-build-centos8
@@ -4735,22 +4744,31 @@
       jobs:
         - rpmlint:
             dependencies:
-              - DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-centos8-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-build-tripleo-centos8:
+            dependencies:
+              - DLRN-rpmbuild-centos8-pinned
+            voting: false
+            branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-final-build-centos8
@@ -5560,22 +5578,31 @@
       jobs:
         - rpmlint:
             dependencies:
-              - DLRN-rpmbuild-pinned
+              - DLRN-rpmbuild-centos8-pinned
             branches: ^rpm-master$
         - DLRN-build-tripleo:
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-build-tripleo-centos8:
+            dependencies:
+              - DLRN-rpmbuild-centos8-pinned
+            voting: false
+            branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(master|stable/pike)|(rpm-)|(^(?!common)(\w+)-rdo)$
+            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+        - DLRN-rpmbuild-centos8-pinned:
+            branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(?!rpm-master).*$
         - distgit-cbs-final-build-centos8
