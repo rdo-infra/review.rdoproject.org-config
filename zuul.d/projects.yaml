@@ -2631,7 +2631,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
@@ -2640,7 +2640,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -4305,12 +4305,12 @@
     check:
       jobs:
         - distgit-cbs-validate:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
         - distgit-cbs-final-build:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -4761,7 +4761,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
@@ -4770,7 +4770,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -5595,7 +5595,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
     gate:
       jobs:
@@ -5604,7 +5604,7 @@
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(?!rpm-master).*$
+            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
