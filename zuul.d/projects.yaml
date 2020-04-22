@@ -30,13 +30,13 @@
     openstack-periodic-weekend:
       queue: ceph
       jobs:
-        - periodic-tripleo-ceph-integration-master
-        - periodic-tripleo-ceph-integration-rhel-8-scenario001-standalone:
+        - tripleo-centos-8-ceph-integration-master
+        - periodic-tripleo-ceph-integration-centos-8-scenario001-standalone:
             dependencies:
-              - periodic-tripleo-ceph-integration-master
-        - periodic-tripleo-ceph-integration-rhel-8-scenario004-standalone:
+              - tripleo-centos-8-ceph-integration-master
+        - periodic-tripleo-ceph-integration-centos-8-scenario004-standalone:
             dependencies:
-              - periodic-tripleo-ceph-integration-master
+              - tripleo-cetnos-8-ceph-integration-master
 
 - project:
     name: config
