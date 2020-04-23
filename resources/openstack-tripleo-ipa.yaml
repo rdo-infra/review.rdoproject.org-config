@@ -1,0 +1,99 @@
+resources:
+  groups:
+    openstack/tripleo-ipa-core:
+      description: Core developers for project tripleo-ipa
+      members:
+      - alee@redhat.com
+      - cdwilde@gmail.com
+      - kevin@cloudnull.com
+      - lbragstad@gmail.com
+      - xek@redhat.com
+    openstack/tripleo-ipa-ptl:
+      description: Project team lead for project tripleo-ipa
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-ipa-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ipa-core
+          owner = group openstack/tripleo-ipa-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ipa-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ipa-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ipa-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ipa-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/tripleo-ipa-core
+          label-Verified = -2..+2 group openstack/tripleo-ipa-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-ipa-core
+          label-Workflow = -1..+1 group openstack/tripleo-ipa-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ipa-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ipa-core
+      - openstack/tripleo-ipa-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-ipa:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-ipa-core
+          owner = group openstack/tripleo-ipa-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-ipa-core
+          label-Code-Review = -2..+2 group openstack/tripleo-ipa-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-ipa-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-ipa-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-ipa-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-ipa-core
+          label-Workflow = -1..+0 group openstack/tripleo-ipa-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-ipa-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-ipa-core
+      - openstack/tripleo-ipa-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-ipa:
+      acl: openstack-tripleo-ipa
+      description: Mirror of upstream tripleo-ipa (mirror + patches)
+    openstack/tripleo-ipa-distgit:
+      acl: openstack-tripleo-ipa-distgit
+      description: Packaging of upstream tripleo-ipa
+      default-branch: rpm-master
+      branches:
+        master: '0'
+        train-rdo: '0'
