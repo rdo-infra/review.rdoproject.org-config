@@ -8,6 +8,14 @@
       promote_target: tripleo-ci-testing
 
 - job:
+    name: periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+    parent: periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
+    nodeset: upstream-centos-8-vexxhost
+    vars:
+      release: train
+      promote_source: consistent
+
+- job:
     name: periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -193,6 +201,24 @@
       release: master
     secrets:
       - uploader_ssh_key
+
+- job:
+    name: periodic-tripleo-centos-8-buildimage-overcloud-full-train
+    parent: periodic-tripleo-centos-8-buildimage-overcloud-full-master
+    override-checkout: 'stable/train'
+    nodeset: single-centos-8-node-vexxhost
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+- job:
+    name: periodic-tripleo-centos-8-buildimage-ironic-python-agent-train
+    parent: periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
+    nodeset: single-centos-8-node-vexxhost
+    override-checkout: 'stable/train'
+    vars:
+       release: train
+       branch_override: 'stable/train'
 
 - job:
     name: periodic-tripleo-rhel-8-buildimage-overcloud-full-train
