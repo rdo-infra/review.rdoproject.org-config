@@ -274,6 +274,18 @@
               - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing:
             nodeset: upstream-centos-7-vexxhost
+        # CentOS-8 based train jobs
+        - periodic-tripleo-centos-8-train-containers-build-push:
+            dependencies:
+              - periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-8-buildimage-overcloud-full-train:
+            dependencies:
+              - periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+        - periodic-tripleo-centos-8-buildimage-ironic-python-agent-train:
+            dependencies:
+              - periodic-tripleo-centos-8-train-promote-consistent-to-tripleo-ci-testing
+
         # RHEL-8 DLRN packages are NOW available so RHEL-8 periodic jobs can be enabled
         # https://trunk.rdoproject.org/rhel8-train/report.html
         # https://tree.taiga.io/project/morucci-software-factory/us/3011
