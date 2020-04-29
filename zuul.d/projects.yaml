@@ -471,10 +471,6 @@
         - tox-linters
         - legacy-centos-opstools-rpmlint
         - legacy-centos-opstools-rpmbuild
-        - legacy-rdo-infra-playbooks-integration-sensu-client:
-            voting: false
-        - legacy-rdo-infra-playbooks-integration-sensu-server:
-            voting: false
     gate:
       queue: centos-release-opstools
       jobs:
@@ -6733,8 +6729,6 @@
     check:
       jobs:
         - tox-linters
-        - legacy-rdo-infra-playbooks-integration-sensu-server:
-            voting: false
     gate:
       queue: ansible-role-rdo-base
       jobs:
@@ -7205,19 +7199,11 @@
       jobs:
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
-        - legacy-rdo-infra-playbooks-integration-sensu-client:
-            voting: false
-        - legacy-rdo-infra-playbooks-integration-sensu-server:
-            voting: false
     gate:
       queue: ansible-role-rdo-base
       jobs:
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
-        - legacy-rdo-infra-playbooks-integration-sensu-client:
-            voting: false
-        - legacy-rdo-infra-playbooks-integration-sensu-server:
-            voting: false
 
 - project:
     name: review.rdoproject.org/rdo-infra/rdo-release
