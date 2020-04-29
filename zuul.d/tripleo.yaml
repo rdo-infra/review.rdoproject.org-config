@@ -168,6 +168,9 @@
             nodeset: single-centos-8-node-vexxhost
             dependencies:
               - periodic-tripleo-centos-8-master-containers-build-push
+        - periodic-tripleo-ci-centos-8-standalone-skipped-tempest-master:
+            dependencies:
+              - periodic-tripleo-centos-8-master-containers-build-push
         - periodic-tripleo-ci-centos-8-standalone-full-tempest-api-master:
             nodeset: single-centos-8-node-vexxhost
             dependencies:
