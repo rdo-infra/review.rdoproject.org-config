@@ -751,7 +751,12 @@
     name: opendev.org/openstack/ansible-role-collect-logs
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset001
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
+            vars:
+              fail_logs_collection: true
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
+            vars:
+              fail_logs_collection: true
 
 - project:
     name: opendev.org/openstack/tripleo-image-elements
