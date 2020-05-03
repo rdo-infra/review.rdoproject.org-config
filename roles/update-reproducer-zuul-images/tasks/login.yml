@@ -2,6 +2,18 @@
 - name: Login to registry
   command: >-
     {{ container_command }} login {{ registry_server }}
-    --username  {{ dockerio_rdoci.user }} --password {{ dockerio_rdoci.password }}
+    --username  {{ dockerio_rdoci.user }} --password "$PSSW"
   changed_when: true
+  environment:
+    PSSW: "{{ dockerio_rdoci.password }}"
   no_log: true
+
+- name: Check if login succeded
+  command: >-
+    {{ container_command }} login --get-login
+  changed_when: false
+  register: login_
+
+- name: Print if logged in
+  debug:
+    msg: "Logged in as '{{ login_.stdout }}'"
