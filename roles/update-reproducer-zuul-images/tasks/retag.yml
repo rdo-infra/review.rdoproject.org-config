@@ -1,19 +1,24 @@
 ---
 - name: Remove leftovers if exist
   shell: >-
-    {{ container_command }} rmi {{ original_namespace }}/{{ item }} || true
+    {{ container_command }} rmi {{ original_namespace }}/{{ item }}:{{ original_tag }} || true
   loop: "{{ containers }}"
   changed_when: false
 
+- name: Print pulling location
+  debug:
+    msg: >-
+      Pulling containers from {{ registry_server }}/{{ original_namespace }}/container:{{ original_tag }}
+
 - name: Download from registry
   command: >-
-    {{ container_command }} pull {{ registry_server }}/{{ original_namespace }}/{{ item }}
+    {{ container_command }} pull {{ registry_server }}/{{ original_namespace }}/{{ item }}:{{ original_tag }}
   changed_when: true
   loop: "{{ containers }}"
 
 - name: Retag containers
   command: >-
-    {{ container_command }} tag {{ registry_server }}/{{ original_namespace }}/{{ item }}
+    {{ container_command }} tag {{ registry_server }}/{{ original_namespace }}/{{ item }}:{{ original_tag }}
     {{ registry_server }}/{{ container_namespace }}/{{ item }}:{{ push_tag }}
   changed_when: true
   loop: "{{ containers }}"

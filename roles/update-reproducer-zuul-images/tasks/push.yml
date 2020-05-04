@@ -1,4 +1,9 @@
 ---
+- name: Print pushing location
+  debug:
+    msg: >-
+      Pushing containers to {{ registry_server }}/{{ container_namespace }}/container:{{ push_tag }}
+
 - name: Push to registry
   command: >-
     {{ container_command }} push {{ registry_server }}/{{ container_namespace }}/{{ item }}:{{ push_tag }}
