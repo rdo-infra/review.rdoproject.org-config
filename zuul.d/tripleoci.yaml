@@ -62,6 +62,7 @@
     name: periodic-tripleo-rhel-8-master-buildimage-base
     abstract: true
     parent: tripleo-rhel-8-master-buildimage-base
+    nodeset: single-rhel-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run:
@@ -289,7 +290,7 @@
 - job:
     name: periodic-tripleo-centos-7-master-compute-containers-build
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        push_containers: false
@@ -298,7 +299,7 @@
 - job:
     name: periodic-tripleo-centos-7-master-keystone-containers-build
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        push_containers: false
@@ -309,7 +310,7 @@
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        buildcontainers_venv: false
@@ -340,7 +341,7 @@
 - job:
     name: periodic-tripleo-centos-7-master-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        use_buildah: true
@@ -350,7 +351,7 @@
     parent: periodic-tripleo-containers-build-push-base
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: single-rhel-8-node
+    nodeset: single-rhel-8-node-vexxhost
     secrets:
       - rdo_registry
     host-vars:
@@ -376,7 +377,7 @@
     parent: periodic-tripleo-containers-build-push-base
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     secrets:
       - rdo_registry
     vars:
