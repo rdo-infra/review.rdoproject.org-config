@@ -7400,7 +7400,8 @@
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/train.yml$
-              - ^tags/ussuri-uc.yml$
+              - ^tags/ussuri.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-validate-dependencies-rebuilds
         - legacy-weirdo-dlrn-master-packstack-scenario003-centos8:
             dependencies:
@@ -7408,35 +7409,35 @@
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario001-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario002-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario003-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-weirdo-dlrn-master-puppet-scenario004-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-weirdo-validate-buildsys-tags:
             dependencies:
               - legacy-validate-buildsys-tags
@@ -7463,19 +7464,19 @@
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$
+              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-8-scenario001-standalone:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$
+              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-8-containers-multinode:
             dependencies:
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$
+              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-train-centos-7-scenario001-standalone:
             dependencies:
               - legacy-validate-buildsys-tags
@@ -7539,7 +7540,7 @@
               - legacy-validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$
+              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-master-testing-centos-7-multinode-1ctlr-featureset030:
             dependencies:
               - legacy-validate-buildsys-tags
@@ -7576,40 +7577,40 @@
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario002:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario003:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario004:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - distgit-tripleo-master-testing-centos-8-undercloud-containers:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/ussuri-uc.yml$
+              - ^tags/victoria-uc.yml$
 
     gate:
       queue: whitebox-tempest-plugin
@@ -7624,7 +7625,8 @@
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/train.yml$
-              - ^tags/ussuri-uc.yml$
+              - ^tags/ussuri.yml$
+              - ^tags/victoria-uc.yml$
         - legacy-validate-buildsys-tags
         - legacy-rebuild-fedora-dependencies
     periodic:
