@@ -2405,6 +2405,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-role-lunasa-hsm
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-lunasa-hsm-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-role-openstack-operations
     templates:
       - package-check-jobs
