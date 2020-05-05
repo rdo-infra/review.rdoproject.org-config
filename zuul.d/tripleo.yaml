@@ -305,48 +305,6 @@
               - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
         - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing:
             nodeset: upstream-centos-7-vexxhost
-        # RHEL-8 DLRN packages are NOW available so RHEL-8 periodic jobs can be enabled
-        # https://trunk.rdoproject.org/rhel8-train/report.html
-        # https://tree.taiga.io/project/morucci-software-factory/us/3011
-        - periodic-tripleo-rhel-8-buildimage-overcloud-full-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-rhel-8-train-containers-build-push:
-            dependencies:
-              - periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
-        - periodic-tripleo-ci-rhel-8-standalone-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-train-containers-build-push
-        - periodic-tripleo-ci-rhel-8-scenario001-standalone-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-train-containers-build-push
-        - periodic-tripleo-ci-rhel-8-scenario002-standalone-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-train-containers-build-push
-        - periodic-tripleo-ci-rhel-8-scenario003-standalone-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-train-containers-build-push
-        - periodic-tripleo-ci-rhel-8-scenario004-standalone-train:
-            nodeset: single-rhel-8-node-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-train-containers-build-push
-        - periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-train:
-            vars:
-              cloud_name: vexxhost
-            nodeset: upstream-rhel-8-vexxhost
-            dependencies:
-              - periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train
-              - periodic-tripleo-rhel-8-buildimage-overcloud-full-train
-              - periodic-tripleo-rhel-8-train-containers-build-push
     openstack-periodic-24hr:
       jobs:
         ##### stable/stein #####
