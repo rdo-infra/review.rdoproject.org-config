@@ -107,12 +107,14 @@
           for RELEASE in {{ stable_releases }} ; do
             # If release has format <openstack_release>,<centos_release> get centos release.
             CENTOS_V=$(echo $RELEASE|awk -F',' '{print $2}')
+            # seperate out Release from distro version
+            TARGET_RELEASE=$(echo $RELEASE|awk -F',' '{print $1}')
             # if not defaults to 7
             CENTOS_V=${CENTOS_V:-7}
             git reset --hard origin/master
             python {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags.py \
               -c {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml \
-              -r $RELEASE \
+              -r $TARGET_RELEASE \
               -p $PHASE \
               --centos-release $CENTOS_V \
               $DEPS
