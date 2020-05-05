@@ -41,7 +41,7 @@ rdo_baremetal_image: >-
   {% if ansible_distribution_major_version is version("8", "==") -%}
   CentOS-8-x86_64-GenericCloud-1911
   {%- else -%}
-  CentOS-7-x86_64-GenericCloud-1804_02
+  CentOS-7-x86_64-GenericCloud-2003
   {%- endif -%}
 
 cloud_settings:
@@ -60,18 +60,18 @@ cloud_settings:
         baremetal_flavor: ci.m1.large
         bmc_flavor: ci.m1.small
         extra_node_flavor: ci.m1.small
-        baremetal_image: CentOS-7-x86_64-GenericCloud
+        baremetal_image: "{{ rdo_baremetal_image }}"
         radvd_flavor: ci.m1.small
-        radvd_image: CentOS-7-x86_64-GenericCloud
+        radvd_image: "{{ rdo_baremetal_image }}"
     upshift:
         public_ip_net: provider_net_shared_2
         undercloud_flavor: ci.m1.xlarge
         baremetal_flavor: ci.m1.large.rhos-dev-ci
         bmc_flavor: ci.m1.medium
         extra_node_flavor: ci.m1.small
-        baremetal_image: CentOS-7-x86_64-GenericCloud-released-latest
+        baremetal_image: "{{ rdo_baremetal_image }}"
         radvd_flavor: ci.m1.small
-        radvd_image: CentOS-7-x86_64-GenericCloud-released-latest
+        radvd_image: "{{ rdo_baremetal_image }}"
 
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
