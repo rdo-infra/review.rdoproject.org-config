@@ -22,6 +22,30 @@
       "revId": "748f35f01f2d5a7c9548cdb0740a99d2aa19488f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "356ad5a5_36b2cf04",
+        "filename": "zuul.d/tripleo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2020-05-06T19:32:22Z",
+      "side": 1,
+      "message": "Yes, both will be uploading the overcloud and ipa images, but here, fs02 will run only when image build job finishes then at same time fs01 and fs02 will start. fs01 will pull the built image and fs02 will build the image from scratch and reuse it in the job then it will upload the image. May be I need to disable the upload part",
+      "parentUuid": "f0c23cee_2296a282",
+      "range": {
+        "startLine": 195,
+        "startChar": 10,
+        "endLine": 195,
+        "endChar": 69
+      },
+      "revId": "748f35f01f2d5a7c9548cdb0740a99d2aa19488f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
