@@ -6,664 +6,665 @@ resources:
     rdo-common:
       description: Distgit for CBS openstack-common builds
       website: https://github.com/rdo-common
+      options:
+        - zuul/skip
       contacts:
       - dpawlik@redhat.com
       source-repositories: []
-      # TODO(tristanC): this requires a `skip/zuul` option to be implemented first.
-      # - rdo-common/babel:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/bandit:
-      #     connection: github.com
-      #     default-branch:
-      # - rdo-common/boost159:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/boost-nowide:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/corosync:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/cpp-hocon:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/Cython:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/docker:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/erlang:
-      #     connection: github.com
-      #     default-branch: common-rdo-19
-      # - rdo-common/erlang-sd_notify:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/facter:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/galera:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/GitPython:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/golang-github-BurntSushi-toml:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-davecgh-go-spew:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-golang-sys:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-pmezard-go-difflib:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-Sirupsen-logrus:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-stretchr-objx:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-stretchr-testify:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-urfave-cli:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-github-vbatts-tar-split:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-googlecode-go-crypto:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-gopkg-check:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/golang-gopkg-yaml:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/grpc:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/haproxy:
-      #     connection: github.com
-      #     default-branch:
-      # - rdo-common/hiera:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/jq:
-      #     connection: github.com
-      #     default-branch: queens-deps
-      # - rdo-common/leatherman:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/libkml:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/libqb:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/libuv:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/libvarlink:
-      #     connection: github.com
-      #     default-branch: master
-      # - rdo-common/mariadb:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/memcached:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/mongodb:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/mozjs45:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/nodejs:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/openstack-tripleo-ui-deps:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/openstack-utils:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/openvswitch:
-      #     connection: github.com
-      #     default-branch: common-rdo-2.10
-      # - rdo-common/ovn:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/pacemaker:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/pcs:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/phantomjs:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/protobuf:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/puppet:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/pydot:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/pyOpenSSL:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/pyparsing:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/pysendfile:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/pyserial:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/pysnmp:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/pytest:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python3-pytest-asyncio:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-alembic:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-amqp:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-ansible-runner:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-argcomplete:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-atomicwrites:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-attrs:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-autobahn:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-backports_abc:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-bcrypt:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-botocore:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-bottle:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-case:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-certifi:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-collectd-gnocchi:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-construct:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-cradox:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-crypto:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-cryptography:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-cycler:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-daemon:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-dataclasses:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-dateutil:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-ddt:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-defusedxml:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-demjson:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-django-appconf:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-docker:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-docker-pycreds:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-dogpile-cache:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-dulwich:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-enchant:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-etcd:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-eventlet:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-exabgp:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-falcon:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-fastavro:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-flake8:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-flask:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-gabbi:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-gevent:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-gmpy2:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-greenlet:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-gunicorn:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-hamcrest:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-hypothesis:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-idna:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-influxdb:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-jsonschema:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-jwt:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-keyring:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-kombu:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-ldap:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-ldap3:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-ldappool:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-lz4:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-markupsafe:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-matplotlib:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-meld3:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-migrate:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-mock:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-monotonic:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-more-itertools:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-msgpack:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-netmiko:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-network-runner:
-      #     connection: github.com
-      #     default-branch: ussuri-rdo
-      # - rdo-common/python-networkx:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-numexpr:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-octavia-tests-golang:
-      #     connection: github.com
-      #     default-branch: master
-      # - rdo-common/python-olefile:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-openstackdocstheme:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-packaging:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pandas:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-paramiko:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pathlib2:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pbr:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-pecan:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-pexpect:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-pillow:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pint:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-psutil:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-psycopg2:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-ptyprocess:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-PuLP:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-py:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pyasn1:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-pycodestyle:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pycxx:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pydotplus:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-pykmip:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-pymongo:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-PyMySQL:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pynacl:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pyquery:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-pyroute2:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-pysaml2:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-pyside:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pytest-mock:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pytest-runner:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-pytest-timeout:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pytest-xdist:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-pytimeparse:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-pyudev:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-queuelib:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-requests:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-ruamel-yaml:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-ryu:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-scandir:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-scp:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-SecretStorage:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-selenium:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-setuptools:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-setuptools_scm:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-simplejson:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-six:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-sortedcontainers:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-sphinx:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-sphinx-argparse:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-sphinxcontrib-programoutput:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-sphinxcontrib-svg2pdfconverter:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-sphinxcontrib-websupport:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-sphinx-testing:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-sphinx-theme-alabaster:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-sqlalchemy:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-sqlalchemy-collectd:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-stestr:
-      #     connection: github.com
-      #     default-branch: pike-rdo
-      # - rdo-common/python-storops:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-subunit2sql:
-      #     connection: github.com
-      #     default-branch: pike-rdo
-      # - rdo-common/python-suds:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-sysv_ipc:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-tables:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-tabulate:
-      #     connection: github.com
-      #     default-branch: ussuri-rdo
-      # - rdo-common/python-tenacity:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-timeout-decorator:
-      #     connection: github.com
-      #     default-branch: ussuri-rdo
-      # - rdo-common/python-tornado:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-txaio:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/python-ucsmsdk:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-ujson:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-unittest2:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-urllib3:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-urllib-gssapi:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/python-voluptuous:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-webob:
-      #     connection: github.com
-      #     default-branch: queens-rdo
-      # - rdo-common/python-websockify:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-werkzeug:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
-      # - rdo-common/python-WSGIProxy2:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-xmltodict:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/python-XStatic-Angular-Gettext:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-XStatic-Angular-Schema-Form:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-XStatic-jQuery:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/python-XStatic-objectpath:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-XStatic-tv4:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/python-zeroconf:
-      #     connection: github.com
-      #     default-branch: train-rdo
-      # - rdo-common/qhull:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/qpid-cpp:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/qpid-proton:
-      #     connection: github.com
-      #     default-branch: stein-rdo
-      # - rdo-common/rdo-openvswitch:
-      #     connection: github.com
-      #     default-branch: ussuri-c8-rdo
-      # - rdo-common/resource-agents:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/rubygem-fakefs:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/rubygem-pathspec:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/rubygem-rspec:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/scipy:
-      #     connection: github.com
-      #     default-branch: rdo-common
-      # - rdo-common/subunit:
-      #     connection: github.com
-      #     default-branch: common-rdo
-      # - rdo-common/uwsgi:
-      #     connection: github.com
-      #     default-branch: rocky-rdo
+      - rdo-common/babel:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/bandit:
+          connection: github.com
+          default-branch:
+      - rdo-common/boost159:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/boost-nowide:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/corosync:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/cpp-hocon:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/Cython:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/docker:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/erlang:
+          connection: github.com
+          default-branch: common-rdo-19
+      - rdo-common/erlang-sd_notify:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/facter:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/galera:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/GitPython:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/golang-github-BurntSushi-toml:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-davecgh-go-spew:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-golang-sys:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-pmezard-go-difflib:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-Sirupsen-logrus:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-stretchr-objx:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-stretchr-testify:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-urfave-cli:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-github-vbatts-tar-split:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-googlecode-go-crypto:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-gopkg-check:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/golang-gopkg-yaml:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/grpc:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/haproxy:
+          connection: github.com
+          default-branch:
+      - rdo-common/hiera:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/jq:
+          connection: github.com
+          default-branch: queens-deps
+      - rdo-common/leatherman:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/libkml:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/libqb:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/libuv:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/libvarlink:
+          connection: github.com
+          default-branch: master
+      - rdo-common/mariadb:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/memcached:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/mongodb:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/mozjs45:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/nodejs:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/openstack-tripleo-ui-deps:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/openstack-utils:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/openvswitch:
+          connection: github.com
+          default-branch: common-rdo-2.10
+      - rdo-common/ovn:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/pacemaker:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/pcs:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/phantomjs:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/protobuf:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/puppet:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/pydot:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/pyOpenSSL:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/pyparsing:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/pysendfile:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/pyserial:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/pysnmp:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/pytest:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python3-pytest-asyncio:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-alembic:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-amqp:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-ansible-runner:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-argcomplete:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-atomicwrites:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-attrs:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-autobahn:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-backports_abc:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-bcrypt:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-botocore:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-bottle:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-case:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-certifi:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-collectd-gnocchi:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-construct:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-cradox:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-crypto:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-cryptography:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-cycler:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-daemon:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-dataclasses:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-dateutil:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-ddt:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-defusedxml:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-demjson:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-django-appconf:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-docker:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-docker-pycreds:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-dogpile-cache:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-dulwich:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-enchant:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-etcd:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-eventlet:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-exabgp:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-falcon:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-fastavro:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-flake8:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-flask:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-gabbi:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-gevent:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-gmpy2:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-greenlet:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-gunicorn:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-hamcrest:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-hypothesis:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-idna:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-influxdb:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-jsonschema:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-jwt:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-keyring:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-kombu:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-ldap:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-ldap3:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-ldappool:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-lz4:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-markupsafe:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-matplotlib:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-meld3:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-migrate:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-mock:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-monotonic:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-more-itertools:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-msgpack:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-netmiko:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-network-runner:
+          connection: github.com
+          default-branch: ussuri-rdo
+      - rdo-common/python-networkx:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-numexpr:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-octavia-tests-golang:
+          connection: github.com
+          default-branch: master
+      - rdo-common/python-olefile:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-openstackdocstheme:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-packaging:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pandas:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-paramiko:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pathlib2:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pbr:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-pecan:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-pexpect:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-pillow:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pint:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-psutil:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-psycopg2:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-ptyprocess:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-PuLP:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-py:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pyasn1:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-pycodestyle:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pycxx:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pydotplus:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-pykmip:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-pymongo:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-PyMySQL:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pynacl:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pyquery:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-pyroute2:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-pysaml2:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-pyside:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pytest-mock:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pytest-runner:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-pytest-timeout:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pytest-xdist:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-pytimeparse:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-pyudev:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-queuelib:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-requests:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-ruamel-yaml:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-ryu:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-scandir:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-scp:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-SecretStorage:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-selenium:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-setuptools:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-setuptools_scm:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-simplejson:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-six:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-sortedcontainers:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-sphinx:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-sphinx-argparse:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-sphinxcontrib-programoutput:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-sphinxcontrib-svg2pdfconverter:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-sphinxcontrib-websupport:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-sphinx-testing:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-sphinx-theme-alabaster:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-sqlalchemy:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-sqlalchemy-collectd:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-stestr:
+          connection: github.com
+          default-branch: pike-rdo
+      - rdo-common/python-storops:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-subunit2sql:
+          connection: github.com
+          default-branch: pike-rdo
+      - rdo-common/python-suds:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-sysv_ipc:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-tables:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-tabulate:
+          connection: github.com
+          default-branch: ussuri-rdo
+      - rdo-common/python-tenacity:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-timeout-decorator:
+          connection: github.com
+          default-branch: ussuri-rdo
+      - rdo-common/python-tornado:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-txaio:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/python-ucsmsdk:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-ujson:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-unittest2:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-urllib3:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-urllib-gssapi:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/python-voluptuous:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-webob:
+          connection: github.com
+          default-branch: queens-rdo
+      - rdo-common/python-websockify:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-werkzeug:
+          connection: github.com
+          default-branch: rocky-rdo
+      - rdo-common/python-WSGIProxy2:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-xmltodict:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/python-XStatic-Angular-Gettext:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-XStatic-Angular-Schema-Form:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-XStatic-jQuery:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/python-XStatic-objectpath:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-XStatic-tv4:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/python-zeroconf:
+          connection: github.com
+          default-branch: train-rdo
+      - rdo-common/qhull:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/qpid-cpp:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/qpid-proton:
+          connection: github.com
+          default-branch: stein-rdo
+      - rdo-common/rdo-openvswitch:
+          connection: github.com
+          default-branch: ussuri-c8-rdo
+      - rdo-common/resource-agents:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/rubygem-fakefs:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/rubygem-pathspec:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/rubygem-rspec:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/scipy:
+          connection: github.com
+          default-branch: rdo-common
+      - rdo-common/subunit:
+          connection: github.com
+          default-branch: common-rdo
+      - rdo-common/uwsgi:
+          connection: github.com
+          default-branch: rocky-rdo
