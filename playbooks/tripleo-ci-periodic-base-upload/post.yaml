@@ -39,4 +39,6 @@
         - name: Kill ssh-agent
           command: "pkill ssh-agent"
 
-      when: zuul_success|bool
+      when:
+        - zuul_success|bool
+        - image_upload|default(true)|bool
