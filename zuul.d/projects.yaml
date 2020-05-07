@@ -11,22 +11,14 @@
     github-manual:
       queue: ceph
       jobs:
-        - tripleo-ceph-integration-master
-        - tripleo-ceph-integration-rocky
-        - tripleo-ceph-integration-queens
+        - tripleo-centos-8-ceph-integration-master
         - tripleo-ceph-integration-train
-        - tripleo-ceph-integration-rhel-8-scenario001-standalone:
+        - tripleo-ceph-integration-centos-8-scenario001-standalone:
             dependencies:
-              - tripleo-ceph-integration-master
-        - tripleo-ceph-integration-rhel-8-scenario004-standalone:
+              - tripleo-centos-8-ceph-integration-master
+        - tripleo-ceph-integration-centos-8-scenario004-standalone:
             dependencies:
-              - tripleo-ceph-integration-master
-        - tripleo-ceph-integration-rhel-8-scenario001-standalone-train:
-            dependencies:
-              - tripleo-ceph-integration-train
-        - tripleo-ceph-integration-rhel-8-scenario004-standalone-train:
-            dependencies:
-              - tripleo-ceph-integration-train
+              - tripleo-centos-8-ceph-integration-master
     openstack-periodic-weekend:
       queue: ceph
       jobs:
