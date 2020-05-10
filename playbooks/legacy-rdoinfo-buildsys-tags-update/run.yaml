@@ -119,17 +119,18 @@
               --centos-release $CENTOS_V \
               $DEPS
             DIFF=$(git diff *.yml */*.yml)
+            TOPIC=${RELEASE/,/-}-$PHASE
             if [ -n "$DIFF" ]; then
               # Check for an open change, if so reuse it
               change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
               gerrit query --current-patch-set status:open project:rdoinfo owner:rdo-trunk branch:master \
-                  topic:"$RELEASE"-"$PHASE"-update)
+                  topic:"$TOPIC"-update)
               previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
               if [ -n "$previous" ]; then
                   CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
-                  COMMIT_MSG="Promote CBS tags update for $RELEASE-$PHASE\n\nChange-Id: $CHANGE_ID\n"
+                  COMMIT_MSG="Promote CBS tags update for $TOPIC\n\nChange-Id: $CHANGE_ID\n"
               else
-                  COMMIT_MSG="Promote CBS tags update for $RELEASE-$PHASE"
+                  COMMIT_MSG="Promote CBS tags update for $TOPIC"
               fi
               git config user.name "rdo-trunk"
               git config user.email "javier.pena@redhat.com"
@@ -147,7 +148,7 @@
                   fi
               done
               if [ $DIFF_RDO -ne 0 ]; then
-                  git review -t "$RELEASE-$PHASE-update" < /dev/null
+                  git review -t "$TOPIC-update" < /dev/null
               fi
             fi
           done
