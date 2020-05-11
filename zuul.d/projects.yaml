@@ -177,8 +177,7 @@
         - octavia-build-amphora-centos7:
             branches: ^(stable/(queens|rocky|stein|train))$
         - octavia-build-amphora-centos8:
-            branches: ^(master|stable/ussuri)$
-
+            branches: ^(?!stable/(queens|rocky|stein|train))
 - project:
     name: opendev.org/openstack/os-apply-config
     templates:
