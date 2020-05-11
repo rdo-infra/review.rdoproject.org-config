@@ -19,6 +19,7 @@
       - tripleo-buildimages-jobs
       - tripleo-upgrades-check-branchless
       - vexxhost-experimental
+      - vexxhost-check
     openstack-check:
       jobs:
         - rdo-tox-molecule-rhel8:
@@ -569,6 +570,7 @@
       - ovb-experimental
       - vexxhost-experimental
       - tripleo-buildimages-jobs
+      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-build-containers-centos-8-master:
@@ -587,6 +589,7 @@
       - tripleo-ovb
       - ovb-experimental
       - vexxhost-experimental
+      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
@@ -686,6 +689,7 @@
       - ovb-branchless
       - ovb-experimental
       - vexxhost-experimental
+      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063:
@@ -814,6 +818,7 @@
         - system-required
         - tripleo-ovb
         - ovb-experimental
+        - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-build-containers-rhel-8-train
