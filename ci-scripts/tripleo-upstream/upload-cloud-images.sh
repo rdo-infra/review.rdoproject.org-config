@@ -24,7 +24,7 @@ fi
 
 # Check if directory $FULL_HASH exists, if not create it.
 if [ ! -d $FULL_HASH ]; then
-    mkdir $FULL_HASH
+    mkdir -p $FULL_HASH
 fi
 if [ -f "overcloud-full.tar" ]; then
     mv overcloud-full.tar overcloud-full.tar.md5 $FULL_HASH
