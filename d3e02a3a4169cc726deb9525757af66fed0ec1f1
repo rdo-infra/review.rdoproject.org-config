@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08f28114_b2c44d56",
+        "filename": "resources/openstack-ansible-role-lunasa-hsm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-05-12T04:53:10Z",
+      "side": 1,
+      "message": "also for consistency can u change the order of release:-\ntrain-rdo: a756ef5f7e3055f6f3a90889cac614928585f112\nussuri-rdo: a756ef5f7e3055f6f3a90889cac614928585f112",
+      "revId": "d3e02a3a4169cc726deb9525757af66fed0ec1f1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87f4cb06_40867898",
+        "filename": "resources/openstack-ansible-role-lunasa-hsm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-05-12T04:53:10Z",
+      "side": 1,
+      "message": "for train spec would need to be adjusted after branch creation, as train needs to build spec for both centos7 and centos8, can be done using pyver macro like https://github.com/rdo-packages/ansible-role-tripleo-modify-image-distgit/blob/rpm-master/ansible-role-tripleo-modify-image.spec\n\nmaster spec is python3 only https://github.com/rdo-packages/ansible-role-lunasa-hsm-distgit/blob/rpm-master/ansible-role-lunasa-hsm.spec",
+      "range": {
+        "startLine": 98,
+        "startChar": 19,
+        "endLine": 98,
+        "endChar": 59
+      },
+      "revId": "d3e02a3a4169cc726deb9525757af66fed0ec1f1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
