@@ -11,8 +11,6 @@
 
 - block:
     - name: fetch criteria file
-      vars:
-        criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
       fetch:
         dest: "{{ workspace }}/"
         src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ osp_release|default(release) }}.yaml"
