@@ -34,15 +34,6 @@
               - ^test-requirements.txt$
               - ^tox.ini$
               - .*molecule.*
-        - tripleo-build-containers-rhel-8-train-branch:
-            voting: false
-            files:
-              - ^playbooks/.*$
-              - ^(playbooks|roles)/tripleo-buildcontainers/.*$
-              - ^roles/build-containers/.*$
-              - ^roles/prepare-node/.*$
-              - ^roles/common/.*$
-              - ^(playbooks|roles)/tripleo-repos/.*$
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             voting: false
             files:
@@ -106,10 +97,6 @@
     openstack-check:
       jobs:
         - tripleo-build-containers-centos-8-master:
-            files:
-              - ^container-images/.*$
-              - ^contrib/.*$
-        - tripleo-build-containers-rhel-8-train:
             files:
               - ^container-images/.*$
               - ^contrib/.*$
@@ -353,7 +340,6 @@
         - vexxhost-check
     openstack-check:
       jobs:
-        - tripleo-build-containers-rhel-8-train
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-vexxhost:
             files:
               - ^tripleoclient/.*/overcloud_node.*$
