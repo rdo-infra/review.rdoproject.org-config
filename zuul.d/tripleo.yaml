@@ -26,14 +26,6 @@
       - vexxhost-check
     openstack-check:
       jobs:
-        - rdo-tox-molecule-rhel8:
-            files:
-              - ^requirements.txt$
-              - ^roles/tripleo-repos/.*
-              - ^setup.*$
-              - ^test-requirements.txt$
-              - ^tox.ini$
-              - .*molecule.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             voting: false
             files:
