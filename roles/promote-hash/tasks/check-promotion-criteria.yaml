@@ -18,7 +18,7 @@
 
     - name: load criteria for component promotion
       include_vars:
-        file: "{{ workspace }}/{{ release }}.yaml"
+        file: "{{ workspace }}/{{  osp_release|default(release) }}.yaml"
         name: "criteria"
 
     - name: query to match promotion criteria
