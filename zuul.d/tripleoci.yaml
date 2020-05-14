@@ -466,6 +466,8 @@
     vars:
        release: rocky
        branch_override: 'stable/rocky'
+       # As this job is consistently timeout so increasing timeout
+       timeout: 8400
 
 - job:
     name: periodic-tripleo-centos-7-queens-containers-build
