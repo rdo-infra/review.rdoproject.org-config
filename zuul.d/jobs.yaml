@@ -330,17 +330,19 @@
       - rdoinfo_ssh
 
 - job:
-    name: legacy-update-buildsys-tags
-    parent: legacy-base
+    name: update-buildsys-tags
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job tags builds in CBS as per rdoinfo changes
     final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/legacy-update-buildsys-tags/run.yaml
+    run: playbooks/rdoinfo/update-buildsys-tags.yaml
     timeout: 10800
+    nodeset: rdo-centos-7
     required-projects:
       - name: gating_scripts
       - name: graffiti
+      - name: rdoinfo
     secrets:
       - koji_centos
 
