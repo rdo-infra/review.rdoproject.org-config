@@ -362,13 +362,13 @@
       - koji_centos
 
 - job:
-    name: legacy-rdo-send-stable-release
+    name: rdo-send-stable-release
     parent: legacy-base
     description: |
       This job needs to be update to drop legacy code!
     final: true
     pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
-    run: playbooks/legacy-rdo-send-stable-release/run.yaml
+    run: playbooks/rdo/send-stable-release.yaml
     timeout: 5400
     nodeset: rdo-centos-8
     required-projects:

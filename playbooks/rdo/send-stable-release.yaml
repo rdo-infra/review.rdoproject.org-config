@@ -1,56 +1,23 @@
 - hosts: all
-  name: Autoconverted job legacy-rdo-send-stable-release from old job rdo-send-stable-release
+  name: rdo-send-stable-release playbook
   tasks:
-
-    - name: Ensure legacy workspace directory
-      file:
-        path: '{{ ansible_user_dir }}/workspace'
-        state: directory
-
-    - name: clone
-      shell:
-        cmd: |
-          set -e -x
-          if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
-          # Source is review.rdoproject.org
-          GIT_URL=https://review.rdoproject.org/r
-          elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
-          # Source is opendev.org
-          GIT_URL=https://opendev.org
-          fi
-          echo "Clean workspace"
-          rm -Rf ./*
-          echo "Clone $ZUUL_PROJECT"
-          git clone ${GIT_URL}/${ZUUL_PROJECT} ${ZUUL_PROJECT}
-          # ZUUL_NEWREV is the variable with the commit to be used
-          echo "Checking out $ZUUL_NEWREV"
-          pushd $ZUUL_PROJECT
-          git checkout $ZUUL_NEWREV
-          popd
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      changed_when: true
-
+    - name: Install required dependencies
+      package:
+        name:
+          - python3-virtualenv
+          - rpmdevtools
+      state: present
+      become: true
     - name: rdo-send-stable-release
       shell:
         cmd: |
           set -e -x
-          if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
-              /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r \
-                rdoinfo
-          fi
           # Currently releng requires rdoinfo to be in $HOME/rdoinfo
           rm -rf ~/rdoinfo
-          ln -s $PWD/rdoinfo ~/rdoinfo
-          /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r \
-            rdo-infra/releng
-          # Ensure virtualenv is installed
-          sudo dnf install -y python3-virtualenv
-          # Ensure rpmdevtools is installed
-          sudo dnf install -y rpmdevtools
+          ln -s "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}" ~/rdoinfo
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
-          pushd rdo-infra/releng
+          pushd "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}"
           pip install .
           popd
           # Prepare environment to send a review
@@ -75,7 +42,8 @@
             else
               TAG_OPTION=""
             fi
-            case $ZUUL_PROJECT in
+            PROJECT={{ zuul.project }}
+            case $PROJECT in
               rdoinfo )
                 $BASE_CMD -r $r -p ~/rdoinfo $TAG_OPTION
               ;;
@@ -95,6 +63,4 @@
               ;;
             esac
           done
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
