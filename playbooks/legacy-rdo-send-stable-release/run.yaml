@@ -46,6 +46,8 @@
             rdo-infra/releng
           # Ensure virtualenv is installed
           sudo dnf install -y python3-virtualenv
+          # Ensure rpmdevtools is installed
+          sudo dnf install -y rpmdevtools
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pushd rdo-infra/releng
