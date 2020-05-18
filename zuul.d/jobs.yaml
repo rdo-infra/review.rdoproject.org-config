@@ -270,18 +270,19 @@
       - koji_centos
 
 - job:
-    name: legacy-rdoinfo-buildsys-tags-update-testing
-    parent: legacy-base
+    name: rdoinfo-buildsys-tags-update-testing
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job updates -candidate buildsys tags to -testing.
     final: true
     pre-run:
       - playbooks/distgit-cbs-validate/pre.yaml
-      - playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
-    run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
+      - playbooks/rdoinfo/buildsys-tags-update/pre.yaml
+    run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
       stable_releases: queens rocky stein train train,8 ussuri,8
+    nodeset: rdo-centos-7
     required-projects:
       - name: gating_scripts
       - name: graffiti
@@ -292,18 +293,19 @@
       - rdoinfo_ssh
 
 - job:
-    name: legacy-rdoinfo-buildsys-tags-update-release
-    parent: legacy-base
+    name: rdoinfo-buildsys-tags-update-release
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job updates -testing buildsys tags to -release.
     final: true
     pre-run:
       - playbooks/distgit-cbs-validate/pre.yaml
-      - playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
-    run: playbooks/legacy-rdoinfo-buildsys-tags-update/run.yaml
+      - playbooks/rdoinfo/buildsys-tags-update/pre.yaml
+    run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
       stable_releases: queens rocky stein train train,8 ussuri,8
+    nodeset: rdo-centos-7
     required-projects:
       - name: gating_scripts
       - name: graffiti
@@ -319,7 +321,7 @@
     description: |
       This job needs to be update to drop legacy code!
     final: true
-    pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdoinfo-upper-constraints-update/run.yaml
     vars:
       stable_releases: stein train ussuri master
@@ -369,7 +371,7 @@
     description: |
       This job send reviews in stable branches based on new releases
     final: true
-    pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/rdo/send-stable-release.yaml
     timeout: 5400
     nodeset: rdo-centos-8
@@ -417,7 +419,7 @@
 - job:
     name: legacy-rdo-deps-uc-send-review
     parent: legacy-base
-    pre-run: playbooks/legacy-rdoinfo-buildsys-tags-update/pre.yaml
+    pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/legacy-rdo-deps-uc-send-review/run.yaml
     required-projects:
       - rdoinfo
