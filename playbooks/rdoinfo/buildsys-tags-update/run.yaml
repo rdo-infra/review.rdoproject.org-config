@@ -8,6 +8,7 @@
           - centos-packager
           - PyYAML
         state: present
+      become: true
 
     - name: rdoinfo-buildsys-tags-update
       shell:

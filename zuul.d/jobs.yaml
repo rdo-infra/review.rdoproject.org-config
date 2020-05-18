@@ -253,14 +253,14 @@
       - weirdo_token
 
 - job:
-    name: legacy-validate-dependencies-rebuilds
-    parent: legacy-base
+    name: validate-dependencies-rebuilds
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job does scratch build from fedora srpm in CBS.
     final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/legacy-validate-dependencies-rebuilds/run.yaml
-    post-run: playbooks/legacy-validate-dependencies-rebuilds/post.yaml
+    run: playbooks/rdoinfo/validate-dependencies-rebuilds/run.yaml
+    post-run: playbooks/rdoinfo/validate-dependencies-rebuilds/post.yaml
     timeout: 5400
     required-projects:
       - name: rdoinfo
@@ -350,14 +350,14 @@
       - koji_centos
 
 - job:
-    name: legacy-rebuild-fedora-dependencies
-    parent: legacy-base
+    name: rebuild-fedora-dependencies
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job rebuilds srpm from fedora in CBS.
     final: true
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/legacy-rebuild-fedora-dependencies/run.yaml
-    post-run: playbooks/legacy-rebuild-fedora-dependencies/post.yaml
+    run: playbooks/rdoinfo/rebuild-fedora-dependencies/run.yaml
+    post-run: playbooks/rdoinfo/rebuild-fedora-dependencies/post.yaml
     timeout: 5400
     required-projects:
       - name: rdoinfo
