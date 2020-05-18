@@ -1,12 +1,6 @@
 - hosts: all
-  name: Autoconverted job legacy-rebuild-fedora-dependencies from old job rebuild-fedora-dependencies
+  name: validate-dependencies-rebuilds playbook
   tasks:
-
-    - name: Ensure legacy workspace directory
-      file:
-        path: '{{ ansible_user_dir }}/workspace'
-        state: directory
-
     - name: create rdo_rebuilds_file
       shell:
         cmd: |
@@ -16,6 +10,7 @@
           . .venv/bin/activate
           pip install rdopkg
 
+          WORKSPACE="{{ ansible_user_dir }}/workspace"
           # Create file to store required rebuilds
           mkdir -p $WORKSPACE/logs
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
@@ -50,21 +45,27 @@
               done
           done <<< "${BUILDSYS_TAGS_DIFF}"
           popd
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
 
-    - name: rebuild_fedora.sh
+    - name: Install required dependencies
+      package:
+        name:
+          - git
+          - centos-packager
+        state: present
+      become: true
+
+    - name: cbs buildinfo
       shell:
         cmd: |
-          set +e -x
-          sudo {{ ansible_pkg_mgr }} install -y git centos-packager
+          set +e
 
           FAILED=0
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
+          rdo_rebuilds_file="$WORKSPACE/logs/rdo_rebuilds.txt"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
-          # Rebuilding fedora builds with config fedora-dependency
-          echo "INFO: Rebuilding fedora-dependencies packages"
+          # Validate rebuilds of builds with config fedora-dependency
+          echo "INFO: Validating updates for fedora-dependencies packages"
           while read target build
           do
               if [ -z $target -o -z $build ]; then
@@ -79,14 +80,26 @@
                   continue
               fi
               echo "INFO: validating $build on $target"
-              ./rebuild_fedora.sh $target $build
+              ./validate_rebuild_fedora.sh $target $build
               if [ $? -ne 0 ];then
-                  echo "ERROR: rebuild of $build failed on $target"
+                  echo "ERROR: validation of $build failed on $target"
                   FAILED=1
               fi
           done <<< "$(cat $fedora_rebuilds_file)"
+          # Check if builds with config rdo-dependency exist in CBS
+          echo "INFO: Validating updates for rdo-dependencies packages"
+          while read target build
+          do
+              if [ -z $target -o -z $build ]; then
+                  continue
+              fi
+              echo "INFO: Checking for $build on CBS"
+              cbs buildinfo $build 2>&1|grep "State:.*COMPLETE"
+              if [ $? -ne 0 ];then
+                  echo "ERROR: build $build does not exist in CBS"
+                  FAILED=1
+              fi
+          done <<< "$(cat $rdo_rebuilds_file)"
           popd
           exit $FAILED
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
