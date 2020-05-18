@@ -7,7 +7,89 @@
     - role: fetch-zuul-cloner-fork
       destination: "/usr/zuul-env/bin/zuul-cloner"
       repo_src_dir: "/home/zuul/src"
-
+    - role: add-authorized-keys
+      public_keys:
+        # akahat
+        - public_key: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEA\
+            AACFBAEKGOeis2AYzU6TuTS0phK/qiJIcd7nl5J1GP7yq6lB3tif7Y27r6UnZ+ocO68l\
+            kAwziMIF35W2GYhhR1kZJJVozQC9w3UvM+VrmXPhBrZFPIRPEZhhSvJuK+x3tw+Mi5+c\
+            KvaMxCdW8pmurnvrtK7rvohjjl0c+3wDCkh+EkyfoSAKAw== akahat@redhat.com"
+        # arxcruz
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4Z/c9osaGGtU6X8fgELwfj/yayRurfcK\
+            A0HMFfdpPxev2dbwljysMuzoVp4OZmW1gvGtyYPSNRvnzgsaabPNKNo2ym5NToCP6UM+\
+            KSe93aln4BcM/24mXChYAbXJQ5Bqq/pIzsGs/pKetQN+vwvMxLOwTvpcsCJBXaa981RK\
+            ML6xj9l/UZ7IIq1HSEKMvPLxZMWdu0Ut8DkCd5F4nOw9Wgml2uYpDCj5LLCrQQ9ChdOM\
+            z8hz6SighhNlRpPkvPaet3OXxr/ytFMu7j7vv06CaEnuMMiY2aTWN1Imin9eHAylIqFH\
+            ta/3gFfQSWt9jXM7owkBLKL7ATzhaAn+fjNupw== arxcruz@redhat.com"
+        # marios
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS4Fn6k4deCnIlOtLWqZJyksbepjQt\
+            04j8Ed8CGx9EKkj0fKiAxiI4TadXQYPuNHMixZy4Nevjb6aDhL5Z906TfvNHKUrjrG7G\
+            26a0k8vdc61NEQ7FmcGMWRLwwc6ReDO7lFpzYKBMk4YqfWgBuGU/K6WLKiVW2cVvwIuG\
+            IaYrE1OiiX0iVUUk7KApXlDJMXn7qjSYynfO4mF629NIp8FJal38+Kv+HA+0QkE5Y2xX\
+            nzD4Lar5+keymiCHRntPppXHeLIRzbt0gxC7v3L72hpQ3BTBEzwHpeS8KY+SX1y5lRMN\
+            45thCHfJqGmARJREDjBvWG8JXOPmVIKQtZmVcD5b mandreou@redhat.com"
+        # rfolco
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCz37KwYJHVZbOuiSeMndSTH/eSblBW\
+            tA8veBkxEtddJ65pdpAQMTNCNh8ZMjDKUS5Y8MZp/8sj9A4wOcFqcGPgilH6yWzm6I1/\
+            XU6TDGtRUJRttfqn1W1R5zfHUhF4/ptOuEioU2BhOycbB07HcrCJUEhcV3i3J9IjYXYo\
+            7scAgHsX1o0AHcDPP5+2/a3iYjL3EQMCR1uBNfKKnZGb2Uh+O7CXuBbZUbizDOlLIp7B\
+            Ci6PKukAcXATCG3Bnqx9xynyUn/XZeYJ93wEqLqWl0FD8JlYQMcNcpblc3Mv4Ke8XIp4\
+            aPkL54F/yq7omCz3fi53qP8/KYATnQbTJ/tjY9pt rfolco@redhat.com"
+        # rlandy
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9MiLfy30deHA7xPOAlew5qUq3UP2g\
+            mRMYJi8PtkjFB20/DKeWwWNnkZPqP9AayruRoo51SIiVg870gbZE2jYl+Ncx/FYDe56J\
+            eC3ySZsXoAVkC9bP7gkOGqOmJjirvAgPMI7bogVz8i+66Q4Ar7OKTp3762G4IuWPPEg4\
+            ce4Y7lx9qWocZapHYq4cYKMxrOZ7SEbFSATBbe2bPZAPKTw8do/Eny+Hq/LkHFhIeyra\
+            6cqTFQYShr+zPln0Cr+ro/pDX3bB+1ubFgTpjpkkkQsLhDfR6cCdCWM2lgnS3BTtYj5C\
+            t9/JRPR5YOphqZz+uB+OEu2IL68hmU9vNTth1KeX rlandy@redhat.com"
+        # sshnaidm
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDhi/BqsZibuAPiUjJe7b3Dqe5nyI7\
+            BckOwfGwJYg436+bFQMoR/7RKmtPe+ISVQ04lwIriIPwKGaSHj5mbEe4LsCLZ5jAUHxv\
+            WfgHitqS5ln295zU7vp1z28o7e6LQNplgExyqQlxUPdOU48tmlz93F6szSYkNYvZnhzM\
+            n9syrajC74qPuKsmHTeYFLEcxesb7/u+BtxCk8WdjYTb//sk038NEtIsNhrGtAOV3WcD\
+            pXnA5mNMpUfeoQ4yiN9LqtreXr7Zeo587LV3T2QL+huAE0J7EuCzHAKk6TIzJqjLidg0\
+            SYwZZwfbxgviU66QLkeyzh9oiovwskelvOQCBFq3 sshnaidm@redhat.com"
+        # weshay
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCs/fvCoMm/bOLehNLGEhWnMZfJndO4\
+            rK2Q8OOrYOAGKpMT5xiWZsPgxGai4vieZ2HmdyXBB2DX5g1FjwGJUWuxPRYT5vAQlseO\
+            fyTLqhkHaSmuWcpH6HuP+KvxWO9epyXP8pl7uZLsbVEr5207ER4bYLIg2bk2LRQqxnys\
+            G3t4VqbAV0V+YKrkkwwErsHDbLJyz2sqtJielpKZOCF+vFnzrUR3dmORZ4bchBnmf67C\
+            FAJqPd1zSU9Hn0fWZ5nVxJMk1o/bxqwIZ6E7a9Yw5bJl3ziGP5WfcSfati4LKGWI503S\
+            NwSWLOuL03j2LaLO3GgLSVFUo9eGT6KhN3dogWeaWXDDFvx+O0RfdZFL0+mRFl2Rz83Q\
+            sJGFBm1JW2H1/W0vUxtXmZhUXFagSt75zh2AQPoatsYgUOCpC4qFSVRXFyZR0a1Q5Jnq\
+            mtFrYDuIoMovdfelgKEnJ5xBNhmGLpJlRmSIiv4tRNYUvaU4fKnt/yLTtZNT+D7zM4KM\
+            UzNy8pqEbUugAGGxMlCs1YfzwOL4+OHxrDX5A5TlvTnjNBHmBWXDQJncXTewjTf1+6oL\
+            kGKHMSd8UsGjYTLWX1JepFcHUj5+SF5arVKz/gThvQlelpPzXZgK9MNUSKfU9GHQ79T1\
+            4Kng9Cfx/BcUYsZmFmCgzj2M1neFD7M3kOFQ8PV2ow== whayutin@redhat.com"
+        # chandankumar
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDd2gpOXfUi0v9Vn2bpzNnYeNRtsNDO\
+            KYl/25Oq8Jon45E1FR0K54pPacN0r9IhBDpraeJ7OjtBW4+f3YqK5WeOPb2ifOsz/bhA\
+            J/IDxrXdz0O4jQrIkabl2te44KcqxV6Q6yV2n2VQuL/eZdlI/oP+QXwak/guPBz2j6u3\
+            t6dMARa2wYaWdRUKyieYgGv1Wa9mSL+hk+Yn9cEimcVGH2k+J6+EeYgPAqJEgYwVOeLi\
+            Dhb7voO275sHAzHiEAfgjEq2qE62ltpi2gg89EVxl/mc+Ae7pEC59p6llV5A3WJu0MVJ\
+            bI/PhgSmJVhKa82qQuRLdLV+01Od+SGbHbTjdkzH0PAaxedEF8AQxQdStXVdvqZylYVJ\
+            0Xtg8ryUdGBY8Fe6HMWqwBKvkQVlJBYiAgG7ZKwj95G/iINcttQ8q1xXf07tA3f4I+3X\
+            KXDEHlUkw7c0PA0Bf1mmBxaT9eDoQMu3Ko0Uh1RqSfDPMvY5lcq1Y6QeRTwm51gkLrYW\
+            4XCSKuLC2xGc9t1kDU9roa5ogZHKBtkhidRIHvg+oWv4fuQlAzTAAGjuWOi3SNHd9zeP\
+            KSUjZqf+z52qTB4RhLOKe5KbNPHq+c5gLlcsveFwCIoFx4zD4sJVNu2GJGU59lZ2MirY\
+            WtgW9ta+cdDqm/Glpx077XfasO+VtfVZC7F0s51t+w== chkumar@redhat.com"
+        # bhagyashris
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDm9Iz7cAH5phA7QEFfaq2+q2wcRYg\
+            3CYFvCDgFJV26aQJ8dXPBWUMIb/kDBnx/b1Mem47yZanTwEsOA6HWxBi8hPAJszGeBz\
+            9xMB0+zL/b67631+IpBPruq2wlWYHD1pDhyiIwS98PDSKPEGkDiPG+aZlLaEaK2/DxR\
+            gzTdhLAnfuoLHW3jETTw0oT35VPJuOlHwlFb/cSQvZILuo0E7H2BdxC+kyDwPyHjSHN\
+            R+YwAOoQzNUX4VKAJRZ0tUpwkUTxppAgdsKZoeZgCnnanSk8UFMEtRR5AsktrBm44yH\
+            5zHEyDKnhCgPT7S5gPNbRBOEdVw+KgWrsQBcYXt3E2Y0zMUJHz+fcBn3UhdyVLbp6Vv\
+            ojrOZnYjt5waXb0enVSQuO9eyPMAwR6rm3M9/OpjCOSfR6s1hCykbVLC3hPPaBV/fCD\
+            NSighDR5hAoDbn3LtlKK1qeKsrWGD6OMyWqjCO/H1L2UbyDpQMNjBT0nle8N7lu+Uk1\
+            U08sfUXtIT7jni0= bshewale@redhat.com"
+        # ysandeep
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD9hHZMu0S/A/BhYMyc3X/qixn/1aoP\
+            UWIbWOF01JLkCeB5Vz7EFdW8ohqr5fqe11mXRhNKpeP7NQcTZ8JjdgE5XfA8+elhjmIl\
+            JJGEuUe278KmVLie4R7H+Mdu1FcVQ7RpJRginyqLOa5U9/T0oh+oNuHjEqMVAAfrpMGo\
+            2e0SBrFs92+sowK+u1SCoF1QI34mg4aHfFY15dDFoSu6z4CUtfSI/bH+pJKPw/xB7I/E\
+            v1RMu5bouhsqtaXCldoBagQKI1d8ZslPZ043IC+0XBG75ZA7bfWs9pW0ReYG9a3J63DE\
+            PMSsp3Tnlu36xVYY+/GtpZROgqZxyU3UnfrmFEwL sandyada@redhat.com"
   tasks:
     - name: Create nodepool directory
       file:
