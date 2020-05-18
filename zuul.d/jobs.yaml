@@ -316,15 +316,16 @@
       - rdoinfo_ssh
 
 - job:
-    name: legacy-rdoinfo-upper-constraints-update
-    parent: legacy-base
+    name: rdoinfo-upper-constraints-update
+    parent: base
     description: |
-      This job needs to be update to drop legacy code!
+      This job syncs rdoinfo tags with upper-constraints.
     final: true
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
-    run: playbooks/legacy-rdoinfo-upper-constraints-update/run.yaml
+    run: playbooks/rdoinfo/upper-constraints-update/run.yaml
     vars:
       stable_releases: stein train ussuri master
+    nodeset: rdo-centos-7
     required-projects:
       - name: rdoinfo
       - name: rdo-infra/releng
