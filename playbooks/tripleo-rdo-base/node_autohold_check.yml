@@ -1,0 +1,55 @@
+---
+- name: Init vars
+  set_fact:
+    change_matches: []
+    job_in_list: false
+    node_autohold: false
+
+- name: Get current autoholds
+  uri:
+    validate_certs: false
+    timeout: 5
+    url: "https://softwarefactory-project.io/zuul/api/tenant/rdoproject.org/autohold"
+  register: holds
+
+- name: Discover change number if exists
+  set_fact:
+    changes: "{{ holds.json | map(attribute='ref_filter') | list | difference('.*') }}"
+
+- name: Find out if any change in autohold match our current zuul.ref
+  set_fact:
+    change_matches: "{{ ( change_matches + [item] )| unique }}"
+  loop: "{{ changes }}"
+  when:
+    - zuul.ref is match(item)
+    - zuul is defined
+
+- name: Calculate autoholds lists and jobs
+  set_fact:
+    current_job: "{{ zuul.project.canonical_name + '/' + zuul.job }}"
+    list_holds: "{% set list_h = [] %}
+      {% for i in holds.json %}
+        {{ list_h.append( i.project + '/' + i.job) }}
+      {% endfor %}
+      {{ list_h }}"
+  when:
+    - zuul is defined
+
+- name: Find out if job in list of autoholds
+  set_fact:
+    job_in_list: "{{ current_job in list_holds }}"
+  when:
+    - zuul is defined
+
+- name: Set true to node_autohold if change in changes list
+  set_fact:
+    node_autohold: true
+  when:
+    - (change_matches | length ) > 0
+
+- name: Set true to node_autohold if job is periodic and on hold
+  set_fact:
+    node_autohold: true
+  when:
+    - job_in_list|bool
+    - "'periodic' in zuul.job|default('')"
