@@ -1,0 +1,19 @@
+- hosts: all
+  name: weirdo-validate-buildsys-tags playbook
+  tasks:
+    - name: launch_weirdo_jobs
+      shell:
+        cmd: |
+          set -e -x
+          virtualenv --system-site-packages .venv
+          . .venv/bin/activate
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
+          pip install .
+          popd
+          export PARENT_JOB="validate-buildsys-tags"
+          export WEIRDO_TOKEN_FILE="{{ ansible_user_dir }}/token_file"
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags
+          export logs={{ buildset_artifacts_url }}
+          bash ./launch_weirdo_jobs.sh
+          popd
+      changed_when: true
