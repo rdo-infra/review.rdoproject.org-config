@@ -49,6 +49,9 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
             vars:
               force_non_periodic: true
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ussuri-branch:
+            vars:
+              force_non_periodic: true
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             vars:
               force_non_periodic: true
@@ -155,7 +158,12 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
             voting: false
             branches: stable/1.0
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039-ussuri-branch:
+            voting: false
+            branches: stable/1.0
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
+            branches: stable/1.0
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ussuri-branch:
             branches: stable/1.0
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ovb-master:
             branches: master
@@ -217,6 +225,8 @@
               - ^playbooks/baremetal-full-deploy.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             files: *039_files
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
+            files: *039_files
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset021:
             files:
               - config/general_config/featureset021.*
@@ -226,7 +236,13 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset035:
             files:
               - config/general_config/featureset035.*
+        - periodic-tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset035-ussuri:
+            files:
+              - config/general_config/featureset035.*
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
+            files:
+              - config/general_config/featureset002.*
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-ussuri:
             files:
               - config/general_config/featureset002.*
         - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-train:
@@ -254,11 +270,16 @@
               - roles/overcloud-deploy/tasks/.*cell.*
         - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
             files: *039_files
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039-ussuri-branch:
+            files: *039_files
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             files: *039_files
         - tripleo-ci-centos-8-ovb-1ctlr_2comp-featureset020:
             files:
               - roles/validate-tempest/vars/tempest_skip_master.yml
+        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-ussuri:
+            files:
+              - roles/validate-tempest/vars/tempest_skip_ussuri.yml
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-train:
             files:
               - roles/validate-tempest/vars/tempest_skip_train.yml
@@ -272,6 +293,9 @@
             files:
               - roles/validate-tempest/vars/tempest_skip_rocky.yml
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
+            files:
+              - roles/build-images/.*
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-ussuri:
             files:
               - roles/build-images/.*
         - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-train:
