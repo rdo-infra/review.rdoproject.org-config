@@ -1,36 +1,6 @@
 - hosts: all
-  name: Autoconverted job legacy-rdo-deps-uc-send-review from old job rdo-deps-uc-send-review
+  name: rdo-deps-uc-send-review playbook
   tasks:
-
-    - name: Ensure legacy workspace directory
-      file:
-        path: '{{ ansible_user_dir }}/workspace'
-        state: directory
-
-    - name: clone
-      shell:
-        cmd: |
-          set -e -x
-          if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
-          # Source is review.rdoproject.org
-          GIT_URL=https://review.rdoproject.org/r
-          elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
-          # Source is opendev.org
-          GIT_URL=https://opendev.org
-          fi
-          echo "Clean workspace"
-          rm -Rf ./*
-          echo "Clone $ZUUL_PROJECT"
-          git clone ${GIT_URL}/${ZUUL_PROJECT} ${ZUUL_PROJECT}
-          # ZUUL_NEWREV is the variable with the commit to be used
-          echo "Checking out $ZUUL_NEWREV"
-          pushd $ZUUL_PROJECT
-          git checkout $ZUUL_NEWREV
-          popd
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      changed_when: true
-
     - name: rdo-deps-uc-send-review
       shell:
         cmd: |
@@ -43,22 +13,19 @@
           pip install .
           popd
 
-          if [ "${ZUUL_PROJECT}" != 'rdoinfo' ]; then
-              /usr/zuul-env/bin/zuul-cloner http://review.rdoproject.org/r \
-                rdoinfo
-          fi
-          if [ "${ZUUL_BRANCH}" == 'master' ]; then
+          BRANCH="{{ zuul.branch }}"
+          if [ "$BRANCH" == 'master' ]; then
               RELEASE="victoria"
           else
-              RELEASE="${ZUUL_BRANCH/stable\//}"
+              RELEASE="${BRANCH/stable\//}"
           fi
           export PHASE="candidate"
-          pushd $ZUUL_PROJECT
-          SUBJECT=$(git log --oneline $ZUUL_NEWREV|head -1|cut -d " " -f 2)
+          pushd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
+          SUBJECT=$(git log --oneline {{ zuul.newrev }}|head -1|cut -d " " -f 2)
           if [ $SUBJECT == "Merge" ]; then
-             REAL_COMMIT=$(git show $ZUUL_NEWREV|grep ^Merge:|awk '{print $(NF)}')
+             REAL_COMMIT=$(git show {{ zuul.newrev }}|grep ^Merge:|awk '{print $(NF)}')
           else
-             REAL_COMMIT=$ZUUL_NEWREV
+             REAL_COMMIT={{ zuul.newrev }}
           fi
           UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
           change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
@@ -68,9 +35,9 @@
               echo "INFO: No update in upper-constraints, Exiting"
               exit 0
           fi
-          git clone http://review.rdoproject.org/r/gating_scripts $WORKSPACE/gating_scripts
-          pushd $WORKSPACE/rdoinfo
-          python $WORKSPACE/gating_scripts/buildsys-tags/add-buildsys-tags.py \
+          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+          python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
               -r $RELEASE \
               -p $PHASE
@@ -108,6 +75,4 @@
             fi
             popd
           fi
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true

@@ -419,13 +419,15 @@
       - github
 
 - job:
-    name: legacy-rdo-deps-uc-send-review
-    parent: legacy-base
+    name: rdo-deps-uc-send-review
+    parent: base
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
-    run: playbooks/legacy-rdo-deps-uc-send-review/run.yaml
+    run: playbooks/rdo-deps-uc-send-review/run.yaml
     required-projects:
       - rdoinfo
       - rdo-infra/releng
+      - opendev.org/openstack/requirements
+    nodeset: rdo-centos-7
     secrets:
       - rdoinfo_ssh
 
