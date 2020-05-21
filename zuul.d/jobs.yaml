@@ -398,12 +398,13 @@
       - weirdo_token
 
 - job:
-    name: legacy-rdoinfo-create-project
-    parent: legacy-base
-    pre-run: playbooks/legacy-rdoinfo-create-project/pre.yaml
-    run: playbooks/legacy-rdoinfo-create-project/run.yaml
+    name: rdoinfo-create-project
+    parent: base
+    pre-run: playbooks/rdoinfo/create-project/pre.yaml
+    run: playbooks/rdoinfo/create-project/run.yaml
     required-projects:
       - name: rdoinfo
+    nodeset: rdo-centos-7
     secrets:
       - rdoinfo_ssh
 
