@@ -42,7 +42,7 @@
             else
               TAG_OPTION=""
             fi
-            PROJECT={{ zuul.project }}
+            PROJECT={{ zuul.project.name }}
             case $PROJECT in
               rdoinfo )
                 $BASE_CMD -r $r -p ~/rdoinfo $TAG_OPTION
