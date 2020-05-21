@@ -1,41 +1,11 @@
 - hosts: all
-  name: Autoconverted job legacy-config-distgit-mirror-github from old job config-distgit-mirror-github
+  name: config-distgit-mirror-github playbook
   tasks:
-
-    - name: Ensure legacy workspace directory
-      file:
-        path: '{{ ansible_user_dir }}/workspace'
-        state: directory
-
-    - name: clone
-      shell:
-        cmd: |
-          set -e -x
-          if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
-          # Source is review.rdoproject.org
-          GIT_URL=https://review.rdoproject.org/r
-          elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
-          # Source is opendev.org
-          GIT_URL=https://opendev.org
-          fi
-          echo "Clean workspace"
-          rm -Rf ./*
-          echo "Clone $ZUUL_PROJECT"
-          git clone ${GIT_URL}/${ZUUL_PROJECT} ${ZUUL_PROJECT}
-          # ZUUL_NEWREV is the variable with the commit to be used
-          echo "Checking out $ZUUL_NEWREV"
-          pushd $ZUUL_PROJECT
-          git checkout $ZUUL_NEWREV
-          popd
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      changed_when: true
-
     - name: rdo-create-project-github
       shell:
         cmd: |
           set -e +x
-          cd $ZUUL_PROJECT
+          cd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo_gating_scripts'].src_dir }}/rdo-create-project
           virtualenv .venv
           . .venv/bin/activate
@@ -58,6 +28,4 @@
               done
             fi
           done
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
