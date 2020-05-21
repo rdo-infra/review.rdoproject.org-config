@@ -431,23 +431,6 @@
     secrets:
       - rdoinfo_ssh
 
-
-- job:
-    name: legacy-tripleo-ci-periodic-base
-    parent: legacy-dsvm-base
-    post-run: playbooks/legacy-tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - name: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
-- job:
-    name: legacy-tripleo-ci-periodic-base-upload
-    parent: legacy-tripleo-ci-periodic-base
-    post-run: playbooks/legacy-tripleo-ci-periodic-base-upload/post.yaml
-    secrets:
-      - uploader_ssh_key
-
 - semaphore:
     name: semaphore-config-update
     max: 1
