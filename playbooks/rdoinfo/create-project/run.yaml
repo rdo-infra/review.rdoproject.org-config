@@ -1,12 +1,6 @@
 - hosts: all
-  name: Autoconverted job legacy-rdoinfo-create-project from old job rdoinfo-create-project
+  name: rdoinfo-create-project playbook
   tasks:
-
-    - name: Ensure legacy workspace directory
-      file:
-        path: '{{ ansible_user_dir }}/workspace'
-        state: directory
-
     - name: Copy add-project-from-rdoinfo.sh
       copy:
         src: add-project-from-rdoinfo.sh
@@ -39,30 +33,6 @@
         group: '{{ ansible_user }}'
         mode: 0755
 
-    - name: clone
-      shell:
-        cmd: |
-          set -e -x
-          if [[ "${ZUUL_PIPELINE}" == "post" ]]; then
-          # Source is review.rdoproject.org
-          GIT_URL=https://review.rdoproject.org/r
-          elif [[ "${ZUUL_PIPELINE}" == "openstack-post" ]]; then
-          # Source is opendev.org
-          GIT_URL=https://opendev.org
-          fi
-          echo "Clean workspace"
-          rm -Rf ./*
-          echo "Clone $ZUUL_PROJECT"
-          git clone ${GIT_URL}/${ZUUL_PROJECT} ${ZUUL_PROJECT}
-          # ZUUL_NEWREV is the variable with the commit to be used
-          echo "Checking out $ZUUL_NEWREV"
-          pushd $ZUUL_PROJECT
-          git checkout $ZUUL_NEWREV
-          popd
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
-      changed_when: true
-
     - name: add-project-from-rdoinfo
       shell:
         cmd: |
@@ -70,7 +40,7 @@
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install git-review rdopkg ruamel.yaml Jinja2
-          cd $ZUUL_PROJECT
+          cd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
           NEW_PROJECTS=""
@@ -87,6 +57,4 @@
           for PKG in ${NEW_PROJECTS}; do
             {{ ansible_user_dir }}/add-project-from-rdoinfo.sh $PKG $PWD
           done
-        chdir: '{{ ansible_user_dir }}/workspace'
-      environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
