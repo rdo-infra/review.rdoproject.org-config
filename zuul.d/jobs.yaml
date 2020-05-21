@@ -409,13 +409,15 @@
       - rdoinfo_ssh
 
 - job:
-    name: legacy-config-distgit-mirror-github
-    parent: legacy-base
-    pre-run: playbooks/legacy-config-distgit-mirror-github/pre.yaml
-    run: playbooks/legacy-config-distgit-mirror-github/run.yaml
+    name: config-distgit-mirror-github
+    parent: base
+    pre-run: playbooks/config/distgit-mirror-github/pre.yaml
+    run: playbooks/config/distgit-mirror-github/run.yaml
     required-projects:
+      - name: config
       - name: rdoinfo
       - name: rdo_gating_scripts
+    nodeset: rdo-centos-7
     secrets:
       - github
 
