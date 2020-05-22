@@ -13,6 +13,14 @@ EOF
 
 pushd $HOME
 ls *.tar
+
+if [ -f "overcloud-full.tar" ] && [ -f "ironic-python-agent.tar" ] ; then
+    echo "have overcloud-full and ironic-python-agent continuing"
+else
+    echo "missing images cannot convert overcloud to undercloud exiting"
+    exit 0
+fi
+
 tar -xf overcloud-full.tar
 
 cat << EOF > convert-overcloud-undercloud.yml

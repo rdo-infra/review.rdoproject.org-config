@@ -11,16 +11,20 @@ rsync_cmd="rsync --verbose --archive --no-perms --no-owner --no-group --delay-up
 
 DISTRO="${DISTRO_NAME}${DISTRO_VERSION}"
 
-if [ -n "$DISTRO" ]; then
-    if [[ "$DISTRO" =~ "redhat" ]]; then
-        UPLOAD_URL=rcm-uploader@images.rdoproject.org:/var/www/html/images/rhel/images/$DISTRO/$RELEASE/rdo_trunk
+# If set by downstream/internal SF jobs don't override UPLOAD_URL
+if [ -z "$UPLOAD_URL" ]; then
+    if [ -n "$DISTRO" ]; then
+        if [[ "$DISTRO" =~ "redhat" ]]; then
+            UPLOAD_URL=rcm-uploader@images.rdoproject.org:/var/www/html/images/rhel/images/$DISTRO/$RELEASE/rdo_trunk
+        else
+            UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
+        fi
     else
-        UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$DISTRO/$RELEASE/rdo_trunk
+        # Legacy url for very old ditro-unaware jobs
+        UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/rdo_trunk
     fi
-else
-    # Legacy url for very old ditro-unaware jobs
-    UPLOAD_URL=uploader@images.rdoproject.org:/var/www/html/images/$RELEASE/rdo_trunk
 fi
+echo "UPLOAD_URL is $UPLOAD_URL"
 
 # Check if directory $FULL_HASH exists, if not create it.
 if [ ! -d $FULL_HASH ]; then
