@@ -22,7 +22,7 @@
 
     - name: Check if node is on autohold
       include_tasks: node_autohold_check.yml
-      failed_when: false
+      ignore_errors: true
       when: not (zuul_success | bool)
 
     - name: Delete OVB environment
