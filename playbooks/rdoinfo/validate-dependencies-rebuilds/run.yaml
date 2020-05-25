@@ -61,7 +61,7 @@
           set +e
 
           FAILED=0
-          WORKSPACE="{{ ansible_user_dir }}/workspace"
+          export WORKSPACE="{{ ansible_user_dir }}/workspace"
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
           rdo_rebuilds_file="$WORKSPACE/logs/rdo_rebuilds.txt"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
