@@ -61,6 +61,7 @@
           set +e -x
 
           FAILED=0
+          export WORKSPACE="{{ ansible_user_dir }}/workspace"
           fedora_rebuilds_file="$WORKSPACE/logs/fedora_rebuilds.txt"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
           # Rebuilding fedora builds with config fedora-dependency
