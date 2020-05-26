@@ -3183,6 +3183,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ibmcclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ibmcclient-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/instack-distgit
     default-branch: rpm-master
     templates:
