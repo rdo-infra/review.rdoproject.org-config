@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/ibmcclient-core:
+      description: Core developers for project ibmcclient
+      members:
+      - iampurse@vip.qq.com
+    openstack/ibmcclient-ptl:
+      description: Project team lead for project ibmcclient
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ibmcclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ibmcclient-core
+          owner = group openstack/ibmcclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ibmcclient-core
+          label-Code-Review = -2..+2 group openstack/ibmcclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ibmcclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ibmcclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ibmcclient-core
+          label-Verified = -2..+2 group openstack/ibmcclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ibmcclient-core
+          label-Workflow = -1..+1 group openstack/ibmcclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ibmcclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ibmcclient-core
+      - openstack/ibmcclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ibmcclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ibmcclient-core
+          owner = group openstack/ibmcclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ibmcclient-core
+          label-Code-Review = -2..+2 group openstack/ibmcclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ibmcclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ibmcclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ibmcclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ibmcclient-core
+          label-Workflow = -1..+0 group openstack/ibmcclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ibmcclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ibmcclient-core
+      - openstack/ibmcclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ibmcclient:
+      acl: openstack-ibmcclient
+      description: Mirror of upstream ibmcclient (mirror + patches)
+    openstack/ibmcclient-distgit:
+      acl: openstack-ibmcclient-distgit
+      description: Packaging of upstream ibmcclient
+      default-branch: rpm-master
+      branches:
+        master: '0'
