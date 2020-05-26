@@ -60,6 +60,14 @@
       - noop
       - system-required
 
+# needed to be able to depends-on ansible changes
+- project:
+    name: ansible/ansible
+    default-branch: devel
+    templates:
+      - noop
+      - system-required
+
 - project:
     name: github.com/containers/buildah
     templates:
