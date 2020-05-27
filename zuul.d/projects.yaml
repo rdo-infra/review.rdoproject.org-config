@@ -6795,63 +6795,57 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario001:
+        - weirdo-integration-queens-puppet-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
-            irrelevant-files:
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001:
-            irrelevant-files:
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
@@ -6862,73 +6856,65 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^.*$
               - ^README.rst$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
@@ -6939,63 +6925,57 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario001:
+        - weirdo-integration-queens-puppet-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
-            irrelevant-files:
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001:
-            irrelevant-files:
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
@@ -7006,71 +6986,64 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-queens-puppet-scenario001:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^.*$
+              - ^README.rst$
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^.*$
               - ^README.rst$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
-            irrelevant-files:
-              - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
@@ -7081,63 +7054,63 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario001:
+        - weirdo-integration-queens-puppet-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
@@ -7262,54 +7235,54 @@
       - system-required
     check:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - legacy-weirdo-integration-queens-packstack-scenario001:
+        - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-master-packstack-scenario003-centos8:
+        - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-queens-puppet-scenario001:
+        - weirdo-integration-queens-puppet-scenario001:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-master-puppet-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-master-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
@@ -7319,56 +7292,42 @@
               - ^playbooks/packstack.*$
     experimental:
       jobs:
-        - legacy-weirdo-integration-queens-packstack-scenario003:
+        - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-rocky-packstack-scenario002:
+        - weirdo-integration-rocky-packstack-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-master-packstack-scenario001:
+        - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-master-packstack-scenario001-centos8:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - legacy-weirdo-integration-queens-puppet-scenario003:
+        - weirdo-integration-queens-puppet-scenario003:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-rocky-puppet-scenario002:
+        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-master-puppet-scenario001:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - legacy-weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-master-puppet-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
               - ^.gitignore$
@@ -7377,8 +7336,8 @@
               - ^playbooks/packstack.*$
     gate:
       jobs:
-        - legacy-weirdo-ansible-lint
-        - legacy-weirdo-docs:
+        - weirdo-ansible-lint
+        - weirdo-docs:
             files:
               - ^docs/.*$
               - ^.*\.rst$
