@@ -34,9 +34,6 @@
               - ^toci-quickstart/config/testenv/ovb.yml$
     openstack-regular:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053:
-            vars:
-              force_non_periodic: true
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
             vars:
               force_non_periodic: true
@@ -68,12 +65,6 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             vars:
               force_non_periodic: true
-
-- project:
-    name: opendev.org/x/browbeat
-    openstack-check:
-      jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053
 
 - project:
     name: opendev.org/openstack/tripleo-common
