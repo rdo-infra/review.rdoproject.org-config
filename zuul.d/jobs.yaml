@@ -384,20 +384,6 @@
       - rdoinfo_ssh
 
 - job:
-    name: weirdo-validate-buildsys-tags
-    parent: base
-    pre-run: playbooks/rdoinfo/weirdo-validate-buildsys-tags/pre.yaml
-    run: playbooks/rdoinfo/weirdo-validate-buildsys-tags/run.yaml
-    timeout: 16200
-    required-projects:
-      - name: rdo-infra/releng
-      - name: rdo-infra/weirdo
-      - name: review.rdoproject.org/gating_scripts
-    nodeset: rdo-centos-7
-    secrets:
-      - weirdo_token
-
-- job:
     name: rdoinfo-create-project
     parent: base
     pre-run: playbooks/rdoinfo/create-project/pre.yaml

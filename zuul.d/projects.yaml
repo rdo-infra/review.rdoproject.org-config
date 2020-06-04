@@ -7365,6 +7365,7 @@
     name: review.rdoproject.org/rdoinfo
     templates:
       - system-required
+      - weirdo-validate-buildsys-tags-jobs
     check:
       jobs:
         - tox-py36
@@ -7415,9 +7416,6 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/victoria-uc.yml$
-        - weirdo-validate-buildsys-tags:
-            dependencies:
-              - validate-buildsys-tags
         - rdoinfo-tripleo-ussuri-testing-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
