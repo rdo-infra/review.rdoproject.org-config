@@ -24,6 +24,8 @@
       - 'key_name: {{ key_name }}'
     - - 'node_count:.*'
       - 'node_count: {{ node_count }}'
+    - - 'public_net_allocation_pools:.*'
+      - 'public_net_allocation_pools: {{ public_net_allocation_pools }}'
 
 - name: Customize the base template for known clouds
   replace:
@@ -102,6 +104,7 @@
             overcloud_storage_mgmt_net_ip_version: 6
             overcloud_tenant_net_ip_version: 6
             public_net_cidr: 2001:db8:fd00:1000::/64
+            public_net_allocation_pools: [{"start": "2001:db8:fd00:1000:0000:0000:0000:0001", "end": "2001:db8:fd00:1000:0000:0000:0000:0099"}]
             overcloud_internal_net_cidr: fd00:fd00:fd00:2000::/64
             overcloud_storage_net_cidr: fd00:fd00:fd00:3000::/64
             overcloud_storage_mgmt_net_cidr: fd00:fd00:fd00:4000::/64
