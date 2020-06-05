@@ -7223,13 +7223,8 @@
 - project:
     name: review.rdoproject.org/rdo-infra/sinkhole
     templates:
+      - noop
       - system-required
-    check:
-      jobs:
-        - legacy-centos-sinkhole-functional
-    gate:
-      jobs:
-        - legacy-centos-sinkhole-functional
 
 - project:
     name: review.rdoproject.org/rdo-infra/test-day-tools
