@@ -370,13 +370,13 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
 - project:
     name: review.rdoproject.org/centos-opstools/collectd
@@ -384,14 +384,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -400,14 +400,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -416,14 +416,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -432,14 +432,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -448,14 +448,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -471,14 +471,14 @@
     check:
       jobs:
         - tox-linters
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
     gate:
       queue: centos-release-opstools
       jobs:
         - tox-linters
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
 
 - project:
     name: review.rdoproject.org/centos-opstools/opstools-ansible-distgit
@@ -486,14 +486,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -502,10 +502,10 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-doc
+        - centos-opstools-doc
     gate:
       jobs:
-        - legacy-centos-opstools-doc
+        - centos-opstools-doc
 
 - project:
     name: review.rdoproject.org/centos-opstools/osops-tools-monitoring-oschecks
@@ -513,14 +513,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
@@ -529,14 +529,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -545,14 +545,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -561,14 +561,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-perfmon-common-distgit-cbs-final-build
 
 - project:
@@ -577,14 +577,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -593,14 +593,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -609,14 +609,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -625,14 +625,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -641,14 +641,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -657,14 +657,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -673,14 +673,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -689,14 +689,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -705,14 +705,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -721,14 +721,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -737,14 +737,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -753,14 +753,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -769,14 +769,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -785,14 +785,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -801,14 +801,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -817,14 +817,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
@@ -833,14 +833,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -849,14 +849,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -865,14 +865,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -881,14 +881,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -897,14 +897,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -913,14 +913,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -929,14 +929,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -945,14 +945,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -961,14 +961,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -977,14 +977,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -993,14 +993,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
@@ -1009,14 +1009,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1025,14 +1025,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1041,14 +1041,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1057,14 +1057,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1073,14 +1073,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1089,14 +1089,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1105,14 +1105,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1121,14 +1121,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1137,14 +1137,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1153,14 +1153,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1169,14 +1169,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1185,14 +1185,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1201,14 +1201,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1217,14 +1217,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1233,14 +1233,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1249,14 +1249,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1265,14 +1265,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1281,14 +1281,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1297,14 +1297,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1313,14 +1313,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1329,14 +1329,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1345,14 +1345,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1361,14 +1361,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1377,14 +1377,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1393,14 +1393,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1409,14 +1409,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1425,14 +1425,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1441,14 +1441,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1457,14 +1457,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1473,14 +1473,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1489,14 +1489,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1505,14 +1505,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1521,14 +1521,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1537,14 +1537,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1553,14 +1553,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
@@ -1569,14 +1569,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1585,14 +1585,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1601,14 +1601,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1617,14 +1617,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1633,14 +1633,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1649,14 +1649,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1665,14 +1665,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -1681,14 +1681,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1697,14 +1697,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1713,14 +1713,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1729,14 +1729,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1745,14 +1745,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1761,14 +1761,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1777,14 +1777,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -1793,14 +1793,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1809,14 +1809,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1825,14 +1825,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1841,14 +1841,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1857,14 +1857,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1873,14 +1873,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1889,14 +1889,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1905,14 +1905,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1921,14 +1921,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1937,14 +1937,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1953,14 +1953,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1969,14 +1969,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -1985,14 +1985,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -2001,14 +2001,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -2017,14 +2017,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
@@ -2033,14 +2033,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-common-distgit-cbs-final-build
 
 - project:
@@ -2049,14 +2049,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2065,14 +2065,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2081,14 +2081,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2097,14 +2097,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2113,14 +2113,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2129,14 +2129,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2145,14 +2145,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2161,14 +2161,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2177,14 +2177,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2193,14 +2193,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2209,14 +2209,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2225,14 +2225,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2241,14 +2241,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2257,14 +2257,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2273,14 +2273,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2289,14 +2289,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-fluentd-012-distgit-cbs-final-build
 
 - project:
@@ -2305,14 +2305,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-common-distgit-cbs-final-build
 
 - project:
@@ -2321,14 +2321,14 @@
       - system-required
     check:
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-validate
     gate:
       queue: centos-release-opstools
       jobs:
-        - legacy-centos-opstools-rpmlint
-        - legacy-centos-opstools-rpmbuild
+        - centos-opstools-rpmlint
+        - centos-opstools-rpmbuild
         - opstools-sensu-110-distgit-cbs-final-build
 
 - project:
