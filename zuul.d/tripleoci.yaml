@@ -98,6 +98,7 @@
     parent: tripleo-centos-8-master-buildimage-base
     pre-run:
       - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-ci-periodic-base-upload/tmpfiles.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     vars:
