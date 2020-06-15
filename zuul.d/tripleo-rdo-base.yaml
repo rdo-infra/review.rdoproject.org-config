@@ -549,3 +549,83 @@
     secrets:
       - tripleo_gerrit_ssh_key
       - cloud_secrets
+
+- job:
+    name: tripleo-ci-promotion-staging-single-pipeline-rdo
+    parent: tripleo-ci-promotion-staging-single-pipeline-centos-7
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-promotion-staging-integration-pipeline-rdo
+    parent: tripleo-ci-promotion-staging-integration-pipeline-centos-7
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-molecule-container-push-delegated-rdo
+    parent: molecule-container-push-delegated-centos-7
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-molecule-tripleo-common-delegated-rdo
+    parent: molecule-tripleo-common-delegated-centos-7
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-molecule-delegated-promote-images-delegated-rdo
+    parent: molecule-delegated-promote-images-delegated-centos-7
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
