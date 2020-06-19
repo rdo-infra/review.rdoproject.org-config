@@ -12,7 +12,11 @@
       queue: ceph
       jobs:
         - tripleo-centos-8-ceph-integration-master
-        - tripleo-ceph-integration-train
+        - tripleo-centos-8-ceph-ansible-integration-master
+        - tripleo-centos-8-ceph-integration-ussuri
+        - tripleo-centos-8-ceph-ansible-integration-ussuri
+        - tripleo-centos-8-ceph-integration-train
+        - tripleo-centos-8-ceph-ansible-integration-train
         - tripleo-ceph-integration-centos-8-scenario001-standalone:
             dependencies:
               - tripleo-centos-8-ceph-integration-master
