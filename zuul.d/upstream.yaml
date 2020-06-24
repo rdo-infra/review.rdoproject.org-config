@@ -521,3 +521,22 @@
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+
+- pipeline:
+    name: periodic-ci-config-molecule-python
+    post-review: true
+    description: Jobs in this queue are triggered to run periodically twice a day.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 2,14 * * *'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
