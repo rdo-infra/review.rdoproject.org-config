@@ -170,7 +170,7 @@
     run: playbooks/opstools-perfmon-common-distgit-cbs-validate/run.yaml
     required-projects:
       - name: gating_scripts
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8
     secrets:
       - cbs_opstools
 
@@ -183,7 +183,7 @@
     run: playbooks/opstools-perfmon-common-distgit-cbs-final-build/run.yaml
     required-projects:
       - name: gating_scripts
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8
     secrets:
       - cbs_opstools
 
