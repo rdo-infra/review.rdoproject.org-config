@@ -35,6 +35,40 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-check-blocking
+    description: |
+      Used for third party jobs to be able to block changes from merging.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check-blocking pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      opendev.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|rdo-check|verify-rdo)
+    success:
+      # Note: we are using another connection to report with rdo project ci account
+      rdoci:
+        Verified: 1
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      # Note: we are using another connection to report with rdo project ci account
+      rdoci:
+        Verified: -2
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-experimental
     description: |
         Upstream patchsets that have to be checked against a set of experimental jobs.
