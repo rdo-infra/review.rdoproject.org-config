@@ -29,7 +29,9 @@
     failure:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
-        Verified: -1
+        Verified: -2
+        approval:
+          - Workflow: -1
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
