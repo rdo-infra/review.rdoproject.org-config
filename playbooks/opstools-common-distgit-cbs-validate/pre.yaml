@@ -3,7 +3,7 @@
     - shell:
         cmd: |
           # TODO(pabelanger): migrate to bindep.txt
-          sudo yum -y install centos-packager createrepo
+          sudo dnf -y install centos-packager createrepo
       changed_when: true
 
     - name: Create koji centos cert
