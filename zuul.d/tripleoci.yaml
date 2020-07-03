@@ -420,6 +420,14 @@
       push_containers_podman: true
 
 - job:
+    name: periodic-tripleo-ci-build-containers-ubi-8
+    parent: periodic-tripleo-build-containers-ubi-8-push-base
+    vars:
+      push_containers_podman: true
+      registry_namespace: tripleomaster
+      push_containers: false
+
+- job:
     name: periodic-tripleo-centos-8-train-containers-build-push
     parent: periodic-tripleo-centos-8-master-containers-build-push
     nodeset: single-centos-8-node-vexxhost
