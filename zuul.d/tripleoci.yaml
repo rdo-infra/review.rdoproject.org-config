@@ -420,6 +420,14 @@
       push_containers_podman: true
 
 - job:
+    name: periodic-tripleo-ci-build-containers-ubi-8
+    parent: periodic-tripleo-build-containers-ubi-8-push-base
+    vars:
+      push_containers: true # Native container push provided by python-tripleoclient
+      registry_login_enabled: true
+      registry_namespace: tripleomaster
+
+- job:
     name: periodic-tripleo-centos-8-train-containers-build-push
     parent: periodic-tripleo-centos-8-master-containers-build-push
     nodeset: single-centos-8-node-vexxhost
@@ -497,7 +505,6 @@
       - playbooks/tripleo-ci-periodic-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
     post-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects:
       - config
