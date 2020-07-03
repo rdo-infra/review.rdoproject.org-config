@@ -33,6 +33,10 @@
             files:
               - ^toci-quickstart/config/testenv/ovb-vexxhost.yml$
               - ^toci-quickstart/config/testenv/ovb.yml$
+    openstack-check-blocking:
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
+            vars:
+              force_non_periodic: true
     openstack-regular:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
