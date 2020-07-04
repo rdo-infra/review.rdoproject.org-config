@@ -122,12 +122,26 @@
 
   always:
 
+    - name: Show last stack status
+      command: >-
+        {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
+      changed_when: false
+      failed_when: false
+
     - name: Delete CREATE_FAILED stack
       shell: |
         {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y
         {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }}-extra -y
       when: '"CREATE_FAILED" in result.stdout'
       failed_when: false
+
+    - name: Stack is timed out if not created within half hour
+      debug:
+        msg: "Stack failed to create with given timeout: {{ stack_name }}"
+      when:
+        - '"COMPLETE" not in result.stdout'
+        - '"FAILED" not in result.stdout'
+        - result.rc != 0
 
     - name: remove clouds.yaml file
       file:
