@@ -5,9 +5,10 @@
       no_log: true
       when: registry_login_enabled|default(false)|bool
       vars:
+        rdo_registry_user: "{{ lookup('env', 'REGISTRY_USERNAME') | default('unused', true) }}"
         container_registry_logins:
           trunk.registry.rdoproject.org:
-            unused: "{{ rdo_registry.token }}"
+            rdo_registry_user: "{{ rdo_registry.token }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         docker_login_cache: /root/.docker/config.json
       block:
