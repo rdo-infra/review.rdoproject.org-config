@@ -10,6 +10,7 @@
             unused: "{{ rdo_registry.token }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         docker_login_cache: /root/.docker/config.json
+        tripleo_podman_tls_verify: true
       block:
 
         - name: Set IP forwarding on before docker starts
