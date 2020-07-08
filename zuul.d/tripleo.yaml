@@ -85,7 +85,6 @@
     name: opendev.org/openstack/tripleo-heat-templates
     templates:
       - system-required
-      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
@@ -99,7 +98,6 @@
     name: opendev.org/openstack/tripleo-ansible
     templates:
       - system-required
-      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
@@ -300,8 +298,6 @@
 
 - project:
     name: opendev.org/openstack/ansible-role-collect-logs
-    templates:
-      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
@@ -315,7 +311,6 @@
     name: opendev.org/openstack/tripleo-image-elements
     templates:
         - tripleo-buildimages-jobs
-        - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
@@ -336,19 +331,18 @@
     templates:
         - tripleo-buildimages-jobs
         - system-required
-        - vexxhost-check
     openstack-check:
       jobs:
-        # - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-vexxhost:
-        #     files:
-        #       - ^tripleoclient/.*/overcloud_node.*$
-        #       - ^tripleoclient/.*/overcloud_deploy.*$
-        #       - ^tripleoclient/.*/baremetal.*$
-        # - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
-        #     files:
-        #       - ^tripleoclient/.*/overcloud_node.*$
-        #       - ^tripleoclient/.*/overcloud_deploy.*$
-        #       - ^tripleoclient/.*/baremetal.*$
+        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-vexxhost:
+            files:
+              - ^tripleoclient/.*/overcloud_node.*$
+              - ^tripleoclient/.*/overcloud_deploy.*$
+              - ^tripleoclient/.*/baremetal.*$
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
+            files:
+              - ^tripleoclient/.*/overcloud_node.*$
+              - ^tripleoclient/.*/overcloud_deploy.*$
+              - ^tripleoclient/.*/baremetal.*$
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             files:
               - ^tripleoclient/.*/overcloud_node.*$
