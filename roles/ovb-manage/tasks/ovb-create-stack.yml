@@ -141,7 +141,7 @@
       when:
         - '"COMPLETE" not in result.stdout'
         - '"FAILED" not in result.stdout'
-        - result.rc != 0
+      failed_when: false
 
     - name: remove clouds.yaml file
       file:
