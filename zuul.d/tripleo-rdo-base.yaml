@@ -104,11 +104,7 @@
     parent: tripleo-ci-base-ovb-notebroker-centos-8
     branches: ^(?!stable/(newton|ocata|pike|queens|rocky|stein|train)).*$
     nodeset: upstream-centos-8-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     run: playbooks/tripleo-rdo-base/testonly/no_deploy_ovb.yaml
-    post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     vars:
       cloud_name: vexxhost
       nodes: 3ctlr_1comp
