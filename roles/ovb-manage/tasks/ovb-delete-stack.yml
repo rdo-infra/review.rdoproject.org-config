@@ -65,9 +65,16 @@
       when: item.delete|bool
       ignore_errors: true
 
+    - name: Create a list of ports to delete
+      copy:
+        content: "{{ baremetal_ports.results }}"
+        dest: /tmp/baremetal_ports
+      when: '"stdout" in item and item.stdout'
+      ignore_errors: true
+      changed_when: true
+
     - name: Delete baremetal ports of OVB networks
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack port delete {{ item.stdout | replace('\n', ' ') }}"
-      loop: "{{ baremetal_ports.results }}"
+      command: "for port in $(cat /tmp/baremetal_ports); do {{ ovb_working_dir }}/.venv/bin/openstack port delete $port; sleep 1; done"
       when: '"stdout" in item and item.stdout'
       ignore_errors: true
       changed_when: true
