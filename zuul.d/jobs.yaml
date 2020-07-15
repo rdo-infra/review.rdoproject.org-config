@@ -413,6 +413,7 @@
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/rdo-deps-uc-send-review/run.yaml
     required-projects:
+      - gating_scripts
       - rdoinfo
       - rdo-infra/releng
       - opendev.org/openstack/requirements
