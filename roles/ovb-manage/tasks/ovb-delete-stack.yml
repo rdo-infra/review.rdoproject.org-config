@@ -73,10 +73,17 @@
       when: item.delete|bool
       ignore_errors: true
 
+
+    - name: Create script for removing ports
+      template:
+        src: baremetal_ports.j2
+        dest: "{{ ovb_working_dir }}/delete_baremetal_ports.sh"
+        mode: 0755
+      when: baremetal_ports.results
+
     - name: Delete baremetal ports of OVB networks
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack port delete {{ item.stdout | replace('\n', ' ') }}"
-      loop: "{{ baremetal_ports.results }}"
-      when: '"stdout" in item and item.stdout'
+      command: "{{ ovb_working_dir }}/delete_baremetal_ports.sh"
+      when: baremetal_ports.results
       ignore_errors: true
       changed_when: true
 
