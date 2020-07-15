@@ -511,7 +511,9 @@
       use_buildah: true
       use_kolla: false
       buildcontainers_override_repos: tripleo-ci-testing
-      push_containers: false
+      push_containers: true # Native container push provided by python-tripleoclient
+      registry_login_enabled: true
+      tripleo_podman_buildah_login: true
       featureset: containers-build # needed for dlrn report in post.yaml
       push_containers_podman: false
       push_registry: trunk.registry.rdoproject.org
@@ -522,6 +524,4 @@
     name: periodic-tripleo-ci-build-containers-ubi-8-push
     parent: periodic-tripleo-build-containers-ubi-8-push-base
     vars:
-      push_containers: true # Native container push provided by python-tripleoclient
-      registry_login_enabled: true
       registry_namespace: tripleomaster
