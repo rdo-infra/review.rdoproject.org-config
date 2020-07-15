@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf2bf25f_33709c96",
+        "filename": "roles/ovb-manage/tasks/ovb-delete-stack.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 155
+      },
+      "writtenOn": "2020-07-15T16:13:03Z",
+      "side": 1,
+      "message": "let\u0027s do it in one task with jinja\n\nsomething like:\n\n{% for result in baremetal_ports.results %}\n{% if \u0027stdout\u0027 in result and result.stdout %}\n{% for port in result.stdout.split(\u0027\\n\u0027) %}\n{{ ovb_working_dir }}/.venv/bin/openstack port delete {{ port }}\n{% endfor %}\n{% endif %}\n{% endfor %}\n\ndidn\u0027t test it",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 41
+      },
+      "revId": "f4d0a73f9ae0cf7fbd8807577e5f0d8e8eb2de73",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
