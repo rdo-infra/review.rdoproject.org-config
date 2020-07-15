@@ -9,6 +9,7 @@
           trunk.registry.rdoproject.org:
             unused: "{{ rdo_registry.token }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
+        tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
         docker_login_cache: /root/.docker/config.json
       block:
 
