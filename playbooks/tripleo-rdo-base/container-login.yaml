@@ -52,6 +52,15 @@
             (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
              or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
 
+        - include_role:
+            name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+            tasks_from: tripleo_podman_buildah_login.yml
+          when:
+            - (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
+               or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
+            - tripleo_podman_buildah_login | bool
+
+
       always:
         - name: Verify Login for docker
           no_log: false
