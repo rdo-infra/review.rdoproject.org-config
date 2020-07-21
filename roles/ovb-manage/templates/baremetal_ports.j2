@@ -1,6 +1,6 @@
-{% for result in baremetal_ports %}
+{% for result in baremetal_ports.results %}
 {% if 'stdout' in result and result.stdout %}
-{% for port in result.stdout.replace('\n', ' ') %}
+{% for port in result.stdout.split('\n') %}
 {{ ovb_working_dir }}/.venv/bin/openstack port delete {{ port }} && sleep 1
 {% endfor %}
 {% endif %}
