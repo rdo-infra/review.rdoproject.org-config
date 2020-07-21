@@ -1,3 +1,8 @@
+#!/bin/bash
+
+export OS_CLIENT_CONFIG_FILE={{ clouds_yaml }}
+export OS_CLOUD={{ cloud_name }}
+
 {% for result in baremetal_ports.results %}
 {% if 'stdout' in result and result.stdout %}
 {% for port in result.stdout.split('\n') %}
