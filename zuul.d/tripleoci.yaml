@@ -524,3 +524,21 @@
     parent: periodic-tripleo-build-containers-ubi-8-push-base
     vars:
       registry_namespace: tripleomaster
+
+- job:
+    name: periodic-tripleo-ci-build-containers-ubi-8-push-ussuri
+    parent: periodic-tripleo-ci-build-containers-ubi-8-push
+    override-checkout: 'stable/ussuri'
+    vars:
+      release: ussuri
+      branch_override: 'stable/ussuri'
+      registry_namespace: tripleoussuri
+
+- job:
+    name: periodic-tripleo-ci-build-containers-ubi-8-push-train
+    parent: periodic-tripleo-ci-build-containers-ubi-8-push
+    override-checkout: 'stable/train'
+    vars:
+      release: train
+      branch_override: 'stable/train'
+      registry_namespace: tripleotraincentos8
