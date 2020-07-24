@@ -218,41 +218,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdo_dashboards-core
       - rdo-infra/ansible-role-rdo_dashboards-ptl
-    910a710c67c8cd8ed04404f9c26593a4:
-      file: |
-        [project]
-        [access "refs/*"]
-          read = group tripleo-ci-core
-          read = group rdo-ci-core
-          owner = group rdo-ci-ptl
-            removeReviewer = group rdo-ci-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group tripleo-ci-core
-            label-Code-Review = -2..+2 group rdo-ci-core
-            label-Code-Review = -2..+2 group rdo-ci-ptl
-            label-Verified = -2..+2 group rdo-infra/ci-config-ptl
-            label-Workflow = -1..+1 group tripleo-ci-core
-            label-Workflow = -1..+1 group rdo-ci-core
-            label-Workflow = -1..+1 group rdo-ci-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdo-ci-ptl
-            read = group Registered Users
-            read = group tripleo-ci-core
-            read = group rdo-ci-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group tripleo-ci-core
-            read = group rdo-ci-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdo-infra/ci-config-ptl
-      - rdo-ci-ptl
-      - tripleo-ci-core
-      - rdo-ci-core
     9afb7bc027afc82a3824527e1114349a:
       file: |
         [access "refs/*"]
@@ -388,18 +353,6 @@ resources:
     opm-packagers:
       description: ''
       members: []
-    rdo-ci-core:
-      description: ''
-      members:
-      - alan.pevec@redhat.com
-      - amoralej@redhat.com
-      - dms@redhat.com
-      - gcerami@redhat.com
-      - jpena@redhat.com
-      - rlandy@redhat.com
-      - sshnaidm@redhat.com
-      - trown@redhat.com
-      - weshayutin@gmail.com
     tripleo-ci-core:
       description: ''
       members:
@@ -412,10 +365,6 @@ resources:
       - ssbarnea@redhat.com
       - sshnaidm@redhat.com
       - weshayutin@gmail.com
-    rdo-ci-ptl:
-      description: ''
-      members:
-      - dms@redhat.com
     rdo-core:
       description: Core developers for project rdo
       members:
@@ -446,15 +395,6 @@ resources:
     rdo-infra/centos-release-openstack-ptl:
       description: Project team lead for project rdo-infra/centos-release-openstack
       members:
-      - admin@review.rdoproject.org
-    rdo-infra/ci-config-core:
-      description: Core developers for project rdo-infra/ci-config
-      members:
-      - admin@review.rdoproject.org
-    rdo-infra/ci-config-ptl:
-      description: Project team lead for project rdo-infra/ci-config
-      members:
-      - dms@redhat.com
       - admin@review.rdoproject.org
     rdo-infra/rdo-dashboards-core:
       description: Core developers for project rdo-infra/rdo-dashboards
@@ -545,8 +485,6 @@ resources:
         stein-rdo: rocky-rdo
         train-rdo: stein-rdo
         ussuri-rdo: train-rdo
-    rdo-infra/ci-config:
-      acl: 910a710c67c8cd8ed04404f9c26593a4
     rdo-infra/rdo-dashboards:
       acl: 521a1df16117f6b2ad1b23bfa338f544
       description: ''
