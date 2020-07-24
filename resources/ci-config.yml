@@ -1,0 +1,57 @@
+resources:
+  groups:
+    rdo-ci-core:
+      description: ''
+      members:
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - gcerami@redhat.com
+      - jpena@redhat.com
+      - rlandy@redhat.com
+      - ssbarnea@redhat.com
+      - sshnaidm@redhat.com
+      - weshayutin@gmail.com
+    rdo-ci-ptl:
+      description: ''
+      members:
+      - alan.pevec@redhat.com
+  acls:
+    ci-config:
+      file: |
+        [project]
+        [access "refs/*"]
+            read = group tripleo-ci-core
+            read = group rdo-ci-core
+            owner = group rdo-ci-ptl
+            removeReviewer = group rdo-ci-ptl
+        [access "refs/heads/*"]
+            abandon = group rdo-ci-core
+            abandon = group tripleo-ci-core
+            label-Code-Review = -2..+2 group tripleo-ci-core
+            label-Code-Review = -2..+2 group rdo-ci-core
+            label-Code-Review = -2..+2 group rdo-ci-ptl
+            label-Workflow = -1..+1 group tripleo-ci-core
+            label-Workflow = -1..+1 group rdo-ci-core
+            label-Workflow = -1..+1 group rdo-ci-ptl
+            label-Workflow = -1..+0 group Registered Users
+            submit = group rdo-ci-ptl
+            read = group Registered Users
+            read = group tripleo-ci-core
+            read = group rdo-ci-core
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group tripleo-ci-core
+            read = group rdo-ci-core
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+        - rdo-ci-core
+        - rdo-ci-ptl
+        - tripleo-ci-core
+
+  repos:
+    rdo-infra/ci-config:
+      acl: ci-config
