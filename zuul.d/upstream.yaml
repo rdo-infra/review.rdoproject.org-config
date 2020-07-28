@@ -490,6 +490,24 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-component-validation
+    post-review: true
+    description: Validation component-ci jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '30 22 * * *'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-promote-component
     post-review: true
     description: Runs periodically to promote components to promoted-components.
