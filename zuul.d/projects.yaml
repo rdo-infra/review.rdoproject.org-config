@@ -2451,6 +2451,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-collections-openstack
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-collections-openstack-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-config_template
     templates:
       - package-check-jobs
