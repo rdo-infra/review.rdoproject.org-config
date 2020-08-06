@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/ansible-collections-openstack-core:
+      description: Core developers for project ansible-collections-openstack
+      members:
+      - sshnaidm@redhat.com
+    openstack/ansible-collections-openstack-ptl:
+      description: Project team lead for project ansible-collections-openstack
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-collections-openstack-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-collections-openstack-core
+          owner = group openstack/ansible-collections-openstack-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-collections-openstack-core
+          label-Code-Review = -2..+2 group openstack/ansible-collections-openstack-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-collections-openstack-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-collections-openstack-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-collections-openstack-core
+          label-Verified = -2..+2 group openstack/ansible-collections-openstack-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-collections-openstack-core
+          label-Workflow = -1..+1 group openstack/ansible-collections-openstack-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-collections-openstack-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-collections-openstack-core
+      - openstack/ansible-collections-openstack-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-collections-openstack:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-collections-openstack-core
+          owner = group openstack/ansible-collections-openstack-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-collections-openstack-core
+          label-Code-Review = -2..+2 group openstack/ansible-collections-openstack-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-collections-openstack-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-collections-openstack-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-collections-openstack-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-collections-openstack-core
+          label-Workflow = -1..+0 group openstack/ansible-collections-openstack-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-collections-openstack-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-collections-openstack-core
+      - openstack/ansible-collections-openstack-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-collections-openstack:
+      acl: openstack-ansible-collections-openstack
+      description: Mirror of upstream ansible-collections-openstack (mirror + patches)
+    openstack/ansible-collections-openstack-distgit:
+      acl: openstack-ansible-collections-openstack-distgit
+      description: Packaging of upstream ansible-collections-openstack
+      default-branch: rpm-master
+      branches:
+        master: '0'
