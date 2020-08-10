@@ -7481,6 +7481,7 @@
     name: review.rdoproject.org/rdoinfo
     templates:
       - system-required
+      - rdoinfo-master-testing-tripleo-jobs
       - weirdo-validate-buildsys-tags-jobs
       - periodic-victoria-centos-stream
     check:
@@ -7552,24 +7553,6 @@
             voting: false
             files:
               - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$
-        - rdoinfo-tripleo-master-testing-centos-8-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
-        - rdoinfo-tripleo-master-testing-centos-8-scenario001-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
-        - rdoinfo-tripleo-master-testing-centos-8-containers-multinode:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-ussuri-release-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -7634,12 +7617,6 @@
     experimental:
       jobs:
         # Keeps ovn jobs as experimental
-        - rdoinfo-tripleo-master-testing-centos-8-scenario007-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8-openstack-victoria-testing.yml$
         - rdoinfo-tripleo-ussuri-testing-centos-8-scenario007-standalone:
             dependencies:
               - validate-buildsys-tags
