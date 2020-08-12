@@ -82,7 +82,7 @@
       no_log: true
 
     - name: Check resources changes
-      command: env - /usr/bin/managesf-resources remote-validate --remote-gateway {{ gateway_url }}
+      shell: env - REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt /usr/bin/managesf-resources remote-validate --remote-gateway {{ gateway_url }}
       args:
         chdir: "{{ config_root }}"
       changed_when: false
@@ -93,30 +93,28 @@
         chdir: "{{ config_root }}"
       when: '"gerrit" in arch.roles'
 
-    # Use "env -" to remove zuul-executor environment that modifies python runtime (e.g. defines a 'zuul' python module)
     - name: Check gerrit commentlinks
-      command: env - python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
+      command: python3 -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
       args:
         chdir: "{{ config_root }}"
       when: '"gerrit" in arch.roles'
 
     - name: Check dashboards
-      command: env - python2 /usr/libexec/software-factory/sf-update-dashboard --check --input dashboards/
+      command: python3 /usr/libexec/software-factory/sf-update-dashboard --check --input dashboards/
       args:
         chdir: "{{ config_root }}"
       when: '"gerrit" in arch.roles'
 
     - name: Check policy file
-      command: env - python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
+      command: python3 -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
       args:
         chdir: "{{ config_root }}"
-      changed_when: false
 
     - name: Validate repoxplorer configuration
       block:
         - name: Check syntax errors in repoxplorer definition files
           command: >
-            env - repoxplorer-config-validate --config {{ config_root }}/defconf/defconf-repoxplorer.py
+            env - /bin/repoxplorer-config-validate --config {{ config_root }}/defconf/defconf-repoxplorer.py
           args:
             chdir: "{{ config_root }}"
       when: '"repoxplorer" in arch.roles'
@@ -155,14 +153,13 @@
         - name: Merge zuul tenant config
           command: >
             env - /bin/managesf-configuration zuul
-               --cache-dir {{ config_root }}/../.cache --config-dir {{ config_root }}
-               --gateway-url {{ gateway_url }} {{ tenant_options | default('') }} --output build/main.yaml
+               --cache-dir {{ config_root }}/../.cache --config-dir {{ config_root }} --gateway-url {{ gateway_url }} {{ tenant_options | default('') }} --output build/main.yaml
           args:
             chdir: "{{ config_root }}"
 
         - name: Validate zuul config syntax
           command: >
-            env - /opt/rh/rh-python35/root/bin/zuul -c zuul.conf tenant-conf-check
+            env - /bin/zuul -c zuul.conf tenant-conf-check
           args:
             chdir: "{{ config_root }}/build"
 
