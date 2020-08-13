@@ -23,6 +23,21 @@
     dest: "{{ clouds_yaml }}"
     mode: 0755
 
+- when: "'internal' in cloudenv|default('')"
+  become: true
+  block:
+    - name: Copy DNS file from job to keep it in logs
+      command: cp /etc/resolv.conf /etc/resolv-from-job-start.conf
+      changed_when: true
+
+    - name: Override DNS settings from job to known ones - internal
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          {% for server in custom_nameserver %}
+          nameserver {{ server }}
+          {% endfor %}
+
 - name: Install heat stack
   # notest tells molecule to skip during functional testing
   tags: notest
@@ -132,21 +147,29 @@
       shell: |
         {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y
         {{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }}-extra -y
-      when: '"CREATE_FAILED" in result.stdout'
+      when: '"CREATE_FAILED" in result.stdout|default("")'
       failed_when: false
 
     - name: Stack is timed out if not created within half hour
       debug:
         msg: "Stack failed to create with given timeout: {{ stack_name }}"
       when:
-        - '"COMPLETE" not in result.stdout'
-        - '"FAILED" not in result.stdout'
+        - '"COMPLETE" not in result.stdout|default("")'
+        - '"FAILED" not in result.stdout|default("")'
       failed_when: false
 
     - name: remove clouds.yaml file
       file:
         path: "{{ clouds_yaml }}"
         state: absent
+
+    - when: "'internal' in cloudenv|default('')"
+      become: true
+      block:
+        - name: Restore DNS file
+          become: true
+          command: cp /etc/resolv-from-job-start.conf /etc/resolv.conf
+          changed_when: true
 
   environment:
     - OS_CLIENT_CONFIG_FILE: "{{ clouds_yaml }}"
