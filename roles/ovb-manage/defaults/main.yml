@@ -36,6 +36,7 @@ os_region_name: "{{ cloud_credentials.region_name|default('nosecret') }}"
 identity_api_version: "{{ cloud_credentials.identity_api_version|default('') }}"
 os_user_domain_name: "{{ cloud_credentials.user_domain_name|default('') }}"
 os_project_domain_name: "{{ cloud_credentials.project_domain_name|default('') }}"
+os_project_domain_id: "{{ cloud_credentials.project_domain_id|default('') }}"
 
 rdo_baremetal_image: >-
   {% if ansible_distribution_major_version is version("8", "==") -%}
