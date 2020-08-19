@@ -5,7 +5,8 @@
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
 
-    - shell:
+    - name: validate step
+      shell:
         cmd: |
           # First, we create a chroot to be used in the installation
           sudo mkdir -p /tmp/root/var/lib/rpm
@@ -19,8 +20,8 @@
           sudo rpm --root /tmp/root -i {{ ansible_user_dir }}/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm
           # Packages in the temp repository contained only the packages fetched from CBS
           # This should list the packages we just build in that Koji task
-          dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
-          pkgs=$(dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
+          sudo dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
+          pkgs=$(sudo dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available | awk '/temp$/ {printf "%s ", $1}')
           # Force installation of python-setuptools as is required for some packages (ansible)
           sudo dnf install --installroot=/tmp/root --disableexcludes=all -y python3-setuptools
           # Here we install locally the kust built packages
