@@ -22,7 +22,7 @@
           # Packages in the temp repository contained only the packages fetched from CBS
           # This should list the packages we just build in that Koji task
           sudo dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' list available
-          pkgs=$(sudo dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' --exclude='*.src' list available | awk '/temp$/ {printf "%s ", $1}' | grep -v 'el8.aarch64.rpm' | grep -v 'el8.ppc64le.rpm')
+          pkgs=$(sudo dnf --installroot=/tmp/root --disablerepo='*' --enablerepo='temp' --exclude='*.src' list available | awk '/temp$/ {printf "%s ", $1}' | grep -v 'el8.aarch64' | grep -v 'el8.ppc64le')
           # Force installation of python-setuptools as is required for some packages (ansible)
           sudo dnf install --installroot=/tmp/root --disableexcludes=all -y python3-setuptools
           # Here we install locally the kust built packages
