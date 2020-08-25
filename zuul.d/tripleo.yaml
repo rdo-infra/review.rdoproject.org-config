@@ -354,3 +354,16 @@
               - ^tripleoclient/.*/overcloud_node.*$
               - ^tripleoclient/.*/overcloud_deploy.*$
               - ^tripleoclient/.*/baremetal.*$
+
+- project:
+    name: opendev.org/openstack/metalsmith
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+            files:
+              - ^metalsmith_ansible/.*/metalsmith_instances.*$
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
+            files:
+              - ^metalsmith_ansible/.*/metalsmith_instances.*$
