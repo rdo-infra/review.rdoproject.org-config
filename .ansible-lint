@@ -1,6 +1,9 @@
 parseable: true
 quiet: false
-skip_list: []
+skip_list:
+  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern'
+  - '208'  # File permissions not mentioned'
+  - '505'  # referenced files must exist'
 verbosity: 1
 exclude_paths:
     - zuul
