@@ -1,0 +1,98 @@
+resources:
+  groups:
+    openstack/ansible-tripleo-ipa-server-core:
+      description: Core developers for project ansible-tripleo-ipa-server
+      members:
+      - alee@redhat.com
+      - cdwilde@gmail.com
+      - kevin@cloudnull.com
+      - lbragstad@gmail.com
+      - xek@redhat.com
+    openstack/ansible-tripleo-ipa-server-ptl:
+      description: Project team lead for project ansible-tripleo-ipa-server
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-tripleo-ipa-server-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-tripleo-ipa-server-core
+          owner = group openstack/ansible-tripleo-ipa-server-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-tripleo-ipa-server-core
+          label-Code-Review = -2..+2 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-tripleo-ipa-server-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-tripleo-ipa-server-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-tripleo-ipa-server-core
+          label-Verified = -2..+2 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-tripleo-ipa-server-core
+          label-Workflow = -1..+1 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-tripleo-ipa-server-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-tripleo-ipa-server-core
+      - openstack/ansible-tripleo-ipa-server-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-tripleo-ipa-server:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-tripleo-ipa-server-core
+          owner = group openstack/ansible-tripleo-ipa-server-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-tripleo-ipa-server-core
+          label-Code-Review = -2..+2 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-tripleo-ipa-server-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-tripleo-ipa-server-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-tripleo-ipa-server-core
+          label-Workflow = -1..+0 group openstack/ansible-tripleo-ipa-server-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-tripleo-ipa-server-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-tripleo-ipa-server-core
+      - openstack/ansible-tripleo-ipa-server-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-tripleo-ipa-server:
+      acl: openstack-ansible-tripleo-ipa-server
+      description: Mirror of upstream ansible-tripleo-ipa-server (mirror + patches)
+    openstack/ansible-tripleo-ipa-server-distgit:
+      acl: openstack-ansible-tripleo-ipa-server-distgit
+      description: Packaging of upstream ansible-tripleo-ipa-server
+      default-branch: rpm-master
+      branches:
+        master: '0'
