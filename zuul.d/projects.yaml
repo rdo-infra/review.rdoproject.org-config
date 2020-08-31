@@ -2601,6 +2601,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-tripleo-ipa-server
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-tripleo-ipa-server-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/aodh
     templates:
       - package-check-jobs
