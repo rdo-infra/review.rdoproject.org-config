@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/tripleo-powerflex-core:
+      description: Core developers for project tripleo-powerflex
+      members:
+      - rajini.karthik@dell.com
+    openstack/tripleo-powerflex-ptl:
+      description: Project team lead for project tripleo-powerflex
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-tripleo-powerflex-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-powerflex-core
+          owner = group openstack/tripleo-powerflex-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-powerflex-core
+          label-Code-Review = -2..+2 group openstack/tripleo-powerflex-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-powerflex-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-powerflex-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/tripleo-powerflex-core
+          label-Verified = -2..+2 group openstack/tripleo-powerflex-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/tripleo-powerflex-core
+          label-Workflow = -1..+1 group openstack/tripleo-powerflex-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-powerflex-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-powerflex-core
+      - openstack/tripleo-powerflex-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-tripleo-powerflex:
+      file: |
+        [access "refs/*"]
+          read = group openstack/tripleo-powerflex-core
+          owner = group openstack/tripleo-powerflex-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/tripleo-powerflex-core
+          label-Code-Review = -2..+2 group openstack/tripleo-powerflex-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/tripleo-powerflex-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/tripleo-powerflex-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/tripleo-powerflex-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/tripleo-powerflex-core
+          label-Workflow = -1..+0 group openstack/tripleo-powerflex-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/tripleo-powerflex-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/tripleo-powerflex-core
+      - openstack/tripleo-powerflex-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/tripleo-powerflex:
+      acl: openstack-tripleo-powerflex
+      description: Mirror of upstream tripleo-powerflex (mirror + patches)
+    openstack/tripleo-powerflex-distgit:
+      acl: openstack-tripleo-powerflex-distgit
+      description: Packaging of upstream tripleo-powerflex
+      default-branch: rpm-master
+      branches:
+        master: '0'
