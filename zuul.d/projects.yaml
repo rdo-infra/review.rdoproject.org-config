@@ -5811,6 +5811,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tripleo-powerflex
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tripleo-powerflex-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/tripleo-puppet-elements-distgit
     default-branch: rpm-master
     templates:
