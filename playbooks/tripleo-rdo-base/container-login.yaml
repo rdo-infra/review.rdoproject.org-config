@@ -35,6 +35,7 @@
           when:
             (release is defined and release == 'train')
              or (branch_override is defined and branch_override == 'stable/train')
+             or (zuul.branch is defined and zuul.branch == 'stable/train')
 
         - name: Install podman
           include_role:
