@@ -7524,7 +7524,8 @@
             files:
               - ^tags/train.yml$
               - ^tags/ussuri.yml$
-              - ^tags/victoria-uc.yml$
+              - ^tags/victoria.yml$
+              - ^tags/wallaby-uc.yml$
         - validate-dependencies-rebuilds
         - weirdo-dlrn-master-packstack-scenario003-centos8:
             dependencies:
@@ -7532,35 +7533,35 @@
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - weirdo-dlrn-master-puppet-scenario001-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - weirdo-dlrn-master-puppet-scenario002-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - weirdo-dlrn-master-puppet-scenario003-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - weirdo-dlrn-master-puppet-scenario004-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - rdoinfo-tripleo-ussuri-testing-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -7681,45 +7682,45 @@
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario002:
             dependencies:
               - rdoinfo-DLRN-check-centos8
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario003:
             dependencies:
               - rdoinfo-DLRN-check-centos8
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario004:
             dependencies:
               - rdoinfo-DLRN-check-centos8
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - distgit-tripleo-master-testing-centos-8-undercloud-containers:
             dependencies:
               - rdoinfo-DLRN-check-centos8
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010:
             dependencies:
               - rdoinfo-DLRN-check-centos8
               - distgit-tripleo-ci-centos-8-content-provider
             voting: false
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/victoria-uc.yml$
+              - ^tags/wallaby-uc.yml$
 
     gate:
       queue: whitebox-tempest-plugin
@@ -7735,7 +7736,8 @@
             files:
               - ^tags/train.yml$
               - ^tags/ussuri.yml$
-              - ^tags/victoria-uc.yml$
+              - ^tags/victoria.yml$
+              - ^tags/wallaby-uc.yml$
         - validate-buildsys-tags
         - rebuild-fedora-dependencies
     periodic:
