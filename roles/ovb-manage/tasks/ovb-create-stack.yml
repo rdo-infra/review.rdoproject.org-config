@@ -87,7 +87,7 @@
       register: stack_outputs
 
     - name: Find ID of provision network
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack network show provision-{{ idnum }} -f value -c id"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack network show ctlplane-{{ idnum }} -f value -c id"
       register: provision_id
 
     - name: Find ID of public network

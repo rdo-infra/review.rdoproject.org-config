@@ -16,6 +16,8 @@
     regexp: "{{ item.0 }}"
     replace: "{{ item.1 }}"
   loop:
+    - - 'provision_net: .*'
+      - 'provision_net: ctlplane'
     - - 'baremetal_image:.*'
       - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
     - - 'bmc_image:.*'
