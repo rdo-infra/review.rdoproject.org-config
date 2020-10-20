@@ -52,7 +52,6 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 - ovb_repo_url
 - ovb_repo_version
 - ovb_working_dir
-- role_args
 - undercloud_args
 
 - net_iso: <multi-nic> -- other options are 'none' and 'public-bond'
