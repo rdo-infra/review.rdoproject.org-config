@@ -83,7 +83,7 @@
 
     - name: Set extra node args
       set_fact:
-        role_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-extra.yaml'
+        role_extra_node_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-extra.yaml'
 
   when: extra_node|bool
 
@@ -130,7 +130,7 @@
   set_fact:
     ovb_args: >-
       --name {{ stack_name }} --quintupleo --id {{ idnum }}
-      {{ env_args }} {{ undercloud_args }} {{ net_args }}  {{ ipv6_args }}  {{ role_args }}
+      {{ env_args }} {{ undercloud_args }} {{ net_args }}  {{ ipv6_args }}  {{ role_extra_node_args|default('') }}
 
 - name: Print ovb args
   debug:
