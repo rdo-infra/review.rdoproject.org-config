@@ -28,6 +28,7 @@
       - 'node_count: {{ node_count }}'
     - - 'public_net_allocation_pools:.*'
       - 'public_net_allocation_pools: {{ public_net_allocation_pools }}'
+  when: not routed_networks|bool
 
 - name: Customize the base template for known clouds
   replace:
@@ -52,6 +53,7 @@
   when:
     - cloud_name is defined
     - cloud_name in cloud_settings
+    - not routed_networks|bool
 
 - block:
     - name: Customize the extra node template
@@ -89,38 +91,224 @@
 
   when: extra_node|bool
 
+- when: routed_networks|bool
+  block:
+    - name: Write routed networks base env
+      copy:
+        dest: "{{ ovb_working_dir }}/env-{{ idnum }}-base.yaml"
+        content: |
+          resource_registry:
+            OS::OVB::UndercloudNetworks: {{ ovb_repo_directory }}/templates/undercloud-networks-routed.yaml
+            {% if net_iso in ['multi-nic', 'public-bond'] -%}
+            OS::OVB::BaremetalNetworks: {{ ovb_repo_directory }}/templates/baremetal-networks-routed.yaml
+            {% else -%}
+            OS::OVB::BaremetalNetworks: {{ ovb_repo_directory }}/templates/baremetal-networks-none.yaml
+            {% endif -%}
+            {% if net_iso == 'multi-nic' -%}
+            OS::OVB::BaremetalPorts: {{ ovb_repo_directory }}/templates/baremetal-ports-all.yaml
+            {% elif net_iso == 'public-bond' -%}
+            OS::OVB::BaremetalPorts: {{ ovb_repo_directory }}/templates/baremetal-ports-public-bond.yaml
+            {% else -%}
+            OS::OVB::BaremetalPorts: {{ ovb_repo_directory }}/templates/baremetal-ports-default.yaml
+            {% endif -%}
+            {% if not ipv6|bool -%}
+            OS::OVB::DHCPRelay: {{ ovb_repo_directory }}/templates/dhcp-relay.yaml
+            {% endif -%}
+            {% if not nodes_config[nodes]|bool -%}
+            OS::OVB::BMC: {{ ovb_repo_directory }}/templates/bmc-none.yaml
+            {% endif %}
+
+          parameter_defaults:
+            node_count: {{ nodes_config[nodes] }}
+            provision_net_shared: false
+            public_net_shared: false
+            provision_net: ctlplane
+            provision_net2: ctlplane-leaf1
+            provision_net3: ctlplane-leaf2
+            private_net: private
+            baremetal_prefix: baremetal
+            bmc_prefix: bmc
+            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            {% if cloud_settings is defined and  cloud_name in cloud_settings -%}
+            bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
+            baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
+            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            undercloud_flavor: {{ cloud_settings[cloud_name]['undercloud_flavor'] }}
+            undercloud_image: {{ cloud_settings[cloud_name]['baremetal_image'] }}
+            dhcp_relay_image: {{ cloud_settings[cloud_name]['dhcp_relay_image'] }}
+            dhcp_relay_flavor: {{ cloud_settings[cloud_name]['dhcp_relay_flavor'] }}
+            external_net: {{ cloud_settings[cloud_name]['external_net']|default('external') }}
+            {% else -%}
+            external_net: external
+            bmc_flavor: m1.small
+            baremetal_flavor: baremetal
+            undercloud_flavor: m1.xlarge
+            undercloud_image: CentOS-7-x86_64-GenericCloud
+            dhcp_relay_image: CentOS-7-x86_64-GenericCloud
+            dhcp_relay_flavor: m1.small
+            {% endif -%}
+            dhcrelay_prefix: dhcrelay
+            {% if not ipv6|bool -%}
+            dhcp_relay_provision_address: 192.168.24.253
+            dhcp_relay_provision2_address: 192.168.25.253
+            dhcp_relay_provision3_address: 192.168.26.253
+            public_net_allocation_pools: {{ public_net_allocation_pools }}
+            {% endif -%}
+            {% if net_iso in ['multi-nic', 'public-bond'] -%}
+            overcloud_internal_net: internal-leaf1
+            overcloud_storage_net: storage-leaf1
+            overcloud_storage_mgmt_net: storage_mgmt-leaf1
+            overcloud_tenant_net: tenant-leaf1
+            overcloud_internal_net2: internal-leaf2
+            overcloud_storage_net2: storage-leaf2
+            overcloud_storage_mgmt_net2: storage_mgmt-leaf2
+            overcloud_tenant_net2: tenant-leaf2
+            {% endif -%}
+
+    - when: nodes_leaf1|bool
+      name: Write routed networks leaf1 role
+      copy:
+        dest: "{{ ovb_working_dir }}/env-{{ idnum }}-leaf1.yaml"
+        content: |
+          resource_registry:
+            OS::OVB::BMC: {{ ovb_repo_directory }}/templates/bmc.yaml
+
+          parameter_defaults:
+            role: leaf1
+            node_count: {{ nodes_leaf1 }}
+            baremetal_prefix: baremetal
+            bmc_prefix: bmc
+            key_name: {{ key_name }}
+            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            bmc_use_cache: True
+            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            {% if cloud_settings is defined and cloud_name in cloud_settings -%}
+            baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
+            bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
+            {% else -%}
+            bmc_flavor: m1.small
+            baremetal_flavor: baremetal
+            {% endif -%}
+            provision_net: ctlplane-leaf1
+            {% if net_iso in ['multi-nic', 'public-bond'] -%}
+            overcloud_internal_net: internal-leaf1
+            overcloud_storage_net: storage-leaf1
+            overcloud_storage_mgmt_net: storage_mgmt-leaf1
+            overcloud_tenant_net: tenant-leaf1
+            {% endif %}
+
+    - when: nodes_leaf1|bool
+      name: Set leaf1 role args
+      set_fact:
+        role_leaf1_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-leaf1.yaml'
+
+    - when: nodes_leaf2|bool
+      name: Write routed networks leaf2 role
+      copy:
+        dest: "{{ ovb_working_dir }}/env-{{ idnum }}-leaf2.yaml"
+        content: |
+          resource_registry:
+            OS::OVB::BMC: {{ ovb_repo_directory }}/templates/bmc.yaml
+
+          parameter_defaults:
+            role: leaf2
+            node_count: {{ nodes_leaf2 }}
+            baremetal_prefix: baremetal
+            bmc_prefix: bmc
+            key_name: {{ key_name }}
+            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            bmc_use_cache: True
+            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            {% if cloud_settings is defined and cloud_name in cloud_settings -%}
+            baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
+            bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
+            {% else -%}
+            bmc_flavor: m1.small
+            baremetal_flavor: baremetal
+            {% endif -%}
+            provision_net: ctlplane-leaf2
+            {% if net_iso in ['multi-nic', 'public-bond'] -%}
+            overcloud_internal_net: internal-leaf2
+            overcloud_storage_net: storage-leaf2
+            overcloud_storage_mgmt_net: storage_mgmt-leaf2
+            overcloud_tenant_net: tenant-leaf2
+            {% endif %}
+
+    - when: nodes_leaf2|bool
+      name: Set leaf2 role args
+      set_fact:
+        role_leaf2_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-leaf2.yaml'
+
 - when: ipv6|bool
   block:
     - name: Write IPv6 environment file
       copy:
         dest: "{{ ovb_working_dir }}/env-{{ idnum }}-ipv6.yaml"
         content: |
-          # net_cidrs matching tripleo-heat-templates/network_data.yaml
+          resource_registry:
+            {% if routed_networks|bool -%}
+            OS::OVB::DHCPRelay: {{ ovb_repo_directory }}/templates/dhcpv6-relay.yaml
+            OS::OVB::ProvisionNetRouter: OS::Heat::None
+            OS::OVB::ProvisionNetRouterInterface: OS::Heat::None
+            {% else -%}
+            OS::OVB::RouterAdvertisementDaemon: {{ ovb_repo_directory }}/templates/ipv6-radvd.yaml
+            {% endif %}
+
           parameter_defaults:
             radvd_flavor: {{ cloud_settings[cloud_name]['radvd_flavor'] }}
             radvd_image: {{ cloud_settings[cloud_name]['radvd_image'] }}
             provision_net_ip_version: 6
             provision_net_cidr: fd00:fd00:fd00:1000::/64
-            radvd_provision_address: fd00:fd00:fd00:1000::fffe
+            {% if routed_networks|bool -%}
+            provision_net_router_address: fd00:fd00:fd00:0000::fffe
+            provision_net2_ip_version: 6
+            provision_net2_cidr: fd00:fd00:fd00:0001::/64
+            provision_net2_router_address: fd00:fd00:fd00:0001::fffe
+            provision_net3_ip_version: 6
+            provision_net3_cidr: fd00:fd00:fd00:0002::/64
+            provision_net3_router_address: fd00:fd00:fd00:0002::fffe
+            {% else -%}
+            radvd_provision_address: fd00:fd00:fd00:0000::fffe
+            {% endif -%}
             IPv6_dhcpv6-statefull: {{ ipv6_stateful }}
             {% if net_iso in ['multi-nic', 'public-bond'] -%}
             public_net_ip_version: 6
+            public_net_cidr: 2001:db8:fd00:1000::/64
+            public_net_allocation_pools: [{"start": "2001:db8:fd00:1000:0000:0000:0000:0010", "end": "2001:db8:fd00:1000:0000:0000:0000:0990"}]
             overcloud_internal_net_ip_version: 6
             overcloud_storage_net_ip_version: 6
             overcloud_storage_mgmt_net_ip_version: 6
             overcloud_tenant_net_ip_version: 6
-            public_net_cidr: 2001:db8:fd00:1000::/64
-            public_net_allocation_pools: [{"start": "2001:db8:fd00:1000:0000:0000:0000:0001", "end": "2001:db8:fd00:1000:0000:0000:0000:0099"}]
-            overcloud_internal_net_cidr: fd00:fd00:fd00:2000::/64
-            overcloud_storage_net_cidr: fd00:fd00:fd00:3000::/64
-            overcloud_storage_mgmt_net_cidr: fd00:fd00:fd00:4000::/64
-            overcloud_tenant_net_cidr: fd00:fd00:fd00:5000::/64
-            {%- endif -%}
+            overcloud_internal_net_cidr: fd00:fd00:fd00:1000::/64
+            overcloud_storage_net_cidr: fd00:fd00:fd00:2000::/64
+            overcloud_storage_mgmt_net_cidr: fd00:fd00:fd00:3000::/64
+            overcloud_tenant_net_cidr: fd00:fd00:fd00:4000::/64
+            {% if routed_networks|bool -%}
+            public_net_router_address: 2001:db8:fd00:1000::1
+            overcloud_internal_net_router_address: fd00:fd00:fd00:1000::1
+            overcloud_storage_net_router_address: fd00:fd00:fd00:2000::1
+            overcloud_storage_mgmt_net_router_address: fd00:fd00:fd00:3000::1
+            overcloud_tenant_net_router_address: fd00:fd00:fd00:4000::1
+            overcloud_internal_net2_ip_version: 6
+            overcloud_internal_net2_cidr: fd00:fd00:fd00:1001::/64
+            overcloud_internal_net2_router_address: fd00:fd00:fd00:1001::1
+            overcloud_storage_net2_ip_version: 6
+            overcloud_storage_net2_cidr: fd00:fd00:fd00:2001::/64
+            overcloud_storage_net2_router_address: fd00:fd00:fd00:2001::1
+            overcloud_storage_mgmt_net2_ip_version: 6
+            overcloud_storage_mgmt_net2_cidr: fd00:fd00:fd00:3001::/64
+            overcloud_storage_mgmt_net2_router_address: fd00:fd00:fd00:3001::1
+            overcloud_tenant_net2_ip_version: 6
+            overcloud_tenant_net2_cidr: fd00:fd00:fd00:4001::/64
+            overcloud_tenant_net2_router_address: fd00:fd00:fd00:4001::1
+            {% endif -%}
+            {% endif -%}
     - name: Set IPv6 arguments
       set_fact:
-        ipv6_args: -e {{ ovb_working_dir }}/env-{{ idnum }}-ipv6.yaml -e {{ ovb_repo_directory }}/environments/ipv6-radvd.yaml
+        ipv6_args: -e {{ ovb_working_dir }}/env-{{ idnum }}-ipv6.yaml
 
-- name: Set network isolation
+- when: not routed_networks|bool
+  name: Set network isolation
   set_fact:
     net_args: >-
       {%- if net_iso == 'multi-nic' -%} -e {{ ovb_repo_directory }}/environments/all-networks-port-security.yaml
@@ -134,6 +322,7 @@
       --name {{ stack_name }} --quintupleo --id {{ idnum }}
       {{ env_args }} {{ undercloud_args }} {{ net_args|default('') }}
       {{ ipv6_args|default('') }} {{ role_extra_node_args|default('') }}
+      {{ role_leaf1_args|default('') }} {{ role_leaf2_args|default('') }}
 
 - name: Print ovb args
   debug:
