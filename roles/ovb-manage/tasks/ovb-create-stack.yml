@@ -40,7 +40,7 @@
       args:
         chdir: "{{ ovb_repo_directory }}"
 
-    - name: Wait until stack is created of failed
+    - name: Wait until stack is created or failed
       command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
       register: result
