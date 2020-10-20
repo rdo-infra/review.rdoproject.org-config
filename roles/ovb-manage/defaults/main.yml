@@ -14,6 +14,8 @@ tmp:
 key_name: tripleo-ci-team
 stack_name: 'baremetal_{{ idnum }}'
 nodes: 3ctlr_1comp # overwritten in job config
+nodes_leaf1: 3ctlr # overwritten in job config
+nodes_leaf2: 1comp # overwritten in job config
 nodes_config:
     3ctlr_1comp: 4
     1ctlr_1comp: 2
@@ -22,6 +24,13 @@ nodes_config:
     3ctlr_1comp_1supp: 4
     1ctlr_2comp_1supp: 3
     1ctlr_1cellctrl_1comp: 3
+    routed_networks: 0
+routed_leaf1_nodes_config:
+  1ctlr: 1
+  3ctlr: 3
+routed_leaf2_nodes_config:
+  1comp: 1
+  2comp: 2
 node_count: "{{ nodes_config[nodes] }}"
 extra_node: "{{ nodes | regex_replace('.*(\\d+)supp', '\\1') | int | default(0) }}"
 
@@ -55,6 +64,8 @@ cloud_settings:
         baremetal_image: "{{ rdo_baremetal_image }}"
         radvd_flavor: ci.m1.small
         radvd_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_flavor: ci.m1.small
     vexxhost:
         public_ip_net: public
         undercloud_flavor: ci.m1.nodepool
@@ -64,6 +75,8 @@ cloud_settings:
         baremetal_image: "{{ rdo_baremetal_image }}"
         radvd_flavor: ci.m1.small
         radvd_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_flavor: ci.m1.small
     upshift:
         public_ip_net: provider_net_shared_2
         undercloud_flavor: ci.m1.xlarge
@@ -73,6 +86,8 @@ cloud_settings:
         baremetal_image: "{{ rdo_baremetal_image }}"
         radvd_flavor: ci.m1.small
         radvd_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_flavor: ci.m1.small
 
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
@@ -89,7 +104,7 @@ undercloud_args: >-
     {%-if not create_undercloud|bool -%}
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
     {%- else -%}{%- endif -%}
-role_args: ''
+extra_node_args: ''
 extra_node_key_name: extranode-key
 install_epel: true
 # based on lastest stein versions picked from
@@ -105,3 +120,5 @@ packages:
   - python-pip
   - python-virtualenv
 public_net_allocation_pools: [{"start": "10.0.0.128", "end": "10.0.0.199"}]
+role_leaf1_args: ''
+role_leaf2_args: ''
