@@ -100,7 +100,7 @@
             provision_net_ip_version: 6
             provision_net_cidr: fd00:fd00:fd00:1000::/64
             radvd_provision_address: fd00:fd00:fd00:1000::fffe
-            IPv6_dhcpv6-statefull: false
+            IPv6_dhcpv6-statefull: {{ ipv6_stateful }}
             {% if net_iso in ['multi-nic', 'public-bond'] -%}
             public_net_ip_version: 6
             overcloud_internal_net_ip_version: 6
