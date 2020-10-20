@@ -87,6 +87,7 @@ env_args: >-
 net_args: ''
 ipv6: false
 ipv6_args: ''
+ipv6_stateful: true
 undercloud_args: >-
     {%-if not create_undercloud|bool -%}
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
