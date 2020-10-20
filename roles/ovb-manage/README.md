@@ -42,6 +42,8 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 - ipv6
 - ipv6_stateful
 - logs_dir
+- nodes
+- nodes_config
 - nodes_file
 - ovb_clone
 - ovb_repo_directory
@@ -49,6 +51,9 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 - ovb_repo_url
 - ovb_repo_version
 - ovb_working_dir
+- routed_networks
+- nodes_leaf1
+- nodes_leaf2
 - undercloud_args
 
 - net_iso: <multi-nic> -- other options are 'none' and 'public-bond'
