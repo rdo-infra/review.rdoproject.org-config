@@ -39,6 +39,7 @@ Parameters used the env.yaml file to create the OVB heat stack (See defaults/mai
 - failed_log
 - fail_in_remove
 - ipv6
+- ipv6_stateful
 - ipv6_args
 - logs_dir
 - net_args
