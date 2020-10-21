@@ -22,14 +22,18 @@
     src: clouds.yaml.j2
     dest: "{{ clouds_yaml }}"
     mode: 0755
-  when: cloud_name != "psi-public-nodepool-tripleo"
+  when:
+    - cloud_name != "psi-public-nodepool-tripleo"
+    - create_clouds_yaml|bool
 
 - name: Generate clouds.yaml file for psi-cloud
   template:
     src: psi-public-nodepool-tripleo.yaml.j2
     dest: "{{ clouds_yaml }}"
     mode: 0755
-  when: cloud_name == "psi-public-nodepool-tripleo"
+  when:
+    - cloud_name == "psi-public-nodepool-tripleo"
+    - create_clouds_yaml|bool
 
 - name: Install heat stack
   # notest tells molecule to skip during functional testing
@@ -155,6 +159,7 @@
       file:
         path: "{{ clouds_yaml }}"
         state: absent
+      when: create_clouds_yaml|bool
 
   environment:
     - OS_CLIENT_CONFIG_FILE: "{{ clouds_yaml }}"

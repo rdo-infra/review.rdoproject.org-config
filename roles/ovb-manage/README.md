@@ -26,9 +26,10 @@ To interact with the Openstack Virtual Baremetal host cloud, credentials are nee
 
 Parameters required to access the stack:
 - stack_name: <'baremetal_{{ idnum }}'> -- name for OVB heat stack
-- clouds_yaml: <path> path to clouds.yaml file
+- create_clouds_yaml: `bool` When `false` existing clouds.yaml in ~/.config/openstack/clouds.yaml or /etc/openstack/clouds.yaml must exist.
+- clouds_yaml: <path> path to clouds.yaml file (Optional if `create_clouds_yaml: false`)
 - cloud_name: <cloud_name> name of cloud in clouds.yaml file
-- cloud_credentials: dictionary of cloud credentials for authentication
+- cloud_credentials: dictionary of cloud credentials for authentication (Optional if `create_clouds_yaml: false`)
 - key_name: <key_name> key name to attache to ovb
 
 
