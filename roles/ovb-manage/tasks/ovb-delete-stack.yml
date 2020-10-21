@@ -41,6 +41,7 @@
     src: clouds.yaml.j2
     dest: "{{ clouds_yaml }}"
     mode: 0755
+  when: create_clouds_yaml|bool
 
 - name: Start deletion process
   block:
@@ -177,6 +178,7 @@
       file:
         path: "{{ clouds_yaml }}"
         state: absent
+      when: create_clouds_yaml|bool
 
   environment:
     - OS_CLIENT_CONFIG_FILE: "{{ clouds_yaml }}"
