@@ -132,9 +132,10 @@
   set_fact:
     ovb_args: >-
       --name {{ stack_name }} --quintupleo --id {{ idnum }}
-      {{ env_args }} {{ undercloud_args }} {{ net_args }}  {{ ipv6_args }}  {{ role_extra_node_args|default('') }}
+      {{ env_args }} {{ undercloud_args }} {{ net_args|default('') }}
+      {{ ipv6_args|default('') }} {{ role_extra_node_args|default('') }}
 
 - name: Print ovb args
   debug:
     msg:
-      "OVB args:'{{ ovb_args }}'"
+      "OVB args:'{{ ovb_args|default('') }}'"
