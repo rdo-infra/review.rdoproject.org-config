@@ -77,14 +77,11 @@ cloud_settings:
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
 attach_to_ovb_networks: true
-ovb_args: ''
 env_args: >-
     -e {{ ovb_working_dir }}/env-{{ idnum }}-base.yaml
     -e {{ ovb_repo_directory }}/environments/bmc-use-cache.yaml
     -e {{ ovb_repo_directory }}/environments/undercloud-floating-none.yaml
-net_args: ''
 ipv6: false
-ipv6_args: ''
 ipv6_stateful: true
 undercloud_args: >-
     {%-if not create_undercloud|bool -%}
