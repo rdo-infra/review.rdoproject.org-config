@@ -25,6 +25,15 @@
             yumdownloader centos-repos
             sudo rpm --root /tmp/root -ivh --nodeps centos-repos-*.rpm
           {% endif %}
+          sudo cat << EOF > /tmp/root/etc/yum.repos.d/CentOS-NFV-OVS.repo
+          [NFV OVS]
+          name=CentOS-$releasever - NFV OVS
+          mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=nfv-openvswitch-2
+          #baseurl=http://mirror.centos.org/centos/$releasever/nfv/$basearch/openvswitch-2/
+          enabled=1
+          gpgcheck=1
+          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+          EOF
           # rpmfactory-temp-release-1.0-1 is built by the base-pkg-validation builder
           # It defines two repositories: the newton one (from CBS) and the temporary CBS one that contains
           # packages we freshly built within that Koji task
