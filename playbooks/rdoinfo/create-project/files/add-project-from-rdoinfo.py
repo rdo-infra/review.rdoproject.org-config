@@ -96,5 +96,30 @@ def add_project_resources(prefix, name, maintainers):
             else:
                 fp.write(line[2:])
 
+
+def add_project_package(prefix, name):
+    # Add the project to the rdo.yaml resource, so it can be indexed
+    # by RepoXplorer
+    with open('resources/rdo.yaml') as fp:
+        resource =  yaml.load(fp, Loader=yaml.RoundTripLoader)
+
+    project = "%s/%s-distgit" % (prefix, name)
+    data = yaml.comments.CommentedMap(
+        [(project, yaml.comments.CommentedMap([('zuul/include', [])]))])
+    if data not in resource['resources']['projects']['RDO']['source-repositories']:
+        resource['resources']['projects']['RDO']['source-repositories'].append(data)
+    else:
+        print("Key %s is already in" % project)
+
+    resource['resources']['projects']['RDO']['source-repositories'] = sorted(
+        resource['resources']['projects']['RDO']['source-repositories'], key=lambda i: sorted(i.keys()))
+
+    with open('resources/rdo.yaml', 'w') as fp:
+        fp.write(yaml.dump(resource,
+                           Dumper=yaml.RoundTripDumper,
+                           indent=2,
+                           block_seq_indent=0))
+
 if __name__ == '__main__':
     add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3])
+    add_project_package(sys.argv[1], sys.argv[2])
