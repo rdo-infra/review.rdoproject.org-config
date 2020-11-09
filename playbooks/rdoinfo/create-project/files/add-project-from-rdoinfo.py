@@ -105,7 +105,10 @@ def add_project_package(prefix, name):
 
     project = "%s/%s-distgit" % (prefix, name)
     data = yaml.comments.CommentedMap(
-        [(project, yaml.comments.CommentedMap([('zuul/include', [])]))])
+        [(project, yaml.comments.CommentedMap([
+            ('zuul/include', []),
+            ('repoxplorer/branches', ["rpm-master"]),
+        ]))])
     if data not in resource['resources']['projects']['RDO']['source-repositories']:
         resource['resources']['projects']['RDO']['source-repositories'].append(data)
     else:
