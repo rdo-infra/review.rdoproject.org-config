@@ -101,11 +101,14 @@ def add_project_package(prefix, name):
     # Add the project to the rdo.yaml resource, so it can be indexed
     # by RepoXplorer
     with open('resources/rdo.yaml') as fp:
-        resource =  yaml.load(fp, Loader=yaml.RoundTripLoader)
+        resource =  yaml.load(fp, Loader=yaml.RoundTripLoader, preserve_quotes=True)
 
     project = "%s/%s-distgit" % (prefix, name)
     data = yaml.comments.CommentedMap(
-        [(project, yaml.comments.CommentedMap([('zuul/include', [])]))])
+        [(project, yaml.comments.CommentedMap([
+            ('zuul/include', []),
+            ('repoxplorer/branches', ["rpm-master"]),
+        ]))])
     if data not in resource['resources']['projects']['RDO']['source-repositories']:
         resource['resources']['projects']['RDO']['source-repositories'].append(data)
     else:
