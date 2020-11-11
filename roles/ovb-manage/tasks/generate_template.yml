@@ -63,7 +63,7 @@
         replace: "{{ item.1 }}"
       loop:
         - - 'key_name:.*'
-          - 'key_name: {{ extra_node_key_name }}-{{ idnum }}'
+          - 'key_name: {{ extra_node_key_name }}{% if extra_node_create_key|bool %}-{{ idnum }}{% endif %}'
         - - 'node_count:.*'
           - 'node_count: {{ extra_node }}'
         - - '../templates/baremetal-ports-extra-node-port-security.yaml'
