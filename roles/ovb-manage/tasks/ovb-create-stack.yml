@@ -30,7 +30,9 @@
       shell: |
         ssh-keygen -N "" -f ~/extranode-id_rsa;
         {{ ovb_working_dir }}/.venv/bin/openstack keypair create --public-key ~/extranode-id_rsa.pub {{ extra_node_key_name }}-{{ idnum }};
-      when: extra_node|bool
+      when:
+       - extra_node|bool
+       - extra_node_create_key|bool
 
     - name: Create a stack
       command: |

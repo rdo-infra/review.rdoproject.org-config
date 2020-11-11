@@ -91,6 +91,7 @@ undercloud_args: >-
     -e {{ ovb_repo_directory }}/environments/quintupleo-no-undercloud.yaml
     {%- else -%}{%- endif -%}
 extra_node_key_name: extranode-key
+extra_node_create_key: true
 install_epel: true
 # based on lastest stein versions picked from
 # https://releases.openstack.org/stein/index.html#service-client-projects

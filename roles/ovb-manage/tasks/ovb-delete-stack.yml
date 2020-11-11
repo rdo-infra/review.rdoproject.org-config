@@ -101,7 +101,9 @@
     - name: Delete extra node key
       command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack keypair delete {{ extra_node_key_name }}-{{ idnum }}
-      when: extra_node|bool
+      when:
+        - extra_node|bool
+        - extra_node_create_key|bool
       ignore_errors: true
 
     - name: Delete stack
