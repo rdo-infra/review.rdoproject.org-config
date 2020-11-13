@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/ansible-role-collect-logs-core:
+      description: Core developers for project ansible-role-collect-logs
+      members:
+      - weshayutin@gmail.com
+      - chkumar@redhat.com
+    openstack/ansible-role-collect-logs-ptl:
+      description: Project team lead for project ansible-role-collect-logs
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-role-collect-logs-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-collect-logs-core
+          owner = group openstack/ansible-role-collect-logs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-collect-logs-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-collect-logs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-collect-logs-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-collect-logs-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-role-collect-logs-core
+          label-Verified = -2..+2 group openstack/ansible-role-collect-logs-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-role-collect-logs-core
+          label-Workflow = -1..+1 group openstack/ansible-role-collect-logs-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-collect-logs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-collect-logs-core
+      - openstack/ansible-role-collect-logs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-role-collect-logs:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-collect-logs-core
+          owner = group openstack/ansible-role-collect-logs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-collect-logs-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-collect-logs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-collect-logs-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-collect-logs-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-role-collect-logs-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-role-collect-logs-core
+          label-Workflow = -1..+0 group openstack/ansible-role-collect-logs-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-collect-logs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-collect-logs-core
+      - openstack/ansible-role-collect-logs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-role-collect-logs:
+      acl: openstack-ansible-role-collect-logs
+      description: Mirror of upstream ansible-role-collect-logs (mirror + patches)
+    openstack/ansible-role-collect-logs-distgit:
+      acl: openstack-ansible-role-collect-logs-distgit
+      description: Packaging of upstream ansible-role-collect-logs
+      default-branch: rpm-master
+      branches:
+        master: '0'
