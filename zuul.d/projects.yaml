@@ -2513,6 +2513,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-role-collect-logs
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-collect-logs-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-role-container-registry
     templates:
       - package-check-jobs
