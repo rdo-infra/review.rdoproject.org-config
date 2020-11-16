@@ -26,7 +26,7 @@
 
 - name: Generate clouds.yaml file for psi-cloud
   template:
-    src: psi-public-nodepool-tripleo.yaml.j2
+    src: psi_public_nodepool_tripleo.yaml.j2
     dest: "{{ clouds_yaml }}"
     mode: 0755
   when: cloud_name == "psi_public_nodepool_tripleo"
