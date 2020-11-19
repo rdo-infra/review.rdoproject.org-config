@@ -59,9 +59,6 @@
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             vars:
               force_non_periodic: true
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            vars:
-              force_non_periodic: true
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035:
             vars:
               force_non_periodic: true
@@ -103,22 +100,6 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleo_ansible/.*
-            irrelevant-files:
-              - .*.md$
-              - .*.rst$
-              - .*.txt$
-              - .*molecule.*
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleo_ansible/.*
-            irrelevant-files:
-              - .*.md$
-              - .*.rst$
-              - .*.txt$
-              - .*molecule.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             files:
               - ^tripleo_ansible/.*
@@ -347,16 +328,6 @@
               - ^tripleoclient/.*/overcloud_node.*$
               - ^tripleoclient/.*/overcloud_deploy.*$
               - ^tripleoclient/.*/baremetal.*$
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleoclient/.*/overcloud_node.*$
-              - ^tripleoclient/.*/overcloud_deploy.*$
-              - ^tripleoclient/.*/baremetal.*$
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleoclient/.*/overcloud_node.*$
-              - ^tripleoclient/.*/overcloud_deploy.*$
-              - ^tripleoclient/.*/baremetal.*$
 
 - project:
     name: opendev.org/openstack/metalsmith
@@ -364,9 +335,6 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^metalsmith_ansible/.*/metalsmith_instances.*$
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             files:
               - ^metalsmith_ansible/.*/metalsmith_instances.*$
