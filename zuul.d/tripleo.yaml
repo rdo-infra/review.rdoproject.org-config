@@ -32,13 +32,6 @@
       - vexxhost-check
       - ci-config-molecule-python
       - tempest-skiplist-integration-pipeline
-    openstack-check:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
-            voting: false
-            files:
-              - ^toci-quickstart/config/testenv/ovb-vexxhost.yml$
-              - ^toci-quickstart/config/testenv/ovb.yml$
     openstack-regular:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
@@ -66,10 +59,6 @@
             vars:
               force_non_periodic: true
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset035:
-            vars:
-              force_non_periodic: true
-        # just vexxhost job running temporarly, remove after moving to vexxhost
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             vars:
               force_non_periodic: true
 
@@ -112,14 +101,6 @@
               - .*.txt$
               - .*molecule.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleo_ansible/.*
-            irrelevant-files:
-              - .*.md$
-              - .*.rst$
-              - .*.txt$
-              - .*molecule.*
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             files:
               - ^tripleo_ansible/.*
             irrelevant-files:
@@ -337,16 +318,6 @@
         - vexxhost-check
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-vexxhost:
-            files:
-              - ^tripleoclient/.*/overcloud_node.*$
-              - ^tripleoclient/.*/overcloud_deploy.*$
-              - ^tripleoclient/.*/baremetal.*$
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
-            files:
-              - ^tripleoclient/.*/overcloud_node.*$
-              - ^tripleoclient/.*/overcloud_deploy.*$
-              - ^tripleoclient/.*/baremetal.*$
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
             files:
               - ^tripleoclient/.*/overcloud_node.*$
@@ -365,8 +336,5 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^metalsmith_ansible/.*/metalsmith_instances.*$
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-vexxhost:
             files:
               - ^metalsmith_ansible/.*/metalsmith_instances.*$
