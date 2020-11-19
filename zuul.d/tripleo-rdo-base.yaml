@@ -11,7 +11,9 @@
     # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
     # often in train and stein. https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
     timeout: 14400
-    nodeset: tripleo-ovb-centos-7-primary
+    nodeset: upstream-centos-7-vexxhost
+    vars:
+      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-rdo-centos-8
@@ -23,7 +25,9 @@
     # often in train and stein.
     # https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
     timeout: 14400
-    nodeset: tripleo-ovb-centos-8-primary
+    nodeset: upstream-centos-7-vexxhost
+    vars:
+      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-tebroker
@@ -32,7 +36,9 @@
         Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
     parent: tripleo-ci-base-ovb
     timeout: 12600
-    nodeset: tripleo-ovb-centos-7-primary
+    nodeset: upstream-centos-7-vexxhost
+    vars:
+      cloud_name: vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -43,7 +49,9 @@
         Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs with te-broker
     parent: tripleo-ci-base-ovb-centos-8
     timeout: 12600
-    nodeset: tripleo-ovb-centos-8-primary
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+    vars:
+      cloud_name: vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -54,7 +62,7 @@
         Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
     parent: tripleo-ci-base-ovb
     timeout: 12600
-    nodeset: tripleo-ovb-centos-7-primary
+    nodeset: upstream-centos-7-vexxhost
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -72,6 +80,7 @@
       - rdo_registry
     vars:
       registry_login_enabled: true
+      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-notebroker-centos-8
@@ -80,7 +89,7 @@
         Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs without te-broker
     parent: tripleo-ci-base-ovb-centos-8
     timeout: 12600
-    nodeset: tripleo-ovb-centos-8-primary
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -99,6 +108,7 @@
     vars:
       registry_login_enabled: true
       configure_swap_size: 4096
+      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-no-deployment-testonly
@@ -119,7 +129,7 @@
     description: |
         Base abstract job for multinode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-multinode
-    nodeset: two-centos-7-nodes
+    nodeset: two-centos-7-nodes-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -140,7 +150,7 @@
     description: |
         Base abstract job for multinode in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-ci-base-multinode-centos-8
-    nodeset: two-centos-8-nodes
+    nodeset: two-centos-8-nodes-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -162,7 +172,7 @@
     description: |
         Base abstract job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-singlenode
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -183,7 +193,7 @@
     description: |
         Base abstract job for singlenode in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-ci-base-singlenode-centos-8
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -205,7 +215,7 @@
     description: |
         Base abstract container build job for singlenode in RDO CI zuulv3 jobs
     parent: tripleo-build-containers-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -215,7 +225,7 @@
     description: |
         Base abstract container build job for singlenode in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-build-containers-base-centos-8
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -225,7 +235,7 @@
     description: |
         Base abstract job for standalone in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -246,7 +256,7 @@
     description: |
         Base abstract job for standalone in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-ci-base-standalone-centos-8
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -267,7 +277,7 @@
     description: |
         Base abstract job for standalone upgrade in RDO CI zuulv3 jobs
     parent: tripleo-ci-base-standalone-upgrade
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -288,7 +298,7 @@
     description: |
         Base abstract job for standalone upgrade in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-ci-base-standalone-upgrade-centos-8
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
@@ -312,7 +322,7 @@
     description: |
         Base abstract tripleo image build job for singlenode RDO CI zuulv3 jobs
     parent: tripleo-build-images-base
-    nodeset: single-centos-7-node
+    nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -322,7 +332,7 @@
     description: |
         Base abstract tripleo image build job for singlenode RDO CI centos-8 zuulv3 jobs
     parent: tripleo-build-images-base-centos-8
-    nodeset: single-centos-8-node
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
