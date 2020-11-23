@@ -37,44 +37,6 @@
     vars:
       release: queens
 
- # pre/post for dlrn reporting keeping for now (we'll need for pipeline)
- # will also need a post for upload/rsync images (site_logs secret logserver)
-- job:
-    name: tripleo-rhel-8-master-buildimage-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-build-images
-    nodeset: single-rhel-8-node
-    required-projects:
-      - config
-    host-vars:
-      primary:
-        ansible_python_interpreter: /usr/bin/python3
-      localhost:
-        ansible_python_interpreter: /usr/bin/python3
-    vars:
-      tripleo_image_os: rhel8
-      # We are using the rcm-guest for storing the guest for now. It already has rhui repos
-      # installed. See https://tree.taiga.io/project/tripleo-ci-board/task/1167 for more info
-      # Updated to rhel8.1 as part of https://bugs.launchpad.net/tripleo/+bug/1853028
-      tripleo_image_source: https://images.rdoproject.org:4433/rcm-guest/images/rhel_base/rhel-8.1-base/rhel-8.1-x86_64-kvm.qcow2
-
-- job:
-    name: periodic-tripleo-rhel-8-master-buildimage-base
-    abstract: true
-    parent: tripleo-rhel-8-master-buildimage-base
-    nodeset: single-rhel-8-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    vars:
-      build_override_repos: tripleo-ci-testing
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
 - job:
     name: tripleo-centos-8-master-buildimage-base
     abstract: true
@@ -120,25 +82,6 @@
       - dlrnapi
 
 - job:
-    name: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
-    parent: periodic-tripleo-rhel-8-master-buildimage-base
-    post-run:
-      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
-    vars:
-      tripleo_image_type: overcloud-full
-      release: master
-    secrets:
-      - uploader_ssh_key
-
-# This is not used in periodic
-- job:
-    name: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-master
-    parent: periodic-tripleo-rhel-8-master-buildimage-base
-    vars:
-      tripleo_image_type: overcloud-hardened-full
-      release: master
-
-- job:
     name: periodic-tripleo-centos-8-buildimage-overcloud-hardened-full-master
     parent: periodic-tripleo-centos-8-master-buildimage-base
     post-run:
@@ -168,17 +111,6 @@
       - playbooks/tripleo-ci-periodic-base-upload/post.yaml
     vars:
       tripleo_image_type: overcloud-full
-      release: master
-    secrets:
-      - uploader_ssh_key
-
-- job:
-    name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
-    parent: periodic-tripleo-rhel-8-master-buildimage-base
-    post-run:
-      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
-    vars:
-      tripleo_image_type: ironic-python-agent
       release: master
     secrets:
       - uploader_ssh_key
@@ -222,33 +154,8 @@
        branch_override: 'stable/train'
 
 - job:
-    name: periodic-tripleo-rhel-8-buildimage-overcloud-full-train
-    parent: periodic-tripleo-rhel-8-buildimage-overcloud-full-master
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-# This is not used in periodic
-- job:
-    name: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-train
-    parent: periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-master
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-- job:
     name: periodic-tripleo-centos-7-buildimage-overcloud-full-train
     parent: periodic-tripleo-centos-7-buildimage-overcloud-full-master
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-- job:
-    name: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-train
-    parent: periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -366,31 +273,6 @@
        use_buildah: true
 
 - job:
-    name: periodic-tripleo-rhel-8-master-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    secrets:
-      - rdo_registry
-    host-vars:
-      primary:
-        ansible_python_interpreter: /usr/bin/python3
-      localhost:
-        ansible_python_interpreter: /usr/bin/python3
-    vars:
-      release: master
-      use_buildah: true
-      kolla_base_image: rhel
-      # Keep string empty, or kolla will try to download delorean repos on its own
-      buildcontainers_rpm_setup_config: ""
-      kolla_base_tag: 8.0-126
-      kolla_base: rhel
-      kolla_base_pull: false
-      # set push_containers to false as build containers are pushing using podman
-      push_containers: false
-      push_containers_podman: true
-
-- job:
     name: periodic-tripleo-centos-8-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
     post-run:
@@ -425,14 +307,6 @@
        release: train
        branch_override: 'stable/train'
        use_buildah: true
-
-- job:
-    name: periodic-tripleo-rhel-8-train-containers-build-push
-    parent: periodic-tripleo-rhel-8-master-containers-build-push
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
 
 - job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
