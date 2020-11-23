@@ -209,7 +209,6 @@
     name: periodic-tripleo-centos-8-buildimage-overcloud-full-train
     parent: periodic-tripleo-centos-8-buildimage-overcloud-full-master
     override-checkout: 'stable/train'
-    nodeset: single-centos-8-node-vexxhost
     vars:
        release: train
        branch_override: 'stable/train'
@@ -217,7 +216,6 @@
 - job:
     name: periodic-tripleo-centos-8-buildimage-ironic-python-agent-train
     parent: periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
-    nodeset: single-centos-8-node-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -292,7 +290,6 @@
     name: periodic-tripleo-containers-build-push-base-vexxhost
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    nodeset: upstream-centos-7-vexxhost
     vars:
       push_containers: true
       push_registry: trunk.registry.rdoproject.org
@@ -318,7 +315,6 @@
 - job:
     name: periodic-tripleo-centos-7-master-compute-containers-build
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        push_containers: false
@@ -327,7 +323,6 @@
 - job:
     name: periodic-tripleo-centos-7-master-keystone-containers-build
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        push_containers: false
@@ -338,7 +333,6 @@
 - job:
     name: periodic-tripleo-centos-7-master-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        buildcontainers_venv: false
@@ -346,7 +340,6 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/train'
     #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
     timeout: 9000
@@ -357,7 +350,6 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -369,7 +361,6 @@
 - job:
     name: periodic-tripleo-centos-7-master-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     vars:
        release: master
        use_buildah: true
@@ -379,7 +370,6 @@
     parent: periodic-tripleo-containers-build-push-base
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: single-rhel-8-node-vexxhost
     secrets:
       - rdo_registry
     host-vars:
@@ -405,7 +395,6 @@
     parent: periodic-tripleo-containers-build-push-base
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
-    nodeset: single-centos-8-node-vexxhost
     secrets:
       - rdo_registry
     vars:
@@ -422,7 +411,6 @@
 - job:
     name: periodic-tripleo-centos-8-train-containers-build-push
     parent: periodic-tripleo-centos-8-master-containers-build-push
-    nodeset: single-centos-8-node-vexxhost
     override-checkout: 'stable/train'
     vars:
       release: train
@@ -432,7 +420,6 @@
 - job:
     name: periodic-tripleo-centos-7-train-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -442,7 +429,6 @@
 - job:
     name: periodic-tripleo-rhel-8-train-containers-build-push
     parent: periodic-tripleo-rhel-8-master-containers-build-push
-    nodeset: single-rhel-8-node-vexxhost
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -451,7 +437,6 @@
 - job:
     name: periodic-tripleo-centos-7-stein-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/stein'
     vars:
        release: stein
@@ -463,7 +448,6 @@
 - job:
     name: periodic-tripleo-centos-7-rocky-containers-build-push
     parent: periodic-tripleo-containers-build-push-base
-    nodeset: single-centos-7-node-vexxhost
     override-checkout: 'stable/rocky'
     # As this job is consistently timeout so increasing timeout
     timeout: 18000
@@ -474,7 +458,6 @@
 - job:
     name: periodic-tripleo-centos-7-queens-containers-build
     parent: tripleo-ci-base-singlenode-containers-build
-    nodeset: single-centos-7-node-vexxhost
     vars:
        release: queens
        branch_override: 'stable/queens'
@@ -530,7 +513,6 @@
     name: periodic-tripleo-ci-build-containers-ubi-8-push-ussuri
     parent: periodic-tripleo-ci-build-containers-ubi-8-push
     override-checkout: 'stable/ussuri'
-    nodeset: single-centos-8-node-vexxhost
     vars:
       release: ussuri
       branch_override: 'stable/ussuri'
@@ -540,7 +522,6 @@
     name: periodic-tripleo-ci-build-containers-ubi-8-push-train
     parent: periodic-tripleo-ci-build-containers-ubi-8-push
     override-checkout: 'stable/train'
-    nodeset: single-centos-8-node-vexxhost
     vars:
       release: train
       branch_override: 'stable/train'
