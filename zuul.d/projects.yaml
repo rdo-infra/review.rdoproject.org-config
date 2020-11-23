@@ -176,12 +176,10 @@
       jobs:
         - podman-package-centos-8
         - podman-package-fedora-31
-        - podman-package-rhel-8
     openstack-regular:
       jobs:
         - podman-package-centos-8
         - podman-package-fedora-31
-        - podman-package-rhel-8
         - tripleo-podman-integration-centos-8-scenario000-standalone:
             dependencies:
               - podman-package-centos-8
