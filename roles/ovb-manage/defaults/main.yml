@@ -27,7 +27,7 @@ extra_node: "{{ nodes | regex_replace('.*(\\d+)supp', '\\1') | int | default(0) 
 
 create_clouds_yaml: true
 clouds_yaml: "/tmp/clouds.yaml"
-cloud_name: rdocloud # or vexxhost
+cloud_name: vexxhost
 cloud_credentials: "{{ cloud_secrets[cloud_name]|default('') }}"
 os_username: "{{ cloud_credentials.username|default('nosecret') }}"
 os_password: "{{ cloud_credentials.password|default('nosecret') }}"

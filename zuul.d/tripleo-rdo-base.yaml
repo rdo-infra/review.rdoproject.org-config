@@ -12,8 +12,6 @@
     # often in train and stein. https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
     timeout: 14400
     nodeset: upstream-centos-7-vexxhost
-    vars:
-      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-rdo-centos-8
@@ -26,8 +24,6 @@
     # https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
     timeout: 14400
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
-    vars:
-      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-tebroker
@@ -37,8 +33,6 @@
     parent: tripleo-ci-base-ovb
     timeout: 12600
     nodeset: upstream-centos-7-vexxhost
-    vars:
-      cloud_name: vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -50,8 +44,6 @@
     parent: tripleo-ci-base-ovb-centos-8
     timeout: 12600
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
-    vars:
-      cloud_name: vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
@@ -80,7 +72,6 @@
       - rdo_registry
     vars:
       registry_login_enabled: true
-      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-base-ovb-notebroker-centos-8
@@ -108,7 +99,6 @@
     vars:
       registry_login_enabled: true
       configure_swap_size: 4096
-      cloud_name: vexxhost
 
 - job:
     name: tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-no-deployment-testonly
@@ -117,7 +107,6 @@
     nodeset: upstream-centos-8-vexxhost
     run: playbooks/tripleo-rdo-base/testonly/no_deploy_ovb.yaml
     vars:
-      cloud_name: vexxhost
       nodes: 3ctlr_1comp
       featureset: '001'
       featureset_override:
