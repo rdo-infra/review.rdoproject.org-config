@@ -348,6 +348,7 @@
 - job:
     name: periodic-tripleo-build-containers-ubi-8-push-base
     parent: tripleo-build-containers-ubi-8
+    nodeset: single-centos-8-node-vexxhost
     abstract: true
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
