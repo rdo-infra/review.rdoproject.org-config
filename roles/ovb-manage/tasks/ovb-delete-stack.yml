@@ -37,10 +37,7 @@
   include: find_undercloud_uuid.yml
 
 - name: Generate clouds.yaml file
-  template:
-    src: clouds.yaml.j2
-    dest: "{{ clouds_yaml }}"
-    mode: 0755
+  include_tasks: ovb-clouds-config.yml
   when: create_clouds_yaml|bool
 
 - name: Start deletion process
