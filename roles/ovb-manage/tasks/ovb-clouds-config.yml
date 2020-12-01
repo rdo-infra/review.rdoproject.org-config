@@ -1,0 +1,13 @@
+- name: Generate clouds.yaml file
+  template:
+    src: clouds.yaml.j2
+    dest: "{{ clouds_yaml }}"
+    mode: 0755
+  when: cloud_name != "psi_public_nodepool_tripleo"
+
+- name: Generate clouds.yaml file for psi-cloud
+  template:
+    src: psi_public_nodepool_tripleo.yaml.j2
+    dest: "{{ clouds_yaml }}"
+    mode: 0755
+  when: cloud_name != "psi_public_nodepool_tripleo"
