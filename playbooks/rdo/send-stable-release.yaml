@@ -1,6 +1,11 @@
 - hosts: all
   name: rdo-send-stable-release playbook
   tasks:
+    - name: Load rdoinfo data
+      include_role:
+        name: rdoinfo-data
+        tasks_from: load-releases-status
+
     - name: Install required dependencies
       package:
         name:
@@ -34,8 +39,8 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="queens rocky stein train ussuri victoria wallaby"
-          MASTER_RELEASE="wallaby"
+          RELEASES="{{ releases | join(' ') }}
+          MASTER_RELEASE="{{ development_release[0] }}"
           for r in $RELEASES;do
             if [ $r == $MASTER_RELEASE ]; then
               TAG_OPTION=" -t ${r}-uc"
