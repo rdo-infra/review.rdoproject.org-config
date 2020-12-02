@@ -1,0 +1,40 @@
+resources:
+  groups:
+    rdo-website:
+      description: 'RDO Website repository admins'
+      members:
+      - admin@review.rdoproject.org
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - amy@demarco.com
+      - aschultz@next-development.com
+      - lhh@redhat.com
+      - weshayutin@gmail.com
+  acls:
+    rdo-website:
+      file: |
+        [access "refs/*"]
+            read = group rdo-website
+            owner = group rdo-website
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-website
+            submit = group rdo-website
+            read = group Registered Users
+            read = group rdo-website
+            label-Verified = -2..+2 group rdo-website
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-website
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-website
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-website
+  repos:
+    rdo-website:
+      acl: rdo-website
+      description: "RDO Website repository"
