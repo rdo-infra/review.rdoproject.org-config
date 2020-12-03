@@ -9,7 +9,7 @@
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo_gating_scripts'].src_dir }}/rdo-create-project
           virtualenv .venv
           . .venv/bin/activate
-          pip install -r requirements.txt
+          pip install -r requirements.txt -c https://opendev.org/openstack/requirements/raw/branch/stable/train/upper-constraints.txt
           pip install 'ruamel.yaml<=0.15.0'
           pip install --upgrade urllib3
           popd
