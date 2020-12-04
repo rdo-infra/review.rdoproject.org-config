@@ -16,9 +16,9 @@
         gather_subset: 'network'
 
   tasks:
+    - include_role: name=start-zuul-console
     - block:
         - include_role: name=add-build-sshkey
-        - include_role: name=start-zuul-console
         - include_role: name=validate-host
       when: "ansible_connection != 'kubectl'"
     - block:
