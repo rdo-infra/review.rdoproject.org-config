@@ -5,7 +5,7 @@
     name: opendev.org/openstack/puppet-pacemaker
     templates:
       - system-required
-      - vexxhost-check
+      - tripleo-ovb
 
 - project:
     name: opendev.org/openstack/tripleo-ci
@@ -28,8 +28,6 @@
       - system-required
       - tripleo-ovb
       - tripleo-upgrades-check-branchless
-      - vexxhost-experimental
-      - vexxhost-check
       - ci-config-molecule-python
       - tempest-skiplist-integration-pipeline
     openstack-regular:
@@ -67,16 +65,14 @@
     templates:
       - system-required
       - ovb-experimental
-      - vexxhost-experimental
-      - vexxhost-check
+      - tripleo-ovb
 
 - project:
     name: opendev.org/openstack/tripleo-heat-templates
     templates:
       - system-required
       - ovb-experimental
-      - vexxhost-experimental
-      - vexxhost-check
+      - tripleo-ovb
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
@@ -179,8 +175,6 @@
       - tripleo-ovb
       - ovb-branchless
       - ovb-experimental
-      - vexxhost-experimental
-      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063:
@@ -241,8 +235,6 @@
       - tripleo-ovb
       - ovb-branchless
       - ovb-experimental
-      - vexxhost-experimental
-      - vexxhost-check
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063:
@@ -315,7 +307,7 @@
     templates:
         - system-required
         - ovb-experimental
-        - vexxhost-check
+        - tripleo-ovb
     openstack-check:
       jobs:
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
