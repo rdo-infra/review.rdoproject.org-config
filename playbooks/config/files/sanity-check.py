@@ -31,7 +31,6 @@ IGNORED_PROJECTS = {
         'test-project',
         'test-project-2',
         'smoke-test-vexxhost',
-        'rdo-website',
     ],
     'gerritbot': [
         'demo-project',
