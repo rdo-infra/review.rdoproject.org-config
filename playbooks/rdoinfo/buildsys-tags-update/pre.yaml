@@ -11,3 +11,8 @@
         content: "{{ rdoinfo_ssh.private_key }}"
         dest: ~/.ssh/rdoinfo_id_rsa
         mode: 0600
+
+    - name: Load rdoinfo data
+      include_role:
+        name: rdoinfo-data
+        tasks_from: load-releases-status
