@@ -1,6 +1,11 @@
 - hosts: all
   name: rdoinfo-upper-constraints-update playbook
   tasks:
+    - name: Load rdoinfo data
+      include_role:
+        name: rdoinfo-data
+        tasks_from: load-releases-status
+
     - name: rdoinfo-upper-constraints-update
       shell:
         cmd: |
@@ -30,7 +35,7 @@
               GIT_BRANCH="stable/$RELEASE"
               UC_BRANCH="$RELEASE"
             else
-              UC_BRANCH="wallaby-uc"
+              UC_BRANCH="{{ rdo_master_release }}-uc"
               GIT_BRANCH="master"
             fi
             curl -o upper-constraints.txt "https://opendev.org/openstack/requirements/raw/branch/${GIT_BRANCH}/upper-constraints.txt"

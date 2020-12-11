@@ -8,6 +8,12 @@
           - rpmdevtools
         state: present
       become: true
+
+    - name: Load rdoinfo data
+      include_role:
+        name: rdoinfo-data
+        tasks_from: load-releases-status
+
     - name: rdo-send-stable-release
       shell:
         cmd: |
@@ -34,8 +40,8 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="queens rocky stein train ussuri victoria wallaby"
-          MASTER_RELEASE="wallaby"
+          RELEASES="{{ rdo_all_releases }}"
+          MASTER_RELEASE="{{ rdo_master_release }}"
           for r in $RELEASES;do
             if [ $r == $MASTER_RELEASE ]; then
               TAG_OPTION=" -t ${r}-uc"
