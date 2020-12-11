@@ -1,6 +1,11 @@
 - hosts: all
   name: rdo-deps-uc-send-review playbook
   tasks:
+    - name: Load rdoinfo data
+      include_role:
+        name: rdoinfo-data
+        tasks_from: load-releases-status
+
     - name: rdo-deps-uc-send-review
       shell:
         cmd: |
@@ -15,7 +20,7 @@
 
           BRANCH="{{ zuul.branch }}"
           if [ "$BRANCH" == 'master' ]; then
-              RELEASE="wallaby"
+              RELEASE="{{ rdo_master_release }}"
           else
               RELEASE="${BRANCH/stable\//}"
           fi
