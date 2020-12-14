@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/oslo-metrics-core:
+      description: Core developers for project oslo-metrics
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/oslo-metrics-ptl:
+      description: Project team lead for project oslo-metrics
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-metrics-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-metrics-core
+          owner = group openstack/oslo-metrics-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-metrics-core
+          label-Code-Review = -2..+2 group openstack/oslo-metrics-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-metrics-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-metrics-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/oslo-metrics-core
+          label-Verified = -2..+2 group openstack/oslo-metrics-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-metrics-core
+          label-Workflow = -1..+1 group openstack/oslo-metrics-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-metrics-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-metrics-core
+      - openstack/oslo-metrics-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-metrics:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-metrics-core
+          owner = group openstack/oslo-metrics-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-metrics-core
+          label-Code-Review = -2..+2 group openstack/oslo-metrics-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-metrics-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-metrics-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-metrics-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-metrics-core
+          label-Workflow = -1..+0 group openstack/oslo-metrics-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-metrics-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-metrics-core
+      - openstack/oslo-metrics-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-metrics:
+      acl: openstack-oslo-metrics
+      description: Mirror of upstream oslo-metrics (mirror + patches)
+    openstack/oslo-metrics-distgit:
+      acl: openstack-oslo-metrics-distgit
+      description: Packaging of upstream oslo-metrics
+      default-branch: rpm-master
+      branches:
+        master: '0'
