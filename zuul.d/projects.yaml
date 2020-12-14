@@ -4806,6 +4806,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-metrics
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-metrics-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-middleware
     templates:
       - package-check-jobs
