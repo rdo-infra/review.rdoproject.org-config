@@ -29,6 +29,7 @@ EOF
 
 ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
 chmod 644 ~/.ssh/known_hosts
+chmod 600 ~/.ssh/config
 git config user.name "rdo-trunk"
 git config user.email "javier.pena@redhat.com"
 git config gitreview.username "rdo-trunk"
