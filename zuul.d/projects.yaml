@@ -5534,6 +5534,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/sushy-tools
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/sushy-tools-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/swift
     templates:
       - package-check-jobs
