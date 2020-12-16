@@ -1,0 +1,97 @@
+resources:
+  groups:
+    openstack/sushy-tools-core:
+      description: Core developers for project sushy-tools
+      members:
+      - dtantsur@protonmail.com
+      - elfosardo@gmail.com
+      - iurygregory@gmail.com
+      - jkreger@gmail.com
+    openstack/sushy-tools-ptl:
+      description: Project team lead for project sushy-tools
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-sushy-tools-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-tools-core
+          owner = group openstack/sushy-tools-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-tools-core
+          label-Code-Review = -2..+2 group openstack/sushy-tools-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-tools-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-tools-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/sushy-tools-core
+          label-Verified = -2..+2 group openstack/sushy-tools-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/sushy-tools-core
+          label-Workflow = -1..+1 group openstack/sushy-tools-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-tools-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sushy-tools-core
+      - openstack/sushy-tools-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-sushy-tools:
+      file: |
+        [access "refs/*"]
+          read = group openstack/sushy-tools-core
+          owner = group openstack/sushy-tools-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/sushy-tools-core
+          label-Code-Review = -2..+2 group openstack/sushy-tools-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/sushy-tools-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/sushy-tools-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/sushy-tools-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/sushy-tools-core
+          label-Workflow = -1..+0 group openstack/sushy-tools-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/sushy-tools-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/sushy-tools-core
+      - openstack/sushy-tools-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/sushy-tools:
+      acl: openstack-sushy-tools
+      description: Mirror of upstream sushy-tools (mirror + patches)
+    openstack/sushy-tools-distgit:
+      acl: openstack-sushy-tools-distgit
+      description: Packaging of upstream sushy-tools
+      default-branch: rpm-master
+      branches:
+        master: '0'
