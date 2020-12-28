@@ -1,6 +1,10 @@
 ---
 - hosts: all
   tasks:
+    - name: Enable container-tools and disable rhel-modules
+      cmd: dnf module disable container-tools:rhel8 -y; dnf module enable container-tools:2.0 -y;
+      become: true
+
     - name: Include login
       no_log: true
       when: registry_login_enabled|default(false)|bool
