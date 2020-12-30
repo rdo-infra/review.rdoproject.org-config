@@ -9,6 +9,7 @@
           dnf module enable container-tools:2.0 -y;
       changed_when: true
       become: true
+      when: ansible_distribution_major_version|int >= 8
 
     - name: Include login
       no_log: true
