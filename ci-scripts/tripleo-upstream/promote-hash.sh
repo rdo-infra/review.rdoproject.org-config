@@ -14,12 +14,24 @@ source $HASH_INFO_FILE
 
 set -u
 
+DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
+    --distro-hash $DISTRO_HASH"
+
+if [[ -v $EXTENDED_HASH ]]; then
+    DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
+    --distro-hash $DISTRO_HASH \
+    --extended-hash $EXTENDED_HASH"
+else
+    DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
+    --distro-hash $DISTRO_HASH"
+fi
+
 # Assign label to the specific hash using the DLRN API
 dlrnapi --url $DLRNAPI_URL \
     --username $DLRNAPI_USERNAME \
     repo-promote \
-    --commit-hash $COMMIT_HASH \
-    --distro-hash $DISTRO_HASH \
+    $DLRN_API_HASH_ARGS \
     --promote-name $PROMOTE_NAME
+
 
 echo ======== PROMOTE HASH COMPLETED
