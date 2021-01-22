@@ -1,3 +1,5 @@
+: ${EXTENDED_HASH:=""}
+
 source $WORKSPACE/hash_info.sh
 if [ "$SUCCESS" = "true" ] || [ "$SUCCESS" = "True" ]; then
     echo "REPORTING SUCCESS TO DLRN API"

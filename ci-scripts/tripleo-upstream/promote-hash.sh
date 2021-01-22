@@ -9,6 +9,7 @@ activate_dlrnapi_venv
 
 : ${DLRNAPI_USERNAME:="review_rdoproject_org"}
 : ${HASH_INFO_FILE:="$WORKSPACE/hash_info.sh"}
+: ${EXTENDED_HASH:=""}
 
 source $HASH_INFO_FILE
 
