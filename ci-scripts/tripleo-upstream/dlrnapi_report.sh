@@ -8,7 +8,7 @@ fi
 if [[ "$FULL_HASH" == *"_"* ]]; then
     HASH_ARGS=" --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH"
     # When voting on downstream include the extended hash
-    if  [[ -v $EXTENDED_HASH ]]; then
+    if  [[ ! -z $EXTENDED_HASH ]]; then
         HASH_ARGS="$HASH_ARGS --extended_hash $EXTENDED_HASH"
     fi
 else

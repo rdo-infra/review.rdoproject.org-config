@@ -17,7 +17,7 @@ set -u
 DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
     --distro-hash $DISTRO_HASH"
 
-if [[ -v $EXTENDED_HASH ]]; then
+if [[ ! -z $EXTENDED_HASH ]]; then
     DLRN_API_HASH_ARGS="$DLRN_API_HASH_ARGS \
     --extended-hash $EXTENDED_HASH"
 fi
