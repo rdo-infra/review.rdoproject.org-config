@@ -37,8 +37,11 @@
           fi
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           C7_RELEASES="queens rocky stein train"
+          C8s_RELEASES="wallaby"
           if [ $(echo $C7_RELEASES|grep -c -w $RELEASE) -ne 0 ]; then
               CENTOS_V=7
+          elif [ $(echo $C8s_RELEASES|grep -c -w $RELEASE) -ne 0 ]; then
+              CENTOS_V=8s
           fi
           # if not defaults to 8
           CENTOS_V=${CENTOS_V:-8}
