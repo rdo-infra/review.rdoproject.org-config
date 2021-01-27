@@ -41,7 +41,7 @@
               CENTOS_V=7
           fi
           # if not defaults to 8
-          CENTOS_V=${CENTOS_V:-8}
+          CENTOS_V=${CENTOS_V:-8s}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
