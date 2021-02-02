@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/ansible-role-qdr-config-core:
+      description: Core developers for project ansible-role-qdr-config
+      members:
+      - csibbitt@redhat.com
+      - efoley@redhat.com
+    openstack/ansible-role-qdr-config-ptl:
+      description: Project team lead for project ansible-role-qdr-config
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ansible-role-qdr-config-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-qdr-config-core
+          owner = group openstack/ansible-role-qdr-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-qdr-config-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-qdr-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-qdr-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-qdr-config-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ansible-role-qdr-config-core
+          label-Verified = -2..+2 group openstack/ansible-role-qdr-config-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ansible-role-qdr-config-core
+          label-Workflow = -1..+1 group openstack/ansible-role-qdr-config-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-qdr-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-qdr-config-core
+      - openstack/ansible-role-qdr-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ansible-role-qdr-config:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ansible-role-qdr-config-core
+          owner = group openstack/ansible-role-qdr-config-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ansible-role-qdr-config-core
+          label-Code-Review = -2..+2 group openstack/ansible-role-qdr-config-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ansible-role-qdr-config-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ansible-role-qdr-config-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ansible-role-qdr-config-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ansible-role-qdr-config-core
+          label-Workflow = -1..+0 group openstack/ansible-role-qdr-config-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ansible-role-qdr-config-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ansible-role-qdr-config-core
+      - openstack/ansible-role-qdr-config-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ansible-role-qdr-config:
+      acl: openstack-ansible-role-qdr-config
+      description: Mirror of upstream ansible-role-qdr-config (mirror + patches)
+    openstack/ansible-role-qdr-config-distgit:
+      acl: openstack-ansible-role-qdr-config-distgit
+      description: Packaging of upstream ansible-role-qdr-config
+      default-branch: rpm-master
+      branches:
+        master: '0'
