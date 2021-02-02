@@ -2527,6 +2527,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-role-collectd-config
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-collectd-config-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-role-container-registry
     templates:
       - package-check-jobs
