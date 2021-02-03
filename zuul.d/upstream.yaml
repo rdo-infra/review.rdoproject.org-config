@@ -564,6 +564,25 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-dependencies-containertools
+    post-review: true
+    description: CentOS 8 stream based container tools ci dependency jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        # Triggers on Tuesday, Saturday and Sunday
+        - time: '30 18 * * 1,5,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-periodic-weekend
     post-review: true
     description: Jobs in this queue are triggered to run periodically at the weekend.
