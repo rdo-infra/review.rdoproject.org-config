@@ -564,6 +564,25 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-dependencies-openvswitch # do i need different name to https://code.engineering.redhat.com/gerrit/#/c/226592/1/zuul.d/pipelines.yaml
+    post-review: true
+    description: openvswitch ci dependency jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        # Triggers on wed and sun
+        - time: '30 18 * * 2,6'
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-periodic-weekend
     post-review: true
     description: Jobs in this queue are triggered to run periodically at the weekend.
