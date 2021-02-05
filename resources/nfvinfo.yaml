@@ -1,0 +1,36 @@
+resources:
+  groups:
+    nfvinfo:
+      description: 'Core developers for NFV SIG'
+      members:
+      - amoralej@redhat.com
+      - ykarel@redhat.com
+      - jcapitao@redhat.com
+  acls:
+    nfvinfo:
+      file: |
+        [access "refs/*"]
+            read = group nfvinfo
+            owner = group nfvinfo
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group nfvinfo
+            submit = group nfvinfo
+            read = group Registered Users
+            read = group nfvinfo
+            label-Verified = -2..+2 group nfvinfo
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group nfvinfo
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group nfvinfo
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - nfvinfo
+  repos:
+    nfvinfo:
+      acl: nfvinfo
+      description: "NFV SIG information repo"
