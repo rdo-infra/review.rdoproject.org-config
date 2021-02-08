@@ -2807,6 +2807,7 @@
         - distgit-cbs-validate:
             branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
+        - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
@@ -2815,7 +2816,7 @@
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-final-build-centos8
+        - distgit-cbs-final-build-centos8-stream
 
 - project:
     name: review.rdoproject.org/openstack/ceilometermiddleware
@@ -4498,11 +4499,12 @@
         - distgit-cbs-validate:
             branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
+        - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - distgit-cbs-final-build:
             branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-final-build-centos8
+        - distgit-cbs-final-build-centos8-stream
 
 - project:
     name: review.rdoproject.org/openstack/os-apply-config-distgit
@@ -4969,6 +4971,7 @@
         - distgit-cbs-validate:
             branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
+        - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
@@ -4977,7 +4980,7 @@
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-final-build-centos8
+        - distgit-cbs-final-build-centos8-stream
 
 - project:
     name: review.rdoproject.org/openstack/oslo-upgradecheck
@@ -5823,6 +5826,7 @@
         - distgit-cbs-validate:
             branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
+        - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
@@ -5831,7 +5835,7 @@
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
             branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-final-build-centos8
+        - distgit-cbs-final-build-centos8-stream
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-heat-templates-distgit
