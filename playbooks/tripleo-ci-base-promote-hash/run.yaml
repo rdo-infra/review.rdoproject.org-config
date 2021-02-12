@@ -36,9 +36,3 @@
         tasks_from: promote-primary-distro.yaml
       when:
         - (commit_hash_in_promote_target is not defined) or (commit_hash_in_promote_target.stdout  == '[]')
-
-    - name: Promote {{ promote_source }} to {{ promote_target }} for secondary (RHEL) repo if an equivalent exists
-      include_role:
-        name: promote-hash
-        tasks_from: promote-secondary-distro.yaml
-      when: component is not defined

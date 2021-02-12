@@ -12,8 +12,3 @@
       include_role:
         name: promote-hash
         tasks_from: promote-primary-distro.yaml
-
-    - name: Promote consistent to tripleo-ci-testing for secondary (RHEL) repo if an equivalent exists
-      include_role:
-        name: promote-hash
-        tasks_from: promote-secondary-distro.yaml
