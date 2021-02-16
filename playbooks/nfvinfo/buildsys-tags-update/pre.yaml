@@ -1,0 +1,13 @@
+- hosts: all
+  tasks:
+    - name: Create SSH directory
+      file:
+        dest: ~/.ssh
+        mode: 0700
+        state: directory
+
+    - name: Create rdoinfo SSH private key
+      copy:
+        content: "{{ rdoinfo_ssh.private_key }}"
+        dest: ~/.ssh/rdoinfo_id_rsa
+        mode: 0600

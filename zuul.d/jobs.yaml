@@ -468,3 +468,49 @@
     secrets:
       - secret: site_images_vexxhost
         name: fileserver
+
+- job:
+    name: nfvinfo-buildsys-tags-update-testing
+    parent: base
+    description: |
+      This job updates -candidate buildsys tags to -testing for NFV SIG.
+    final: true
+    pre-run:
+      - playbooks/distgit-cbs-validate/pre.yaml
+      - playbooks/nfvinfo/buildsys-tags-update/pre.yaml
+    run: playbooks/nfvinfo/buildsys-tags-update/run.yaml
+    vars:
+      rdoinfo_phase: testing
+    nodeset: rdo-centos-7
+    timeout: 3600
+    required-projects:
+      - name: gating_scripts
+      - name: graffiti
+      - name: nfvinfo
+      - name: rdo-infra/releng
+    secrets:
+      - koji_centos
+      - rdoinfo_ssh
+
+- job:
+    name: nfvinfo-buildsys-tags-update-release
+    parent: base
+    description: |
+      This job updates -candidate buildsys tags to -testing for NFV SIG.
+    final: true
+    pre-run:
+      - playbooks/distgit-cbs-validate/pre.yaml
+      - playbooks/nfvinfo/buildsys-tags-update/pre.yaml
+    run: playbooks/nfvinfo/buildsys-tags-update/run.yaml
+    vars:
+      rdoinfo_phase: release
+    nodeset: rdo-centos-7
+    timeout: 3600
+    required-projects:
+      - name: gating_scripts
+      - name: graffiti
+      - name: nfvinfo
+      - name: rdo-infra/releng
+    secrets:
+      - koji_centos
+      - rdoinfo_ssh
