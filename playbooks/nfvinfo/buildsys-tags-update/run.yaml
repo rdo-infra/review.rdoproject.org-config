@@ -1,5 +1,5 @@
 - hosts: all
-  name: rdoinfo-buildsys-tags-update playbook
+  name: nfvinfo-buildsys-tags-update playbook
   tasks:
     - name: Install required dependencies
       package:
@@ -10,7 +10,7 @@
         state: present
       become: true
 
-    - name: rdoinfo-buildsys-tags-update
+    - name: nfvinfo-buildsys-tags-update
       shell:
         cmd: |
           set +e -x
@@ -54,38 +54,37 @@
               --centos-release 8s
 
 
-            DIFF=$(git diff *.yml)
-            TOPIC=nfvsig-$PHASE
-            if [ -n "$DIFF" ]; then
-              # Check for an open change, if so reuse it
-              change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
-              gerrit query --current-patch-set status:open project:nfvinfo owner:rdo-trunk branch:master \
-                  topic:"$TOPIC"-update)
-              previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
-              if [ -n "$previous" ]; then
-                  CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
-                  COMMIT_MSG="Promote CBS tags update for $TOPIC\n\nChange-Id: $CHANGE_ID\n"
-              else
-                  COMMIT_MSG="Promote CBS tags update for $TOPIC"
-              fi
-              git config user.name "rdo-trunk"
-              git config user.email "javier.pena@redhat.com"
-              git config gitreview.username "rdo-trunk"
-              git checkout -b proposal
-              git review -s -v
-              echo -e $COMMIT_MSG | git commit -F- *.yml
-              # Just in case, check if there are changes between this version and the current review
-              DIFF_RDO=0
-              for i in $(ls *yml 2>/dev/null); do
-                  curl https://review.rdoproject.org/r/changes/nfvinfo~master~$CHANGE_ID/revisions/current/files/$i/content |base64 -d > $i.current
-                  diff $i $i.current
-                  if [ $? -ne 0 ]; then
-                      DIFF_RDO=1
-                  fi
-              done
-              if [ $DIFF_RDO -ne 0 ]; then
-                  git review -t "$TOPIC-update" < /dev/null
-              fi
+          DIFF=$(git diff *.yml)
+          TOPIC=nfvsig-$PHASE
+          if [ -n "$DIFF" ]; then
+            # Check for an open change, if so reuse it
+            change_info=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
+            gerrit query --current-patch-set status:open project:nfvinfo owner:rdo-trunk branch:master \
+                topic:"$TOPIC"-update)
+            previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
+            if [ -n "$previous" ]; then
+                CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
+                COMMIT_MSG="Promote CBS tags update for $TOPIC\n\nChange-Id: $CHANGE_ID\n"
+            else
+                COMMIT_MSG="Promote CBS tags update for $TOPIC"
             fi
-          done
+            git config user.name "rdo-trunk"
+            git config user.email "javier.pena@redhat.com"
+            git config gitreview.username "rdo-trunk"
+            git checkout -b proposal
+            git review -s -v
+            echo -e $COMMIT_MSG | git commit -F- *.yml
+            # Just in case, check if there are changes between this version and the current review
+            DIFF_RDO=0
+            for i in $(ls *yml 2>/dev/null); do
+                curl https://review.rdoproject.org/r/changes/nfvinfo~master~$CHANGE_ID/revisions/current/files/$i/content |base64 -d > $i.current
+                diff $i $i.current
+                if [ $? -ne 0 ]; then
+                    DIFF_RDO=1
+                fi
+            done
+            if [ $DIFF_RDO -ne 0 ]; then
+                git review -t "$TOPIC-update" < /dev/null
+            fi
+          fi
       changed_when: true
