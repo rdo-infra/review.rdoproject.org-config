@@ -55,7 +55,7 @@
         PYTHONIOENCODING: 'utf-8'
 
     - name: Remove instance from provision OVB network
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack server remove network {{ undercloud_uuid }} provision-{{ idnum }}"
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server remove network {{ undercloud_uuid }} ctlplane-{{ idnum }}"
       when: attach_to_ovb_networks|bool
 
     - name: Remove instance from public OVB network
@@ -65,7 +65,7 @@
     - name: List ports of baremetal for delete
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ item.net }} -f value -c id"
       loop:
-        - { net: "provision-{{ idnum }}", delete: true }
+        - { net: "ctlplane-{{ idnum }}", delete: true }
         - { net: "public-{{ idnum }}", delete: "{% if net_iso and net_iso != 'none' %}true{% endif %}" }
       register: baremetal_ports
       when: item.delete|bool
