@@ -58,6 +58,12 @@
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server remove network {{ undercloud_uuid }} ctlplane-{{ idnum }}"
       when: attach_to_ovb_networks|bool
 
+    - name: Remove instance from private OVB network
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack server remove network {{ undercloud_uuid }} private-{{ idnum }}"
+      when:
+        - create_private_network|bool
+        - attach_to_ovb_networks|bool
+
     - name: Remove instance from public OVB network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server remove network {{ undercloud_uuid }} public-{{ idnum }}"
       when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
@@ -66,6 +72,7 @@
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ item.net }} -f value -c id"
       loop:
         - { net: "ctlplane-{{ idnum }}", delete: true }
+        - { net: "private-{{ idnum }}", delete: "{% if create_private_network|bool %}true{% endif %}" }
         - { net: "public-{{ idnum }}", delete: "{% if net_iso and net_iso != 'none' %}true{% endif %}" }
       register: baremetal_ports
       when: item.delete|bool

@@ -91,6 +91,25 @@
       command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ public_id.stdout }}"
       when: net_iso and net_iso != 'none' and attach_to_ovb_networks|bool
 
+    - name: Attach private network to undercloud
+      when:
+        - create_private_network|bool
+        - attach_to_ovb_networks|bool
+      block:
+        - name: Find ID of private network
+          command: "{{ ovb_working_dir }}/.venv/bin/openstack network show private-{{ idnum }} -f value -c id"
+          register: private_id
+
+        - name: Attach instance to private OVB network
+          command: "{{ ovb_working_dir }}/.venv/bin/openstack server add network {{ undercloud_uuid }} {{ private_id.stdout }}"
+
+        - name: Find ports in private network
+          command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ private_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
+          register: private_port
+
+        - name: Disable security in private ports
+          command: "{{ ovb_working_dir }}/.venv/bin/openstack port set {{ private_port.stdout }} --no-security-group --disable-port-security"
+
     - name: Find ports in provision network
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port list --network {{ provision_id.stdout }} --server {{ undercloud_uuid }} -f value -c ID"
       register: provision_port
