@@ -295,7 +295,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8 victoria,8s
+      stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8 victoria,8s ussuri,8s
     nodeset: rdo-centos-7
     timeout: 3600
     required-projects:
@@ -319,7 +319,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8
+      stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8 victoria,8s ussuri,8s
     nodeset: rdo-centos-7
     timeout: 3600
     required-projects:
