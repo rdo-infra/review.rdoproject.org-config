@@ -5,7 +5,10 @@
         cmd: |
           export WORKSPACE={{ ansible_user_dir }}
           export DIST_VER="{{ ansible_distribution_major_version }}"
-          export DIST_REL="{{ "s" if ansible_distribution_release|default(None) == "Stream" }}"
+          source /etc/os-release
+          if [[ $NAME == *'Stream' ]]; then
+              export DIST_REL="s"
+          fi
           ./pkg-validate.sh cloud${DIST_VER}${DIST_REL}-openstack-{{ zuul.branch|replace('-rdo', '') }}-el${DIST_VER} cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
@@ -20,16 +23,22 @@
           sudo mkdir -p /tmp/root/var/lib/rpm
           sudo rpm --root /tmp/root --initdb
           sudo $YUM -y install $YUM-utils
-          {% if ansible_distribution_release|default(None) == "Stream" %}
+          source /etc/os-release
+          if [[ $NAME == *'Stream' ]]; then
+              export DIST_REL="s"
+          fi
+          {% if ansible_distribution_major_version|int > 7 %}
+            if [ $DIST_REL == 's' ]; then
             yumdownloader centos-stream-release
             sudo rpm --root /tmp/root -ivh --nodeps centos-stream-release-*.rpm
             yumdownloader centos-stream-repos
             sudo rpm --root /tmp/root -ivh --nodeps centos-stream-repos-*.rpm
-          {% elif ansible_distribution_major_version|int > 7 %}
+            else
             yumdownloader centos-linux-release
             sudo rpm --root /tmp/root -ivh --nodeps centos-linux-release-*.rpm
             yumdownloader centos-linux-repos
             sudo rpm --root /tmp/root -ivh --nodeps centos-linux-repos-*.rpm
+            fi
           {% else %}
             yumdownloader centos-release
             sudo rpm --root /tmp/root -ivh --nodeps centos-release-*.rpm

@@ -4,7 +4,9 @@
       shell:
         cmd: |
           export DIST_VER="{{ ansible_distribution_major_version }}"
-          export DIST_REL="{{ "s" if ansible_distribution_release|default(None) == "Stream" }}"
+          if [[ $NAME == *'Stream' ]]; then
+              export DIST_REL="s"
+          fi
           WORKSPACE={{ ansible_user_dir }} ./pkg-export.sh cloud${DIST_VER}${DIST_REL}-openstack-{{ zuul.branch|replace('-rdo', '') }}-el${DIST_VER} cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
