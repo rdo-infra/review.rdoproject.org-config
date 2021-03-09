@@ -107,20 +107,12 @@
     name: distgit-cbs-validate-centos8-stream
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8-stream
-    vars:
-      # FIXME (jcapitao): remove this var when https://github.com/ansible/ansible/pull/73034
-      # is available in our tooling.
-      ansible_distribution_release: "Stream"
     branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
 
 - job:
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
-    vars:
-      # FIXME (jcapitao): remove this var when https://github.com/ansible/ansible/pull/73034
-      # is available in our tooling.
-      ansible_distribution_release: "Stream"
     branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
 
 - job:
