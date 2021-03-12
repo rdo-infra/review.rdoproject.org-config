@@ -87,12 +87,11 @@ cloud_settings:
         radvd_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_flavor: ci.m1.small
-        dns_nameservers: ['10.11.5.19', '10.5.30.45']
 
 net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
 attach_to_ovb_networks: true
-create_private_network: true
+create_private_network: false
 env_args: >-
     -e {{ ovb_working_dir }}/env-{{ idnum }}-base.yaml
     -e {{ ovb_repo_directory }}/environments/bmc-use-cache.yaml

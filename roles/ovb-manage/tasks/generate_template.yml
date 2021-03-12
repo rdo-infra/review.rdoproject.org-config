@@ -55,20 +55,6 @@
     - cloud_name in cloud_settings
     - not routed_networks|bool
 
-- name: Customize dns nameserver for cloud where it's defined
-  replace:
-    path: "{{ ovb_repo_directory }}/environments/create-private-network.yaml"
-    regexp: "{{ item.0 }}"
-    replace: "{{ item.1 }}"
-  loop:
-    - - 'dns_nameservers:.*'
-      - "dns_nameservers: {{ cloud_settings[cloud_name]['dns_nameservers'] }}"
-  when:
-    - cloud_name is defined
-    - cloud_name in cloud_settings
-    - "'dns_nameservers' in cloud_settings[cloud_name]"
-    - not routed_networks|bool
-
 - block:
     - name: Customize the extra node template
       replace:
