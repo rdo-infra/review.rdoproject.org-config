@@ -4,7 +4,8 @@
       shell:
         cmd: |
           export DIST_VER="{{ ansible_distribution_major_version }}"
-          if [[ $NAME == *'Stream' ]]; then
+          # For CentOS 8 we want to build with C8S CBS tag
+          if [ $DIST_VER == 8 ]; then
               export DIST_REL="s"
           fi
           WORKSPACE={{ ansible_user_dir }} ./pkg-export.sh cloud${DIST_VER}${DIST_REL}-openstack-{{ zuul.branch|replace('-rdo', '') }}-el${DIST_VER} cbs
