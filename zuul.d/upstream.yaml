@@ -171,23 +171,23 @@
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
-# - pipeline:
-#     name: openstack-periodic-integration-stable3
-#     post-review: true
-#     description: Jobs in this queue are triggered to run periodically once a day.
-#     manager: independent
-#     precedence: normal
-#     trigger:
-#       timer:
-#         - time: '0 4 * * *'
-#     success:
-#       sqlreporter:
-#       mqtt:
-#         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-#     failure:
-#       sqlreporter:
-#       mqtt:
-#         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+ - pipeline:
+     name: openstack-periodic-integration-stable3
+     post-review: true
+     description: Jobs in this queue are triggered to run periodically once a day.
+     manager: independent
+     precedence: normal
+     trigger:
+       timer:
+         - time: '0 4 * * *'
+     success:
+       sqlreporter:
+       mqtt:
+         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+     failure:
+       sqlreporter:
+       mqtt:
+         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-stable4-5
