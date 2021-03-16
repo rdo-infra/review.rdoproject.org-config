@@ -6,7 +6,7 @@
         name:
           - git
           - centos-packager
-          - PyYAML
+          - python3-PyYAML
         state: present
       become: true
 
@@ -37,6 +37,7 @@
           Host review.rdoproject.org
             IdentityFile ~/.ssh/rdoinfo_id_rsa
           EOF
+          chmod 0400 ~/.ssh/config
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 

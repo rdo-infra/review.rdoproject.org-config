@@ -288,7 +288,7 @@
     vars:
       rdoinfo_phase: testing
       stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8 victoria,8s ussuri,8s train,8s
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
       - name: gating_scripts
@@ -312,7 +312,7 @@
     vars:
       rdoinfo_phase: release
       stable_releases: queens rocky stein train train,8 ussuri,8 victoria,8 victoria,8s ussuri,8s
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
       - name: gating_scripts
@@ -425,7 +425,7 @@
       - rdoinfo
       - rdo-infra/releng
       - opendev.org/openstack/requirements
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8-stream
     secrets:
       - rdoinfo_ssh
 
@@ -487,7 +487,7 @@
     run: playbooks/nfvinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
       - name: gating_scripts
@@ -510,7 +510,7 @@
     run: playbooks/nfvinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
       - name: gating_scripts
