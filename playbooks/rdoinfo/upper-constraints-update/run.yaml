@@ -10,6 +10,7 @@
           Host review.rdoproject.org
             IdentityFile ~/.ssh/rdoinfo_id_rsa
           EOF
+          sudo chmod 0400 ~/.ssh/config
 
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
