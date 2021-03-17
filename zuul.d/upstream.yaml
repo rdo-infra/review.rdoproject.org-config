@@ -23,14 +23,12 @@
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: 1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: -1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -54,12 +52,10 @@
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check rdo experimental)
     success:
       rdoci: {}
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoci: {}
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -73,11 +69,9 @@
       timer:
         - time: '10 6,10,14,18,22 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -91,11 +85,9 @@
       timer:
         - time: '0 3 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -109,11 +101,9 @@
       timer:
         - time: '10 0,8,16 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -127,11 +117,9 @@
       timer:
         - time: '10 9,15,21 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -145,11 +133,9 @@
       timer:
         - time: '0 4 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -163,11 +149,9 @@
       timer:
         - time: '0 10 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -181,11 +165,9 @@
       timer:
         - time: '0 4 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -202,11 +184,9 @@
           # If Monday is day 0, Saturday and Sunday should be 5,6
         - time: '0 12 * * 2,5,6'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -223,11 +203,9 @@
           # If Monday is day 0, Saturday and Sunday should be 5,6
         - time: '0 12 * * 2,5,6'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -247,11 +225,9 @@
       timer:
         - time: '0 0 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -265,11 +241,9 @@
       timer:
         - time: '30 1 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -283,11 +257,9 @@
       timer:
         - time: '0 3 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -301,11 +273,9 @@
       timer:
         - time: '30 4 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -319,11 +289,9 @@
       timer:
         - time: '0 6 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -337,11 +305,9 @@
       timer:
         - time: '30 7 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -355,11 +321,9 @@
       timer:
         - time: '0 9 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -373,11 +337,9 @@
       timer:
         - time: '30 10 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -391,11 +353,9 @@
       timer:
         - time: '0 12 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -409,11 +369,9 @@
       timer:
         - time: '30 13 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -427,11 +385,9 @@
       timer:
         - time: '0 15 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -445,11 +401,9 @@
       timer:
         - time: '30 16 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -463,11 +417,9 @@
       timer:
         - time: '0 18 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -481,11 +433,9 @@
       timer:
         - time: '30 19 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -499,11 +449,9 @@
       timer:
         - time: '0 21 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -517,11 +465,9 @@
       timer:
         - time: '30 22 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -535,11 +481,9 @@
       timer:
         - time: '0 */2 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -555,11 +499,9 @@
         # Triggers on Tuesday, Saturday and Sunday
         - time: '30 18 * * 1,5,6'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -574,11 +516,9 @@
         # Triggers on wed and sun
         - time: '30 18 * * 2,6'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -592,11 +532,9 @@
       timer:
         - time: '0 12 * * 6'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -611,11 +549,9 @@
         - event: ref-updated
           ref: ^refs/heads/.*$
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -643,14 +579,12 @@
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: 1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       # Note: we are using another connection to report with rdo project ci account
       rdoci:
         Verified: -1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -665,10 +599,8 @@
       timer:
         - time: '0 2,14 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"

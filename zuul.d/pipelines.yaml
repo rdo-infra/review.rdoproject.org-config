@@ -28,13 +28,11 @@
     success:
       rdoproject.org:
         verified: 1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         verified: -1
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -75,13 +73,11 @@
       rdoproject.org:
         Verified: 2
         submit: true
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         Verified: -2
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
@@ -98,7 +94,6 @@
         - event: ref-updated
           ref: ^refs/heads/.*$
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -106,7 +101,6 @@
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -121,11 +115,9 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
       smtp:
@@ -144,7 +136,6 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -152,7 +143,6 @@
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
         subject: '[Zuul] Job failed in release pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -166,7 +156,6 @@
       timer:
         - time: '0 0 * * *'
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -174,7 +163,6 @@
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -191,12 +179,10 @@
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental
     success:
       rdoproject.org: {}
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org: {}
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
