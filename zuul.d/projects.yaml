@@ -13,6 +13,8 @@
       jobs:
         - tripleo-centos-8-ceph-integration-master
         - tripleo-centos-8-ceph-ansible-integration-master
+        - tripleo-centos-8-ceph-integration-victoria
+        - tripleo-centos-8-ceph-ansible-integration-victoria
         - tripleo-centos-8-ceph-integration-ussuri
         - tripleo-centos-8-ceph-ansible-integration-ussuri
         - tripleo-centos-8-ceph-integration-train
@@ -29,6 +31,18 @@
         - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone:
             dependencies:
               - tripleo-centos-8-ceph-ansible-integration-master
+        - tripleo-ceph-integration-centos-8-scenario001-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-integration-victoria
+        - tripleo-ceph-integration-centos-8-scenario004-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-integration-victoria
+        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
+        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
         - tripleo-ceph-integration-centos-8-scenario001-standalone-ussuri:
             dependencies:
               - tripleo-centos-8-ceph-integration-ussuri
@@ -57,6 +71,7 @@
       jobs:
         - tripleo-centos-8-ceph-ansible-integration-master
         - tripleo-centos-8-ceph-ansible-integration-ussuri
+        - tripleo-centos-8-ceph-ansible-integration-victoria
         - tripleo-centos-8-ceph-ansible-integration-train
         - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone:
             dependencies:
@@ -64,6 +79,12 @@
         - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone:
             dependencies:
               - tripleo-centos-8-ceph-ansible-integration-master
+        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
+        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
         - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-ussuri:
             dependencies:
               - tripleo-centos-8-ceph-ansible-integration-ussuri
@@ -81,6 +102,8 @@
       jobs:
         - tripleo-centos-8-ceph-integration-master
         - tripleo-centos-8-ceph-ansible-integration-master
+        - tripleo-centos-8-ceph-integration-victoria
+        - tripleo-centos-8-ceph-ansible-integration-victoria
         - tripleo-centos-8-ceph-integration-ussuri
         - tripleo-centos-8-ceph-ansible-integration-ussuri
         - tripleo-centos-8-ceph-integration-train
@@ -97,6 +120,18 @@
         - periodic-tripleo-ceph-ansible-integration-centos-8-scenario004-standalone:
             dependencies:
               - tripleo-centos-8-ceph-ansible-integration-master
+        - periodic-tripleo-ceph-integration-centos-8-scenario001-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-integration-victoria
+        - periodic-tripleo-ceph-integration-centos-8-scenario004-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-integration-victoria
+        - periodic-tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
+        - periodic-tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-victoria:
+            dependencies:
+              - tripleo-centos-8-ceph-ansible-integration-victoria
         - periodic-tripleo-ceph-integration-centos-8-scenario001-standalone-ussuri:
             dependencies:
               - tripleo-centos-8-ceph-integration-ussuri
