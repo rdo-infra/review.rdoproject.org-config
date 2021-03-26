@@ -140,22 +140,6 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
-    name: openstack-periodic-integration-stable3-centos7
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically once a day.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 10 * * *'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
     name: openstack-periodic-integration-stable3
     post-review: true
     description: Jobs in this queue are triggered to run periodically once a day.
@@ -163,7 +147,7 @@
     precedence: normal
     trigger:
       timer:
-        - time: '0 4 * * *'
+        - time: '0 12 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -172,17 +156,14 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
-    name: openstack-periodic-integration-stable4-5
+    name: openstack-periodic-integration-stable4-centos7
     post-review: true
-    description: Jobs in this queue are triggered to run periodically three times a week - on Wednesday and the weekend.
+    description: Jobs in this queue are triggered to run periodically two times a week - on Wednesday and Saturday.
     manager: independent
     precedence: normal
     trigger:
       timer:
-          # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
-          # The first weekday is Monday.
-          # If Monday is day 0, Saturday and Sunday should be 5,6
-        - time: '0 12 * * 2,5,6'
+        - time: '0 10 * * 2,5'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -191,9 +172,25 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
-    name: openstack-periodic-integration-stable6
+    name: openstack-periodic-integration-stable4
     post-review: true
-    description: Jobs in this queue are triggered to run periodically three times a week - on Wednesday and the weekend.
+    description: Jobs in this queue are triggered to run periodically twice a day.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 6,18 * * *'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-periodic-integration-stable5-6
+    post-review: true
+    description: Jobs in this queue are triggered to run periodically two times a week - on Wednesday and Saturday.
     manager: independent
     precedence: normal
     trigger:
@@ -201,7 +198,26 @@
           # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
           # The first weekday is Monday.
           # If Monday is day 0, Saturday and Sunday should be 5,6
-        - time: '0 12 * * 2,5,6'
+        - time: '0 12 * * 2,5'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-periodic-integration-stable7
+    post-review: true
+    description: Jobs in this queue are triggered to run periodically two times a week - on Thursday and Sunday.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+          # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
+          # The first weekday is Monday.
+          # If Monday is day 0, Saturday and Sunday should be 5,6
+        - time: '0 12 * * 3,6'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
