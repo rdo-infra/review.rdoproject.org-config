@@ -113,6 +113,16 @@
         - extra_node_create_key|bool
       ignore_errors: true
 
+    # security group name derived from
+    # https://github.com/openstack/openstack-virtual-baremetal/
+    # blob/stable/2.0/templates/baremetal-ports-extra-node.yaml#L22-L28
+    - name: Delete extra node security groups
+      command: >-
+        {{ ovb_working_dir }}/.venv/bin/openstack security group delete _extranode-baremetal-{{ idnum }}-sg
+      when:
+        - extra_node|bool
+      ignore_errors: true
+
     - name: Delete stack
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y"
 
