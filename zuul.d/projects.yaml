@@ -3198,6 +3198,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/glance-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/glance-tempest-plugin-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/glance_store
     templates:
       - package-check-jobs
