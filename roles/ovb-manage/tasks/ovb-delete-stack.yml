@@ -123,13 +123,13 @@
         - extra_node|bool
       ignore_errors: true
 
-    - name: Delete stack
-      command: "{{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y"
-
     - name: Delete extra stack
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }}-extra -y"
       when: extra_node|bool
       changed_when: true
+
+    - name: Delete stack
+      command: "{{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }} -y"
 
     - name: Wait until stack is deleted of failed
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml"
