@@ -305,7 +305,7 @@
     periodic:
       jobs:
         - octavia-build-amphora-centos7:
-            branches: ^(stable/(queens|rocky|stein|train))$
+            branches: ^(stable/(queens|stein|train))$
         - octavia-build-amphora-centos8:
             branches: ^(master|stable/(ussuri|victoria))$
 
@@ -434,7 +434,7 @@
     openstack-check-rdo:
       jobs:
         - DLRN-rpmbuild-rpm-packaging-centos:
-            branches: ^(stable/(queens|rocky|stein))$
+            branches: ^(stable/(queens|stein))$
         - DLRN-rpmbuild-rpm-packaging-centos-8:
             branches: ^(master|stable/(train|ussuri|victoria))$
 
@@ -2826,28 +2826,28 @@
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-build-tripleo-centos8:
             dependencies:
               - DLRN-rpmbuild-centos8-pinned
             voting: false
             branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -4555,13 +4555,13 @@
     check:
       jobs:
         - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -5016,28 +5016,28 @@
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-build-tripleo-centos8:
             dependencies:
               - DLRN-rpmbuild-centos8-pinned
             voting: false
             branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -5871,28 +5871,28 @@
             dependencies:
               - DLRN-rpmbuild-pinned
             voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-build-tripleo-centos8:
             dependencies:
               - DLRN-rpmbuild-centos8-pinned
             voting: false
             branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
         - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
+            branches: ^(queens-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
             branches: ^(rpm-master)|(train-rdo)$
         - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
+            branches: ^(queens|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -7109,16 +7109,10 @@
         - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario003-centos8:
@@ -7133,16 +7127,10 @@
         - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario001-centos8:
@@ -7171,16 +7159,8 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
-            irrelevant-files:
-              - ^.*$
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario003-centos8:
             irrelevant-files:
@@ -7197,19 +7177,11 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -7239,16 +7211,10 @@
         - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario003-centos8:
@@ -7263,16 +7229,10 @@
         - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario001-centos8:
@@ -7300,17 +7260,10 @@
         - weirdo-integration-queens-packstack-scenario001:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -7328,17 +7281,10 @@
         - weirdo-integration-queens-packstack-scenario003:
             irrelevant-files:
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -7369,18 +7315,11 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario003-centos8:
@@ -7396,18 +7335,11 @@
             irrelevant-files:
               - ^.*$
               - ^README.rst$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^README.rst$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^README.rst$
         - weirdo-integration-master-puppet-scenario001-centos8:
@@ -7548,13 +7480,6 @@
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^.*README.rst$
@@ -7563,13 +7488,6 @@
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
         - weirdo-integration-queens-puppet-scenario001:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
@@ -7600,13 +7518,6 @@
               - ^docs/.*$
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
-        - weirdo-integration-rocky-packstack-scenario002:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*README.rst$
@@ -7615,13 +7526,6 @@
               - ^playbooks/logs-ci-centos.yml$
               - ^playbooks/puppet.*$
         - weirdo-integration-queens-puppet-scenario003:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - weirdo-integration-rocky-puppet-scenario002:
             irrelevant-files:
               - ^.*README.rst$
               - ^.gitignore$
@@ -7670,7 +7574,6 @@
         - rdoinfo-DLRN-check:
             files:
               - ^tags/queens.yml$
-              - ^tags/rocky.yml$
               - ^tags/stein.yml$
               - ^tags/train.yml$
         - rdoinfo-DLRN-check-centos8:
@@ -7805,12 +7708,6 @@
             voting: false
             files:
               - ^buildsys-tags/cloud7-openstack-stein-release.yml$
-        - rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset016:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud7-openstack-rocky-testing.yml$
         - rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset016:
             dependencies:
               - validate-buildsys-tags
@@ -7845,12 +7742,6 @@
             voting: false
             files:
               - ^buildsys-tags/cloud7-openstack-stein-testing.yml$
-        - rdoinfo-tripleo-rocky-testing-centos-7-multinode-1ctlr-featureset030:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud7-openstack-rocky-testing.yml$
         - rdoinfo-tripleo-queens-testing-centos-7-multinode-1ctlr-featureset030:
             dependencies:
               - validate-buildsys-tags
@@ -7905,7 +7796,6 @@
         - rdoinfo-DLRN-check:
             files:
               - ^tags/queens.yml$
-              - ^tags/rocky.yml$
               - ^tags/stein.yml$
               - ^tags/train.yml$
         - rdoinfo-DLRN-check-centos8:
