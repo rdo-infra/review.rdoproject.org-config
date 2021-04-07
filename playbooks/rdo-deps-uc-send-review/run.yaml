@@ -15,7 +15,7 @@
 
           BRANCH="{{ zuul.branch }}"
           if [ "$BRANCH" == 'master' ]; then
-              RELEASE="wallaby"
+              RELEASE="xena"
           else
               RELEASE="${BRANCH/stable\//}"
           fi

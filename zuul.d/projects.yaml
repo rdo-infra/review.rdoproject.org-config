@@ -7678,7 +7678,8 @@
               - ^tags/train.yml$
               - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
-              - ^tags/wallaby-uc.yml$
+              - ^tags/wallaby.yml$
+              - ^tags/xena-uc.yml$
         - validate-dependencies-rebuilds
         - weirdo-dlrn-master-packstack-scenario003-centos8:
             dependencies:
@@ -7686,35 +7687,35 @@
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - weirdo-dlrn-master-puppet-scenario001-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - weirdo-dlrn-master-puppet-scenario002-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - weirdo-dlrn-master-puppet-scenario003-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - weirdo-dlrn-master-puppet-scenario004-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - rdoinfo-tripleo-train-testing-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -7863,40 +7864,40 @@
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario002:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario003:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario004:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - distgit-tripleo-master-testing-centos-8-undercloud-containers:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/wallaby-uc.yml$
+              - ^tags/xena-uc.yml$
 
     gate:
       queue: whitebox-tempest-plugin
@@ -7913,7 +7914,8 @@
               - ^tags/train.yml$
               - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
-              - ^tags/wallaby-uc.yml$
+              - ^tags/wallaby.yml$
+              - ^tags/xena-uc.yml$
         - validate-buildsys-tags
         - rebuild-fedora-dependencies
     periodic:
