@@ -26,12 +26,6 @@
       release: stein
 
 - job:
-    name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: rocky
-
-- job:
     name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
     parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
     vars:
@@ -318,16 +312,6 @@
        use_buildah: true
 
 # --- end of master/train/stein buildah build jobs
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/rocky'
-    # As this job is consistently timeout so increasing timeout
-    timeout: 18000
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
 
 - job:
     name: periodic-tripleo-centos-7-queens-containers-build
