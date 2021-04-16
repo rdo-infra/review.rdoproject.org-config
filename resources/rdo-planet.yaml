@@ -1,0 +1,38 @@
+resources:
+  groups:
+    rdo-planet:
+      description: 'RDO planet core group'
+      members:
+        - alan.pevec@redhat.com
+        - amoralej@redhat.com
+        - amy@demarco.com
+        - duck@redhat.com
+        - jpena@redhat.com
+  acls:
+    rdo-planet:
+      file: |
+        [access "refs/*"]
+            read = group rdo-planet
+            owner = group rdo-planet
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-planet
+            submit = group rdo-planet
+            read = group Registered Users
+            read = group rdo-planet
+            label-Verified = -2..+2 group rdo-planet
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-planet
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-planet
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-planet
+  repos:
+    rdo-infra/rdo-planet:
+      acl: rdo-planet
+      description: "RDO Planet repository"
