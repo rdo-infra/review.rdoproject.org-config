@@ -32,6 +32,7 @@ IGNORED_PROJECTS = {
         'test-project-2',
         'smoke-test-vexxhost',
         'nfvinfo',
+        'deps/python-ddt',
     ],
     'gerritbot': [
         'demo-project',
