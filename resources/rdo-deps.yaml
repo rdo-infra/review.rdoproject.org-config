@@ -1,0 +1,38 @@
+resources:
+  groups:
+    rdo-deps-core:
+      description: 'Core members for RDO Dependencies projects'
+      members:
+        - admin@review.rdoproject.org
+        - alan.pevec@redhat.com
+        - amoralej@redhat.com
+        - jcapitao@redhat.com
+        - jpena@redhat.com
+        - ykarel@redhat.com
+  acls:
+    rdo-deps-default:
+      file: |
+        [access "refs/*"]
+          owner = group rdo-deps-core
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-deps-core
+            label-Verified = -2..+2 group rdo-deps-core
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-deps-core
+            submit = group rdo-deps-core
+            read = group rdo-deps-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group rdo-deps-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+        - rdo-deps-core
+  repos:
+    deps/python-aniso8601:
+      acl: rdo-deps-default
+      default-branch: c8-xena-rdo
