@@ -110,6 +110,13 @@
     branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
 
 - job:
+    name: deps-cbs-validate
+    parent: distgit-cbs-validate
+    run: playbooks/deps-cbs-validate/run.yaml
+    nodeset: rdo-centos-8-stream
+    branches: ^(c8-xena-rdo)$
+
+- job:
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
