@@ -11,6 +11,7 @@ resources:
       members:
       - admin@review.rdoproject.org
   acls:
+    {%- if project_prefix != "deps" %}
     {{ project_prefix }}-{{ project_name }}-distgit:
       file: |
         [access "refs/*"]
@@ -70,6 +71,7 @@ resources:
       {%- if project_prefix == "puppet" %}
       - rdo-opm-core
       {%- endif %}
+  {%- endif %}
     {{ project_prefix }}-{{ project_name }}:
       file: |
         [access "refs/*"]
@@ -83,22 +85,30 @@ resources:
           label-Code-Review = -2..+2 group rdo-superusers
           {% if project_prefix == "puppet" -%}
           label-Code-Review = -2..+2 group rdo-opm-core
+          {% elif project_prefix == "deps" %}
+          label-Code-Review = -2..+2 group rdo-deps-core
           {% endif -%}
           submit = group {{ project_prefix }}/{{ project_name }}-ptl
           submit = group rdo-superusers
           {% if project_prefix == "puppet" -%}
           submit = group rdo-opm-core
+          {% elif project_prefix == "deps" %}
+          submit = group rdo-deps-core
           {% endif -%}
           read = group Registered Users
           read = group {{ project_prefix }}/{{ project_name }}-core
           read = group rdo-provenpackagers
           {% if project_prefix == "puppet" -%}
           read = group rdo-opm-core
+          {% elif project_prefix == "deps" %}
+          read = group rdo-deps-core
           {% endif -%}
           label-Verified = -2..+0 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Verified = -2..+0 group rdo-superusers
           {% if project_prefix == "puppet" -%}
           label-Verified = -2..+0 group rdo-opm-core
+          {% elif project_prefix == "deps" %}
+          label-Verified = -2..+2 group rdo-deps-core
           {% endif -%}
           label-Workflow = -1..+0 group Registered Users
           label-Workflow = -1..+0 group {{ project_prefix }}/{{ project_name }}-core
@@ -106,6 +116,8 @@ resources:
           label-Workflow = -1..+0 group rdo-provenpackagers
           {%- if project_prefix == "puppet" %}
           label-Workflow = -1..+0 group rdo-opm-core
+          {% elif project_prefix == "deps" %}
+          label-Workflow = -1..+1 group rdo-deps-core
           {%- endif %}
         [access "refs/meta/config"]
           read = group Registered Users
@@ -130,6 +142,12 @@ resources:
   repos:
     {{ project_prefix }}/{{ project_name }}:
       acl: {{ project_prefix }}-{{ project_name }}
+      {% if project_prefix == "deps" -%}
+      description: Packaging of RDO dependency {{ project_name }}
+      default-branch: c9s-xena-rdo
+      branches:
+        master: '0'
+      {%- else -%}
       description: Mirror of upstream {{ project_name }} (mirror + patches)
     {{ project_prefix }}/{{ project_name }}-distgit:
       acl: {{ project_prefix }}-{{ project_name }}-distgit
@@ -137,4 +155,5 @@ resources:
       default-branch: rpm-master
       branches:
         master: '0'
+      {%- endif -%}
 
