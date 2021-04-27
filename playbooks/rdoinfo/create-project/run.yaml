@@ -9,6 +9,14 @@
         group: '{{ ansible_user }}'
         mode: 0755
 
+    - name: Copy add-rdo-dep-from-rdoinfo.sh
+      copy:
+        src: add-rdo-dep-from-rdoinfo.sh
+        dest: '{{ ansible_user_dir }}/add-rdo-dep-from-rdoinfo.sh'
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0755
+
     - name: Copy add-project-from-rdoinfo.py
       copy:
         src: add-project-from-rdoinfo.py
@@ -56,5 +64,29 @@
 
           for PKG in ${NEW_PROJECTS}; do
             {{ ansible_user_dir }}/add-project-from-rdoinfo.sh $PKG $PWD
+          done
+      changed_when: true
+
+    - name: Add resources for dependencies
+      shell:
+        cmd: |
+          set +e -x
+          . .venv/bin/activate
+          cd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
+
+          TAGS_DIFF=$(rdopkg info-tags-diff .)
+          NEW_DEPS=""
+
+          while read line; do
+            PKGNAME=$(awk '{print $1}' <<< $line)
+            if [[ -n $(echo "$line" | grep -w dependency) ]]; then
+                NEW_DEPS="$NEW_PROJECTS $PKGNAME"
+            fi
+          done <<< "${TAGS_DIFF}"
+
+          echo "New RDO dependencies: ${NEW_DEPS}"
+
+          for PKG in ${NEW_DEPS}; do
+            {{ ansible_user_dir }}/add-rdo-dep-from-rdoinfo.sh $PKG $PWD
           done
       changed_when: true

@@ -13,11 +13,13 @@ def add_project_resources_on_sf(prefix, name):
 
     leaf = info[0]['tenant']['source']['rdoproject.org']['untrusted-projects'][-1]['projects']
 
-    newkey = "%s/%s-distgit" % (prefix, name)
-    if newkey not in leaf:
-        leaf.append(newkey)
-    else:
-        print("Key %s already in zuul/rdo.yaml" % newkey)
+    # For RDO dependencies, we only have one repo
+    if prefix != 'deps':
+        newkey = "%s/%s-distgit" % (prefix, name)
+        if newkey not in leaf:
+            leaf.append(newkey)
+        else:
+            print("Key %s already in zuul/rdo.yaml" % newkey)
 
     newkey = "%s/%s" % (prefix, name)
     if newkey not in leaf:

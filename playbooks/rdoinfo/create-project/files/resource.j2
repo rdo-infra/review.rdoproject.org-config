@@ -11,6 +11,7 @@ resources:
       members:
       - admin@review.rdoproject.org
   acls:
+    {%- if project_prefix != "deps" %}
     {{ project_prefix }}-{{ project_name }}-distgit:
       file: |
         [access "refs/*"]
@@ -70,6 +71,7 @@ resources:
       {%- if project_prefix == "puppet" %}
       - rdo-opm-core
       {%- endif %}
+  {%- endif %}
     {{ project_prefix }}-{{ project_name }}:
       file: |
         [access "refs/*"]
@@ -130,6 +132,12 @@ resources:
   repos:
     {{ project_prefix }}/{{ project_name }}:
       acl: {{ project_prefix }}-{{ project_name }}
+      {% if project_prefix == "deps" -%}
+      description: Packaging of RDO dependency {{ project_name }}
+      default-branch: c9-xena-rdo
+      branches:
+        master: '0'
+      {%- else -%}
       description: Mirror of upstream {{ project_name }} (mirror + patches)
     {{ project_prefix }}/{{ project_name }}-distgit:
       acl: {{ project_prefix }}-{{ project_name }}-distgit
@@ -137,3 +145,4 @@ resources:
       default-branch: rpm-master
       branches:
         master: '0'
+      {%- endif -%}
