@@ -64,8 +64,11 @@ def project_in_replication(project):
     # project.
 
     # "<project>-distgit-distgit" wouldn't be in projects
+
+    # Projects under deps namespace will not be replicated.
     if ("%s-distgit" % project in projects) or \
-            (project.startswith('puppet') and project.endswith('distgit')):
+            (project.startswith('puppet') and project.endswith('distgit')) or \
+            (project.startswith('deps/')):
         return True
     return False
 
