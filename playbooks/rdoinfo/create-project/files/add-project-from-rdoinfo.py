@@ -22,11 +22,12 @@ def add_project_resources(prefix, name, maintainers):
     with open("gerritbot/channels.yaml") as gerritbot:
         info = yaml.load(gerritbot, Loader=yaml.RoundTripLoader)
 
-    newkey = "%s/%s-distgit" % (project_prefix, project_name)
-    if newkey not in info['rdo']['projects']:
-        info['rdo']['projects'].append(newkey)
-    else:
-        print("Key %s already in gerritbot" % newkey)
+    if prefix != 'deps':
+        newkey = "%s/%s-distgit" % (project_prefix, project_name)
+        if newkey not in info['rdo']['projects']:
+            info['rdo']['projects'].append(newkey)
+        else:
+            print("Key %s already in gerritbot" % newkey)
 
     newkey = "%s/%s" % (project_prefix, project_name)
     if newkey not in info['rdo']['projects']:
@@ -47,27 +48,31 @@ def add_project_resources(prefix, name, maintainers):
     with open("zuul.d/projects.yaml") as infile:
         info = yml.load(infile)
 
-    data = yaml.comments.CommentedMap(
-        [('project', yaml.comments.CommentedMap(
-            [('name', "review.rdoproject.org/%s/%s-distgit" % (project_prefix, project_name)),
-             ('default-branch', 'rpm-master'),
-             ('templates', yaml.comments.CommentedSeq(['package-distgit-check-jobs', 'system-required']))])
-        )])
+    # The specific -distgit repo is only created for RDO Trunk packages,
+    # not deps
+    if prefix != 'deps':
+        data = yaml.comments.CommentedMap(
+            [('project', yaml.comments.CommentedMap(
+                [('name', "review.rdoproject.org/%s/%s-distgit" % (project_prefix, project_name)),
+                 ('default-branch', 'rpm-master'),
+                 ('templates', yaml.comments.CommentedSeq(['package-distgit-check-jobs', 'system-required']))])
+            )])
 
-    data['project']['templates'].ca.items[1] = [
-         yaml.tokens.CommentToken('\n\n', yaml.error.CommentMark(0), None), None, None, None]
+        data['project']['templates'].ca.items[1] = [
+             yaml.tokens.CommentToken('\n\n', yaml.error.CommentMark(0), None), None, None, None]
 
-    if data not in info:
-        info.append(data)
-    else:
-        print("Zuul config already includes %s/%s-distgit" %
-              (project_prefix, project_name))
+        if data not in info:
+            info.append(data)
+        else:
+            print("Zuul config already includes %s/%s-distgit" %
+                  (project_prefix, project_name))
 
-    data = yaml.comments.CommentedMap(
-        [('project', yaml.comments.CommentedMap(
-            [('name', "review.rdoproject.org/%s/%s" % (project_prefix, project_name)),
-             ('templates', yaml.comments.CommentedSeq(['package-check-jobs', 'system-required']))])
-        )])
+    if prefix != 'deps':
+        data = yaml.comments.CommentedMap(
+            [('project', yaml.comments.CommentedMap(
+                [('name', "review.rdoproject.org/%s/%s" % (project_prefix, project_name)),
+                 ('templates', yaml.comments.CommentedSeq(['package-check-jobs', 'system-required']))])
+            )])
 
     data['project']['templates'].ca.items[1] = [
          yaml.tokens.CommentToken('\n\n', yaml.error.CommentMark(0), None), None, None, None]
@@ -126,4 +131,5 @@ def add_project_package(prefix, name):
 
 if __name__ == '__main__':
     add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3])
-    add_project_package(sys.argv[1], sys.argv[2])
+    if sys.argv[1] != 'deps':
+        add_project_package(sys.argv[1], sys.argv[2])
