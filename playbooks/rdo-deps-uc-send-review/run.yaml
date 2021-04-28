@@ -40,8 +40,8 @@
           if [ $(echo $C7_RELEASES|grep -c -w $RELEASE) -ne 0 ]; then
               CENTOS_V=7
           fi
-          # if not defaults to 8
-          CENTOS_V=${CENTOS_V:-8s}
+          # if not defaults to 9
+          CENTOS_V=${CENTOS_V:-9s}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
@@ -49,40 +49,94 @@
               --centos-release $CENTOS_V \
               -p $PHASE
           DIFF=$(git diff *.yml */*.yml)
-          if [ -n "$DIFF" ]; then
-            mkdir -p ~/.ssh
-            cat >> ~/.ssh/config << EOF
+          popd
+
+          mkdir -p ~/.ssh
+          cat >> ~/.ssh/config << EOF
 
           Host review.rdoproject.org
             IdentityFile ~/.ssh/rdoinfo_id_rsa
           EOF
-            chmod 600 ~/.ssh/config
-            sudo chmod 600 $SSH_KEY
-            sudo chown jenkins:jenkins $SSH_KEY
-            ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
-            chmod 644 ~/.ssh/known_hosts
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID"
-            git config user.name "rdo-trunk"
-            git config user.email "javier.pena@redhat.com"
-            git config gitreview.username "rdo-trunk"
+
+          chmod 600 ~/.ssh/config
+          ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          git config user.name "rdo-trunk"
+          git config user.email "javier.pena@redhat.com"
+          git config gitreview.username "rdo-trunk"
+
+          if [ -n "$DIFF" ]; then
+            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
+            branch=c$CENTOS_V-$RELEASE-rdo
+            pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
+            source rpm-deps-gating-lib.common
+            if [[ "$CENTOS_V" =~ "9" ]]; then
+              for pkg in $NVR; do
+                needs_update=true
+                change_url=""
+                pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
+                pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
+                pkg_nv=$pkg_name-$pkg_vers
+                in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
+                if [ -z "$in_koji_nvr" ]; then
+                  echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
+                  break
+                fi
+
+                # We check if there is already an opened change which propose
+                # to update the package to desired $pkg_vers.
+                # If so, we append our commit message with a Depends-On this
+                # change and we ignore sending patch.
+                opened_changes=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
+                                 gerrit query --format=JSON status:open project:deps/$pkg_name branch:$branch
+                                )
+                opened_change_ids=$(echo "$opened_changes" | jq '.id' | tr -d '"' | sed "s/null//")
+                if [ -n "$opened_change_ids" ]; then
+                  for change_id in $opened_change_ids; do
+                    change_endpoint_url="https://review.rdoproject.org/r/changes/deps%2F$pkg_name~$branch~$change_id/revisions/current"
+                    specfile=$(curl -s -f $change_endpoint_url/files/ | sed 1d | jq 'keys[]' | tr -d '"' | grep -e "\.spec$")
+                    if [ $? -eq 0 ]; then
+                      specfile=$(echo "$specfile" | sed "s/\//%2f/")
+                      curl -s -f $change_endpoint_url/files/$specfile/content | base64 -d | grep -e "^Version:.*$pkg_vers" >/dev/null 2>&1
+                      if [ $? -eq 0 ]; then
+                        needs_update=false
+                        change_url=$(echo "$opened_changes" | jq --arg CHANGE_ID "$change_id" '. | select(.id==$CHANGE_ID) | .url' | tr -d '"')
+                        DEPENDS_ON+="Depends-On: $change_url\n"
+                        break
+                      fi
+                    fi
+                  done
+                fi
+
+                if $needs_update; then
+                  distgit_status=$(setup_distgit $pkg_name $in_koji_nvr $RELEASE $CENTOS_V)
+                  if [ $? -eq 0 ]; then
+                    pushd workdir/$pkg_name
+                    git add .
+                    COMMIT_MSG="Update to ${pkg_vers}"
+                    git commit -m "$COMMIT_MSG"
+                    review_status="$(git review c${CENTOS_V}-${RELEASE}-rdo -t cs9-deps-uc-update)"
+                    if [ $? -eq 0 ]; then
+                      change_url=$(echo -e "$review_status" | grep -e "$COMMIT_MSG" | awk '{print $2}')
+                      if [ -n $change_url ]; then
+                        DEPENDS_ON+="Depends-On: $change_url\n"
+                      fi
+                    fi
+                    popd
+                  else
+                    echo -e "ERROR: while setting up distgit for $pkg_name"
+                    echo -e "$distgit_status"
+                  fi
+                fi
+              done
+            fi
+
+            pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
             git checkout -b proposal
             git review -s -v
             echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-            # Just in case, check if there are changes between this version and the current review
-            DIFF_RDO=0
-            if [ -n "$CHANGE_ID" ]; then
-                for i in $(ls *yml */*yml 2>/dev/null); do
-                    curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/${i/\//%2F}/content |base64 -d > $i.current
-                    diff $i $i.current
-                    if [ $? -ne 0 ]; then
-                        DIFF_RDO=1
-                        break
-                    fi
-                done
-            fi
-            if [[ ! -n "$CHANGE_ID" ]] || [[ $DIFF_RDO -ne 0 ]]; then
-                git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
-            fi
+            git review -t "cs9-deps-uc-update" < /dev/null
             popd
           fi
       changed_when: true
