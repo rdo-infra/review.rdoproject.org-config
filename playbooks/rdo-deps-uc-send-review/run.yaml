@@ -28,10 +28,10 @@
              REAL_COMMIT={{ zuul.newrev }}
           fi
           UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
-          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
-          change_list=${change_list[@]/#[+-]/}
+          add_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))'))
+          add_list=${add_list[@]/#+/}
           popd
-          if [ -z "${change_list//[[:space:]]/}" ]; then
+          if [ -z "${add_list//[[:space:]]/}" ]; then
               echo "INFO: No update in upper-constraints, Exiting"
               exit 0
           fi
@@ -44,45 +44,65 @@
           CENTOS_V=${CENTOS_V:-8s}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
-              -l $change_list \
+              -l $add_list \
               -r $RELEASE \
               --centos-release $CENTOS_V \
               -p $PHASE
           DIFF=$(git diff *.yml */*.yml)
+          popd
           if [ -n "$DIFF" ]; then
+            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
+            pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
+            for pkg in $NVR; do
+              needs_update=true
+              change_url=""
+              pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
+              pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
+              pkg_nv=$pkg_name-$pkg_vers
+
+              # We check if there is already an opened change which updates
+              # the package to desired $pkg_vers
+              # If so, we append our commit message with a Depends-On this
+              # change.
+              opened_changes=$(ssh -p 29418 {{ gerrit_username }}@review.rdoproject.org gerrit query --format=JSON status:open project:$project | jq '.')
+              opened_change_ids=$(echo "$opened_changes" | jq '.id' | tr -d '"')
+              for change_id in $opened_change_ids; do
+                specfile=$(curl -s -f https://review.rdoproject.org/r/changes/${project/\//%2F}~$branch~$change_id/revisions/current/files/ | sed 1d | jq 'keys[]' | tr -d '"' | grep -e "\.spec$")
+                if [ $? -eq 0 ]; then
+                  curl -s -f https://review.rdoproject.org/r/changes/${project/\//%2F}~$branch~$change_id/revisions/current/files/$specfile/content | base64 -d | grep -e "^Version:.*$pkg_vers" >/dev/null 2>&1
+                  if [ $? -eq 0 ]; then
+                    needs_update=false
+                    change_url=$(echo "$opened_changes" | jq '. | select(.id=="$change_id") | .url' | tr -d '"')
+                    DEPENDS_ON+="Depends-On: $change_url\n"
+                  fi
+                fi
+              done
+
+              if $needs_update; then
+                setup_distgit.sh $pkg_name $pkg_nv xena 8
+                DEPENDS_ON+="Depends-On: $change_url\n"
+              fi
+            done
+
             mkdir -p ~/.ssh
             cat >> ~/.ssh/config << EOF
 
           Host review.rdoproject.org
             IdentityFile ~/.ssh/rdoinfo_id_rsa
           EOF
+
             chmod 600 ~/.ssh/config
-            sudo chmod 600 $SSH_KEY
-            sudo chown jenkins:jenkins $SSH_KEY
             ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID"
+            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
             git config user.name "rdo-trunk"
             git config user.email "javier.pena@redhat.com"
             git config gitreview.username "rdo-trunk"
             git checkout -b proposal
             git review -s -v
             echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-            # Just in case, check if there are changes between this version and the current review
-            DIFF_RDO=0
-            if [ -n "$CHANGE_ID" ]; then
-                for i in $(ls *yml */*yml 2>/dev/null); do
-                    curl https://review.rdoproject.org/r/changes/rdoinfo~master~$CHANGE_ID/revisions/current/files/${i/\//%2F}/content |base64 -d > $i.current
-                    diff $i $i.current
-                    if [ $? -ne 0 ]; then
-                        DIFF_RDO=1
-                        break
-                    fi
-                done
-            fi
-            if [[ ! -n "$CHANGE_ID" ]] || [[ $DIFF_RDO -ne 0 ]]; then
-                git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
-            fi
+            exit 0
+            git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
             popd
           fi
       changed_when: true
