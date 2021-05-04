@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8d3df6d4_75241877",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-05-04T15:26:35Z",
+      "side": 1,
+      "message": "iiuc you updating to do only on add_ and not on change? if yes then i think we setup distgit on both add and update",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "eff0959fc4a71977ba8a1087adeb07674b8582a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e78f350b_c99ae001",
         "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2021-04-29T16:12:00Z",
       "side": 1,
       "message": "@ykarel: it\u0027d be great if your script \u0027setup_distgit.sh\u0027 could return something that identify the freshly created patch (commit hash, patch number or patch URL) + return code.\nThen I\u0027ll be able to add the right Depends-On in commit message",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 83
+      },
+      "revId": "eff0959fc4a71977ba8a1087adeb07674b8582a5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791b9e57_065433d0",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-05-04T15:26:35Z",
+      "side": 1,
+      "message": "@joel i think git review code should only be in job definition. So if there is add/update, run setup distgit to setup repo, if there is diff(ideally should be there when calling setup_distgit, as setup_distgit should be called only when we need to add/update). check/send review. if review is sent then get review id and use that id when adding Depends-On in rdoinfo patch, if open review already exist in deps/package then pull via gerrit query and add depends-on.",
+      "parentUuid": "e78f350b_c99ae001",
       "range": {
         "startLine": 87,
         "startChar": 16,
