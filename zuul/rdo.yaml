@@ -994,6 +994,9 @@
         - openstack/tripleo-ansible:
             include:
             - job
+        - openstack/puppet-openstack-integration:
+            include:
+            - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
         - include: []
@@ -1077,7 +1080,6 @@
           - openstack/puppet-neutron
           - openstack/puppet-nova
           - openstack/puppet-octavia
-          - openstack/puppet-openstack-integration
           - openstack/puppet-openstack_extras
           - openstack/puppet-openstacklib
           - openstack/puppet-oslo
