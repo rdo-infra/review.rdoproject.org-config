@@ -565,3 +565,10 @@
     secrets:
       - tripleo_gerrit_ssh_key
       - cloud_secrets
+
+- job:
+    name: puppet-openstack-integration-6-scenario001-tempest-centos-8-stream-rdo
+    parent: puppet-openstack-integration-6-scenario001-tempest-centos-8-stream
+    required-projects:
+        - openstack/puppet-openstack-integration
+    nodeset: centos-8-stream
