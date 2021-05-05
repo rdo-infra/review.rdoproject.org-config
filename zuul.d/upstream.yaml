@@ -539,6 +539,23 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: puppet-openstack-integration
+    post-review: true
+    description: puppet-openstack-integration jobs triggered to run periodically.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        # Triggers on Monday, Thursday, and Sunday
+        - time: '30 1 * * 0,3,6'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-periodic-weekend
     post-review: true
     description: Jobs in this queue are triggered to run periodically at the weekend.
