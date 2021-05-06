@@ -197,6 +197,17 @@
       - system-required
 
 - project:
+    name: github.com/containers/ansible-podman-collections
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - podman-package-centos-8
+    github-manual:
+      jobs:
+        - podman-package-centos-8
+
+- project:
     name: github.com/containers/buildah
     templates:
       - system-required
