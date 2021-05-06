@@ -300,6 +300,12 @@
               fail_logs_collection: true
 
 - project:
+    name: opendev.org/openstack/ansible-role-tripleo-modify-image
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001
+
+- project:
     name: opendev.org/openstack/tripleo-image-elements
     openstack-check:
       jobs:
