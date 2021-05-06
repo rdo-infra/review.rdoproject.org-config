@@ -220,6 +220,14 @@
               - podman-package-centos-8
 
 - project:
+    name: github.com/containers/ansible-podman-collections
+    templates:
+      - system-required
+    openstack-regular:
+      jobs:
+        - podman-package-centos-8
+
+- project:
     name: opendev.org/openstack/ansible-role-container-registry
     templates:
       - system-required
