@@ -183,7 +183,7 @@
             overcloud_tenant_net2: tenant-leaf2
             {% endif -%}
 
-    - when: nodes_leaf1|bool
+    - when: nodes_leaf1|int > 0
       name: Write routed networks leaf1 role
       copy:
         dest: "{{ ovb_working_dir }}/env-{{ idnum }}-leaf1.yaml"
@@ -215,12 +215,12 @@
             overcloud_tenant_net: tenant-leaf1
             {% endif %}
 
-    - when: nodes_leaf1|bool
+    - when: nodes_leaf1|int > 0
       name: Set leaf1 role args
       set_fact:
         role_leaf1_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-leaf1.yaml'
 
-    - when: nodes_leaf2|bool
+    - when: nodes_leaf2|int > 0
       name: Write routed networks leaf2 role
       copy:
         dest: "{{ ovb_working_dir }}/env-{{ idnum }}-leaf2.yaml"
@@ -252,7 +252,7 @@
             overcloud_tenant_net: tenant-leaf2
             {% endif %}
 
-    - when: nodes_leaf2|bool
+    - when: nodes_leaf2|int > 0
       name: Set leaf2 role args
       set_fact:
         role_leaf2_args: '--role {{ ovb_working_dir }}/env-{{ idnum }}-leaf2.yaml'
