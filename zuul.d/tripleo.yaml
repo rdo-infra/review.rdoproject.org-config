@@ -340,3 +340,23 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files:
               - ^metalsmith_ansible/.*/metalsmith_instances.*$
+
+- project:
+    name: opendev.org/openstack/ansible-collections-openstack
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
+            files: &ooo_modules_files
+            - ^plugins/modules/catalog_service.*$
+            - ^plugins/modules/endpoint.*$
+            - ^plugins/modules/identity_domain.*$
+            - ^plugins/modules/identity_domain_info.*$
+            - ^plugins/modules/identity_role.*$
+            - ^plugins/modules/identity_user.*$
+            - ^plugins/modules/keypair.*$
+            - ^plugins/modules/project.*$
+            - ^plugins/modules/role_assignment.*$
+            - ^plugins/modules/stack.*$
+            - ^plugins/module_utils/openstack.*$
