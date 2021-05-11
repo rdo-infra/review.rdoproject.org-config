@@ -108,6 +108,7 @@ def add_project_package(prefix, name):
         [(project, yaml.comments.CommentedMap([
             ('zuul/include', []),
             ('repoxplorer/branches', ["rpm-master"]),
+            ('default-branch', 'rpm-master'),
         ]))])
     if data not in resource['resources']['projects']['RDO']['source-repositories']:
         resource['resources']['projects']['RDO']['source-repositories'].append(data)
