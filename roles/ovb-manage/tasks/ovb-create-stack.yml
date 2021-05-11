@@ -134,7 +134,9 @@
         --env {{ ovb_repo_directory }}/env-{{ idnum }}.yaml
         --network_details
         --nodes_json {{ nodes_file }}
-        {% if ovb_repo_version != 'stable/1.0' %} --physical_network --id {{ idnum }} {% endif %}
+        {% if (ovb_repo_version != 'stable/1.0' and zuul.branch != 'stable/queens') -%}
+        --physical_network --id {{ idnum }}
+        {% endif %}
       args:
         chdir: "{{ ovb_working_dir }}"
       register: nodes_json
