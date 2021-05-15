@@ -203,10 +203,17 @@
       - system-required
     github-check:
       jobs:
-        - podman-package-centos-8
+        - tripleo-ci-centos-8-standalone-podman-ansible:
+            files:
+              - ^plugins/module_utils/podman/.*$
+              - ^plugins/modules/podman_container.*$
+              - ^plugins/modules/podman_image.*$
+              - ^plugins/modules/podman_play.*$
+              - ^plugins/modules/podman_pod.*$
+              - ^plugins/modules/podman_volume.*$
     github-manual:
       jobs:
-        - podman-package-centos-8
+        - tripleo-ci-centos-8-standalone-podman-ansible
 
 - project:
     name: github.com/containers/buildah
