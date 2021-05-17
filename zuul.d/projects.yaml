@@ -167,7 +167,6 @@
         - config-check
         - tox-linters
         - rdo-tox-molecule:
-            voting: false
             files:
               - ^requirements.txt$
               - ^roles/.*
@@ -178,6 +177,7 @@
     gate:
       jobs:
         - config-check
+        - rdo-tox-molecule
     post:
       jobs:
         - config-update
