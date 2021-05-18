@@ -36,12 +36,6 @@
       - tempest-skiplist-integration-pipeline
     openstack-regular:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-branch:
-            vars:
-              force_non_periodic: true
         - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
             vars:
               force_non_periodic: true
@@ -269,9 +263,6 @@
         - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-stein:
             files:
               - roles/validate-tempest/vars/tempest_skip_stein.yml
-        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-queens:
-            files:
-              - roles/validate-tempest/vars/tempest_skip_queens.yml
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
             files:
               - roles/build-images/.*
@@ -282,9 +273,6 @@
             files:
               - roles/build-images/.*
         - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-stein:
-            files:
-              - roles/build-images/.*
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-queens:
             files:
               - roles/build-images/.*
 
