@@ -46,6 +46,30 @@
       "revId": "e33e703ae7ff511e45c2b3a70bfa0c8dde97523c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7bc5979_4184cf89",
+        "filename": "roles/ovb-manage/tasks/ovb-create-stack.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-05-18T11:02:30Z",
+      "side": 1,
+      "message": "Ohhk in non branch specific jobs release var is not set as same job is used across branches, so then we need to use both zuul.branch !\u003d stable/queens or (release is defined and release !\u003d \u0027queens\u0027) also you would need to use \"and\" instead of \"or\" in conjuction with ovb_repo_version !\u003d \u0027stable/1.0\u0027 so phsycial-network option not get used in queens.",
+      "parentUuid": "5f7b07de_333072f1",
+      "range": {
+        "startLine": 137,
+        "startChar": 51,
+        "endLine": 137,
+        "endChar": 62
+      },
+      "revId": "e33e703ae7ff511e45c2b3a70bfa0c8dde97523c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
