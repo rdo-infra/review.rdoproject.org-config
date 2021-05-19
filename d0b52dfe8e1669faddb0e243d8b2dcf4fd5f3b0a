@@ -69,6 +69,30 @@
       "revId": "d0b52dfe8e1669faddb0e243d8b2dcf4fd5f3b0a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60bc077f_6b1ee9f8",
+        "filename": "roles/ovb-manage/tasks/ovb-create-stack.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2021-05-19T11:20:13Z",
+      "side": 1,
+      "message": "What if we changed the conditional to check for \"routed_networks\" \u003d\u003d True here?\nIt defaults to false, https://review.rdoproject.org/cgit/config/tree/roles/ovb-manage/defaults/main.yml#n16. And Adding \u0027--pysical_network\u0027 is only required when using routed networking, as long as we keep don\u0027t remove support for the deprecated \"mac\" key.\n\nMy intention with switching this to use \u0027--physical_network\u0027 by default was to at some point remove the deprecated \"mac\" interface. But that can wait ...",
+      "parentUuid": "2d0911ab_04d416c3",
+      "range": {
+        "startLine": 137,
+        "startChar": 47,
+        "endLine": 137,
+        "endChar": 87
+      },
+      "revId": "d0b52dfe8e1669faddb0e243d8b2dcf4fd5f3b0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
