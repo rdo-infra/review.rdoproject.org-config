@@ -60,6 +60,15 @@
         {{ ovb_working_dir }}/.venv/bin/openstack stack failures list --long {{ stack_name }} >> {{ failed_log }} 2>&1
       when: '"FAILED" in result.stdout'
 
+    - name: Dump failed stack server console logs
+      shell: |
+        SERVER_IDS=$({{ ovb_working_dir }}/.venv/bin/openstack stack resource list -n 2 -f value -c physical_resource_id --filter "type=OS::Nova::Server" {{ stack_name }})
+        for SERVER_ID in SERVER_IDS; do
+          SERVER_NAME=$({{ ovb_working_dir }}/.venv/bin/openstack server show -f value -c name $SERVER_ID)
+          {{ovb_working_dir}}/.venv/bin/openstack console log show $SERVER_ID > {{ logs_dir }}/${SERVER_NAME}_console.log 2>&1
+        done
+      when: '"FAILED" in result.stdout'
+
     - name: Show stack status
       command: >-
         {{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml
