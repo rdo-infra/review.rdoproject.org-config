@@ -22,6 +22,8 @@
       - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
     - - 'bmc_image:.*'
       - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
+    - - 'config_drive:.*'
+      - 'config_drive: {{ enable_config_drive|default(False) }}'
     - - 'key_name:.*'
       - 'key_name: {{ key_name }}'
     - - 'node_count:.*'
