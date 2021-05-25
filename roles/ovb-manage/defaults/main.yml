@@ -76,6 +76,7 @@ cloud_settings:
         radvd_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_flavor: ci.m1.small
+        enable_config_drive: true
     upshift:
         public_ip_net: provider_net_shared_2
         undercloud_flavor: ci.m1.xlarge
