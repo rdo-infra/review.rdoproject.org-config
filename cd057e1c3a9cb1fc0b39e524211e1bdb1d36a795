@@ -57,6 +57,30 @@
       "revId": "cd057e1c3a9cb1fc0b39e524211e1bdb1d36a795",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5c0a32_e7da658d",
+        "filename": "roles/ovb-manage/tasks/generate_template.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2021-05-25T11:33:27Z",
+      "side": 1,
+      "message": "I checked logs for jobs which ran on vexx, task line#13 and line#35 both executes.\n\n\nhttps://logserver.rdoproject.org/70/792870/1/openstack-check/tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ovb-master/c6bc21d/job-output.txt\n~~~\n2021-05-25 07:12:36.862653 | LOOP [ovb-manage : Customize the base template]\n2021-05-25 07:12:37.656321 | primary | changed: 1 replacements made\n2021-05-25 07:12:37.940655 | primary | ok\n2021-05-25 07:12:38.222054 | primary | changed: 1 replacements made\n2021-05-25 07:12:38.412322 | primary | changed: 1 replacements made\n2021-05-25 07:12:38.704431 | primary | changed: 1 replacements made\n2021-05-25 07:12:39.031839 | primary | changed: 1 replacements made\n2021-05-25 07:12:39.061042 | \n2021-05-25 07:12:39.061260 | LOOP [ovb-manage : Customize the base template for known clouds]\n2021-05-25 07:12:39.709981 | primary | changed: 1 replacements made\n2021-05-25 07:12:39.710224 | primary | changed: All items complete\n2021-05-25 07:12:39.710265 | \n2021-05-25 07:12:39.968032 | primary | changed: 1 replacements made\n2021-05-25 07:12:40.279368 | primary | changed: 1 replacements made\n2021-05-25 07:12:40.480482 | primary | changed: 1 replacements made\n2021-05-25 07:12:40.772317 | primary | changed: 1 replacements made\n2021-05-25 07:12:41.001282 | primary | changed: 1 replacements made\n2021-05-25 07:12:41.326408 | primary | changed: 1 replacements made\n~~~\n\nBut i agree probably better to add provider specific customization in this task.",
+      "parentUuid": "69b44337_cc11f76e",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "cd057e1c3a9cb1fc0b39e524211e1bdb1d36a795",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
