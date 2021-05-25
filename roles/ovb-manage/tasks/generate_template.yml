@@ -42,6 +42,8 @@
       - 'public_net_shared: false'
     - - 'bmc_flavor:.*'
       - "bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}"
+    - - 'config_drive:.*'
+      - "config_drive: {{ cloud_settings[cloud_name]['enable_config_drive']|default(False) }}"
     - - 'baremetal_flavor:.*'
       - "baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}"
     - - 'undercloud_flavor:.*'
