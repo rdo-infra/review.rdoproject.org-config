@@ -4,6 +4,13 @@ skip_list:
   - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern'
   - '208'  # File permissions not mentioned'
   - '505'  # referenced files must exist'
+  # TODO(ssbarnea): address these temporary exclusions:
+  - indentation
+  - truthy
+  - braces
+  - empty-lines
+  - line-length
+  # - unnamed-task
 verbosity: 1
 exclude_paths:
     - zuul

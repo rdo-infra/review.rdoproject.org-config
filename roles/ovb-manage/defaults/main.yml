@@ -14,9 +14,9 @@ tmp:
 key_name: tripleo-ci-team
 stack_name: 'baremetal_{{ idnum }}'
 routed_networks: false
-nodes: 3ctlr_1comp # overwritten in job config
-nodes_leaf1: 3 # number of nodes in leaf1
-nodes_leaf2: 1 # number of nodes in leaf2
+nodes: 3ctlr_1comp  # overwritten in job config
+nodes_leaf1: 3  # number of nodes in leaf1
+nodes_leaf2: 1  # number of nodes in leaf2
 nodes_config:
     1ctlr: 1
     3ctlr_1comp: 4
@@ -26,7 +26,7 @@ nodes_config:
     3ctlr_1comp_1supp: 4
     1ctlr_2comp_1supp: 3
     1ctlr_1cellctrl_1comp: 3
-    zero_nodes: 0 # Useful for undercloud in leaf0, ctlr and comp in leaf1/leaf2.
+    zero_nodes: 0  # Useful for undercloud in leaf0, ctlr and comp in leaf1/leaf2.
 node_count: "{{ nodes_config[nodes] }}"
 extra_node: "{{ nodes | regex_replace('.*(\\d+)supp', '\\1') | int | default(0) }}"
 
@@ -56,7 +56,7 @@ rdo_baremetal_image: >-
 cloud_settings:
     rdocloud:
         public_ip_net: 38.145.32.0/22
-        undercloud_flavor: m1.large # not used
+        undercloud_flavor: m1.large  # not used
         baremetal_flavor: ci.m1.large
         bmc_flavor: ci.m1.medium
         extra_node_flavor: ci.m1.small
@@ -90,7 +90,7 @@ cloud_settings:
         dhcp_relay_flavor: ci.m1.small
         dns_nameservers: ['10.11.5.19', '10.5.30.45']
 
-net_iso: 'multi-nic' # 'multi-nic' or 'public-bond' or '' or 'none'
+net_iso: 'multi-nic'  # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
 attach_to_ovb_networks: true
 create_private_network: true
