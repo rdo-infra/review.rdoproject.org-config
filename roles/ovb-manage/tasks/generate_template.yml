@@ -97,6 +97,8 @@
           - "baremetal_flavor: {{ cloud_settings[cloud_name]['extra_node_flavor'] }}"
         - - 'baremetal_image:.*'
           - "baremetal_image: {{ cloud_settings[cloud_name]['baremetal_image'] }}"
+        - - 'config_drive:.*'
+          - "config_drive: {{ cloud_settings[cloud_name]['enable_config_drive']|default(False) }}"
       when:
         - cloud_name is defined
         - cloud_name in cloud_settings
