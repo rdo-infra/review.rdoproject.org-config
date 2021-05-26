@@ -50,7 +50,7 @@
     - name: Dump console log of servers, removing stack id
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
       loop: "{{ servers.stdout_lines }}"
-      ignore_errors: true
+      failed_when: false
       environment:
         PYTHONIOENCODING: 'utf-8'
 
@@ -88,7 +88,7 @@
     - name: Delete baremetal ports of OVB networks
       command: "{{ ovb_working_dir }}/delete_baremetal_ports.sh"
       when: baremetal_ports.results
-      ignore_errors: true
+      failed_when: false
       changed_when: true
 
     # NOTE(dpawlik): Run previous solution in case, when new script
@@ -98,7 +98,7 @@
       command: "{{ ovb_working_dir }}/.venv/bin/openstack port delete {{ item.stdout | replace('\n', ' ') }}"
       loop: "{{ baremetal_ports.results }}"
       when: '"stdout" in item and item.stdout'
-      ignore_errors: true
+      failed_when: false
       changed_when: true
 
     - name: Wait a little until ports are deleted
@@ -111,7 +111,7 @@
       when:
         - extra_node|bool
         - extra_node_create_key|bool
-      ignore_errors: true
+      failed_when: false
 
     # security group name derived from
     # https://github.com/openstack/openstack-virtual-baremetal/
@@ -121,7 +121,7 @@
         {{ ovb_working_dir }}/.venv/bin/openstack security group delete _extranode-baremetal-{{ idnum }}-extra__0_sg
       when:
         - extra_node|bool
-      ignore_errors: true
+      failed_when: false
 
     - name: Delete extra stack
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack delete {{ stack_name }}-extra -y"
@@ -168,11 +168,11 @@
 
     - name: Print stack status
       debug: msg="{{ stack_exists.stdout }}"
-      ignore_errors: true
+      failed_when: false
 
     - name: Print extra stack status
       debug: msg="{{ extra_stack_exists.stdout }}"
-      ignore_errors: true
+      failed_when: false
       when: extra_node|bool
 
     - name: Fail a job if OVB can't delete

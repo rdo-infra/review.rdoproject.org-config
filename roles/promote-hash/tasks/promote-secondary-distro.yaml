@@ -44,5 +44,6 @@
       delay: 60
       until: result is succeeded
   rescue:
-    - debug:
+    - name: Display commit hash
+      debug:
         msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in DLRN RHEL."

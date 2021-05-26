@@ -68,7 +68,7 @@
     - name: Dump console log of servers, removing stack id
       shell: "{{ ovb_working_dir }}/.venv/bin/openstack console log show {{ item }} > {{ logs_dir }}/{{ item|regex_replace('-[0-9]*','') }}-console.log"
       loop: "{{ servers.stdout_lines }}"
-      ignore_errors: true
+      failed_when: false
       environment:
         PYTHONIOENCODING: 'utf-8'
       when: '"CREATE_FAILED" in result.stdout'
