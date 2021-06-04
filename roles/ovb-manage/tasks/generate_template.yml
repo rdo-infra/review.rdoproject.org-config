@@ -156,6 +156,7 @@
             dhcp_relay_image: {{ cloud_settings[cloud_name]['dhcp_relay_image'] }}
             dhcp_relay_flavor: {{ cloud_settings[cloud_name]['dhcp_relay_flavor'] }}
             external_net: {{ cloud_settings[cloud_name]['external_net']|default('external') }}
+            baremetal_config_drive: {{ cloud_settings[cloud_name]['baremetal_config_drive']|default(False) }}
             {% else -%}
             external_net: external
             bmc_flavor: m1.small
@@ -203,6 +204,7 @@
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
+            baremetal_config_drive: {{ cloud_settings[cloud_name]['baremetal_config_drive']|default(False) }}
             {% else -%}
             bmc_flavor: m1.small
             baremetal_flavor: baremetal
@@ -240,6 +242,7 @@
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
+            baremetal_config_drive: {{ cloud_settings[cloud_name]['baremetal_config_drive']|default(False) }}
             {% else -%}
             bmc_flavor: m1.small
             baremetal_flavor: baremetal
