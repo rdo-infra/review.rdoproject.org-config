@@ -504,6 +504,18 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
+    name: opendev.org/x/packstack
+    templates:
+      - system-required
+    openstack-experimental:
+      jobs:
+        - packstack-centos9-integration-scenario001
+        - packstack-centos9-integration-scenario002
+        - packstack-centos9-integration-scenario003
+        - packstack-centos9-multinode-scenario002-tempest
+
+
+- project:
     name: review.rdoproject.org/centos-opstools/centos-release-opstools
     templates:
       - system-required
