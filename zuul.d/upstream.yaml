@@ -637,3 +637,31 @@
     failure:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-check-ondemand
+    description: |
+        Upstream patchsets that have to be checked on demand manually.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: independent
+    precedence: normal
+    require:
+      opendev.org:
+        open: True
+        current-patchset: True
+    trigger:
+      opendev.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check-rdo)
+    success:
+      rdoci: {}
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      rdoci: {}
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
