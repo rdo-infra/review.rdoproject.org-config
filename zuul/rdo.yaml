@@ -995,6 +995,12 @@
             - job
         - openstack/puppet-openstack-integration:
             include:
+          # The aim is to run those jobs on RDO Zuul with CentOS 9 nodes and
+          # catch issues earlier while awaiting upstream nodepool to support
+          # it. So, we won't report back results to upstream, but as packstack
+          # is maintained by RDO core team, the risk is mitigated.
+        - x/packstack:
+            include:
             - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
