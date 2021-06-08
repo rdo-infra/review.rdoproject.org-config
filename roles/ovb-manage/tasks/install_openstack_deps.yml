@@ -26,6 +26,7 @@
       pip:
         name: "{{ pip_packages }}"
         virtualenv: "{{ ovb_working_dir }}/.venv"
+        virtualenv_python: python3.6
         extra_args: "-c {{ constraint_file }}"
       register: python_pkgs
       until: python_pkgs is success
