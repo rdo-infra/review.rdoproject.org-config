@@ -118,6 +118,8 @@ pip_packages:
   - python-heatclient
   - python-novaclient
   - python-neutronclient
+# When not specified, the Python version used to run the ansible module is used.
+virtualenv_python:
 constraint_file: https://raw.githubusercontent.com/openstack/requirements/stable/stein/upper-constraints.txt
 packages:
   - gcc
