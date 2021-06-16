@@ -1,9 +1,14 @@
 - hosts: all
   tasks:
-    - name: Create JJB secret
+    - name: Create JJB secrets
       copy:
-        content: "{{ ci_centos.jjb_config }}"
-        dest: ~/.jjb_config.ini
+        content: "{{ item }}"
+        dest: ~/.jjb_config_{{ index }}.ini
+      loop:
+          - "{{ ci_centos.jjb_config }}"
+          - "{{ sig_jenkins.jjb_config }}"
+      loop_control:
+        index_var: index
 
     - name: Run tox --notest
       command: tox -evenv --notest
@@ -14,11 +19,19 @@
     - name: Create weirdo_token secret
       copy:
         content: "{{ weirdo_token.token }}"
-        dest: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}/jenkins/jobs/weirdo_token"
+        dest: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}/{{ item }}/jobs/weirdo_token"
+      loop:
+          - jenkins
+          - jenkins-v2
 
     - name: Run jenkins-jobs
-      command: .tox/venv/bin/jenkins-jobs --conf ~/.jjb_config.ini update jenkins/jobs
+      command: ".tox/venv/bin/jenkins-jobs --conf ~/.jjb_config_{{ index }}.ini update {{ item }}/jobs"
       args:
         chdir: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
       no_log: true
       changed_when: true
+      loop:
+          - jenkins
+          - jenkins-v2
+      loop_control:
+        index_var: index
