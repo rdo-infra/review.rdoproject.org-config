@@ -33,6 +33,9 @@ fi
 if [ -f "overcloud-full.tar" ]; then
     mv overcloud-full.tar overcloud-full.tar.md5 $FULL_HASH
 fi
+if [ -f "overcloud-hardened-uefi-full.qcow2" ]; then
+    mv overcloud-hardened-uefi-full.qcow2 overcloud-hardened-uefi-full.qcow2.md5 $FULL_HASH
+fi
 if [ -f "ironic-python-agent.tar" ]; then
     mv ironic-python-agent.tar ironic-python-agent.tar.md5 $FULL_HASH
 fi
