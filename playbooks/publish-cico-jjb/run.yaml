@@ -9,6 +9,7 @@
           - "{{ sig_jenkins.jjb_config }}"
       loop_control:
         index_var: index
+      no_log: true
 
     - name: Run tox --notest
       command: tox -evenv --notest
@@ -23,6 +24,7 @@
       loop:
           - jenkins
           - jenkins-v2
+      no_log: true
 
     - name: Run jenkins-jobs
       command: ".tox/venv/bin/jenkins-jobs --conf ~/.jjb_config_{{ index }}.ini update {{ item }}/jobs"
