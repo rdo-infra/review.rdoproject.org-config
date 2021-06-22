@@ -16,6 +16,24 @@
       "revId": "b6ce170027f0975073dde693feabe2acbf63718a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ccd27f1_e8869a16",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2021-06-22T07:04:55Z",
+      "side": 1,
+      "message": "this was something added by Chkumar last year ish when we had some weird issue with the build and missing files - see https://opendev.org/openstack/tripleo-ci/commit/8d4165db6327361e67048748c72b0a9721f7426e \nit seems we are only setting that in 1 place currently for   90     name: periodic-tripleo-centos-8-buildimage-overcloud-full-master  @ https://review.rdoproject.org/r/gitweb?p\u003dconfig.git;a\u003dblob;f\u003dzuul.d/tripleoci.yaml#l97\n\nSo I would say no we don\u0027t want to add that here unless we start seeing similar issues with that job - there is a fair amount of overhead there with installation of packages and starting libvirt etc https://opendev.org/openstack/tripleo-ci/src/branch/master/roles/oooci-build-images/tasks/image_sanity.yaml",
+      "parentUuid": "6238521c_a59aca42",
+      "revId": "b6ce170027f0975073dde693feabe2acbf63718a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
