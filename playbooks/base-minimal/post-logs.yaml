@@ -7,7 +7,7 @@
     - role: ara-report
 
 
-- hosts: "{{ site_logs.fqdn }}"
+- hosts: logs.rdoproject.org
   gather_facts: False
   roles:
     - role: upload-logs
