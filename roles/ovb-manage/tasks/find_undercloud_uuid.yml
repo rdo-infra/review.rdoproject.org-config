@@ -1,19 +1,19 @@
 ---
-- name: Find out UUID of instance with metadata URL  # noqa 303
-  shell: >-
-    curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null |
-    {{ ansible_python.executable }} -c 'import json, sys; print(json.load(sys.stdin)["uuid"])'
-  register: js
-  ignore_errors: true
-  changed_when: false
-
 - name: Find out UUID of instance with metadata file
   shell: |
     set -euo pipefail
     cat /mnt/config/openstack/latest/meta_data.json 2>/dev/null | \
     {{ ansible_python.executable }} -c 'import json, sys; print(json.load(sys.stdin)["uuid"])'
+  register: js
+  ignore_errors: true
+
+- name: Find out UUID of instance with metadata URL  # noqa 303
+  shell: >-
+    curl http://169.254.169.254/openstack/latest/meta_data.json 2>/dev/null |
+    {{ ansible_python.executable }} -c 'import json, sys; print(json.load(sys.stdin)["uuid"])'
   register: js2
   when: js is failed
+  changed_when: false
 
 - name: Set UUID of undercloud
   set_fact:
