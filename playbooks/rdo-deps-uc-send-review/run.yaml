@@ -1,5 +1,20 @@
-- hosts: all
+- hosts: localhost
   name: rdo-deps-uc-send-review playbook
+  vars:
+    ansible_user_dir: "workspace"
+    zuul:
+      branch: "master"
+      # dummy newrev
+      newrev: "12a59e6b0707d4cfdbdb62e91b6eb50f0fd8bb1e"
+      project:
+        src_dir: "requirements"
+      projects:
+        review.rdoproject.org/rdo-infra/releng:
+          src_dir: "releng"
+        review.rdoproject.org/gating_scripts:
+          src_dir: "gating_scripts"
+        review.rdoproject.org/rdoinfo:
+          src_dir: "rdoinfo"
   tasks:
     - name: rdo-deps-uc-send-review
       shell:
@@ -43,24 +58,24 @@
           # if not defaults to 8
           CENTOS_V=${CENTOS_V:-8s}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-          python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
-              -l $change_list \
-              -r $RELEASE \
-              --centos-release $CENTOS_V \
-              -p $PHASE
+          #python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
+          #    -l $change_list \
+          #    -r $RELEASE \
+          #    --centos-release $CENTOS_V \
+          #    -p $PHASE
           DIFF=$(git diff *.yml */*.yml)
           popd
 
-          mkdir -p ~/.ssh
-          cat >> ~/.ssh/config << EOF
+          #mkdir -p ~/.ssh
+          #cat >> ~/.ssh/config << EOF
 
-          Host review.rdoproject.org
-            IdentityFile ~/.ssh/rdoinfo_id_rsa
-          EOF
+          #Host review.rdoproject.org
+          #  IdentityFile ~/.ssh/rdoinfo_id_rsa
+          #EOF
 
-          chmod 600 ~/.ssh/config
-          ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+          #chmod 600 ~/.ssh/config
+          #ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+          #chmod 644 ~/.ssh/known_hosts
 
           if [ -n "$DIFF" ]; then
             NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
@@ -74,10 +89,12 @@
               pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
               pkg_nv=$pkg_name-$pkg_vers
               in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
+              #in_koji_nvr="python-aniso8601-8.1.1-1.fc34"
               if [ -z "$in_koji_nvr" ]; then
                 echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
                 break
               fi
+              echo $in_koji_nvr
 
               # We check if there is already an opened change which propose
               # to update the package to desired $pkg_vers.
@@ -110,7 +127,7 @@
                   git add .
                   COMMIT_MSG="Update to ${pkg_vers}"
                   git commit -m "$COMMIT_MSG"
-                  review_status="$(git review c${CENTOS_V}-${RELEASE}-rdo)"
+                  review_status="$(git review -n c${CENTOS_V}-${RELEASE}-rdo)"
                   if [ $? -eq 0 ]; then
                     change_url=$(echo -e "$review_status" | grep -e "$COMMIT_MSG" | awk '{print $2}')
                     if [ -n $change_url ]; then
@@ -127,13 +144,14 @@
 
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
             COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
-            git config user.name "rdo-trunk"
-            git config user.email "javier.pena@redhat.com"
-            git config gitreview.username "rdo-trunk"
-            git checkout -b proposal
-            git review -s -v
-            echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-            git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
+            echo -e "$COMMIT_MSG"
+            #git config user.name "rdo-trunk"
+            #git config user.email "javier.pena@redhat.com"
+            #git config gitreview.username "rdo-trunk"
+            #git checkout -b proposal
+            #git review -s -v
+            #echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
+            #git review -t "rdoinfo-deps-uc-update-$RELEASE" < /dev/null
             popd
           fi
       changed_when: true
