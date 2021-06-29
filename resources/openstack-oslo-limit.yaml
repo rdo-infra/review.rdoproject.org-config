@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/oslo-limit-core:
+      description: Core developers for project oslo-limit
+      members:
+      - apevec@redhat.com
+      - hguemar@fedoraproject.org
+      - lbezdick@redhat.com
+    openstack/oslo-limit-ptl:
+      description: Project team lead for project oslo-limit
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-oslo-limit-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-limit-core
+          owner = group openstack/oslo-limit-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-limit-core
+          label-Code-Review = -2..+2 group openstack/oslo-limit-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-limit-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-limit-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/oslo-limit-core
+          label-Verified = -2..+2 group openstack/oslo-limit-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/oslo-limit-core
+          label-Workflow = -1..+1 group openstack/oslo-limit-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-limit-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-limit-core
+      - openstack/oslo-limit-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-oslo-limit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/oslo-limit-core
+          owner = group openstack/oslo-limit-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/oslo-limit-core
+          label-Code-Review = -2..+2 group openstack/oslo-limit-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/oslo-limit-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/oslo-limit-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/oslo-limit-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/oslo-limit-core
+          label-Workflow = -1..+0 group openstack/oslo-limit-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/oslo-limit-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/oslo-limit-core
+      - openstack/oslo-limit-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/oslo-limit:
+      acl: openstack-oslo-limit
+      description: Mirror of upstream oslo-limit (mirror + patches)
+    openstack/oslo-limit-distgit:
+      acl: openstack-oslo-limit-distgit
+      description: Packaging of upstream oslo-limit
+      default-branch: rpm-master
+      branches:
+        master: '0'
