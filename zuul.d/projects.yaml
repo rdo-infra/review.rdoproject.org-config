@@ -4891,6 +4891,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/oslo-limit
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/oslo-limit-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/oslo-log
     templates:
       - package-check-jobs
