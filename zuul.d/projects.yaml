@@ -224,17 +224,18 @@
       - system-required
     github-check:
       jobs:
-        - tripleo-ci-centos-8-standalone-podman-ansible:
-            files:
+        - tripleo-ci-centos-8-standalone:
+            files: &ansible_podman_col
               - ^plugins/module_utils/podman/.*$
               - ^plugins/modules/podman_container.*$
               - ^plugins/modules/podman_image.*$
               - ^plugins/modules/podman_play.*$
               - ^plugins/modules/podman_pod.*$
               - ^plugins/modules/podman_volume.*$
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+            files: *ansible_podman_col
     github-manual:
       jobs:
-        - tripleo-ci-centos-8-standalone-podman-ansible
         - tripleo-ci-centos-8-standalone
 
 - project:
