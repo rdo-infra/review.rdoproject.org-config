@@ -232,11 +232,11 @@
               - ^plugins/modules/podman_play.*$
               - ^plugins/modules/podman_pod.*$
               - ^plugins/modules/podman_volume.*$
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files: *ansible_podman_col
     github-manual:
       jobs:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001
         - tripleo-ci-centos-8-standalone
+        - tripleo-ci-centos-8-containers-multinode
 
 - project:
     name: github.com/containers/buildah
