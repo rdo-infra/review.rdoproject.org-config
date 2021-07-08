@@ -42,17 +42,20 @@
           chmod 644 ~/.ssh/known_hosts
 
           cd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/nfvinfo'].src_dir }}
-          for version in 2.11 2.13 2.15
+          for version in 2.11 2.13 2.15 2021
           do
             case $version in
               2.11)
-                deny_list=openvswitch2.13,ovn2.13,openvswitch2.15,ovn2.15
+                deny_list=openvswitch2.13,ovn2.13,openvswitch2.15,ovn2.15,ovn-2021
                 ;;
               2.13)
-                deny_list=openvswitch2.11,ovn2.11,openvswitch2.15,ovn2.15
+                deny_list=openvswitch2.11,ovn2.11,openvswitch2.15,ovn2.15,ovn-2021
                 ;;
               2.15)
-                deny_list=openvswitch2.11,ovn2.11,openvswitch2.13,ovn2.13
+                deny_list=openvswitch2.11,ovn2.11,openvswitch2.13,ovn2.13,ovn-2021
+                ;;
+              2021)
+                deny_list=openvswitch2.11,ovn2.11,openvswitch2.13,ovn2.13,openvswitch2.15,ovn2.15
                 ;;
             esac
 
