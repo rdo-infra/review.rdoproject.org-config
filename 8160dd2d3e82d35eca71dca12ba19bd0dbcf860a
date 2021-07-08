@@ -46,6 +46,30 @@
       "revId": "8160dd2d3e82d35eca71dca12ba19bd0dbcf860a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db7bf64_aa5064a7",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7859,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2021-07-08T10:26:31Z",
+      "side": 1,
+      "message": "Hello Pooja,\n\nI agree with Yatin\u0027s comment:-\n\nIMO.. We have 2 options here:\n\nFirst:-\n\n1) First add definition for \"distgit-tripleo-master-testing-centos-8-containers-multinode\" keeping older \"distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010\" in distgit-jobs.yaml (rdo-jobs project)\n2) Rename \"distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010\" to \"distgit-tripleo-master-testing-centos-8-containers-multinode\" in zuul.d/projects.yaml (config project)\n3) Remove original \"distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010\" in a follow up patch  from distgit-jobs.yaml (rdo-jobs project)\n\nSecond:-\n\n1) Remove \"distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010\" from zuul.d/projects.yaml (config project)\n2) Rename \"distgit-tripleo-master-testing-centos-8-multinode-1ctlr-featureset010\" to \"distgit-tripleo-master-testing-centos-8-containers-multinode\" to distgit-jobs.yaml (rdo-jobs project)\n3) Add \"distgit-tripleo-master-testing-centos-8-containers-multinode\" in zuul.d/projects.yaml (config project)",
+      "parentUuid": "a1688780_304b0965",
+      "range": {
+        "startLine": 7859,
+        "startChar": 60,
+        "endLine": 7859,
+        "endChar": 61
+      },
+      "revId": "8160dd2d3e82d35eca71dca12ba19bd0dbcf860a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
