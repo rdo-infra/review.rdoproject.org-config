@@ -24,16 +24,31 @@
         - event: pull_request
           action: comment
           comment: (?i)^\s*(recheck|check-rdo)\s*$
+      github-ro:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo)\s*$
     start:
       github.com:
         status: 'pending'
         status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
         comment: false
+      github-ro:
+        status: 'pending'
+        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
     success:
       github.com:
         status: 'success'
         status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
         comment: false
+      github-ro:
+        status: 'success'
+        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -41,6 +56,9 @@
         status: 'failure'
         status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
         comment: false
+      github-ro:
+        status: 'failure'
+        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
