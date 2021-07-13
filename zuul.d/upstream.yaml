@@ -187,44 +187,6 @@
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
-- pipeline:
-    name: openstack-periodic-integration-stable5
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically two times a week - on Wednesday and Saturday.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-          # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
-          # The first weekday is Monday.
-          # If Monday is day 0, Saturday and Sunday should be 5,6
-        - time: '0 12 * * 2,5'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
-    name: openstack-periodic-integration-stable7
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically two times a week - on Thursday and Sunday.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-          # https://zuul-ci.org/docs/zuul/admin/drivers/timer.html says
-          # The first weekday is Monday.
-          # If Monday is day 0, Saturday and Sunday should be 5,6
-        - time: '0 12 * * 3,6'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
 # Component pipelines:
 # Note that while these pipelines are kicked on a periodic basis,
 # they are not named periodic-* due to:
