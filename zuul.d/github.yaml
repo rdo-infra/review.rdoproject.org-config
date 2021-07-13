@@ -84,18 +84,18 @@
           comment: (?i)^\s*(recheck|check-rdo)\s*$
     start:
       github-ro:
-        status: 'pending'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+        check: in_progress
+        comment: false
     success:
       github-ro:
-        status: 'success'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+        check: in_progress
+        comment: false
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github-ro:
-        status: 'failure'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        check: in_progress
+        comment: false
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
