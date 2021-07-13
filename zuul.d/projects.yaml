@@ -195,11 +195,14 @@
     templates:
       - noop
       - system-required
-    github-check:
+    github-check-ro:
       jobs:
         - tripleo-ci-centos-8-standalone:
             files:
               - plugins/filter/ipaddr.py
+    github-manual-ro:
+      jobs:
+        - tripleo-ci-centos-8-standalone
 
 - project:
     name: github.com/ansible-collections/ansible.posix
@@ -207,11 +210,14 @@
     templates:
       - noop
       - system-required
-    github-check:
+    github-check-ro:
       jobs:
         - tripleo-ci-centos-8-standalone:
             files:
               - plugins/.*$
+    github-manual-ro:
+      jobs:
+        - tripleo-ci-centos-8-standalone
 
 - project:
     name: github.com/ansible-collections/community.general
@@ -219,7 +225,7 @@
     templates:
       - noop
       - system-required
-    github-check:
+    github-check-ro:
       jobs:
         - tripleo-ci-centos-8-standalone:
             files:
@@ -229,6 +235,9 @@
               - plugins/modules/system/seport.*$
               - plugins/modules/clustering/pacemaker_cluster.*$
               - plugins/modules/system/filesystem.*$
+    github-manual-ro:
+      jobs:
+        - tripleo-ci-centos-8-standalone
 
 # needed to be able to depends-on ansible changes
 - project:
