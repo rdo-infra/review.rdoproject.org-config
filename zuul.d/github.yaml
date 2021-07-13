@@ -24,31 +24,16 @@
         - event: pull_request
           action: comment
           comment: (?i)^\s*(recheck|check-rdo)\s*$
-      github-ro:
-        - event: pull_request
-          action:
-            - opened
-            - changed
-            - reopened
-        - event: pull_request
-          action: comment
-          comment: (?i)^\s*(recheck|check-rdo)\s*$
     start:
       github.com:
         status: 'pending'
         status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
         comment: false
-      github-ro:
-        status: 'pending'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
     success:
       github.com:
         status: 'success'
         status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
         comment: false
-      github-ro:
-        status: 'success'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -56,9 +41,6 @@
         status: 'failure'
         status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
         comment: false
-      github-ro:
-        status: 'failure'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -74,6 +56,57 @@
         - event: pull_request
           action: comment
           comment: (?i)^\s*(check-github|check-rdo)\s*$
+
+- pipeline: &defaults-ro
+    name: github-check-ro
+    description: |
+      Newly uploaded patchsets on GitHub enter this pipeline to receive an
+      initial +/-1 Verified vote. Should be used by production ready jobs,
+      for experimental ones github-manual pipeline.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      github-ro:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo)\s*$
+    start:
+      github-ro:
+        status: 'pending'
+        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+    success:
+      github-ro:
+        status: 'success'
+        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      github-ro:
+        status: 'failure'
+        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    <<: *defaults-ro
+    name: github-manual-ro
+    description: |
+      Used for testing new or experimental jobs by manually trigerring them
+      with magic comment `check-github`.
+    success-message: Build succeeded (check pipeline).
+    trigger:
       github-ro:
         - event: pull_request
           action: comment
