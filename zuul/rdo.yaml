@@ -1004,11 +1004,13 @@
         - x/packstack:
             include:
             - job
+        - openstack/devstack:
+            include:
+            - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
         - include: []
           projects:
-          - openstack/devstack
           - openstack/ansible-collections-openstack
           - openstack/ansible-config_template
           - openstack/ansible-role-container-registry
