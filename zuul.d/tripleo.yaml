@@ -350,3 +350,21 @@
             - ^plugins/modules/role_assignment.*$
             - ^plugins/modules/stack.*$
             - ^plugins/module_utils/openstack.*$
+
+- project:
+    name: opendev.org/openstack/tripleo-operator-ansible
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
+            files:
+              - roles/tripleo_overcloud_container_image_upload/.*
+              - roles/tripleo_overcloud_deploy/.*
+              - roles/tripleo_overcloud_network_provision/.*
+              - roles/tripleo_overcloud_network_vip_provision/.*
+              - roles/tripleo_overcloud_node_import/.*
+              - roles/tripleo_overcloud_node_introspect/.*
+              - roles/tripleo_overcloud_node_provision/.*
+              - roles/tripleo_undercloud_install/.*
+        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
+            files:
+              - roles/tripleo_overcloud_delete/.*
