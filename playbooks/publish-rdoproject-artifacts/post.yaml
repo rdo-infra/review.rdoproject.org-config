@@ -3,7 +3,7 @@
     - role: add-fileserver
       when: zuul_success | bool
 
-- hosts: "{{ fileserver.fqdn }}"
+- hosts: logserver.rdoproject.org
   gather_facts: False
   roles:
     - role: publish-artifacts-to-fileserver
