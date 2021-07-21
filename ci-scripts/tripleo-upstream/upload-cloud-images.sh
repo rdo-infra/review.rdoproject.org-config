@@ -4,7 +4,7 @@ source $WORKSPACE/hash_info.sh
 
 pushd $HOME
 
-ls *.tar
+ls *.tar *.qcow2 || true
 
 export RSYNC_RSH="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 rsync_cmd="rsync --verbose --archive --no-perms --no-owner --no-group --delay-updates --relative"
