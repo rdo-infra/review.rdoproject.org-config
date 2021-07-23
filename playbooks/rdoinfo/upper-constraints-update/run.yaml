@@ -26,7 +26,7 @@
           cd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           for RELEASE in {{ stable_releases }} ; do
             # Ensure we have a fresh repo for each release
-            git reset --hard origin/master
+            git reset --hard master
             if [ "$RELEASE" != "master" ]; then
               GIT_BRANCH="stable/$RELEASE"
               UC_BRANCH="$RELEASE"
