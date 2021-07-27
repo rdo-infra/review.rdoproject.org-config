@@ -565,3 +565,14 @@
     secrets:
       - tripleo_gerrit_ssh_key
       - cloud_secrets
+
+- job:
+    name: tripleo-ci-compose-promote
+    abstract: true
+    timeout: 3000
+    nodeset: single-centos-8-node-vexxhost
+    run: playbooks/tripleo-ci-promote-latest-compose/run.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
