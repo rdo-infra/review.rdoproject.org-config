@@ -6071,8 +6071,25 @@
     name: review.rdoproject.org/openstack/tripleo-repos-distgit
     default-branch: rpm-master
     templates:
-      - package-distgit-check-jobs
       - system-required
+    check:
+      jobs:
+        - rdopkg-reqcheck:
+            voting: false
+            branches: ^rpm-master$
+        - rpmlint:
+            dependencies:
+              - DLRN-rpmbuild-centos8
+            branches: ^rpm-master$
+        - DLRN-build-tripleo
+        - DLRN-build-tripleo-centos8
+        - DLRN-rpmbuild
+        - DLRN-rpmbuild-centos8
+        - DLRN-rpmbuild-centos9
+    gate:
+      jobs:
+        - DLRN-rpmbuild
+        - DLRN-rpmbuild-centos8
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-ui
