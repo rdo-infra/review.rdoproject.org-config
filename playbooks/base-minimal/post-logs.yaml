@@ -6,6 +6,21 @@
       fileserver: "{{ site_logs }}"
     - role: ara-report
 
+- hosts: localhost
+  tasks:
+    - name: Generate bulk log download script
+      include_role:
+        name: local-log-download
+      vars:
+        local_log_download_api: 'https://review.rdoproject.org/zuul/api'
+
+    - name: Register quick-download link
+      zuul_return:
+        data:
+          zuul:
+            artifacts:
+              - name: Logs download script
+                url: 'download-logs.sh'
 
 - hosts: logserver.rdoproject.org
   gather_facts: False
