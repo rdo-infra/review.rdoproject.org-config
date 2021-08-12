@@ -1,5 +1,19 @@
 - hosts: all
   vars:
+    promote_source: tripleo-ci-testing
+    promote_target: previous-tripleo-ci-testing
+  tasks:
+    - name: Create hash_info file with hashes from consistent
+      include_role:
+        name: promote-hash
+        tasks_from: get-hash.yaml
+
+    - name: Promote tripleo-ci-testing to previous-tripleo-ci-testing for rucks
+      include_role:
+        name: promote-hash
+        tasks_from: promote-primary-distro.yaml
+- hosts: all
+  vars:
     promote_source: consistent
     promote_target: tripleo-ci-testing
   tasks:
