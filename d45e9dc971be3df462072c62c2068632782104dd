@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33edbd05_894fb4bb",
+        "filename": "playbooks/tripleo-ci-promote-latest-compose/run.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2021-08-18T16:28:57Z",
+      "side": 1,
+      "message": "Hi, instead of creating a new playbook, can we just inherit the one that is about to merge in ci-config[1]? If no, we should update this one to also use ssh-agent together with secret.\n\nhttps://review.rdoproject.org/r/c/rdo-infra/ci-config/+/34767/5/playbooks/tripleo-ci-promote-centos-compose/run.yaml",
+      "revId": "d45e9dc971be3df462072c62c2068632782104dd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b9dffb_dbaf4ff7",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2021-08-18T16:28:57Z",
+      "side": 1,
+      "message": "We will need to set some vars in order to work with images server:\n\ncompose_promoter_server: host or ip of the destination server\ncompose_promoter_user: user to be used for ssh\ncompose_promoter_working_dir: directory on remote server to create the artifacts, that should be \"/var/www/html/images/centos_compose/centos8/\"\nssh_private_key_content: secret private key (uploader_ssh_key.ssh_private_key)\n\nBut we may want to do first in a testproject?",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 0
+      },
+      "revId": "d45e9dc971be3df462072c62c2068632782104dd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
