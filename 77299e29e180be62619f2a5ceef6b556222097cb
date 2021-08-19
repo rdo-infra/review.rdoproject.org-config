@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "834cad32_1c600b62",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2021-08-19T11:50:30Z",
+      "side": 1,
+      "message": "rcm-uploader or uploader?\nisn\u0027t specified in the secret itself, but the upload script is using one of those users to upload artifacts[1].\n\n[1] https://github.com/rdo-infra/review.rdoproject.org-config/blob/c9f83a1c1752a26146e1b3a3b5b832fdb61f7f9c/ci-scripts/tripleo-upstream/upload-cloud-images.sh#L15-L26",
+      "range": {
+        "startLine": 584,
+        "startChar": 29,
+        "endLine": 584,
+        "endChar": 38
+      },
+      "revId": "77299e29e180be62619f2a5ceef6b556222097cb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74999b21_5d4fef34",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2021-08-19T11:50:30Z",
+      "side": 1,
+      "message": "not needed since we are setting \u0027ssh_private_key_content\u0027, but it also harmless, if this private key really exists, cause paramiko will try all available.",
+      "range": {
+        "startLine": 585,
+        "startChar": 6,
+        "endLine": 585,
+        "endChar": 54
+      },
+      "revId": "77299e29e180be62619f2a5ceef6b556222097cb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
