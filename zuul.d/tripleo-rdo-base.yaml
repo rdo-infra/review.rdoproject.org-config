@@ -571,7 +571,6 @@
     abstract: true
     timeout: 3000
     nodeset: single-centos-8-node-vexxhost
-    run: "{{ zuul.executor.work_root }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}/playbooks/tripleo-ci-promote-centos-compose/run.yaml"
     required-projects:
       - rdo-infra/ci-config
     roles:
