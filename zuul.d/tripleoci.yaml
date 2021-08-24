@@ -82,17 +82,6 @@
       - dlrnapi
 
 - job:
-    name: periodic-tripleo-centos-8-buildimage-overcloud-hardened-full-master
-    parent: periodic-tripleo-centos-8-master-buildimage-base
-    post-run:
-      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
-    vars:
-      tripleo_image_type: overcloud-hardened-full
-      release: master
-    secrets:
-      - uploader_ssh_key
-
-- job:
     name: periodic-tripleo-centos-8-buildimage-overcloud-hardened-uefi-full-master
     parent: periodic-tripleo-centos-8-master-buildimage-base
     post-run:
