@@ -1,9 +1,10 @@
 ---
 - job:
-    name: periodic-tripleo-centos-8-promote-latest-compose
+    name: periodic-tripleo-centos-8-promote-latest-compose-master
     parent: tripleo-ci-compose-promote-base
     vars:
       release: master
+      compose_promoter_working_dir: "/var/www/html/images/centos_compose/centos8/master"
 
 - job:
     name: periodic-tripleo-centos-8-master-promote-promoted-components-to-tripleo-ci-testing
