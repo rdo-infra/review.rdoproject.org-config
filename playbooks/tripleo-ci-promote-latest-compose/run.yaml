@@ -3,7 +3,10 @@
     - name: Start a new ssh-agent with the provided private key
       include_role:
         name: ssh_agent
+        vars:
+          ssh_private_key_content: "{{ uploader_ssh_key.ssh_private_key }}"
       when: ssh_private_key_content is defined
+
     - name: Promote a compose candidate label to a target label
       include_role:
         name: compose_promoter
