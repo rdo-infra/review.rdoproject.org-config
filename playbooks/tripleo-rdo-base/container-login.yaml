@@ -14,15 +14,7 @@
         - ansible_distribution_major_version|int < 9
 
     - name: Include login
-      no_log: true
       when: registry_login_enabled|default(false)|bool
-      vars:
-        container_registry_logins:
-          trunk.registry.rdoproject.org:
-            unused: "{{ rdo_registry.token }}"
-        tripleo_container_registry_logins: "{{ container_registry_logins }}"
-        tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
-        docker_login_cache: /root/.docker/config.json
       block:
 
         - name: Set IP forwarding on before docker starts
@@ -34,7 +26,16 @@
             state: present
             reload: yes
 
-        - include_role:
+        - name: Registry login for Docker
+          no_log: true
+          vars:
+            container_registry_logins:
+              trunk.registry.rdoproject.org:
+                unused: "{{ rdo_registry.token }}"
+            tripleo_container_registry_logins: "{{ container_registry_logins }}"
+            tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
+            docker_login_cache: /root/.docker/config.json
+          include_role:
             name: ansible-role-container-registry
             tasks_from: registry-login.yml
           when:
@@ -58,14 +59,30 @@
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int >= 8
 
-        - include_role:
+        - name: Podman login
+          no_log: true
+          vars:
+            container_registry_logins:
+              trunk.registry.rdoproject.org:
+                unused: "{{ rdo_registry.token }}"
+            tripleo_container_registry_logins: "{{ container_registry_logins }}"
+            tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
+          include_role:
             name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
             tasks_from: tripleo_podman_login.yml
           when:
             (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
              or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
 
-        - include_role:
+        - name: Buildah Login
+          no_log: true
+          vars:
+            container_registry_logins:
+              trunk.registry.rdoproject.org:
+                unused: "{{ rdo_registry.token }}"
+            tripleo_container_registry_logins: "{{ container_registry_logins }}"
+            tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
+          include_role:
             name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
             tasks_from: tripleo_podman_buildah_login.yml
           when:
