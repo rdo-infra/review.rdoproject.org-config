@@ -57,7 +57,6 @@
           when:
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int >= 8
-            - ansible_distribution_major_version|int < 9
 
         - include_role:
             name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
