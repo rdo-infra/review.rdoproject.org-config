@@ -5,7 +5,6 @@
         content: "{{ item }}"
         dest: ~/.jjb_config_{{ index }}.ini
       loop:
-          - "{{ ci_centos.jjb_config }}"
           - "{{ sig_jenkins.jjb_config }}"
       loop_control:
         index_var: index
@@ -17,15 +16,6 @@
         chdir: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
       changed_when: true
 
-    - name: Create weirdo_token secret
-      copy:
-        content: "{{ weirdo_token.token }}"
-        dest: "{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}/{{ item }}/jobs/weirdo_token"
-      loop:
-          - jenkins
-          - jenkins-v2
-      no_log: true
-
     - name: Run jenkins-jobs
       command: ".tox/venv/bin/jenkins-jobs --conf ~/.jjb_config_{{ index }}.ini update {{ item }}/jobs"
       args:
@@ -33,7 +23,6 @@
       no_log: true
       changed_when: true
       loop:
-          - jenkins
           - jenkins-v2
       loop_control:
         index_var: index
