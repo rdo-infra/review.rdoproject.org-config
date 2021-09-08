@@ -18,6 +18,12 @@
       shell:
         cmd: |
           set -x
+          # If there is no temporary release rpm means there are no packages to test
+          if [ ! -f {{ ansible_user_dir }}/rpmbuild/RPMS/noarch/rpmfactory-temp-release-1.0-1.noarch.rpm ]; then
+              echo "No test packages to install"
+              exit 0
+          fi
+
           # First, we create a chroot to be used in the installation
           export YUM="{{ ansible_pkg_mgr }}"
           sudo mkdir -p /tmp/root/var/lib/rpm
