@@ -35,7 +35,7 @@
       - tempest-skiplist-integration-pipeline
     openstack-regular:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-train-branch:
             vars:
               force_non_periodic: true
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-ussuri-branch:
@@ -44,13 +44,7 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-victoria-branch:
             vars:
               force_non_periodic: true
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
-            vars:
-              force_non_periodic: true
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035:
             vars:
               force_non_periodic: true
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset035:
@@ -72,11 +66,6 @@
       - tripleo-ovb
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
-            files:
-              - ^extraconfig/services/ipsec.*$
-              - config/general_config/featureset042.*
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
@@ -85,14 +74,6 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleo_ansible/.*
-            irrelevant-files:
-              - .*.md$
-              - .*.rst$
-              - .*.txt$
-              - .*molecule.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files:
               - ^tripleo_ansible/.*
@@ -101,8 +82,7 @@
               - .*.rst$
               - .*.txt$
               - .*molecule.*
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039:
-            voting: false
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             files: &fs_39_files
               - ^tripleo_ansible/roles/tripleo-hieradata/.*
             irrelevant-files: &fs_39_irrelevant
@@ -110,9 +90,6 @@
               - .*.rst$
               - .*.txt$
               - .*molecule.*
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
-            files: *fs_39_files
-            irrelevant-files: *fs_39_irrelevant
 
 - project:
     name: opendev.org/openstack/openstack-virtual-baremetal
@@ -125,13 +102,8 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             voting: false
             branches: stable/2.0
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
-            voting: false
-            branches: stable/2.0
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039-ussuri-branch:
             voting: false
-            branches: stable/2.0
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
             branches: stable/2.0
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-victoria-branch:
             branches: stable/2.0
@@ -139,32 +111,6 @@
             branches: master
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039-ovb-master:
             branches: master
-    openstack-experimental:
-      jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-ovb-master:
-            branches: master
-
-
-- project:
-    name: opendev.org/openstack/tripleo-ipsec
-    templates:
-      - system-required
-    openstack-check:
-      jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042:
-            irrelevant-files:
-              - ^.*\.md$
-              - ^.*\.rst$
-              - ^Puppetfile.*$
-              - ^doc/.*$
-              - ^etc/.*$
-              - ^metadata.json$
-              - ^releasenotes/.*$
-              - ^requirements.txt$
-              - ^setup.*$
-              - ^spec/.*$
-              - ^test-requirements.txt$
-              - tox.ini
 
 - project:
     name: opendev.org/openstack/tripleo-quickstart
@@ -183,20 +129,8 @@
             files:
               - ^roles/libvirt/.*$
               - ^library/.*$
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
-            files: &039_files
-              - config/general_config/featureset039.*
-              - ^roles/freeipa-setup/.*
-              - ^roles/tripleo-inventory/.*
-              - ^roles/libvirt/setup/supplemental/.*
-              - ^roles/undercloud-deploy/.*
-              - ^playbooks/baremetal-full-freeipa.*
-              - ^playbooks/baremetal-full-deploy.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             files: *039_files
-        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset021:
-            files:
-              - config/general_config/featureset021.*
         - tripleo-ci-centos-8-ovb-1ctlr_2comp-featureset020:
             files:
               - config/general_config/featureset020.*
@@ -212,15 +146,6 @@
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-ussuri:
             files:
               - config/general_config/featureset002.*
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-train:
-            files:
-              - config/general_config/featureset002.*
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-stein:
-            files:
-              - config/general_config/featureset002.*
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
-            files:
-              - config/general_config/featureset001.*
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-victoria-branch:
             files:
               - config/general_config/featureset001.*
@@ -240,12 +165,6 @@
       - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-1ctlr_1cellctrl_1comp-featureset063:
-            files:
-              - roles/overcloud-deploy/templates/.*cell.*
-              - roles/overcloud-deploy/tasks/.*cell.*
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-train-branch:
-            files: *039_files
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039-ussuri-branch:
             files: *039_files
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
@@ -256,22 +175,10 @@
         - tripleo-ci-centos-8-ovb-1ctlr_2comp-featureset020-ussuri:
             files:
               - roles/validate-tempest/vars/tempest_skip_ussuri.yml
-        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-train:
-            files:
-              - roles/validate-tempest/vars/tempest_skip_train.yml
-        - tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-stein:
-            files:
-              - roles/validate-tempest/vars/tempest_skip_stein.yml
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
             files:
               - roles/build-images/.*
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-ussuri:
-            files:
-              - roles/build-images/.*
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-train:
-            files:
-              - roles/build-images/.*
-        - tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-upload-stein:
             files:
               - roles/build-images/.*
 
@@ -280,9 +187,6 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
-            vars:
-              fail_logs_collection: true
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-train-branch:
             vars:
               fail_logs_collection: true
 
@@ -299,7 +203,6 @@
     name: opendev.org/openstack/tripleo-image-elements
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001
 
 - project:
@@ -310,11 +213,6 @@
         - tripleo-ovb
     openstack-check:
       jobs:
-        - tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001:
-            files:
-              - ^tripleoclient/.*/overcloud_node.*$
-              - ^tripleoclient/.*/overcloud_deploy.*$
-              - ^tripleoclient/.*/baremetal.*$
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files:
               - ^tripleoclient/.*/overcloud_node.*$
