@@ -33,12 +33,6 @@
       release: stein
 
 - job:
-    name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: queens
-
-- job:
     name: tripleo-centos-8-master-buildimage-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-build-images-centos-8
@@ -330,13 +324,6 @@
        use_buildah: true
 
 # --- end of master/train/stein buildah build jobs
-
-- job:
-    name: periodic-tripleo-centos-7-queens-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: queens
-       branch_override: 'stable/queens'
 
 - job:
     name: periodic-tripleo-centos-8-reproducer-update-images
