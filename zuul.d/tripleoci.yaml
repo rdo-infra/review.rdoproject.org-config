@@ -266,14 +266,6 @@
        release: train
        branch_override: 'stable/train'
 
-- job:
-    name: periodic-tripleo-centos-7-stein-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
-
 # --- end of master/train/stein docker build jobs
 
 # buildah master/stein build jobs
@@ -330,13 +322,6 @@
        use_buildah: true
 
 # --- end of master/train/stein buildah build jobs
-
-- job:
-    name: periodic-tripleo-centos-7-queens-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: queens
-       branch_override: 'stable/queens'
 
 - job:
     name: periodic-tripleo-centos-8-reproducer-update-images
