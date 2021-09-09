@@ -6,31 +6,3 @@
 ## fedora jobs are deprecated and disabled in all pipelines
 ## removing these job definitions as the node is being deleted.
 
-- job:
-    name: periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: pike
-
-- job:
-    name: periodic-tripleo-centos-7-pike-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: pike
-       branch_override: 'stable/pike'
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/rocky'
-    # As this job is consistently timeout so increasing timeout
-    timeout: 18000
-    vars:
-       release: rocky
-       branch_override: 'stable/rocky'
-
-- job:
-    name: periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: rocky
