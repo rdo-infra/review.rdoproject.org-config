@@ -27,18 +27,6 @@
       release: train
 
 - job:
-    name: periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: stein
-
-- job:
-    name: periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: queens
-
-- job:
     name: tripleo-centos-8-master-buildimage-base
     abstract: true
     parent: tripleo-ci-base-singlenode-rdo-build-images-centos-8
@@ -266,17 +254,9 @@
        release: train
        branch_override: 'stable/train'
 
-- job:
-    name: periodic-tripleo-centos-7-stein-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
+# --- end of master/train docker build jobs
 
-# --- end of master/train/stein docker build jobs
-
-# buildah master/stein build jobs
+# buildah master build jobs
 - job:
     name: periodic-tripleo-centos-7-master-containers-buildah
     parent: periodic-tripleo-containers-build-push-base
@@ -320,23 +300,7 @@
        branch_override: 'stable/train'
        use_buildah: true
 
-- job:
-    name: periodic-tripleo-centos-7-stein-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/stein'
-    vars:
-       release: stein
-       branch_override: 'stable/stein'
-       use_buildah: true
-
-# --- end of master/train/stein buildah build jobs
-
-- job:
-    name: periodic-tripleo-centos-7-queens-containers-build
-    parent: tripleo-ci-base-singlenode-containers-build
-    vars:
-       release: queens
-       branch_override: 'stable/queens'
+# --- end of master/train buildah build jobs
 
 - job:
     name: periodic-tripleo-centos-8-reproducer-update-images
