@@ -101,6 +101,25 @@
                   echo "ERROR: Executing CBS tag actions CentOS Stream 8"
               fi
           fi
+          if [ -s $WORKSPACE/logs/info/register-c9s.yaml ]; then
+              echo "INFO: Executing CBS register actions CentOS Stream 9"
+              cat $WORKSPACE/logs/info/register-c9s.yaml
+              graffiti --centos-release 9s --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml --info-file $INFO_FILE register -f $WORKSPACE/logs/info/register-c9s.yaml  # noqa 204
+              if [ $? -ne 0 ]; then
+                  FAILED=1
+                  echo "ERROR: Executing CBS register actions CentOS Stream 9"
+              fi
+          fi
+          # If there are tag actions, they are executed
+          if [ -s $WORKSPACE/logs/info/tags-c9s.yaml ]; then
+              echo "INFO: Executing CBS tag actions CentOS Stream 9"
+              cat $WORKSPACE/logs/info/tags-c9s.yaml
+              graffiti --centos-release 9s --config-file={{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml --info-file $INFO_FILE tag -f $WORKSPACE/logs/info/tags-c9s.yaml  # noqa 204
+              if [ $? -ne 0 ]; then
+                  FAILED=1
+                  echo "ERROR: Executing CBS tag actions CentOS Stream 9"
+              fi
+          fi
           popd
 
           exit $FAILED
