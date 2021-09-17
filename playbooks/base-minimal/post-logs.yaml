@@ -37,3 +37,8 @@
     - role: submit-logstash-jobs
       logstash_gearman_server: "elk.review.rdoproject.org"
       logstash_gearman_server_port: 4731
+    # Push metrics also to new gearman endpoint, that will send data
+    # to the opensearch.rdoproject.org host.
+    - role: submit-logstash-jobs
+      logstash_gearman_server: "elk.softwarefactory-project.io"
+      logstash_gearman_server_port: 4732
