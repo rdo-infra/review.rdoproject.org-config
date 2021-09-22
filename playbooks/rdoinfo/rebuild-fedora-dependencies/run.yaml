@@ -32,6 +32,8 @@
                   build=$(rdopkg info -l . "name:^${pkg_name}$"| awk "/${tag}/{print \$2}")
                   if [[ "$tag" == *"cloud8"* ]]; then
                      DIST_VER=8
+                  elif [[ "$tag" == *"cloud9s"* ]]; then
+                     DIST_VER="9s"
                   else
                      DIST_VER=7
                   fi
