@@ -117,6 +117,16 @@
     branches: ^(c8-xena-rdo|c9s-xena-rdo|c9s-yoga-rdo)$
 
 - job:
+    name: deps-cbs-final-build
+    parent: distgit-cbs-validate
+    run: playbooks/deps-cbs-final-build/run.yaml
+    nodeset: rdo-centos-8-stream
+    branches: ^(c8-xena-rdo|c9s-xena-rdo|c9s-yoga-rdo)$
+    secrets:
+      - secret: rdobuilder_ssh_key
+        name: rdobuilder_ssh_key
+
+- job:
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
