@@ -12,7 +12,10 @@
     mode: 0600
 
 - name: Add zuul ssh key
-  command: "ssh-add {{ ssh_private_key_tmp.path }}"
+  shell:
+    cmd: |
+      eval "$(ssh-agent)"
+      ssh-add {{ ssh_private_key_tmp.path }}
   changed_when: true
 
 - name: Remove SSH private key from disk
@@ -23,3 +26,6 @@
   known_hosts:
     name: 'git.centos.org'
     key: "{{ rdobuilder_ssh_key.ssh_known_hosts }}"
+
+- name: Kill ssh-agent
+  command: "pkill ssh-agent"
