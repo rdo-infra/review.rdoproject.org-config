@@ -3,7 +3,7 @@
     - name: run dep-export.sh
       shell:
         cmd: |
-          export WORKSPACE={{ ansible_user_dir }}
+          export WORKSPACE="/tmp/scratch_dir"
           ./dep-export.sh "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
