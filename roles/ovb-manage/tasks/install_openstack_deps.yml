@@ -21,6 +21,7 @@
       become: true
       package:
         name: "{{ packages }}"
+        state: latest
 
     - name: Install openstack clients in venv
       pip:
