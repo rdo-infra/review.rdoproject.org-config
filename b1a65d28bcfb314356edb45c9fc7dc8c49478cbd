@@ -354,6 +354,53 @@
     },
     {
       "key": {
+        "uuid": "f23e3669_beb9df6c",
+        "filename": "playbooks/rdoinfo/create-project/files/resource.j2",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-10-01T08:49:34Z",
+      "side": 1,
+      "message": "Let\u0027s make it simple and use the proposed approach, new file for new deps. For existing ones, we\u0027ll maintain existing rdo-deps.yml and will separate in case we need specific acl.",
+      "parentUuid": "cc301497_72e40ae0",
+      "range": {
+        "startLine": 14,
+        "startChar": 30,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "b1a65d28bcfb314356edb45c9fc7dc8c49478cbd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c5a4ec5_4bfa9b82",
+        "filename": "playbooks/rdoinfo/create-project/files/resource.j2",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-10-01T08:49:34Z",
+      "side": 1,
+      "message": "For deps, i\u0027d like to reuse the rdo-deps-core group by default:\n\nlabel-Code-Review \u003d -2..+2 group rdo-deps-core\nlabel-Verified \u003d -2..+2 group rdo-deps-core\nlabel-Workflow \u003d -1..+1 group rdo-deps-core\nsubmit \u003d group rdo-deps-core\nread \u003d group rdo-deps-core\n\nThis could be in addition of existing project_maintainers in project_name-core and -ptl",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 1
+      },
+      "revId": "b1a65d28bcfb314356edb45c9fc7dc8c49478cbd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a7a2d56_c0a9331c",
         "filename": "playbooks/rdoinfo/create-project/files/resource.j2",
         "patchSetId": 3
