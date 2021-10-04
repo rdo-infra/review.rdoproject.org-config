@@ -15,7 +15,7 @@
 
           BRANCH="{{ zuul.branch }}"
           if [ "$BRANCH" == 'master' ]; then
-              RELEASE="xena"
+              RELEASE="yoga"
           else
               RELEASE="${BRANCH/stable\//}"
           fi
@@ -36,7 +36,7 @@
               exit 0
           fi
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
-          C7_RELEASES="queens rocky stein train"
+          C7_RELEASES="train"
           if [ $(echo $C7_RELEASES|grep -c -w $RELEASE) -ne 0 ]; then
               CENTOS_V=7
           fi
