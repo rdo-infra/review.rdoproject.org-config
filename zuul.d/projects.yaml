@@ -508,7 +508,7 @@
         - DLRN-rpmbuild-rpm-packaging-centos:
             branches: ^(stable/(queens|rocky|stein))$
         - DLRN-rpmbuild-rpm-packaging-centos-8:
-            branches: ^(master|stable/(train|ussuri|victoria|wallaby))$
+            branches: ^(master|stable/(train|ussuri|victoria|wallaby|xena))$
 
 - project:
     name: opendev.org/openstack/tempest
@@ -7675,7 +7675,8 @@
               - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
-              - ^tags/xena-uc.yml$
+              - ^tags/xena.yml$
+              - ^tags/yoga-uc.yml$
         - validate-dependencies-rebuilds
         - weirdo-dlrn-master-packstack-scenario003-centos8:
             dependencies:
@@ -7683,35 +7684,35 @@
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - weirdo-dlrn-master-puppet-scenario001-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - weirdo-dlrn-master-puppet-scenario002-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - weirdo-dlrn-master-puppet-scenario003-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - weirdo-dlrn-master-puppet-scenario004-centos8:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - rdoinfo-tripleo-train-testing-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -7818,40 +7819,40 @@
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario002:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario003:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - distgit-tripleo-master-testing-centos-8-standalone-scenario004:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - distgit-tripleo-master-testing-centos-8-undercloud-containers:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - distgit-tripleo-master-testing-centos-8-containers-multinode:
             dependencies:
               - rdoinfo-DLRN-check-centos8
             voting: false
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/xena-uc.yml$
+              - ^tags/yoga-uc.yml$
 
     gate:
       queue: whitebox-tempest-plugin
@@ -7869,7 +7870,8 @@
               - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
-              - ^tags/xena-uc.yml$
+              - ^tags/xena.yml$
+              - ^tags/yoga-uc.yml$
         - validate-buildsys-tags
         - rebuild-fedora-dependencies
     periodic:

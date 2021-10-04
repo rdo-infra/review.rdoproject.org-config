@@ -34,8 +34,8 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="queens rocky stein train ussuri victoria wallaby xena"
-          MASTER_RELEASE="xena"
+          RELEASES="train ussuri victoria wallaby xena yoga"
+          MASTER_RELEASE="yoga"
           for r in $RELEASES;do
             if [ $r == $MASTER_RELEASE ]; then
               TAG_OPTION=" -t ${r}-uc"
