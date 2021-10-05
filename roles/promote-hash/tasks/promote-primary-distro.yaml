@@ -3,6 +3,13 @@
     path: '{{ workspace }}'
     state: directory
 
+- name: Update ca-certificates
+  become: true
+  package:
+    name: ca-certificates
+    state: latest
+  when: ansible_distribution_major_version|int < 8
+
 - name: Promote each component if component_hash_info.sh files exist
   when: md5_url is defined
   block:
@@ -11,12 +18,6 @@
         cmd: |
           ls {{ workspace }} | grep '_hash_info.sh'
       register: component_hash_info_files
-
-    - name: Update ca-certificates
-      become: true
-      package:
-        name: ca-certificates
-        state: latest
 
     - name: Source component_hash_info.sh files and promote components
       shell:
