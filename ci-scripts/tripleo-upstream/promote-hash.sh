@@ -2,6 +2,8 @@ set -e
 
 echo ======== PROMOTE HASH
 
+export REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt
+
 source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
 
 trap deactivate_dlrnapi_venv EXIT
