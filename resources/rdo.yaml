@@ -9,6 +9,11 @@ resources:
       mailing-lists:
       - rdo-list@redhat.com
       source-repositories:
+      - deps/cppunit:
+          zuul/include: []
+          repoxplorer/branches:
+          - c9s-xena-rdo
+          default-branch: c9s-xena-rdo
       - openstack/ansible-collections-openstack-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
