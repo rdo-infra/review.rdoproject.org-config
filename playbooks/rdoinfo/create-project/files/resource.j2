@@ -85,14 +85,14 @@ resources:
           label-Code-Review = -2..+2 group rdo-superusers
           {% if project_prefix == "puppet" -%}
           label-Code-Review = -2..+2 group rdo-opm-core
-          {% elif project_prefix == "deps" %}
+          {% elif project_prefix == "deps" -%}
           label-Code-Review = -2..+2 group rdo-deps-core
           {% endif -%}
           submit = group {{ project_prefix }}/{{ project_name }}-ptl
           submit = group rdo-superusers
           {% if project_prefix == "puppet" -%}
           submit = group rdo-opm-core
-          {% elif project_prefix == "deps" %}
+          {% elif project_prefix == "deps" -%}
           submit = group rdo-deps-core
           {% endif -%}
           read = group Registered Users
@@ -100,14 +100,14 @@ resources:
           read = group rdo-provenpackagers
           {% if project_prefix == "puppet" -%}
           read = group rdo-opm-core
-          {% elif project_prefix == "deps" %}
+          {% elif project_prefix == "deps" -%}
           read = group rdo-deps-core
           {% endif -%}
           label-Verified = -2..+0 group {{ project_prefix }}/{{ project_name }}-ptl
           label-Verified = -2..+0 group rdo-superusers
           {% if project_prefix == "puppet" -%}
           label-Verified = -2..+0 group rdo-opm-core
-          {% elif project_prefix == "deps" %}
+          {% elif project_prefix == "deps" -%}
           label-Verified = -2..+2 group rdo-deps-core
           {% endif -%}
           label-Workflow = -1..+0 group Registered Users
@@ -116,7 +116,7 @@ resources:
           label-Workflow = -1..+0 group rdo-provenpackagers
           {%- if project_prefix == "puppet" %}
           label-Workflow = -1..+0 group rdo-opm-core
-          {% elif project_prefix == "deps" %}
+          {%- elif project_prefix == "deps" %}
           label-Workflow = -1..+1 group rdo-deps-core
           {%- endif %}
         [access "refs/meta/config"]
@@ -147,7 +147,7 @@ resources:
       default-branch: c9s-xena-rdo
       branches:
         master: '0'
-      {%- else -%}
+      {%- else %}
       description: Mirror of upstream {{ project_name }} (mirror + patches)
     {{ project_prefix }}/{{ project_name }}-distgit:
       acl: {{ project_prefix }}-{{ project_name }}-distgit
@@ -155,5 +155,5 @@ resources:
       default-branch: rpm-master
       branches:
         master: '0'
-      {%- endif -%}
+      {%- endif %}
 
