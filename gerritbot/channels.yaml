@@ -5,6 +5,8 @@ rdo:
     projects:
       - All-Users
       - config
+      - deps/GitPython
+      - deps/ImageMagick
       - deps/ansible-collection-ansible-netcommon
       - deps/ansible-collection-ansible-posix
       - deps/ansible-collection-ansible-utils
@@ -18,6 +20,7 @@ rdo:
       - deps/catch1
       - deps/ck
       - deps/cpp-hocon
+      - deps/cppunit
       - deps/crudini
       - deps/dibbler
       - deps/djvulibre
@@ -26,7 +29,6 @@ rdo:
       - deps/facter
       - deps/future
       - deps/gflags
-      - deps/GitPython
       - deps/golang-github-vbatts-tar-split
       - deps/google-api-python-client
       - deps/google-auth-httplib2
@@ -37,7 +39,6 @@ rdo:
       - deps/hdf5
       - deps/heat-cfntools
       - deps/hiera
-      - deps/ImageMagick
       - deps/ipa-pgothic-fonts
       - deps/leatherman
       - deps/libaec
@@ -57,16 +58,52 @@ rdo:
       - deps/openstack-network-scripts
       - deps/parallel
       - deps/puppet
+      - deps/pyOpenSSL
       - deps/pycmd
       - deps/pydot
       - deps/pyflakes
-      - deps/pyOpenSSL
       - deps/pysendfile
       - deps/pysnmp
       - deps/pystache
-      - deps/python3-mypy
-      - deps/python3-pytest-asyncio
-      - deps/python3-typed_ast
+      - deps/python-APScheduler
+      - deps/python-Automat
+      - deps/python-Bottleneck
+      - deps/python-Pallets-Sphinx-Themes
+      - deps/python-SecretStorage
+      - deps/python-XStatic
+      - deps/python-XStatic-Angular
+      - deps/python-XStatic-Angular-Bootstrap
+      - deps/python-XStatic-Angular-FileUpload
+      - deps/python-XStatic-Angular-Gettext
+      - deps/python-XStatic-Angular-Schema-Form
+      - deps/python-XStatic-Angular-UUID
+      - deps/python-XStatic-Angular-Vis
+      - deps/python-XStatic-Angular-lrdragndrop
+      - deps/python-XStatic-Bootstrap-Datepicker
+      - deps/python-XStatic-Bootstrap-SCSS
+      - deps/python-XStatic-D3
+      - deps/python-XStatic-FileSaver
+      - deps/python-XStatic-Font-Awesome
+      - deps/python-XStatic-Hogan
+      - deps/python-XStatic-JQuery-Migrate
+      - deps/python-XStatic-JQuery-TableSorter
+      - deps/python-XStatic-JQuery-quicksearch
+      - deps/python-XStatic-JS-Yaml
+      - deps/python-XStatic-JSEncrypt
+      - deps/python-XStatic-Jasmine
+      - deps/python-XStatic-Json2yaml
+      - deps/python-XStatic-Magic-Search
+      - deps/python-XStatic-Rickshaw
+      - deps/python-XStatic-Spin
+      - deps/python-XStatic-bootswatch
+      - deps/python-XStatic-jQuery
+      - deps/python-XStatic-jquery-ui
+      - deps/python-XStatic-mdi
+      - deps/python-XStatic-objectpath
+      - deps/python-XStatic-roboto-fontface
+      - deps/python-XStatic-smart-table
+      - deps/python-XStatic-termjs
+      - deps/python-XStatic-tv4
       - deps/python-actdiag
       - deps/python-aiofiles
       - deps/python-aiohttp
@@ -78,13 +115,11 @@ rdo:
       - deps/python-anyjson
       - deps/python-apipkg
       - deps/python-appdirs
-      - deps/python-APScheduler
       - deps/python-argon2-cffi
       - deps/python-async-generator
       - deps/python-async-timeout
       - deps/python-atomicwrites
       - deps/python-autobahn
-      - deps/python-Automat
       - deps/python-autopage
       - deps/python-bcrypt
       - deps/python-beautifulsoup4
@@ -95,7 +130,6 @@ rdo:
       - deps/python-boto
       - deps/python-boto3
       - deps/python-botocore
-      - deps/python-Bottleneck
       - deps/python-cachetools
       - deps/python-case
       - deps/python-cbor2
@@ -168,8 +202,8 @@ rdo:
       - deps/python-gitdb
       - deps/python-gmpy2
       - deps/python-google-api-core
-      - deps/python-googleapis-common-protos
       - deps/python-google-auth
+      - deps/python-googleapis-common-protos
       - deps/python-grpcio-gcp
       - deps/python-gunicorn
       - deps/python-h11
@@ -248,7 +282,6 @@ rdo:
       - deps/python-openshift
       - deps/python-openstackdocstheme
       - deps/python-outcome
-      - deps/python-Pallets-Sphinx-Themes
       - deps/python-pandas
       - deps/python-paramiko
       - deps/python-passlib
@@ -304,8 +337,8 @@ rdo:
       - deps/python-requests-download
       - deps/python-requests-kerberos
       - deps/python-requests-mock
-      - deps/python-requests_ntlm
       - deps/python-requests-unixsocket
+      - deps/python-requests_ntlm
       - deps/python-responses
       - deps/python-retrying
       - deps/python-rfc3986
@@ -316,7 +349,6 @@ rdo:
       - deps/python-scp
       - deps/python-scrypt
       - deps/python-scss
-      - deps/python-SecretStorage
       - deps/python-selenium
       - deps/python-semantic_version
       - deps/python-semver
@@ -335,6 +367,11 @@ rdo:
       - deps/python-soupsieve
       - deps/python-spec
       - deps/python-sphinx-argparse
+      - deps/python-sphinx-epytext
+      - deps/python-sphinx-issues
+      - deps/python-sphinx-removed-in
+      - deps/python-sphinx-testing
+      - deps/python-sphinx-theme-py3doc-enhanced
       - deps/python-sphinxcontrib-actdiag
       - deps/python-sphinxcontrib-apidoc
       - deps/python-sphinxcontrib-blockdiag
@@ -344,11 +381,6 @@ rdo:
       - deps/python-sphinxcontrib-programoutput
       - deps/python-sphinxcontrib-seqdiag
       - deps/python-sphinxcontrib-svg2pdfconverter
-      - deps/python-sphinx-epytext
-      - deps/python-sphinx-issues
-      - deps/python-sphinx-removed-in
-      - deps/python-sphinx-testing
-      - deps/python-sphinx-theme-py3doc-enhanced
       - deps/python-sqlalchemy
       - deps/python-sqlalchemy-filters
       - deps/python-sqlalchemy-utils
@@ -385,8 +417,8 @@ rdo:
       - deps/python-typeshed
       - deps/python-typing-extensions
       - deps/python-tzlocal
-      - deps/python-ujson
       - deps/python-u-msgpack-python
+      - deps/python-ujson
       - deps/python-uritemplate
       - deps/python-uvicorn
       - deps/python-uvloop
@@ -413,40 +445,6 @@ rdo:
       - deps/python-wsgi_intercept
       - deps/python-wsproto
       - deps/python-xmltodict
-      - deps/python-XStatic
-      - deps/python-XStatic-Angular
-      - deps/python-XStatic-Angular-Bootstrap
-      - deps/python-XStatic-Angular-FileUpload
-      - deps/python-XStatic-Angular-Gettext
-      - deps/python-XStatic-Angular-lrdragndrop
-      - deps/python-XStatic-Angular-Schema-Form
-      - deps/python-XStatic-Angular-UUID
-      - deps/python-XStatic-Angular-Vis
-      - deps/python-XStatic-Bootstrap-Datepicker
-      - deps/python-XStatic-Bootstrap-SCSS
-      - deps/python-XStatic-bootswatch
-      - deps/python-XStatic-D3
-      - deps/python-XStatic-FileSaver
-      - deps/python-XStatic-Font-Awesome
-      - deps/python-XStatic-Hogan
-      - deps/python-XStatic-Jasmine
-      - deps/python-XStatic-jQuery
-      - deps/python-XStatic-JQuery-Migrate
-      - deps/python-XStatic-JQuery-quicksearch
-      - deps/python-XStatic-JQuery-TableSorter
-      - deps/python-XStatic-jquery-ui
-      - deps/python-XStatic-JSEncrypt
-      - deps/python-XStatic-Json2yaml
-      - deps/python-XStatic-JS-Yaml
-      - deps/python-XStatic-Magic-Search
-      - deps/python-XStatic-mdi
-      - deps/python-XStatic-objectpath
-      - deps/python-XStatic-Rickshaw
-      - deps/python-XStatic-roboto-fontface
-      - deps/python-XStatic-smart-table
-      - deps/python-XStatic-Spin
-      - deps/python-XStatic-termjs
-      - deps/python-XStatic-tv4
       - deps/python-yappi
       - deps/python-yaql
       - deps/python-yarl
@@ -457,6 +455,9 @@ rdo:
       - deps/python-zope-interface
       - deps/python-zope-testing
       - deps/python-zstd
+      - deps/python3-mypy
+      - deps/python3-pytest-asyncio
+      - deps/python3-typed_ast
       - deps/qpid-proton
       - deps/rdo-openvswitch
       - deps/ruby-augeas
