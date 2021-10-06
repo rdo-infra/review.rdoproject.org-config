@@ -1,0 +1,59 @@
+resources:
+  groups:
+    deps/cppunit-core:
+      description: Core developers for project cppunit
+      members:
+      - nobody@rdoproject.org
+    deps/cppunit-ptl:
+      description: Project team lead for project cppunit
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-cppunit:
+      file: |
+        [access "refs/*"]
+          read = group deps/cppunit-core
+          owner = group deps/cppunit-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/cppunit-core
+          label-Code-Review = -2..+2 group deps/cppunit-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/cppunit-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/cppunit-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/cppunit-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/cppunit-core
+          label-Workflow = -1..+0 group deps/cppunit-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/cppunit-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/cppunit-core
+      - deps/cppunit-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    deps/cppunit:
+      acl: deps-cppunit
+      description: Packaging of RDO dependency cppunit
+      default-branch: c9s-xena-rdo
+      branches:
+        master: '0'
