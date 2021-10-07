@@ -3,9 +3,6 @@
     # TODO(pabelanger): Maybe promote this in to base jobs? But is
     # openstack-infra specific. Worth to check
     - role: mirror-info-fork
-    - role: fetch-zuul-cloner-fork
-      destination: "/usr/zuul-env/bin/zuul-cloner"
-      repo_src_dir: "/home/zuul/src"
     - role: add-authorized-keys
       public_keys:
         # akahat
