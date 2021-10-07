@@ -20,7 +20,7 @@
           export PROMOTE_NAME="{{ promote_target }}"
           export HASH_INFO_FILE="$WORKSPACE/{{ item }}"
           export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream"
-          export SSL_VERIFY=0
+          export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
       environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
@@ -33,7 +33,7 @@
       export RELEASE="{{ component_release | default(release) }}"
       export PROMOTE_NAME="{{ promote_target }}"
       export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream"
-      export SSL_VERIFY=0
+      export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
     chdir: '{{ workspace }}'
   environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
