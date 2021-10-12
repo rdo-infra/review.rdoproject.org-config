@@ -278,7 +278,7 @@
             radvd_flavor: {{ cloud_settings[cloud_name]['radvd_flavor'] }}
             radvd_image: {{ cloud_settings[cloud_name]['radvd_image'] }}
             provision_net_ip_version: 6
-            provision_net_cidr: fd00:fd00:fd00:1000::/64
+            provision_net_cidr: fd00:fd00:fd00:0000::/64
             {% if routed_networks|bool -%}
             provision_net_router_address: fd00:fd00:fd00:0000::fffe
             provision_net2_ip_version: 6
