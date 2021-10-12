@@ -6,6 +6,7 @@
 - name: Check reports from DLRN
   shell:
     cmd: |
+      export WORKSPACE="{{ workspace }}"
       source {{ workspace }}/hash_info.sh
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/dlrnapi_check_reports.sh
     chdir: '{{ workspace }}'
