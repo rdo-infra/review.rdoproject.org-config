@@ -1559,6 +1559,22 @@ resources:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
           default-branch: rpm-master
+      - gating_scripts:
+          zuul/include: []
+          repoxplorer/branches: ["master"]
+          default-branch: master
+      - rdo-infra/releng:
+          zuul/include: []
+          repoxplorer/branches: ["master"]
+          default-branch: master
+      - rdo-website:
+          zuul/include: []
+          repoxplorer/branches: ["master"]
+          default-branch: master
+      - rdoinfo:
+          zuul/include: []
+          repoxplorer/branches: ["master"]
+          default-branch: master
   groups:
     rdo-provenpackagers:
       description: ''
