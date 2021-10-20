@@ -149,6 +149,7 @@
             baremetal_prefix: baremetal
             bmc_prefix: bmc
             bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_capture_console_logs: {{ bmc_capture_console_logs }}
             {% if cloud_settings is defined and  cloud_name in cloud_settings -%}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
@@ -202,6 +203,7 @@
             baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
             bmc_use_cache: True
             bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_capture_console_logs: {{ bmc_capture_console_logs }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
@@ -239,6 +241,7 @@
             baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
             bmc_use_cache: True
             bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_capture_console_logs: {{ bmc_capture_console_logs }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
