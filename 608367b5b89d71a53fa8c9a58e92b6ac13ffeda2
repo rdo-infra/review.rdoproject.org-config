@@ -22,6 +22,29 @@
       "revId": "608367b5b89d71a53fa8c9a58e92b6ac13ffeda2",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9682dd_960ea45b",
+        "filename": "roles/ovb-manage/tasks/install_openstack_deps.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2021-10-21T09:44:58Z",
+      "side": 1,
+      "message": "This looks good to me.\n\nEven though virtualenv package is available in C8 but we can use \"python3 -m venv\" even on Centos8 as well, and even on Centos7 afaik python3 is present on 7.8+.\n\nSo, Basically do we want to drop usage of virtualenv in EL9 only or for older OS versions as well.\n\nBased on our common consensus we can do it consistently across all places.",
+      "range": {
+        "startLine": 31,
+        "startChar": 62,
+        "endLine": 31,
+        "endChar": 111
+      },
+      "revId": "608367b5b89d71a53fa8c9a58e92b6ac13ffeda2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
