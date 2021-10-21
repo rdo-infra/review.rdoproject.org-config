@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24553865_723942d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2021-10-21T09:43:03Z",
+      "side": 1,
+      "message": "Yes, correct\nverified:\n```\n❯ podman run -it 455ce641434f bash\n[root@6081adbfb9a9 /]# dnf -y install python3-virtualenv\nUNSIGNED CentOS Stream 9 BaseOS                                                                                                               350 kB/s | 939 kB     00:02    \nUNSIGNED CentOS Stream 9 AppStream                                                                                                            2.0 MB/s | 5.5 MB     00:02    \nNo match for argument: python3-virtualenv\nError: Unable to find a match: python3-virtualenv\n\n```\nand cs8\n```\n libpkgconf-1.4.2-1.el8.x86_64                                                        pkgconf-1.4.2-1.el8.x86_64                                                            \n  pkgconf-m4-1.4.2-1.el8.noarch                                                        pkgconf-pkg-config-1.4.2-1.el8.x86_64                                                 \n  platform-python-devel-3.6.8-42.el8.x86_64                                            platform-python-pip-9.0.3-22.el8.noarch                                               \n  python-rpm-macros-3-41.el8.noarch                                                    python-srpm-macros-3-41.el8.noarch                                                    \n  python3-pip-9.0.3-22.el8.noarch                                                      python3-rpm-generators-5-7.el8.noarch                                                 \n  python3-rpm-macros-3-41.el8.noarch                                                   python3-setuptools-39.2.0-6.el8.noarch                                                \n  python3-virtualenv-15.1.0-21.module_el8.5.0+895+a459eca8.noarch                      python3-wheel-wheel-1:0.31.1-3.module_el8.5.0+895+a459eca8.noarch                     \n  python36-3.6.8-38.module_el8.5.0+895+a459eca8.x86_64                                 python36-devel-3.6.8-38.module_el8.5.0+895+a459eca8.x86_64                            \n\nComplete!\n[root@b81d75c08d00 /]# virt\nvirt-what       virtualenv      virtualenv-3    virtualenv-3.6  \n[root@b81d75c08d00 /]# virt\n\n```\nOnly way to test it to merge it",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "608367b5b89d71a53fa8c9a58e92b6ac13ffeda2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
