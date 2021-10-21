@@ -28,6 +28,7 @@
         virtualenv: "{{ ovb_working_dir }}/.venv"
         virtualenv_python: "{{ ovb_virtualenv_python|default(omit) }}"
         extra_args: "-c {{ constraint_file }}"
+        virtualenv_command: "{{ '/usr/bin/python3 -m venv' if ansible_distribution_major_version is version('9', '==') else 'virtualenv' }}"
       register: python_pkgs
       until: python_pkgs is success
       retries: 3
