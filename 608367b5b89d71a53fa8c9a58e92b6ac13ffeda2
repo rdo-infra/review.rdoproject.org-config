@@ -93,6 +93,29 @@
       "revId": "608367b5b89d71a53fa8c9a58e92b6ac13ffeda2",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "511deaf6_157a45a4",
+        "filename": "roles/ovb-manage/tasks/install_openstack_deps.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2021-10-22T10:18:26Z",
+      "side": 1,
+      "message": "seems there is a problem with this task now\n\n        * https://logserver.rdoproject.org/67/36267/5/check/tripleo-stream9-development-centos-9-ovb-3ctlr_1comp-featureset001-master/46ea623/job-output.txt\n\n        * 2021-10-21 11:55:48.455439 | TASK [ovb-manage : Install openstack clients in venv]\n2021-10-21 11:58:07.446427 | primary | ERROR\n2021-10-21 11:58:07.446998 | primary | {\n2021-10-21 11:58:07.447156 | primary |   \"attempts\": 3,\n2021-10-21 11:58:07.447269 | primary |   \"msg\": \"stdout: Looking in indexes: http://mirror.regionone.vexxhost-nodepool-sf.rdoproject.org/pypi/simple, http://mirror.regionone.vexxhost-nodepool-sf.rdoproject.org/wheel/centos-9-x86_64\\nCollecting python-openstackclient\\n  Downloading http://mirror.regionone.vexxhost-nodepool-sf.rdoproject.org/pypifiles/packages/8f/\n...\n Running setup.py install for cffi: finished with status \u0027error\u0027\\n\\n:stderr:     ERROR: Command errored out with exit status 1:\\n     command: /home/zuul-worker/workspace/ovb/.venv/bin/python3 -u -c \u0027import io, os, sys, setuptools, tokenize; sys.argv[0] \u003d \u0027\\\"\u0027\\\"\u0027/tmp/pip-install-p8e1nn",
+      "range": {
+        "startLine": 31,
+        "startChar": 53,
+        "endLine": 31,
+        "endChar": 57
+      },
+      "revId": "608367b5b89d71a53fa8c9a58e92b6ac13ffeda2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
