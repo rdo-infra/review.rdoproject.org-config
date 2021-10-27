@@ -49,6 +49,9 @@ application_credential_id: "{{ cloud_credentials.application_credential_id|defau
 rdo_baremetal_image: >-
   {% if ansible_distribution_major_version is version("8", "==") -%}
   CentOS-8-x86_64-GenericCloud-1911
+  {% elif ansible_distribution_major_version is version("9", "==") -%}
+  # TODO no such thing yet https://rhos-d.infra.prod.upshift.rdu2.redhat.com/dashboard/project/images
+  CentOS-9-x86_64-GenericCloud-1911
   {%- else -%}
   CentOS-7-x86_64-GenericCloud-2003
   {%- endif -%}
