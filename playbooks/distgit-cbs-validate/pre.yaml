@@ -34,3 +34,11 @@
       copy:
         content: "{{ koji_centos.server_ca_cert }}"
         dest: ~/.centos-upload-ca.cert
+
+    - name: remove removal of tmp files
+      # noqa 303
+      shell:
+        cmd: |
+          sudo sed -i '/30d/d' /usr/lib/tmpfiles.d/tmp.conf;
+          sudo sed -i '/10d/d' /usr/lib/tmpfiles.d/tmp.conf
+      changed_when: true
