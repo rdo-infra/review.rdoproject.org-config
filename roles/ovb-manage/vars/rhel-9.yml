@@ -5,4 +5,12 @@ packages:
   - gcc
   - python3-pip
 
+# C9 needs glanceclient
+pip_packages:
+  - python-openstackclient
+  - python-heatclient
+  - python-novaclient
+  - python-neutronclient
+  - python-glanceclient
+
 constraint_file: https://raw.githubusercontent.com/openstack/requirements/stable/wallaby/upper-constraints.txt
