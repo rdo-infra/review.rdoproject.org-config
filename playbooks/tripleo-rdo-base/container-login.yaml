@@ -53,7 +53,7 @@
           include_role:
             name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
             tasks_from: tripleo_podman_install.yml
-            vars_from: "{{ ansible_os_family | lower }}.yml"
+            vars_from: "{{ ansible_os_family | lower }}-{{ ansible_facts['distribution_major_version'] | lower }}.yml"
           when:
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int >= 8
