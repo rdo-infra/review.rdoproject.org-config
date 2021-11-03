@@ -260,7 +260,7 @@
     github-check:
       jobs:
         - tripleo-ci-centos-8-standalone:
-            files: &ansible_podman_col
+            files:
               - ^plugins/module_utils/podman/.*$
               - ^plugins/modules/podman_container.*$
               - ^plugins/modules/podman_image.*$
@@ -5408,6 +5408,19 @@
 
 - project:
     name: review.rdoproject.org/openstack/requestsexceptions-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/rhos-bootstrap
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/rhos-bootstrap-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
