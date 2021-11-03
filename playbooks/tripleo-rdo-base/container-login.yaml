@@ -51,12 +51,18 @@
              or (branch_override is defined and branch_override == 'stable/train')
              or (zuul.branch is defined and zuul.branch == 'stable/train')
 
-        - name: Install podman
+        - name: Load vars and Install podman
           no_log: false
-          include_role:
-            name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
-            tasks_from: tripleo_podman_install.yml
-            vars_from: "{{ ansible_os_family | lower }}.yml"
+          block:
+            - name: Load var file for Installing and configuring podman
+              include_role:
+                name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+                tasks_from: load_vars.yaml
+
+            - name: Install podman
+              include_role:
+                name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+                tasks_from: tripleo_podman_install.yml
           when:
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int >= 8
