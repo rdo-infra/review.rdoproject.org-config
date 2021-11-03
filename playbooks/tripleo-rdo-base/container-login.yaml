@@ -27,6 +27,7 @@
 
         - name: Set IP forwarding on before docker starts
           become: true
+          no_log: false
           sysctl:
             name: net.ipv4.ip_forward
             value: '1'
@@ -42,6 +43,7 @@
             - ansible_distribution_major_version|int < 8
 
         - name: set tripleo podman role name for train
+          no_log: false
           set_fact:
             tripleo_podman_role_name: tripleo-podman
           when:
@@ -50,6 +52,7 @@
              or (zuul.branch is defined and zuul.branch == 'stable/train')
 
         - name: Install podman
+          no_log: false
           include_role:
             name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
             tasks_from: tripleo_podman_install.yml
