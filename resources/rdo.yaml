@@ -15,6 +15,10 @@ resources:
           - c9s-xena-rdo
           - c9s-yoga-rdo
           default-branch: c9s-xena-rdo
+      - gating_scripts:
+          zuul/include: []
+          repoxplorer/branches: ["master"]
+          default-branch: master
       - openstack/ansible-collections-openstack-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
@@ -880,6 +884,11 @@ resources:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
           default-branch: rpm-master
+      - openstack/rhos-bootstrap-distgit:
+          zuul/include: []
+          repoxplorer/branches:
+          - rpm-master
+          default-branch: rpm-master
       - openstack/rsd-lib-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
@@ -1560,10 +1569,6 @@ resources:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
           default-branch: rpm-master
-      - gating_scripts:
-          zuul/include: []
-          repoxplorer/branches: ["master"]
-          default-branch: master
       - rdo-infra/releng:
           zuul/include: []
           repoxplorer/branches: ["master"]
