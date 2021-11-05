@@ -1,4 +1,4 @@
-- hosts: all
+ all
   name: nfvinfo-buildsys-tags-update playbook
   tasks:
     - name: Install required dependencies
@@ -75,7 +75,12 @@
                 -p $PHASE \
                 --deny-list $deny_list \
                 --centos-release 8s
-
+            python {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags-nfv.py \
+                -c {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml \
+                -r 2 \
+                -p $PHASE \
+                --deny-list $deny_list \
+                --centos-release 9s
 
             DIFF=$(git diff *.yml)
             TOPIC=nfvsig-$version-$PHASE
