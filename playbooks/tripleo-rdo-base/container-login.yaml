@@ -58,6 +58,7 @@
               include_role:
                 name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
                 tasks_from: load_vars.yaml
+                vars_from: "{{ ansible_os_family | lower }}.yml"
 
             - name: Install podman
               include_role:
