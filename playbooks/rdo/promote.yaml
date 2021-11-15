@@ -1,0 +1,25 @@
+- hosts: all
+  tasks:
+    - name: set centos_release fact
+      set_fact:
+        centos_release: "centos{{ ansible_distribution_major_version | default('9') }}"
+      when: centos_release is not defined
+
+    - name: Promote all component repos
+      shell:
+        cmd: |
+          export DIST="{{ centos_release | default('centos9') }}"
+          export RELEASE="{{ release | default('master') }}"
+          export PROMOTE_SOURCE="{{ promote_source |default('consistent')}"
+          export PROMOTE_TARGET="{{ promote_target | default('puppet-ci-testing') }}"
+          if [ "$RELEASE" == "master" ]; then
+            export DLRN_ENDPOINT="api-${DIST}-${RELEASE}-uc"
+          else
+            export DLRN_ENDPOINT="api-${DIST}-${RELEASE}"
+          fi
+          export delorean_api_url="https://trunk.rdoproject.org/${DLRN_ENDPOINT}"
+          export delorean_url="https://trunk.rdoproject.org/${DIST}-${RELEASE}/${PROMOTE_SOURCE}/delorean.repo"
+          export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
+          export CONFIG_DIR="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+          bash -xe ${CONFIG_DIR}/ci-scripts/puppet-ci-promote.sh
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': 'review_rdoproject_org'}) }}"

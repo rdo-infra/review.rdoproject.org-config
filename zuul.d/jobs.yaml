@@ -536,3 +536,13 @@
     secrets:
       - koji_centos
       - rdoinfo_ssh
+
+- job:
+    name: weirdo-base-promote-dlrn
+    parent: base
+    abstract: true
+    run: playbooks/rdo/promote.yaml
+    required-projects:
+      - name: config
+    secrets:
+      - dlrnapi
