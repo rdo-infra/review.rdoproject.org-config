@@ -536,3 +536,17 @@
     secrets:
       - koji_centos
       - rdoinfo_ssh
+
+- job:
+    name: weirdo-base-promote-dlrn
+    parent: base
+    abstract: true
+    run: playbooks/rdo/promote.yaml
+    nodeset:
+      nodes:
+        - name: cloud-centos-9-stream
+          label: cloud-centos-9-stream
+    required-projects:
+      - name: config
+    secrets:
+      - dlrnapi
