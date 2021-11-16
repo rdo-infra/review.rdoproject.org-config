@@ -10,7 +10,7 @@
         cmd: |
           export DIST="{{ centos_release | default('centos9') }}"
           export RELEASE="{{ release | default('master') }}"
-          export PROMOTE_SOURCE="{{ promote_source |default('consistent')}"
+          export PROMOTE_SOURCE="{{ promote_source |default('consistent') }}"
           export PROMOTE_TARGET="{{ promote_target | default('puppet-ci-testing') }}"
           if [ "$RELEASE" == "master" ]; then
             export DLRN_ENDPOINT="api-${DIST}-${RELEASE}-uc"
