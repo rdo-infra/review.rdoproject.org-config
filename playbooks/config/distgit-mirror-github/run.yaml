@@ -15,7 +15,7 @@
           popd
           # Set up git configuration
           git config user.name "rdo-trunk"
-          git config user.email "javier.pena@redhat.com"
+          git config user.email "amoralej+rdo-trunk@redhat.com"
           git diff --name-only --diff-filter=A HEAD~1 | while read line; do
             # Find new files in the resources directory
             if [[ "$line" =~ resources.* ]]; then
