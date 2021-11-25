@@ -61,15 +61,16 @@
           chmod 600 ~/.ssh/config
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-          git config user.name "rdo-trunk"
-          git config user.email "amoralej+rdo-trunk@redhat.com"
-          git config gitreview.username "rdo-trunk"
+          git config --global user.name "rdo-trunk"
+          git config --global user.email "amoralej+rdo-trunk@redhat.com"
+          git config --global gitreview.username "rdo-trunk"
 
           if [ -n "$DIFF" ]; then
             NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
             branch=c$CENTOS_V-$RELEASE-rdo
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
-            source rpm-deps-gating-lib.common
+            git show
+            source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             if [[ "$CENTOS_V" =~ "9" ]]; then
               for pkg in $NVR; do
                 needs_update=true
@@ -138,5 +139,8 @@
             echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
             git review -t "cs9-deps-uc-update" < /dev/null
             popd
+          else
+            echo "INFO: There is no deps to update, Exiting"
+            exit 0
           fi
       changed_when: true
