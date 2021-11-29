@@ -434,7 +434,7 @@
 - job:
     name: rdo-deps-uc-send-review
     parent: base
-    pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
+    pre-run: playbooks/rdo-deps-uc-send-review/pre.yaml
     run: playbooks/rdo-deps-uc-send-review/run.yaml
     required-projects:
       - gating_scripts

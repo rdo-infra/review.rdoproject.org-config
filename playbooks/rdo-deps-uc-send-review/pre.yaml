@@ -1,0 +1,28 @@
+- hosts: all
+  tasks:
+    - name: Install koji from EPEL
+      shell:
+        cmd: |
+          sudo dnf install -y epel-release;
+          sudo dnf config-manager --enable epel;
+          sudo dnf install -y koji;
+          sudo dnf config-manager --disable epel;
+      changed_when: true
+
+    - name: Install deps
+      shell:
+        cmd: |
+          sudo dnf install -y jq;
+      changed_when: true
+
+    - name: Create SSH directory
+      file:
+        dest: ~/.ssh
+        mode: 0700
+        state: directory
+
+    - name: Create rdoinfo SSH private key
+      copy:
+        content: "{{ rdoinfo_ssh.private_key }}"
+        dest: ~/.ssh/rdoinfo_id_rsa
+        mode: 0600
