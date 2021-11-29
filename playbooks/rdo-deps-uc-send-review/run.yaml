@@ -28,8 +28,8 @@
              REAL_COMMIT={{ zuul.newrev }}
           fi
           UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
-          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
-          change_list=${change_list[@]/#[+-]/}
+          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))'))
+          change_list=${change_list//+}
           popd
           if [ -z "${change_list//[[:space:]]/}" ]; then
               echo "INFO: No update in upper-constraints, Exiting"
@@ -66,13 +66,14 @@
           git config --global gitreview.username "rdo-trunk"
 
           if [ -n "$DIFF" ]; then
-            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
+            pkgs_to_not_update=""
+            nvrs=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
             branch=c$CENTOS_V-$RELEASE-rdo
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
             git show
             source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             if [[ "$CENTOS_V" =~ "9" ]]; then
-              for pkg in $NVR; do
+              for pkg in $nvrs; do
                 needs_update=true
                 change_url=""
                 pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
@@ -81,6 +82,7 @@
                 in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
                 if [ -z "$in_koji_nvr" ]; then
                   echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
+                  pkgs_to_not_update="$pkgs_to_not_update $pkg_name"
                   break
                 fi
 
@@ -127,16 +129,45 @@
                   else
                     echo -e "ERROR: while setting up distgit for $pkg_name"
                     echo -e "$distgit_status"
+                    pkgs_to_not_update="$pkgs_to_not_update $pkg_name"
                   fi
                 fi
               done
             fi
 
+            # We update the change list by removing the package which NVR have
+            # not been found in Fedora Koji or an error occured when setting
+            # up distgit.
+            for pkg_name in $pkgs_to_not_update; do
+              for mod in $change_list; do
+                mod_name=$(echo $mod | cut -d= -f1)
+                pkg_name_from_pymod2pkg=$(pymod2pkg $mod_name)
+                if [[ "$pkg_name" == "$pkg_name_from_pymod2pkg" ]]; then
+                  change_list=$(echo $change_list | sed "s/$mod//")
+                fi
+              done
+            done
+
+            # Now, we stash the change in rdoinfo and run again the script
+            # with the updated change_list.
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
+            git stash
+            python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
+                -l $change_list \
+                -r $RELEASE \
+                --centos-release $CENTOS_V \
+                -p $PHASE
+
             git checkout -b proposal
             git review -s -v
-            echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
+            git add .
+            git commit -F- <<EOF
+            CBS tags sync with uc for $RELEASE-$PHASE
+
+            Upstream-Id: $UPSTREAM_CHANGE_ID
+            $DEPENDS_ON
+            EOF
+
             git review -t "cs9-deps-uc-update" < /dev/null
             popd
           else
