@@ -28,13 +28,48 @@
              REAL_COMMIT={{ zuul.newrev }}
           fi
           UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
-          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
-          change_list=${change_list[@]/#[+-]/}
-          popd
-          if [ -z "${change_list//[[:space:]]/}" ]; then
+
+          changes=$(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))')
+          if [ -z "${changes//[[:space:]]/}" ]; then
               echo "INFO: No update in upper-constraints, Exiting"
               exit 0
           fi
+
+          # From the diff changes in $REAL_COMMIT, we do triage between
+          # updated, added and removed modules.
+          declare -A modules
+          reset=1
+          for current_module in $changes; do
+            if [ $reset -eq 1 ]; then
+              previous_module=$current_module
+              reset=0
+            else
+              previous_modname=$(echo ${previous_module//[+-]} | cut -d= -f1)
+              current_modname=$(echo ${current_module//[+-]} | cut -d= -f1)
+              if [[ "$previous_modname" == "$current_modname" ]]; then
+                modules['updated']="${modules['updated']} ${current_module//[+-]}"
+                reset=1
+              else
+                if [[ $previous_module == +* ]]; then
+                  modules['added']="${modules['added']} ${previous_module//[+-]}"
+                  previous_module=$current_module
+                else
+                  modules['removed']="${modules['removed']} ${previous_module//[+-]}"
+                  previous_module=$current_module
+                fi
+              fi
+            fi
+          done
+
+          declare -A modnames
+          for cat in updated added removed; do
+            for module in ${modules[$cat]}; do
+            modname=$(echo "$module" | cut -d= -f1)
+              modnames[$cat]="${modnames[$cat]} $modname"
+            done
+          done
+
+          popd
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           C7_RELEASES="train"
           if [ $(echo $C7_RELEASES|grep -c -w $RELEASE) -ne 0 ]; then
@@ -44,7 +79,7 @@
           CENTOS_V=${CENTOS_V:-9s}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
-              -l $change_list \
+              -l $modules['updated'] modules['added'] \
               -r $RELEASE \
               --centos-release $CENTOS_V \
               -p $PHASE
@@ -66,21 +101,46 @@
           git config --global gitreview.username "rdo-trunk"
 
           if [ -n "$DIFF" ]; then
-            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
+            pkgs_to_not_update=""
+            nvrs=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
             branch=c$CENTOS_V-$RELEASE-rdo
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
             git show
             source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             if [[ "$CENTOS_V" =~ "9" ]]; then
-              for pkg in $NVR; do
+              for pkg in $nvrs; do
                 needs_update=true
                 change_url=""
                 pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
                 pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
                 pkg_nv=$pkg_name-$pkg_vers
+                git ls-remote "https://review.rdoproject.org/cgit/deps/$pkg_name" CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null 2>&1
+                if [ $? -ne 0 ]; then
+                  # if there is no distgit and it's an update, we should do
+                  # nothing as we assume not having a distgit means we don't
+                  # need it in deps.
+                  for mod in ${modnames['updated']}; do
+                    pkg_name_from_pymod2pkg=$(pymod2pkg $mod)
+                    if [[ "$pkg_name" == "$pkg_name_from_pymod2pkg" ]]; then
+                      echo -e "WARNING: there is no distgit found for updated package $pkg_name, we ignore it."
+                      pkgs_to_not_update="$pkgs_to_not_update $pkg_name"
+                      break
+                    fi
+                  done
+                  # if there is no distgit and it's a new add, we let the
+                  # change in the rdoinfo patch.
+                  for mod in ${modnames['added']}; do
+                    pkg_name_from_pymod2pkg=$(pymod2pkg $mod)
+                    if [[ "$pkg_name" == "$pkg_name_from_pymod2pkg" ]]; then
+                      echo -e "WARNING: a new dep has been added upstream, the distgit might be created."
+                      break
+                    fi
+                  done
+                fi
                 in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
                 if [ -z "$in_koji_nvr" ]; then
                   echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
+                  nvrs_not_found="$nvrs_not_found $pkg"
                   break
                 fi
 
@@ -132,11 +192,46 @@
               done
             fi
 
+            # We update the list of modules updated by removing the package
+            # which should be ignored.
+            for pkg_name in $pkgs_to_not_update; do
+              for module in $modules['updated']; do
+                mod_name=$(echo $mod | cut -d= -f1)
+                pkg_name_from_pymod2pkg=$(pymod2pkg $mod_name)
+                if [[ "$pkg_name" == "$pkg_name_from_pymod2pkg" ]]; then
+                  modules['updated']=$(echo ${modules['updated']} | sed "s/$module//")
+                fi
+              done
+            done
+
+            # We stash the change in rdoinfo and run again the script
+            # with the updated change_list.
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
+            git stash
+            python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
+                -l $modules['updated'] $modules['added'] \
+                -r $RELEASE \
+                --centos-release $CENTOS_V \
+                -p $PHASE
+
+            # We edit the releases to -1 for the of NVRs not found previously
+            changed_files=$(git diff --name-only)
+            for nvr in $nvrs_not_found; do
+              dist=$(echo "$nvr" | rev | cut -d. -f1 | rev)
+              new_nvr=$(echo "$nvr" | rev | cut -d. -f2- | sed 's/./1/' | rev)
+              sed -i "s/$nvr/$new_nvr.$dist/" $changed_files
+            done
+
             git checkout -b proposal
             git review -s -v
-            echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
+            git add .
+            git commit -F- <<EOF
+            CBS tags sync with uc for $RELEASE-$PHASE
+
+            Upstream-Id: $UPSTREAM_CHANGE_ID
+            $DEPENDS_ON
+            EOF
+
             git review -t "cs9-deps-uc-update" < /dev/null
             popd
           else
