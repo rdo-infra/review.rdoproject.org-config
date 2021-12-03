@@ -22,6 +22,30 @@
       "revId": "ab197621276fbca622216bf12ca1ca40d0bf537a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2ae59d_85b7b6d4",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-12-03T09:09:58Z",
+      "side": 0,
+      "message": "I think the cases to cover are:\n1. Dependency upgrade in u-c:\n* If distgit exists in review.r.o under deps/\u003cpackage_name\u003e and the new version exists in fedora:\n  - Propose the update in the distgit\n  - Propose to update in rdoinfo to the new nvr. I\u0027m not sure if we should send update to -candidate and just check if the nvr exist or propose to update in -testing. wdyt?\n* If distgit exist in review.r.o under deps/\u003cpackage_name\u003e and the new version does not exist in fedora:\n  - Just propose to update in rdoinfo to the new nv and using release -1. Same question of what tag should we use.\n* If there is no distgit in review.r.o under deps/\u003cpackage_name\u003e:\n  - If it\u0027s a requirements update in u-c, we should do nothing, as we could assume that we don\u0027t need that dep in dependencies repo.\n  - If it\u0027s a new dependency being added to u-c, it\u0027d make sense to create a review in rdoinfo for awareness that a new dep is being added. If this is too complex (identifying if it\u0027s new dep or dep update), we can skip this.\n2. Dependency downgrade in u-c:\n* Pushing a patch to rdoinfo may be good, but not to distgit. downgrades are rare and usually require manual stuff to revert from our side, so just something for awareness. Said this, it can be follow up review.\n\nwdyt?",
+      "parentUuid": "10c60fe8_bd473bfe",
+      "range": {
+        "startLine": 31,
+        "startChar": 93,
+        "endLine": 31,
+        "endChar": 106
+      },
+      "revId": "ab197621276fbca622216bf12ca1ca40d0bf537a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
