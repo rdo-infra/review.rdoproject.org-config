@@ -1,0 +1,47 @@
+resources:
+  acls:
+    tripleo-ci-rdo-acl:
+      file: |
+        [access "refs/*"]
+          read = group tripleo-ci-rdo-core
+          owner = group tripleo-ci-rdo-ptl
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group tripleo-ci-rdo-core
+          label-Code-Review = -2..+2 group tripleo-ci-rdo-ptl
+          label-Verified = -2..+2 group tripleo-ci-rdo-ptl
+          label-Workflow = -1..+1 group tripleo-ci-rdo-core
+          label-Workflow = -1..+1 group tripleo-ci-rdo-ptl
+          label-Workflow = -1..+0 group Registered Users
+          submit = group tripleo-ci-rdo-ptl
+          read = group tripleo-ci-rdo-core
+          read = group Registered Users
+        [access "refs/meta/config"]
+          read = group tripleo-ci-rdo-core
+          read = group Registered Users
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = fast forward only
+      groups:
+        - tripleo-ci-rdo-ptl
+        - tripleo-ci-rdo-core
+  groups:
+    tripleo-ci-rdo-core:
+      description: Project core for project tripleo-ci-rdo
+      members:
+      - fboucher@redhat.com
+      - marios@redhat.com
+      - mhuin@redhat.com
+      - nhicher@redhat.com
+      - pawlik.dan@gmail.com
+      - rlandy@redhat.com
+      - tdecacqu@redhat.com
+    tripleo-ci-rdo-ptl:
+      description: Project team lead for project tripleo-ci-rdo
+      members:
+      - alan.pevec@redhat.com
+  repos:
+    tripleo-downstream-trigger-scenario010-kvm:
+      description: A repo to create gerrit review to allow to trigger periodic job
+      acl: tripleo-ci-rdo-acl
