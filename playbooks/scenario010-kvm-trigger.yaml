@@ -28,6 +28,7 @@
           set +e -x
           cat >> ~/.ssh/config << EOF
 
+          PubkeyAcceptedKeyTypes +ssh-rsa
           Host review.rdoproject.org
             IdentityFile "~/.ssh/{{ gerrit_key_name }}"
           EOF
