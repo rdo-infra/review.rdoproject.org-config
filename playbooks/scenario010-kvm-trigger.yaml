@@ -74,7 +74,7 @@
     - name: Open Gerrit review for trigger
       shell: |
         set -e +x
-        git review
+        git review {{ trigger_branch|default('master') }}
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
