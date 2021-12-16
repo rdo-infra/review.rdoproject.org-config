@@ -26,6 +26,15 @@
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
 
 - job:
+    name: tripleo-ci-base-ovb-rdo-centos-9
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI centos-9 zuulv3 jobs
+    parent: tripleo-ci-base-ovb-notebroker-centos-8
+    timeout: 14400
+    nodeset: tripleo-ovb-centos-9-primary-vexxhost
+
+- job:
     name: tripleo-ci-base-ovb-tebroker
     abstract: true
     description: |
