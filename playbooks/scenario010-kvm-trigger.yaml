@@ -64,8 +64,8 @@
     - name: Create the trigger file
       shell: |
         set -e +x
-        touch trigger
-        git add trigger
+        touch trigger_{{ trigger_branch }}{{ trigger_component|default('') }}
+        git add trigger_{{ trigger_branch }}{{ trigger_component|default('') }}
         git commit -m"Trigger for scenario010-kvm"
       changed_when: true
       args:
@@ -74,7 +74,7 @@
     - name: Open Gerrit review for trigger
       shell: |
         set -e +x
-        git review {{ trigger_branch|default('master') }}
+        git review
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
