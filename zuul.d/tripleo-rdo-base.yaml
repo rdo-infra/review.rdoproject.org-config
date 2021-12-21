@@ -73,12 +73,14 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
       - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
     secrets:
       - cloud_secrets
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -99,12 +101,14 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
       - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
     secrets:
       - cloud_secrets
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
       configure_swap_size: 4096
@@ -131,6 +135,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -139,6 +144,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -152,6 +158,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -160,6 +167,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
       configure_swap_size: 4096
@@ -174,6 +182,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -182,6 +191,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -195,6 +205,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -203,6 +214,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
       configure_swap_size: 4096
@@ -237,6 +249,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -245,6 +258,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -258,6 +272,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -266,6 +281,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -279,6 +295,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -287,6 +304,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 
@@ -300,6 +318,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -308,6 +327,7 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - rdo_registry
+      - quay_rdoproject_secret
     vars:
       registry_login_enabled: true
 

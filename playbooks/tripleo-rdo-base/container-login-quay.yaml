@@ -1,0 +1,110 @@
+---
+- hosts: all
+  tasks:
+    - name: Enable container-tools and disable rhel-modules
+      shell:
+        cmd: |
+          set -e -x
+          dnf module disable container-tools:rhel8 -y;
+          dnf module enable container-tools:3.0 -y;
+      changed_when: true
+      become: true
+      when:
+        - ansible_distribution_major_version|int >= 8
+        - ansible_distribution_major_version|int < 9
+
+    - name: Include login
+      no_log: true
+      when: registry_login_enabled|default(false)|bool
+      vars:
+        container_registry_logins:
+          quay.rdoproject.org:
+            unused: "{{ quay_rdoproject_secret.passwd }}"
+        tripleo_container_registry_logins: "{{ container_registry_logins }}"
+        tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
+        docker_login_cache: /root/.docker/config.json
+      block:
+
+        - name: Set IP forwarding on before docker starts
+          become: true
+          no_log: false
+          sysctl:
+            name: net.ipv4.ip_forward
+            value: '1'
+            sysctl_set: yes
+            state: present
+            reload: yes
+
+        - include_role:
+            name: ansible-role-container-registry
+            tasks_from: registry-login.yml
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int < 8
+
+        - name: set tripleo podman role name for train
+          no_log: false
+          set_fact:
+            tripleo_podman_role_name: tripleo-podman
+          when:
+            (release is defined and release == 'train')
+             or (branch_override is defined and branch_override == 'stable/train')
+             or (zuul.branch is defined and zuul.branch == 'stable/train')
+
+        - name: Load vars and Install podman
+          no_log: false
+          block:
+            - name: Load var file for Installing and configuring podman
+              include_role:
+                name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+                tasks_from: load_vars.yaml
+
+            - name: Install podman
+              include_role:
+                name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+                tasks_from: tripleo_podman_install.yml
+                vars_from: "{{ ansible_os_family | lower }}.yml"
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int >= 8
+
+        - include_role:
+            name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+            tasks_from: tripleo_podman_login.yml
+          when:
+            (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
+             or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
+
+        - include_role:
+            name: "{{ tripleo_podman_role_name | default('tripleo_podman') }}"
+            tasks_from: tripleo_podman_buildah_login.yml
+          when:
+            - (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
+               or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
+            - tripleo_podman_buildah_login | bool
+
+
+      always:
+        - name: Verify Login for docker
+          no_log: false
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int < 8
+            - registry_login_docker is defined and registry_login_docker.results.0.rc != 0
+          assert:
+            that:
+              - '"unauthorized" in registry_login_docker.results.0.stderr'
+            success_msg: Role got to the authentication phase and correctly failed
+            fail_msg: Role failed authentication for an Unknown reason.
+
+        - name: Assert role has worked in (CentOS|RedHat) 8
+          no_log: false
+          when:
+            - (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
+              or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
+            - registry_login_podman is defined and registry_login_podman.results.0.rc != 0
+          assert:
+            that:
+              - '"invalid username/password" in registry_login_podman.results.0.stderr'
+            success_msg: Role got to the authentication phase and correctly failed
+            fail_msg: Role failed authentication with {{ registry_login_podman.results.0.stderr }}.
