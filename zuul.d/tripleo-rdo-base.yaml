@@ -99,7 +99,7 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
-      - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
+      - playbooks/tripleo-rdo-base/pre-ovb-create-ipv6.yaml
     post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
     cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
     secrets:
