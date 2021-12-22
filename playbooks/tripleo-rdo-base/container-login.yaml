@@ -101,7 +101,7 @@
           no_log: false
           when:
             - (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
-              or (ansible_distribution == "RedHat" and ansible_lsb.major_release|int >= 8)
+              or (ansible_distribution == "RedHat" and ansible_distribution_major_version|int >= 8)
             - registry_login_podman is defined and registry_login_podman.results.0.rc != 0
           assert:
             that:
