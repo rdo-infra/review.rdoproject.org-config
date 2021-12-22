@@ -22,7 +22,7 @@
       vars:
         container_registry_logins:
           quay.rdoproject.org:
-            unused: "{{ quay_rdoproject_secret.passwd }}"
+            tripleo: "{{ quay_rdoproject_secret.passwd }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
         docker_login_cache: /root/.docker/config.json
