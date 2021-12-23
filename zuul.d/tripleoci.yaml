@@ -424,3 +424,40 @@
       release: train
       branch_override: 'stable/train'
       registry_namespace: tripleotraincentos8
+
+# Quay registry test job
+
+- job:
+    name: periodic-tripleo-build-containers-base-quay
+    parent: tripleo-build-containers-ubi-8
+    nodeset: cloud-centos-9-stream-vexxhost
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login-quay.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - rdo_registry
+      - dlrnapi
+      - quay_rdoproject_secret
+    vars:
+      release: master
+      use_buildah: true
+      use_kolla: false
+      buildcontainers_override_repos: tripleo-ci-testing
+      push_containers: true # Native container push provided by python-tripleoclient
+      registry_login_enabled: true
+      featureset: containers-build # needed for dlrn report in post.yaml
+      push_containers_podman: false
+      push_registry: quay.rdoproject.org
+      registry_namespace: tripleomastercentos9
+      promote_source: tripleo-ci-testing
+      upload_dockerfiles: false
+      containers_base_image: quay.io/centos/centos:stream9
