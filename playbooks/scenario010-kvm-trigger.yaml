@@ -64,8 +64,8 @@
     - name: Create the trigger file
       shell: |
         set -e +x
-        touch trigger_{{ trigger_branch }}{{ trigger_component|default('') }}
-        git add trigger_{{ trigger_branch }}{{ trigger_component|default('') }}
+        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}{{ trigger_component|default('') }}
+        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}{{ trigger_component|default('') }}
         git commit -m"Trigger for scenario010-kvm"
       changed_when: true
       args:
