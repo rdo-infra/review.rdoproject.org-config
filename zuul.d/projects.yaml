@@ -294,12 +294,17 @@
     github-manual:
       jobs:
         - podman-package-centos-8
+        - podman-package-centos-9
     openstack-regular:
       jobs:
         - podman-package-centos-8
         - tripleo-podman-integration-centos-8-standalone:
             dependencies:
               - podman-package-centos-8
+        - tripleo-podman-integration-centos-9-standalone:
+            dependencies:
+              - podman-package-centos-9
+
 
 - project:
     name: opendev.org/openstack/ansible-role-container-registry
