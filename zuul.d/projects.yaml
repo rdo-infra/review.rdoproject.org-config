@@ -206,9 +206,13 @@
         - tripleo-ci-centos-8-standalone:
             files:
               - plugins/filter/ipaddr.py
+        - tripleo-ci-centos-9-standalone:
+            files:
+              - plugins/filter/ipaddr.py
     github-manual-ro:
       jobs:
         - tripleo-ci-centos-8-standalone
+        - tripleo-ci-centos-9-standalone
 
 - project:
     name: github.com/ansible-collections/ansible.posix
@@ -221,9 +225,13 @@
         - tripleo-ci-centos-8-standalone:
             files:
               - plugins/.*$
+        - tripleo-ci-centos-9-standalone:
+            files:
+              - plugins/.*$
     github-manual-ro:
       jobs:
         - tripleo-ci-centos-8-standalone
+        - tripleo-ci-centos-9-standalone
 
 - project:
     name: github.com/ansible-collections/community.general
@@ -234,16 +242,19 @@
     github-check-ro:
       jobs:
         - tripleo-ci-centos-8-standalone:
-            files:
+            files: &comgen_files
               - plugins/modules/system/sefcontext.*$
               - plugins/modules/cloud/misc/cloud_init_data_facts.*$
               - plugins/modules/system/lvg.*$
               - plugins/modules/system/seport.*$
               - plugins/modules/clustering/pacemaker_cluster.*$
               - plugins/modules/system/filesystem.*$
+        - tripleo-ci-centos-9-standalone:
+            files: *comgen_files
     github-manual-ro:
       jobs:
         - tripleo-ci-centos-8-standalone
+        - tripleo-ci-centos-9-standalone
 
 # needed to be able to depends-on ansible changes
 - project:
