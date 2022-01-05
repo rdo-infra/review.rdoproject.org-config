@@ -149,7 +149,7 @@ resources:
       default-branch: c9s-yoga-rdo
       branches:
         master: '0'
-      {%- else %}
+      {%- else -%}
       description: Mirror of upstream {{ project_name }} (mirror + patches)
     {{ project_prefix }}/{{ project_name }}-distgit:
       acl: {{ project_prefix }}-{{ project_name }}-distgit
@@ -157,5 +157,5 @@ resources:
       default-branch: rpm-master
       branches:
         master: '0'
-      {%- endif %}
+      {%- endif- %}
 
