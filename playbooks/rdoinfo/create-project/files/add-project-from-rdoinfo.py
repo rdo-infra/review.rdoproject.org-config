@@ -119,8 +119,8 @@ def add_project_package(prefix, name):
         data = yaml.comments.CommentedMap(
             [(project, yaml.comments.CommentedMap([
                 ('zuul/include', []),
-                ('repoxplorer/branches', ["c9s-xena-rdo"]),
-                ('default-branch', 'c9s-xena-rdo'),
+                ('repoxplorer/branches', ["c9s-yoga-rdo"]),
+                ('default-branch', 'c9s-yoga-rdo'),
             ]))])
 
     if data not in resource['resources']['projects']['RDO']['source-repositories']:
