@@ -563,3 +563,19 @@
     failure:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: openstack-periodic-integration-stable1-cs9
+    post-review: true
+    description: Jobs in this queue are triggered to run once a day at 12:00.
+    manager: independent
+    precedence: high
+    trigger:
+      timer:
+        - time: '0 12 * * *'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
