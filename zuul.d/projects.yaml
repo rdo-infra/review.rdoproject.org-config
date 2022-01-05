@@ -3206,6 +3206,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/directord
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/directord-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/diskimage-builder-distgit
     default-branch: rpm-master
     templates:
