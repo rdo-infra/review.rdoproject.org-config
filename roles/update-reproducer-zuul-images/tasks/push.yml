@@ -2,16 +2,16 @@
 - name: Print pushing location
   debug:
     msg: >-
-      Pushing containers to {{ registry_server }}/{{ container_namespace }}/container:{{ push_tag }}
+      Pushing containers to {{ reg.server }}/{{ container_namespace }}/container:{{ push_tag }}
 
 - name: Push to registry
   command: >-
-    {{ container_command }} push {{ registry_server }}/{{ container_namespace }}/{{ item }}:{{ push_tag }}
+    {{ container_command }} push {{ reg.server }}/{{ container_namespace }}/{{ item }}:{{ push_tag }}
   changed_when: true
   loop: "{{ containers }}"
 
 - name: Logout of registry
   no_log: true
   command: >-
-    {{ container_command }} logout {{ registry_server }}
+    {{ container_command }} logout {{ reg.server }}
   changed_when: true
