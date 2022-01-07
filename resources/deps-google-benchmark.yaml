@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/google-benchmark-core:
+      description: Core developers for project google-benchmark
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/google-benchmark-ptl:
+      description: Project team lead for project google-benchmark
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-google-benchmark:
+      file: |
+        [access "refs/*"]
+          read = group deps/google-benchmark-core
+          owner = group deps/google-benchmark-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/google-benchmark-core
+          label-Code-Review = -2..+2 group deps/google-benchmark-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/google-benchmark-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/google-benchmark-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/google-benchmark-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/google-benchmark-core
+          label-Workflow = -1..+0 group deps/google-benchmark-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/google-benchmark-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/google-benchmark-core
+      - deps/google-benchmark-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/google-benchmark:
+      acl: deps-google-benchmark
+      description: Packaging of RDO dependency google-benchmark
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
