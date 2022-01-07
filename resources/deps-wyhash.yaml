@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/wyhash-core:
+      description: Core developers for project wyhash
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/wyhash-ptl:
+      description: Project team lead for project wyhash
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-wyhash:
+      file: |
+        [access "refs/*"]
+          read = group deps/wyhash-core
+          owner = group deps/wyhash-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/wyhash-core
+          label-Code-Review = -2..+2 group deps/wyhash-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/wyhash-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/wyhash-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/wyhash-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/wyhash-core
+          label-Workflow = -1..+0 group deps/wyhash-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/wyhash-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/wyhash-core
+      - deps/wyhash-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/wyhash:
+      acl: deps-wyhash
+      description: Packaging of RDO dependency wyhash
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
