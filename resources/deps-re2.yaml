@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/re2-core:
+      description: Core developers for project re2
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/re2-ptl:
+      description: Project team lead for project re2
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-re2:
+      file: |
+        [access "refs/*"]
+          read = group deps/re2-core
+          owner = group deps/re2-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/re2-core
+          label-Code-Review = -2..+2 group deps/re2-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/re2-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/re2-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/re2-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/re2-core
+          label-Workflow = -1..+0 group deps/re2-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/re2-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/re2-core
+      - deps/re2-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/re2:
+      acl: deps-re2
+      description: Packaging of RDO dependency re2
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
