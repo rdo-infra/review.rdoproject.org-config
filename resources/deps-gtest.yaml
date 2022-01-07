@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/gtest-core:
+      description: Core developers for project gtest
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/gtest-ptl:
+      description: Project team lead for project gtest
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-gtest:
+      file: |
+        [access "refs/*"]
+          read = group deps/gtest-core
+          owner = group deps/gtest-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/gtest-core
+          label-Code-Review = -2..+2 group deps/gtest-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/gtest-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/gtest-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/gtest-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/gtest-core
+          label-Workflow = -1..+0 group deps/gtest-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/gtest-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/gtest-core
+      - deps/gtest-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/gtest:
+      acl: deps-gtest
+      description: Packaging of RDO dependency gtest
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
