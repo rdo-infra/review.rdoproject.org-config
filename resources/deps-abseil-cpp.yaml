@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/abseil-cpp-core:
+      description: Core developers for project abseil-cpp
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/abseil-cpp-ptl:
+      description: Project team lead for project abseil-cpp
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-abseil-cpp:
+      file: |
+        [access "refs/*"]
+          read = group deps/abseil-cpp-core
+          owner = group deps/abseil-cpp-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/abseil-cpp-core
+          label-Code-Review = -2..+2 group deps/abseil-cpp-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/abseil-cpp-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/abseil-cpp-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/abseil-cpp-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/abseil-cpp-core
+          label-Workflow = -1..+0 group deps/abseil-cpp-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/abseil-cpp-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/abseil-cpp-core
+      - deps/abseil-cpp-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/abseil-cpp:
+      acl: deps-abseil-cpp
+      description: Packaging of RDO dependency abseil-cpp
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
