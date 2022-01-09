@@ -3,11 +3,34 @@
   hosts: all
   tasks:
 
-    - name: Run containers update
+    - name: Run containers update pull
       include_role:
         name: update-reproducer-zuul-images
-        tasks_from: retag
+        tasks_from: pull.yml
       vars:
         container_command: echo
-        reg:
-          server: docker.io
+        pull_reg: docker
+        push: docker
+        reg_servers:
+          docker:
+            server: docker.io
+            serv_secret: dockersecret
+          quay:
+            server: quay.io
+            serv_secret: quaysecret
+
+    - name: Run containers update retag
+      include_role:
+        name: update-reproducer-zuul-images
+        tasks_from: retag.yml
+      vars:
+        container_command: echo
+        pull_reg: docker
+        push: docker
+        reg_servers:
+          docker:
+            server: docker.io
+            serv_secret: dockersecret
+          quay:
+            server: quay.io
+            serv_secret: quaysecret
