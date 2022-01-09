@@ -6,8 +6,16 @@
     - name: Run containers update
       include_role:
         name: update-reproducer-zuul-images
-        tasks_from: retag
+        tasks_from: "{{ item }}"
       vars:
         container_command: echo
-        reg:
-          server: docker.io
+        reg_servers:
+          docker:
+            server: docker.io
+            serv_secret: dockersecret
+          quay:
+            server: quay.io
+            serv_secret: quaysecret
+      loop:
+        - pull.yml
+        - retag.yml

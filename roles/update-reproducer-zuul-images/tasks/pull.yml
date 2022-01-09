@@ -1,0 +1,17 @@
+---
+- name: Remove leftovers if exist
+  shell: >-
+    {{ container_command }} rmi {{ original_namespace }}/{{ item }}:{{ original_tag }} || true
+  loop: "{{ containers }}"
+  changed_when: false
+
+- name: Print pulling location
+  debug:
+    msg: >-
+      Pulling containers from {{ reg_servers[pull_reg].server }}/{{ original_namespace }}/container:{{ original_tag }}
+
+- name: Download from registry {{ reg_servers[pull_reg].server }}
+  command: >-
+    {{ container_command }} pull {{ reg_servers[pull_reg].server }}/{{ original_namespace }}/{{ item }}:{{ original_tag }}
+  changed_when: true
+  loop: "{{ containers }}"
