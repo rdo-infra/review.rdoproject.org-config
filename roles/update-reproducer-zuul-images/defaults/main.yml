@@ -1,9 +1,14 @@
 ---
-registry_server:
-  - server: docker.io
+reg_servers:
+  docker:
+    server: docker.io
     serv_secret: "{{ dockerio_rdoci }}"
-  - server: quay.io
+  quay:
+    server: quay.io
     serv_secret: "{{ quay_rdoci }}"
+pull_reg: docker
+push_reg:
+  - docker
 container_namespace: rdoci
 original_namespace: zuul
 original_tag: latest
