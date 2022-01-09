@@ -1,20 +1,20 @@
 ---
 - name: Login to registry
   command: >-
-    {{ container_command }} login {{ item.server }}
-    --username  {{ item.serv_secret.user }} --password "$PSSW"
+    {{ container_command }} login {{ reg_servers[item].server }}
+    --username  {{ reg_servers[item].serv_secret.user }} --password "$PSSW"
   changed_when: true
   environment:
-    PSSW: "{{ item.serv_secret.password }}"
+    PSSW: "{{ reg_servers[item].serv_secret.password }}"
   no_log: true
-  loop: "{{ registry_server }}"
+  loop: "{{ push_reg }}"
 
 - name: Check if login succeded
   command: >-
-    {{ container_command }} login {{ item.server }} --get-login
+    {{ container_command }} login {{ reg_servers[item].server }} --get-login
   changed_when: false
   register: login_
-  loop: "{{ registry_server }}"
+  loop: "{{ push_reg }}"
 
 - name: Print if logged in
   debug:
