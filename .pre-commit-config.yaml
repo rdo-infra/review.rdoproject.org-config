@@ -4,6 +4,8 @@ repos:
     rev: v5.0.11
     hooks:
       - id: ansible-lint
+        additional_dependencies:
+          - rich>=9.5.1,<11.0.0
         always_run: true
         pass_filenames: false
         # do not add file filters here as ansible-lint does not give reliable

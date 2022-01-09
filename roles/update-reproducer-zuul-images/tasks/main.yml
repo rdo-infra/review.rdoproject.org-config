@@ -1,10 +1,11 @@
 ---
 - include_tasks: login.yml
+- include_tasks: pull.yml
 - include_tasks: retag.yml
-  loop: "{{ registry_server }}"
+  loop: "{{ push_reg }}"
   loop_control:
-    loop_var: reg
+    loop_var: push
 - include_tasks: push.yml
-  loop: "{{ registry_server }}"
+  loop: "{{ push_reg }}"
   loop_control:
-    loop_var: reg
+    loop_var: push
