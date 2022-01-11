@@ -115,6 +115,7 @@
     run: playbooks/deps-cbs-validate/run.yaml
     nodeset: rdo-centos-8-stream
     branches: ^(c8-xena-rdo|c9s-wallaby-rdo|c9s-xena-rdo|c9s-yoga-rdo)$
+    timeout: 3600
 
 - job:
     name: deps-cbs-final-build
@@ -122,6 +123,7 @@
     run: playbooks/deps-cbs-final-build/run.yaml
     nodeset: rdo-centos-8-stream
     branches: ^(c8-xena-rdo|c9s-wallaby-rdo|c9s-xena-rdo|c9s-yoga-rdo)$
+    timeout: 3600
     secrets:
       - secret: rdobuilder_ssh_key
         name: rdobuilder_ssh_key
