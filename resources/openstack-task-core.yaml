@@ -1,0 +1,97 @@
+resources:
+  groups:
+    openstack/task-core-core:
+      description: Core developers for project task-core
+      members:
+      - jslagle@redhat.com
+      - aschultz@next-development.com
+      - kecarter@redhat.com
+    openstack/task-core-ptl:
+      description: Project team lead for project task-core
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-task-core-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/task-core-core
+          owner = group openstack/task-core-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/task-core-core
+          label-Code-Review = -2..+2 group openstack/task-core-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/task-core-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/task-core-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/task-core-core
+          label-Verified = -2..+2 group openstack/task-core-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/task-core-core
+          label-Workflow = -1..+1 group openstack/task-core-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/task-core-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/task-core-core
+      - openstack/task-core-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-task-core:
+      file: |
+        [access "refs/*"]
+          read = group openstack/task-core-core
+          owner = group openstack/task-core-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/task-core-core
+          label-Code-Review = -2..+2 group openstack/task-core-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/task-core-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/task-core-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/task-core-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/task-core-core
+          label-Workflow = -1..+0 group openstack/task-core-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/task-core-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/task-core-core
+      - openstack/task-core-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/task-core:
+      acl: openstack-task-core
+      
+      description: Mirror of upstream task-core (mirror + patches)
+    openstack/task-core-distgit:
+      acl: openstack-task-core-distgit
+      description: Packaging of upstream task-core
+      default-branch: rpm-master
+      branches:
+        master: '0'
