@@ -5851,6 +5851,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/task-core
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/task-core-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/taskflow
     templates:
       - package-check-jobs
