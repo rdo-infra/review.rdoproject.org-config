@@ -5258,6 +5258,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ovn-bgp-agent
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ovn-bgp-agent-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ovn-octavia-provider
     templates:
       - package-check-jobs
