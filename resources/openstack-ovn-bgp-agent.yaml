@@ -1,0 +1,99 @@
+resources:
+  groups:
+    openstack/ovn-bgp-agent-core:
+      description: Core developers for project ovn-bgp-agent
+      members:
+      - bcafarel@redhat.com
+      - dalvarez@redhat.com
+      - dsneddon@redhat.com
+      - ltomasbo@redhat.com
+      - lucasagomes@gmail.com
+    openstack/ovn-bgp-agent-ptl:
+      description: Project team lead for project ovn-bgp-agent
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-ovn-bgp-agent-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovn-bgp-agent-core
+          owner = group openstack/ovn-bgp-agent-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovn-bgp-agent-core
+          label-Code-Review = -2..+2 group openstack/ovn-bgp-agent-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovn-bgp-agent-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovn-bgp-agent-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/ovn-bgp-agent-core
+          label-Verified = -2..+2 group openstack/ovn-bgp-agent-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/ovn-bgp-agent-core
+          label-Workflow = -1..+1 group openstack/ovn-bgp-agent-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovn-bgp-agent-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/ovn-bgp-agent-core
+      - openstack/ovn-bgp-agent-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-ovn-bgp-agent:
+      file: |
+        [access "refs/*"]
+          read = group openstack/ovn-bgp-agent-core
+          owner = group openstack/ovn-bgp-agent-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/ovn-bgp-agent-core
+          label-Code-Review = -2..+2 group openstack/ovn-bgp-agent-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/ovn-bgp-agent-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/ovn-bgp-agent-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/ovn-bgp-agent-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/ovn-bgp-agent-core
+          label-Workflow = -1..+0 group openstack/ovn-bgp-agent-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/ovn-bgp-agent-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/ovn-bgp-agent-core
+      - openstack/ovn-bgp-agent-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/ovn-bgp-agent:
+      acl: openstack-ovn-bgp-agent
+      
+      description: Mirror of upstream ovn-bgp-agent (mirror + patches)
+    openstack/ovn-bgp-agent-distgit:
+      acl: openstack-ovn-bgp-agent-distgit
+      description: Packaging of upstream ovn-bgp-agent
+      default-branch: rpm-master
+      branches:
+        master: '0'
