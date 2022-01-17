@@ -296,35 +296,6 @@ resources:
       groups:
       - rdo-infra/ansible-role-rdomonitoring-ptl
       - rdo-infra/ansible-role-rdomonitoring-core
-    e0dd259e6f2aa0971d9b1cfd3e148893:
-      file: |
-        [access "refs/*"]
-          read = group rdoinfo-core
-          owner = group rdoinfo-ptl
-        [access "refs/heads/*"]
-            label-Code-Review = -2..+2 group rdoinfo-core
-            label-Code-Review = -2..+2 group rdoinfo-ptl
-            label-Verified = -2..+2 group rdoinfo-ptl
-            label-Workflow = -1..+1 group rdoinfo-core
-            label-Workflow = -1..+1 group rdoinfo-ptl
-            label-Workflow = -1..+0 group Registered Users
-            submit = group rdoinfo-ptl
-            rebase = group rdoinfo-core
-            read = group Registered Users
-            read = group rdoinfo-core
-            forgeAuthor = group rdoinfo-core
-        [access "refs/meta/config"]
-            read = group Registered Users
-            read = group rdoinfo-core
-            forgeCommitter = group rdoinfo-core
-        [receive]
-            requireChangeId = true
-        [submit]
-            mergeContent = false
-            action = rebase if necessary
-      groups:
-      - rdoinfo-ptl
-      - rdoinfo-core
   groups:
     openstack/openstack-puppet-modules-core:
       description: Core developers for project openstack-puppet-modules
@@ -428,19 +399,6 @@ resources:
       description: Project team lead for project rdo_gating_scripts
       members:
       - admin@review.rdoproject.org
-    rdoinfo-core:
-      description: Core developers for project rdoinfo
-      members:
-      - cschwede@redhat.com
-      - fboucher@redhat.com
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
-    rdoinfo-ptl:
-      description: Project team lead for project rdoinfo
-      members:
-      - alan.pevec@redhat.com
-      - mhu@enovance.com
-      - admin@review.rdoproject.org
     testbranching-core:
       description: Core developers for project testbranching
       members:
@@ -505,9 +463,6 @@ resources:
     rdo_gating_scripts:
       acl: 52cb6e86d30b67dde85f1df8b75e2dc8
       description: ''
-    rdoinfo:
-      acl: e0dd259e6f2aa0971d9b1cfd3e148893
-      description: A fork of redhat-openstack rdoinfo made to use rmpfactory repositories
     testbranching:
       acl: 12df3119baf5bbbcccbe6c25a6900023
       description: just a test for branches
