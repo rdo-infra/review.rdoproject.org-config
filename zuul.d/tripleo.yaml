@@ -279,3 +279,12 @@
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
             files:
               - roles/tripleo_overcloud_delete/.*
+
+- project:
+    name: opendev.org/openstack/diskimage-builder
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset002-upload:
+            branches: ^master$
