@@ -213,6 +213,16 @@
       - cbs_opstools
 
 - job:
+    name: opstools-distgit-cbs-base
+    description: |
+      A base job to set up certs for opstools-distgit jobs.
+    pre-run: playbooks/opstools-distgit-cbs-base/pre.yaml
+    abstract: true
+    nodeset: rdo-centos-8
+    secrets:
+      - cbs_opstools
+
+- job:
     name: opstools-sensu-110-distgit-cbs-validate
     description: |
       A job to validate opstools-sensu-110 cbs builds.
