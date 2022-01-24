@@ -7,9 +7,12 @@
       package:
         name:
           - git
-          - git-review
         state: present
       become: true
+
+    - name: Install git-review
+      pip:
+        name: git-review
 
     - name: Ensure .ssh directory
       file:
