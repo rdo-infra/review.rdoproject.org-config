@@ -71,6 +71,7 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
@@ -79,13 +80,16 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
+            files: &tripleo_ansible_files001
               - ^tripleo_ansible/.*
-            irrelevant-files:
+            irrelevant-files: &tripleo_ansible_irfiles001
               - .*.md$
               - .*.rst$
               - .*.txt$
               - .*molecule.*
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
+            files: *tripleo_ansible_files001
+            irrelevant-files: *tripleo_ansible_irfiles001
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039:
             files: &fs_39_files
               - ^tripleo_ansible/roles/tripleo-hieradata/.*
@@ -94,6 +98,10 @@
               - .*.rst$
               - .*.txt$
               - .*molecule.*
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039:
+            files: *fs_39_files
+            irrelevant-files: *fs_39_irrelevant
+
 
 - project:
     name: opendev.org/openstack/openstack-virtual-baremetal
@@ -212,12 +220,14 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001
+        - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset001
 
 - project:
     name: opendev.org/openstack/tripleo-image-elements
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001
 
 - project:
     name: opendev.org/openstack/python-tripleoclient
@@ -228,10 +238,12 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
-            files:
+            files: &tripleoclient_files
               - ^tripleoclient/.*/overcloud_node.*$
               - ^tripleoclient/.*/overcloud_deploy.*$
               - ^tripleoclient/.*/baremetal.*$
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
+            files: *tripleoclient_files
 
 - project:
     name: opendev.org/openstack/metalsmith
@@ -240,6 +252,9 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
+            files:
+              - ^metalsmith_ansible/.*/metalsmith_instances.*$
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
             files:
               - ^metalsmith_ansible/.*/metalsmith_instances.*$
 
@@ -262,6 +277,8 @@
             - ^plugins/modules/role_assignment.*$
             - ^plugins/modules/stack.*$
             - ^plugins/module_utils/openstack.*$
+        - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset001:
+            files: *ooo_modules_files
 
 - project:
     name: opendev.org/openstack/tripleo-operator-ansible
@@ -270,7 +287,7 @@
     openstack-check:
       jobs:
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
-            files:
+            files: &toa_files
               - roles/tripleo_overcloud_container_image_upload/.*
               - roles/tripleo_overcloud_deploy/.*
               - roles/tripleo_overcloud_network_provision/.*
@@ -280,6 +297,11 @@
               - roles/tripleo_overcloud_node_provision/.*
               - roles/tripleo_undercloud_install/.*
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
+            files:
+              - roles/tripleo_overcloud_delete/.*
+        - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset001:
+            files: *toa_files
+        - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset002-upload:
             files:
               - roles/tripleo_overcloud_delete/.*
 
