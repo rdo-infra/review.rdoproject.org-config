@@ -39,7 +39,7 @@
     state: link
   when: not ovb_clone|bool and ovb_repo_source_dir
 
-- name: Install opesntack client
+- name: Install openstack client
   include: install_openstack_deps.yml
 
 - name: Create OVB stack
