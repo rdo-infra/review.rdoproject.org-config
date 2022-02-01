@@ -152,7 +152,7 @@
     run: playbooks/publish-cico-jjb/run.yaml
     required-projects:
       - name: rdo-infra/ci-config
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - sig_jenkins
 
@@ -169,7 +169,7 @@
     required-projects:
       - name: rdoinfo
       - name: gating_scripts
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - koji_centos
 
@@ -268,7 +268,7 @@
     required-projects:
       - name: rdoinfo
       - name: gating_scripts
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - koji_centos
 
@@ -281,7 +281,7 @@
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/rdo/send-stable-release.yaml
     timeout: 5400
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     required-projects:
       - name: rdoinfo
       - name: rdo-infra/releng
@@ -296,7 +296,7 @@
     run: playbooks/rdoinfo/create-project/run.yaml
     required-projects:
       - name: rdoinfo
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - rdoinfo_ssh
 
@@ -309,7 +309,7 @@
       - name: config
       - name: rdoinfo
       - name: rdo_gating_scripts
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - github
 
