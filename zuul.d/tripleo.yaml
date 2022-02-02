@@ -238,7 +238,7 @@
         - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-wallaby-branch
         - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset001
 
 - project:
@@ -283,7 +283,7 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-wallaby-branch:
             files: &ooo_modules_files
             - ^plugins/modules/catalog_service.*$
             - ^plugins/modules/endpoint.*$
@@ -305,7 +305,7 @@
       - system-required
     openstack-check:
       jobs:
-        - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset001:
+        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-wallaby-branch:
             files: &toa_files
               - roles/tripleo_overcloud_container_image_upload/.*
               - roles/tripleo_overcloud_deploy/.*
