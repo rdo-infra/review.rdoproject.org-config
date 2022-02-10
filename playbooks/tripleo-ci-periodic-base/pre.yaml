@@ -19,6 +19,7 @@
           export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
           export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
           export COMPONENT_NAME="{{ component | default('') }}"
+          export GET_HASH_USE_PY3_VENV=""
           bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
       args:
         chdir: '{{ workspace }}'
