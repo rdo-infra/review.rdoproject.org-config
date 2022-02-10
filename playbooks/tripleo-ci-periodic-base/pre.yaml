@@ -34,6 +34,7 @@
           export PROMOTE_NAME=tripleo-ci-testing
           export DLRNAPI_DISTRO="CentOS"
           export DLRNAPI_DISTRO_VERSION="7"
+          export GET_HASH_USE_PY3_VENV=""
           cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
           cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/logs/hash_info_fedora.sh
           bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
