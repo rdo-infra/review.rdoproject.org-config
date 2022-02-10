@@ -246,7 +246,7 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
-    secrets:
+    secrets: &build_containers_secrets
       - rdo_registry
       - dlrnapi
 
@@ -272,9 +272,7 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
+    secrets: *build_containers_secrets
 
 - job:
     name: periodic-tripleo-centos-7-master-compute-containers-build
@@ -385,9 +383,7 @@
       - rdo-infra/ci-config
     roles:
       - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
+    secrets: *build_containers_secrets
     vars:
       release: master
       use_buildah: true
@@ -429,11 +425,11 @@
 # Quay registry test job
 
 - job:
-    name: periodic-tripleo-build-containers-base-quay
-    parent: tripleo-build-containers-ubi-8
+    name: tripleo-build-containers-base-c9-quay
+    parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: cloud-centos-9-stream-vexxhost
     abstract: true
-    pre-run:
+    pre-run: &pre_run_playbooks_build_container
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login-quay.yaml
@@ -445,11 +441,9 @@
     roles:
       - zuul: rdo-infra/ci-config
     secrets:
-      - rdo_registry
-      - dlrnapi
+      <<: *build_containers_secrets
       - quay_rdoproject_tripleomastercentos9_secret
-    vars:
-      release: master
+    vars: &build_containers_vars
       use_buildah: true
       use_kolla: false
       buildcontainers_override_repos: tripleo-ci-testing
@@ -458,7 +452,40 @@
       featureset: containers-build # needed for dlrn report in post.yaml
       push_containers_podman: false
       push_registry: quay.rdoproject.org
-      registry_namespace: tripleomastercentos9
       promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: quay.io/centos/centos:stream9
+
+- job:
+    name: tripleo-build-containers-base-c8-quay
+    parent: tripleo-ci-build-containers-required-projects-rdo
+    nodeset: single-centos-8-node-vexxhost
+    abstract: true
+    pre-run: *pre_run_playbooks_build_container
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      <<: *build_containers_secrets
+      - quay_rdoproject_tripleomastercentos9_secret
+    vars:
+      <<: *build_containers_vars
+      containers_base_image: "ubi8:8.2"
+
+- job:
+    name: periodic-tripleo-build-containers-base-c9-quay-master
+    parent: tripleo-build-containers-base-c9-quay
+    vars:
+      release: master
+      registry_namespace: tripleomastercentos9
+
+- job:
+    name: periodic-tripleo-build-containers-base-c8-quay-ussuri
+    parent: tripleo-build-containers-base-c8-quay
+    vars:
+      release: ussuri
+      registry_namespace: tripleoussuricentos8
