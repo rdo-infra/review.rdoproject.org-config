@@ -373,6 +373,21 @@
       - dlrnapi
 
 - job:
+    name: tripleo-ci-base-ovb-periodic-centos-9
+    parent: tripleo-ci-base-ovb-rdo-centos-9
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
+    secrets:
+      - dlrnapi
+
+- job:
     name: tripleo-ci-base-ovb-periodic-upload
     parent: tripleo-ci-base-ovb-periodic
     post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
