@@ -13,6 +13,22 @@
         - ansible_distribution_major_version|int >= 8
         - ansible_distribution_major_version|int < 9
 
+    - name: set vars for registry
+      block:
+        - name: Set vars for quay login
+          set_fact:
+            container_registry_logins:
+              quay.rdoproject.org:
+                tripleo: "{{ quay_rdoproject_secret.passwd }}"
+          when: push_registry in ["quay.rdoproject.org"]
+        - name: Set vars for default registry login
+          set_fact:
+            container_registry_logins:
+              trunk.registry.rdoproject.org:
+                unused: "{{ rdo_registry.token }}"
+          when: registry_login_enabled|default(false)|bool
+      when: registry_login_enabled|default(false)|bool
+
     - name: Include login
       no_log: true
       when: registry_login_enabled|default(false)|bool
