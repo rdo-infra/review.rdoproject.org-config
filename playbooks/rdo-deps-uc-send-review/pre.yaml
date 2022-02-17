@@ -12,7 +12,8 @@
     - name: Install deps
       shell:
         cmd: |
-          sudo dnf install -y jq;
+          sudo dnf install -y jq \
+                              rpmdevtools;
       changed_when: true
 
     - name: Create SSH directory
