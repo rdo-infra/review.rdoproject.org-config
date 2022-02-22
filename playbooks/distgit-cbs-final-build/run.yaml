@@ -8,7 +8,12 @@
           if [[ $NAME == *'Stream' ]]; then
               export DIST_REL="s"
           fi
-          WORKSPACE={{ ansible_user_dir }} ./pkg-export.sh cloud${DIST_VER}${DIST_REL}-openstack-{{ zuul.branch|replace('-rdo', '') }}-el${DIST_VER} cbs
+          if [[ "$DIST_VER" -eq 9 ]]; then
+              export BUILD_TARGET="el${DIST_VER}${DIST_REL}"
+          else
+              export BUILD_TARGET="el${DIST_VER}"
+          fi
+          WORKSPACE={{ ansible_user_dir }} ./pkg-export.sh cloud${DIST_VER}${DIST_REL}-openstack-{{ zuul.branch|replace('-rdo', '') }}-${BUILD_TARGET} cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
