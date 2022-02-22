@@ -682,3 +682,38 @@
       promote_source: tripleo-ci-testing
     secrets:
       - dlrnapi
+
+
+#####################
+# OVB RDO Parenting #
+#####################
+
+# Note: This job replaces tebroker job
+- job:
+    name: tripleo-ci-base-ovb-rdo-standard
+    parent: tripleo-ci-base-ovb-standard
+    abstract: true
+    description: |
+      Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
+    timeout: 12600
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+
+# Note: This job replaces the notebroker jobs
+- job:
+    name: tripleo-ci-base-ovb-rdo-notebroker-standard
+    parent: tripleo-ci-base-ovb-required-projects-rdo
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
+    post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
+    cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
+    secrets:
+      - cloud_secrets
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+      configure_swap_size: 4096
