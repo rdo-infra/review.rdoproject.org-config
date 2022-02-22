@@ -107,7 +107,13 @@
     name: distgit-cbs-validate-centos8-stream
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8-stream
-    branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
+    branches: ^((?!rpm-master)|((\w+)-rdo))$
+
+- job:
+    name: distgit-cbs-validate-centos9-stream
+    parent: distgit-cbs-validate
+    nodeset: rdo-centos-9-stream
+    branches: ^((?!rpm-master)|((\w+)-rdo))$
 
 - job:
     name: deps-cbs-validate
@@ -132,7 +138,13 @@
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
-    branches: ^((?!rpm-master)|(^(?!queens|rocky|stein)(\w+)-rdo))$
+    branches: ^((?!rpm-master)|((\w+)-rdo))$
+
+- job:
+    name: distgit-cbs-final-build-centos9
+    parent: distgit-cbs-final-build
+    nodeset: rdo-centos-9-stream
+    branches: ^((?!rpm-master)|((\w+)-rdo))$
 
 - job:
     name: centos-opstools-distgit-cbs-base
