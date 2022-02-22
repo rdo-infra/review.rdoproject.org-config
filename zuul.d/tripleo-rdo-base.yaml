@@ -2,94 +2,28 @@
 # This file contains parent layouts for all TripleO RDO Cloud related jobs.
 # Do not add children specific layout here.
 
-- job:
-    name: tripleo-ci-base-ovb-rdo
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI zuulv3 jobs
-    parent: tripleo-ci-base-ovb-notebroker
-    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
-    # often in train and stein. https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
-    timeout: 14400
-    nodeset: upstream-centos-7-vexxhost
+#####################
+# OVB RDO Parenting #
+#####################
 
+# This job replaces tebroker job
 - job:
-    name: tripleo-ci-base-ovb-rdo-centos-8
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs
-    parent: tripleo-ci-base-ovb-notebroker-centos-8
-    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
-    # often in train and stein.
-    # https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
-    timeout: 14400
-    nodeset: tripleo-ovb-centos-8-primary-vexxhost
-
-- job:
-    name: tripleo-ci-base-ovb-rdo-centos-9
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI centos-9 zuulv3 jobs
-    parent: tripleo-ci-base-ovb-notebroker-centos-8
-    timeout: 14400
-    nodeset: tripleo-ovb-centos-9-primary-vexxhost
-
-- job:
-    name: tripleo-ci-base-ovb-tebroker
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
+    name: tripleo-ci-base-ovb-standard
     parent: tripleo-ci-base-ovb
+    abstract: true
+    description: |
+      Base abstract job for OVB in RDO CI zuulv3 jobs with te-broker
     timeout: 12600
-    nodeset: upstream-centos-7-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
 
+# This job replaces the notebroker jobs
 - job:
-    name: tripleo-ci-base-ovb-tebroker-centos-8
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs with te-broker
-    parent: tripleo-ci-base-ovb-centos-8
-    timeout: 12600
-    nodeset: tripleo-ovb-centos-8-primary-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-
-- job:
-    name: tripleo-ci-base-ovb-notebroker
-    abstract: true
-    description: |
-        Base abstract job for OVB in RDO CI zuulv3 jobs without te-broker
+    name: tripleo-ci-base-ovb-required-projects-rdo
     parent: tripleo-ci-base-ovb
-    timeout: 12600
-    nodeset: upstream-centos-7-vexxhost
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-      - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
-    post-run: playbooks/tripleo-rdo-base/post-ovb-delete.yaml
-    cleanup-run: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
-    secrets:
-      - cloud_secrets
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-
-- job:
-    name: tripleo-ci-base-ovb-notebroker-centos-8
-    abstract: true
     description: |
-        Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs without te-broker
-    parent: tripleo-ci-base-ovb-centos-8
-    timeout: 12600
-    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+        Base abstract job for OVB required projects in RDO CI zuulv3 jobs
+    timeout: 14400
     roles:
       - zuul: opendev.org/openstack/ansible-role-container-registry
       - zuul: opendev.org/openstack/tripleo-ansible
@@ -109,9 +43,42 @@
       registry_login_enabled: true
       configure_swap_size: 4096
 
+# OVB distro jobs
+- job:
+    name: tripleo-ci-base-ovb-rdo
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-ovb-required-projects-rdo
+    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
+    # often in train and stein. https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
+    timeout: 14400
+    nodeset: upstream-centos-7-vexxhost
+
+- job:
+    name: tripleo-ci-base-ovb-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs
+    parent: tripleo-ci-base-ovb-required-projects-rdo
+    # Upgraded from 3.5h to 4h after we got at least featureset001 timing out
+    # often in train and stein.
+    # https://trunk-primary.rdoproject.org/api-centos-train/api/civotes_detail.html?commit_hash=72487d804ef4c64d16889b1b474252f6963a18c2&distro_hash=3f633a877cc44c0fa774e06dbf99c7db29419b2f
+    timeout: 14400
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+
+- job:
+    name: tripleo-ci-base-ovb-rdo-centos-9
+    abstract: true
+    description: |
+        Base abstract job for OVB in RDO CI centos-9 zuulv3 jobs
+    parent: tripleo-ci-base-ovb-required-projects-rdo
+    timeout: 14400
+    nodeset: tripleo-ovb-centos-9-primary-vexxhost
+
 - job:
     name: tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-no-deployment-testonly
-    parent: tripleo-ci-base-ovb-notebroker-centos-8
+    parent: tripleo-ci-base-ovb-required-projects-rdo
     branches: ^(?!stable/(newton|ocata|pike|queens|rocky|stein|train)).*$
     nodeset: upstream-centos-8-vexxhost
     run: playbooks/tripleo-rdo-base/testonly/no_deploy_ovb.yaml
