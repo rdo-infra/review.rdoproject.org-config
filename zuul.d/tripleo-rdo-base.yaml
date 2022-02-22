@@ -50,7 +50,7 @@
     abstract: true
     description: |
         Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs with te-broker
-    parent: tripleo-ci-base-ovb-centos-8
+    parent: tripleo-ci-base-ovb-options
     timeout: 12600
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
     pre-run:
@@ -87,7 +87,7 @@
     abstract: true
     description: |
         Base abstract job for OVB in RDO CI centos-8 zuulv3 jobs without te-broker
-    parent: tripleo-ci-base-ovb-centos-8
+    parent: tripleo-ci-base-ovb-options
     timeout: 12600
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
     roles:
