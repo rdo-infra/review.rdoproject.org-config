@@ -33,6 +33,40 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-check-tp
+    description: |
+      Newly uploaded patchsets to review.opendev.org enter this pipeline.
+      Results are commented using a Code-Review vote.
+      Use this pipeline for project that does not allow Verify vote.
+    success-message: |
+      Build succeeded (openstack-check-tp pipeline).
+    failure-message: |
+      Build failed (openstack-check-tp pipeline).
+    manager: independent
+    require:
+      opendev.org:
+        open: True
+        current-patchset: True
+    trigger:
+      opendev.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|rdo-check|verify-rdo)
+    success:
+      # Note: we are using another connection to report with rdo project ci account
+      rdoci:
+        Code-Review: 1
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      # Note: we are using another connection to report with rdo project ci account
+      rdoci:
+        Code-Review: -1
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: openstack-experimental
     description: |
         Upstream patchsets that have to be checked against a set of experimental jobs.
