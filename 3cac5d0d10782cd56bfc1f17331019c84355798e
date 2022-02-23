@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86cea8d0_1c9f3725",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-02-23T10:12:09Z",
+      "side": 1,
+      "message": "Looks good, just one suggestion.",
+      "revId": "3cac5d0d10782cd56bfc1f17331019c84355798e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe367b73_360f4e4a",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-02-23T10:12:09Z",
+      "side": 1,
+      "message": "We can use ansible block here.\nhttps://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html\n\n```\n- name: set vars for registry\n  block:\n    - name: Set vars for quay login\n      set_fact:\n        container_registry_logins:\n          quay.rdoproject.org:\n            tripleo: \"{{ quay_rdoproject_secret.passwd }}\"\n      when: push_registry in [\"quay.rdoproject.org\"]\n    - name: Set vars for default registry login\n      set_fact:\n        container_registry_logins:\n          trunk.registry.rdoproject.org:\n            unused: \"{{ rdo_registry.token }}\"\n      when: registry_login_enabled|default(false)|bool\n  when: registry_login_enabled|default(false)|bool\n\n```",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "3cac5d0d10782cd56bfc1f17331019c84355798e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
