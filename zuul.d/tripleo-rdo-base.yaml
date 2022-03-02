@@ -122,49 +122,6 @@
         to_build: false
 
 - job:
-    name: tripleo-ci-base-multinode-rdo
-    abstract: true
-    description: |
-        Base abstract job for multinode in RDO CI zuulv3 jobs
-    parent: tripleo-ci-base-multinode
-    nodeset: two-centos-7-nodes-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    secrets:
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-
-- job:
-    name: tripleo-ci-base-multinode-rdo-centos-8
-    abstract: true
-    description: |
-        Base abstract job for multinode in RDO CI centos-8 zuulv3 jobs
-    parent: tripleo-ci-base-multinode-centos-8
-    nodeset: two-centos-8-nodes-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    secrets:
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-      configure_swap_size: 4096
-
-- job:
     name: tripleo-ci-base-singlenode-rdo
     abstract: true
     description: |
@@ -387,34 +344,6 @@
       - uploader_ssh_key
 
 - job:
-    name: tripleo-ci-base-multinode-periodic
-    parent: tripleo-ci-base-multinode-rdo
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
-- job:
-    name: tripleo-ci-base-multinode-periodic-centos-8
-    parent: tripleo-ci-base-multinode-rdo-centos-8
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    vars:
-      promote_source: tripleo-ci-testing
-    secrets:
-      - dlrnapi
-
-- job:
     name: tripleo-ci-base-singlenode-periodic
     parent: tripleo-ci-base-singlenode-rdo
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
@@ -589,3 +518,99 @@
       compose_promoter_target_label: "centos-ci-testing"
       compose_promoter_user: "uploader"
       compose_promoter_server: "images.rdoproject.org"
+
+#########################################
+#     Multinode Job Parenting           #
+#########################################
+
+- job:
+    name: tripleo-ci-base-required-projects-multinode-rdo
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-multinode-standard
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+    required-projects:
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
+    secrets:
+      - rdo_registry
+    vars:
+      registry_login_enabled: true
+
+- job:
+    name: tripleo-ci-base-multinode-rdo
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-required-projects-multinode-rdo
+    nodeset: two-centos-7-nodes-vexxhost
+
+- job:
+    name: tripleo-ci-base-multinode-rdo-centos-8
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI centos-8 zuulv3 jobs
+    parent: tripleo-ci-base-required-projects-multinode-rdo
+    nodeset: two-centos-8-nodes-vexxhost
+    vars:
+      configure_swap_size: 4096
+
+- job:
+    name: tripleo-ci-base-multinode-rdo-centos-9
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI centos-9 zuulv3 jobs
+    parent: tripleo-ci-base-required-projects-multinode-rdo
+    nodeset: two-centos-9-nodes-vexxhost
+    vars:
+      configure_swap_size: 4096
+
+# Periodic version of base jobs
+- job:
+    name: tripleo-ci-base-multinode-periodic
+    parent: tripleo-ci-base-multinode-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-multinode-periodic-centos-8
+    parent: tripleo-ci-base-multinode-rdo-centos-8
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
+    secrets:
+      - dlrnapi
+
+- job:
+    name: tripleo-ci-base-multinode-periodic-centos-9
+    parent: tripleo-ci-base-multinode-rdo-centos-9
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      promote_source: tripleo-ci-testing
+    secrets:
+      - dlrnapi
