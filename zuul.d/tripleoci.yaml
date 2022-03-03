@@ -229,7 +229,7 @@
 - job:
     name: periodic-tripleo-containers-build-push-base
     abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    parent: tripleo-ci-build-containers-required-projects-rdo
     vars:
        push_containers: true
        push_registry: trunk.registry.rdoproject.org
@@ -253,7 +253,7 @@
 - job:
     name: periodic-tripleo-containers-build-push-base-vexxhost
     abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
+    parent: tripleo-ci-build-containers-required-projects-rdo
     vars:
       push_containers: true
       push_registry: trunk.registry.rdoproject.org
@@ -301,15 +301,6 @@
        release: master
        buildcontainers_venv: false
 
-- job:
-    name: periodic-tripleo-centos-7-train-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/train'
-    #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
-    timeout: 9000
-    vars:
-       release: train
-       branch_override: 'stable/train'
 
 # --- end of master/train docker build jobs
 
@@ -323,7 +314,7 @@
 
 - job:
     name: periodic-tripleo-centos-8-master-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
+    parent: tripleo-ci-build-containers-required-projects-rdo
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     secrets:
@@ -350,7 +341,7 @@
 
 - job:
     name: periodic-tripleo-centos-7-train-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
+    parent: tripleo-ci-build-containers-base-rdo-centos-7
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -368,26 +359,51 @@
       - quay_rdoci
 
 
-# --- CentOS 8 new container build job ---
+# --- CentOS Container Build Parenting ---
+
+# CentOS 7
+
 - job:
-    name: periodic-tripleo-build-containers-ubi-8-push-base
-    parent: tripleo-build-containers-ubi-8
-    nodeset: single-centos-8-node-vexxhost
+    name: tripleo-ci-build-containers-base-rdo-centos-7
     abstract: true
+    parent: tripleo-ci-build-containers-required-projects-rdo
+    nodeset: single-centos-7-node-vexxhost
+    vars:
+      push_containers: true
+      push_registry: trunk.registry.rdoproject.org
+      buildcontainers_override_repos: tripleo-ci-testing
+      featureset: containers-build # needed for dlrn report in post.yaml
+      rdo_registry_url: trunk.registry.rdoproject.org
+      registry_login_enabled: false
+      promote_source: tripleo-ci-testing
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    secrets:
+      - rdo_registry
+      - dlrnapi
+
+- job:
+    name: periodic-tripleo-centos-7-train-containers-build-push
+    parent: tripleo-ci-build-containers-base-rdo-centos-7
+    override-checkout: 'stable/train'
+    #TODO(ruck): remove timeout https://bugs.launchpad.net/tripleo/+bug/1850188
+    timeout: 9000
+    vars:
+       release: train
+       branch_override: 'stable/train'
+
+# CentOS 8
+
+- job:
+    name: tripleo-ci-build-containers-base-rdo-centos-8
+    abstract: true
+    parent: tripleo-ci-build-containers-required-projects-rdo
+    nodeset: single-centos-8-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
     vars:
       release: master
       use_buildah: true
@@ -401,10 +417,13 @@
       promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: "ubi8:8.2"
+    secrets:
+      - rdo_registry
+      - dlrnapi
 
 - job:
     name: periodic-tripleo-ci-build-containers-ubi-8-push
-    parent: periodic-tripleo-build-containers-ubi-8-push-base
+    parent: tripleo-ci-build-containers-base-rdo-centos-8
     vars:
       registry_namespace: tripleomaster
 
@@ -426,11 +445,39 @@
       branch_override: 'stable/train'
       registry_namespace: tripleotraincentos8
 
+# CentOS 9
+
+- job:
+    name: tripleo-ci-build-containers-base-rdo-centos-9
+    abstract: true
+    parent: tripleo-ci-build-containers-required-projects-rdo
+    nodeset: cloud-centos-9-stream-vexxhost
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    vars:
+      release: master
+      use_buildah: true
+      use_kolla: false
+      buildcontainers_override_repos: tripleo-ci-testing
+      push_containers: true # Native container push provided by python-tripleoclient
+      registry_login_enabled: true
+      featureset: containers-build # needed for dlrn report in post.yaml
+      push_containers_podman: false
+      push_registry: trunk.registry.rdoproject.org
+      promote_source: tripleo-ci-testing
+      upload_dockerfiles: false
+      containers_base_image: quay.io/centos/centos:stream9
+    secrets:
+      - rdo_registry
+      - dlrnapi
+
 # Quay registry test job
 
 - job:
     name: periodic-tripleo-build-containers-base-quay
-    parent: tripleo-build-containers-ubi-8
+    parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: cloud-centos-9-stream-vexxhost
     abstract: true
     pre-run:
