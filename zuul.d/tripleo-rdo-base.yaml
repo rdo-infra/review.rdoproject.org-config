@@ -558,6 +558,7 @@
         Base abstract job for multinode in RDO CI centos-8 zuulv3 jobs
     parent: tripleo-ci-base-required-projects-multinode-rdo
     nodeset: two-centos-8-nodes-vexxhost
+    post-run: playbooks/tripleo-ci/post-artifact-mult.yml
     vars:
       configure_swap_size: 4096
 
@@ -568,6 +569,7 @@
         Base abstract job for multinode in RDO CI centos-9 zuulv3 jobs
     parent: tripleo-ci-base-required-projects-multinode-rdo
     nodeset: two-centos-9-nodes-vexxhost
+    post-run: playbooks/tripleo-ci/post-artifact-mult.yml
     vars:
       configure_swap_size: 4096
 
