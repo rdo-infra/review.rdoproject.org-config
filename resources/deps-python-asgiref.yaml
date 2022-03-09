@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-asgiref-core:
+      description: Core developers for project python-asgiref
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/python-asgiref-ptl:
+      description: Project team lead for project python-asgiref
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-asgiref:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-asgiref-core
+          owner = group deps/python-asgiref-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-asgiref-core
+          label-Code-Review = -2..+2 group deps/python-asgiref-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-asgiref-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-asgiref-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-asgiref-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-asgiref-core
+          label-Workflow = -1..+0 group deps/python-asgiref-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-asgiref-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-asgiref-core
+      - deps/python-asgiref-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-asgiref:
+      acl: deps-python-asgiref
+      description: Packaging of RDO dependency python-asgiref
+      default-branch: c9s-yoga-rdo
+      branches:
+        master: '0'
