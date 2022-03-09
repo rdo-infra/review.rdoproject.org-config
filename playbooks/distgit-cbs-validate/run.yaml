@@ -6,12 +6,12 @@
           export WORKSPACE={{ ansible_user_dir }}
           export DIST_VER="{{ centos_releasever }}"
           if [[ "$DIST_VER" -eq 9 ]]; then
-              export BUILD_TARGET="el9s"
+              export BUILD_TARGET="9s"
           else
-              export BUILD_TARGET="el8"
+              export BUILD_TARGET="8"
           fi
           export TARGET="$BUILD_TARGET"
-          ./pkg-validate.sh cloud${DIST_VER}s-openstack-{{ zuul.branch|replace('-rdo', '') }}-${BUILD_TARGET} cbs
+          ./pkg-validate.sh cloud${DIST_VER}s-openstack-{{ zuul.branch|replace('-rdo', '') }}-el${BUILD_TARGET} cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
       changed_when: true
