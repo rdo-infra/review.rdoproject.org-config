@@ -10,7 +10,7 @@
           else
               export BUILD_TARGET="el8"
           fi
-          export TARGET="{{ BUILD_TARGET }}"
+          export TARGET="$BUILD_TARGET"
           ./pkg-validate.sh cloud${DIST_VER}s-openstack-{{ zuul.branch|replace('-rdo', '') }}-${BUILD_TARGET} cbs
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
       environment: '{{ zuul | zuul_legacy_vars }}'
