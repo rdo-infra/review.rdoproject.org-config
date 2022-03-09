@@ -82,6 +82,8 @@
     required-projects:
       - name: gating_scripts
     nodeset: rdo-centos-7
+    vars:
+      centos_releasever: 7
     secrets:
       - koji_centos
 
@@ -94,6 +96,8 @@
     required-projects:
       - name: gating_scripts
     nodeset: rdo-centos-7
+    vars:
+      centos_releasever: 7
     secrets:
       - koji_centos
 
@@ -102,18 +106,24 @@
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8
     branches: ^(train-rdo)|(ussuri-rdo)|(victoria-rdo)$
+    vars:
+      centos_releasever: 8
 
 - job:
     name: distgit-cbs-validate-centos8-stream
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8-stream
     branches: ^((?!rpm-master)|((\w+)-rdo))$
+    vars:
+      centos_releasever: 8
 
 - job:
     name: distgit-cbs-validate-centos9
     parent: distgit-cbs-validate
-    nodeset: rdo-centos-9-stream
+    nodeset: rdo-centos-8-stream
     branches: ^yoga-rdo$
+    vars:
+      centos_releasever: 9
 
 - job:
     name: deps-cbs-validate
@@ -139,12 +149,16 @@
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
     branches: ^((?!rpm-master)|((\w+)-rdo))$
+    vars:
+      centos_releasever: 8
 
 - job:
     name: distgit-cbs-final-build-centos9
     parent: distgit-cbs-final-build
-    nodeset: rdo-centos-9-stream
+    nodeset: rdo-centos-8-stream
     branches: ^yoga-rdo$
+    vars:
+      centos_releasever: 9
 
 - job:
     name: centos-opstools-distgit-cbs-base

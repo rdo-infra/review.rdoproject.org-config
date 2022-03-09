@@ -13,26 +13,6 @@
       changed_when: true
       when: ansible_distribution_major_version|int == 8
 
-    # TODO(jcapitao) remove once centos-packager is in official centos9 repos
-    - name: Temporary install centos-packager from copr for CS9
-      shell:
-        cmd: |
-          YUM="{{ ansible_pkg_mgr }}"
-          # TODO(jcapitao): removed the two lines below once new keys generated
-          # and shipped https://lists.centos.org/pipermail/centos-devel/2022-March/120262.html
-          sudo $YUM update -y centos-gpg-keys;
-          sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Extras-SHA512;
-          sudo $YUM install -y epel-release;
-          sudo $YUM install -y dnf-plugins-core;
-          sudo $YUM config-manager --enable epel;
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/jcapitao/jcapitao-centos-stream-9/centos-stream-9-x86_64/03637721-python-kitchen/python3-kitchen-1.2.6-12.el9.noarch.rpm;  # noqa 204
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/jcapitao/jcapitao-centos-stream-9/centos-stream-9-x86_64/03637730-python-lockfile/python3-lockfile-0.12.2-5.el9.noarch.rpm;  # noqa 204
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/jcapitao/jcapitao-centos-stream-9/centos-stream-9-x86_64/03637285-python-centos/python3-centos-0.2.0-1.el9.noarch.rpm;  # noqa 204
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/jcapitao/jcapitao-centos-stream-9/centos-stream-9-x86_64/03637290-centos-packager/centos-packager-0.6.0-1.el9.noarch.rpm;  # noqa 204
-          sudo $YUM config-manager --disable epel;
-      changed_when: true
-      when: ansible_distribution_major_version|int == 9
-
     - name: Create koji centos cert
       copy:
         content: "{{ cbs_opstools.private_key }}"
