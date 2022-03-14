@@ -626,12 +626,9 @@
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-rdo-base/container-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     vars:
       registry_login_enabled: true
     secrets:
-      - dlrnapi
       - rdo_registry
 
 # Distro bsed jobs
@@ -642,19 +639,46 @@
     abstract: true
     parent: periodic-tripleo-ci-standalone-rdo-dlrn
     nodeset: single-centos-7-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
 
 - job:
     name: periodic-tripleo-ci-standalone-rdo-centos-8
     abstract: true
     parent: periodic-tripleo-ci-standalone-rdo-dlrn
     nodeset: single-centos-8-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
     vars:
       promote_source: tripleo-ci-testing
+    secrets:
+      - dlrnapi
 
 - job:
     name: periodic-tripleo-ci-standalone-rdo-centos-9
     abstract: true
     parent: periodic-tripleo-ci-standalone-rdo-dlrn
     nodeset: single-centos-9-stream-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
     vars:
       promote_source: tripleo-ci-testing
+    secrets:
+      - dlrnapi
