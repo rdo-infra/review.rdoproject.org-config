@@ -683,7 +683,6 @@
     secrets:
       - dlrnapi
 
-
 #####################
 # OVB RDO Parenting #
 #####################
@@ -737,3 +736,53 @@
     nodeset: tripleo-ovb-centos-9-primary-vexxhost
     vars:
       configure_swap_size: 4096
+
+###########################
+# Standalone Upgrade Jobs #
+###########################
+
+- job:
+    name: tripleo-ci-standalone-upgrade-rdo
+    parent: tripleo-ci-standalone-upgrade-required-projects-rdo
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    vars:
+      registry_login_enabled: true
+    secrets:
+      - rdo_registry
+
+# Distro jobs
+- job:
+    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-7
+    parent: tripleo-ci-standalone-upgrade-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    nodeset: single-centos-7-node-vexxhost
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-8
+    parent: tripleo-ci-standalone-upgrade-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    nodeset: single-centos-8-node-vexxhost
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
+
+- job:
+    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-9
+    parent: tripleo-ci-standalone-upgrade-rdo
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    nodeset: single-centos-9-stream-node-vexxhost
+    required-projects:
+      - config
+    secrets:
+      - dlrnapi
