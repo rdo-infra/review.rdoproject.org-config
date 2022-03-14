@@ -633,3 +633,28 @@
     secrets:
       - dlrnapi
       - rdo_registry
+
+# Distro bsed jobs
+
+# Distro Jobs
+- job:
+    name: periodic-tripleo-ci-standalone-rdo-centos-7
+    abstract: true
+    parent: periodic-tripleo-ci-standalone-rdo-dlrn
+    nodeset: single-centos-7-node-vexxhost
+
+- job:
+    name: periodic-tripleo-ci-standalone-rdo-centos-8
+    abstract: true
+    parent: periodic-tripleo-ci-standalone-rdo-dlrn
+    nodeset: single-centos-8-node-vexxhost
+    vars:
+      promote_source: tripleo-ci-testing
+
+- job:
+    name: periodic-tripleo-ci-standalone-rdo-centos-9
+    abstract: true
+    parent: periodic-tripleo-ci-standalone-rdo-dlrn
+    nodeset: single-centos-9-stream-node-vexxhost
+    vars:
+      promote_source: tripleo-ci-testing
