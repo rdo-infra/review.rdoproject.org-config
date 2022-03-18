@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e843c7c_72918b39",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-03-18T07:14:51Z",
+      "side": 1,
+      "message": "does this need to specify nodeset? the base-c9 above does...",
+      "revId": "576cb1668302d1d647f600efafcc8706fad986cd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a434b5b8_b51ff639",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-03-18T07:14:51Z",
+      "side": 1,
+      "message": "we could reduce a lot of the repetition here.\n\nadd an anchor line 451 \u0026build_containers_vars\n\nand here you can do:\n\nvars:\n  \u003c\u003c: *build_containers_vars\n  containers_base_image: \"ubi8:8.2\"\n\n\n\nadd anything else that needs override but I think only the base_image? what say you? ;)",
+      "revId": "576cb1668302d1d647f600efafcc8706fad986cd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
