@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b682f323_b97e31ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-03-18T07:32:33Z",
+      "side": 1,
+      "message": "i can revote if you decide to update, minor inline comment for your consideration thank you",
+      "revId": "e120229bd565337a3f4078ec91f8ffcaf3dc4295",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd0acdf_9aada01c",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-03-18T07:32:33Z",
+      "side": 1,
+      "message": "this is correct ansible/yaml layout but imho, for readability i always prefer to have the when: just before the block:\n\ni.e.\n\n    - name: set vars for registry\n      when: registry_login_enabled|default(false)|bool\n      block:\n        - name: Set vars for quay login\n...",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "e120229bd565337a3f4078ec91f8ffcaf3dc4295",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
