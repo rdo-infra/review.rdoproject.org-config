@@ -21,14 +21,14 @@
             container_registry_logins:
               quay.rdoproject.org:
                 tripleo: "{{ quay_rdoproject_secret.passwd }}"
-          when: push_registry in ["quay.rdoproject.org"]
+          when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
 
         - name: Set vars for default registry login
           set_fact:
             container_registry_logins:
               trunk.registry.rdoproject.org:
                 unused: "{{ rdo_registry.token }}"
-          when: push_registry not in ["quay.rdoproject.org"]
+          when: push_registry | default('trunk.registry.rdoproject.org') not in ["quay.rdoproject.org"]
 
     - name: Include login
       no_log: true
