@@ -462,3 +462,76 @@
       promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: quay.io/centos/centos:stream9
+
+# Build Images Parenting
+
+- job:
+    name: tripleo-ci-build-images-rdo
+    parent: tripleo-ci-build-images-required-projects-rdo
+    abstract: true
+    pre-run: playbooks/tripleo-rdo-base/pre.yaml
+    vars:
+      release: master
+      build_override_repos: tripleo-ci-testing
+
+- job:
+    name: periodic-tripleo-ci-build-images-rdo-centos-7
+    abstract: true
+    parent: tripleo-ci-build-images-rdo
+    nodeset: single-centos-7-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      tripleo_image_os: centos7
+    secrets:
+      - uploader_ssh_key
+      - dlrnapi
+
+- job:
+    name: periodic-tripleo-ci-build-images-rdo-centos-8
+    abstract: true
+    parent: tripleo-ci-build-images-rdo
+    nodeset: single-centos-8-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      tripleo_image_os: centos8
+      promote_source: tripleo-ci-testing
+    secrets:
+      - uploader_ssh_key
+      - dlrnapi
+
+- job:
+    name: periodic-tripleo-ci-build-images-rdo-centos-9
+    abstract: true
+    parent: tripleo-ci-build-images-rdo
+    nodeset: single-centos-9-node-vexxhost
+    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    vars:
+      tripleo_image_os: centos9
+      promote_source: tripleo-ci-testing
+    secrets:
+      - uploader_ssh_key
+      - dlrnapi
