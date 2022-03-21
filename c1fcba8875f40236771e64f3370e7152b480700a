@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d8924b_11374949",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-03-21T04:58:08Z",
+      "side": 1,
+      "message": "Looks good, needs few refinements!",
+      "revId": "c1fcba8875f40236771e64f3370e7152b480700a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "874aebd6_c192efba",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-03-21T04:58:08Z",
+      "side": 1,
+      "message": "We can move these vars here: tripleo-ci-standalone-upgrade-required-projects-rdo job.",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 34
+      },
+      "revId": "c1fcba8875f40236771e64f3370e7152b480700a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94251178_8c9b19ff",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-03-21T04:58:08Z",
+      "side": 1,
+      "message": "Initial Job definitions\n+++++++++++++++++++++++\n- job:\n    name: tripleo-ci-base-standalone-upgrade-rdo\n    abstract: true\n    description: |\n        Base abstract job for standalone upgrade in RDO CI zuulv3 jobs\n    parent: tripleo-ci-base-standalone-upgrade\n    nodeset: single-centos-7-node-vexxhost\n    pre-run:\n      - playbooks/tripleo-rdo-base/pre.yaml\n      - playbooks/tripleo-rdo-base/container-login.yaml\n    roles:\n      - zuul: opendev.org/openstack/ansible-role-container-registry\n      - zuul: opendev.org/openstack/tripleo-ansible\n    required-projects:\n      - opendev.org/openstack/ansible-role-container-registry\n      - opendev.org/openstack/tripleo-ansible\n    secrets:\n      - rdo_registry\n    vars:\n      registry_login_enabled: true\n\n- job:\n    name: tripleo-ci-base-standalone-upgrade-rdo-centos-8\n    abstract: true\n    description: |\n        Base abstract job for standalone upgrade in RDO CI centos-8 zuulv3 jobs\n    parent: tripleo-ci-base-standalone-upgrade-centos-8\n    nodeset: single-centos-8-node-vexxhost\n    pre-run:\n      - playbooks/tripleo-rdo-base/pre.yaml\n      - playbooks/tripleo-rdo-base/container-login.yaml\n    roles:\n      - zuul: opendev.org/openstack/ansible-role-container-registry\n      - zuul: opendev.org/openstack/tripleo-ansible\n    required-projects:\n      - opendev.org/openstack/ansible-role-container-registry\n      - opendev.org/openstack/tripleo-ansible\n    secrets:\n      - rdo_registry\n    vars:\n      registry_login_enabled: true\n      \n\n- job:\n    name: tripleo-ci-base-standalone-upgrade-periodic\n    parent: tripleo-ci-base-standalone-upgrade-rdo\n    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml\n    post-run: playbooks/tripleo-ci-periodic-base/post.yaml\n    required-projects:\n      - config\n      - rdo-infra/ci-config\n    roles:\n      - zuul: rdo-infra/ci-config\n    secrets:\n      - dlrnapi\n    vars:\n      featureset_override:\n        tempest_run_concurrency: 2\n\n- job:\n    name: tripleo-ci-base-standalone-upgrade-periodic-centos-8\n    parent: tripleo-ci-base-standalone-upgrade-rdo-centos-8\n    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml\n    post-run: playbooks/tripleo-ci-periodic-base/post.yaml\n    required-projects:\n      - config\n      - rdo-infra/ci-config\n    roles:\n      - zuul: rdo-infra/ci-config\n    secrets:\n      - dlrnapi\n    vars:\n      promote_source: tripleo-ci-testing\n      featureset_override:\n        tempest_run_concurrency: 2",
+      "revId": "c1fcba8875f40236771e64f3370e7152b480700a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "addf0b5d_0d414c76",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-03-21T04:58:08Z",
+      "side": 1,
+      "message": "New Job definition, keep the new job name different to avoid breakage\nHere is the new definitions\n- job:\n    name: tripleo-ci-standalone-upgrade-rdo\n    parent: tripleo-ci-standalone-upgrade-required-projects-rdo\n    pre-run:\n      - playbooks/tripleo-rdo-base/pre.yaml\n      - playbooks/tripleo-rdo-base/container-login.yaml\n    vars:\n      registry_login_enabled: true\n    secrests:\n      - rdo_registry\n      \n# Distro jobs\n- job:\n    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-7\n    parent: tripleo-ci-standalone-upgrade-rdo\n    nodeset: single-centos-7-node-vexxhost\n    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml\n    post-run: playbooks/tripleo-ci-periodic-base/post.yaml\n    required-projects:\n      - config\n    secrets:\n      - dlrnapi\n\n- job:\n    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-8\n    parent: tripleo-ci-standalone-upgrade-rdo\n    nodeset: single-centos-8-node-vexxhost\n    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml\n    post-run: playbooks/tripleo-ci-periodic-base/post.yaml\n    required-projects:\n      - config\n    secrets:\n      - dlrnapi\n    vars:\n      promote_source: tripleo-ci-testing\n\n- job:\n    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-9\n    parent: tripleo-ci-standalone-upgrade-rdo\n    nodeset: single-centos-9-stream-node-vexxhost\n    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml\n    post-run: playbooks/tripleo-ci-periodic-base/post.yaml\n    required-projects:\n      - config\n    secrets:\n      - dlrnapi\n    vars:\n      promote_source: tripleo-ci-testing",
+      "revId": "c1fcba8875f40236771e64f3370e7152b480700a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
