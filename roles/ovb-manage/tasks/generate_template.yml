@@ -21,7 +21,7 @@
     - - 'baremetal_image:.*'
       - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
     - - 'bmc_image:.*'
-      - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
+      - "bmc_image: {{ cloud_settings[cloud_name]['baremetal_image'] }}"
     - - 'key_name:.*'
       - 'key_name: {{ key_name }}'
     - - 'node_count:.*'
