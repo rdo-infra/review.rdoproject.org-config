@@ -55,6 +55,8 @@ rdo_baremetal_image: >-
   CentOS-7-x86_64-GenericCloud-2003
   {%- endif -%}
 
+bmc_template_name: "{{ rdo_baremetal_image }}"
+
 cloud_settings:
     rdocloud:
         public_ip_net: 38.145.32.0/22
