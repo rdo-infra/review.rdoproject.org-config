@@ -1,4 +1,14 @@
 ---
+- name: Set baremetal image default argument Legacy
+  set_fact:
+    baremetal_image: '{{ baremetal_image_name|default("ipxe-boot") }}'
+  when: release in ["train", "ussuri", "victoria"]
+
+- name: Set baremetal image default argument UEFI
+  set_fact:
+    baremetal_image: '{{ baremetal_image_name|default("ipxe-uefi") }}'
+  when: release not in ["train", "ussuri", "victoria"]
+
 - name: Copy environment files from OVB repo
   command: cp "{{ item.0 }}" "{{ item.1 }}"
   loop:
@@ -19,7 +29,7 @@
     - - 'provision_net: .*'
       - 'provision_net: ctlplane'
     - - 'baremetal_image:.*'
-      - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
+      - 'baremetal_image: {{ baremetal_image }}'
     - - 'bmc_image:.*'
       - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
     - - 'key_name:.*'
@@ -152,7 +162,7 @@
             {% if cloud_settings is defined and  cloud_name in cloud_settings -%}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
-            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            baremetal_image: {{ baremetal_image }}
             undercloud_flavor: {{ cloud_settings[cloud_name]['undercloud_flavor'] }}
             undercloud_image: {{ cloud_settings[cloud_name]['baremetal_image'] }}
             dhcp_relay_image: {{ cloud_settings[cloud_name]['dhcp_relay_image'] }}
@@ -199,7 +209,7 @@
             baremetal_prefix: baremetal
             bmc_prefix: bmc
             key_name: {{ key_name }}
-            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            baremetal_image: {{ baremetal_image }}
             bmc_use_cache: True
             bmc_image: {{ bmc_template_name|default("bmc-template") }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
@@ -236,7 +246,7 @@
             baremetal_prefix: baremetal
             bmc_prefix: bmc
             key_name: {{ key_name }}
-            baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
+            baremetal_image: {{ baremetal_image }}
             bmc_use_cache: True
             bmc_image: {{ bmc_template_name|default("bmc-template") }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
