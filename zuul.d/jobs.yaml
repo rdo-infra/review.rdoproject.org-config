@@ -113,7 +113,7 @@
     name: distgit-cbs-validate-centos8-stream
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8-stream
-    branches: ^((?!rpm-master)|((\w+)-rdo))$
+    branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
     vars:
       centos_releasever: 8
 
@@ -148,7 +148,7 @@
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
     nodeset: rdo-centos-8-stream
-    branches: ^((?!rpm-master)|((\w+)-rdo))$
+    branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
     vars:
       centos_releasever: 8
 
