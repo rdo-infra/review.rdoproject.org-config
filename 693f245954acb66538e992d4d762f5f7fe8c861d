@@ -16,6 +16,63 @@
       "message": "thanks lgtm",
       "revId": "693f245954acb66538e992d4d762f5f7fe8c861d",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "520e09e1_202c0364",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-04-01T11:55:15Z",
+      "side": 1,
+      "message": "For reference, here is the existing job parenting: https://paste.openstack.org/raw/b71u3xWHvg9ar5jV5we8/ Few minute improvements, looks good.",
+      "revId": "693f245954acb66538e992d4d762f5f7fe8c861d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b06e470_23adc48d",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-04-01T11:55:15Z",
+      "side": 1,
+      "message": "required-projects:\n      - config\n      - rdo-infra/ci-config\n    roles:\n      - zuul: rdo-infra/ci-config\n\nThe same is needed for c8 and c9. Please use yaml anchors fir in c8 and c9 job for the same.\n\nhttps://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/tripleo-rdo-base.yaml#L423",
+      "range": {
+        "startLine": 763,
+        "startChar": 4,
+        "endLine": 764,
+        "endChar": 14
+      },
+      "revId": "693f245954acb66538e992d4d762f5f7fe8c861d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "379eed33_05180035",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-04-01T11:55:15Z",
+      "side": 1,
+      "message": "vars:\n      promote_source: tripleo-ci-testing\n\nIt is needed here and same for c9.\nhttps://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/tripleo-rdo-base.yaml#L431",
+      "revId": "693f245954acb66538e992d4d762f5f7fe8c861d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
