@@ -20,7 +20,7 @@
           set_fact:
             container_registry_logins:
               quay.rdoproject.org:
-                tripleo: "{{ quay_rdoproject_secret.passwd }}"
+                tripleomastercentos9+tripleomastercentos9: "{{ quay_rdoproject_tripleomastercentos9_secret.passwd }}"
           when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
 
         - name: Set vars for default registry login
