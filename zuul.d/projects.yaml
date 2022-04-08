@@ -66,6 +66,7 @@
       - system-required
     check:
       jobs:
+        - periodic-tripleo-build-containers-base-c8-quay-train
         - config-check
         - tox-linters
         - rdo-tox-molecule: &f_args
