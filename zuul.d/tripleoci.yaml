@@ -427,7 +427,7 @@
 # Quay based job on new parenting
 
 - job:
-    name: periodic-tripleo-build-containers-quay-centos-9
+    name: periodic-tripleo-build-containers-quay-centos-9-secrets
     parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: cloud-centos-9-stream-vexxhost
     abstract: true
@@ -439,10 +439,10 @@
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: *cb_rp
     roles: *cb_roles
-    secrets:
+    secrets: # include all the secrets for the different centos 9 branches here
       - rdo_registry
       - dlrnapi
-      - quay_rdoproject_tripleomastercentos9_secret
+      - quay_rdoproject_master_centos_9_secret
     vars: &build_containers_vars
       release: master
       use_buildah: true
@@ -459,7 +459,7 @@
       containers_base_image: quay.io/centos/centos:stream9
 
 - job:
-    name: periodic-tripleo-build-containers-quay-centos-8
+    name: periodic-tripleo-build-containers-quay-centos-8-secrets
     parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: single-centos-8-node-vexxhost
     abstract: true
@@ -468,10 +468,10 @@
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: *cb_rp
     roles: *cb_roles
-    secrets:
+    secrets: # include all the secrets for the different centos 8 branches here
       - rdo_registry
       - dlrnapi
-      - quay_rdoproject_tripleomastercentos9_secret
+      - quay_rdoproject_train_centos_8_secret
     vars:
       <<: *build_containers_vars
       containers_base_image: "ubi8:8.2"
