@@ -66,16 +66,7 @@
       - system-required
     check:
       jobs:
-        - config-check
-        - tox-linters
-        - rdo-tox-molecule: &f_args
-            files:
-              - ^requirements.txt$
-              - ^roles/.*
-              - ^setup.*$
-              - ^test-requirements.txt$
-              - ^tox.ini$
-              - .*molecule.*
+        - periodic-tripleo-build-containers-base-c8-quay-train
     gate:
       jobs:
         - config-check

@@ -476,6 +476,19 @@
       <<: *build_containers_vars
       containers_base_image: "ubi8:8.2"
 
+- job:
+    name: periodic-tripleo-build-containers-base-c8-quay-train
+    parent: periodic-tripleo-build-containers-quay-centos-8
+    override-checkout: 'stable/train'
+    secrets:
+      - rdo_registry
+      - dlrnapi
+      - quay_rdoproject_train_secret
+    vars:
+      release: train
+      branch_override: 'stable/train'
+      registry_namespace: tripleotraincentos8
+    attempts: 1
 
 # Build Images Parenting
 
