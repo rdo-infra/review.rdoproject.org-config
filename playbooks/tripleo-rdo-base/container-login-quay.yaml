@@ -14,6 +14,13 @@
         - ansible_distribution_major_version|int < 9
         - push_registry in ["quay.rdoproject.org"]
 
+    - name: Set var name for quay login zuul secret
+      set_fact:
+        quay_login_secret_name: "{{ lookup('vars', 'quay_rdoproject_' + release + '_' + ansible_distribution | lower + '_' + ansible_distribution_major_version + '_secret', default='quay_rdoproject_master_centos_9_secret')}}"
+      when:
+        - registry_login_enabled|default(false)|bool
+        - push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
+
     - name: Include login
       no_log: true
       when:
@@ -22,7 +29,7 @@
       vars:
         container_registry_logins:
           quay.rdoproject.org:
-            tripleomastercentos9+tripleomastercentos9: "{{ quay_rdoproject_tripleomastercentos9_secret.passwd }}"
+            tripleomastercentos9+tripleomastercentos9: "{{ quay_login_secret_name.passwd }}"
         tripleo_container_registry_logins: "{{ container_registry_logins }}"
         tripleo_podman_buildah_login: "{{ push_containers|default(false)|bool }}"
         docker_login_cache: /root/.docker/config.json
