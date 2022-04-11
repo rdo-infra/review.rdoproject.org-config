@@ -16,11 +16,15 @@
     - name: set vars for registry
       when: registry_login_enabled|default(false)|bool
       block:
+        - name: Set var name for quay login zuul secret
+          set_fact: # quay login zuul secrets have syntax quay_rdoproject_<branch>_<distro>_<version>_secret
+            quay_login_secret_name: "{{ lookup('vars', 'quay_rdoproject_' + release + '_' + ansible_distribution | lower + '_' + ansible_distribution_major_version + '_secret', default='quay_rdoproject_master_centos_9_secret')}}"
+          when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
               quay.rdoproject.org:
-                tripleomastercentos9+tripleomastercentos9: "{{ quay_rdoproject_tripleomastercentos9_secret.passwd }}"
+                tripleomastercentos9+tripleomastercentos9: "{{ quay_login_secret_name.passwd }}"
           when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
 
         - name: Set vars for default registry login
