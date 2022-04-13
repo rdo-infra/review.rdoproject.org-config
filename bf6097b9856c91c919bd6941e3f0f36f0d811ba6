@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b7159a2_70b57194",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-04-13T15:44:39Z",
+      "side": 1,
+      "message": "I tried combining the tasks into :\n```\n    - name: set vars for registry\n      when: registry_login_enabled|default(false)|bool\n      block:\n        - name: Set var name for quay login\n          set_fact:\n            quay_login_secret_name: \"{{ lookup(\u0027vars\u0027, \u0027quay_rdoproject_\u0027 + release + \u0027_\u0027 + ansible_distribution | lower + \u0027_\u0027 + ansible_distribution_major_version + \u0027_secret\u0027, default\u003dquay_rdoproject_master_centos_9_secret)}}\"\n            container_registry_logins:\n              quay.rdoproject.org:\n                tripleomastercentos9+tripleomastercentos9: \"{{ quay_login_secret_name }}\"\n          when: push_registry | default(\u0027trunk.registry.rdoproject.org\u0027) in [\"quay.rdoproject.org\"]\n```\nBut since I am setting quay_login_secret_name first and using quay_login_secret_name to set the next variable it is throwing undefned variable quay_login_secret_name",
+      "parentUuid": "55d1f91f_b4f5c47d",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 99
+      },
+      "revId": "bf6097b9856c91c919bd6941e3f0f36f0d811ba6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "deb51358_1f77802e",
         "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
         "patchSetId": 8
