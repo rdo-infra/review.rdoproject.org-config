@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee601f05_75ad8f0f",
+        "filename": "playbooks/tripleo-rdo-base/container-login-quay.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-04-13T06:51:48Z",
+      "side": 1,
+      "message": "repetition isn\u0027t ideal because its something we could easily mess up it is very exact ;)\n\nwould be great if we had this in a seperate file and then do include_tasks wdyt? (it would just be a single task that sets the required fact.",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 213
+      },
+      "revId": "bf6097b9856c91c919bd6941e3f0f36f0d811ba6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3d1cd1a_2367868b",
         "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
         "patchSetId": 8
@@ -31,6 +54,30 @@
       "writtenOn": "2022-04-12T19:03:24Z",
       "side": 1,
       "message": "same when condition from below, which means that both facts can be set in same task, or no?",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 99
+      },
+      "revId": "bf6097b9856c91c919bd6941e3f0f36f0d811ba6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d1f91f_b4f5c47d",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-04-13T06:51:48Z",
+      "side": 1,
+      "message": "+1 - though it would be a nested block so be careful with spacing ;)\n\ni stared at that set_fact for a bit... its a bit fragile/we expect the secret name to be in a specific format - but i also couldn\u0027t come up with a better way ;) \n\n maybe worth a comment above the task about that expected name like \"quay_rdoproject_train_centos_8_secret\"",
+      "parentUuid": "a3d1cd1a_2367868b",
       "range": {
         "startLine": 22,
         "startChar": 16,
