@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbbd5f67_09b0d038",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-04-14T17:28:23Z",
+      "side": 1,
+      "message": "Thanks Ananya, few comments inline, thanks!",
+      "revId": "2021f2cf9cc692bb2858fd02130cbd6c856ab72b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ec3037_94c0de7d",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-04-14T17:28:23Z",
+      "side": 1,
+      "message": "why not add user name in the secret[1]? and retrieve it here with {{ quay_login_secret_name.user }}?\n\n[1] https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/secrets.yaml#L777",
+      "range": {
+        "startLine": 29,
+        "startChar": 40,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "2021f2cf9cc692bb2858fd02130cbd6c856ab72b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbfa5580_aaaa8dd9",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-04-14T17:28:23Z",
+      "side": 1,
+      "message": "why you removed \".passwd\"? Looks like you need it to access the correct info[1].\n\n[1] https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/secrets.yaml#L777\n\nSee the outputs from your test:\n´\"quay.rdoproject.org\": \"\u0027tripleotrainfedora32+tripleocirobot\u0027: {\u0027password\u0027: \u0027train_passwd\u0027}\" ´",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 29,
+        "endChar": 80
+      },
+      "revId": "2021f2cf9cc692bb2858fd02130cbd6c856ab72b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
