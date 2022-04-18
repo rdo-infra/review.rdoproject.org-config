@@ -257,6 +257,8 @@
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files: &tripleoclient_files
+              - ^tripleoclient/utils.py
+              - ^tripleoclient/.*/overcloud_network.*$
               - ^tripleoclient/.*/overcloud_node.*$
               - ^tripleoclient/.*/overcloud_deploy.*$
               - ^tripleoclient/.*/baremetal.*$
