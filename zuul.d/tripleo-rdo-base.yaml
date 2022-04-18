@@ -775,9 +775,12 @@
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     nodeset: single-centos-8-node-vexxhost
     vars: &s_u_vars
+      featureset: '056'
       promote_source: tripleo-ci-testing
       featureset_override:
         tempest_run_concurrency: 2
+        standalone_environment_files:
+          - 'environments/low-memory-usage.yaml'
     required-projects: *s_u_req_project
     roles: *s_u_roles
     secrets:
