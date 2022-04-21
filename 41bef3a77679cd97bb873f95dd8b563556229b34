@@ -16,6 +16,23 @@
       "message": "lgtm",
       "revId": "41bef3a77679cd97bb873f95dd8b563556229b34",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27dcb628_f3139a4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-04-21T12:56:14Z",
+      "side": 1,
+      "message": "Can we send a follow up patch to remove references of ussuri from tripleo jobs\n\nfor example\n```\nreview.rdoproject.org-config/zuul.d on  review/ronelle_landy/ussuri-EM [⇕] \n❯ git grep ussuri\njobs.yaml:    branches: ^(train-rdo)|(ussuri-rdo)|(victoria-rdo)$\njobs.yaml:      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s train,8s yoga,8s yoga,9s\njobs.yaml:      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s\njobs.yaml:      stable_releases: ussuri victoria wallaby xena yoga master\nprojects.yaml:        - tripleo-centos-8-ceph-integration-ussuri\nprojects.yaml:        - tripleo-centos-8-ceph-ansible-integration-ussuri\nprojects.yaml:        - tripleo-ceph-integration-centos-8-scenario001-standalone-ussuri:\nprojects.yaml:              - tripleo-centos-8-ceph-integration-ussuri\nprojects.yaml:        - tripleo-ceph-integration-centos-8-scenario004-standalone-ussuri:\nprojects.yaml:              - tripleo-centos-8-ceph-integration-ussuri\nprojects.yaml:        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-ussuri:\nprojects.yaml:              - tripleo-centos-8-ceph-ansible-integration-ussuri\nprojects.yaml:        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-ussuri:\nprojects.yaml:              - tripleo-centos-8-ceph-ansible-integration-ussuri\nprojects.yaml:            branches: ^(master|stable/(ussuri|victoria))$\nprojects.yaml:            branches: ^(master|stable/(train|ussuri|victoria|wallaby|xena))$\nprojects.yaml:              - ^tags/ussuri.yml$\nprojects.yaml:        - rdoinfo-tripleo-ussuri-testing-centos-8-scenario001-standalone:\nprojects.yaml:              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$\nprojects.yaml:        - rdoinfo-tripleo-ussuri-testing-centos-8-containers-multinode:\nprojects.yaml:              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$\nprojects.yaml:        - rdoinfo-tripleo-ussuri-testing-centos-8-standalone:\nprojects.yaml:              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$\nprojects.yaml:        - rdoinfo-tripleo-ussuri-release-centos-8-scenario001-standalone:\nprojects.yaml:              - ^buildsys-tags/cloud8-openstack-ussuri-release.yml$\nprojects.yaml:        - rdoinfo-tripleo-ussuri-testing-centos-8-scenario007-standalone:\nprojects.yaml:              - ^buildsys-tags/cloud8-openstack-ussuri-testing.yml$\nprojects.yaml:              - ^tags/ussuri.yml$\ntripleoci.yaml:    name: periodic-tripleo-ci-build-containers-ubi-8-push-ussuri\ntripleoci.yaml:    override-checkout: \u0027stable/ussuri\u0027\ntripleoci.yaml:      release: ussuri\ntripleoci.yaml:      branch_override: \u0027stable/ussuri\u0027\ntripleoci.yaml:      registry_namespace: tripleoussuri\n\n```",
+      "revId": "41bef3a77679cd97bb873f95dd8b563556229b34",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
