@@ -105,7 +105,7 @@
     name: distgit-cbs-validate-centos8
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8
-    branches: ^(train-rdo)|(ussuri-rdo)|(victoria-rdo)$
+    branches: ^(train-rdo)|(victoria-rdo)$
     vars:
       centos_releasever: 8
 
@@ -211,7 +211,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s train,8s yoga,8s yoga,9s
+      stable_releases: train xena,8s wallaby,8s victoria,8s train,8s yoga,8s yoga,9s
     nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
@@ -235,7 +235,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s
+      stable_releases: train xena,8s wallaby,8s victoria,8s
     nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
@@ -256,7 +256,7 @@
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/rdoinfo/upper-constraints-update/run.yaml
     vars:
-      stable_releases: ussuri victoria wallaby xena yoga master
+      stable_releases: victoria wallaby xena yoga master
     nodeset: rdo-centos-8-stream
     required-projects:
       - name: rdoinfo
