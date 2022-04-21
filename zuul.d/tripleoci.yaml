@@ -431,10 +431,7 @@
     parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: cloud-centos-9-stream-vexxhost
     abstract: true
-    pre-run: &pre_run_playbooks_build_container
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login-quay.yaml
+    pre-run: *cb_c8_prerun
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: *cb_rp
@@ -463,7 +460,7 @@
     parent: tripleo-ci-build-containers-required-projects-rdo
     nodeset: single-centos-8-node-vexxhost
     abstract: true
-    pre-run: *pre_run_playbooks_build_container
+    pre-run: *cb_c8_prerun
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: *cb_rp
