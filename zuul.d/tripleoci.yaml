@@ -434,7 +434,7 @@
     pre-run: &pre_run_playbooks_build_container
       - playbooks/tripleo-rdo-base/pre.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login-quay.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: *cb_rp
