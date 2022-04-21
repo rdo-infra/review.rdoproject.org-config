@@ -19,8 +19,6 @@
       jobs:
         - tripleo-centos-8-ceph-integration-victoria
         - tripleo-centos-8-ceph-ansible-integration-victoria
-        - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-centos-8-ceph-ansible-integration-ussuri
         - tripleo-centos-8-ceph-integration-train
         - tripleo-centos-8-ceph-ansible-integration-train
         - tripleo-ceph-integration-centos-8-scenario001-standalone-victoria:
@@ -35,18 +33,6 @@
         - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-victoria:
             dependencies:
               - tripleo-centos-8-ceph-ansible-integration-victoria
-        - tripleo-ceph-integration-centos-8-scenario001-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-ceph-integration-centos-8-scenario004-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-ussuri
-        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-ussuri
         - tripleo-ceph-integration-centos-8-scenario001-standalone-train:
             dependencies:
               - tripleo-centos-8-ceph-integration-train
@@ -299,7 +285,7 @@
         - octavia-build-amphora-centos7:
             branches: ^(stable/(queens|rocky|stein|train))$
         - octavia-build-amphora-centos8:
-            branches: ^(master|stable/(ussuri|victoria))$
+            branches: ^(master|stable/(victoria))$
 
 - project:
     name: opendev.org/openstack/os-apply-config
@@ -421,7 +407,7 @@
         - DLRN-rpmbuild-rpm-packaging-centos:
             branches: ^(stable/(queens|rocky|stein))$
         - DLRN-rpmbuild-rpm-packaging-centos-8:
-            branches: ^(master|stable/(train|ussuri|victoria|wallaby|xena))$
+            branches: ^(master|stable/(train|victoria|wallaby|xena))$
 
 - project:
     name: opendev.org/openstack/tempest
@@ -6544,7 +6530,6 @@
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/train.yml$
-              - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
@@ -6644,25 +6629,7 @@
               - validate-buildsys-tags
             voting: false
             files:
-              - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
-        - rdoinfo-tripleo-ussuri-testing-centos-8-scenario001-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-ussuri-testing.yml$
-        - rdoinfo-tripleo-ussuri-testing-centos-8-containers-multinode:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-ussuri-testing.yml$
-        - rdoinfo-tripleo-ussuri-testing-centos-8-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-ussuri-testing.yml$
+              - ^buildsys-tags/cloud8-openstack-train-testing.yml$
         - rdoinfo-tripleo-wallaby-release-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -6703,12 +6670,6 @@
             voting: false
             files:
               - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
-        - rdoinfo-tripleo-ussuri-testing-centos-8-scenario007-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-ussuri-testing.yml$
         - rdoinfo-tripleo-train-testing-centos-7-scenario007-multinode-oooq-container:
             dependencies:
               - validate-buildsys-tags
@@ -6769,7 +6730,6 @@
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/train.yml$
-              - ^tags/ussuri.yml$
               - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
