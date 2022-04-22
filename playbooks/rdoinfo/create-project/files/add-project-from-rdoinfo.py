@@ -3,17 +3,19 @@ import ruamel.yaml as yaml
 import sys
 
 
-def add_project_resources(prefix, name, maintainers):
+def add_project_resources(prefix, name, maintainers, deps_current_release):
     project_prefix = prefix
     project_name = name
     project_maintainers = maintainers.split('\n')
+    release = deps_current_release
 
     jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(
                                     ['/tmp/']))
     jinja_template = jinja_env.get_template("resource.j2")
     content = jinja_template.render(project_maintainers=project_maintainers,
                                     project_prefix=project_prefix,
-                                    project_name=project_name)
+                                    project_name=project_name,
+                                    release=release)
     with open("resources/%s-%s.yaml" % (project_prefix, project_name),
               'w') as fp:
         fp.write(content)
@@ -100,9 +102,12 @@ def add_project_resources(prefix, name, maintainers):
                     fp.write(line[2:])
 
 
-def add_project_package(prefix, name):
+def add_project_package(prefix, name, deps_current_release):
     # Add the project to the rdo.yaml resource, so it can be indexed
     # by RepoXplorer
+
+    release = deps_current_release
+
     with open('resources/rdo.yaml') as fp:
         resource =  yaml.load(fp, Loader=yaml.RoundTripLoader, preserve_quotes=True)
 
@@ -119,8 +124,8 @@ def add_project_package(prefix, name):
         data = yaml.comments.CommentedMap(
             [(project, yaml.comments.CommentedMap([
                 ('zuul/include', []),
-                ('repoxplorer/branches', ["c9s-yoga-rdo"]),
-                ('default-branch', 'c9s-yoga-rdo'),
+                ('repoxplorer/branches', ["c9s-%s-rdo % release"]),
+                ('default-branch', 'c9s-%s-rdo % release'),
             ]))])
 
     if data not in resource['resources']['projects']['RDO']['source-repositories']:
@@ -139,5 +144,5 @@ def add_project_package(prefix, name):
 
 
 if __name__ == '__main__':
-    add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3])
-    add_project_package(sys.argv[1], sys.argv[2])
+    add_project_resources(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    add_project_package(sys.argv[1], sys.argv[2], sys.argv[4])
