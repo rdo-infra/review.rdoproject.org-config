@@ -134,6 +134,30 @@
       },
       "revId": "7414df961bc5eb3bb89fb4f0fb2bb3dd7dc00c7a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c418f7e_8c3e4a4f",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2022-04-22T09:58:44Z",
+      "side": 1,
+      "message": "I understand the issue. Ansible is not resolving the variable on set_fact as dictionary, so the result will look like:\n\n        \"quay.rdoproject.org\": {\n            \"quay_login_secret_name.username\": \"train_passwd\"\n        }\n\nPlease add just the single quotes into passwd and will be fine",
+      "parentUuid": "3aeceed6_1ab6f8f7",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 115
+      },
+      "revId": "7414df961bc5eb3bb89fb4f0fb2bb3dd7dc00c7a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
