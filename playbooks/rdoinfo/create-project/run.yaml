@@ -52,6 +52,7 @@
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
           NEW_PROJECTS=""
+          DEPS_CURRENT_RELEASE={{ deps_current_release }}
 
           while read line; do
             PKGNAME=$(awk '{print $1}' <<< $line)
@@ -63,7 +64,7 @@
           echo "New projects: ${NEW_PROJECTS}"
 
           for PKG in ${NEW_PROJECTS}; do
-            {{ ansible_user_dir }}/add-project-from-rdoinfo.sh $PKG $PWD
+            {{ ansible_user_dir }}/add-project-from-rdoinfo.sh $PKG $PWD $DEPS_CURRENT_RELEASE
           done
       changed_when: true
 
@@ -76,6 +77,7 @@
 
           TAGS_DIFF=$(rdopkg info-tags-diff .)
           NEW_DEPS=""
+          DEPS_CURRENT_RELEASE={{ deps_current_release }}
 
           while read line; do
             PKGNAME=$(awk '{print $1}' <<< $line)
@@ -87,6 +89,6 @@
           echo "New RDO dependencies: ${NEW_DEPS}"
 
           for PKG in ${NEW_DEPS}; do
-            {{ ansible_user_dir }}/add-rdo-dep-from-rdoinfo.sh $PKG $PWD
+            {{ ansible_user_dir }}/add-rdo-dep-from-rdoinfo.sh $PKG $PWD $DEPS_CURRENT_RELEASE
           done
       changed_when: true

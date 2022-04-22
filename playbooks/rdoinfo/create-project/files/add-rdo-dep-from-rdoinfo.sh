@@ -3,6 +3,7 @@ set -x
 # Find the project name and rdoinfo location
 PKG=$1
 RDOINFO_LOCATION=$2
+DEPS_CURRENT_RELEASE=$3
 PROJECT_NAME=$(rdopkg findpkg $PKG -l ${RDOINFO_LOCATION} | grep ^project: | awk '{print $2}')
 MAINTAINER_LIST=$(rdopkg findpkg $PKG -l ${RDOINFO_LOCATION} |grep -A100 maintainers: | grep -v maintainers: | awk '{print $2}')
 
@@ -11,7 +12,7 @@ pushd /tmp/config
 git checkout master
 git reset --hard origin/master
 
-python ~/add-project-from-rdoinfo.py deps $PROJECT_NAME "$MAINTAINER_LIST"
+python ~/add-project-from-rdoinfo.py deps $PROJECT_NAME "$MAINTAINER_LIST" $DEPS_CURRENT_RELEASE
 python ~/add-project-on-sf.py deps $PROJECT_NAME
 
 cat >> ~/.ssh/config << EOF
