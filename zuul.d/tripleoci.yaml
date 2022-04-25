@@ -20,35 +20,6 @@
     vars:
       release: train
 
-# CentOS 9 image build
-
-- job:
-    name: tripleo-centos-9-master-buildimage-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-build-images-centos-9
-    required-projects:
-      - config
-    vars:
-      tripleo_image_os: centos9
-
-- job:
-    name: periodic-tripleo-centos-9-master-buildimage-base
-    abstract: true
-    parent: tripleo-centos-9-master-buildimage-base
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    vars:
-      build_override_repos: tripleo-ci-testing
-      promote_source: tripleo-ci-testing
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
 - job:
     name: periodic-tripleo-centos-9-buildimage-overcloud-hardened-uefi-full-master
     parent: periodic-tripleo-ci-build-images-rdo-centos-9
@@ -70,50 +41,6 @@
     vars:
       tripleo_image_type: ironic-python-agent
       release: master
-
-- job:
-    name: tripleo-centos-8-master-buildimage-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-build-images-centos-8
-    required-projects:
-      - config
-    vars:
-      tripleo_image_os: centos8
-
-- job:
-    name: periodic-tripleo-centos-8-master-buildimage-base
-    abstract: true
-    parent: tripleo-centos-8-master-buildimage-base
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    vars:
-      build_override_repos: tripleo-ci-testing
-      promote_source: tripleo-ci-testing
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
-- job:
-    name: periodic-tripleo-centos-7-master-buildimage-base
-    abstract: true
-    parent: tripleo-build-images-base
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    vars:
-      tripleo_image_os: centos7
-      build_override_repos: tripleo-ci-testing
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    secrets:
-      - dlrnapi
 
 - job:
     name: periodic-tripleo-centos-8-buildimage-overcloud-hardened-full-master
