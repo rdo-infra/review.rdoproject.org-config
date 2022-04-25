@@ -120,50 +120,6 @@
       featureset: '001'
       featureset_override:
         to_build: false
-
-- job:
-    name: tripleo-ci-base-singlenode-rdo
-    abstract: true
-    description: |
-        Base abstract job for singlenode in RDO CI zuulv3 jobs
-    parent: tripleo-ci-base-singlenode
-    nodeset: single-centos-7-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    secrets:
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-
-- job:
-    name: tripleo-ci-base-singlenode-rdo-centos-8
-    abstract: true
-    description: |
-        Base abstract job for singlenode in RDO CI centos-8 zuulv3 jobs
-    parent: tripleo-ci-base-singlenode-centos-8
-    nodeset: single-centos-8-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-    roles:
-      - zuul: opendev.org/openstack/ansible-role-container-registry
-      - zuul: opendev.org/openstack/tripleo-ansible
-    required-projects:
-      - opendev.org/openstack/ansible-role-container-registry
-      - opendev.org/openstack/tripleo-ansible
-    secrets:
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-      configure_swap_size: 4096
-
 - job:
     name: tripleo-ci-base-singlenode-rdo-containers-build-push
     abstract: true
@@ -173,7 +129,6 @@
     nodeset: single-centos-7-node-vexxhost
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
-
 - job:
     name: tripleo-ci-base-singlenode-rdo-containers-build-push-centos-8
     abstract: true
@@ -268,39 +223,6 @@
     vars:
       registry_login_enabled: true
 
-# Used as the base downstream job for rhel-8 image builds. The actual image building is done in the
-# upstream parent tripleo-build-images-base via zuul inheritance of the pre-run/run playbooks. This
-# minimises duplication between up/downstream and we exercise the same code in all jobs.
-- job:
-    name: tripleo-ci-base-singlenode-rdo-build-images
-    abstract: true
-    description: |
-        Base abstract tripleo image build job for singlenode RDO CI zuulv3 jobs
-    parent: tripleo-build-images-base
-    nodeset: single-centos-7-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-
-- job:
-    name: tripleo-ci-base-singlenode-rdo-build-images-centos-9
-    abstract: true
-    description: |
-        Base abstract tripleo image build job for singlenode RDO CI centos-9 zuulv3 jobs
-    parent: tripleo-build-images-base-centos-9
-    nodeset: cloud-centos-9-stream-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-
-- job:
-    name: tripleo-ci-base-singlenode-rdo-build-images-centos-8
-    abstract: true
-    description: |
-        Base abstract tripleo image build job for singlenode RDO CI centos-8 zuulv3 jobs
-    parent: tripleo-build-images-base-centos-8
-    nodeset: single-centos-8-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-
 - job:
     name: tripleo-ci-base-ovb-periodic
     parent: tripleo-ci-base-ovb-rdo
@@ -342,35 +264,6 @@
     post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
     secrets:
       - uploader_ssh_key
-
-- job:
-    name: tripleo-ci-base-singlenode-periodic
-    parent: tripleo-ci-base-singlenode-rdo
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
-
-- job:
-    name: tripleo-ci-base-singlenode-periodic-centos-8
-    parent: tripleo-ci-base-singlenode-rdo-centos-8
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    vars:
-      promote_source: tripleo-ci-testing
-    secrets:
-      - dlrnapi
-
 - job:
     name: tripleo-ci-base-standalone-periodic
     parent: tripleo-ci-base-standalone-rdo
@@ -431,19 +324,6 @@
       promote_source: tripleo-ci-testing
       featureset_override:
         tempest_run_concurrency: 2
-
-- job:
-    name: tripleo-ci-base-singlenode-containers-build
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo
-    post-run: playbooks/tripleo-ci-periodic-base/containers-build.yaml
-    post-timeout: 10800
-    required-projects:
-      - config
-    secrets:
-      - rdo_registry
-    vars:
-       featureset: '023'
 
 # New integration pipeline
 - job:
