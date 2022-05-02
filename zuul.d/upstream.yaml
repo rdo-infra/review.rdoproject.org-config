@@ -206,22 +206,6 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
-    name: openstack-periodic-integration-stable4-centos7
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically two times a week - on Wednesday and Saturday.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 10 * * 2,5'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
     name: openstack-periodic-integration-stable4
     post-review: true
     description: Jobs in this queue are triggered to run periodically twice a day.
