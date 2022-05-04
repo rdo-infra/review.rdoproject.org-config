@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Ensures that every Gerrit project is configured in Gerrit replication,
 # Zuul layout and Gerritbot.
 
