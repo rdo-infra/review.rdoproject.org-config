@@ -120,24 +120,6 @@
       featureset: '001'
       featureset_override:
         to_build: false
-- job:
-    name: tripleo-ci-base-singlenode-rdo-containers-build-push
-    abstract: true
-    description: |
-        Base abstract container build job for singlenode in RDO CI zuulv3 jobs
-    parent: tripleo-build-containers-base
-    nodeset: single-centos-7-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-- job:
-    name: tripleo-ci-base-singlenode-rdo-containers-build-push-centos-8
-    abstract: true
-    description: |
-        Base abstract container build job for singlenode in RDO CI centos-8 zuulv3 jobs
-    parent: tripleo-build-containers-base-centos-8
-    nodeset: single-centos-8-node-vexxhost
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
 
 - job:
     name: tripleo-ci-base-standalone-rdo
