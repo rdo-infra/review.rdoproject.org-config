@@ -118,7 +118,7 @@ for section in replication.sections():
 ###
 gerritbot_projects = []
 with open('gerritbot/channels.yaml') as f:
-    config = yaml.load(f.read())
+    config = yaml.safe_load(f.read())
     irc_rdo = config['rdo']['projects']
     irc_opstools = config['centos-opstools']['projects']
     for project in irc_rdo + irc_opstools:
