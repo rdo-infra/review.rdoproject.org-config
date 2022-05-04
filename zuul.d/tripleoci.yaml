@@ -117,55 +117,6 @@
        release: train
        branch_override: 'stable/train'
 
-- job:
-    name: periodic-tripleo-containers-build-push-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    vars:
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
-       featureset: containers-build # needed for dlrn report in post.yaml
-       promote_source: tripleo-ci-testing
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
-
-- job:
-    name: periodic-tripleo-containers-build-push-base-vexxhost
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    vars:
-      push_containers: true
-      push_registry: trunk.registry.rdoproject.org
-      buildcontainers_override_repos: tripleo-ci-testing
-      featureset: containers-build # needed for dlrn report in post.yaml
-      rdo_registry_url: trunk.registry.rdoproject.org
-      registry_login_enabled: false
-      promote_source: tripleo-ci-testing
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
 
 - job:
     name: periodic-tripleo-centos-7-master-compute-containers-build
