@@ -9,15 +9,13 @@
   copy:
     content: "{{ site_install_server.ssh_private_key }}"
     dest: "{{ ssh_private_key_tmp.path }}"
-    mode: 0600
+    mode: '0600'
 
 - name: Add zuul ssh key
   command: "ssh-add {{ ssh_private_key_tmp.path }}"
-  changed_when: true
 
 - name: Remove SSH private key from disk
   command: "shred {{ ssh_private_key_tmp.path }}"
-  changed_when: true
 
 - name: Add site_install_server server to known hosts
   known_hosts:
@@ -25,5 +23,4 @@
     key: "{{ site_install_server.ssh_known_hosts }}"
 
 - name: run config update
-  command: "ssh root@{{ site_install_server.fqdn }} sf_configrepo_update {{ (zuul | zuul_legacy_vars)['ZUUL_NEWREV'] }}"
-  changed_when: true
+  command: "ssh root@{{ site_install_server.fqdn }} config_update {{ (zuul | zuul_legacy_vars)['ZUUL_NEWREV'] }}"
