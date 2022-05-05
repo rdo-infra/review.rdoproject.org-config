@@ -6,8 +6,8 @@
       vars:
         ssh_private_key_content: "{{ uploader_ssh_key.ssh_private_key }}"
 
-    - name: Promote a compose candidate label to a target label
+    - name: Promote an artifact using artifact_promoter role
       include_role:
-        name: compose_promoter
+        name: artifact_promoter
         apply:
           environment: "{{ ssh_agent_environment | default(omit) }}"
