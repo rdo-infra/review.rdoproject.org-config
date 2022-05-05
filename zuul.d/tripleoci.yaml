@@ -118,93 +118,8 @@
        branch_override: 'stable/train'
 
 - job:
-    name: periodic-tripleo-containers-build-push-base
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    vars:
-       push_containers: true
-       push_registry: trunk.registry.rdoproject.org
-       buildcontainers_override_repos: tripleo-ci-testing
-       featureset: containers-build # needed for dlrn report in post.yaml
-       promote_source: tripleo-ci-testing
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
-
-- job:
-    name: periodic-tripleo-containers-build-push-base-vexxhost
-    abstract: true
-    parent: tripleo-ci-base-singlenode-rdo-containers-build-push
-    vars:
-      push_containers: true
-      push_registry: trunk.registry.rdoproject.org
-      buildcontainers_override_repos: tripleo-ci-testing
-      featureset: containers-build # needed for dlrn report in post.yaml
-      rdo_registry_url: trunk.registry.rdoproject.org
-      registry_login_enabled: false
-      promote_source: tripleo-ci-testing
-    pre-run:
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - rdo_registry
-      - dlrnapi
-
-- job:
-    name: periodic-tripleo-centos-7-master-compute-containers-build
-    parent: periodic-tripleo-containers-build-push-base
-    vars:
-       release: master
-       push_containers: false
-       component_ci_containers: compute
-
-- job:
-    name: periodic-tripleo-centos-7-master-keystone-containers-build
-    parent: periodic-tripleo-containers-build-push-base
-    vars:
-       release: master
-       push_containers: false
-       component_ci_containers: keystone
-
-# TODO(rfolco): These jobs that build containers w/ docker for master and
-# stein should go away as soon as the buildah ones (below) are running well
-- job:
-    name: periodic-tripleo-centos-7-master-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
-    vars:
-       release: master
-       buildcontainers_venv: false
-
-# --- end of master/train docker build jobs
-
-# buildah master build jobs
-- job:
-    name: periodic-tripleo-centos-7-master-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
-    vars:
-       release: master
-       use_buildah: true
-
-- job:
     name: periodic-tripleo-centos-8-master-containers-build-push
-    parent: periodic-tripleo-containers-build-push-base
+    parent: periodic-tripleo-ci-build-containers-rdo-centos-8
     post-run:
       - playbooks/tripleo-ci-periodic-base/containers-push-podman-login-push.yaml
     secrets:
@@ -229,20 +144,11 @@
       branch_override: 'stable/train'
       registry_namespace: tripleotraincentos8
 
-- job:
-    name: periodic-tripleo-centos-7-train-containers-buildah
-    parent: periodic-tripleo-containers-build-push-base
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-       use_buildah: true
-
-# --- end of master/train buildah build jobs
+# --- end of master/train build jobs
 
 - job:
     name: periodic-tripleo-centos-8-reproducer-update-images
-    parent: tripleo-ci-base-singlenode-centos-8
+    parent: periodic-tripleo-ci-undercloud-rdo-centos-8
     run: playbooks/tripleo-ci-reproducer-base/promotion-run.yaml
     secrets:
       - dockerio_rdoci
