@@ -368,7 +368,7 @@
     abstract: true
     timeout: 3000
     nodeset: single-centos-8-node-vexxhost
-    run: playbooks/tripleo-ci-promote-latest-compose/run.yaml
+    run: playbooks/tripleo-ci-promote-artifact/run.yaml
     required-projects:
       - rdo-infra/ci-config
     roles:
@@ -376,10 +376,11 @@
     secrets:
       - uploader_ssh_key
     vars:
-      compose_promoter_candidate_label: "latest-compose"
-      compose_promoter_target_label: "centos-ci-testing"
-      compose_promoter_user: "uploader"
-      compose_promoter_server: "images.rdoproject.org"
+      promotion_type: "centos-compose"
+      promotion_candidate_label: "latest-compose"
+      promotion_target_label: "centos-ci-testing"
+      remote_user: "uploader"
+      remote_server: "images.rdoproject.org"
 
 #########################################
 #     Multinode Job Parenting           #
