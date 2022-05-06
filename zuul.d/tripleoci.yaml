@@ -423,3 +423,40 @@
     roles: *uc_roles
     secrets: *uc_secrets
     vars: *uc_cs8_vars
+
+### Ceph daemon promotion jobs
+
+# This job expects a 'promote_ceph_tag' to properly work.
+# This tag must be available at the configured source registry, namespace and repo.
+- job:
+    name: periodic-tripleo-ci-promote-ceph-daemon-to-current-ceph
+    abstract: true
+    timeout: 3000
+    nodeset: single-centos-9-stream-node-vexxhost
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    run:
+      - playbooks/tripleo-ci-promote-ceph-daemon/promote-ceph-image.yml
+      - playbooks/tripleo-ci-promote-ceph-daemon/promote-ceph-tag.yaml
+    required-projects:
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - uploader_ssh_key
+      - quay_rdoproject_master_centos_9_secret
+    vars:
+      destination_ceph_tag: "current-ceph"
+      promotion_target_label: "current-ceph"
+      remote_user: "uploader"
+      remote_server: "images.rdoproject.org"
+      registry_login_enabled: true
+      push_registry: "quay.rdoproject.org"
+
+- job:
+    name: periodic-tripleo-ci-promote-ceph-daemon-to-current-ceph-master
+    parent: periodic-tripleo-ci-promote-ceph-daemon-to-current-ceph
+    vars:
+      release: master
+      remote_working_dir: "/var/www/html/images/ceph/daemon/master"
