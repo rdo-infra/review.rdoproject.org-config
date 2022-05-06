@@ -1,0 +1,18 @@
+---
+- hosts: primary
+  tasks:
+    - name: Start a new ssh-agent with the provided private key
+      include_role:
+        name: ssh_agent
+      vars:
+        ssh_private_key_content: "{{ uploader_ssh_key.ssh_private_key }}"
+
+    - name: Promote an artifact using artifact_promoter role
+      include_role:
+        name: artifact_promoter
+        apply:
+          environment: "{{ ssh_agent_environment | default(omit) }}"
+        vars:
+          promotion_type: "file"
+          promotion_file_name: "{{ promote_ceph_tag }}"
+          promotion_file_content: "{{ promote_ceph_tag }}"
