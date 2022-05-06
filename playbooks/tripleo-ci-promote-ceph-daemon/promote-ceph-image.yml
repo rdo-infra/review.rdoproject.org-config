@@ -1,0 +1,25 @@
+---
+- hosts: primary
+  roles:
+    - ensure-skopeo
+  tasks:
+    - name: Fail if we do not have a ceph tag to promote
+      fail:
+        msg: >-
+          Failed to promote, promote_ceph_tag is not defined
+      when: promote_ceph_tag is not defined
+
+    - set_fact:
+        source_registry: "quay.io"
+        source_namespace: "ceph"
+        repo_name: "daemon"
+        destination_tag: "{{ destination_ceph_tag }}"
+        destination_registries:
+          - registry: "quay.io"
+            namespace: "tripleo{{ release }}"
+
+    - name: Use skopeo to copy container from one registry to another
+      command: >
+        skopeo copy docker://{{source_registry}}/{{source_namespace}}/{{repo_name}}:{{promote_ceph_tag}} docker://{{item.registry}}/{{item.namespace}}/{{repo_name}}:{{destination_tag}}
+      with_items: "{{ destination_registries }}"
+      changed_when: true
