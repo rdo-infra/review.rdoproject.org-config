@@ -600,6 +600,26 @@
     vars:
       configure_swap_size: 4096
 
+- job:
+    name: tripleo-ci-ovb-rdo-upload
+    parent: tripleo-ci-ovb-rdo
+    abstract: true
+    post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    secrets:
+      - uploader_ssh_key
+
+- job:
+    name: tripleo-ci-ovb-rdo-upload-centos-8
+    parent: tripleo-ci-ovb-rdo-upload
+    abstract: true
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+
+- job:
+    name: tripleo-ci-ovb-rdo-upload-centos-9
+    parent: tripleo-ci-ovb-rdo-upload
+    abstract: true
+    nodeset: tripleo-ovb-centos-9-primary-vexxhost
+
 ###########################
 # Standalone Upgrade Jobs #
 ###########################
