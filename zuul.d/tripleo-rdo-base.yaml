@@ -600,6 +600,14 @@
     vars:
       configure_swap_size: 4096
 
+- job:
+    name: tripleo-ci-ovb-rdo-upload
+    parent: tripleo-ci-ovb-rdo
+    abstract: true
+    post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    secret:
+      - uploader_ssh_key
+
 ###########################
 # Standalone Upgrade Jobs #
 ###########################
