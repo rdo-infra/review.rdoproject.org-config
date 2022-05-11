@@ -52,6 +52,23 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4b0a57_148b4dfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-05-11T11:58:07Z",
+      "side": 1,
+      "message": "Thank you folks, please add any other questions if needed.",
+      "revId": "7807dcad8b2b513f34814c054fdcf55c95e795ba",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe112954_deb7eb38",
@@ -77,6 +94,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3eef7b95_37289efe",
+        "filename": "playbooks/tripleo-ci-promote-ceph-daemon/promote-ceph-image.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-05-11T11:58:07Z",
+      "side": 1,
+      "message": "This is the ceph testing tag that we want to promote, should be provided by the job (any other caller). In Ceph promotion pipeline, this tag is discovered by a job, tested against N jobs and, if everything pass, promoted. \nSee the Alternate Workflow (which is the main one now) here: https://hackmd.io/9piYrKSwSTGe35XdzCnZ1w?view#Alternative-Workflow",
+      "parentUuid": "fe112954_deb7eb38",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "7807dcad8b2b513f34814c054fdcf55c95e795ba",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6dd1c304_ef71d0c0",
         "filename": "playbooks/tripleo-ci-promote-ceph-daemon/promote-ceph-tag.yml",
         "patchSetId": 4
@@ -88,6 +129,24 @@
       "writtenOn": "2022-05-11T07:30:52Z",
       "side": 1,
       "message": "As per this https://review.rdoproject.org/r/c/rdo-infra/ci-config/+/42378/14/ci-scripts/infra-setup/roles/artifact_promoter/README.md#48\n\npromotion_target_label is defined at job level.",
+      "revId": "7807dcad8b2b513f34814c054fdcf55c95e795ba",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440929a6_1be612fc",
+        "filename": "playbooks/tripleo-ci-promote-ceph-daemon/promote-ceph-tag.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-05-11T11:58:07Z",
+      "side": 1,
+      "message": "Yes, correct. This playbook only hardcodes the file name and content, which is, for ceph scenario, the ceph tag - always. An examples is here:\nhttps://images.rdoproject.org/centos_compose/centos8/master/\nWhere we have one file with compose-id and a link with humam-readable name (\tcentos-ci-testing)",
+      "parentUuid": "6dd1c304_ef71d0c0",
       "revId": "7807dcad8b2b513f34814c054fdcf55c95e795ba",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
