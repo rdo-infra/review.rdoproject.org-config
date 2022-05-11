@@ -551,6 +551,7 @@
 #####################
 
 # Note: This job replaces tebroker job
+# OVB check jobs
 - job:
     name: tripleo-ci-ovb-rdo
     parent: tripleo-ci-base-ovb-required-projects-rdo
@@ -599,6 +600,58 @@
     nodeset: tripleo-ovb-centos-9-primary-vexxhost
     vars:
       configure_swap_size: 4096
+
+# OVB Periodic jobs
+
+- job:
+    name: periodic-tripleo-ci-base-ovb-rdo
+    parent: tripleo-ci-ovb-rdo
+    abstract: true
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+    vars:
+      configure_swap_size: 4096
+
+- job:
+    name: periodic-tripleo-ci-ovb-rdo-centos-8
+    parent: periodic-tripleo-ci-base-ovb-rdo
+    abstract: true
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+
+- job:
+    name: periodic-tripleo-ci-ob-rdo-centos-9
+    parent: periodic-tripleo-ci-base-ovb-rdo
+    abstract: true
+    nodeset: tripleo-ovb-centos-9-primary-vexxhost
+
+- job:
+    name: periodic-tripleo-ci-ovb-rdo-upload
+    parent: periodic-tripleo-ci-base-ovb-rdo
+    abstract: true
+    post-run: playbooks/tripleo-ci-periodic-base-upload/post.yaml
+    secrets:
+      - uploader_ssh_key
+
+- job:
+    name: periodic-tripleo-ci-ovb-rdo-upload-centos-8
+    parent: periodic-tripleo-ci-ovb-rdo-upload
+    abstract: true
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
+
+- job:
+    name: periodic-tripleo-ci-ovb-rdo-upload-centos-9
+    parent: periodic-tripleo-ci-ovb-rdo-upload
+    abstract: true
+    nodeset: tripleo-ovb-centos-9-primary-vexxhost
 
 ###########################
 # Standalone Upgrade Jobs #
