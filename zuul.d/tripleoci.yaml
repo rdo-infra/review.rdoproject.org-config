@@ -273,6 +273,7 @@
       - rdo_registry
       - dlrnapi
       - quay_rdoproject_master_centos_9_secret
+      - quay_rdoproject_wallaby_centos_9_secret
     vars: &build_containers_vars
       release: master
       use_buildah: true
@@ -301,6 +302,7 @@
     secrets: # include all the secrets for the different centos 8 branches here
       - rdo_registry
       - dlrnapi
+      - quay_rdoproject_wallaby_centos_8_secret
       - quay_rdoproject_train_centos_8_secret
     vars:
       <<: *build_containers_vars
