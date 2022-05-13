@@ -12,7 +12,7 @@
         name: artifact_promoter
         apply:
           environment: "{{ ssh_agent_environment | default(omit) }}"
-        vars:
-          promotion_type: "file"
-          promotion_file_name: "{{ promote_ceph_tag }}"
-          promotion_file_content: "{{ promote_ceph_tag }}"
+      vars:
+        promotion_type: "file"
+        promotion_file_name: "{{ promote_ceph_tag }}"
+        promotion_file_content: "{{ promote_ceph_tag }}"
