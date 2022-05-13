@@ -19,6 +19,7 @@
             namespace: "tripleo{{ release }}centos{{ ansible_distribution_major_version }}"
 
     - name: Use skopeo to copy container from one registry to another
+      become: true
       command: >
         skopeo copy docker://{{source_registry}}/{{source_namespace}}/{{repo_name}}:{{promote_ceph_tag}} docker://{{item.registry}}/{{item.namespace}}/{{repo_name}}:{{destination_tag}}
       with_items: "{{ destination_registries }}"
