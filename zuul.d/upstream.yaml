@@ -221,6 +221,23 @@
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
+- pipeline:
+    name: periodic-promote-ceph-daemon
+    post-review: true
+    description: Jobs in this queue are triggered to run three times a week.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        # Monday, Wednesday and Friday, at 2am UTC
+        - time: '0 2 * * 0,2,4'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
 # Component pipelines:
 # Note that while these pipelines are kicked on a periodic basis,
 # they are not named periodic-* due to:
