@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea108893_7a91c089",
+        "filename": "zuul.d/upstream.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-05-17T06:32:20Z",
+      "side": 1,
+      "message": "I vaguely recall zuul doing something funny with the cron syntax - so perhaps that is why, but in normal cron what you wrote is \"Sunday, Tuesday, Thursday\"\n\nshould be 1,3,5 https://cron.help/#0_2_*_*_1,3,5\n\nCouldn\u0027t find something different in the docs see https://zuul-ci.org/docs/zuul/latest/drivers/timer.html#attr-pipeline.trigger.timer\n\"The first weekday is Monday\"",
+      "range": {
+        "startLine": 233,
+        "startChar": 25,
+        "endLine": 233,
+        "endChar": 26
+      },
+      "revId": "6681b0d974dc76898311ddd26433d53c708ed4cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
