@@ -130,6 +130,25 @@
         - tripleo-ci-centos-9-standalone
 
 - project:
+    name: github.com/ansible-collections/ansible.utils
+    default-branch: main
+    templates:
+      - noop
+      - system-required
+    github-check-ro:
+      jobs:
+        - tripleo-ci-centos-8-standalone:
+            files:
+              - plugins/.*$
+        - tripleo-ci-centos-9-standalone:
+            files:
+              - plugins/.*$
+    github-manual-ro:
+      jobs:
+        - tripleo-ci-centos-8-standalone
+        - tripleo-ci-centos-9-standalone
+
+- project:
     name: github.com/ansible-collections/community.general
     default-branch: main
     templates:
