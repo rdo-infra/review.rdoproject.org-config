@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8cfb11c_de1492f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-05-25T12:05:57Z",
+      "side": 1,
+      "message": "Thanks Sagi,\n\nLooks okay to me in comparison to other collection projects.\n\nleft a query for my understanding.",
+      "revId": "bcbe53ecde79fd31a371d50a2ef3b2a72ebce062",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd36841c_ddbaf823",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-05-25T12:05:57Z",
+      "side": 1,
+      "message": "Looks like we use 2.4.2 branch in tripleo-ci\n\nhttps://opendev.org/openstack/tripleo-ci/src/branch/master/zuul.d/base.yaml#L40\n\n~~~\n      - name: github.com/ansible-collections/ansible.utils\n        override-checkout: 2.4.2\n~~~\n\ndefault-branch: main --\u003e does it mean we only run our jobs against main branch?",
+      "range": {
+        "startLine": 134,
+        "startChar": 20,
+        "endLine": 134,
+        "endChar": 24
+      },
+      "revId": "bcbe53ecde79fd31a371d50a2ef3b2a72ebce062",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
