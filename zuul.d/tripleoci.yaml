@@ -252,7 +252,7 @@
       registry_login_enabled: true
       push_containers_podman: false
       upload_dockerfiles: false
-      containers_base_image: quay.io/centos/centos:stream9
+      containers_base_image: registry.access.redhat.com/ubi9
     secrets: *cb_secrets
     required-projects: *cb_rp
     roles: *cb_roles
@@ -287,7 +287,7 @@
       registry_namespace: tripleomastercentos9
       promote_source: tripleo-ci-testing
       upload_dockerfiles: false
-      containers_base_image: quay.io/centos/centos:stream9
+      containers_base_image: registry.access.redhat.com/ubi9
 
 - job:
     name: periodic-tripleo-build-containers-quay-centos-8-secrets
