@@ -61,9 +61,9 @@
           chmod 600 ~/.ssh/config
           ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-          git config --global user.name "rdo-trunk"
-          git config --global user.email "amoralej+rdo-trunk@redhat.com"
-          git config --global gitreview.username "rdo-trunk"
+          git config --global --add user.name "rdo-trunk"
+          git config --global --add user.email "amoralej+rdo-trunk@redhat.com"
+          git config --global --add gitreview.username "rdo-trunk"
 
           if [ -n "$DIFF" ]; then
             NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-$PHASE"|cut -d: -f2|rev|cut -d. -f2-|rev)
