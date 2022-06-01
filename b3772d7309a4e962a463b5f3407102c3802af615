@@ -16,6 +16,29 @@
       "message": "lgtm, thanks",
       "revId": "b3772d7309a4e962a463b5f3407102c3802af615",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd0c79e4_08b5ea7c",
+        "filename": "zuul.d/tripleoci.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-06-01T07:20:53Z",
+      "side": 1,
+      "message": "Hey chandan,\n\nIn upstream patch you are mentioning latest tag as well.\n\nafaik.. if we don\u0027t pass a tag it will pull latest - so this looks okay but for sanity with upstream - can we do same thing in both places i.e specify tag or not in both places.\n\nhttps://review.opendev.org/c/openstack/tripleo-ci/+/843787/2/zuul.d/standalone-jobs.yaml#70\n\n~~~\ncontainers_base_image: registry.access.redhat.com/ubi9:latest\n~~~",
+      "range": {
+        "startLine": 255,
+        "startChar": 5,
+        "endLine": 255,
+        "endChar": 60
+      },
+      "revId": "b3772d7309a4e962a463b5f3407102c3802af615",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
