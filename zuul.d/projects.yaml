@@ -68,18 +68,9 @@
       jobs:
         - config-check
         - tox-linters
-        - rdo-tox-molecule: &f_args
-            files:
-              - ^requirements.txt$
-              - ^roles/.*
-              - ^setup.*$
-              - ^test-requirements.txt$
-              - ^tox.ini$
-              - .*molecule.*
     gate:
       jobs:
         - config-check
-        - rdo-tox-molecule: *f_args
     post:
       jobs:
         - config-update
