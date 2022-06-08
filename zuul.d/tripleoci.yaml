@@ -347,7 +347,15 @@
     nodeset: single-centos-8-node-vexxhost
     pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: *ib_post_run
-    required-projects: *ib_rp
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+      # Pinning DIB to known commit working with py36
+      # https://review.opendev.org/c/openstack/diskimage-builder/+/836229
+      # removes py3.6 support which breaks the Image Build.
+      # https://bugs.launchpad.net/tripleo/+bug/1977888 tracks the same.
+      - name: opendev.org/openstack/diskimage-builder
+        override-checkout: 70e90e17551499b1f8d0c2d0bc36ee4698aa18a0
     roles: *ib_roles
     vars:
       tripleo_image_os: centos8
