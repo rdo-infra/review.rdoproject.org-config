@@ -353,6 +353,13 @@
       tripleo_image_os: centos8
       promote_source: tripleo-ci-testing
     secrets: *ib_secrets
+    # Pinning DIB to known commit working with py36
+    # https://review.opendev.org/c/openstack/diskimage-builder/+/836229
+    # removes py3.6 support which breaks the Image Build.
+    # https://bugs.launchpad.net/tripleo/+bug/1977888 tracks the same.
+    required-projects:
+      - name: opendev.org/openstack/diskimage-builder
+        override-checkout: 70e90e17551499b1f8d0c2d0bc36ee4698aa18a0
 
 - job:
     name: periodic-tripleo-ci-build-images-rdo-centos-9
