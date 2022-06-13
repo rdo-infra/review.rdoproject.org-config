@@ -106,7 +106,7 @@
 
       always:
         - name: Verify Login for docker
-          no_log: false
+          no_log: true
           when:
             - ansible_distribution == "CentOS"
             - ansible_distribution_major_version|int < 8
@@ -118,7 +118,7 @@
             fail_msg: Role failed authentication for an Unknown reason.
 
         - name: Assert role has worked in (CentOS|RedHat) 8
-          no_log: false
+          no_log: true
           when:
             - (ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 8)
               or (ansible_distribution == "RedHat" and ansible_distribution_major_version|int >= 8)
