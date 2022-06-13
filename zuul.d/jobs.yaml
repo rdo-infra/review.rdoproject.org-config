@@ -74,34 +74,6 @@
         name: site_logs
 
 - job:
-    name: distgit-cbs-validate
-    description: |
-      A job to validate cbs builds.
-    pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/distgit-cbs-validate/run.yaml
-    required-projects:
-      - name: gating_scripts
-    nodeset: rdo-centos-7
-    vars:
-      centos_releasever: 7
-    secrets:
-      - koji_centos
-
-- job:
-    name: distgit-cbs-final-build
-    description: |
-      A job to for cbs final builds.
-    pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/distgit-cbs-final-build/run.yaml
-    required-projects:
-      - name: gating_scripts
-    nodeset: rdo-centos-7
-    vars:
-      centos_releasever: 7
-    secrets:
-      - koji_centos
-
-- job:
     name: distgit-cbs-validate-centos8
     parent: distgit-cbs-validate
     nodeset: rdo-centos-8
@@ -393,14 +365,6 @@
     semaphore: semaphore-config-update
     nodeset:
       nodes: []
-
-- job:
-    name: publish-rdoproject-artifacts
-    post-run: playbooks/publish-rdoproject-artifacts/post.yaml
-    nodeset: rdo-centos-7
-    secrets:
-      - secret: site_images_vexxhost
-        name: fileserver
 
 - job:
     name: nfvinfo-buildsys-tags-update-testing

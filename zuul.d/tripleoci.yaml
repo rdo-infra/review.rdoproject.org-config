@@ -15,12 +15,6 @@
       promote_target: tripleo-ci-testing
 
 - job:
-    name: periodic-tripleo-centos-7-train-promote-consistent-to-tripleo-ci-testing
-    parent: tripleo-ci-base-promote-consistent-to-tripleo-ci-testing
-    vars:
-      release: train
-
-- job:
     name: periodic-tripleo-centos-9-buildimage-overcloud-hardened-uefi-full-master
     parent: periodic-tripleo-ci-build-images-rdo-centos-9
     vars:
@@ -65,24 +59,10 @@
       image_sanity: true
 
 - job:
-    name: periodic-tripleo-centos-7-buildimage-overcloud-full-master
-    parent: periodic-tripleo-ci-build-images-rdo-centos-7
-    vars:
-      tripleo_image_type: overcloud-full
-      release: master
-
-- job:
     name: periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
     parent: periodic-tripleo-ci-build-images-rdo-centos-8
     vars:
       tripleo_image_type: ironic-python-agent
-      release: master
-
-- job:
-    name: periodic-tripleo-centos-7-buildimage-ironic-python-agent-master
-    parent: periodic-tripleo-ci-build-images-rdo-centos-7
-    vars:
-      tripleo_image_type: overcloud-full
       release: master
 
 - job:
@@ -96,22 +76,6 @@
 - job:
     name: periodic-tripleo-centos-8-buildimage-ironic-python-agent-train
     parent: periodic-tripleo-centos-8-buildimage-ironic-python-agent-master
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-- job:
-    name: periodic-tripleo-centos-7-buildimage-overcloud-full-train
-    parent: periodic-tripleo-centos-7-buildimage-overcloud-full-master
-    override-checkout: 'stable/train'
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
-- job:
-    name: periodic-tripleo-centos-7-buildimage-ironic-python-agent-train
-    parent: periodic-tripleo-centos-7-buildimage-ironic-python-agent-master
     override-checkout: 'stable/train'
     vars:
        release: train
@@ -180,40 +144,6 @@
 
 # RDO Container Build Reparenting
 
-# CentOS 7 Based Jobs
-
-- job:
-    name: periodic-tripleo-ci-build-containers-rdo-centos-7
-    abstract: true
-    parent: tripleo-ci-build-containers-required-projects-rdo
-    nodeset: single-centos-7-node-vexxhost
-    vars:
-      push_containers: true
-      registry_login_enabled: false
-      rdo_registry_url: trunk.registry.rdoproject.org
-    pre-run:
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    secrets: &cb_secrets
-      - rdo_registry
-      - dlrnapi
-    required-projects: &cb_rp
-      - config
-      - rdo-infra/ci-config
-    roles: &cb_roles
-      - zuul: rdo-infra/ci-config
-
-- job:
-    name: periodic-tripleo-centos-7-train-containers-build-push
-    parent: periodic-tripleo-ci-build-containers-rdo-centos-7
-    override-checkout: 'stable/train'
-    timeout: 9000
-    vars:
-       release: train
-       branch_override: 'stable/train'
-
 # CentOS 8 Based Jobs
 
 - job:
@@ -234,9 +164,14 @@
       push_containers_podman: false
       upload_dockerfiles: false
       containers_base_image: "ubi8:8.2"
-    secrets: *cb_secrets
-    required-projects: *cb_rp
-    roles: *cb_roles
+    secrets: &cb_secrets
+      - rdo_registry
+      - dlrnapi
+    required-projects: &cb_rp
+      - config
+      - rdo-infra/ci-config
+    roles: &cb_roles
+      - zuul: rdo-infra/ci-config
 
 - job:
     name: periodic-tripleo-ci-build-containers-rdo-centos-9
@@ -321,26 +256,6 @@
       build_override_repos: tripleo-ci-testing
 
 - job:
-    name: periodic-tripleo-ci-build-images-rdo-centos-7
-    abstract: true
-    parent: tripleo-ci-build-images-rdo
-    nodeset: single-centos-7-node-vexxhost
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: &ib_post_run
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-      - playbooks/tripleo-ci-periodic-base-upload/post.yaml
-    required-projects: &ib_rp
-      - config
-      - rdo-infra/ci-config
-    roles: &ib_roles
-      - zuul: rdo-infra/ci-config
-    vars:
-      tripleo_image_os: centos7
-    secrets: &ib_secrets
-      - uploader_ssh_key
-      - dlrnapi
-
-- job:
     name: periodic-tripleo-ci-build-images-rdo-centos-8
     abstract: true
     parent: tripleo-ci-build-images-rdo
@@ -369,30 +284,6 @@
     secrets: *ib_secrets
 
 # Undercloud Jobs
-- job:
-    name: periodic-tripleo-ci-undercloud-rdo-centos-7
-    abstract: true
-    description: |
-        Base abstract job for undercloud in RDO CI zuulv3 jobs
-        for interacting with dlrn and registry
-    parent: tripleo-ci-undercloud-required-projects-rdo
-    nodeset: single-centos-7-node-vexxhost
-    pre-run: &uc_pre_run
-      - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects: &uc_rp
-      - config
-      - rdo-infra/ci-config
-    roles: &uc_roles
-      - zuul: rdo-infra/ci-config
-    secrets: &uc_secrets
-      - dlrnapi
-      - rdo_registry
-    vars:
-      registry_login_enabled: true
-
 - job:
     name: periodic-tripleo-ci-undercloud-rdo-centos-8
     abstract: true
