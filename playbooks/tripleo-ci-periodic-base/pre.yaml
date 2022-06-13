@@ -1,4 +1,4 @@
-- hosts: primary:tripleo-ovb-centos-7
+- hosts: primary
   vars:
     rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
