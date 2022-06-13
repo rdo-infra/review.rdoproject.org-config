@@ -395,14 +395,6 @@
       nodes: []
 
 - job:
-    name: publish-rdoproject-artifacts
-    post-run: playbooks/publish-rdoproject-artifacts/post.yaml
-    nodeset: rdo-centos-7
-    secrets:
-      - secret: site_images_vexxhost
-        name: fileserver
-
-- job:
     name: nfvinfo-buildsys-tags-update-testing
     parent: base
     description: |
