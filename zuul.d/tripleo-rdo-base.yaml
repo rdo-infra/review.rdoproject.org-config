@@ -495,23 +495,7 @@
     secrets:
       - rdo_registry
 
-# Distro bsed jobs
-
-# Distro Jobs
-- job:
-    name: periodic-tripleo-ci-standalone-rdo-centos-7
-    abstract: true
-    parent: periodic-tripleo-ci-standalone-rdo-dlrn
-    nodeset: single-centos-7-node-vexxhost
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects:
-      - config
-      - rdo-infra/ci-config
-    roles:
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
+# Distro based jobs
 
 - job:
     name: periodic-tripleo-ci-standalone-rdo-centos-8
@@ -573,14 +557,6 @@
       - rdo_registry
     vars:
       registry_login_enabled: true
-
-- job:
-    name: tripleo-ci-ovb-rdo-centos-7
-    abstract: true
-    description: |
-      Base abstract job for OVB in RDO CI centos-7 zuulv3 jobs
-    parent: tripleo-ci-ovb-rdo
-    nodeset: tripleo-ovb-centos-7-primary
 
 - job:
     name: tripleo-ci-ovb-rdo-centos-8
@@ -655,19 +631,6 @@
       - rdo_registry
 
 # Distro jobs
-- job:
-    name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-7
-    parent: tripleo-ci-standalone-upgrade-rdo
-    pre-run: playbooks/tripleo-ci-periodic-base/pre.yaml
-    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
-    nodeset: single-centos-7-node-vexxhost
-    required-projects: &s_u_req_project
-      - config
-      - rdo-infra/ci-config
-    roles: &s_u_roles
-      - zuul: rdo-infra/ci-config
-    secrets:
-      - dlrnapi
 
 - job:
     name: periodic-tripleo-ci-rdo-standalone-upgrade-centos-8
