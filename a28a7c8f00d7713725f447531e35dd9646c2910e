@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a89eb4_128d1573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-06-14T11:28:21Z",
+      "side": 1,
+      "message": "Thank you for reviewing Marios",
+      "revId": "a28a7c8f00d7713725f447531e35dd9646c2910e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bb85637_4dd16e48",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-06-14T06:33:11Z",
       "side": 1,
       "message": "out of curiosity how was the leak happening? I mean was it something in this stderr  for example? like leak of the username but not password?",
+      "range": {
+        "startLine": 116,
+        "startChar": 67,
+        "endLine": 116,
+        "endChar": 73
+      },
+      "revId": "a28a7c8f00d7713725f447531e35dd9646c2910e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a2b7d0_045f4d03",
+        "filename": "playbooks/tripleo-rdo-base/container-login.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-06-14T11:28:21Z",
+      "side": 1,
+      "message": "happened in container-login role, which uses the same assert task. When this assert task fails, everything in registry_login_docker (or registry_login_podman) is logged, and it contains all info from \u0027podman login\u0027 shell command, including user/password info.",
+      "parentUuid": "5bb85637_4dd16e48",
       "range": {
         "startLine": 116,
         "startChar": 67,
