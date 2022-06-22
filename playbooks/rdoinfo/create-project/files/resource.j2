@@ -149,7 +149,7 @@ resources:
       default-branch: c9s-{{ release }}-rdo
       branches:
         master: '0'
-      {% else -%}
+      {%- else %}
       description: Mirror of upstream {{ project_name }} (mirror + patches)
     {{ project_prefix }}/{{ project_name }}-distgit:
       acl: {{ project_prefix }}-{{ project_name }}-distgit
