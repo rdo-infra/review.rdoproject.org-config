@@ -9,8 +9,7 @@ MAINTAINER_LIST=$(rdopkg findpkg $PKG -l ${RDOINFO_LOCATION} |grep -A100 maintai
 
 git clone https://review.rdoproject.org/r/config /tmp/config
 pushd /tmp/config
-git checkout master
-git reset --hard origin/master
+git checkout 6d650244
 
 python ~/add-project-from-rdoinfo.py deps $PROJECT_NAME "$MAINTAINER_LIST" $DEPS_CURRENT_RELEASE
 python ~/add-project-on-sf.py deps $PROJECT_NAME
@@ -37,5 +36,5 @@ echo -e $COMMIT_MSG | git commit -F-
 COMMIT_MSG="Create project info for RDO dependency $PROJECT_NAME in RDO\n\nThis is an automatically created commit, make sure you check the Zuul\nconfiguration to see if it matches the project needs.\n\n"
 git add zuul/*.yaml
 echo -e $COMMIT_MSG | git commit -F-
-git review -y -t "add-${PROJECT_NAME}" < /dev/null
+#git review -y -t "add-${PROJECT_NAME}" < /dev/null
 popd

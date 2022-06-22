@@ -15,8 +15,7 @@ fi
 
 git clone https://review.rdoproject.org/r/config /tmp/config
 pushd /tmp/config
-git checkout master
-git reset --hard origin/master
+git checkout 6d650244
 
 python ~/add-project-from-rdoinfo.py $PREFIX $PROJECT_NAME "$MAINTAINER_LIST" $DEPS_CURRENT_RELEASE
 
@@ -48,5 +47,5 @@ echo -e $COMMIT_MSG | git commit -F-
 git add zuul.d/*.yaml
 COMMIT_MSG="Add Zuul definitions for $PROJECT_NAME\n\nNote that this review will fail to pass CI until the corresponding entries \nhave been created in the zuul/rdo.yaml."
 echo -e $COMMIT_MSG | git commit -F-
-git review -y -t "add-${PROJECT_NAME}" < /dev/null
+#git review -y -t "add-${PROJECT_NAME}" < /dev/null
 popd

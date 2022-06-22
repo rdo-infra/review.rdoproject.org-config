@@ -1,5 +1,12 @@
-- hosts: all
+- hosts: localhost
   name: rdoinfo-create-project playbook
+  vars:
+    deps_current_release: "zed"
+    ansible_user: "{{ lookup('ansible.builtin.env', 'USER') }}"
+    ansible_user_dir: "/tmp/create-project"
+    zuul:
+      project:
+        src_dir: rdoinfo
   tasks:
     - name: Copy add-project-from-rdoinfo.sh
       copy:
