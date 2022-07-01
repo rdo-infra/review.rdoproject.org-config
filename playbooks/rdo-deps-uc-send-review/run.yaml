@@ -81,7 +81,7 @@
                 in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
                 if [ -z "$in_koji_nvr" ]; then
                   echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
-                  break
+                  continue
                 fi
 
                 # We check if there is already an opened change which propose
@@ -103,7 +103,7 @@
                         needs_update=false
                         change_url=$(echo "$opened_changes" | jq --arg CHANGE_ID "$change_id" '. | select(.id==$CHANGE_ID) | .url' | tr -d '"')
                         DEPENDS_ON+="Depends-On: $change_url\n"
-                        break
+                        continue
                       fi
                     fi
                   done
@@ -132,13 +132,18 @@
               done
             fi
 
-            pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-            COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
-            git checkout -b proposal
-            git review -s -v
-            echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-            git review -t "cs9-deps-uc-update" < /dev/null
-            popd
+            if [ -n "$DEPENDS_ON" ]; then
+              pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+              COMMIT_MSG="CBS tags sync with uc for $RELEASE-$PHASE\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
+              git checkout -b proposal
+              git review -s -v
+              echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
+              git review -t "cs9-deps-uc-update" < /dev/null
+              popd
+            else
+              echo "INFO: there is nothing to commit, Exiting"
+              exit 0
+            fi
           else
             echo "INFO: There is no deps to update, Exiting"
             exit 0
