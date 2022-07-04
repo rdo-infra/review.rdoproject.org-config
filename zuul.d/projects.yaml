@@ -6558,7 +6558,6 @@
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
               - ^tags/yoga.yml$
-              - ^tags/zed-uc.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
               - ^tags/wallaby.yml$
@@ -6566,44 +6565,9 @@
               - ^tags/yoga.yml$
               - ^tags/zed-uc.yml$
         - validate-dependencies-rebuilds
-        - weirdo-dlrn-master-packstack-scenario003-centos8:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/zed-uc.yml$
         - weirdo-dlrn-master-packstack-scenario003-centos9:
             dependencies:
               - rdoinfo-DLRN-check-centos9
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/zed-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario001-centos8:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/zed-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario002-centos8:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/zed-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario003-centos8:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/zed-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario004-centos8:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
             voting: false
             branches: ^(rpm-)?master$
             files:
@@ -6725,45 +6689,6 @@
             files:
               - ^buildsys-tags/cloud7-openstack-train-testing.yml$
         - validate-buildsys-tags
-        - distgit-tripleo-master-testing-centos-8-standalone-scenario001:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - distgit-tripleo-master-testing-centos-8-standalone-scenario002:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - distgit-tripleo-master-testing-centos-8-standalone-scenario003:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - distgit-tripleo-master-testing-centos-8-standalone-scenario004:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - distgit-tripleo-master-testing-centos-8-undercloud-containers:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - distgit-tripleo-master-testing-centos-8-containers-multinode:
-            dependencies:
-              - rdoinfo-DLRN-check-centos8
-            voting: false
-            files:
-              - ^tags/zed-uc.yml$
-        - rdoinfo-DLRN-check-centos8:
-            files:
-              - ^tags/zed-uc.yml$
 
     gate:
       queue: whitebox-tempest-plugin
@@ -6783,7 +6708,6 @@
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
               - ^tags/yoga.yml$
-              - ^tags/zed-uc.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
               - ^tags/wallaby.yml$
