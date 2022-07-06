@@ -601,13 +601,15 @@
     nodeset: tripleo-ovb-centos-9-primary-vexxhost
     vars:
       configure_swap_size: 4096
+      baremetal_image_name: "ipxe-uefi"
 
 # OVB Periodic jobs
 
 - job:
-    name: periodic-tripleo-ci-base-ovb-rdo
-    parent: tripleo-ci-ovb-rdo
+    name: periodic-tripleo-ci-ovb-rdo-centos-8
+    parent: tripleo-ci-ovb-rdo-centos-8
     abstract: true
+    nodeset: tripleo-ovb-centos-8-primary-vexxhost
     pre-run:
       - playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run:
@@ -620,22 +622,26 @@
     secrets:
       - dlrnapi
     vars:
-      configure_swap_size: 4096
       promote_source: tripleo-ci-testing
 
 - job:
-    name: periodic-tripleo-ci-ovb-rdo-centos-8
-    parent: periodic-tripleo-ci-base-ovb-rdo
-    abstract: true
-    nodeset: tripleo-ovb-centos-8-primary-vexxhost
-
-- job:
     name: periodic-tripleo-ci-ovb-rdo-centos-9
-    parent: periodic-tripleo-ci-base-ovb-rdo
+    parent: tripleo-ci-ovb-rdo-centos-8
     abstract: true
     nodeset: tripleo-ovb-centos-9-primary-vexxhost
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+    post-run:
+      - playbooks/tripleo-ci-periodic-base/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
     vars:
-      baremetal_image_name: "ipxe-uefi"
+      promote_source: tripleo-ci-testing
 
 
 ###########################
