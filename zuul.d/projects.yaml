@@ -6278,108 +6278,40 @@
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - weirdo-integration-train-packstack-scenario001:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-master-packstack-scenario003-centos8:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-master-packstack-scenario003-centos9:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-train-puppet-scenario001:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - weirdo-integration-master-puppet-scenario003-centos8:
+        - weirdo-integration-yoga-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
+        - weirdo-integration-master-packstack-scenario003-centos9:
+            irrelevant-files:
+              - ^README.rst$
+        - weirdo-integration-yoga-puppet-scenario003-centos8:
+            irrelevant-files:
+              - ^README.rst$
         - weirdo-integration-master-puppet-scenario003-centos9:
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - weirdo-integration-master-puppet-scenario004-centos8:
+        - weirdo-integration-wallaby-puppet-scenario004-centos8:
             voting: false
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
         - weirdo-integration-master-puppet-scenario004-centos9:
             voting: false
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
     experimental:
       jobs:
-        - weirdo-integration-train-packstack-scenario003:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-master-packstack-scenario001-centos8:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-master-packstack-scenario001-centos9:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/puppet.*$
-        - weirdo-integration-train-puppet-scenario003:
-            irrelevant-files:
-              - ^.*README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
-        - weirdo-integration-master-puppet-scenario001-centos8:
+        - weirdo-integration-xena-packstack-scenario001-centos8:
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
+        - weirdo-integration-master-packstack-scenario001-centos9:
+            irrelevant-files:
+              - ^README.rst$
+        - weirdo-integration-yoga-puppet-scenario001-centos8:
+            irrelevant-files:
+              - ^README.rst$
         - weirdo-integration-master-puppet-scenario001-centos9:
             irrelevant-files:
               - ^README.rst$
-              - ^.gitignore$
-              - ^docs/.*$
-              - ^playbooks/logs-ci-centos.yml$
-              - ^playbooks/packstack.*$
     gate:
       jobs:
         - weirdo-ansible-lint
