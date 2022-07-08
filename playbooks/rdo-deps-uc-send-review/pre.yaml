@@ -26,3 +26,11 @@
         content: "{{ rdoinfo_ssh.private_key }}"
         dest: ~/.ssh/rdoinfo_id_rsa
         mode: 0600
+
+    - name: Copy functions.sh
+      copy:
+        src: files/functions.sh
+        dest: '{{ ansible_user_dir }}/functions.sh'
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0644

@@ -5,6 +5,7 @@
       shell:
         cmd: |
           set +e -x
+          source {{ ansible_user_dir }}/functions.sh
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg koji rpm_vercmp
@@ -75,36 +76,12 @@
               pkg_nv=$pkg_name-$pkg_vers
               in_koji_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers koji exact)
               if [ -z "$in_koji_nvr" ]; then
-                echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
+                echo -e "INFO: there is no build found in Fedora Koji for package and version $pkg_nv"
                 continue
               fi
 
-              # We check if there is already an opened change which propose
-              # to update the package to desired $pkg_vers.
-              # If so, we append our commit message with a Depends-On this
-              # change and we ignore sending patch.
-              opened_changes=$(ssh -p 29418 rdo-trunk@review.rdoproject.org \
-                               gerrit query --format=JSON status:open project:deps/$pkg_name branch:$branch
-                              )
-              opened_change_ids=$(echo "$opened_changes" | jq '.id' | tr -d '"' | sed "s/null//")
-              if [ -n "$opened_change_ids" ]; then
-                for change_id in $opened_change_ids; do
-                  change_endpoint_url="https://review.rdoproject.org/r/changes/deps%2F$pkg_name~$branch~$change_id/revisions/current"
-                  specfile=$(curl -s -f $change_endpoint_url/files/ | sed 1d | jq 'keys[]' | tr -d '"' | grep -e "\.spec$")
-                  if [ $? -eq 0 ]; then
-                    specfile=$(echo "$specfile" | sed "s/\//%2f/")
-                    curl -s -f $change_endpoint_url/files/$specfile/content | base64 -d | grep -e "^Version:.*$pkg_vers" >/dev/null 2>&1
-                    if [ $? -eq 0 ]; then
-                      needs_update=false
-                      change_url=$(echo "$opened_changes" | jq --arg CHANGE_ID "$change_id" '. | select(.id==$CHANGE_ID) | .url' | tr -d '"')
-                      DEPENDS_ON+="Depends-On: $change_url\n"
-                      continue
-                    fi
-                  fi
-                done
-              fi
-
-              if $needs_update; then
+              is_patch_already $pkg_name $pkg_vers $branch
+              if [ $? -ne 0 ]; then
                 distgit_status=$(setup_distgit $pkg_name $in_koji_nvr $RELEASE 9s)
                 if [ $? -eq 0 ]; then
                   pushd workdir/$pkg_name
