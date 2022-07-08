@@ -5,6 +5,10 @@
       shell:
         cmd: |
           set +e -x
+          MASTER_RELEASE="zed"
+          TOPIC="deps-uc-update"
+          MAX_BUMPED_PKGS_IN_RDOINFO=5
+
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
@@ -12,41 +16,6 @@
           # Install releng, needed for add-buildsys-tags.py script
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
           pip install .
-          popd
-
-          BRANCH="{{ zuul.branch }}"
-          if [ "$BRANCH" == 'master' ]; then
-              RELEASE="zed"
-          else
-              echo "INFO: we handle master branch only"
-              exit 0
-          fi
-
-          pushd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
-          SUBJECT=$(git log --oneline {{ zuul.newrev }}|head -1|cut -d " " -f 2)
-          if [ $SUBJECT == "Merge" ]; then
-             REAL_COMMIT=$(git show {{ zuul.newrev }}|grep ^Merge:|awk '{print $(NF)}')
-          else
-             REAL_COMMIT={{ zuul.newrev }}
-          fi
-          UPSTREAM_CHANGE_ID=$(git show $REAL_COMMIT|grep Change-Id:|awk '{print $(NF)}')
-          change_list=($(git show $REAL_COMMIT upper-constraints.txt|grep -P '^\+(?:(?!\+\+))|^-(?:(?!--))'))
-          change_list=${change_list[@]/#[+-]/}
-          popd
-
-          if [ -z "${change_list//[[:space:]]/}" ]; then
-              echo "INFO: No update in upper-constraints, Exiting"
-              exit 0
-          fi
-
-          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
-          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-          python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
-              -l $change_list \
-              -r $RELEASE \
-              --centos-release 9s \
-              -p testing
-          DIFF=$(git diff *.yml */*.yml)
           popd
 
           mkdir -p ~/.ssh
@@ -63,61 +32,130 @@
           git config --global --add user.email "amoralej+rdo-trunk@redhat.com"
           git config --global --add gitreview.username "rdo-trunk"
 
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
+          change_list=$(python scripts/report-uc.py -o master \
+                                      --repo-url https://trunk.rdoproject.org/centos9-master/delorean-deps.repo \
+                                      --repo-url https://trunk.rdoproject.org/centos9-master/current/delorean.repo \
+                                      -s lower | grep -v -e "delorean-component" | sort | cut -d',' -f2-3 | sed "s/,/===/")
+          popd
+
+          echo -e "INFO: the change list is: $change_list"
+
+          if [ -z "${change_list//[[:space:]]/}" ]; then
+              echo "INFO: there is no module to bump, Exiting"
+              exit 0
+          fi
+
+          # We apply the change list to the master buildsys-tags testing file,
+          # in order to have the accociated NVR list.
+          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+          python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
+              -l $change_list \
+              -r $MASTER_RELEASE \
+              --centos-release 9s \
+              -p testing \
+              --no-update-all-files
+          DIFF=$(git diff *.yml */*.yml)
+          popd
+
           if [ -n "$DIFF" ]; then
-            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$RELEASE-testing"|cut -d: -f2|rev|cut -d. -f2-|rev)
-            branch=c9s-$RELEASE-rdo
+            NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$MASTER_RELEASE-testing"|cut -d: -f2|rev|cut -d. -f2-|rev)
+            change_list_filtered=""
+            branch=c9s-$MASTER_RELEASE-rdo
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
             source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             for pkg in $NVR; do
+
+              # We don't want more than $MAX_BUMPED_PKGS_IN_RDOINFO in the
+              # final rdoinfo patch.
+              if [ `wc -w <<< "$change_list_filtered"` -gt $((MAX_BUMPED_PKGS_IN_RDOINFO-1)) ]; then
+                  break
+              fi
+
               needs_update=true
               change_url=""
               pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
               pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
               pkg_nv=$pkg_name-$pkg_vers
-              in_koji_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers koji exact)
-              if [ -z "$in_koji_nvr" ]; then
-                echo -e "INFO: there is no build found in Fedora Koji for package and version $pkg_nv"
+
+              echo -e "INFO: processing ${pkg_nv}..."
+
+              is_in_rdoinfo_patch_already $pkg $MASTER_RELEASE $TOPIC
+              if [ $? -eq 0 ]; then
+                echo -e "INFO ${pkg_nv}: it's already proposed in a rdoinfo patch"
+                echo -e "INFO ${pkg_nv}: moving to next package..."
                 continue
               fi
 
-              is_patch_already $pkg_name $pkg_vers $branch
-              if [ $? -ne 0 ]; then
-                distgit_status=$(setup_distgit $pkg_name $in_koji_nvr $RELEASE 9s)
+              in_koji_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers koji exact)
+              if [ $? -eq 0 ]; then
+                echo -e "INFO ${pkg_nv}: there is build found in Fedora Koji '$in_koji_nvr'"
+              else
+                echo -e "INFO ${pkg_nv}: there is NO build found in Fedora Koji"
+                echo -e "INFO ${pkg_nv}: moving to next package..."
+                continue
+              fi
+
+              # We check if the NVR is available in CBS, otherwise we send
+              # a patch (if not yet opened).
+              in_cbs_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers cbs exact)
+              if [ $? -eq 0 ]; then
+                echo -e "INFO ${pkg_nv}: there is a build found in CBS Koji '$in_cbs_nvr'"
+                echo -e "INFO ${pkg_nv}: we add it in final rdoinfo patch"
+                change_list_filtered="$change_list_filtered $pkg_name===$pkg_vers"
+              else
+                echo -e "INFO ${pkg_nv}: there is NO build found in CBS Koji"
+                echo -e "INFO ${pkg_nv}: we're checking whether a patch is already created or not..."
+                is_patch_already $pkg_name $pkg_vers $branch
                 if [ $? -eq 0 ]; then
-                  pushd workdir/$pkg_name
-                  git add .
-                  COMMIT_MSG="Update to ${pkg_vers}"
-                  git commit -m "$COMMIT_MSG"
-                  review_status="$(git review c9s-${RELEASE}-rdo -t cs9-deps-uc-update)"
-                  if [ $? -eq 0 ]; then
-                    change_url=$(echo -e "$review_status" | grep -e "$COMMIT_MSG" | awk '{print $2}')
-                    if [ -n $change_url ]; then
-                      DEPENDS_ON+="Depends-On: $change_url\n"
-                    fi
-                  fi
-                  popd
+                  echo -e "INFO ${pkg_nv}: there is already an opened patch"
+                  echo -e "INFO ${pkg_nv}: moving to next package..."
+                  continue 2
                 else
-                  echo -e "ERROR: while setting up distgit for $pkg_name"
-                  echo -e "$distgit_status"
+                  echo -e "INFO ${pkg_nv}: there is NOT an opened patch"
+                  echo -e "INFO ${pkg_nv}: creating patch..."
+                  distgit_status=$(setup_distgit $pkg_name $in_koji_nvr $MASTER_RELEASE 9s)
+                  if [ $? -eq 0 ]; then
+                    pushd workdir/$pkg_name
+                    git add .
+                    COMMIT_MSG="Update to ${pkg_vers}"
+                    git commit -m "$COMMIT_MSG"
+                    echo -e "INFO ${pkg_nv}: submitting patch..."
+                    git review c9s-${MASTER_RELEASE}-rdo -t $TOPIC
+                    popd
+                  else
+                    echo -e "ERROR ${pkg_nv}: while setting up distgit for $pkg_name"
+                    echo -e "$distgit_status"
+                  fi
                 fi
               fi
             done
 
 
-            if [ -n "$DEPENDS_ON" ]; then
+            if [ -n "$change_list_filtered" ]; then
               pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
-              COMMIT_MSG="CBS tags sync with uc for $RELEASE-testing\n\nUpstream-Id: $UPSTREAM_CHANGE_ID\n$DEPENDS_ON"
+              git stash
+              echo -e "INFO: bumping the selected packages in rdoinfo: $change_list_filtered"
+              python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
+                  -l $change_list_filtered \
+                  -r $MASTER_RELEASE \
+                  --centos-release 9s \
+                  -p testing \
+                  --no-update-all-files
+              COMMIT_MSG="CBS tags sync with uc for $MASTER_RELEASE-testing"
               git checkout -b proposal
               git review -s -v
               echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-              git review -t "cs9-deps-uc-update" < /dev/null
+              echo -e "INFO: submitting rdoinfo patch..."
+              git review -t $TOPIC < /dev/null
               popd
             else
-              echo "INFO: there is nothing to commit, Exiting"
+              echo "INFO: there is nothing to commit in rdoinfo repo, exiting"
               exit 0
             fi
           else
-            echo "INFO: There is no deps to update, Exiting"
+            echo "INFO: There is no deps to update, exiting"
             exit 0
           fi
       changed_when: true
