@@ -7,7 +7,7 @@
           set +e -x
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
-          pip install pymod2pkg sh git-review ruamel.yaml rdopkg
+          pip install pymod2pkg sh git-review ruamel.yaml rdopkg koji rpm_vercmp
           # Install releng, needed for add-buildsys-tags.py script
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
           pip install .
@@ -73,7 +73,7 @@
               pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
               pkg_vers=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\2/')
               pkg_nv=$pkg_name-$pkg_vers
-              in_koji_nvr=$(exist_in_koji $pkg_name $pkg_vers koji exact)
+              in_koji_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers koji exact)
               if [ -z "$in_koji_nvr" ]; then
                 echo -e "WARNING: there is no build found in Fedora Koji for package $pkg_name"
                 continue
