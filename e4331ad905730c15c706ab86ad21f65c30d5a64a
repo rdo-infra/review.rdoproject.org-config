@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44e7507f_4161a773",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-07-18T09:06:51Z",
+      "side": 1,
+      "message": "We don\u0027t want to cover libraries which are part of RDO Trunk builds (openstack packages). I\u0027d say we should \"grep -v delorean-component\". BTW, i just ran this and got 172 deps requiring update!!!. First run will be terrible 😊",
+      "range": {
+        "startLine": 65,
+        "startChar": 51,
+        "endLine": 65,
+        "endChar": 113
+      },
+      "revId": "e4331ad905730c15c706ab86ad21f65c30d5a64a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a230e32_34708d4b",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-07-18T09:06:51Z",
+      "side": 1,
+      "message": "iirc, we are sending the review to -testing to make sure we get report of all the required dep updates. In the periodic case, we will always get dependencies which are probably not able to update, so this reviews will never pass ci, however it can be useful to check which ones we are missing. However, i think we shouldn\u0027t create a new review every day when running it in periodic. When running it in periodic, we should look for the latest review on the same topic and overwrite.\n\nBTW, you want to use *only periodic* or maintain both periodic and post jobs?. I\u0027m more inclined to run only periodic, wdyt?",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 12
+      },
+      "revId": "e4331ad905730c15c706ab86ad21f65c30d5a64a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
