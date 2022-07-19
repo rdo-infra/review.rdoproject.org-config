@@ -479,6 +479,36 @@
     secrets:
       - dlrnapi
 
+#########################################
+#     Multinode mixed OS Job Parenting  #
+#########################################
+
+- job:
+    name: tripleo-ci-base-required-projects-multinode-mixed-os-rdo
+    abstract: true
+    description: |
+        Base abstract job for multinode in RDO CI zuulv3 jobs
+    parent: tripleo-ci-base-multinode-mixed-os-standard
+    nodeset: two-centos-9-one-centos-8-nodes
+    pre-run:
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
+      - playbooks/tripleo-rdo-base/pre.yaml
+    post-run: playbooks/tripleo-ci-periodic-base/post.yaml
+    roles:
+      - zuul: opendev.org/openstack/ansible-role-container-registry
+      - zuul: opendev.org/openstack/tripleo-ansible
+      - zuul: rdo-infra/ci-config
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+      - opendev.org/openstack/ansible-role-container-registry
+      - opendev.org/openstack/tripleo-ansible
+    secrets:
+      - dlrnapi
+    vars:
+      configure_swap_size: 4096
+
+
 ##########################################
 #     Standalone Job Parenting           #
 ##########################################
