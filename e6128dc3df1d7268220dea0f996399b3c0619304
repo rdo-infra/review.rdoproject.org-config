@@ -16,6 +16,24 @@
       "message": "Do we know why we need container login?",
       "revId": "e6128dc3df1d7268220dea0f996399b3c0619304",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62535d20_b93439b0",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-07-25T10:09:14Z",
+      "side": 1,
+      "message": "as discussed in the reviews call I was just re-creating what we have for other jobs\n\nlooks like we set \"registry_login_enabled: true\" in most places there [1] (this file)\n\nI think we used to require login before we moved to the quay registry?\n\nBut now it seems OK, e.g. i just tried pulling without login and it was fine\n\n[tripleo-ci]$ podman pull quay.rdoproject.org/tripleowallabycentos9/openstack-cinder-api:ac00a501db05c0e67ca9449d142bb86f\nTrying to pull quay.rdoproject.org/tripleowallabycentos9/openstack-cinder-api:ac00a501db05c0e67ca9449d142bb86f...\nGetting image source signatures\nCopying blob 5ff3a5201f45 done  \nCopying blob d8c0d65ca40a done  \nCopying blob f425776205fa [\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003e------------------------] 29.5MiB / 78.1MiB\nCopying blob b10a4159c6f7 done  \nCopying blob df48f1226e94 done  \nCopying blob b6da9288e59c [\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003e-------] 28.9MiB / 34.8MiB\n\n\nSo I can try removing the login stuff before merge, but then there should be followup work to remove it in all the other places too?\n\n\n\n[1] https://codesearch.rdoproject.org/codesearch/?q\u003dregistry_login_enabled",
+      "parentUuid": "44363316_e5691b7e",
+      "revId": "e6128dc3df1d7268220dea0f996399b3c0619304",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
