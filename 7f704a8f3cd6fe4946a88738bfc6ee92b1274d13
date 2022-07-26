@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698c8dc2_80443590",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-07-26T10:30:02Z",
+      "side": 1,
+      "message": "One suggestion, rest looks good. We can also merge as it is, it is not going to break anything. If you want, you can update it after testing.",
+      "revId": "7f704a8f3cd6fe4946a88738bfc6ee92b1274d13",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b26336f8_a416e13f",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-07-26T10:30:02Z",
+      "side": 1,
+      "message": "I think we also need to add\n```\npromote_source: tripleo-ci-testing \n```\nvar to work with get_hash. If you check other jobs below we have added this var for cs8 and cs9 distro jobs.",
+      "revId": "7f704a8f3cd6fe4946a88738bfc6ee92b1274d13",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
