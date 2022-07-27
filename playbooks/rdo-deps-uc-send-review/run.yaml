@@ -9,8 +9,9 @@
           TOPIC="deps-uc-update"
           MAX_BUMPED_PKGS_IN_RDOINFO=5
 
+          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
-          virtualenv --system-site-packages .venv
+          virtualenv -p /usr/bin/python3.6 --system-site-packages .venv
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg koji rpm_vercmp
           # Install releng, needed for add-buildsys-tags.py script
@@ -48,7 +49,6 @@
 
           # We apply the change list to the master buildsys-tags testing file,
           # in order to have the accociated NVR list.
-          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
