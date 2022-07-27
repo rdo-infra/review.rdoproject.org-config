@@ -9,6 +9,7 @@
           TOPIC="deps-uc-update"
           MAX_BUMPED_PKGS_IN_RDOINFO=5
 
+          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
@@ -48,7 +49,6 @@
 
           # We apply the change list to the master buildsys-tags testing file,
           # in order to have the accociated NVR list.
-          GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
@@ -67,7 +67,7 @@
             source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             for pkg in $NVR; do
 
-              # We don't want more than $MAX_BUMPED_PKGS_IN_RDOINFO in the
+              # We do not want more than $MAX_BUMPED_PKGS_IN_RDOINFO in the
               # final rdoinfo patch.
               if [ `wc -w <<< "$change_list_filtered"` -gt $((MAX_BUMPED_PKGS_IN_RDOINFO-1)) ]; then
                   break
