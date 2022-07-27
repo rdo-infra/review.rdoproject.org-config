@@ -418,9 +418,6 @@
     name: opendev.org/openstack/requirements
     templates:
       - system-required
-    periodic:
-      jobs:
-        - rdo-deps-uc-send-review
 
 - project:
     name: opendev.org/openstack/rpm-packaging
@@ -6514,6 +6511,7 @@
         - rdoinfo-upper-constraints-update
         - rdoinfo-buildsys-tags-update-testing
         - rdoinfo-buildsys-tags-update-release
+        - rdo-deps-uc-send-review
     post:
       jobs:
         - rdoinfo-create-project

@@ -49,7 +49,7 @@
 
           # We apply the change list to the master buildsys-tags testing file,
           # in order to have the accociated NVR list.
-          pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+          pushd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
           python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
               -l $change_list \
               -r $MASTER_RELEASE \
@@ -134,7 +134,7 @@
 
 
             if [ -n "$change_list_filtered" ]; then
-              pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}
+              pushd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
               git stash
               echo -e "INFO: bumping the selected packages in rdoinfo: $change_list_filtered"
               python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
