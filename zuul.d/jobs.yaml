@@ -79,6 +79,7 @@
       A job to validate cbs builds.
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-validate/run.yaml
+    post-run: playbooks/distgit-cbs-validate/post.yaml
     required-projects:
       - name: gating_scripts
     nodeset: rdo-centos-7
@@ -93,6 +94,7 @@
       A job to for cbs final builds.
     pre-run: playbooks/distgit-cbs-validate/pre.yaml
     run: playbooks/distgit-cbs-final-build/run.yaml
+    post-run: playbooks/distgit-cbs-validate/post.yaml
     required-projects:
       - name: gating_scripts
     nodeset: rdo-centos-7
