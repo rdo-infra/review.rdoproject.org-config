@@ -213,7 +213,8 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s train,8s yoga,8s yoga,9s
+      supported_releases: zed,9s yoga,9s yoga,8s xena,8s wallaby,8s victoria,8s ussuri,8s train,8s train
+      master_release: zed
     nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
@@ -237,7 +238,8 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      stable_releases: train xena,8s wallaby,8s victoria,8s ussuri,8s
+      supported_releases: zed,9s yoga,9s yoga,8s xena,8s wallaby,8s victoria,8s ussuri,8s train
+      master_release: zed
     nodeset: rdo-centos-8-stream
     timeout: 3600
     required-projects:
