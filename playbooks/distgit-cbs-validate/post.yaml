@@ -6,10 +6,15 @@
       register: taskid_file
 
     - name: report CBS Task ID to review
-      zuul_return:
-        data:
-          zuul:
-            warnings:
-              - "CBS Task ID for job {{zuul.job }} : https://cbs.centos.org/koji/taskinfo?taskID={{ lookup('file', '/tmp/tid_report') }}"
+      block:
+        - name: get tid file content
+          command: "cat /tmp/tid_report"
+          register: taskid_content
+
+        - zuul_return:
+            data:
+              zuul:
+                warnings:
+                  - "CBS Task ID for job {{zuul.job }} : https://cbs.centos.org/koji/taskinfo?taskID={{ taskid_content.stdout }}"
       when: taskid_file.stat.exists
 
