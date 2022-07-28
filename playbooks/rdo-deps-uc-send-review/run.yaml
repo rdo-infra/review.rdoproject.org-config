@@ -7,7 +7,6 @@
           set +e -x
           MASTER_RELEASE="zed"
           TOPIC="deps-uc-update"
-          MAX_BUMPED_PKGS_IN_RDOINFO=5
 
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
@@ -61,18 +60,10 @@
 
           if [ -n "$DIFF" ]; then
             NVR=$(echo -e "$DIFF"|grep -P '^\+(?:(?!\+\+))'|grep -e "$MASTER_RELEASE-testing"|cut -d: -f2|rev|cut -d. -f2-|rev)
-            change_list_filtered=""
             branch=c9s-$MASTER_RELEASE-rdo
             pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}
             source ${GATING_SCRIPTS_BASE}/rpm-deps-gating-lib.common
             for pkg in $NVR; do
-
-              # We do not want more than $MAX_BUMPED_PKGS_IN_RDOINFO in the
-              # final rdoinfo patch.
-              if [ `wc -w <<< "$change_list_filtered"` -gt $((MAX_BUMPED_PKGS_IN_RDOINFO-1)) ]; then
-                  break
-              fi
-
               needs_update=true
               change_url=""
               pkg_name=$(echo $pkg | sed 's/^\(.*\)-\([^-]\{1,\}\)-\([^-]\{1,\}\)$/\1/')
@@ -101,9 +92,7 @@
               # a patch (if not yet opened).
               in_cbs_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers cbs exact)
               if [ $? -eq 0 ]; then
-                echo -e "INFO ${pkg_nv}: there is a build found in CBS Koji '$in_cbs_nvr'"
-                echo -e "INFO ${pkg_nv}: we add it in final rdoinfo patch"
-                change_list_filtered="$change_list_filtered $pkg_name===$pkg_vers"
+                echo -e "INFO ${pkg_nv}: there is a build found in CBS Koji '$in_cbs_nvr', it will be promoted in next rdoinfo-buildsys-tags-update-testing job execution"
               else
                 echo -e "INFO ${pkg_nv}: there is NO build found in CBS Koji"
                 echo -e "INFO ${pkg_nv}: we're checking whether a patch is already created or not..."
@@ -131,29 +120,6 @@
                 fi
               fi
             done
-
-
-            if [ -n "$change_list_filtered" ]; then
-              pushd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
-              git stash
-              echo -e "INFO: bumping the selected packages in rdoinfo: $change_list_filtered"
-              python ${GATING_SCRIPTS_BASE}/buildsys-tags/add-buildsys-tags.py \
-                  -l $change_list_filtered \
-                  -r $MASTER_RELEASE \
-                  --centos-release 9s \
-                  -p testing \
-                  --no-update-all-files
-              COMMIT_MSG="CBS tags sync with uc for $MASTER_RELEASE-testing"
-              git checkout -b proposal
-              git review -s -v
-              echo -e $COMMIT_MSG | git commit -F- *.yml */*.yml
-              echo -e "INFO: submitting rdoinfo patch..."
-              git review -t $TOPIC < /dev/null
-              popd
-            else
-              echo "INFO: there is nothing to commit in rdoinfo repo, exiting"
-              exit 0
-            fi
           else
             echo "INFO: There is no deps to update, exiting"
             exit 0
