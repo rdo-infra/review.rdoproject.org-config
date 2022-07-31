@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-requests-toolbelt-core:
+      description: Core developers for project python-requests-toolbelt
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/python-requests-toolbelt-ptl:
+      description: Project team lead for project python-requests-toolbelt
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-requests-toolbelt:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-requests-toolbelt-core
+          owner = group deps/python-requests-toolbelt-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-requests-toolbelt-core
+          label-Code-Review = -2..+2 group deps/python-requests-toolbelt-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-requests-toolbelt-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-requests-toolbelt-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-requests-toolbelt-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-requests-toolbelt-core
+          label-Workflow = -1..+0 group deps/python-requests-toolbelt-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-requests-toolbelt-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-requests-toolbelt-core
+      - deps/python-requests-toolbelt-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-requests-toolbelt:
+      acl: deps-python-requests-toolbelt
+      description: Packaging of RDO dependency python-requests-toolbelt
+      default-branch: c9s-zed-rdo
+      branches:
+        master: '0'
