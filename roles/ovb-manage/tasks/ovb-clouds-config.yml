@@ -1,3 +1,21 @@
+- name: Generate IBM cert
+  when: cloud_name in ["ibm-bm2-nodepool"]
+  block:
+    - name: Load IBM CA certs vars
+      include_vars:
+        file: files/ibm-bm2-nodepool.yaml
+        name: ibm_cert
+
+    - name: Generate IBM CA cert file
+      copy:
+        content: "{{ ibm_cert.ca_cert }}"
+        dest: "{{ cloud_cert_dir }}/{{ ibm_cert.ibm-bm2-nodepool.crt }}"
+        mode: 0755
+
+    - name: Set the cacert_file path
+      set_fact:
+       cacert_path: "{{ cloud_cert_dir }}/{{ ibm_cert.ibm-bm2-nodepool.crt }}"
+
 - name: Generate clouds.yaml file
   template:
     src: clouds.yaml.j2
