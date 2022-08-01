@@ -72,13 +72,6 @@
 
               echo -e "INFO: processing ${pkg_nv}..."
 
-              is_in_rdoinfo_patch_already $pkg $MASTER_RELEASE $TOPIC
-              if [ $? -eq 0 ]; then
-                echo -e "INFO ${pkg_nv}: it's already proposed in a rdoinfo patch"
-                echo -e "INFO ${pkg_nv}: moving to next package..."
-                continue
-              fi
-
               in_koji_nvr=$(python3 exist_in_koji.py $pkg_name $pkg_vers koji exact)
               if [ $? -eq 0 ]; then
                 echo -e "INFO ${pkg_nv}: there is build found in Fedora Koji '$in_koji_nvr'"
