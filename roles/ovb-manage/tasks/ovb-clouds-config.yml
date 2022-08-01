@@ -9,12 +9,12 @@
     - name: Generate IBM CA cert file
       copy:
         content: "{{ ibm_cert.ca_cert }}"
-        dest: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ibm-bm2-nodepool.crt }}"
+        dest: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ca_cert_name }}"
         mode: 0755
 
     - name: Set the cacert_file path
       set_fact:
-       cacert_path: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ibm-bm2-nodepool.crt }}"
+       cacert_path: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ca_cert_name }}"
 
     - name: Update CA certs
       command: update-ca-trust
