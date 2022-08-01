@@ -4,6 +4,9 @@ clouds:
     identity_api_version: {{ identity_api_version }}
     {% endif -%}
     region_name: {{ os_region_name }}
+    {% if cacert_path is defined and cacert_path %}
+    cacert: {{ cacert_path }}
+    {% endif %}
     auth:
       username: {{ os_username }}
       password: {{ os_password }}
