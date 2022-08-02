@@ -582,6 +582,11 @@
     vars:
       registry_login_enabled: true
 
+# NOTE(dasm):
+# OVB required project is defined in rdo-jobs/zuul.d/ovb-jobs.yaml
+# tripleo-ci-base-ovb-required-projects-rdo -> tripleo-ci-ovb-rdo
+# We need to overwrite its value to force CS8 to use stable/2.0 branch.
+# CS9 all branches will continue use of OVB master branch.
 - job:
     name: tripleo-ci-ovb-rdo-centos-8
     abstract: true
@@ -589,6 +594,9 @@
       Base abstract job for OVB in RDO CI Centos-8 zuulv3 jobs
     parent: tripleo-ci-ovb-rdo
     nodeset: tripleo-ovb-centos-8-primary-vexxhost
+    required-projects:
+      - name: opendev.org/openstack/openstack-virtual-baremetal
+        override-checkout: "stable/2.0"
     vars:
       configure_swap_size: 4096
 
