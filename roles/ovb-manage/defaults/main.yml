@@ -92,6 +92,16 @@ cloud_settings:
         dhcp_relay_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_flavor: ci.m1.small
         dns_nameservers: ['10.11.5.19', '10.5.30.45']
+    ibm-bm2-nodepool:
+        baremetal_flavor: m1.large
+        bmc_flavor: m1.small
+        dhcp_relay_flavor: m1.small
+        enable_baremetal_config_drive: 'true'
+        enable_config_drive: 'true'
+        extra_node_flavor: m1.small
+        public_ip_net: hostonly
+        radvd_flavor: m1.small
+        undercloud_flavor: nodepool
 
 net_iso: 'multi-nic'  # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
