@@ -102,6 +102,9 @@ cloud_settings:
         public_ip_net: hostonly
         radvd_flavor: m1.small
         undercloud_flavor: nodepool
+        baremetal_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_image: "{{ rdo_baremetal_image }}"
+        radvd_image: "{{ rdo_baremetal_image }}"
 
 net_iso: 'multi-nic'  # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
