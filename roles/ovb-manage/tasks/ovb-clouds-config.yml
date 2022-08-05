@@ -6,10 +6,6 @@
         file: files/ibm-bm2-nodepool.yaml
         name: ibm_cert
 
-    - name: Load IBM cloud specific vars
-      include_vars:
-        file: vars/ibm_cloud.yml
-
     - name: Generate IBM CA cert file
       become: true
       copy:

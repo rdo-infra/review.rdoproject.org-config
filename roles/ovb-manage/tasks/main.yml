@@ -39,6 +39,11 @@
     state: link
   when: not ovb_clone|bool and ovb_repo_source_dir
 
+- name: Load vars for IBM cloud
+  include_vars:
+    file: vars/ibm_cloud.yml
+  when: cloud_name in ["ibm-bm2-nodepool"]
+
 - name: Install openstack client
   include: install_openstack_deps.yml
 
