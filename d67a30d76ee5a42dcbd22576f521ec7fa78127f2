@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3ca724_e89c521b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-08-09T06:40:47Z",
+      "side": 1,
+      "message": "so that patch should depends-on this ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "d67a30d76ee5a42dcbd22576f521ec7fa78127f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a948ff22_5bc17936",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-08-09T06:40:47Z",
+      "side": 1,
+      "message": "lgtm but inline sanity check please",
+      "revId": "d67a30d76ee5a42dcbd22576f521ec7fa78127f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb2e4672_6878511e",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-08-09T06:40:47Z",
+      "side": 1,
+      "message": "far as i can see, these two are copy/paste of each other \n\nhttps://opendev.org/openstack/tripleo-ci/src/commit/78a0506b67463f18e0650c2602387164bb92fe30/zuul.d/base-upstream.yaml#L255\n\nvs \n\nhttps://opendev.org/openstack/tripleo-ci/src/commit/78a0506b67463f18e0650c2602387164bb92fe30/zuul.d/base.yaml#L164\n\n\nEDIT\n\nk just spotted something, -ovb has ansible-version 2.8 and -ovb-standard has 2.9\ndo we need to sanity check this with tests?",
+      "revId": "d67a30d76ee5a42dcbd22576f521ec7fa78127f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
