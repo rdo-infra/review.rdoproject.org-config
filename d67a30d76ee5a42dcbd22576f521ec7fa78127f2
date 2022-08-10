@@ -56,6 +56,24 @@
       "message": "far as i can see, these two are copy/paste of each other \n\nhttps://opendev.org/openstack/tripleo-ci/src/commit/78a0506b67463f18e0650c2602387164bb92fe30/zuul.d/base-upstream.yaml#L255\n\nvs \n\nhttps://opendev.org/openstack/tripleo-ci/src/commit/78a0506b67463f18e0650c2602387164bb92fe30/zuul.d/base.yaml#L164\n\n\nEDIT\n\nk just spotted something, -ovb has ansible-version 2.8 and -ovb-standard has 2.9\ndo we need to sanity check this with tests?",
       "revId": "d67a30d76ee5a42dcbd22576f521ec7fa78127f2",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6432c6_3b8747dd",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2022-08-10T06:31:31Z",
+      "side": 1,
+      "message": "Thank you Marios for reviewing it.\nAfter further investigation, I found that we no longer need these base jobs .\nAs a part of new parenting:\nhttps://github.com/rdo-infra/review.rdoproject.org-config/commit/c10222d5f7ae5a3682703b3de5ab20660bb3eadb adds ovb check base parent.\n\nhttps://github.com/rdo-infra/review.rdoproject.org-config/commit/046d8af768f26122ee26710a30500d7e62312a12\nadds periodic parent.\n\nand these are consumed here:\nhttps://github.com/rdo-infra/rdo-jobs/commit/2cf9f5ba5df6d91229049cdb2c393ec6e1e0bf89 \n\nI am going to create a new patchset and remove these old jobs.",
+      "parentUuid": "bb2e4672_6878511e",
+      "revId": "d67a30d76ee5a42dcbd22576f521ec7fa78127f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
