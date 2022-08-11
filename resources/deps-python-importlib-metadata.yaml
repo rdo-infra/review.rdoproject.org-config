@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-importlib-metadata-core:
+      description: Core developers for project python-importlib-metadata
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/python-importlib-metadata-ptl:
+      description: Project team lead for project python-importlib-metadata
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-importlib-metadata:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-importlib-metadata-core
+          owner = group deps/python-importlib-metadata-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-importlib-metadata-core
+          label-Code-Review = -2..+2 group deps/python-importlib-metadata-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-importlib-metadata-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-importlib-metadata-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-importlib-metadata-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-importlib-metadata-core
+          label-Workflow = -1..+0 group deps/python-importlib-metadata-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-importlib-metadata-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-importlib-metadata-core
+      - deps/python-importlib-metadata-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-importlib-metadata:
+      acl: deps-python-importlib-metadata
+      description: Packaging of RDO dependency python-importlib-metadata
+      default-branch: c9s-zed-rdo
+      branches:
+        master: '0'
