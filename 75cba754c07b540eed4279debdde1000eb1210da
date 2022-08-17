@@ -94,6 +94,121 @@
       },
       "revId": "75cba754c07b540eed4279debdde1000eb1210da",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d5e6fb_1e9726d7",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-08-17T07:11:51Z",
+      "side": 0,
+      "message": "Used as parent of multiple jobs:-\n\nhttps://review.rdoproject.org/codesearch/?q\u003dparent%3A%20tripleo-ci-base-ovb-rdo-centos-8\u0026i\u003dnope\u0026files\u003d\u0026repos\u003d\n\nex:-\n~~~\nzuul.d/distgit-jobs.yaml\n406- job:\n407    name: distgit-tripleo-master-testing-centos-8-ovb-3ctlr_1comp-featureset001\n408    parent: tripleo-ci-base-ovb-rdo-centos-8\n\n~~~\n\n\n~~~\nzuul.d/rdoinfo-jobs.yaml\n697- job:\n698    name: rdoinfo-tripleo-master-testing-centos-8-ovb-3ctlr_1comp-featureset001\n699    parent: tripleo-ci-base-ovb-rdo-centos-8\n~~~~",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "75cba754c07b540eed4279debdde1000eb1210da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7cde7d_256adfb9",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-08-17T07:11:51Z",
+      "side": 0,
+      "message": "Parent of some jobs:-\n\nhttps://review.rdoproject.org/codesearch/?q\u003dparent%3A%20tripleo-ci-base-standalone-rdo\u0026i\u003dnope\u0026files\u003d\u0026repos\u003d\n\n\nzuul.d/distgit-jobs.yaml\n\n\n~~~\n6- job:\n7    name: distgit-tripleo-master-testing-centos-7-base\n8    parent: tripleo-ci-base-standalone-rdo\n9    nodeset: single-centos-7-node-vexxhost\n~~~\n\n\nzuul.d/rdoinfo-jobs.yaml\n\n~~~\n6- job:\n7    name: rdoinfo-tripleo-centos-7-base\n8    parent: tripleo-ci-base-standalone-rdo\n9    nodeset: single-centos-7-node-vexxhost\n~~~",
+      "range": {
+        "startLine": 104,
+        "startChar": 10,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "75cba754c07b540eed4279debdde1000eb1210da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f799e8_84685e8b",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-08-17T07:11:51Z",
+      "side": 0,
+      "message": "Found some usage in ceph-ansible.yaml:-\n\n~~~\n202- job:\n203    name: tripleo-ceph-integration-centos-8-scenarios-standalone\n204    parent: tripleo-ci-base-standalone-rdo-centos-8\n205    run: playbooks/run-rpm-build.yaml\n206    required-projects:\n282- job:\n283    name: tripleo-ceph-integration-centos-8-scenarios-standalone-wallaby\n284    parent: tripleo-ci-base-standalone-rdo-centos-8\n285    run: playbooks/run-rpm-build.yaml\n286    override-checkout: \"stable/wallaby\"\n345- job:\n346    name: tripleo-ceph-integration-centos-8-scenarios-standalone-victoria\n347    parent: tripleo-ci-base-standalone-rdo-centos-8\n348    run: playbooks/run-rpm-build.yaml\n349    override-checkout: \"stable/victoria\"\n405- job:\n406    name: tripleo-ceph-integration-centos-8-scenarios-standalone-ussuri\n407    parent: tripleo-ci-base-standalone-rdo-centos-8\n408    run: playbooks/run-rpm-build.yaml\n409    override-checkout: \"stable/ussuri\"\n469- job:\n470    name: tripleo-ceph-integration-centos-8-scenarios-standalone-train\n471    parent: tripleo-ci-base-standalone-rdo-centos-8\n472    run: playbooks/run-rpm-build.yaml\n473    override-checkout: \"stable/train\"\n\n~~~\n\n\nhttps://review.rdoproject.org/codesearch/?q\u003dparent%3A%20tripleo-ci-base-standalone-rdo-centos-8\u0026i\u003dnope\u0026files\u003d\u0026repos\u003d",
+      "range": {
+        "startLine": 125,
+        "startChar": 10,
+        "endLine": 125,
+        "endChar": 49
+      },
+      "revId": "75cba754c07b540eed4279debdde1000eb1210da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98043a70_1907ad1e",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-08-17T07:11:51Z",
+      "side": 0,
+      "message": "It is used as parent here:\n\nhttps://review.rdoproject.org/codesearch/?q\u003dparent%3A%20tripleo-ci-base-ovb-periodic-upload\u0026i\u003dnope\u0026files\u003d\u0026repos\u003d\n~~~\n11- job:\n12    name: periodic-tripleo-ci-fedora-28-ovb-1ctlr_1comp-featureset002-master-upload\n13    parent: tripleo-ci-base-ovb-periodic-upload\n~~~",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "75cba754c07b540eed4279debdde1000eb1210da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5403fc99_6456c720",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-08-17T07:11:51Z",
+      "side": 0,
+      "message": "Found this job is used as parent in some jobs.\n\n\n~~~\n- job:\n946    name: periodic-tripleo-ci-centos-8-standalone-upgrade-component-master\n947    parent: tripleo-ci-base-standalone-upgrade-periodic-centos-8\n~~~\n \n~~~\n91- job:\n292    name: periodic-tripleo-ci-centos-8-standalone-upgrade-master\n293    parent: tripleo-ci-base-standalone-upgrade-periodic-centos-8\n294    voting: false\n~~~\n\n\nhttps://review.rdoproject.org/codesearch/?q\u003dparent%3A%20tripleo-ci-base-standalone-upgrade-periodic-centos-8\u0026i\u003dnope\u0026files\u003d\u0026repos\u003d",
+      "range": {
+        "startLine": 273,
+        "startChar": 10,
+        "endLine": 273,
+        "endChar": 62
+      },
+      "revId": "75cba754c07b540eed4279debdde1000eb1210da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
