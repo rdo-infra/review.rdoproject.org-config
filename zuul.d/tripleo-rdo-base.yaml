@@ -294,6 +294,7 @@
       - rdo_registry
     vars:
       registry_login_enabled: true
+      bmc_template_name: CentOS-Stream-GenericCloud-9-20211216
 
 # NOTE(dasm):
 # OVB required project is defined in rdo-jobs/zuul.d/ovb-jobs.yaml
@@ -312,6 +313,7 @@
         override-checkout: "stable/2.0"
     vars:
       configure_swap_size: 4096
+      bmc_template_name: bmc-template
 
 - job:
     name: tripleo-ci-ovb-rdo-centos-9
@@ -357,6 +359,8 @@
     required-projects:
       - name: opendev.org/openstack/openstack-virtual-baremetal
         override-checkout: "stable/2.0"
+    vars:
+      bmc_template_name: bmc-template
 
 - job:
     name: periodic-tripleo-ci-ovb-rdo-centos-9
