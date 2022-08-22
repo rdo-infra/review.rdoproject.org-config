@@ -181,7 +181,7 @@
     precedence: normal
     trigger:
       timer:
-        - time: '0 4 * * *'
+        - time: '0 18 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -213,7 +213,7 @@
     precedence: normal
     trigger:
       timer:
-        - time: '0 18 * * *'
+        - time: '0 4 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
