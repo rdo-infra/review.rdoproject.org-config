@@ -229,3 +229,32 @@
         path: '{{ ansible_user_dir }}/workspace'
         state: directory
       when: ansible_user_id != "zuul-worker"
+
+    # Tasks to Provide custom DNS and disable systemd-resolved service
+    # Taken from https://softwarefactory-project.io/r/c/software-factory/sf-operator/+/25926
+    - name: Disable systemd-resolved
+      become: true
+      service:
+        name: systemd-resolved
+        state: stopped
+        enabled: false
+      register: _disable_resolved
+
+    - name: Set dns to default in Network Manger
+      become: true
+      ini_file:
+        path: /etc/NetworkManager/NetworkManager.conf
+        section: main
+        option: dns
+        value: default
+        no_extra_spaces: true
+
+    - name: Provide custom nameservers
+      become: true
+      copy:
+        content: |
+          nameserver 1.1.1.1
+          nameserver 8.8.8.8
+          search openstacklocal
+        dest: /etc/resolv.conf
+      when: _disable_resolved.changed
