@@ -76,7 +76,7 @@
         - { net: "public-{{ idnum }}", delete: "{% if net_iso and net_iso != 'none' %}true{% endif %}" }
       register: baremetal_ports
       when: item.delete|bool
-      ignore_errors: true
+      failed_when: false
 
     - name: Create script for removing ports
       template:
@@ -137,7 +137,7 @@
       until: ("IN_PROGRESS" not in result.stdout or result.rc != 0)
       retries: 10
       delay: 30
-      ignore_errors: true
+      failed_when: false
       changed_when: false
 
     - name: Check stack status if exists
@@ -157,12 +157,12 @@
     - name: Show stack status if exists
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }} -f yaml"
       register: stack_exists
-      ignore_errors: true
+      failed_when: false
 
     - name: Show extra stack status if exists
       command: "{{ ovb_working_dir }}/.venv/bin/openstack stack show {{ stack_name }}-extra -f yaml"
       register: extra_stack_exists
-      ignore_errors: true
+      failed_when: false
       when: extra_node|bool
       changed_when: false
 
