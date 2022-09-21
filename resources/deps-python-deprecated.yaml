@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-deprecated-core:
+      description: Core developers for project python-deprecated
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/python-deprecated-ptl:
+      description: Project team lead for project python-deprecated
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-deprecated:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-deprecated-core
+          owner = group deps/python-deprecated-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-deprecated-core
+          label-Code-Review = -2..+2 group deps/python-deprecated-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-deprecated-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-deprecated-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-deprecated-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-deprecated-core
+          label-Workflow = -1..+0 group deps/python-deprecated-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-deprecated-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-deprecated-core
+      - deps/python-deprecated-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-deprecated:
+      acl: deps-python-deprecated
+      description: Packaging of RDO dependency python-deprecated
+      default-branch: c9s-zed-rdo
+      branches:
+        master: '0'
