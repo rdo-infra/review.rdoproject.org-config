@@ -209,6 +209,7 @@
       - dlrnapi
       - quay_rdoproject_master_centos_9_secret
       - quay_rdoproject_wallaby_centos_9_secret
+      - quay_rdoproject_zed_centos_9_secret
     vars: &build_containers_vars
       release: master
       use_buildah: true
@@ -356,6 +357,7 @@
     secrets:
       - uploader_ssh_key
       - quay_rdoproject_master_centos_9_secret
+      - quay_rdoproject_zed_centos_9_secret
       - quay_rdoproject_wallaby_centos_9_secret
     vars:
       destination_ceph_tag: "current-ceph"
