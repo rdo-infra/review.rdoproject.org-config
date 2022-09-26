@@ -14,7 +14,9 @@
       - integration-pipeline-train
       - integration-pipeline-wallaby
       - integration-pipeline-wallaby-centos9
+      - integration-pipeline-zed-centos9
       - component-pipeline-master-centos9
+      - component-pipeline-zed-centos9
       - component-pipeline-wallaby-centos9
       - component-pipeline-wallaby
       - component-pipeline-train
@@ -28,6 +30,8 @@
       - tempest-skiplist-integration-pipeline
       - ceph-daemon-promotion-pipeline
       - ceph-daemon-promotion-pipeline-wallaby
+      # TODO(marios) uncomment once review.rdoproject.org/r/c/rdo-jobs/+/45273
+      # - ceph-daemon-promotion-pipeline-zed
     openstack-regular:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-train:
