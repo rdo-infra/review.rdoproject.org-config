@@ -13,4 +13,4 @@ pip_packages:
   - python-neutronclient
   - python-glanceclient
 
-constraint_file: https://opendev.org/openstack/requirements/raw/branch/stable/wallaby/upper-constraints.txt
+constraint_file: "{{ ansible_user_dir }}/{{ zuul.projects['opendev.org/openstack/requirements'].src_dir }}/upper-constraints.txt"

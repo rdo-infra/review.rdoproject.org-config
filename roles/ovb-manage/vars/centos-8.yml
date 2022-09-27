@@ -6,3 +6,12 @@ packages:
   - python3-pip
   - python3-virtualenv
 
+# C8 needs glanceclient
+pip_packages:
+  - python-openstackclient
+  - python-heatclient
+  - python-novaclient
+  - python-neutronclient
+  - python-glanceclient
+
+constraint_file: "{{ ansible_user_dir }}/{{ zuul.projects['opendev.org/openstack/requirements'].src_dir }}/upper-constraints.txt"
