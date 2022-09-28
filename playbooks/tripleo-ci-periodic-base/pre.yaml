@@ -16,16 +16,25 @@
     # the stable_version is c9 and it runs on a c9 node. We override
     # distro for get_hash to fetch the right (c8) hash for dlrn reporting
     - name: Create hash_info file for dlrn reporting - Mixed OS jobs
-      include_role:
-        name: get_hash
-        tasks_from: get_hash.yaml
-      vars:
-        distro: "centos8"
       when:
         - ansible_distribution == "CentOS"
         - ansible_distribution_major_version|int >= 8
         - mixed_os_stable_version is defined
-        - mixed_os_stable_version is version(ansible_distribution_major_version, "==")
+      block:
+        - name: Create hash_info file for Mixed OS jobs - override distro
+          include_role:
+            name: get_hash
+            tasks_from: get_hash.yaml
+          vars:
+            distro: "centos8"
+          when:
+            - mixed_os_stable_version is version(ansible_distribution_major_version, "==")
+        - name: Create hash_info file for Mixed OS jobs - no distro override
+          include_role:
+            name: get_hash
+            tasks_from: get_hash.yaml
+          when:
+            - mixed_os_stable_version is version(ansible_distribution_major_version, "!=")
 
     - name: Populate hash.info required for dlrn reporting
       shell:
