@@ -22,6 +22,16 @@
       package:
         name: "{{ packages }}"
 
+    - name: checkout specific branch for CS8 openstack/requirements project
+      shell: |
+        pushd {{ ansible_user_dir }}/{{ zuul.projects['opendev.org/openstack/requirements'].src_dir }}
+        git checkout {{ branch_override }}
+        popd
+      when:
+        - branch_override is defined
+        - ansible_distribution == 'CentOS'
+        - ansible_distribution_major_version is version(8, '==')
+
     - name: Install openstack clients in venv
       pip:
         name: "{{ pip_packages }}"
