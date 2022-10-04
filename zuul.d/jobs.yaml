@@ -213,7 +213,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      supported_releases: zed,9s yoga,9s yoga,8s xena,8s wallaby,8s victoria,8s ussuri,8s train,8s train
+      supported_releases: antelope,9s zed,9s yoga,9s yoga,8s xena,8s wallaby,8s victoria,8s ussuri,8s train,8s train
       master_release: zed
     nodeset: rdo-centos-8-stream
     timeout: 3600
@@ -260,7 +260,7 @@
     pre-run: playbooks/rdoinfo/buildsys-tags-update/pre.yaml
     run: playbooks/rdoinfo/upper-constraints-update/run.yaml
     vars:
-      stable_releases: ussuri victoria wallaby xena yoga master
+      stable_releases: ussuri victoria wallaby xena yoga zed master
     nodeset: rdo-centos-8-stream
     required-projects:
       - name: rdoinfo
