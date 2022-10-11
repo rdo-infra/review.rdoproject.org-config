@@ -5,8 +5,22 @@
       shell:
         cmd: |
           set +e -x
-          MASTER_RELEASE="antelope"
+          source '{{ ansible_user_dir }}/rdopkg-venv/bin/activate'
+          MASTER_RELEASE="$(rdopkg info | grep -e "in development phase" | awk '{print $1}')"
+          deactivate
           TOPIC="deps-uc-update"
+
+          UPSTREAM_BRANCHES=$(curl --fail --request GET --url "https://api.github.com/repos/openstack/requirements/branches" --header "Accept: application/vnd.github.v3+json")
+          if [ $? -ne 0 ]; then
+              echo "Error when fetching branches from openstack/requirements repo hosted on GitHub"
+              exit 0
+          fi
+
+          echo -e "$UPSTREAM_BRANCHES" | jq -r '.[].name' | grep -e "stable/$MASTER_RELEASE" >/dev/null 2>&1
+          if [ $? -eq 0 ]; then
+              echo "RDO master release is currently $MASTER_RELEASE, but this release is already in stable branches in https://github.com/openstack/requirements project. Exiting."
+              exit 0
+          fi
 
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
