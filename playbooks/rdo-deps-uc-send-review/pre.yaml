@@ -17,6 +17,17 @@
           sudo dnf install -y jq rpmdevtools;
       changed_when: true
 
+    - name: Install rdopkg
+      changed_when: true
+      shell:
+        cmd: |
+          set -e
+          pushd {{ ansible_user_dir }}/{{ zuul.projects['softwarefactory-project.io/rdopkg'].src_dir }}/
+          pip install .
+          popd
+      args:
+        chdir: "{{ ansible_user_dir }}"
+
     - name: Create SSH directory
       file:
         dest: ~/.ssh
