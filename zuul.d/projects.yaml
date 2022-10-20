@@ -1811,6 +1811,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cyborg
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cyborg-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/debtcollector
     templates:
       - package-check-jobs
