@@ -1,0 +1,95 @@
+resources:
+  groups:
+    openstack/cyborgclient-core:
+      description: Core developers for project cyborgclient
+      members:
+      - smooney@redhat.com
+    openstack/cyborgclient-ptl:
+      description: Project team lead for project cyborgclient
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-cyborgclient-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cyborgclient-core
+          owner = group openstack/cyborgclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cyborgclient-core
+          label-Code-Review = -2..+2 group openstack/cyborgclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cyborgclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cyborgclient-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/cyborgclient-core
+          label-Verified = -2..+2 group openstack/cyborgclient-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/cyborgclient-core
+          label-Workflow = -1..+1 group openstack/cyborgclient-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cyborgclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/cyborgclient-core
+      - openstack/cyborgclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-cyborgclient:
+      file: |
+        [access "refs/*"]
+          read = group openstack/cyborgclient-core
+          owner = group openstack/cyborgclient-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/cyborgclient-core
+          label-Code-Review = -2..+2 group openstack/cyborgclient-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/cyborgclient-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/cyborgclient-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/cyborgclient-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/cyborgclient-core
+          label-Workflow = -1..+0 group openstack/cyborgclient-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/cyborgclient-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/cyborgclient-core
+      - openstack/cyborgclient-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/cyborgclient:
+      acl: openstack-cyborgclient
+      
+      description: Mirror of upstream cyborgclient (mirror + patches)
+    openstack/cyborgclient-distgit:
+      acl: openstack-cyborgclient-distgit
+      description: Packaging of upstream cyborgclient
+      default-branch: rpm-master
+      branches:
+        master: '0'
