@@ -1824,6 +1824,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cyborg-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cyborg-tempest-plugin-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/debtcollector
     templates:
       - package-check-jobs
