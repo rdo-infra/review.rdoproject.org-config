@@ -139,6 +139,23 @@
       },
       "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19357942_719638de",
+        "filename": "roles/dlrn-report/tasks/dlrn-vars-setup.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2022-10-31T14:54:07Z",
+      "side": 1,
+      "message": "sorry folks, we have to revert this.\n\ninstead the fix will go into there https://code.engineering.redhat.com/gerrit/gitweb?p\u003dopenstack/tripleo-ci-internal-config.git;a\u003dblob;f\u003dplaybooks/dlrn/post-dlrn.yaml;h\u003d534078658dd738e55ca598fb3c859e732d7eb65c;hb\u003dHEAD#l5\n\n\n5     - name: Report job status to DLRN\n\n\nthis is working fine, but it is in the wrong place it happens too early. This is during the job pre and it seems the dlrn hash_info file is used to fetch containers. So since we tweaked it here it tries to fetch 8 hash for 9 containers:\n\nhttps://sf.hosted.upshift.rdu2.redhat.com/logs/70/310670/48/check/periodic-tripleo-ci-rhel-8-9-multinode-mixed-os-rhos-17.1/1b89a4e/logs/undercloud/home/zuul/undercloud_install.log\n\n\nhttps://docker-registry.upshift.redhat.com/v2/tripleorhos-17-1-rhel-9/openstack-ironic-conductor/manifests/8938272e192d9849efc2711e2941df38\n\n\n16:27 \u003cdviroel|rover\u003e this hash is from rhel-8, but it is trying to get from rhel-9\n\n\n\nso instead, we will move this and recreate the hash_info file directly before the delorean reporting which is what we actually need here.",
+      "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
