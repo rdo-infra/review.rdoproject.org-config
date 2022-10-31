@@ -34,6 +34,63 @@
       "parentUuid": "9cbee262_4b840aec",
       "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dee0f846_c9ea1db0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-10-31T12:48:47Z",
+      "side": 1,
+      "message": "One comment inline, thanks Marios",
+      "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6903c362_9bb7422b",
+        "filename": "roles/dlrn-report/tasks/dlrn-vars-setup.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-10-31T12:48:47Z",
+      "side": 1,
+      "message": "Ack, this is the right place for this fix, since we have on downstream:\n\n      include_role:\n        name: dlrn-report\n        tasks_from: dlrn-vars-setup.yml",
+      "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79410a5d_2e228282",
+        "filename": "roles/dlrn-report/tasks/dlrn-vars-setup.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-10-31T12:48:47Z",
+      "side": 1,
+      "message": "any chance of this affects other CentOS jobs? Isn\u0027t better to prevent CentOS jobs to enter this block?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "034c700cf451d64c5ded3abdd1ba2d3dccd8f31e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
