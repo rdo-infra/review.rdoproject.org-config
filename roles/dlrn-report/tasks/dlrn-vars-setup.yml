@@ -4,8 +4,33 @@
     name: get_hash
     tasks_from: get_hash.yaml
   when:
-    - release not in ['pike', 'queens', 'rocky', 'stein']
     - ansible_distribution_major_version|int >= 8
+    - mixed_os_stable_version is not defined
+
+  # https://bugzilla.redhat.com/show_bug.cgi?id=2138436 For 8-9 mixed OS job
+  # the stable_version is c9 and it runs on a c9 node. We override
+  # distro for get_hash to fetch the right (c8) hash for dlrn reporting
+- name: Create hash_info file for dlrn reporting - Mixed OS jobs
+  when:
+    - ansible_distribution_major_version|int >= 8
+    - mixed_os_stable_version is defined
+  block:
+    # override when running on rhel9 undercloud for rhel8 job (so stable->9)
+    - name: Create hash_info file for Mixed OS jobs - override distro
+      include_role:
+        name: get_hash
+        tasks_from: get_hash.yaml
+      vars:
+        distro: "redhat8"
+      when:
+        - mixed_os_stable_version is version(ansible_distribution_major_version, "==")
+    # no override for rhel9 undercloud in rhel9 job (stable->8)
+    - name: Create hash_info file for Mixed OS jobs - no override distro
+      include_role:
+        name: get_hash
+        tasks_from: get_hash.yaml
+      when:
+        - mixed_os_stable_version is version(ansible_distribution_major_version, "!=")
 
 - name: Populate hash.info required for dlrn reporting
   shell:
