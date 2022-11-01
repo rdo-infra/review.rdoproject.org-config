@@ -14,11 +14,11 @@
             export RELEASE="{{ release }}"
             export DISTRO_NAME="{{ ansible_distribution|lower }}"
             export DISTRO_VERSION="{{ ansible_distribution_major_version }}"
-            export CONTAINER_REGISTRY="{{ rdo_container_registry|default('trunk.registry.rdoproject.org') }}"
+            export CONTAINER_REGISTRY="{{ rdo_container_registry|default('quay.rdoproject.org') }}"
             bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/build-containers-images.sh
         args:
           chdir: "{{ workspace }}"
-        environment: "{{ zuul | zuul_legacy_vars | combine({'REGISTRY_PASSWORD': rdo_registry.token}) }}"
+        environment: "{{ zuul | zuul_legacy_vars | combine({'REGISTRY_PASSWORD': quay_login_secret_name.passwd}) }}"
 
       always:
       - name: Copy logs to logpath

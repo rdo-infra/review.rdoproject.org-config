@@ -17,9 +17,9 @@
         - name: Login to RDO registry
           become: "{{ item }}"
           docker_login:
-            registry_url: "{{ rdo_registry_url | default(lookup('env', 'REGISTRY_URL') | default('trunk.registry.rdoproject.org', true)) }}"
-            username: "{{ rdo_registry_user }}"
-            password: "{{ rdo_registry.token }}"
+            registry_url: "{{ rdo_registry_url | default(lookup('env', 'REGISTRY_URL') | default('quay.rdoproject.org', true)) }}"
+            username: "{{ quay_login_secret_name.username }}"
+            password: "{{ quay_login_secret_name.passwd }}"
             email: "{{ rdo_registry_email | default(omit, true) }}"
             reauthorize: true
           with_items:
