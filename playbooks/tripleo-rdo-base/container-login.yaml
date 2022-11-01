@@ -22,19 +22,11 @@
           # quay registries have syntax tripleo<branch><distro><version>
           set_fact:
             quay_login_secret_name: "{{ lookup('vars', 'quay_rdoproject_' + release + '_' + ansible_distribution | lower + '_' + ansible_distribution_major_version + '_secret', default='quay_rdoproject_master_centos_9_secret')}}"
-          when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
+
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
               quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.passwd }}'}"
-          when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
-
-        - name: Set vars for default registry login
-          set_fact:
-            container_registry_logins:
-              trunk.registry.rdoproject.org:
-                unused: "{{ rdo_registry.token }}"
-          when: push_registry | default('trunk.registry.rdoproject.org') not in ["quay.rdoproject.org"]
 
     - name: Include login
       no_log: true
