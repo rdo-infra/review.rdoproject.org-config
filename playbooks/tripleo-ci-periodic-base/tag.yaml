@@ -7,6 +7,6 @@
       {{ cmd }}
   with_items:
     - "podman tag {{ image }} {{ image }}_{{ ansible_architecture }}"
-    - "podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} {{ image }}_{{ ansible_architecture }}"
+    - "podman push --tls-verify=False --creds {{ quay_login_secret_name.username }}:{{ quay_login_secret_name.passwd }} {{ image }}_{{ ansible_architecture }}"
   loop_control:
     loop_var: "cmd"
