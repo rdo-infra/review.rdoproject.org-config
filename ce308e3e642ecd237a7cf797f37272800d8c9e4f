@@ -43,6 +43,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8c22fb87_2f607ceb",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-build.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-11-02T09:52:46Z",
+      "side": 1,
+      "message": "looks good, quay_login_secret is set here: https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/playbooks/tripleo-rdo-base/container-login.yaml#L24",
+      "revId": "ce308e3e642ecd237a7cf797f37272800d8c9e4f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "300372c4_833fc66f",
         "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
         "patchSetId": 2
@@ -60,6 +77,23 @@
         "endLine": 3,
         "endChar": 49
       },
+      "revId": "ce308e3e642ecd237a7cf797f37272800d8c9e4f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0b6e69_7d893934",
+        "filename": "playbooks/tripleo-ci-periodic-base/push.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-11-02T09:52:46Z",
+      "side": 1,
+      "message": "looks good as well. But I have a question: where were we using this before? After we moved to quay the jobs should have failed on this, but they did not",
       "revId": "ce308e3e642ecd237a7cf797f37272800d8c9e4f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
