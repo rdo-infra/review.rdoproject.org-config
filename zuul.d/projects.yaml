@@ -5116,6 +5116,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/whitebox-neutron-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/whitebox-neutron-tempest-plugin-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/whitebox-tempest-plugin
     templates:
       - package-check-jobs
