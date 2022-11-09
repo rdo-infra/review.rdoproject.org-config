@@ -225,26 +225,6 @@
       upload_dockerfiles: false
       containers_base_image: registry.access.redhat.com/ubi9:latest
 
-- job:
-    name: periodic-tripleo-build-containers-quay-centos-8-secrets
-    parent: tripleo-ci-build-containers-required-projects-rdo
-    nodeset: single-centos-8-node-vexxhost
-    abstract: true
-    pre-run: *cb_c8_prerun
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects: *cb_rp
-    roles: *cb_roles
-    secrets: # include all the secrets for the different centos 8 branches here
-      - rdo_registry
-      - dlrnapi
-      - quay_rdoproject_wallaby_centos_8_secret
-      - quay_rdoproject_train_centos_8_secret
-    vars:
-      <<: *build_containers_vars
-      containers_base_image: "ubi8:8.2"
-
-
 # Build Images Parenting
 
 - job:
