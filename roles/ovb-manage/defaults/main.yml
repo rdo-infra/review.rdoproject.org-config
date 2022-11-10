@@ -107,6 +107,19 @@ cloud_settings:
         baremetal_image: "{{ rdo_baremetal_image }}"
         dhcp_relay_image: "{{ rdo_baremetal_image }}"
         radvd_image: "{{ rdo_baremetal_image }}"
+    ibm-bm3-nodepool:
+        baremetal_flavor: m1.large
+        bmc_flavor: m1.small
+        dhcp_relay_flavor: m1.small
+        enable_baremetal_config_drive: 'true'
+        enable_config_drive: 'true'
+        extra_node_flavor: m1.small
+        public_ip_net: hostonly
+        radvd_flavor: m1.small
+        undercloud_flavor: nodepool
+        baremetal_image: "{{ rdo_baremetal_image }}"
+        dhcp_relay_image: "{{ rdo_baremetal_image }}"
+        radvd_image: "{{ rdo_baremetal_image }}"
 
 net_iso: 'multi-nic'  # 'multi-nic' or 'public-bond' or '' or 'none'
 create_undercloud: false
