@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-pytz-deprecation-shim-core:
+      description: Core developers for project python-pytz-deprecation-shim
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - ykarel@redhat.com
+    deps/python-pytz-deprecation-shim-ptl:
+      description: Project team lead for project python-pytz-deprecation-shim
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-pytz-deprecation-shim:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-pytz-deprecation-shim-core
+          owner = group deps/python-pytz-deprecation-shim-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-pytz-deprecation-shim-core
+          label-Code-Review = -2..+2 group deps/python-pytz-deprecation-shim-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-pytz-deprecation-shim-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-pytz-deprecation-shim-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-pytz-deprecation-shim-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-pytz-deprecation-shim-core
+          label-Workflow = -1..+0 group deps/python-pytz-deprecation-shim-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-pytz-deprecation-shim-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-pytz-deprecation-shim-core
+      - deps/python-pytz-deprecation-shim-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-pytz-deprecation-shim:
+      acl: deps-python-pytz-deprecation-shim
+      description: Packaging of RDO dependency python-pytz-deprecation-shim
+      default-branch: c9s-zed-rdo
+      branches:
+        master: '0'
