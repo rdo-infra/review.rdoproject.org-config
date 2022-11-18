@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278cefa1_8c0a97d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 671
+      },
+      "writtenOn": "2022-11-18T05:50:00Z",
+      "side": 1,
+      "message": "Testproject: https://review.rdoproject.org/r/c/testproject/+/25325/125/.zuul.yaml#7 is green with similiar change.\n\n\nhttps://logserver.rdoproject.org/25/25325/125/check/periodic-tripleo-ci-build-containers-ubi-9-quay-push-master/e519ee1/logs/build_containers.sh confirm no virtual env used.\n\nCurrently, Master content provider job is broken with bug[0]. Discussing with Rabi, I came to know [1] brought the issue to notice as we changed that playbook to use the ansible controller interpreter rather than discovering it.\n\nImho.. we should merge this patch and look at if there is a case to use venv later. But we don\u0027t use virtual env for content provider jobs[2].\n\n\n[0] https://bugs.launchpad.net/tripleo/+bug/1996874\n\n[1] https://review.opendev.org/c/openstack/python-tripleoclient/+/864647/3/tripleoclient/v2/tripleo_container_image.py \n[2] https://c18ded86635bab17724f-51fb74e788bc28a37082204769947c3c.ssl.cf1.rackcdn.com/periodic/opendev.org/openstack/tripleo-heat-templates/master/tripleo-ci-centos-9-content-provider/3352f61/logs/undercloud/home/zuul/tripleo_container_image_build.sh\n",
+      "revId": "ece447dc0c70a4e2912a7d94b379461b460f383d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
