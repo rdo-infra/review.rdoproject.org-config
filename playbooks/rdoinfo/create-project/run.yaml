@@ -1,6 +1,32 @@
 - hosts: all
   name: rdoinfo-create-project playbook
   tasks:
+    - name: install rdopkg dependencies
+      become: true
+      changed_when: true
+      shell:
+        cmd: |
+          dnf install -y python3-pip python3-pyOpenSSL rpmlint python3-rpm
+
+    - name: pip install rdopkg
+      pip:
+        name: rdopkg
+        virtualenv: "{{ ansible_user_dir }}/rdopkg-venv"
+        virtualenv_command: "/usr/bin/python{{ ansible_python.version.major }} -m venv"
+        virtualenv_site_packages: true
+
+    - name: getting master release
+      changed_when: true
+      shell:
+        cmd: |
+          source '{{ ansible_user_dir }}/rdopkg-venv/bin/activate' >/dev/null
+          rdopkg info | awk '/in development phase/ {print $1}'
+      register: rdopkg_master_release
+
+    - name: set master_release as fact
+      set_fact:
+        deps_current_release: "{{ rdopkg_master_release.stdout }}"
+
     - name: Copy add-project-from-rdoinfo.sh
       copy:
         src: add-project-from-rdoinfo.sh
