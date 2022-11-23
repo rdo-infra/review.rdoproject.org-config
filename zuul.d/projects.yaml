@@ -1375,6 +1375,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/ansible-role-osp-observability
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/ansible-role-osp-observability-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-role-qdr-config
     templates:
       - package-check-jobs
