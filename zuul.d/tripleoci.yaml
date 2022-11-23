@@ -119,23 +119,8 @@
       - quay_rdoci
 
 - job:
-    name: periodic-tripleo-ci-build-containers-ubi-8-push
+    name: periodic-tripleo-ci-build-containers-ubi-8-quay-push-train
     parent: periodic-tripleo-ci-build-containers-rdo-centos-8
-    vars:
-      registry_namespace: tripleomaster
-
-- job:
-    name: periodic-tripleo-ci-build-containers-ubi-8-push-ussuri
-    parent: periodic-tripleo-ci-build-containers-ubi-8-push
-    override-checkout: 'stable/ussuri'
-    vars:
-      release: ussuri
-      branch_override: 'stable/ussuri'
-      registry_namespace: tripleoussuri
-
-- job:
-    name: periodic-tripleo-ci-build-containers-ubi-8-push-train
-    parent: periodic-tripleo-ci-build-containers-ubi-8-push
     override-checkout: 'stable/train'
     vars:
       release: train
@@ -160,13 +145,19 @@
       use_buildah: true
       use_kolla: false
       push_containers: true # Native container push provided by python-tripleoclient
+      buildcontainers_override_repos: tripleo-ci-testing
       registry_login_enabled: true
       push_containers_podman: false
       upload_dockerfiles: false
+      push_registry: quay.rdoproject.org
+      registry_namespace: tripleomastercentos9
+      promote_source: tripleo-ci-testing
       containers_base_image: "ubi8:8.2"
     secrets: &cb_secrets
       - rdo_registry
       - dlrnapi
+      - quay_rdoproject_wallaby_centos_8_secret
+      - quay_rdoproject_train_centos_8_secret
     required-projects: &cb_rp
       - config
       - rdo-infra/ci-config
@@ -225,26 +216,6 @@
       promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: registry.access.redhat.com/ubi9:latest
-
-- job:
-    name: periodic-tripleo-build-containers-quay-centos-8-secrets
-    parent: tripleo-ci-build-containers-required-projects-rdo
-    nodeset: single-centos-8-node-vexxhost
-    abstract: true
-    pre-run: *cb_c8_prerun
-    post-run:
-      - playbooks/tripleo-ci-periodic-base/post.yaml
-    required-projects: *cb_rp
-    roles: *cb_roles
-    secrets: # include all the secrets for the different centos 8 branches here
-      - rdo_registry
-      - dlrnapi
-      - quay_rdoproject_wallaby_centos_8_secret
-      - quay_rdoproject_train_centos_8_secret
-    vars:
-      <<: *build_containers_vars
-      containers_base_image: "ubi8:8.2"
-
 
 # Build Images Parenting
 
