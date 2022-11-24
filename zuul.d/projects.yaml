@@ -3247,6 +3247,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/observabilityclient
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/observabilityclient-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/octavia
     templates:
       - package-check-jobs
