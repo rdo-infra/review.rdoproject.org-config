@@ -1,0 +1,15 @@
+- hosts: all
+  tasks:
+    - name: Check Out ansibleee-operator repo
+      shell: |
+        cd ~/src/github.com/tripleo-ci/ansibleee-operator
+        git branch
+        git log
+      changed_when: false
+
+    - name: Check out lib-commom repo
+      shell: |
+        cd ~/src/github.com/tripleo-ci/lib-common
+        git branch
+        git log
+      changed_when: false
