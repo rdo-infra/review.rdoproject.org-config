@@ -224,6 +224,14 @@
             dependencies:
               - podman-package-centos-9
 
+# EDPM PCP job template
+- project:
+    name: github.com/tripleo-ci/ansibleee-operator
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - pcp_edpm_ansiblee_operator_github_check
 - project:
     name: opendev.org/openstack/dib-utils
     templates:
@@ -6608,3 +6616,4 @@
     templates:
       - noop
       - system-required
+
