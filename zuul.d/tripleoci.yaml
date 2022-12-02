@@ -162,11 +162,16 @@
       push_containers: true # Native container push provided by python-tripleoclient
       registry_login_enabled: true
       push_containers_podman: false
+      buildcontainers_override_repos: tripleo-ci-testing
+      push_registry: quay.rdoproject.org
+      promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: "ubi8:8.2"
-    secrets: &cb_secrets
+    secrets:
       - rdo_registry
       - dlrnapi
+      - quay_rdoproject_wallaby_centos_8_secret
+      - quay_rdoproject_train_centos_8_secret
     required-projects: &cb_rp
       - config
       - rdo-infra/ci-config
@@ -188,7 +193,9 @@
       push_containers_podman: false
       upload_dockerfiles: false
       containers_base_image: registry.access.redhat.com/ubi9:latest
-    secrets: *cb_secrets
+    secrets:
+      - rdo_registry
+      - dlrnapi
     required-projects: *cb_rp
     roles: *cb_roles
 
