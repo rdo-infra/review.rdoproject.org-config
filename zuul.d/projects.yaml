@@ -226,6 +226,14 @@
 
 # EDPM PCP job template
 - project:
+    name: github.com/openstack-k8s-operators/mariadb-operator
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - pcp_edpm_mariadb_operator_rdo_github_integration
+
+- project:
     name: github.com/tripleo-ci/ansibleee-operator
     templates:
       - system-required
