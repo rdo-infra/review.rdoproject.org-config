@@ -186,16 +186,26 @@
     pre-run: *cb_c8_prerun
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     vars:
+      release: master
       use_buildah: true
       use_kolla: false
+      buildcontainers_venv: false
+      buildcontainers_override_repos: tripleo-ci-testing
       push_containers: true # Native container push provided by python-tripleoclient
       registry_login_enabled: true
+      featureset: containers-build # needed for dlrn report in post.yaml
       push_containers_podman: false
+      push_registry: quay.rdoproject.org
+      registry_namespace: tripleomastercentos9
+      promote_source: tripleo-ci-testing
       upload_dockerfiles: false
       containers_base_image: registry.access.redhat.com/ubi9:latest
     secrets:
       - rdo_registry
       - dlrnapi
+      - quay_rdoproject_master_centos_9_secret
+      - quay_rdoproject_wallaby_centos_9_secret
+      - quay_rdoproject_zed_centos_9_secret
     required-projects: *cb_rp
     roles: *cb_roles
 
