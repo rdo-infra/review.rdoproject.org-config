@@ -16,6 +16,74 @@
       "message": "lgtm, quay_login_secret_name is defined in [1], quay_login_secret_name.username and passwd in [2]\n\n\n[1] https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/playbooks/tripleo-rdo-base/container-login.yaml#L24\n[2] https://github.com/rdo-infra/review.rdoproject.org-config/blob/master/zuul.d/secrets.yaml#L906",
       "revId": "822500c4cca0ae189b95d2d9dd162ae09e5de336",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a260d4_897e0b1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-12-05T12:01:01Z",
+      "side": 1,
+      "message": "The patch lgtm. Maybe there are some playbooks which we are not using, but it is good that they are updated to use quay creds as well.",
+      "revId": "822500c4cca0ae189b95d2d9dd162ae09e5de336",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c7c8e96_90132101",
+        "filename": "playbooks/tripleo-ci-periodic-base/containers-push-registry-login.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-12-05T12:01:01Z",
+      "side": 1,
+      "message": "Were we using this earlier? Looks like this was using rdo registry creds but we still got our containers in quay. So maybe we were not using this?",
+      "revId": "822500c4cca0ae189b95d2d9dd162ae09e5de336",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5861c9bb_2bea01bd",
+        "filename": "playbooks/tripleo-ci-periodic-base/push.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-12-05T12:01:01Z",
+      "side": 1,
+      "message": "Were we using this earlier? Looks like this was using rdo registry creds but we still got our containers in quay. So maybe we were not using this?",
+      "revId": "822500c4cca0ae189b95d2d9dd162ae09e5de336",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d8aff4_a8141ab3",
+        "filename": "playbooks/tripleo-ci-periodic-base/tag.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 716
+      },
+      "writtenOn": "2022-12-05T12:01:01Z",
+      "side": 1,
+      "message": "Were we using this earlier? Looks like this was using rdo registry creds but we still got our containers in quay. So maybe we were not using this?",
+      "revId": "822500c4cca0ae189b95d2d9dd162ae09e5de336",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
