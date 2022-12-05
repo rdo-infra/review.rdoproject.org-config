@@ -1,0 +1,38 @@
+- hosts: all
+  tasks:
+    - name: Deploy CRC
+      shell: |
+        df -h
+        free -m
+        crc version
+        cd ~/src/github.com/openstack-k8s-operators/install_yamls
+        git log -1
+        cd devsetup
+        sudo dnf -y install ansible-core
+        make download_tools
+        cd ..
+        /usr/local/bin/crc start --memory 14000 --disk-size 80 --cpus 6
+      changed_when: false
+
+    - name: Deploy Mariab and test it
+      shell: |
+        cd ~/src/github.com/openstack-k8s-operators/install_yamls
+        eval $(crc oc-env)
+        oc login -u kubeadmin -p 123456789 https://api.crc.testing:6443
+        oc whoami
+        make deploy_cleanup
+        make cleanup
+        echo "running crc_storage"
+        STORAGE_CLASS=standard make crc_storage
+        sleep 60
+        make mariadb
+        sleep 200
+        oc get csv -l operators.coreos.com/mariadb-operator.openstack
+        MARIADB_REPO=~/src/github.com/openstack-k8s-operators/mariadb-operator make mariadb_deploy
+        sleep 400
+        oc get pods -l app=mariadb
+        cd ~/src/github.com/openstack-k8s-operators/mariadb-operator
+        git log -1
+        # Fail the Job
+        exit 1
+      changed_when: false
