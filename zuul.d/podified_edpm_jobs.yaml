@@ -19,3 +19,7 @@
       - openstack-k8s-operators/placement-operator
       - name: rabbitmq/cluster-operator
         override-checkout: main
+
+- job:
+    name: pcp_edpm_ansiblee_operator_github_check_via_comment
+    parent: pcp_edpm_ansiblee_operator_github_check

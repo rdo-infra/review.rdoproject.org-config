@@ -232,6 +232,15 @@
     github-check:
       jobs:
         - pcp_edpm_ansiblee_operator_github_check
+
+- project:
+    name: github.com/tripleo-ci/lib-common
+    templates:
+      - system-required
+    github-manual:
+      jobs:
+        - pcp_edpm_ansiblee_operator_github_check_via_comment
+
 - project:
     name: opendev.org/openstack/dib-utils
     templates:
