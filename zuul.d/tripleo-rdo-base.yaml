@@ -213,8 +213,9 @@
     parent: tripleo-ci-base-multinode-edpm-standard
     nodeset: two-centos-9-nodes-vexxhost
     pre-run:
-      - playbooks/tripleo-ci-periodic-base/pre.yaml
       - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run:
       - playbooks/tripleo-ci-periodic-base/post.yaml
     roles:
@@ -228,9 +229,11 @@
       - opendev.org/openstack/tripleo-ansible
     secrets:
       - dlrnapi
+      - rdo_registry
     vars:
       configure_swap_size: 4096
       promote_source: tripleo-ci-testing
+      registry_login_enabled: true
 
 ##########################################
 #     Standalone Job Parenting           #
