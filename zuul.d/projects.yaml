@@ -231,7 +231,8 @@
       - system-required
     github-check:
       jobs:
-        - pcp_edpm_mariadb_operator_rdo_github_integration
+        - pcp_edpm_mariadb_operator_rdo_github_integration:
+            voting: false
 
 - project:
     name: github.com/tripleo-ci/ansibleee-operator
