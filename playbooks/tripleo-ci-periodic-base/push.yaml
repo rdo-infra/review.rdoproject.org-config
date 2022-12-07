@@ -6,6 +6,6 @@
     cmd: >
       {{ cmd }}
   with_items:
-    - "podman push --tls-verify=False --creds {{ quay_login_secret_name.username }}:{{ quay_login_secret_name.passwd }} {{ image }}"
+    - "podman push --tls-verify=False --creds {{ rdo_registry_user }}:{{ rdo_registry.token }} {{ image }}"
   loop_control:
     loop_var: "cmd"
