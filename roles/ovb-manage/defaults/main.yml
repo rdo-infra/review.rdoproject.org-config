@@ -94,19 +94,6 @@ cloud_settings:
         dns_nameservers: ['10.11.5.160', '10.2.70.215']
         enable_config_drive: true
         enable_baremetal_config_drive: true
-    ibm-bm2-nodepool:
-        baremetal_flavor: m1.large
-        bmc_flavor: m1.small
-        dhcp_relay_flavor: m1.small
-        enable_baremetal_config_drive: 'true'
-        enable_config_drive: 'true'
-        extra_node_flavor: m1.large
-        public_ip_net: hostonly
-        radvd_flavor: m1.small
-        undercloud_flavor: nodepool
-        baremetal_image: "{{ rdo_baremetal_image }}"
-        dhcp_relay_image: "{{ rdo_baremetal_image }}"
-        radvd_image: "{{ rdo_baremetal_image }}"
     ibm-bm3-nodepool:
         baremetal_flavor: m1.large
         bmc_flavor: m1.small

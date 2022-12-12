@@ -1,5 +1,5 @@
 - name: Generate IBM cert and load IBM related vars
-  when: cloud_name in ["ibm-bm2-nodepool", "ibm-bm3-nodepool"]
+  when: cloud_name in ["ibm-bm3-nodepool"]
   block:
     - name: Load IBM CA certs vars
       include_vars:
