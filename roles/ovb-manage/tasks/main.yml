@@ -42,7 +42,7 @@
 - name: Load vars for IBM cloud
   include_vars:
     file: vars/ibm_cloud.yml
-  when: cloud_name in ["ibm-bm2-nodepool", "ibm-bm3-nodepool"]
+  when: cloud_name in ["ibm-bm3-nodepool"]
 
 - name: Install openstack client
   include: install_openstack_deps.yml
