@@ -34,7 +34,8 @@
               UC_BRANCH="antelope-uc"
               GIT_BRANCH="master"
             fi
-            curl -o upper-constraints.txt "https://opendev.org/openstack/requirements/raw/branch/${GIT_BRANCH}/upper-constraints.txt"
+            rm -f upper-constraints.txt
+            curl --connect-timeout 5 --max-time 10 --retry 6 --retry-max-time 60 -o upper-constraints.txt "https://opendev.org/openstack/requirements/raw/branch/${GIT_BRANCH}/upper-constraints.txt"
             update_uc -t $UC_BRANCH
             DIFF=$(git diff *.yml */*.yml)
             if [ -n "$DIFF" ]; then
