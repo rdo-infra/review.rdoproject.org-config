@@ -133,7 +133,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 0,16 * * *'
+        - time: '10 3 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -149,7 +149,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 3,13 * * *'
+        - time: '10 13 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -165,7 +165,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 9,21 * * *'
+        - time: '10 21 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
