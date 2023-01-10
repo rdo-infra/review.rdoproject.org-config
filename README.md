@@ -1,4 +1,4 @@
-# Test dependency management
+# Test dependency management.
 
 To achieve reproducible test results on both development and CI environments,
 we do lock/pin all test dependencies inside `test-requirements.txt`. This is
