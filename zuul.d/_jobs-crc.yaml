@@ -5,9 +5,6 @@
     description: |
       A base job that starts CRC environment
     pre-run: playbooks/crc/start.yaml
-    roles:
-      - zuul: sf-jobs
-      - zuul: zuul-jobs
     attempts: 3
     secrets:
       - crc_secret
