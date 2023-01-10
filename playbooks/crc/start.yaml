@@ -1,0 +1,74 @@
+---
+- hosts: all
+  vars:
+    openshift_pull_secret_path: pull-secret.txt
+  tasks:
+    - name: Fail when openshift_pull_sec not provided
+      fail:
+        msg: "The openshift_pull_secret variable can not be empty!"
+      when: crc_secret.openshift_pull_secret == ""
+
+    # Fom sf-infra/roles/extra/crc
+    - name: Create pull-secret.txt file
+      copy:
+        content: "{{ crc_secret.openshift_pull_secret }}"
+        dest: "{{ openshift_pull_secret_path }}"
+      when: crc_secret.openshift_pull_secret != ""
+      no_log: true
+
+    - name: Start crc
+      block:
+        - name: Execute crc start command
+          shell: |
+            /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} &> ~/crc-start.log
+          register: _crc_start_status
+
+        - name: Ensure that user is logged
+          shell: >
+            /usr/local/bin/oc login -u kubeadmin
+            -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
+            https://api.crc.testing:6443
+            --insecure-skip-tls-verify=true
+          no_log: true
+
+        - name: Show available nodes
+          shell: |
+            /usr/bin/kubectl get nodes
+
+      always:
+        - name: Remove pull-secret.txt file
+          file:
+            path: "{{ openshift_pull_secret_path }}"
+            state: absent
+          register: _cleanup_pull_secret
+
+        # Create empty pull-secret.yaml file
+        # NOTE: base on https://github.com/crc-org/snc/blob/master/pull-secret.yaml
+        - name: Create empty pull-secret
+          copy:
+            content: |
+              apiVersion: v1
+              data:
+                .dockerconfigjson: e30K
+              kind: Secret
+              metadata:
+                name: pull-secret
+                namespace: openshift-config
+              type: kubernetes.io/dockerconfigjson
+            dest: /tmp/empty-pull-secret.yaml
+            mode: '0644'
+
+        - name: Create cleanup script
+          copy:
+            content: |
+              # ensure that user is logged
+              /usr/local/bin/oc login -u kubeadmin -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
+              /usr/local/bin/oc replace -f /tmp/empty-pull-secret.yaml
+            dest: /tmp/cleanup-secret.sh
+            mode: '0755'
+
+        # NOTE: We don't want to wait until the machineconfig is updated.
+        # Partially from sf-infra/roles/extra/crc/tasks/cleanup.yaml
+        - name: Remove pull secret content from the OpenShift Cluster
+          shell: /tmp/cleanup-secret.sh
+          when: _cleanup_pull_secret.changed and _crc_start_status.rc == 0
