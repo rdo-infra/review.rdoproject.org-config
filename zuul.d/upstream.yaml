@@ -94,38 +94,6 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
-    name: openstack-regular
-    post-review: true
-    description: Jobs in this queue are triggered to run every few hours.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '10 14 * * *'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
-    name: openstack-periodic-daily
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically once a day.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 3 * * *'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
     name: openstack-periodic-integration-main
     post-review: true
     description: Jobs in this queue are triggered to run every few hours.
@@ -133,7 +101,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 0,16 * * *'
+        - time: '10 3 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -149,7 +117,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 3,13 * * *'
+        - time: '10 13 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -165,7 +133,7 @@
     precedence: high
     trigger:
       timer:
-        - time: '10 9,21 * * *'
+        - time: '10 21 * * *'
     success:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
