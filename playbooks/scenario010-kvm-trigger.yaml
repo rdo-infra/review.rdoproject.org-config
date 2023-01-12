@@ -67,7 +67,7 @@
     - name: Generate monthly ChangeID
       shell: |
         set -e
-        (echo -n "trigger for {{ trigger_commit_msg|default('') }} on "; date "+%Y-%m") | git hash-object --stdin
+        (echo -n "{{ trigger_branch }} {{ trigger_os_distro }} {{ trigger_component|default('') }} {{ trigger_job_name|default('') }} trigger for {{ trigger_commit_msg|default('') }} on "; date "+%Y-%m") | git hash-object --stdin
       changed_when: false
       register: _change_id
       tags:
