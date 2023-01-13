@@ -29,20 +29,6 @@
       - ceph-daemon-promotion-pipeline
       - ceph-daemon-promotion-pipeline-wallaby
       - ceph-daemon-promotion-pipeline-zed
-    openstack-regular:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-train:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001-wallaby:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset035:
-            vars:
-              force_non_periodic: true
 
 - project:
     name: opendev.org/openstack/tripleo-common
@@ -57,10 +43,6 @@
       - system-required
       - ovb-experimental
       - tripleo-ovb
-    openstack-check:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
