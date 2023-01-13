@@ -8,6 +8,10 @@
         msg: "The openshift_pull_secret variable can not be empty!"
       when: crc_secret.openshift_pull_secret == ""
 
+    - name: Clone repos in the job workspace
+      include_role:
+        name: prepare-workspace
+
     # Fom sf-infra/roles/extra/crc
     - name: Create pull-secret.txt file
       copy:
