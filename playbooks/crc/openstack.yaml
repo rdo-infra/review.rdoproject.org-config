@@ -1,0 +1,28 @@
+---
+# NOTE: To deploy Openstack with k8s operators, it requires to configure
+# subscription, that is generated with command: make openstack.
+# Later the generated manifest is available in out/openstack/openstack/op/subscription.yaml
+# It is important to configure subscription before pull-secret.txt is removed!
+- name: Setup required subscription
+  shell: |
+    # Once again ensure that user is logged in
+    /usr/local/bin/oc login -u kubeadmin
+    -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
+    https://api.crc.testing:6443
+    --insecure-skip-tls-verify=true
+
+    make openstack
+
+    for i in {1..20}; do
+      echo "Ensuring that subscription is ready... ${i}"
+      status=$(/usr/local/bin/oc get -n openstack subscription openstack-operator  -o go-template --template '{{.status.state}}')
+      if ! [[ "$status" =~ ^(Completed|Running|AtLatestKnown)$ ]]; then
+          echo "The subscription is not ready..."
+          sleep 15
+      else
+          echo "Subscription is available, we can continue..."
+          break
+      fi
+    done
+  args:
+    chdir: "{{ zuul.projects['openstack-k8s-operators/install_yamls'].src_dir }}"

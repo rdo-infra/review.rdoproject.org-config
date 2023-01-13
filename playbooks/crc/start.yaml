@@ -35,6 +35,8 @@
           shell: |
             /usr/bin/kubectl get nodes
 
+        - name: Configure OpenStack operator
+          include_tasks: openstack.yaml
       always:
         - name: Remove pull-secret.txt file
           file:

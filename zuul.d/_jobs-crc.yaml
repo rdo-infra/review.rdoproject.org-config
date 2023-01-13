@@ -5,6 +5,8 @@
     description: |
       A base job that starts CRC environment
     pre-run: playbooks/crc/start.yaml
+    required-projects:
+      - openstack-k8s-operators/install_yamls
     attempts: 3
     secrets:
       - crc_secret
