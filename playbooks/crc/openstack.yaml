@@ -1,4 +1,13 @@
 ---
+- name: Install Ansible, Make, Tar
+  become: true
+  ansible.builtin.package:
+    name:
+      - ansible-core
+      - make
+      - tar
+    state: latest
+
 # NOTE: To deploy Openstack with k8s operators, it requires to configure
 # subscription, that is generated with command: make openstack.
 # Later the generated manifest is available in out/openstack/openstack/op/subscription.yaml
@@ -10,6 +19,11 @@
     -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
     https://api.crc.testing:6443
     --insecure-skip-tls-verify=true
+
+    # Install Operator dependencies
+    pushd devsetup
+    make download_tools
+    popd
 
     make openstack
 
