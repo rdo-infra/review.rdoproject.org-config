@@ -44,7 +44,7 @@
 - name: Clone osp director
   git:
     repo: "https://github.com/openstack-k8s-operators/osp-director-operator/"
-    dest: osp-director-operator
+    dest: ~/osp-director-operator
     version: "{{ osp_director_operator_version | default('master') }}"
 
 - name: Create pull image script
@@ -55,9 +55,9 @@
       https://api.crc.testing:6443
       --insecure-skip-tls-verify=true ;
 
-      for image in $(grep -rE 'registry.redhat.io[^ ]+' osp-director-operator/ | awk '{print $3 $4}' | sed 's/image://g' | sed '/^[[:space:]]*$/d'| sort | uniq); do
-      name="zuul-ci-pull-job-$(basename $(echo $image | cut -f1 -d':'))";
-      /usr/local/bin/oc run $name -n {{ namespace |default('openstack') }} --image $image --command tailf /dev/null;
+      for image in $(grep -rE 'registry.redhat.io[^ ]+' ~/osp-director-operator/ | awk '{print $3 $4}' | sed 's/image://g' | sed '/^[[:space:]]*$/d'| sort | uniq); do
+          name="zuul-ci-pull-job-$(basename $(echo $image | cut -f1 -d':'))";
+          /usr/local/bin/oc run $name -n "openstack" --image $image --command tailf /dev/null;
       done
     dest: /tmp/pull-images.sh
     mode: "0755"
