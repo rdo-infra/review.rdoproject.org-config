@@ -29,20 +29,6 @@
       - ceph-daemon-promotion-pipeline
       - ceph-daemon-promotion-pipeline-wallaby
       - ceph-daemon-promotion-pipeline-zed
-    openstack-regular:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001-train:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001-wallaby:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
-            vars:
-              force_non_periodic: true
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset035:
-            vars:
-              force_non_periodic: true
 
 - project:
     name: opendev.org/openstack/tripleo-common
@@ -57,16 +43,12 @@
       - system-required
       - ovb-experimental
       - tripleo-ovb
-    openstack-check:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
     name: opendev.org/openstack/tripleo-ansible
     templates:
       - system-required
-    openstack-check:
+    openstack-experimental:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files: &tripleo_ansible_files001
@@ -171,7 +153,7 @@
 
 - project:
     name: opendev.org/openstack/ansible-role-collect-logs
-    openstack-check:
+    openstack-experimental:
       jobs:
         - tripleo-ci-centos-9-ovb-1ctlr_1comp-featureset001:
             vars:
@@ -199,7 +181,7 @@
         - system-required
         - ovb-experimental
         - tripleo-ovb
-    openstack-check:
+    openstack-experimental:
       jobs:
         - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001:
             files: &tripleoclient_files
@@ -228,7 +210,7 @@
     name: opendev.org/openstack/tripleo-operator-ansible
     templates:
       - system-required
-    openstack-check:
+    openstack-experimental:
       jobs:
         - tripleo-ci-centos-8-ovb-1ctlr_1comp-featureset002-upload:
             files:
