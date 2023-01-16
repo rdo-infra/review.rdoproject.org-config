@@ -40,3 +40,15 @@
     done
   args:
     chdir: "{{ zuul.projects['github.com/openstack-k8s-operators/install_yamls'].src_dir }}"
+
+- name: Clone osp director
+  git:
+    repo: "https://github.com/openstack-k8s-operators/osp-director-operator/"
+    dest: osp-director-operator
+    version: "{{ osp_director_operator_version | default('master') }}"
+
+- name: Download required images before subscription is removed
+  shell: >
+    for image in $(grep -rE 'registry.redhat.io[^ ]+|quay.io.io[^ ]+' osp-director-operator/ | awk '{print $3 $4}' | sed 's/image://g' | sed '/^[[:space:]]*$/d'| sort | uniq); do
+    ssh -i ~/.crc/machines/crc/id_ecdsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null core@192.168.130.11 sudo podman pull $image;
+    done
