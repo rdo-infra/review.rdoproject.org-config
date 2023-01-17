@@ -42,7 +42,7 @@
     chdir: "{{ zuul.projects['github.com/openstack-k8s-operators/install_yamls'].src_dir }}"
 
 - name: Pull Required Images before subscription is removed
-  when: pull_images | default('True') | bool
+  when: "{{ pull_images | default(true) }}"
   block:
     - name: Clone osp director
       git:
@@ -63,7 +63,7 @@
               /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
           done
 
-          all_count=$(kubectl get pods -n openstack | grep "zuul-ci-pull-job" | wc -l)
+          all_count=$(kubectl get pods -n openstack | grep "zuul-ci-pull-job" | wc -l);
           for i in {1..20}; do
             echo "Ensuring that containers are spawned... ${i}"
             count=$(/usr/local/bin/oc get pods -n openstack | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
