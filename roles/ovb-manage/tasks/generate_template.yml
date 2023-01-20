@@ -333,7 +333,6 @@
     net_args: >-
       {%- if net_iso == 'multi-nic' -%} -e {{ ovb_repo_directory }}/environments/all-networks-port-security.yaml
       {%- elif net_iso == 'public-bond' -%} -e {{ ovb_repo_directory }}/environments/all-networks-public-bond-port-security.yaml
-      {%- else -%} -e {{ ovb_repo_directory }}/environments/port-security.yaml
       {%- endif -%}
 
 - name: Set arguments for OVB stack
