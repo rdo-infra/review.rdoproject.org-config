@@ -11,3 +11,20 @@
     attempts: 3
     secrets:
       - crc_secret
+
+- job:
+    name: multinode-crc
+    parent: multinode
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+      - opendev.org/openstack/openstack-zuul-jobs
+    roles:
+      - zuul: opendev.org/zuul/zuul-jobs
+      - zuul: opendev.org/openstack/openstack-zuul-jobs
+    pre-run:
+      - playbooks/crc/multinode.yaml
+      - playbooks/crc/start.yaml
+    attempts: 3
+    secrets:
+      - crc_secret 
