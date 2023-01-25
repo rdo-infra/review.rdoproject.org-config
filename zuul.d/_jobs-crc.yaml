@@ -28,3 +28,14 @@
     attempts: 3
     secrets:
       - crc_secret 
+
+- job:
+    name: standalone-crc
+    parent: periodic-tripleo-ci-standalone-rdo-centos-8
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+    pre-run: playbooks/crc/start.yaml
+    attempts: 3
+    secrets:
+      - crc_secret 
