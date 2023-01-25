@@ -15,9 +15,11 @@
 - hosts: all
   tasks:
     - name: Create nodepool directory
+      become: true
       file:
         path: /etc/nodepool
         state: directory
+        mode: '0777'
 
     - name: Create nodepool sub_nodes file
       copy:
