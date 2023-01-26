@@ -5,6 +5,7 @@
     description: |
       A base job that starts CRC environment
     pre-run: playbooks/crc/start.yaml
+    post-run: playbooks/crc/post.yaml
     required-projects:
       - github.com/openstack-k8s-operators/install_yamls
       - opendev.org/zuul/zuul-jobs
