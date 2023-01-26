@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: Copy files from {{ ansible_user_dir }}/zuul_output on node
+      no_log: true
+      synchronize:
+        src: '{{ ansible_user_dir }}/zuul_output/'
+        dest: '{{ zuul.executor.log_root }}'
+        mode: pull
+        copy_links: true
+        verify_host: true
+        rsync_opts:
+          - --include=/etc/**
+          - --include=/conf/**
+          - --include=/logs/**
+          - --include=*/
+          - --exclude=*
+          - --prune-empty-dirs
