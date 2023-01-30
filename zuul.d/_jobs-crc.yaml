@@ -4,7 +4,10 @@
     parent: base-minimal
     description: |
       A base job that starts CRC environment
-    pre-run: playbooks/crc/start.yaml
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/crc/start.yaml
     required-projects:
       - github.com/openstack-k8s-operators/install_yamls
       - opendev.org/zuul/zuul-jobs
