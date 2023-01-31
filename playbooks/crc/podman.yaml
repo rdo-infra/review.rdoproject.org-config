@@ -19,7 +19,7 @@
       when: registry_login_enabled|default(false)|bool
       block:
         - name: Fail when user or password is not set
-          failed:
+          fail:
             msg: "Can not continue. Please provide user and password"
           when: >
             quay_login_secret_name is not defined or
