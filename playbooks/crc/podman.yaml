@@ -18,10 +18,18 @@
       no_log: true
       when: registry_login_enabled|default(false)|bool
       block:
+        - name: Fail when user or password is not set
+          failed:
+            msg: "Can not continue. Please provide user and password"
+          when: quay_nextgen_zuulgithubci.user == '' or quay_nextgen_zuulgithubci.password == ''
+
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
-              quay.rdoproject.org: "{'{{ quay_login_secret_name.user }}': '{{ quay_login_secret_name.password }}'}"
+              quay.rdoproject.org: "{'{{ quay_nextgen_zuulgithubci.user }}': '{{ quay_nextgen_zuulgithubci.password }}'}"
+              quay_login_secret_name:
+                user: "{{ quay_nextgen_zuulgithubci.user }}"
+                password: "{{ quay_nextgen_zuulgithubci.password }}"
 
         - name: Perform container registry login(s) with podman
           shell: |-
