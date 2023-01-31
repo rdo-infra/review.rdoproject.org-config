@@ -21,7 +21,7 @@
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
-              quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.passwd }}'}"
+              quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.password }}'}"
 
         - name: Perform container registry login(s) with podman
           shell: |-
