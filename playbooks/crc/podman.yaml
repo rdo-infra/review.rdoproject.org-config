@@ -1,0 +1,36 @@
+---
+- hosts: controller
+  tasks:
+    - name: Enable container-tools and disable rhel-modules and install podman
+      shell:
+        cmd: |
+          set -e -x
+          dnf module disable container-tools:rhel8 -y;
+          dnf module enable container-tools:3.0 -y;
+          sudo dnf -y install podman;
+      changed_when: true
+      become: true
+      when:
+        - ansible_distribution_major_version|int >= 8
+        - ansible_distribution_major_version|int < 9
+
+    - name: Set vars for Registry login and do podman login
+      no_log: true
+      when: registry_login_enabled|default(false)|bool
+      block:
+        - name: Set vars for quay login
+          set_fact:
+            container_registry_logins:
+              quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.passwd }}'}"
+
+        - name: Perform container registry login(s) with podman
+          shell: |-
+            podman login --username=$REGISTRY_USERNAME \
+                 --password=$REGISTRY_PASSWORD \
+                 $REGISTRY
+          environment:
+            REGISTRY_USERNAME: "{{ lookup('dict', item.value).key }}"
+            REGISTRY_PASSWORD: "{{ lookup('dict', item.value).value }}"
+            REGISTRY: "{{ item.key }}"
+          no_log: true
+          loop: "{{ query('dict', container_registry_logins) }}"
