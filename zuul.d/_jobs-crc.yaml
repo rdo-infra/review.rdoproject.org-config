@@ -15,5 +15,7 @@
       - opendev.org/zuul/zuul-jobs
     attempts: 3
     secrets:
-      - crc_secret
-      - quay_nextgen_zuulgithubci
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci

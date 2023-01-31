@@ -18,6 +18,14 @@
       no_log: true
       when: registry_login_enabled|default(false)|bool
       block:
+        - name: Fail when user or password is not set
+          failed:
+            msg: "Can not continue. Please provide user and password"
+          when: >
+            quay_login_secret_name is not defined or
+            quay_login_secret_name.user == '' or
+            quay_login_secret_name.password == ''
+
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
