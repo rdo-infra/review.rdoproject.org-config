@@ -25,6 +25,10 @@
     make download_tools
     popd
 
+    {% if openstack_img is defined and openstack_img %}
+    export OPENSTACK_IMG="{{ openstack_img }}"
+    {% endif %}
+
     make openstack
 
     for i in {1..20}; do
