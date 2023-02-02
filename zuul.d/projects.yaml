@@ -230,12 +230,7 @@
       - system-required
     github-check:
       jobs:
-        - edpm-ansible-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute:
-            nodeset: centos-8-crc-single-node-centos-9-external-compute
-            vars:
-              registry_login_enabled: true
-              push_registry: quay.rdoproject.org
-              quay_login_secret_name: quay_nextgen_zuulgithubci
+        - edpm-ansible-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute
 
 - project:
     name: github.com/openstack-k8s-operators/mariadb-operator
@@ -245,6 +240,14 @@
       jobs:
         - pcp_edpm_mariadb_operator_rdo_github_integration:
             voting: false
+
+- project:
+    name: github.com/openstack-k8s-operators/openstack-ansibleee-operator
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - openstack-ansibleee-operator-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute
 
 - project:
     name: github.com/tripleo-ci/ansibleee-operator
