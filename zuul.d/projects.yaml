@@ -230,7 +230,12 @@
       - system-required
     github-check:
       jobs:
-        - edpm-ansible-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute
+        - edpm-ansible-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute:
+            nodeset: centos-8-crc-single-node-centos-9-external-compute
+            vars:
+              registry_login_enabled: true
+              push_registry: quay.rdoproject.org
+              quay_login_secret_name: quay_nextgen_zuulgithubci
 
 - project:
     name: github.com/openstack-k8s-operators/mariadb-operator
