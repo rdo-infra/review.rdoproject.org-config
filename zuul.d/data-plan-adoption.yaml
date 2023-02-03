@@ -1,0 +1,21 @@
+---
+- job:
+    name: base-crc-standalone
+    parent: periodic-tripleo-ci-standalone-rdo-centos-9
+    description: |
+      A base job that starts CRC environment
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/crc/start.yaml
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+    attempts: 3
+    secrets:
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
