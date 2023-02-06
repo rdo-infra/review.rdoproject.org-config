@@ -236,32 +236,6 @@
               registry_login_enabled: true
               push_registry: quay.rdoproject.org
               quay_login_secret_name: quay_nextgen_zuulgithubci
-
-- project:
-    name: github.com/openstack-k8s-operators/mariadb-operator
-    templates:
-      - system-required
-    github-check:
-      jobs:
-        - pcp_edpm_mariadb_operator_rdo_github_integration:
-            voting: false
-
-- project:
-    name: github.com/tripleo-ci/ansibleee-operator
-    templates:
-      - system-required
-    github-check:
-      jobs:
-        - pcp_edpm_ansiblee_operator_github_check
-
-- project:
-    name: github.com/tripleo-ci/lib-common
-    templates:
-      - system-required
-    github-manual:
-      jobs:
-        - pcp_edpm_ansiblee_operator_github_check_via_comment
-
 - project:
     name: opendev.org/openstack/dib-utils
     templates:
