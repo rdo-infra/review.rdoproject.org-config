@@ -106,7 +106,7 @@
 - job:
     name: distgit-cbs-validate-centos8
     parent: distgit-cbs-validate
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     branches: ^(train-rdo)|(ussuri-rdo)|(victoria-rdo)$
     vars:
       centos_releasever: 8
@@ -168,7 +168,7 @@
       A base job to set up certs for opstools-distgit jobs.
     pre-run: playbooks/centos-opstools-distgit-cbs-base/pre.yaml
     abstract: true
-    nodeset: rdo-centos-8
+    nodeset: rdo-centos-8-stream
     secrets:
       - cbs_opstools
 
