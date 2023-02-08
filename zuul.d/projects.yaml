@@ -12,10 +12,10 @@
 
 - project:
     name: ceph/ceph-ansible
+    queue: ceph
     templates:
       - system-required
     github-manual:
-      queue: ceph
       jobs:
         - tripleo-centos-8-ceph-integration-victoria
         - tripleo-centos-8-ceph-ansible-integration-victoria
@@ -5969,6 +5969,7 @@
 
 - project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo-base
+    queue: ansible-role-rdo-base
     templates:
       - system-required
     check:
@@ -5976,25 +5977,25 @@
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
     gate:
-      queue: ansible-role-rdo-base
       jobs:
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
 
 - project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo-bot
+    queue: ansible-role-rdo-base
     templates:
       - system-required
     check:
       jobs:
         - tox-linters
     gate:
-      queue: ansible-role-rdo-base
       jobs:
         - tox-linters
 
 - project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo-kolla-build
+    queue: ansible-role-rdo-base
     templates:
       - system-required
     check:
@@ -6002,7 +6003,6 @@
         - tox-linters
         - legacy-rdo-kolla-build-containers
     gate:
-      queue: ansible-role-rdo-base
       jobs:
         - tox-linters
 
@@ -6292,6 +6292,7 @@
 
 - project:
     name: review.rdoproject.org/rdo-infra/rdo-container-registry
+    queue: ansible-role-rdo-base
     templates:
       - system-required
     check:
@@ -6300,7 +6301,6 @@
         - tox-docs
         - legacy-rdo-registry-integration
     gate:
-      queue: ansible-role-rdo-base
       jobs:
         - tox-linters
         - tox-docs
@@ -6314,6 +6314,7 @@
 
 - project:
     name: review.rdoproject.org/rdo-infra/rdo-infra-playbooks
+    queue: ansible-role-rdo-base
     templates:
       - system-required
     check:
@@ -6321,7 +6322,6 @@
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
     gate:
-      queue: ansible-role-rdo-base
       jobs:
         - tox-linters
         - legacy-rdo-infra-playbooks-integration-base
@@ -6340,13 +6340,13 @@
 
 - project:
     name: review.rdoproject.org/rdo-infra/releng
+    queue: whitebox-tempest-plugin
     templates:
       - system-required
     check:
       jobs:
         - tox-linters
     gate:
-      queue: whitebox-tempest-plugin
       jobs:
         - tox-linters
 
@@ -6428,6 +6428,7 @@
 
 - project:
     name: review.rdoproject.org/rdoinfo
+    queue: whitebox-tempest-plugin
     templates:
       - system-required
       - rdoinfo-master-testing-tripleo-jobs
@@ -6574,7 +6575,6 @@
         - validate-buildsys-tags
 
     gate:
-      queue: whitebox-tempest-plugin
       jobs:
         - tox-py36
         - rdoinfo-DLRN-check:
