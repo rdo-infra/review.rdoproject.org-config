@@ -26,7 +26,7 @@
         - name: Set vars for quay login
           set_fact:
             container_registry_logins:
-              quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.passwd }}'}"
+              quay.rdoproject.org: "{'{{ quay_login_secret_name.user | default(quay_login_secret_name.username) }}': '{{ quay_login_secret_name.password | default(quay_login_secret_name.passwd) }}'}"
           when: push_registry | default('trunk.registry.rdoproject.org') in ["quay.rdoproject.org"]
 
         - name: Set vars for default registry login
