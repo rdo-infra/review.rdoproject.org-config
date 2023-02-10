@@ -1,17 +1,22 @@
 ---
-- hosts: controller
+- hosts: all
   tasks:
-    - name: Enable container-tools and disable rhel-modules and install podman
+    - name: Enable container-tools rhel-modules for c8/crc node
       shell:
         cmd: |
           set -e -x
           dnf module enable container-tools:rhel8 -y;
-          sudo dnf -y install podman;
       changed_when: true
       become: true
       when:
         - ansible_distribution_major_version|int >= 8
         - ansible_distribution_major_version|int < 9
+
+    - name: Install podman
+      become: true
+      package:
+        name: "podman"
+        state: present
 
     - name: Set vars for Registry login and do podman login
       no_log: true
