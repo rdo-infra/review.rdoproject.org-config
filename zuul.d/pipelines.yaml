@@ -28,11 +28,13 @@
     success:
       rdoproject.org:
         verified: 1
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         verified: -1
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -73,11 +75,13 @@
       rdoproject.org:
         Verified: 2
         submit: true
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         Verified: -2
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
@@ -94,9 +98,11 @@
         - event: ref-updated
           ref: ^refs/heads/.*$
     success:
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
@@ -115,9 +121,11 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
       smtp:
@@ -136,9 +144,11 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
@@ -156,9 +166,11 @@
       timer:
         - time: '0 0 * * *'
     success:
+      opensearch:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
@@ -178,10 +190,12 @@
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental
     success:
+      opensearch:
       rdoproject.org: {}
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch:
       rdoproject.org: {}
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
