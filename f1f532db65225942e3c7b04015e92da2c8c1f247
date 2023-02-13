@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56c4a1b_4c9b26f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "Won\u0027t block, but there are some consistency things to take care of, and imho some better module to use. Might be a follow-up, but I\u0027m pretty sure it can be an easy 1:1 replacement.",
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab6433e_0ce9d527",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "\"command\" would work the same",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7ed323_493451c8",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "I usually add |trim just to be sure nothing may do some funny things (spaces, newlines, etc)\n\nEdit: and it\u0027s also done in later call I can see :).",
+      "range": {
+        "startLine": 15,
+        "startChar": 75,
+        "endLine": 15,
+        "endChar": 81
+      },
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ee3458_3ecb5bb2",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "maybe we can use the ansible.builtin.replace instead?\n\nhttps://docs.ansible.com/ansible/latest/collections/ansible/builtin/replace_module.html",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "463901b4_602539a1",
@@ -14,6 +100,52 @@
       "writtenOn": "2023-02-13T13:08:46Z",
       "side": 1,
       "message": "we need to update here https://github.com/openstack-k8s-operators/openstack-operator/blob/master/custom-bundle.Dockerfile#L34",
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65af26ae_8b45eabf",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "\"command\" would work the same",
+      "range": {
+        "startLine": 60,
+        "startChar": 18,
+        "endLine": 60,
+        "endChar": 23
+      },
+      "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc220a2_9bdde233",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-02-13T13:12:11Z",
+      "side": 1,
+      "message": "pretty sure we can set this before, and then reuse the fact instead of the long name in various tasks",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 9
+      },
       "revId": "f1f532db65225942e3c7b04015e92da2c8c1f247",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
