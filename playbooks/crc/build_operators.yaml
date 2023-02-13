@@ -1,0 +1,99 @@
+---
+- name: Get golang container image
+  containers.podman.podman_image:
+    name: docker.io/library/golang:1.19
+
+- name: Set the openstack-ansibleee-operator image tag
+  ansible.builtin.command:
+    cmd: git show-ref --head --hash head
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
+  register: ee_operator_out
+
+- name: Set the meta-operator image tag
+  ansible.builtin.command:
+    cmd: git show-ref --head --hash head
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+  register: meta_operator_out
+
+- name: Set the openstack-ansibleee-operator image
+  ansible.builtin.set_fact:
+    ansibleee_img: "openstack-ansibleee-operator-bundle:{{ ee_operator_out.stdout | trim }}"
+    ansibleee_img_tag: "{{ ee_operator_out.stdout | trim }}"
+    openstack_img: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ meta_operator_out.stdout|trim }}"
+    openstack_img_tag: "{{ meta_operator_out.stdout|trim }}"
+    cacheable: true
+
+- name: Call docker-build
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
+    target: docker-build
+    params:
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator:{{ ansibleee_img_tag }}"
+
+- name: Call docker-push
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
+    target: docker-push
+    params:
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator:{{ ansibleee_img_tag }}"
+
+- name: Call bundle
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
+    target: bundle
+    params:
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator:{{ ansibleee_img_tag }}"
+
+- name: Call bundle-build
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
+    target: bundle-build
+    params:
+      BUNDLE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator-bundle:{{ ansibleee_img_tag }}"
+
+- name: Push bundle image
+  containers.podman.podman_image:
+    name: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator-bundle:{{ ansibleee_img_tag }}"
+    pull: false
+    push: true
+
+- name: Update the ansibleee-operator image in meta operator bundle dockerfile
+  ansible.builtin.replace:
+    path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/custom-bundle.Dockerfile"
+    regexp: "openstack-ansibleee-operator-bundle:latest"
+    replace: "{{ ansibleee_img }}"
+
+- name: Call bundle for meta operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+    target: bundle
+    params:
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
+
+- name: Call bundle-build for meta operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+    target: bundle-build
+    params:
+      BUNDLE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
+
+- name: Push bundle image for meta operator
+  containers.podman.podman_image:
+    name: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
+    pull: false
+    push: true
+
+- name: Call catalog-build for meta operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+    target: catalog-build
+    params:
+      CATALOG_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ openstack_img_tag }}"
+      BUNDLE_IMGS: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
+
+- name: Call catalog-push for meta operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+    target: catalog-push
+    params:
+      CATALOG_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ openstack_img_tag }}"
