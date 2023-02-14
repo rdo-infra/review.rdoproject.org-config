@@ -8,6 +8,11 @@
       - tar
     state: latest
 
+- name: Install devsetup dependencies
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
+    target: download_tools
+
 - name: Build operator images
   include_tasks: build_operators.yaml
   when: build_operators | default('false') | bool
