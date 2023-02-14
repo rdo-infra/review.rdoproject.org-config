@@ -63,6 +63,12 @@
     regexp: "openstack-ansibleee-operator-bundle:latest"
     replace: "{{ ansibleee_img }}"
 
+- name: Update the makefile to use custom-bundle.Dockerfile
+  ansible.builtin.replace:
+    path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/Makefile"
+    regexp: "custom-bundle.Dockerfile.pinned"
+    replace: "custom-bundle.Dockerfile"
+
 - name: Call bundle for meta operator
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
