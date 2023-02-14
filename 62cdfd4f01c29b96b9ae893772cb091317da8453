@@ -39,6 +39,30 @@
       },
       "revId": "62cdfd4f01c29b96b9ae893772cb091317da8453",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86473905_aaee6215",
+        "filename": "playbooks/crc/build_operators.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2023-02-14T05:33:39Z",
+      "side": 1,
+      "message": "Thank you Cedric for updating the patch.\nhttps://github.com/openstack-k8s-operators/openstack-operator/pull/178 got merged.\n\nAnd yes you are correct, we cannot bypass the makefile as other things are happening there.\n\nLet\u0027s merge this patch and test it by removing https://github.com/rdo-infra/rdo-jobs/blob/master/playbooks/edpm/deploy_podified_control_plane.yaml#L28 piece and \nhttps://github.com/rdo-infra/rdo-jobs/blob/master/playbooks/edpm/deploy_podified_control_plane.yaml#L123 \n\nthen we can do a testproject. It will tell us whether it is working or not.",
+      "parentUuid": "a4c78adf_58d63317",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 7
+      },
+      "revId": "62cdfd4f01c29b96b9ae893772cb091317da8453",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
