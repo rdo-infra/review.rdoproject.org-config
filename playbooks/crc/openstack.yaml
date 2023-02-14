@@ -8,6 +8,11 @@
       - tar
     state: latest
 
+- name: Install devsetup dependencies
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
+    target: download_tools
+
 - name: Build operator images
   include_tasks: build_operators.yaml
   when: build_operators | default('false') | bool
@@ -23,11 +28,6 @@
       -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
       https://api.crc.testing:6443 \
       --insecure-skip-tls-verify=true
-
-    # Install Operator dependencies
-    pushd devsetup
-    make download_tools
-    popd
 
     {% if openstack_img is defined and openstack_img %}
     export OPENSTACK_IMG="{{ openstack_img }}"
