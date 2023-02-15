@@ -22,6 +22,30 @@
       },
       "revId": "4d91069456a739166225430c509da251c858308b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc9f09e_5e98c297",
+        "filename": "zuul.d/tripleo-rdo-base.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2023-02-15T09:09:35Z",
+      "side": 0,
+      "message": "rdo_registry secret was used with trunk.registry.rdoproject.org and since we cleaned up the trunk registry traces from container-login playbook via https://review.rdoproject.org/r/c/config/+/47050 and https://review.rdoproject.org/r/c/config/+/47051\n\nsecret is no longer used and if we call container login playbook it is failing the job with error saying \u0027undefined varaible\u0027.\n\nThese playbooks are no longer needed in these jobs as we donot need to login to rdo trunk registry.",
+      "parentUuid": "29208e4f_df013fbc",
+      "range": {
+        "startLine": 321,
+        "startChar": 51,
+        "endLine": 321,
+        "endChar": 55
+      },
+      "revId": "4d91069456a739166225430c509da251c858308b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
