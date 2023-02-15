@@ -80,8 +80,8 @@
 - name: Update the ansibleee-operator image in meta operator bundle dockerfile
   ansible.builtin.replace:
     path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/custom-bundle.Dockerfile.pinned"
-    regexp: "openstack-ansibleee-operator-bundle:latest"
-    replace: "{{ ansibleee_img }}"
+    regexp: "quay.io/openstack-k8s-operators/openstack-ansibleee-operator-bundle:latest"
+    replace: "quay.rdoproject.org/openstack-k8s-operators/{ ansibleee_img }}"
 
 - name: Call bundle-build for meta operator
   community.general.make:
