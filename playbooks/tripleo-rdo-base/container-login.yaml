@@ -14,7 +14,6 @@
         - ansible_distribution_major_version|int < 9
 
     - name: set vars for registry
-      no_log: true
       when: registry_login_enabled|default(false)|bool
       block:
         - name: Set var name for quay login zuul secret
@@ -22,7 +21,22 @@
           # quay registries have syntax tripleo<branch><distro><version>
           set_fact:
             quay_login_secret_name: "{{ lookup('vars', 'quay_rdoproject_' + release + '_' + ansible_distribution | lower + '_' + ansible_distribution_major_version + '_secret', default='quay_rdoproject_master_centos_9_secret')}}"
+
+        - name: Print the username
+          debug:
+            msg: "{{ quay_login_secret_name.username }}"
+
+        - name: Fail when user or password is not set
+          no_log: true
+          fail:
+            msg: "Can not continue. Please provide user and password"
+          when: >
+            quay_login_secret_name is not defined or
+            quay_login_secret_name.username == '' or
+            quay_login_secret_name.password == ''
+
         - name: Set vars for quay login
+          no_log: true
           set_fact:
             container_registry_logins:
               quay.rdoproject.org: "{'{{ quay_login_secret_name.username }}': '{{ quay_login_secret_name.passwd }}'}"
