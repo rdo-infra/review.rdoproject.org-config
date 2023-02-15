@@ -21,6 +21,8 @@
     ansibleee_img_tag: "{{ ee_operator_out.stdout | trim }}"
     openstack_img: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ meta_operator_out.stdout|trim }}"
     openstack_img_tag: "{{ meta_operator_out.stdout|trim }}"
+    go_mod_file: "github.com/openstack-k8s-operators/openstack-ansibleee-operator/api"
+    ansibleee_dir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
     cacheable: true
 
 - name: Call docker-build
@@ -57,17 +59,16 @@
     pull: false
     push: true
 
-- name: Update the ansibleee-operator image in meta operator bundle dockerfile
-  ansible.builtin.replace:
-    path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/custom-bundle.Dockerfile"
-    regexp: "openstack-ansibleee-operator-bundle:latest"
-    replace: "{{ ansibleee_img }}"
-
-- name: Update the makefile to use custom-bundle.Dockerfile
-  ansible.builtin.replace:
-    path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/Makefile"
-    regexp: "custom-bundle.Dockerfile.pinned"
-    replace: "custom-bundle.Dockerfile"
+- name: Update the go.mod file for meta operator
+  ansible.builtin.shell: |
+    go mod edit -replace {{ go_mod_file }}={{ ansibleee_dir }}/api
+    go mod tidy
+    pushd ./apis/
+    go mod edit -replace {{ go_mod_file }}={{ ansibleee_dir }}/api
+    go mod tidy
+    popd
+  args:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
 
 - name: Call bundle for meta operator
   community.general.make:
@@ -75,6 +76,12 @@
     target: bundle
     params:
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
+
+- name: Update the ansibleee-operator image in meta operator bundle dockerfile
+  ansible.builtin.replace:
+    path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/custom-bundle.Dockerfile.pinned"
+    regexp: "openstack-ansibleee-operator-bundle:latest"
+    replace: "{{ ansibleee_img }}"
 
 - name: Call bundle-build for meta operator
   community.general.make:
