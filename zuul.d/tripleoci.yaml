@@ -241,7 +241,6 @@
     nodeset: single-centos-8-node-vexxhost
     pre-run: &uc_pre_run
       - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
       - playbooks/tripleo-ci-periodic-base/pre.yaml
     post-run: playbooks/tripleo-ci-periodic-base/post.yaml
     required-projects: &uc_rp
@@ -251,9 +250,7 @@
       - zuul: rdo-infra/ci-config
     secrets: &uc_secrets
       - dlrnapi
-      - rdo_registry
     vars: &uc_cs8_vars
-      registry_login_enabled: true
       configure_swap_size: 4096
       promote_source: tripleo-ci-testing
 

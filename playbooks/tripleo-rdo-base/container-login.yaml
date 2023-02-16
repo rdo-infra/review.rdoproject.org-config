@@ -32,7 +32,7 @@
           when: >
             quay_login_secret_name is not defined or
             quay_login_secret_name.username == '' or
-            quay_login_secret_name.password == ''
+            quay_login_secret_name.passwd == ''
 
         - name: Set vars for quay login
           no_log: true
