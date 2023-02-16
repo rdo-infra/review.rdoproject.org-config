@@ -59,17 +59,6 @@
     pull: false
     push: true
 
-- name: Update the go.mod file for meta operator
-  ansible.builtin.shell: |
-    go mod edit -replace {{ go_mod_file }}={{ ansibleee_dir }}/api
-    go mod tidy
-    pushd ./apis/
-    go mod edit -replace {{ go_mod_file }}={{ ansibleee_dir }}/api
-    go mod tidy
-    popd
-  args:
-    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
-
 - name: Call bundle for meta operator
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
@@ -80,8 +69,15 @@
 - name: Update the ansibleee-operator image in meta operator bundle dockerfile
   ansible.builtin.replace:
     path: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator/custom-bundle.Dockerfile.pinned"
-    regexp: "quay.io/openstack-k8s-operators/openstack-ansibleee-operator-bundle:latest"
+    regexp: "quay.io/openstack-k8s-operators/openstack-ansibleee-operator-bundle.*"
     replace: "quay.rdoproject.org/openstack-k8s-operators/{ ansibleee_img }}"
+
+- name: Update the go.mod file for meta operator
+  ansible.builtin.shell: |
+    go mod edit -replace {{ go_mod_file }}={{ ansibleee_dir }}/api
+    go mod tidy
+  args:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
 
 - name: Call bundle-build for meta operator
   community.general.make:
