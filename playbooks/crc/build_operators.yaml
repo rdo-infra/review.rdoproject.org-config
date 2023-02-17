@@ -3,6 +3,7 @@
   ansible.builtin.set_fact:
     ansibleee_dir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-ansibleee-operator"
     meta_operator_dir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/openstack-operator"
+    go_mod_file: "github.com/openstack-k8s-operators/openstack-ansibleee-operator/api"
 
 - name: Get the ansibleee-operator pull request information
   ansible.builtin.set_fact:
@@ -60,7 +61,6 @@
     ansibleee_img_tag: "{{ ee_operator_out.stdout | trim }}"
     openstack_img: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ meta_operator_out.stdout|trim }}"
     openstack_img_tag: "{{ meta_operator_out.stdout|trim }}"
-    go_mod_file: "github.com/openstack-k8s-operators/openstack-ansibleee-operator/api"
     cacheable: true
 
 - name: Call docker-build
