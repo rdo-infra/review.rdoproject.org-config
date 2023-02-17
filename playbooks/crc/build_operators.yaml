@@ -77,6 +77,13 @@
     params:
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator:{{ ansibleee_img_tag }}"
 
+- name: Call bundle
+  community.general.make:
+    chdir: "{{ ansibleee_dir }}"
+    target: bundle
+    params:
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator:{{ ee_operator_out.stdout|trim }}"
+
 - name: Call bundle-build
   community.general.make:
     chdir: "{{ ansibleee_dir }}"
