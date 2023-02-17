@@ -117,6 +117,7 @@
     target: bundle-build
     params:
       BUNDLE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
       IMAGEREGISTRY: "quay.rdoproject.org"
 
 - name: Push bundle image for meta operator
