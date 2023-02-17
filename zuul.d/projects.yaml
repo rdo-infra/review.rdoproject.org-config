@@ -541,12 +541,6 @@
       - system-required
 
 - project:
-    name: review.rdoproject.org/centos-opstools/opstools-ansible
-    templates:
-      - system-required
-      - centos-opstools-unsupported
-
-- project:
     name: review.rdoproject.org/centos-opstools/opstools-ansible-distgit
     templates:
       - system-required
@@ -5968,32 +5962,6 @@
       - system-required
 
 - project:
-    name: review.rdoproject.org/rdo-infra/ansible-role-rdo-base
-    queue: ansible-role-rdo-base
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-        - legacy-rdo-infra-playbooks-integration-base
-    gate:
-      jobs:
-        - tox-linters
-        - legacy-rdo-infra-playbooks-integration-base
-
-- project:
-    name: review.rdoproject.org/rdo-infra/ansible-role-rdo-bot
-    queue: ansible-role-rdo-base
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-    gate:
-      jobs:
-        - tox-linters
-
-- project:
     name: review.rdoproject.org/rdo-infra/ansible-role-rdo-kolla-build
     queue: ansible-role-rdo-base
     templates:
@@ -6318,11 +6286,9 @@
     check:
       jobs:
         - tox-linters
-        - legacy-rdo-infra-playbooks-integration-base
     gate:
       jobs:
         - tox-linters
-        - legacy-rdo-infra-playbooks-integration-base
 
 - project:
     name: review.rdoproject.org/rdo-infra/rdo-release
