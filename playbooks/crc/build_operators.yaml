@@ -6,7 +6,8 @@
 
 - name: Get the ansibleee-operator pull request information
   ansible.builtin.set_fact:
-    pr_info: {{ item.change }}
+    pr_info: "{{ item.change }}"
+  with_items: "{{ zuul['items'] }}"
   when:
     - zuul is defined
     - "'change_url' in item"
@@ -14,7 +15,8 @@
 
 - name: Get the ansibleee-operator pull request information
   ansible.builtin.set_fact:
-    pr_sha: {{ item.patchset }}
+    pr_sha: "{{ item.patchset }}"
+  with_items: "{{ zuul['items'] }}"
   when:
     - zuul is defined
     - "'change_url' in item"
