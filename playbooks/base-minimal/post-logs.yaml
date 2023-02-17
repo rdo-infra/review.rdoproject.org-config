@@ -30,10 +30,3 @@
       zuul_logserver_root: "{{ site_logs.path }}"
     - role: buildset-artifacts-location
       zuul_log_url: "{{ site_logs.url }}"
-
-- hosts: localhost
-  ignore_errors: yes
-  roles:
-    - role: submit-logstash-jobs
-      logstash_gearman_server: "elk.review.rdoproject.org"
-      logstash_gearman_server_port: 4731
