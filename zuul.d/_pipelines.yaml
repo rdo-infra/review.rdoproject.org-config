@@ -1,0 +1,352 @@
+# This file is managed by ansible, do not edit directly
+---
+- pipeline:
+    name: check
+    description: |
+      Newly uploaded patchsets enter this pipeline to receive an
+      initial +/-1 Verified vote.
+    manager: independent
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+      rdoproject.org:
+        open: True
+        current-patchset: True
+      rdoproject.org:
+        open: True
+        current-patchset: True
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      rdoproject.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+        - event: comment-added
+          require-approval:
+            - Verified: [-1, -2]
+              username: zuul
+          approval:
+            - Workflow: 1
+      rdoproject.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+        - event: comment-added
+          require-approval:
+            - Verified: [-1, -2]
+              username: zuul
+          approval:
+            - Workflow: 1
+      rdoproject.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+        - event: comment-added
+          require-approval:
+            - Verified: [-1, -2]
+              username: zuul
+          approval:
+            - Workflow: 1
+      rdoproject.org:
+        - event: patchset-created
+        - event: change-restored
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
+        - event: comment-added
+          require-approval:
+            - Verified: [-1, -2]
+              username: zuul
+          approval:
+            - Workflow: 1
+    start:
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+    success:
+      rdoproject.org:
+        Verified: 1
+      rdoproject.org:
+        Verified: 1
+      rdoproject.org:
+        Verified: 1
+      rdoproject.org:
+        Verified: 1
+      opensearch:
+    failure:
+      rdoproject.org:
+        Verified: -1
+      rdoproject.org:
+        Verified: -1
+      rdoproject.org:
+        Verified: -1
+      rdoproject.org:
+        Verified: -1
+      opensearch:
+
+- pipeline:
+    name: gate
+    description: |
+      Changes that have been approved by core developers are enqueued
+      in order in this pipeline, and if they pass tests, will be
+      merged.
+    success-message: Build succeeded (gate pipeline).
+    failure-message: |
+      Build failed (gate pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: dependent
+    precedence: high
+    post-review: True
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+        approval:
+          - Verified: [1, 2]
+            username: zuul
+          - Workflow: 1
+      rdoproject.org:
+        open: True
+        current-patchset: True
+        approval:
+          - Verified: [1, 2]
+            username: zuul
+          - Workflow: 1
+      rdoproject.org:
+        open: True
+        current-patchset: True
+        approval:
+          - Verified: [1, 2]
+            username: zuul
+          - Workflow: 1
+      rdoproject.org:
+        open: True
+        current-patchset: True
+        approval:
+          - Verified: [1, 2]
+            username: zuul
+          - Workflow: 1
+    trigger:
+      rdoproject.org:
+        - event: comment-added
+          approval:
+            - Workflow: 1
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
+      rdoproject.org:
+        - event: comment-added
+          approval:
+            - Workflow: 1
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
+      rdoproject.org:
+        - event: comment-added
+          approval:
+            - Workflow: 1
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
+      rdoproject.org:
+        - event: comment-added
+          approval:
+            - Workflow: 1
+        - event: comment-added
+          approval:
+            - Verified: 1
+          username: zuul
+    start:
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+      rdoproject.org:
+        Verified: 0
+    success:
+      rdoproject.org:
+        Verified: 2
+        submit: true
+      rdoproject.org:
+        Verified: 2
+        submit: true
+      rdoproject.org:
+        Verified: 2
+        submit: true
+      rdoproject.org:
+        Verified: 2
+        submit: true
+      opensearch:
+    failure:
+      rdoproject.org:
+        Verified: -2
+      rdoproject.org:
+        Verified: -2
+      rdoproject.org:
+        Verified: -2
+      rdoproject.org:
+        Verified: -2
+      opensearch:
+    window-floor: 20
+    window-increase-factor: 2
+
+- pipeline:
+    name: post
+    post-review: true
+    description: This pipeline runs jobs that operate after each change is merged.
+    manager: supercedent
+    precedence: low
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/heads/.*$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/heads/.*$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/heads/.*$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/heads/.*$
+    success:
+      opensearch:
+    failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in post pipeline: {change.project}'
+      opensearch:
+
+- pipeline:
+    name: pre-release
+    description: When a commit is tagged with a pre-release tag, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    post-review: True
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+    success:
+      opensearch:
+    failure:
+      opensearch:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
+
+- pipeline:
+    name: release
+    post-review: true
+    description: When a commit is tagged as a release, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    trigger:
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+      rdoproject.org:
+        - event: ref-updated
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+    success:
+      opensearch:
+    failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in release pipeline: {change.project}'
+      opensearch:
+
+- pipeline:
+    name: periodic
+    post-review: true
+    description: Jobs in this queue are triggered daily.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 0 * * *'
+    success:
+      opensearch:
+    failure:
+      smtp:
+        from: "zuul@review.rdoproject.org"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
+      opensearch:
+
+- pipeline:
+    name: experimental
+    description: On-demand pipeline for requesting a run against a set of jobs that are not yet gating. Leave review comment of "check experimental" to run jobs in this pipeline.
+    success-message: Build succeeded (experimental pipeline).
+    failure-message: Build failed (experimental pipeline).
+    manager: independent
+    precedence: normal
+    trigger:
+      rdoproject.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+      rdoproject.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+      rdoproject.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+      rdoproject.org:
+        - event: comment-added
+          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
+    success:
+      rdoproject.org: {}
+      rdoproject.org: {}
+      rdoproject.org: {}
+      rdoproject.org: {}
+      opensearch:
+    failure:
+      rdoproject.org: {}
+      rdoproject.org: {}
+      rdoproject.org: {}
+      rdoproject.org: {}
+      opensearch:
+
+- pipeline:
+    name: merge-check
+    description: >
+      Each time a change merges, this pipeline verifies that all open changes
+      on the same project are still mergeable.
+    failure-message: Build failed (merge-check pipeline).
+    manager: independent
+    ignore-dependencies: true
+    precedence: low
+    trigger: {}

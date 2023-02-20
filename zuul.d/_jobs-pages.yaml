@@ -1,0 +1,24 @@
+# This file is managed by ansible, do not edit directly
+---
+- job:
+    name: build-and-publish-pages
+    parent: base
+    description: Base build and publish pages job
+    run: playbooks/pages/build.yaml
+    post-run:
+      - playbooks/pages/publish.yaml
+    secrets:
+      - site_pages
+    protected: true
+    vars:
+      src_dir: /
+      fqdn: review.rdoproject.org
+
+- job:
+    name: build-pages
+    parent: base
+    description: Pages build
+    run: playbooks/pages/build.yaml
+    vars:
+      src_dir: /
+

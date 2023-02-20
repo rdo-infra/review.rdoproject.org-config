@@ -6,6 +6,11 @@ resources:
       description: "The rdoproject.org tenant."
       url: "https://review.rdoproject.org/manage"
       default-connection: rdoproject.org
+      tenant-options:
+        zuul/web-root: https://review.rdoproject.org/zuul/
+        zuul/report-build-page: True
+        zuul/max-job-timeout: 10800
+
 
   projects:
     internal:
@@ -14,11 +19,21 @@ resources:
       source-repositories:
         - config:
             zuul/config-project: True
-        - rdo-jobs
-        - zuul/zuul-jobs:
-            connection: opendev.org
+        - sf-jobs:
+            hound/skip: True
+        - zuul-jobs:
+            connection: gerrit
             zuul/include: [job]
-            zuul/shadow: rdo-jobs
+            zuul/shadow: sf-jobs
+            hound/skip: True
+
+  repos:
+    config:
+      description: Config repository
+      acl: config-acl
+    sf-jobs:
+      description: Local job repository
+      acl: config-acl
 
   acls:
     config-acl:
@@ -29,14 +44,11 @@ resources:
         [access "refs/heads/*"]
           label-Code-Review = -2..+2 group config-core
           label-Code-Review = -2..+2 group config-ptl
-          label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Verified = -2..+2 group config-ptl
           label-Workflow = -1..+1 group config-core
           label-Workflow = -1..+1 group config-ptl
           label-Workflow = -1..+0 group Registered Users
-          label-Workflow = -1..+1 group rdo-provenpackagers
           rebase = group config-core
-          rebase = group rdo-provenpackagers
           abandon = group config-core
           submit = group config-ptl
           read = group config-core
@@ -44,21 +56,16 @@ resources:
         [access "refs/meta/config"]
           read = group config-core
           read = group Registered Users
-          read = group rdo-provenpackagers
         [receive]
           requireChangeId = true
         [submit]
           mergeContent = false
           action = fast forward only
+        [plugin "reviewers-by-blame"]
+          maxReviewers = 5
+          ignoreDrafts = true
+          ignoreSubjectRegEx = (WIP|DNM)(.*)
       groups:
         - config-ptl
         - config-core
-        - rdo-provenpackagers
 
-  repos:
-    config:
-      description: Config repository
-      acl: config-acl
-    rdo-jobs:
-      description: RDO Zuul roles and jobs
-      acl: config-acl

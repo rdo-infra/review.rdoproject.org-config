@@ -1,0 +1,34 @@
+# This file is managed by ansible, do not edit directly
+---
+- hosts: all
+  tasks:
+    - block:
+        - include_role: name=fetch-output
+      when:
+        - "ansible_connection != 'kubectl'"
+        - ansible_user_dir is defined
+    - block:
+        - include_role: name=fetch-output-openshift
+      when:
+        - "ansible_connection == 'kubectl'"
+        - ansible_user_dir is defined
+    - import_role: name=merge-output-to-logs
+      when: ansible_user_dir is defined
+
+- hosts: localhost
+  roles:
+    - role: add-fileserver
+      fileserver: "{{ site_sflogs }}"
+    - role: generate-zuul-manifest
+
+- hosts: "logserver.review.rdoproject.org"
+  gather_facts: false
+  tasks:
+    # Use a block because play vars doesn't take precedence on roles vars
+    - block:
+        - import_role: name=upload-logs
+        - import_role: name=buildset-artifacts-location
+      vars:
+        zuul_log_compress: true
+        zuul_log_url: "https://review.rdoproject.org/logs"
+        zuul_logserver_root: "{{ site_sflogs.path }}"
