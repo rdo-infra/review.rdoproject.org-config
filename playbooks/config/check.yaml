@@ -6,6 +6,18 @@
       set_fact:
         config_root: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
 
+    - name: Copy embedded sanity-check
+      copy:
+        src: files/sanity-check.py
+        dest: "{{ config_root }}/sanity-check.py"
+        mode: 0700
+
+    - name: Run sanity-check.py
+      command: ./sanity-check.py
+      args:
+        chdir: "{{ config_root }}"
+      changed_when: false
+
     - name: Fetch default config
       get_url:
         url: "{{ gateway_url }}/_defconf.tgz"
@@ -58,7 +70,8 @@
             src: "{{ config_root }}/defconf-master/defconf-zuul.conf"
             dest: "{{ config_root }}/defconf/defconf-zuul.conf"
 
-        - set_fact:
+        - name: load tenant_options
+          set_fact:
             tenant_options: "--tenant --master-sf-url {{ master_sf_url }}"
       when: tenant_config is defined and tenant_config
 

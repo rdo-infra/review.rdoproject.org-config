@@ -1,16 +1,19 @@
 # This file is managed by ansible, do not edit directly
 ---
 - name: Discover path of config repository
-  command: git rev-parse --show-toplevel
+  command: git rev-parse --show-toplevel  # noqa 303
   register: config_path
+  changed_when: false
 
 - name: Get last change sha
-  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges"
+  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges"  # noqa 303
   register: git_log
+  changed_when: false
 
 - name: Get last change on resources sha
-  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges -- resources zuul"
+  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges -- resources zuul"  # noqa 303
   register: git_log_resources
+  changed_when: false
 
 - block:
     - name: Create SSH private key tempfile
