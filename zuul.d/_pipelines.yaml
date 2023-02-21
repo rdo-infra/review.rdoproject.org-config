@@ -10,49 +10,7 @@
       rdoproject.org:
         open: True
         current-patchset: True
-      rdoproject.org:
-        open: True
-        current-patchset: True
-      rdoproject.org:
-        open: True
-        current-patchset: True
-      rdoproject.org:
-        open: True
-        current-patchset: True
     trigger:
-      rdoproject.org:
-        - event: patchset-created
-        - event: change-restored
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-        - event: comment-added
-          require-approval:
-            - Verified: [-1, -2]
-              username: zuul
-          approval:
-            - Workflow: 1
-      rdoproject.org:
-        - event: patchset-created
-        - event: change-restored
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-        - event: comment-added
-          require-approval:
-            - Verified: [-1, -2]
-              username: zuul
-          approval:
-            - Workflow: 1
-      rdoproject.org:
-        - event: patchset-created
-        - event: change-restored
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-        - event: comment-added
-          require-approval:
-            - Verified: [-1, -2]
-              username: zuul
-          approval:
-            - Workflow: 1
       rdoproject.org:
         - event: patchset-created
         - event: change-restored
@@ -67,29 +25,11 @@
     start:
       rdoproject.org:
         Verified: 0
-      rdoproject.org:
-        Verified: 0
-      rdoproject.org:
-        Verified: 0
-      rdoproject.org:
-        Verified: 0
     success:
-      rdoproject.org:
-        Verified: 1
-      rdoproject.org:
-        Verified: 1
-      rdoproject.org:
-        Verified: 1
       rdoproject.org:
         Verified: 1
       opensearch:
     failure:
-      rdoproject.org:
-        Verified: -1
-      rdoproject.org:
-        Verified: -1
-      rdoproject.org:
-        Verified: -1
       rdoproject.org:
         Verified: -1
       opensearch:
@@ -115,52 +55,7 @@
           - Verified: [1, 2]
             username: zuul
           - Workflow: 1
-      rdoproject.org:
-        open: True
-        current-patchset: True
-        approval:
-          - Verified: [1, 2]
-            username: zuul
-          - Workflow: 1
-      rdoproject.org:
-        open: True
-        current-patchset: True
-        approval:
-          - Verified: [1, 2]
-            username: zuul
-          - Workflow: 1
-      rdoproject.org:
-        open: True
-        current-patchset: True
-        approval:
-          - Verified: [1, 2]
-            username: zuul
-          - Workflow: 1
     trigger:
-      rdoproject.org:
-        - event: comment-added
-          approval:
-            - Workflow: 1
-        - event: comment-added
-          approval:
-            - Verified: 1
-          username: zuul
-      rdoproject.org:
-        - event: comment-added
-          approval:
-            - Workflow: 1
-        - event: comment-added
-          approval:
-            - Verified: 1
-          username: zuul
-      rdoproject.org:
-        - event: comment-added
-          approval:
-            - Workflow: 1
-        - event: comment-added
-          approval:
-            - Verified: 1
-          username: zuul
       rdoproject.org:
         - event: comment-added
           approval:
@@ -172,33 +67,12 @@
     start:
       rdoproject.org:
         Verified: 0
-      rdoproject.org:
-        Verified: 0
-      rdoproject.org:
-        Verified: 0
-      rdoproject.org:
-        Verified: 0
     success:
-      rdoproject.org:
-        Verified: 2
-        submit: true
-      rdoproject.org:
-        Verified: 2
-        submit: true
-      rdoproject.org:
-        Verified: 2
-        submit: true
       rdoproject.org:
         Verified: 2
         submit: true
       opensearch:
     failure:
-      rdoproject.org:
-        Verified: -2
-      rdoproject.org:
-        Verified: -2
-      rdoproject.org:
-        Verified: -2
       rdoproject.org:
         Verified: -2
       opensearch:
@@ -212,15 +86,6 @@
     manager: supercedent
     precedence: low
     trigger:
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/heads/.*$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/heads/.*$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/heads/.*$
       rdoproject.org:
         - event: ref-updated
           ref: ^refs/heads/.*$
@@ -243,15 +108,6 @@
       rdoproject.org:
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
       opensearch:
     failure:
@@ -268,15 +124,6 @@
     manager: independent
     precedence: high
     trigger:
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
-      rdoproject.org:
-        - event: ref-updated
-          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
       rdoproject.org:
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
@@ -318,25 +165,10 @@
       rdoproject.org:
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
-      rdoproject.org:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
-      rdoproject.org:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
-      rdoproject.org:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
     success:
-      rdoproject.org: {}
-      rdoproject.org: {}
-      rdoproject.org: {}
       rdoproject.org: {}
       opensearch:
     failure:
-      rdoproject.org: {}
-      rdoproject.org: {}
-      rdoproject.org: {}
       rdoproject.org: {}
       opensearch:
 
