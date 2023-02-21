@@ -66,7 +66,9 @@
           https://api.crc.testing:6443
           --insecure-skip-tls-verify=true ;
 
-          for image in $(grep -rE 'registry.redhat.io[^ ]+' ~/osp-director-operator/ | awk '{print $3 $4}' | sed 's/image://g' | sed '/^[[:space:]]*$/d'| sort | uniq); do
+          echo "Some images will be downloaded before operator start: {{ operator_pull_images | default([]) | join(' ') }}"
+
+          for image in {{ operator_pull_images | default([]) | join(" ") }}; do
               name="zuul-ci-pull-job-$(echo $image | sed 's|/|-|g' | sed s/"registry.redhat.io-rhosp-"// | cut -f1 -d':')";
               /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
           done
@@ -87,6 +89,7 @@
           /usr/local/bin/oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n openstack delete pod
         dest: /tmp/pull-images.sh
         mode: "0755"
+      when: operator_pull_images is defined and operator_pull_images
 
     - name: Download required images before subscription is removed
       shell: /tmp/pull-images.sh
