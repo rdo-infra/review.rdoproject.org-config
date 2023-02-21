@@ -29,8 +29,8 @@
             containers:
               - image: "{{ _image_stream.result.status.dockerImageRepository }}"
                 name: "{{ zuul.project.short_name }}"
-                command: [ "/bin/bash", "-c", "--" ]
-                args: [ "while true; do sleep 30; done;" ]
+                command: ["/bin/bash", "-c", "--"]
+                args: ["while true; do sleep 30; done;"]
                 ports:
                   - containerPort: 8080
                     protocol: TCP

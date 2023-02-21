@@ -27,3 +27,4 @@
 - name: Remove empty directory
   command: find "{{ zuul.executor.work_root }}" -empty -type d -delete
   delegate_to: localhost
+  changed_when: false

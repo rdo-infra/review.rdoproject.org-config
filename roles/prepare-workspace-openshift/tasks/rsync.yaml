@@ -5,6 +5,7 @@
        --namespace "{{ item.1.namespace }}"
        exec {{ item.1.pod }} mkdir src
   delegate_to: localhost
+  changed_when: false
 
 - name: Copy src repos to the pod
   command: >
@@ -15,3 +16,4 @@
           {{ item.1.pod }}:src/
   no_log: true
   delegate_to: localhost
+  changed_when: false
