@@ -443,12 +443,6 @@
     name: opendev.org/openstack/rpm-packaging
     templates:
       - system-required
-    openstack-check-rdo:
-      jobs:
-        - DLRN-rpmbuild-rpm-packaging-centos:
-            branches: ^(stable/(queens|rocky|stein))$
-        - DLRN-rpmbuild-rpm-packaging-centos-8:
-            branches: ^(master|stable/(train|ussuri|victoria|wallaby|xena))$
 
 - project:
     name: opendev.org/openstack/tempest
