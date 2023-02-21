@@ -1,0 +1,16 @@
+---
+# Hash promotion base job
+- job:
+    name: openstack-ci-base-promote-hash
+    abstract: true
+    timeout: 3000
+    nodeset: cloud-centos-9-stream-vexxhost
+    run: playbooks/openstack-ci-base-promote-hash/run.yaml
+    post-run: playbooks/openstack-ci-base-promote-hash/post.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
