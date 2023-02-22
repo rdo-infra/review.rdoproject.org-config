@@ -160,6 +160,15 @@
       jobs:
         - openstack-ansibleee-operator-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute
 
+# Openstack container build
+- project:
+    name: github.com/openstack-k8s-operators/tcib
+    templates:
+      - system-required
+    github-check:
+      jobs:
+        - edpm-ansible-github-rdo-integration-centos-8-crc-singlenode-centos-9-external-compute
+
 - project:
     name: opendev.org/openstack/dib-utils
     templates:
