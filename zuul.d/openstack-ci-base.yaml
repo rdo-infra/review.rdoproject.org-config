@@ -14,3 +14,25 @@
       - zuul: rdo-infra/ci-config
     secrets:
       - dlrnapi
+
+- job:
+    name: container-tcib-build-base
+    parent: base-minimal
+    description: |
+      A base job that builds containers with tcib
+    pre-run:
+      # Playbook to add ci-framework team ssh keys to the node
+      - playbooks/ci-framework-rdo-base/pre.yaml
+        # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - github.com/openstack-k8s-operators/tcib
+      - github.com/ci-framework/repo-setup
+      - opendev.org/zuul/zuul-jobs
+    roles:
+      - zuul: github.com/openstack-k8s-operators/tcib
+    attempts: 1
+    secrets:
+      - quay_rdoproject_master_centos_9_secret
+      - quay_rdoproject_zed_centos_9_secret
