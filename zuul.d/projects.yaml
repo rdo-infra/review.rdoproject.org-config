@@ -4543,6 +4543,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/tcib
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/tcib-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/telemetry-tempest-plugin
     templates:
       - package-check-jobs
