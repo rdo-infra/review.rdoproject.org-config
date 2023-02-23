@@ -79,6 +79,11 @@ resources:
           repoxplorer/branches:
           - c9s-antelope-rdo
           default-branch: c9s-antelope-rdo
+      - deps/python-markupsafe:
+          zuul/include: []
+          repoxplorer/branches:
+          - c9s-antelope-rdo
+          default-branch: c9s-antelope-rdo
       - deps/python-ncclient:
           zuul/include: []
           repoxplorer/branches:
@@ -99,11 +104,6 @@ resources:
           repoxplorer/branches:
           - c9s-antelope-rdo
           default-branch: c9s-zed-rdo
-      - deps/python-markupsafe:
-          zuul/include: []
-          repoxplorer/branches:
-          - c9s-antelope-rdo
-          default-branch: c9s-antelope-rdo
       - deps/python-requests-toolbelt:
           zuul/include: []
           repoxplorer/branches:
@@ -1189,6 +1189,11 @@ resources:
       - openstack/taskflow-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
+          default-branch: rpm-master
+      - openstack/tcib-distgit:
+          zuul/include: []
+          repoxplorer/branches:
+          - rpm-master
           default-branch: rpm-master
       - openstack/telemetry-tempest-plugin-distgit:
           zuul/include: []
