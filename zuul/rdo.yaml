@@ -738,6 +738,8 @@
           - openstack/task-core-distgit
           - openstack/taskflow
           - openstack/taskflow-distgit
+          - openstack/tcib
+          - openstack/tcib-distgit
           - openstack/telemetry-tempest-plugin
           - openstack/telemetry-tempest-plugin-distgit
           - openstack/tempest-distgit
@@ -1204,7 +1206,7 @@
         # only affect those repos. they are not config
         # repos and cannot shadow other jobs, projects
         # or nodesets.
-        - include: ['job', 'project', 'nodeset']
+        - include: [job, project, nodeset]
           projects:
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
