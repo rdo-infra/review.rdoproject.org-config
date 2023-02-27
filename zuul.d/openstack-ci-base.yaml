@@ -26,8 +26,10 @@
         # Playbooks for podman
       - playbooks/crc/podman.yaml
     required-projects:
-      - github.com/openstack-k8s-operators/tcib
-      - github.com/ci-framework/repo-setup
+      - name: github.com/openstack-k8s-operators/tcib
+        override-checkout: main
+      - name: github.com/ci-framework/repo-setup
+        override-checkout: main
       - opendev.org/zuul/zuul-jobs
     roles:
       - zuul: github.com/openstack-k8s-operators/tcib
