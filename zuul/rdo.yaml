@@ -199,6 +199,7 @@
           - deps/python-deprecated
           - deps/python-editables
           - deps/python-greenlet
+          - deps/python-hatch-vcs
           - deps/python-hatchling
           - deps/python-importlib-metadata
           - deps/python-jsonschema
@@ -1207,7 +1208,7 @@
         # only affect those repos. they are not config
         # repos and cannot shadow other jobs, projects
         # or nodesets.
-        - include: ['job', 'project', 'nodeset']
+        - include: [job, project, nodeset]
           projects:
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
