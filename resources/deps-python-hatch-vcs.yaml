@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-hatch-vcs-core:
+      description: Core developers for project python-hatch-vcs
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-hatch-vcs-ptl:
+      description: Project team lead for project python-hatch-vcs
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-hatch-vcs:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-hatch-vcs-core
+          owner = group deps/python-hatch-vcs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-hatch-vcs-core
+          label-Code-Review = -2..+2 group deps/python-hatch-vcs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-hatch-vcs-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-hatch-vcs-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-hatch-vcs-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-hatch-vcs-core
+          label-Workflow = -1..+0 group deps/python-hatch-vcs-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-hatch-vcs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-hatch-vcs-core
+      - deps/python-hatch-vcs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-hatch-vcs:
+      acl: deps-python-hatch-vcs
+      description: Packaging of RDO dependency python-hatch-vcs
+      default-branch: c9s-antelope-rdo
+      branches:
+        master: '0'
