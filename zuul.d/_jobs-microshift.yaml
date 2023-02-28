@@ -1,0 +1,23 @@
+---
+- job:
+    name: base-microshift
+    parent: base-minimal
+    description: |
+      A base job that starts Microshift deployment
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/microshift/start.yaml
+    roles:
+      - zuul: sf-jobs
+      - zuul: zuul-jobs
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+      - github.com/softwarefactory-project/sf-infra
+    attempts: 3
+    secrets:
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
