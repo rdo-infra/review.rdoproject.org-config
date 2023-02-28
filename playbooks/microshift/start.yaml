@@ -1,0 +1,47 @@
+---
+- hosts: all
+  tasks:
+    - name: Fail when openshift_pull_sec not provided
+      fail:
+        msg: "The openshift_pull_secret variable can not be empty!"
+      when: crc_secret.openshift_pull_secret == ""
+
+    # Fom sf-infra/roles/extra/microshift
+    - name: Set facts
+      set_fact:
+        openshift_pull_secret: "{{ crc_secret.openshift_pull_secret }}"
+      no_log: true
+
+    - name: Setup Microshift
+      block:
+        - name: Start Microshift deployment
+          include_role: extra/microshift
+
+        # NOTE: The topolvm requires additional volume and create a lvm
+        # on that volume. We don't use that for CI, so just skip it.
+        - name: Create script to verify deployment
+          copy:
+            content: |
+              for i in {1..20}; do
+                echo "Ensuring that containers are spawned... ${i}"
+                count=$(/usr/local/bin/oc get pods --all-namespaces | grep openshift | grep -viE 'topolvm|running' -c)
+                if [ "$count" -eq "0" ]; then
+                    echo "Microshift is deployed, we can continue..."
+                    break
+                else
+                    echo "The Microshift containers are not ready..."
+                    sleep 15
+                fi
+              done
+              echo "Skipping waiting for openshift-storage - topolvm"
+            dest: /tmp/pull-images.sh
+            mode: "0755"
+
+        - name: Check if all containers are up and ready
+          shell: /tmp/pull-images.sh
+      always:
+        - name: Remove sensitive data
+          include_role:
+            name: extra/microshift
+            tasks_from: cleanup.yaml
+          register: _cleanup_pull_secret
