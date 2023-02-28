@@ -143,6 +143,14 @@
             dependencies:
               - podman-package-centos-9
 
+- project:
+    name: github.com/openstack-k8s-operators/data-plane-adoption
+    templates:
+      - system-required
+    github-manual:
+      jobs:
+        - data-plane-adoption-github-rdo-centos-8-crc-centos-9-standalone
+
 # EDPM PCP job template
 - project:
     name: github.com/openstack-k8s-operators/edpm-ansible
