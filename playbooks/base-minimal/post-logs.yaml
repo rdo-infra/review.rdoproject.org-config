@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - role: fetch-output
     - role: generate-zuul-manifest
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
