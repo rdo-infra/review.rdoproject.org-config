@@ -1,6 +1,18 @@
 ---
+- name: Ensure local directory exists
+  file:
+    path: "{{ output }}"
+    state: directory
+    recurse: true
+  loop:
+    - "{{ log_path }}"
+    - "{{ log_path }}/npm"
+    - "{{ zuul.executor.work_root }}/artifacts"
+    - "{{ zuul.executor.work_root }}/docs"
+  loop_control:
+    loop_var: output
+
 - name: Copy zuul-output from the pod to the executor
-  changed_when: false
   command: >
     oc --context "{{ item.1.context }}"
        --namespace "{{ item.1.namespace }}"
