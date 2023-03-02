@@ -92,4 +92,5 @@
       when: pre_pull_images is defined and pre_pull_images
 
     - name: Download required images before subscription is removed
+      when: pre_pull_images is defined and pre_pull_images
       shell: /tmp/pull-images.sh
