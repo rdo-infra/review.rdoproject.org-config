@@ -50,14 +50,8 @@
     chdir: "{{ zuul.projects['github.com/openstack-k8s-operators/install_yamls'].src_dir }}"
 
 - name: Pull Required Images before subscription is removed
-  when: "{{ pull_images | default(true) }}"
+  when: pre_pull_images is defined and pre_pull_images
   block:
-    - name: Clone osp director
-      git:
-        repo: "https://github.com/openstack-k8s-operators/osp-director-operator/"
-        dest: ~/osp-director-operator
-        version: "{{ osp_director_operator_version | default('master') }}"
-
     - name: Create pull image script
       copy:
         content: >
@@ -89,8 +83,6 @@
           /usr/local/bin/oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n openstack delete pod
         dest: /tmp/pull-images.sh
         mode: "0755"
-      when: pre_pull_images is defined and pre_pull_images
 
     - name: Download required images before subscription is removed
-      when: pre_pull_images is defined and pre_pull_images
       shell: /tmp/pull-images.sh
