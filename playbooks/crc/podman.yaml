@@ -19,9 +19,12 @@
         state: present
 
     - name: Set vars for Registry login and do podman login
-      no_log: true
       when: registry_login_enabled|default(false)|bool
       block:
+        - name: Print the username
+          shell: |
+             echo "{{ quay_login_secret_name.user }}"
+
         - name: Fail when user or password is not set
           fail:
             msg: "Can not continue. Please provide user and password"
@@ -31,6 +34,7 @@
             quay_login_secret_name.password == ''
 
         - name: Set vars for quay login
+          no_log: true
           set_fact:
             container_registry_logins:
               quay.rdoproject.org: "{'{{ quay_login_secret_name.user }}': '{{ quay_login_secret_name.password }}'}"
