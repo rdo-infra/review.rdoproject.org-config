@@ -39,3 +39,21 @@
         secret: quay_rdoproject_podified_master_centos_9_secret
       - name: quay_login_secret_name_zed
         secret: quay_rdoproject_podified_zed_centos_9_secret
+
+- job:
+    name: copy-container-quay-base
+    parent: base-minimal
+    description: |
+      A base job with login to copy containers to quay registries
+    pre-run: playbooks/ci-framework-rdo-base/pre.yaml
+    run: playbooks/ci-framework-rdo-base/copy-containers/main.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: master
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
+    vars:
+      work_dir: /home/zuul/workspace
+    secrets:
+      - quayio_rdoci
+
