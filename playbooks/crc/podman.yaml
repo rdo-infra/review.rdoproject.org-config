@@ -23,6 +23,13 @@
     - name: Set vars for Registry login and do podman login
       when: registry_login_enabled|default(false)|bool
       block:
+        - name: Set var name for quay login zuul secret
+          set_fact:
+            quay_login_secret_name: "{{ lookup('vars', 'quay_login_secret_name_' + openstack_release, default=quay_login_secret_name)}}"
+          when:
+            - openstack_release is defined
+            - quay_login_secret_name is not defined
+
         - name: Print the username
           shell: |
              echo "{{ quay_login_secret_name.user }}"
