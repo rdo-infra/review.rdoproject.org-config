@@ -1,0 +1,35 @@
+---
+- hosts: primary
+  tasks:
+    - name: Install podman
+      become: true
+      ansible.builtin.package:
+        name:
+          - podman
+        state: present
+
+    - name: Perform container registry login with podman
+      ansible.builtin.shell: |-
+        podman login --username=$REGISTRY_USERNAME \
+            --password=$REGISTRY_PASSWORD \
+            $REGISTRY
+      environment:
+        REGISTRY_USERNAME: "{{ quayio_rdoci.username }}"
+        REGISTRY_PASSWORD: "{{  quayio_rdoci.password }}"
+        REGISTRY: "quay.io"
+      no_log: true
+
+    - name: Copy containers per release
+      ansible.builtin.shell: |-
+        /usr/local/bin/copy-quay \
+            --config {{ work_dir }}/copy-quay-config.yaml \
+            --token "$TOKEN" --release {{ openstack_release }} \
+            --push-hash {{ DLRN_hash }} \
+            --hash {{ DLRN_hash }} \
+            --html {{ work_dir }}/{{ openstack_release }}-report.html \
+            copy &>> {{ work_dir }}/{{ openstack_release }}.txt
+      environment:
+        TOKEN: "{{ quayio_rdoci.token }}"
+      args:
+        chdir: "{{ work_dir }}"
+      no_log: true
