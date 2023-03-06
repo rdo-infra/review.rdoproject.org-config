@@ -1262,3 +1262,11 @@
         - include: []
           projects:
           - zuul-distro-jobs
+
+      softwarefactory-project.io:
+        untrusted-projects:
+          # Don't load any configuration from these projects because we
+          # don't gate them, so they could wedge our config.
+        - include: []
+          projects:
+          - software-factory/sf-infra
