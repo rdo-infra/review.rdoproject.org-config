@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "765d65a8_87423f34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2023-03-06T13:54:39Z",
+      "side": 1,
+      "message": "yes so depend on will force zuul to try and create a merge commit even when in the same repo.\n\nso if you have two patches to the same repo and they are not in the same brach/serises youc an use depends on to test with both.\n\nin this case i think git will see its just a FF merge because the parent of the current patch is the same as the depns on but its generally not a good idea to use depens on in the same repo.\n\nthere are case where it can cause issues\n\ntopics are generally better unless you are intentionally using the speculative merge feature",
+      "parentUuid": "083d4bc9_a9d63b5e",
+      "revId": "05744d02bad69abeb0fc797b15f3580c6208f539",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "499b8bd7_8e46506a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
