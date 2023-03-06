@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "499b8bd7_8e46506a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2023-03-06T12:50:53Z",
+      "side": 1,
+      "message": "\u003e Patch Set 5: Verified-1\n\u003e \n\u003e Zuul encountered a syntax error while parsing its configuration in the\n\u003e repo config on branch master.  The error was:\n\u003e \n\u003e   Unknown projects: github.com/softwarefactory-project/sf-infra\n\u003e \n\u003e The error appears in the following job stanza:\n\u003e \n\u003e   job:\n\u003e       name: base-microshift\n\u003e       parent: base-minimal\n\u003e       description: |\n\u003e         A base job that starts Microshift deployment\n\u003e       pre-run:\n\u003e         # Playbook to add tripleo-ci team ssh keys to the node\n\u003e         - playbooks/tripleo-rdo-base/pre.yaml\n\u003e         - playbooks/microshift/start.yaml\n\u003e       roles:\n\u003e         - zuul: sf-jobs\n\u003e         - zuul: zuul-jobs\n\u003e       required-projects:\n\u003e         - github.com/openstack-k8s-operators/install_yamls\n\u003e         - opendev.org/zuul/zuul-jobs\n\u003e         - github.com/softwarefactory-project/sf-infra\n\u003e       attempts: 3\n\u003e       secrets:\n\u003e         - name: crc_secret\n\u003e           secret: crc_secret\n\u003e         - name: quay_login_secret_name\n\u003e           secret: quay_nextgen_zuulgithubci\n\u003e \n\u003e   in \"config/zuul.d/_jobs-microshift.yaml@master\", line 2, column 3\n\neven with depends on this will fail because the change to add the repo is in a config project so once that is merged this can be rechecked",
+      "revId": "05744d02bad69abeb0fc797b15f3580c6208f539",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
