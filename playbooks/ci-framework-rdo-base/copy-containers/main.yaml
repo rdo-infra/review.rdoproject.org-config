@@ -8,6 +8,16 @@
           - podman
         state: present
 
+    # TODO: Use go to get DLRN hash from job file
+    - name: Get md5 file for DLRN hash tag
+      ansible.builtin.get_url:
+        url: "{{ trunk_url }}/{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}-{{ openstack_release}}/{{ promote_source }}/delorean.repo.md5"
+        dest: "{{ ansible_user_dir }}/delorean.repo.md5"
+
+    - name: Find MD5 value
+      ansible.builtin.command: "cat {{ ansible_user_dir }}/delorean.repo.md5"
+      register: DLRN_hash
+
     - name: Perform container registry login with podman
       ansible.builtin.shell: |-
         podman login --username=$REGISTRY_USERNAME \
@@ -25,8 +35,8 @@
             --config {{ work_dir }}/copy-quay-config.yaml \
             --token "$TOKEN" \
             --release {{ openstack_release }}{ ansible_distribution|lower }}{{ansible_distribution_major_version }} \
-            --push-hash {{ DLRN_hash }} \
-            --hash {{ DLRN_hash }} \
+            --push-hash {{ DLRN_hash.stdout }} \
+            --hash {{ DLRN_hash.stdout }} \
             --html {{ work_dir }}/{{ openstack_release }}-report.html \
             copy &>> {{ work_dir }}/{{ openstack_release }}.txt
       environment:
