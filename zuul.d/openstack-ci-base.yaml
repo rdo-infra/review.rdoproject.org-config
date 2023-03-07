@@ -49,7 +49,7 @@
     run: playbooks/ci-framework-rdo-base/copy-containers/main.yaml
     required-projects:
       - name: github.com/openstack-k8s-operators/ci-framework
-        override-checkout: master
+        override-checkout: main
     roles:
       - zuul: github.com/openstack-k8s-operators/ci-framework
     vars:
