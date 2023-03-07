@@ -29,6 +29,19 @@
         REGISTRY: "quay.io"
       no_log: true
 
+    - name: Debug hash
+      debug:
+        msg: "Hash is {{ DLRN_hash.stdout }}"
+
+    - name: Debug workdir
+      debug:
+        msg: "workdir is {{ work_dir }}"
+
+    - name: Debug release
+      debug:
+        msg: "release is {{ openstack_release }}{ ansible_distribution|lower }}{{ansible_distribution_major_version }}"
+
+
     - name: Copy containers per release
       ansible.builtin.shell: |-
         /usr/local/bin/copy-quay \
@@ -38,7 +51,7 @@
             --push-hash {{ DLRN_hash.stdout }} \
             --hash {{ DLRN_hash.stdout }} \
             --html {{ work_dir }}/{{ openstack_release }}-report.html \
-            copy &>> {{ work_dir }}/{{ openstack_release }}.txt
+            copy
       environment:
         TOKEN: "{{ quayio_rdoci.token }}"
       args:
