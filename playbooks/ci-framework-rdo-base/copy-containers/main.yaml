@@ -34,7 +34,7 @@
         /usr/local/bin/copy-quay \
             --config {{ work_dir }}/copy-quay-config.yaml \
             --token "$TOKEN" \
-            --release {{ openstack_release }}{ ansible_distribution|lower }}{{ansible_distribution_major_version }} \
+            --release {{ openstack_release }}{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }} \
             --push-hash {{ DLRN_hash.stdout }} \
             --hash {{ DLRN_hash.stdout }} \
             --html {{ work_dir }}/{{ openstack_release }}-report.html \
