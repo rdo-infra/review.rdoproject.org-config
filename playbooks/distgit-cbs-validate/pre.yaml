@@ -20,6 +20,15 @@
           sudo {{ ansible_pkg_mgr }} -y install centos-packager createrepo
       changed_when: true
 
+    - name: Install ansible-packaging with macros for ansible collections
+      shell:
+        cmd: |
+          YUM="{{ ansible_pkg_mgr }}"
+          sudo curl http://trunk.rdoproject.org/centos8-yoga/delorean-deps.repo -o /etc/yum.repos.d/delorean-deps.repo;
+          sudo $YUM install -y ansible-packaging;
+      changed_when: true
+      when: ansible_distribution_major_version|int == 8
+
     - name: Create koji centos cert
       copy:
         content: "{{ koji_centos.private_key }}"
