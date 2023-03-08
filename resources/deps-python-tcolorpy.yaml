@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-tcolorpy-core:
+      description: Core developers for project python-tcolorpy
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-tcolorpy-ptl:
+      description: Project team lead for project python-tcolorpy
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-tcolorpy:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-tcolorpy-core
+          owner = group deps/python-tcolorpy-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-tcolorpy-core
+          label-Code-Review = -2..+2 group deps/python-tcolorpy-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-tcolorpy-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-tcolorpy-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-tcolorpy-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-tcolorpy-core
+          label-Workflow = -1..+0 group deps/python-tcolorpy-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-tcolorpy-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-tcolorpy-core
+      - deps/python-tcolorpy-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-tcolorpy:
+      acl: deps-python-tcolorpy
+      description: Packaging of RDO dependency python-tcolorpy
+      default-branch: c9s-antelope-rdo
+      branches:
+        master: '0'
