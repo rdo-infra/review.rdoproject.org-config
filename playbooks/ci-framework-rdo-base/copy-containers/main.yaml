@@ -37,6 +37,7 @@
             --release {{ openstack_release }}{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }} \
             --push-hash {{ DLRN_hash.stdout }} \
             --hash {{ DLRN_hash.stdout }} \
+            --tag {{ container_tag|default('current-podified') }} \
             --html {{ work_dir }}/{{ openstack_release }}-report.html \
             copy &>> {{ work_dir }}/{{ openstack_release }}.txt
       environment:
