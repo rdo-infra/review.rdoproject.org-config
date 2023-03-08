@@ -15,7 +15,8 @@
     - name: Setup Microshift
       block:
         - name: Start Microshift deployment
-          include_role: rdo-infra/microshift
+          include_role:
+            name: rdo-infra/microshift
 
         # NOTE: The topolvm requires additional volume and create a lvm
         # on that volume. We don't use that for CI, so just skip it.
