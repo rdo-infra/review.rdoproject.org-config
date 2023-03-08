@@ -44,3 +44,18 @@
       args:
         chdir: "{{ work_dir }}"
       no_log: true
+
+    - name: Tag containers
+      ansible.builtin.shell: |-
+        /usr/local/bin/copy-quay \
+            --config {{ work_dir }}/copy-quay-config.yaml \
+            --token "$TOKEN" \
+            --release {{ openstack_release }}{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }} \
+            --tag {{ container_tag|default('current-podified') }} \
+            --html {{ work_dir }}/{{ openstack_release }}-tag-report.html \
+            tag &>> {{ work_dir }}/{{ openstack_release }}-tag.txt
+      environment:
+        TOKEN: "{{ quayio_rdoci.token }}"
+      args:
+        chdir: "{{ work_dir }}"
+      no_log: true
