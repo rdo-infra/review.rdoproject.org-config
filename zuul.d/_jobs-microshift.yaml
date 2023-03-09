@@ -22,3 +22,27 @@
         secret: crc_secret
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
+
+- job:
+    name: base-microshift-openstack
+    parent: base-minimal
+    description: |
+      A base job that starts Microshift deployment to deploy podified control plane
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/microshift/microshift_openstack.yaml
+    roles:
+      - zuul: sf-jobs
+      - zuul: zuul-jobs
+      - zuul: rdo-infra/rdo-infra-playbooks
+    required-projects:
+      - github.com/openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+      - rdo-infra/rdo-infra-playbooks
+    attempts: 3
+    secrets:
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
