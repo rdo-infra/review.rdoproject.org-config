@@ -1,10 +1,14 @@
 ---
-- hosts: all
+- hosts: controller
   tasks:
     - name: Fail when openshift_pull_sec not provided
       fail:
         msg: "The openshift_pull_secret variable can not be empty!"
       when: crc_secret.openshift_pull_secret == ""
+
+    - name: Clone repos in the job workspace
+      include_role:
+        name: prepare-workspace
 
     # Fom sf-infra/roles/extra/microshift
     - name: Set facts
@@ -40,9 +44,11 @@
 
         - name: Check if all containers are up and ready
           shell: /tmp/pull-images.sh
+
+        - name: Configure OpenStack operator
+          include_tasks: openstack.yaml
       always:
         - name: Remove sensitive data
           include_role:
             name: rdo-infra/microshift
             tasks_from: cleanup.yaml
-          register: _cleanup_pull_secret
