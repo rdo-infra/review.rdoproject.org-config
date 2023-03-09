@@ -1,11 +1,12 @@
 ---
-- name: Install Ansible, Make, Tar
+- name: Install Ansible, Make, Tar, gmake
   become: true
   ansible.builtin.package:
     name:
       - ansible-core
       - make
       - tar
+      - gmake
     state: latest
 
 - name: Install devsetup dependencies
