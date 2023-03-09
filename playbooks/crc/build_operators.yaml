@@ -77,6 +77,11 @@
     openstack_img_tag: "{{ meta_operator_out.stdout|trim }}"
     cacheable: true
 
+- name: Call manifests
+  community.general.make:
+    chdir: "{{ ansibleee_dir }}"
+    target: manifests
+
 - name: Call docker-build
   community.general.make:
     chdir: "{{ ansibleee_dir }}"
@@ -110,6 +115,11 @@
     name: "quay.rdoproject.org/openstack-k8s-operators/openstack-ansibleee-operator-bundle:{{ ansibleee_img_tag }}"
     pull: false
     push: true
+
+- name: Generate manifests for meta operator
+  community.general.make:
+    chdir: "{{ meta_operator_dir }}"
+    target: manifests
 
 - name: Call docker-build for meta operator
   community.general.make:
