@@ -55,7 +55,7 @@
 
                   for image in {{ pre_pull_images | default([]) | join(" ") }}; do
                     sudo crictl pull ${image};
-                    sudo critctl images | grep ${image};
+                    sudo crictl images | grep ${image};
                   done
 
                 dest: /tmp/pull-images.sh
