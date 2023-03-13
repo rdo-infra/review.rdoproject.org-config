@@ -1,0 +1,41 @@
+---
+- job:
+    name: install-yamls-centos-9-microshift-singlenode-podified-deployment
+    parent: base-microshift-openstack
+    nodeset:
+      nodes:
+        - name: controller
+          label: cloud-centos-9-stream
+      groups:
+        - name: switch
+          nodes:
+            - controller
+        - name: peers
+          nodes: []
+    timeout: 10800
+    required-projects: &edpm_microshift_required_projects
+      - openstack-k8s-operators/install_yamls
+      - opendev.org/zuul/zuul-jobs
+      - opendev.org/openstack/tripleo-repos
+      - openstack-k8s-operators/openstack-operator
+      - rdo-jobs
+      - rdo-infra/rdo-infra-playbooks
+    roles:
+      - zuul: rdo-jobs
+      - zuul: rdo-infra/rdo-infra-playbooks
+    run: zuul.d/playbooks/deploy_podified_ctlplane.yaml
+    post-run: zuul.d/playbooks/collect_logs.yaml
+    vars: &edpm_microshift_vars
+      pv_storageclass: local-storage
+      overwrite_container_policy: true
+      setup_olm: true
+      standard_user: {}
+      pv_count: start=1 end=12
+      pre_pull_images:
+        - registry.redhat.io/rhosp-rhel9/openstack-rabbitmq:17.0
+
+- project:
+    name: openstack-k8s-operators/install_yamls
+    check:
+      jobs:
+        - install-yamls-centos-9-microshift-singlenode-podified-deployment
