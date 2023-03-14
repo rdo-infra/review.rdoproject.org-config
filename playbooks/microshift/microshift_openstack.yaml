@@ -29,7 +29,7 @@
             content: |
               for i in {1..20}; do
                 echo "Ensuring that containers are spawned... ${i}"
-                count=$(/usr/local/bin/oc get pods --all-namespaces | grep openshift | grep -viE 'topolvm|running' -c)
+                count=$(oc get pods --all-namespaces | grep openshift | grep -viE 'topolvm|running' -c)
                 if [ "$count" -eq "0" ]; then
                     echo "Microshift is deployed, we can continue..."
                     break

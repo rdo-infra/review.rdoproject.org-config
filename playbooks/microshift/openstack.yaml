@@ -43,13 +43,13 @@
 
           for image in {{ pre_pull_images | default([]) | join(" ") }}; do
               name="zuul-ci-pull-job-$(echo $image | sed 's:.*/::' | cut -f1 -d':')";
-              /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
+              oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
           done
 
           all_count=$(kubectl get pods -n openstack | grep "zuul-ci-pull-job" | wc -l);
           for i in {1..20}; do
             echo "Ensuring that containers are spawned... ${i}"
-            count=$(/usr/local/bin/oc get pods -n openstack | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
+            count=$(oc get pods -n openstack | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
             if [ "$count" -eq "$all_count" ]; then
                 echo "Images should be available, we can continue..."
                 break
@@ -59,7 +59,7 @@
             fi
           done
 
-          /usr/local/bin/oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n openstack delete pod
+          oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs oc -n openstack delete pod
         dest: /tmp/pull-images.sh
         mode: "0755"
 
