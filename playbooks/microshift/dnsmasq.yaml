@@ -5,29 +5,36 @@
     name: dnsmasq
     state: present
 
-- name: Change address
+- name: Get Ingress ip address
+  shell: >
+    oc -n openshift-ingress get pods
+    -l ingresscontroller.operator.openshift.io/deployment-ingresscontroller=default
+    -o jsonpath="{.items[*].status.podIP}"
+  register: _lb_ip
+
+- name: Change dnsmasq configuration
   become: true
-  vars:
-    cloudprovider_dns:
-      - 38.102.83.3
-      - 38.102.83.2
-      - 38.102.83.68
-    public_dns:
-      - 8.8.8.8
-      - 1.1.1.1
   ansible.builtin.lineinfile:
     path: /etc/dnsmasq.conf
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   loop:
+    - regexp: "^#server=/3.168.192.in-addr.arpa/10.1.2.3"
+      line: "server={{ cloudprovider_dns | default(['38.102.83.3', '38.102.83.2', '38.102.83.68']) | random }}"
+    - regexp: '^# server=10.1.2.3@eth1'
+      line: "server={{ public_dns | default(['8.8.8.8', '1.1.1.1']) | random}}"
+    - regexp: "^interface=lo"
+      line: "#interface=lo"
     - regexp: "^#address=\/double-click.net\/127.0.0.1"
       line: "address=/{{ fqdn | default('microshift.dev') }}/127.0.0.1"
-    - regexp: "^#server=/3.168.192.in-addr.arpa/10.1.2.3"
-      line: "server={{ cloudprovider_dns | random }}"
-    - regexp: '^# server=10.1.2.3@eth1'
-      line: "server={{ public_dns | random}}"
-    - regexp: "^#no-resolv"
-      line: "no-resolv"
+
+# NOTE: Add Openstack k8s domains
+- name: Add new addresses to bind to the ingress
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/dnsmasq.conf
+    line: "address=/{{ item }}/{{ _lb_ip.stdout }}"
+  loop: "{{ microshift_additional_addresses | default(['example.com']) }}"
 
 # FROM: https://devopstales.github.io/linux/networkmanagger-dnsmasq/
 - name: Add dnsmasq rule for NetworkManager
@@ -36,7 +43,7 @@
     content: |
       [main]
       dns=dnsmasq
-    dest: /etc/NetworkManager/conf.d/00-use-dnsmasq.conf
+    dest: /etc/NetworkManager/conf.d/00-microshift-use-dnsmasq.conf
 
 - name: Change resolv.conf
   become: true
