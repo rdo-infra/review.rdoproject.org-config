@@ -1,0 +1,61 @@
+---
+- name: Install dnsmasq
+  become: true
+  ansible.builtin.package:
+    name: dnsmasq
+    state: present
+
+- name: Change address
+  become: true
+  vars:
+    cloudprovider_dns:
+      - 38.102.83.3
+      - 38.102.83.2
+      - 38.102.83.68
+    public_dns:
+      - 8.8.8.8
+      - 1.1.1.1
+  ansible.builtin.lineinfile:
+    path: /etc/dnsmasq.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - regexp: "^#address=/double-click.net/127.0.0.1"
+      line: "address=/{{ fqdn }}/127.0.0.1"
+    - regexp: "^#server=/3.168.192.in-addr.arpa/10.1.2.3"
+      line: "server={{ cloudprovider_dns | random }}"
+    - regexp: '^# server=10.1.2.3@eth1'
+      line: "server={{ public_dns | random}}"
+    - regexp: "^#no-resolv"
+      line: "no-resolv"
+
+# FROM: https://devopstales.github.io/linux/networkmanagger-dnsmasq/
+- name: Add dnsmasq rule for NetworkManager
+  become: true
+  ansible.builtin.copy:
+    content: |
+      [main]
+      dns=dnsmasq
+    dest: /etc/NetworkManager/conf.d/00-use-dnsmasq.conf
+
+- name: Change resolv.conf
+  become: true
+  ansible.builtin.copy:
+    content: |
+      # NOTE: The nameserver ip addresses are set in /etc/dnsmasq.conf
+      nameserver 127.0.0.1
+    dest: /etc/resolv.conf
+
+- name: Restart dnsmasq service
+  become: true
+  ansible.builtin.systemd:
+    name: dnsmasq
+    state: restarted
+    enabled: true
+
+- name: Restart NetworkManager
+  become: true
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: restarted
+    enabled: true
