@@ -16,6 +16,10 @@
         openshift_pull_secret: "{{ crc_secret.openshift_pull_secret }}"
       no_log: true
 
+    - name: Setup Dnsmasq
+      include_tasks: dnsmasq.yaml
+      when: setup_dnsmasq | default(true)
+
     - name: Setup Microshift
       block:
         - name: Start Microshift deployment

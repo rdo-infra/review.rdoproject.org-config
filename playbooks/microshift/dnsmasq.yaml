@@ -1,0 +1,62 @@
+---
+- name: Install dnsmasq
+  become: true
+  ansible.builtin.package:
+    name: dnsmasq
+    state: present
+
+- name: Change address
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/dnsmasq.conf
+    regexp: '^#address=/double-click.net/127.0.0.1'
+    line: "address=/{{ fqdn }}/127.0.0.1"
+  register: _dnsmasq_pkg
+
+# FROM: https://devopstales.github.io/linux/networkmanagger-dnsmasq/
+- name: Add dnsmasq rule for NetworkManager
+  become: true
+  copy:
+    content: |
+      [main]
+      dns=dnsmasq
+    dest: /etc/NetworkManager/conf.d/00-use-dnsmasq.conf
+  register: _nm_dnsmasq
+
+- name: Add domain scoope into NetworkManager
+  become: true
+  copy:
+    content: |
+      local=/{{ fqdn }}/
+      address=/.{{ fqdn }}/127.0.0.1
+    dest: /etc/NetworkManager/conf.d/01-microshift.conf
+
+- name: Add dnsmasq rule to read /etc/hosts file
+  become: true
+  copy:
+    content: |
+      addn-hosts=/etc/hosts
+    dest: /etc/NetworkManager/conf.d/02-add-hosts.conf
+
+- name: Change resolv.conf
+  become: true
+  copy:
+    content: |
+      nameserver 127.0.0.1
+    dest: /etc/resolv.conf
+
+- name: Restart dnsmasq service
+  become: true
+  ansible.builtin.systemd:
+    name: dnsmasq
+    state: restarted
+    enabled: true
+  when: _dnsmasq_pkg.changed
+
+- name: Restart NetworkManager
+  become: true
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: restarted
+    enabled: true
+  when: _nm_dnsmasq.changed
