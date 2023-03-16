@@ -20,7 +20,7 @@
       block:
         - name: Start Microshift deployment
           include_role:
-            name: rdo-infra/microshift
+            name: ansible-microshift-role
 
         # NOTE: The topolvm requires additional volume and create a lvm
         # on that volume. We don't use that for CI, so just skip it.
@@ -54,5 +54,5 @@
       always:
         - name: Remove sensitive data
           include_role:
-            name: rdo-infra/microshift
+            name: ansible-microshift-role
             tasks_from: cleanup.yaml
