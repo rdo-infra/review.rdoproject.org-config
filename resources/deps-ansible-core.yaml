@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/ansible-core-core:
+      description: Core developers for project ansible-core
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/ansible-core-ptl:
+      description: Project team lead for project ansible-core
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-ansible-core:
+      file: |
+        [access "refs/*"]
+          read = group deps/ansible-core-core
+          owner = group deps/ansible-core-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/ansible-core-core
+          label-Code-Review = -2..+2 group deps/ansible-core-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/ansible-core-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/ansible-core-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/ansible-core-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/ansible-core-core
+          label-Workflow = -1..+0 group deps/ansible-core-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/ansible-core-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/ansible-core-core
+      - deps/ansible-core-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/ansible-core:
+      acl: deps-ansible-core
+      description: Packaging of RDO dependency ansible-core
+      default-branch: c9s-antelope-rdo
+      branches:
+        master: '0'
