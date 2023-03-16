@@ -13,6 +13,10 @@
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
     target: download_tools
 
+- name: Do Network Isolation
+  include_tasks: network_isolation.yaml
+  when: network_isolation | default('false') | bool
+
 - name: Build operator images
   include_tasks: build_operators.yaml
   when: build_operators | default('false') | bool

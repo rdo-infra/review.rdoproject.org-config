@@ -1,0 +1,44 @@
+---
+- name: set fact of nncp_interface
+  set_fact:
+    nncp: "enp6s0"
+  when: nncp is not defined
+
+- name: Install nmstate operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
+    target: nmstate
+    params:
+      OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
+
+- name: Install nncp operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
+    target: nncp
+    params:
+      OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
+      NNCP_INTERFACE: "{{ nncp }}"
+
+- name: Run make netattach
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
+    target: netattach
+    params:
+      OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
+      NNCP_INTERFACE: "{{ nncp }}"
+
+- name: Install metallb operator
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
+    target: metallb
+    params:
+      OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
+      NNCP_INTERFACE: "{{ nncp }}"
+
+- name: Run metallb_config
+  community.general.make:
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
+    target: metallb_config
+    params:
+      OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
+      NNCP_INTERFACE: "{{ nncp }}"
