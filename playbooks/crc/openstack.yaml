@@ -67,7 +67,7 @@
           echo "Some images will be downloaded before operator start: {{ pre_pull_images | default([]) | join(' ') }}"
 
           for image in {{ pre_pull_images | default([]) | join(" ") }}; do
-              name="zuul-ci-pull-job-$(echo $image | sed 's:.*/::' | cut -f1 -d':')";
+              name="zuul-ci-pull-job-$(echo $image | sed 's:.*/::' | cut -f1 -d':' | cut -f1 -d'@')";
               /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
           done
 
