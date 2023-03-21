@@ -48,7 +48,7 @@ application_credential_id: "{{ cloud_credentials.application_credential_id|defau
 
 rdo_baremetal_image: >-
   {% if ansible_distribution_major_version is version("8", "==") -%}
-  CentOS-8-x86_64-GenericCloud-1911
+  CentOS-Stream-GenericCloud-8-20230308.3
   {% elif ansible_distribution_major_version is version("9", "==") -%}
   CentOS-Stream-GenericCloud-9-20211216
   {%- else -%}
