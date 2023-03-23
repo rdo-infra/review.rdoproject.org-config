@@ -39,6 +39,7 @@
 
     {% if network_isolation is defined and network_isolation | bool %}
     export NETWORK_ISOLATION=true
+    export NNCP_INTERFACE={{ nncp }}
     {% else %}
     export NETWORK_ISOLATION=false
     {% endif %}
