@@ -1536,11 +1536,6 @@
               - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-build-tripleo-centos8:
-            dependencies:
-              - DLRN-rpmbuild-centos8-pinned
-            voting: false
-            branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
             branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
@@ -3804,11 +3799,6 @@
               - DLRN-rpmbuild-pinned
             voting: false
             branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-build-tripleo-centos8:
-            dependencies:
-              - DLRN-rpmbuild-centos8-pinned
-            voting: false
-            branches: ^(rpm-master)$
         - DLRN-rpmbuild-pinned:
             branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
         - DLRN-rpmbuild-centos8-pinned:
@@ -4027,7 +4017,6 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
-      - package-distgit-tripleo-check-jobs
       - system-required
 
 - project:
@@ -4679,7 +4668,6 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
-      - package-distgit-tripleo-check-jobs
       - system-required
 
 - project:
@@ -4732,7 +4720,6 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
-      - package-distgit-tripleo-check-jobs
       - system-required
 
 - project:
@@ -4875,7 +4862,6 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
-      - package-distgit-tripleo-check-jobs
       - system-required
 
 - project:
@@ -5804,7 +5790,6 @@
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
-      - package-distgit-tripleo-check-jobs
       - system-required
 
 - project:
@@ -6335,7 +6320,6 @@
     queue: whitebox-tempest-plugin
     templates:
       - system-required
-      - rdoinfo-master-testing-tripleo-jobs
       - rdoinfo-wallaby-testing-tripleo-jobs
       - rdoinfo-victoria-testing-tripleo-jobs
       - weirdo-validate-buildsys-tags-jobs
