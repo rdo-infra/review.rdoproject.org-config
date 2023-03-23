@@ -28,10 +28,10 @@
             # Ensure we have a fresh repo for each release
             git reset --hard master
             if [ "$RELEASE" != "master" ]; then
-              GIT_BRANCH="stable/$RELEASE"
+              GIT_BRANCH=$(rdopkg release -r "$RELEASE" | grep source_branch | awk '{print $2}')
               UC_BRANCH="$RELEASE"
             else
-              UC_BRANCH="antelope-uc"
+              UC_BRANCH="$(rdopkg info | grep -e "in development phase" | awk '{print $1}')-uc"
               GIT_BRANCH="master"
             fi
             rm -f upper-constraints.txt
