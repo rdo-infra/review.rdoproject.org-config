@@ -4,6 +4,19 @@
     nncp: "enp6s0"
   when: nncp is not defined
 
+- name: Get CRC IP
+  ansible.builtin.shell: |
+    crc ip
+  register: crc_ip
+
+- name: Run make crc_attach_default_interface
+  community.general.make: |
+    chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
+    targets: crc_attach_default_interface
+    params:
+      CRC_DEFAULT_NETWORK_IP: "{{ crc_ip.stdout }}"
+  when: crc_attach_default_interface | default ('false') | bool
+
 - name: Install nmstate operator
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
