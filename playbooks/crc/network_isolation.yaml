@@ -10,7 +10,7 @@
   register: crc_ip
 
 - name: Run make crc_attach_default_interface
-  community.general.make: |
+  community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
     targets: crc_attach_default_interface
     params:
