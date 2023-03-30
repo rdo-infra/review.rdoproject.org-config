@@ -13,8 +13,6 @@
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
     target: crc_attach_default_interface
-    params:
-      CRC_DEFAULT_NETWORK_IP: "{{ crc_ip.stdout }}"
   when: crc_attach_default_interface | default ('false') | bool
 
 - name: Install nmstate operator
