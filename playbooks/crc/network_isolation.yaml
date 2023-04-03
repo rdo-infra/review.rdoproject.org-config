@@ -26,9 +26,26 @@
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
     target: nncp
-    params:
+    params: &nncp_params
       OUT: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out"
       NNCP_INTERFACE: "{{ nncp }}"
+  register: nncp_status
+  ignore_errors: true
+
+- name: Re-run make nncp if again fails
+  when:
+    - nncp_status.rc is defined
+    - nncp_status.rc == 2
+  block:
+    - name: Retrive all crc related pods
+      ansible.builtin.shell: |
+        oc get -f {{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/out/openstack/nncp/cr/
+
+    - name: Re-run make nncp
+      community.general.make:
+        chdir: "{{ install_yamls_basedir }}"
+        target: nncp
+        params: *nncp_params
 
 - name: Run make netattach
   community.general.make:
