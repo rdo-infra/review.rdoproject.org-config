@@ -43,7 +43,7 @@
 
     - name: Re-run make nncp
       community.general.make:
-        chdir: "{{ install_yamls_basedir }}"
+        chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls"
         target: nncp
         params: *nncp_params
 
