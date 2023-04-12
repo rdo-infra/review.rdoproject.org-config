@@ -42,7 +42,7 @@
           chmod 644 ~/.ssh/known_hosts
 
           cd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/nfvinfo'].src_dir }}
-          for version in openvswitch2.13 openvswitch2.15,ovn-2021 openvswitch2.16 openvswitch2.17,ovn22.06 openvswitch-selinux-extra-policy
+          for version in openvswitch2.13 openvswitch2.15,ovn-2021 openvswitch2.16 openvswitch2.17,ovn22.06 openvswitch-selinux-extra-policy openvswitch3.1,ovn22.12
           do
             git reset --hard master
             python {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags-nfv.py \
