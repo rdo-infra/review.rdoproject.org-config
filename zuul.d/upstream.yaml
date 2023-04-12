@@ -222,6 +222,22 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
+    name: openstack-periodic-integration-wallaby-centos9-fips
+    post-review: true
+    description: Jobs in this queue are triggered to run once in a day.
+    manager: independent
+    precedence: high
+    trigger:
+      timer:
+        - time: '0 16 * * *'
+    success:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
     name: periodic-promote-ceph-daemon
     post-review: true
     description: Jobs in this queue are triggered to run three times a week.
