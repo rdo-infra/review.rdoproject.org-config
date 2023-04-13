@@ -160,6 +160,7 @@
       BUNDLE_STORAGE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
       IMAGEREGISTRY: "quay.rdoproject.org"
+      IMAGEBASE: "openstack-ansibleee"
 
 - name: Call bundle-build for meta operator
   community.general.make:
@@ -170,6 +171,7 @@
       BUNDLE_STORAGE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
       IMAGEREGISTRY: "quay.rdoproject.org"
+      IMAGEBASE: "openstack-ansibleee"
 
 - name: Push bundle image for meta operator
   containers.podman.podman_image:
