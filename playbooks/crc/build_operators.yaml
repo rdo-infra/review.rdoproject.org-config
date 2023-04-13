@@ -48,6 +48,9 @@
     cmd: git show-ref --head --hash head
     chdir: "{{ ansibleee_dir }}"
   register: ee_operator_out
+  when:
+    - pr_info is not defined
+    - pr_sha is not defined
 
 - name: Update the go.mod file using ansibleee-operator last commit for meta operator
   ansible.builtin.shell: |
@@ -55,6 +58,20 @@
     go mod tidy
   args:
     chdir: "{{ meta_operator_dir }}"
+  when:
+    - pr_info is not defined
+    - pr_sha is not defined
+
+- name: Set the proper image tag for openstack-ansibleee-operator pull request
+  ansible.builtin.set_fact:
+    ee_operator_tag: "{{ pr_sha }}"
+  when:
+    - pr_info is defined
+    - pr_sha is defined
+
+- name: Set the proper image tag for openstack-ansibleee-operator without pull request
+  ansible.builtin.set_fact:
+    ee_operator_tag: "{{ ee_operator_out.stdout | trim }}"
   when:
     - pr_info is not defined
     - pr_sha is not defined
@@ -71,8 +88,8 @@
 
 - name: Set the openstack-ansibleee-operator image
   ansible.builtin.set_fact:
-    ansibleee_img: "openstack-ansibleee-operator-bundle:{{ ee_operator_out.stdout | trim }}"
-    ansibleee_img_tag: "{{ ee_operator_out.stdout | trim }}"
+    ansibleee_img: "openstack-ansibleee-operator-bundle:{{ ee_operator_tag }}"
+    ansibleee_img_tag: "{{ ee_operator_tag }}"
     openstack_img: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ meta_operator_out.stdout|trim }}"
     openstack_img_tag: "{{ meta_operator_out.stdout|trim }}"
     cacheable: true
