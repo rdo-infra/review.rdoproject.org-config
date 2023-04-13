@@ -135,21 +135,21 @@
     params:
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
 
+- name: Call dep-bundle-build-push for meta operator
+  community.general.make:
+    chdir: "{{ meta_operator_dir }}"
+    target: dep-bundle-build-push
+    params:
+      BUNDLE_STORAGE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
+      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
+      IMAGEREGISTRY: "quay.rdoproject.org"
+
 - name: Call bundle-build for meta operator
   community.general.make:
     chdir: "{{ meta_operator_dir }}"
     target: bundle-build
     params:
       BUNDLE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
-      BUNDLE_STORAGE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
-      IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
-      IMAGEREGISTRY: "quay.rdoproject.org"
-
-- name: Call dep-bundle-build-push for meta operator
-  community.general.make:
-    chdir: "{{ meta_operator_dir }}"
-    target: dep-bundle-build-push
-    params:
       BUNDLE_STORAGE_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
       IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator:{{ openstack_img_tag }}"
       IMAGEREGISTRY: "quay.rdoproject.org"
