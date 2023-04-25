@@ -59,3 +59,13 @@
     secrets:
       - quayio_rdoci
 
+- job:
+    name: base-ci-framework
+    parent: base-minimal
+    description: |
+      A base job that adds the CI framework team public keys in the
+      Zuul Job workspace.
+    pre-run: playbooks/ci-framework-rdo-base/pre.yaml
+    required-projects:
+      - opendev.org/zuul/zuul-jobs
+    attempts: 3
