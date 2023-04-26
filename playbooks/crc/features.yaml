@@ -2,7 +2,7 @@
 - name: Set additional parameters for crc - telemetry
   shell: |
     /usr/local/bin/crc config set consent-telemetry {{ crc_config_consent_telemetry |  default('no') }}
-  when: "{{ crc_config_consent_telemetry | bool }}"
+  when: "{{ crc_config_consent_telemetry | default('no') | bool }}"
 
 - name: Set additional parameters for crc - monitoring
   shell: |
