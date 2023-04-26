@@ -1,0 +1,20 @@
+---
+- name: Set additional parameters for crc - telemetry
+  shell: |
+    /usr/local/bin/crc config set consent-telemetry {{ crc_config_consent_telemetry |  default('no') }}
+  when: "{{ crc_config_consent_telemetry | bool }}"
+
+- name: Set additional parameters for crc - monitoring
+  shell: |
+    /usr/local/bin/crc config set enable-cluster-monitoring true
+  when: crc_config_cluster_monitoring | default(false)
+
+- name: Set minimum required memory to run the CRC when monitoring enabled
+  shell: |
+    /usr/local/bin/crc config set memory 14336
+  when: crc_config_cluster_monitoring | default(false)
+
+- name: Set additional parameters for crc - enable microshift preset
+  shell: |
+    /usr/local/bin/crc config set preset microshift
+  when: crc_config_microshift_preset | default(false)

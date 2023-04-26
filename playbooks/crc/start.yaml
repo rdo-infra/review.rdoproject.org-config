@@ -20,6 +20,9 @@
       when: crc_secret.openshift_pull_secret != ""
       no_log: true
 
+    - name: Apply CRC features
+      include_tasks: features.yaml
+
     - name: Start crc
       block:
         - name: Execute crc start command
