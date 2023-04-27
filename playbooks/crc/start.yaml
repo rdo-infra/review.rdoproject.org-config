@@ -70,8 +70,17 @@
         - name: Create cleanup script
           copy:
             content: |
+              #!/bin/bash
               # ensure that user is logged
-              /usr/local/bin/oc login -u kubeadmin -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
+              for i in {1..10}; do
+                  echo "Checking login to the cluster ${i}..."
+                  if /usr/local/bin/oc login -u kubeadmin -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"; then
+                      break;
+                  else
+                      echo "Can not login to the CRC cluster. Sleeping..."
+                      sleep 5
+                  fi
+              done
               /usr/local/bin/oc replace -f /tmp/empty-pull-secret.yaml
             dest: /tmp/cleanup-secret.sh
             mode: '0755'
