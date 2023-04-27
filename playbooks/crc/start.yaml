@@ -30,13 +30,29 @@
             /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} &> ~/crc-start.log
           register: _crc_start_status
 
+        - name: Create script to login into the CRC cluster
+          copy:
+            content: |
+              #!/bin/bash
+              # ensure that user is logged
+              for i in {1..25}; do
+                  echo "Checking login to the cluster ${i}..."
+                  if /usr/local/bin/oc login \
+                         -u kubeadmin
+                         -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
+                         https://api.crc.testing:6443 \
+                         --insecure-skip-tls-verify=true; then
+                      break;
+                  else
+                      echo "Can not login to the CRC cluster. Sleeping..."
+                      sleep 5
+                  fi
+              done
+            dest: /tmp/ensure_logged.sh
+            mode: '0755'
+
         - name: Ensure that user is logged
-          shell: >
-            /usr/local/bin/oc login -u kubeadmin
-            -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
-            https://api.crc.testing:6443
-            --insecure-skip-tls-verify=true
-          no_log: true
+          shell: /tmp/ensure_logged.sh
 
         - name: Show available nodes
           shell: |
@@ -67,26 +83,9 @@
             dest: /tmp/empty-pull-secret.yaml
             mode: '0644'
 
-        - name: Create cleanup script
-          copy:
-            content: |
-              #!/bin/bash
-              # ensure that user is logged
-              for i in {1..25}; do
-                  echo "Checking login to the cluster ${i}..."
-                  if /usr/local/bin/oc login -u kubeadmin -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"; then
-                      break;
-                  else
-                      echo "Can not login to the CRC cluster. Sleeping..."
-                      sleep 5
-                  fi
-              done
-              /usr/local/bin/oc replace -f /tmp/empty-pull-secret.yaml
-            dest: /tmp/cleanup-secret.sh
-            mode: '0755'
-
         # NOTE: We don't want to wait until the machineconfig is updated.
         # Partially from sf-infra/roles/extra/crc/tasks/cleanup.yaml
         - name: Remove pull secret content from the OpenShift Cluster
-          shell: /tmp/cleanup-secret.sh
+          shell: |
+            /tmp/ensure_logged.sh && /tmp/cleanup-secret.sh
           when: _cleanup_pull_secret.changed and _crc_start_status.rc == 0
