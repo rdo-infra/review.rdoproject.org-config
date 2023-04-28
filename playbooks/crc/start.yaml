@@ -87,5 +87,5 @@
         # Partially from sf-infra/roles/extra/crc/tasks/cleanup.yaml
         - name: Remove pull secret content from the OpenShift Cluster
           shell: |
-            /tmp/ensure_logged.sh && /tmp/cleanup-secret.sh
+            /tmp/ensure_logged.sh && /usr/local/bin/oc replace -f /tmp/empty-pull-secret.yaml
           when: _cleanup_pull_secret.changed and _crc_start_status.rc == 0
