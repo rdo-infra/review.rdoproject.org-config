@@ -38,7 +38,7 @@
               for i in {1..25}; do
                   echo "Checking login to the cluster ${i}..."
                   if /usr/local/bin/oc login \
-                         -u kubeadmin
+                         -u kubeadmin \
                          -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
                          https://api.crc.testing:6443 \
                          --insecure-skip-tls-verify=true; then
