@@ -1,0 +1,113 @@
+---
+- hosts: controller
+  vars:
+    openshift_pull_secret_path: pull-secret.txt
+  tasks:
+    - name: Fail when openshift_pull_sec not provided
+      fail:
+        msg: "The openshift_pull_secret variable can not be empty!"
+      when: crc_secret.openshift_pull_secret == ""
+
+    - name: Clone repos in the job workspace
+      include_role:
+        name: prepare-workspace
+
+    # Fom sf-infra/roles/extra/crc
+    - name: Create pull-secret.txt file
+      copy:
+        content: "{{ crc_secret.openshift_pull_secret }}"
+        dest: "{{ openshift_pull_secret_path }}"
+      when: crc_secret.openshift_pull_secret != ""
+      no_log: true
+
+    - name: Apply CRC features
+      include_tasks: features.yaml
+
+    - name: Start crc
+      block:
+        - name: Execute crc start command
+          shell: |
+            /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} &> ~/crc-start.log
+          register: _crc_start_status
+
+        - name: Create script to login into the CRC cluster
+          copy:
+            content: |
+              #!/bin/bash
+              # ensure that user is logged
+              for i in {1..25}; do
+                  echo "Checking login to the cluster ${i}..."
+                  if /usr/local/bin/oc login \
+                         -u kubeadmin \
+                         -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
+                         https://api.crc.testing:6443 \
+                         --insecure-skip-tls-verify=true; then
+                      break;
+                  else
+                      echo "Can not login to the CRC cluster. Sleeping..."
+                      sleep 5
+                  fi
+              done
+            dest: /tmp/ensure_logged.sh
+            mode: '0755'
+
+        - name: Ensure that user is logged
+          shell: /tmp/ensure_logged.sh
+
+        - name: Show available nodes
+          shell: |
+            /usr/bin/kubectl get nodes
+
+        - name: Catch CRC IP
+          register: crc_ip
+          ansible.builtin.command: "crc ip"
+
+        - name: Run crc
+          ansible.builtin.command: >-
+            ansible-playbook -i {{ crc_ip }},
+            -u core
+            -e @{{ openshift_pull_secret_path }}
+            -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
+            -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+            manage_crc_secret.yaml
+
+        - name: Disable private operator hubs
+          vars:
+            disable_patch:
+              spec:
+                sources:
+                  - name: community-operators
+                    disabled: true
+                  - name: redhat-marketplace
+                    disabled: true
+          ansible.builtin.command: "oc patch operatorhubs/cluster --type merge --patch '{{ disable_patch | to_json }}'"
+
+      always:
+        - name: Remove pull-secret.txt file
+          file:
+            path: "{{ openshift_pull_secret_path }}"
+            state: absent
+          register: _cleanup_pull_secret
+
+        # Create empty pull-secret.yaml file
+        # NOTE: base on https://github.com/crc-org/snc/blob/master/pull-secret.yaml
+        - name: Create empty pull-secret
+          copy:
+            content: |
+              apiVersion: v1
+              data:
+                .dockerconfigjson: e30K
+              kind: Secret
+              metadata:
+                name: pull-secret
+                namespace: openshift-config
+              type: kubernetes.io/dockerconfigjson
+            dest: /tmp/empty-pull-secret.yaml
+            mode: '0644'
+
+        # NOTE: We don't want to wait until the machineconfig is updated.
+        # Partially from sf-infra/roles/extra/crc/tasks/cleanup.yaml
+        - name: Remove pull secret content from the OpenShift Cluster
+          shell: |
+            /tmp/ensure_logged.sh && /usr/local/bin/oc replace -f /tmp/empty-pull-secret.yaml
+          when: _cleanup_pull_secret.changed and _crc_start_status.rc == 0
