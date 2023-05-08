@@ -1,0 +1,21 @@
+---
+- name: Private iamge prepull on crio host
+  hosts: all
+  vars:
+    auths: {}
+    images: []
+  tasks:
+    - name: Run image pull
+      no_log: true
+      become: true
+      ansible.builtin.command: >-
+        /usr/bin/crictl
+        pull
+        {% set tag_split = item.split('/') %}
+        {% set registry = tag_split[0] if tag_split | length > 2 else "" %}
+        {% if registry != "" and registry in auths and 'auth' in auths[registry] %}
+        --auth {{ auths[registry].auth}}
+        {% endif %}
+        {{ item }}
+      loop: "{{ images }}"
+

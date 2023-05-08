@@ -63,37 +63,17 @@
 - name: Pull Required Images before subscription is removed
   when: pre_pull_images is defined and pre_pull_images
   block:
-    - name: Create pull image script
-      copy:
-        content: >
-          /usr/local/bin/oc login -u kubeadmin
-          -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')"
-          https://api.crc.testing:6443
-          --insecure-skip-tls-verify=true ;
+    - name: Catch CRC IP
+      register: crc_iface_stdout
+      ansible.builtin.command:
+        cmd: "virsh -c qemu:///system -q domifaddr --source arp --domain crc"
 
-          echo "Some images will be downloaded before operator start: {{ pre_pull_images | default([]) | join(' ') }}"
-
-          for image in {{ pre_pull_images | default([]) | join(" ") }}; do
-              name="zuul-ci-pull-job-$(echo $image | sed 's:.*/::' | cut -f1 -d':' | cut -f1 -d'@' | sed 's/\.//g')";
-              /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
-          done
-
-          all_count=$(kubectl get pods -n openstack | grep "zuul-ci-pull-job" | wc -l);
-          for i in {1..20}; do
-            echo "Ensuring that containers are spawned... ${i}"
-            count=$(/usr/local/bin/oc get pods -n openstack | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
-            if [ "$count" -eq "$all_count" ]; then
-                echo "Images should be available, we can continue..."
-                break
-            else
-                echo "The containers are not ready..."
-                sleep 15
-            fi
-          done
-
-          /usr/local/bin/oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n openstack delete pod
-        dest: /tmp/pull-images.sh
-        mode: "0755"
-
-    - name: Download required images before subscription is removed
-      shell: /tmp/pull-images.sh
+    - name: Run pull images playbook
+      register: pull_images_stdout
+      ansible.builtin.command: >-
+        ansible-playbook -i {{ crc_iface_stdout.stdout.split()[-1].split('/')[0] }},
+        -u core
+        -e @{{ pull_secret_path }}
+        -e '{{ {'images' : images} | to_json }}'
+        -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
+        prepull_images.yaml
