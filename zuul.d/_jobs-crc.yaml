@@ -19,3 +19,24 @@
         secret: crc_secret
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
+
+- job:
+    name: base-simple-crc
+    parent: base-minimal
+    description: |
+      A base job that starts CRC environment
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+        # Playbooks for podman
+      - playbooks/crc/podman.yaml
+      - playbooks/crc/simple-start.yaml
+    required-projects:
+      - config
+      - opendev.org/zuul/zuul-jobs
+    attempts: 3
+    secrets:
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
