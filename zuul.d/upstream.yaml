@@ -127,22 +127,6 @@
 
 
 - pipeline:
-    name: openstack-periodic-integration-zed-centos9
-    post-review: true
-    description: Jobs in this queue are triggered to run every few hours.
-    manager: independent
-    precedence: high
-    trigger:
-      timer:
-        - time: '10 13 * * *'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-- pipeline:
     name: openstack-periodic-integration-stable1
     post-review: true
     description: Jobs in this queue are triggered to run every few hours.
