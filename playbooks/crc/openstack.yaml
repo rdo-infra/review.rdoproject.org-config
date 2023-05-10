@@ -36,6 +36,9 @@
     {% if openstack_img is defined and openstack_img %}
     export OPENSTACK_IMG="{{ openstack_img }}"
     {% endif %}
+    {% if bmo_setup is defined %}
+    export BMO_SETUP={{ bmo_setup }}
+    {% endif %}
 
     {% if network_isolation is defined and network_isolation | bool %}
     export NETWORK_ISOLATION=true
