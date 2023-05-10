@@ -63,13 +63,15 @@
           ansible.builtin.command: "crc ip"
 
         - name: Run crc
+          vars:
+            ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
           ansible.builtin.command: >-
             ansible-playbook -i {{ crc_ip.stdout }},
             -u core
             -e @{{ openshift_pull_secret_path }}
             -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
             -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
-            {{ zuul.projects['config'].src_dir }}/playbooks/crc/manage_crc_secret.yaml
+            {{ ci_config_repo }}/playbooks/crc/manage_crc_secret.yaml
 
         - name: Disable private operator hubs
           vars:
