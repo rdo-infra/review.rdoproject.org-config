@@ -34,20 +34,3 @@
     failure:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-
-# Zed line
-- pipeline:
-    name: openstack-periodic-container-zed-centos9
-    post-review: true
-    description: Jobs in this queue are triggered to run periodically once a day.
-    manager: independent
-    precedence: normal
-    trigger:
-      timer:
-        - time: '0 7 * * *'
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
