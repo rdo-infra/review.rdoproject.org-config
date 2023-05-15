@@ -11,7 +11,8 @@
       - playbooks/crc/podman.yaml
       - playbooks/crc/start.yaml
     required-projects:
-      - github.com/openstack-k8s-operators/install_yamls
+      - name: github.com/openstack-k8s-operators/install_yamls
+        override-checkout: main
       - opendev.org/zuul/zuul-jobs
     attempts: 3
     secrets:
