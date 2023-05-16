@@ -34,7 +34,7 @@
       --insecure-skip-tls-verify=true
 
     {% if cifmw_operator_build_output is defined and cifmw_operator_build_output %}
-    export OPENSTACK_IMG="{{ cifmw_operator_build_output['operators']['openstack-operator']['image'] }}"
+    export OPENSTACK_IMG="{{ cifmw_operator_build_output['operators']['openstack-operator']['image_catalog'] }}"
     {% endif %}
     {% if bmo_setup is defined %}
     export BMO_SETUP={{ bmo_setup }}
