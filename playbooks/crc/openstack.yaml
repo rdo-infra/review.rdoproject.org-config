@@ -33,8 +33,8 @@
       https://api.crc.testing:6443 \
       --insecure-skip-tls-verify=true
 
-    {% if openstack_img is defined and openstack_img %}
-    export OPENSTACK_IMG="{{ openstack_img }}"
+    {% if cifmw_operator_build_output is defined and cifmw_operator_build_output %}
+    export OPENSTACK_IMG="{{ cifmw_operator_build_output['operators']['openstack-operator']['image'] }}"
     {% endif %}
     {% if bmo_setup is defined %}
     export BMO_SETUP={{ bmo_setup }}
