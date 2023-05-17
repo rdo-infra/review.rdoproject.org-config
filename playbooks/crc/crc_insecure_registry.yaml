@@ -1,7 +1,7 @@
 ---
 - name: Set insecure_registry_ip address
   ansible.builtin.set_fact:
-    insecure_registry_ip: "{{ content_provider_ip }}:5001"
+    insecure_registry_ip: "{{ content_provider_registry_ip }}:5001"
 
 - name: Login to crc openshift cluster
   ansible.builtin.shell: |

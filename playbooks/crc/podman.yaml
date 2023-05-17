@@ -76,7 +76,7 @@
           loop: "{{ query('dict', container_registry_logins) }}"
 
         - name: Set Insecure registry for content provider
-          when: content_provider_ip is defined
+          when: content_provider_registry_ip is defined
           become: true
           ansible.builtin.blockinfile:
             state: present
