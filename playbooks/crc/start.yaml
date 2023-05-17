@@ -58,6 +58,10 @@
           shell: |
             /usr/bin/kubectl get nodes
 
+        - name: Set Insecure Registry
+          ansible.builtin.include_tasks: crc_insecure_registry.yaml
+          when: content_provider_ip is defined
+
         - name: Configure OpenStack operator
           include_tasks: openstack.yaml
       always:

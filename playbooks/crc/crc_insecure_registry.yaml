@@ -1,0 +1,37 @@
+---
+- name: Set insecure_registry_ip address
+  ansible.builtin.set_fact:
+    insecure_registry_ip: "{{ content_provider_ip }}:5001"
+
+- name: Login to crc openshift cluster
+  ansible.builtin.shell: |
+    /usr/local/bin/oc login -u kubeadmin \
+      -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
+      https://api.crc.testing:6443 --insecure-skip-tls-verify=true
+
+- name: Patch the image.config.openshift.io resource to include insecure registry
+  ansible.builtin.shell: |
+    oc patch --type=merge --patch='{
+    "spec": {
+      "registrySources": {
+        "insecureRegistries": [
+        "{{ insecure_registry_ip }}"
+        ]
+      }
+    }
+    }' image.config.openshift.io/cluster
+
+- name: update the /etc/containers/registries.conf in crc vm
+  ansible.builtin.shell: |
+    ssh -i ~/.crc/machines/crc/id_ecdsa -o StrictHostKeyChecking=no core@$(crc ip) << EOF
+    sudo echo " " | sudo tee -a /etc/containers/registries.conf
+    sudo echo "[[registry]]" | sudo tee -a /etc/containers/registries.conf
+    sudo echo "  location = \"{{ insecure_registry_ip }}\"" | sudo tee -a /etc/containers/registries.conf
+    sudo echo "  insecure = true" | sudo tee -a /etc/containers/registries.conf
+    sudo echo "  blocked = false" | sudo tee -a /etc/containers/registries.conf
+    sudo echo "  mirror-by-digest-only = false" | sudo tee -a /etc/containers/registries.conf
+    sudo echo "  prefix = \"\"" | sudo tee -a /etc/containers/registries.conf
+    sudo systemctl restart crio
+    sudo systemctl restart kubelet
+    EOF
+
