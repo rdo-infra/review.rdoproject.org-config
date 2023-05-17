@@ -74,3 +74,15 @@
             REGISTRY: "{{ item.key }}"
           no_log: true
           loop: "{{ query('dict', container_registry_logins) }}"
+
+       -  name: Set Insecure registry for content provider
+          when: content_provider_ip is defined
+          become: true
+          ansible.builtin.blockinfile:
+            state: present
+            insertafter: EOF
+            dest: /etc/containers/registries.conf
+            content: |-
+              [[registry]]
+              location = "{{ content_provider_ip }}:5001"
+              insecure = true
