@@ -1,0 +1,31 @@
+---
+- name: Set insecure registry with in crc vm
+  hosts: all
+  become: true
+  vars:
+    insecure_registry: "{{ content_provider_registry_ip }}:5001"
+  tasks:
+    - name: Set Insecure registry for content provider
+      ansible.builtin.blockinfile:
+        state: present
+        insertafter: EOF
+        dest: /etc/containers/registries.conf
+        content: |-
+          [[registry]]
+          location = "{{ insecure_registry }}:5001"
+          insecure = true
+          blocked = false
+          mirror-by-digest-only = false
+          prefix = ""
+
+    - name: Restart crio
+      ansible.builtin.service:
+        name: crio
+        state: restarted
+        enabled: true
+
+    - name: Restart kubelet
+      ansible.builtin.service:
+        name: kubelet
+        state: restarted
+        enabled: true

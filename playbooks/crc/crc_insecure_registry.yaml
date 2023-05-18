@@ -3,6 +3,10 @@
   ansible.builtin.set_fact:
     insecure_registry_ip: "{{ content_provider_registry_ip }}:5001"
 
+- name: Catch CRC IP
+  register: crc_ip
+  ansible.builtin.command: "crc ip"
+
 - name: Login to crc openshift cluster
   ansible.builtin.shell: |
     /usr/local/bin/oc login -u kubeadmin \
@@ -22,16 +26,12 @@
     }' image.config.openshift.io/cluster
 
 - name: update the /etc/containers/registries.conf in crc vm
-  ansible.builtin.shell: |
-    ssh -i ~/.crc/machines/crc/id_ecdsa -o StrictHostKeyChecking=no core@$(crc ip) << EOF
-    sudo echo " " | sudo tee -a /etc/containers/registries.conf
-    sudo echo "[[registry]]" | sudo tee -a /etc/containers/registries.conf
-    sudo echo "  location = \"{{ insecure_registry_ip }}\"" | sudo tee -a /etc/containers/registries.conf
-    sudo echo "  insecure = true" | sudo tee -a /etc/containers/registries.conf
-    sudo echo "  blocked = false" | sudo tee -a /etc/containers/registries.conf
-    sudo echo "  mirror-by-digest-only = false" | sudo tee -a /etc/containers/registries.conf
-    sudo echo "  prefix = \"\"" | sudo tee -a /etc/containers/registries.conf
-    sudo systemctl restart crio
-    sudo systemctl restart kubelet
-    EOF
-
+  vars:
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+  ansible.builtin.command: >-
+    ansible-playbook -i {{ crc_ip.stdout }},
+    -u core
+    -e "content_provider_registry_ip={{ content_provider_registry_ip }}"
+    -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
+    -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+    {{ ci_config_repo }}/playbooks/crc/set_insecure_registry_crc_vm.yaml
