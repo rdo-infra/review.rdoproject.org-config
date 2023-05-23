@@ -8,6 +8,10 @@
       - tar
     state: latest
 
+- name: Set openstack operator namespace
+  set_fact:
+    operator_namespace: "{{ operator_namespace | default('openstack') }}"
+
 - name: Install devsetup dependencies
   community.general.make:
     chdir: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/install_yamls/devsetup"
@@ -51,7 +55,7 @@
 
     for i in {1..20}; do
       echo "Ensuring that subscription is ready... ${i}"
-      status=$(/usr/local/bin/oc get -n openstack subscription openstack-operator  -o go-template --template {% raw %}'{{.status.state}}'{% endraw %})
+      status=$(/usr/local/bin/oc get -n {{ operator_namespace }} subscription openstack-operator  -o go-template --template {% raw %}'{{.status.state}}'{% endraw %})
       if ! [[ "$status" =~ ^(Completed|Running|AtLatestKnown)$ ]]; then
           echo "The subscription is not ready..."
           sleep 15
@@ -78,13 +82,13 @@
 
           for image in {{ pre_pull_images | default([]) | join(" ") }}; do
               name="zuul-ci-pull-job-$(echo $image | sed 's:.*/::' | cut -f1 -d':' | cut -f1 -d'@' | sed 's/\.//g')";
-              /usr/local/bin/oc run $name -n "openstack" --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
+              /usr/local/bin/oc run $name -n {{ operator_namespace }} --image $image --restart=Never --command tailf /dev/null || echo "The image probably already exists";
           done
 
-          all_count=$(kubectl get pods -n openstack | grep "zuul-ci-pull-job" | wc -l);
+          all_count=$(kubectl get pods -n {{ operator_namespace }} | grep "zuul-ci-pull-job" | wc -l);
           for i in {1..20}; do
             echo "Ensuring that containers are spawned... ${i}"
-            count=$(/usr/local/bin/oc get pods -n openstack | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
+            count=$(/usr/local/bin/oc get pods -n {{ operator_namespace }} | grep "zuul-ci-pull-job" | grep -Ec 'CreateContainerError')
             if [ "$count" -eq "$all_count" ]; then
                 echo "Images should be available, we can continue..."
                 break
@@ -94,7 +98,7 @@
             fi
           done
 
-          /usr/local/bin/oc -n openstack get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n openstack delete pod
+          /usr/local/bin/oc -n {{ operator_namespace }} get pods | grep "zuul-ci-pull-job" | awk '{print $1}' | xargs /usr/local/bin/oc -n {{ operator_namespace }} delete pod
         dest: /tmp/pull-images.sh
         mode: "0755"
 
