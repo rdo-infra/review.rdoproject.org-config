@@ -9,24 +9,27 @@
     crc ip
   register: crc_ip
 
-- name: Check if localhost ip is already present in /etc/resolv.conf
-  ansible.builtin.lineinfile:
-    state: absent
-    path: /etc/resolv.conf
-    search_string: "nameserver 127.0.0.1"
-  check_mode: true
-  changed_when: false
-  register: check_localhost_ip
+- name: Check for localhost ip in /etc/resolv.conf for data plane adoption job
+  when: "'data-plane-adoption' in zuul.job"
+  block:
+    - name: Check if localhost ip is already present in /etc/resolv.conf
+      ansible.builtin.lineinfile:
+        state: absent
+        path: /etc/resolv.conf
+        search_string: "nameserver 127.0.0.1"
+      check_mode: true
+      changed_when: false
+      register: check_localhost_ip
 
-- name: Add localhost ip to /etc/resolv.conf for jobs with multinode configuration
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/resolv.conf
-    state: present
-    line: "nameserver 127.0.0.1"
-    insertbefore: "nameserver"
-    firstmatch: yes
-  when: check_localhost_ip.found == 0
+    - name: Add localhost ip to /etc/resolv.conf for jobs with multinode configuration
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/resolv.conf
+        state: present
+        line: "nameserver 127.0.0.1"
+        insertbefore: "nameserver"
+        firstmatch: yes
+      when: check_localhost_ip.found == 0
 
 - name: Run make crc_attach_default_interface
   community.general.make:
