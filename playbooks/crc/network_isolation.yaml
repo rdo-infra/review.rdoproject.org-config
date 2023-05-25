@@ -19,6 +19,7 @@
   register: check_localhost_ip
 
 - name: Add localhost ip to /etc/resolv.conf for jobs with multinode configuration
+  become: true
   ansible.builtin.lineinfile:
     path: /etc/resolv.conf
     state: present
