@@ -21,6 +21,9 @@
         secret: crc_secret
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
+    vars:
+      base_crc_build_operators_extra_bundles:
+        - "quay.io/openstack-k8s-operators/rabbitmq-cluster-operator-bundle@sha256:9ff91ad3c9ef1797b232fce2f9adf6ede5c3421163bff5b8a2a462c6a2b3a68b"
 
 - job:
     name: base-simple-crc

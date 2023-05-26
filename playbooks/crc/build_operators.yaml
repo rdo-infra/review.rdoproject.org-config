@@ -179,13 +179,24 @@
     pull: false
     push: true
 
+- name: "Set bundles built until now"
+  ansible.builtin.set_fact:
+    operator_bundles:
+      - "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }}"
+      - "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
+
+- name: "Set bundles built until now"
+  ansible.builtin.set_fact:
+    operator_bundles: "{{ operator_bundles + base_crc_build_operators_extra_bundles }}"
+  when: base_crc_build_operators_extra_bundles is defined
+
 - name: Call catalog-build for meta operator
   community.general.make:
     chdir: "{{ meta_operator_dir }}"
     target: catalog-build
     params:
       CATALOG_IMG: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-index:{{ openstack_img_tag }}"
-      BUNDLE_IMGS: "quay.rdoproject.org/openstack-k8s-operators/openstack-operator-bundle:{{ openstack_img_tag }},quay.rdoproject.org/openstack-k8s-operators/openstack-operator-storage-bundle:{{ openstack_img_tag }}"
+      BUNDLE_IMGS: "{{ operator_bundles | join(',')}}"
 
 - name: Call catalog-push for meta operator
   community.general.make:
