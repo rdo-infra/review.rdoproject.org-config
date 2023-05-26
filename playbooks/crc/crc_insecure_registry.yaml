@@ -1,17 +1,7 @@
 ---
-- name: Set insecure_registry_ip address
-  ansible.builtin.set_fact:
-    insecure_registry_ip: "{{ content_provider_registry_ip }}:5001"
-
 - name: Catch CRC IP
   register: crc_ip
   ansible.builtin.command: "crc ip"
-
-- name: Login to crc openshift cluster
-  ansible.builtin.shell: |
-    /usr/local/bin/oc login -u kubeadmin \
-      -p "$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')" \
-      https://api.crc.testing:6443 --insecure-skip-tls-verify=true
 
 - name: Patch the image.config.openshift.io resource to include insecure registry
   ansible.builtin.shell: |
@@ -19,7 +9,7 @@
     "spec": {
       "registrySources": {
         "insecureRegistries": [
-        "{{ insecure_registry_ip }}"
+        "{{ content_provider_registry_ip }}:5001"
         ]
       }
     }

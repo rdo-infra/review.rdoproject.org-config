@@ -58,6 +58,10 @@
           shell: |
             /usr/bin/kubectl get nodes
 
+        - name: Configure insecure registry inside crc vm
+          ansible.builtin.include_tasks: crc_insecure_registry.yaml
+          when: content_provider_registry_ip is defined
+
         - name: Catch CRC IP
           register: crc_ip
           ansible.builtin.command: "crc ip"
