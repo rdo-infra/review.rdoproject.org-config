@@ -16,6 +16,24 @@
       "message": "https://github.com/openstack-k8s-operators/ci-framework/pull/211 will fix the content provider job and build proper operators. We donot this patch",
       "revId": "25dbc529a0014ec0a51ebe36a014d5aa65588c3e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f05ab476_d4d6ad40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2023-05-28T14:50:31Z",
+      "side": 1,
+      "message": "I don\u0027t any reason to keep broken code, so IMO we should do one of the following: 1) fix the playbook to continue to work on jobs without content-provider or 2) deprecate the build_operators playbook and remove the call from openstack playbook[1].\n\n[1] https://github.com/rdo-infra/review.rdoproject.org-config/blob/1dd12c21d1341401eb096b6399db2f1d9cab5ad4/playbooks/crc/openstack.yaml#L24-L26",
+      "parentUuid": "8493767b_46dc5319",
+      "revId": "25dbc529a0014ec0a51ebe36a014d5aa65588c3e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
