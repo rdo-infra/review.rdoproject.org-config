@@ -21,10 +21,6 @@
   include_tasks: network_isolation.yaml
   when: network_isolation | default('false') | bool
 
-- name: Build operator images
-  include_tasks: build_operators.yaml
-  when: build_operators | default('false') | bool
-
 # NOTE: To deploy Openstack with k8s operators, it requires to configure
 # subscription, that is generated with command: make openstack.
 # Later the generated manifest is available in out/openstack/openstack/op/subscription.yaml
