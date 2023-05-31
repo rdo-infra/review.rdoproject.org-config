@@ -1,0 +1,94 @@
+resources:
+  groups:
+    openstack/edpm-image-builder-core:
+      description: Core developers for project edpm-image-builder
+      members:
+      - sbaker@redhat.com
+    openstack/edpm-image-builder-ptl:
+      description: Project team lead for project edpm-image-builder
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-edpm-image-builder-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/edpm-image-builder-core
+          owner = group openstack/edpm-image-builder-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/edpm-image-builder-core
+          label-Code-Review = -2..+2 group openstack/edpm-image-builder-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/edpm-image-builder-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/edpm-image-builder-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/edpm-image-builder-core
+          label-Verified = -2..+2 group openstack/edpm-image-builder-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/edpm-image-builder-core
+          label-Workflow = -1..+1 group openstack/edpm-image-builder-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/edpm-image-builder-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/edpm-image-builder-core
+      - openstack/edpm-image-builder-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-edpm-image-builder:
+      file: |
+        [access "refs/*"]
+          read = group openstack/edpm-image-builder-core
+          owner = group openstack/edpm-image-builder-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/edpm-image-builder-core
+          label-Code-Review = -2..+2 group openstack/edpm-image-builder-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/edpm-image-builder-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/edpm-image-builder-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/edpm-image-builder-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/edpm-image-builder-core
+          label-Workflow = -1..+0 group openstack/edpm-image-builder-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/edpm-image-builder-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/edpm-image-builder-core
+      - openstack/edpm-image-builder-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/edpm-image-builder:
+      acl: openstack-edpm-image-builder
+      description: Mirror of upstream edpm-image-builder (mirror + patches)
+    openstack/edpm-image-builder-distgit:
+      acl: openstack-edpm-image-builder-distgit
+      description: Packaging of upstream edpm-image-builder
+      default-branch: rpm-master
+      branches:
+        master: '0'
