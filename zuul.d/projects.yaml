@@ -692,7 +692,8 @@
       - centos-opstools-unsupported
 
 - project:
-    name: review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-kubernetes_metadata_filter
+    name: 
+      review.rdoproject.org/centos-opstools/rubygem-fluent-plugin-kubernetes_metadata_filter
     templates:
       - system-required
       - centos-opstools-unsupported
@@ -956,7 +957,8 @@
       - centos-opstools-unsupported
 
 - project:
-    name: review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-check-dependencies
+    name: 
+      review.rdoproject.org/centos-opstools/rubygem-sensu-extensions-check-dependencies
     templates:
       - system-required
       - centos-opstools-unsupported
@@ -1912,6 +1914,19 @@
 
 - project:
     name: review.rdoproject.org/openstack/ec2api-tempest-plugin-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/edpm-image-builder
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/edpm-image-builder-distgit
     default-branch: rpm-master
     templates:
       - package-distgit-check-jobs
