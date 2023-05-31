@@ -1918,6 +1918,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/edpm-image-builder
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/edpm-image-builder-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/futurist
     templates:
       - package-check-jobs
