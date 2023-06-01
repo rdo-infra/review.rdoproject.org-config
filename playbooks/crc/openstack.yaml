@@ -10,7 +10,7 @@
 
 - name: Set openstack operator namespace
   set_fact:
-    operators_namespace: "{{ operators_namespace | default('openstack') }}"
+    operators_namespace: "{{ operators_namespace | default('openstack-operators') }}"
 
 - name: Install devsetup dependencies
   community.general.make:
