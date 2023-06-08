@@ -3,62 +3,65 @@
     rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
     workspace: "{{ ansible_user_dir }}/workspace"
   tasks:
-    - name: Create hash_info file for dlrn reporting
-      include_role:
-        name: get_hash
-        tasks_from: get_hash.yaml
-      when:
-        - ansible_distribution == "CentOS"
-        - ansible_distribution_major_version|int >= 8
-        - mixed_os_stable_version is not defined
+    - name: Generate hash_info only when report_dlrn is enabled
+      when: report_dlrn|default(true)|bool
+      block:
+        - name: Create hash_info file for dlrn reporting
+          include_role:
+            name: get_hash
+            tasks_from: get_hash.yaml
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int >= 8
+            - mixed_os_stable_version is not defined
 
-    # https://bugs.launchpad.net/tripleo/+bug/1990012 For 8-9 mixed OS job
-    # the stable_version is 9 and it runs on a 9 node. We override
-    # distro for get_hash to fetch the right (8) hash for dlrn reporting
-    - name: Create hash_info file for dlrn reporting - Mixed OS jobs
-      when:
-        - ansible_distribution == "CentOS"
-        - ansible_distribution_major_version|int >= 8
-        - mixed_os_stable_version is defined
-        - mixed_os_stable_version is version(ansible_distribution_major_version, "==")
-      include_role:
-        name: get_hash
-        tasks_from: get_hash.yaml
-      vars:
-        distro: "centos8"
+        # https://bugs.launchpad.net/tripleo/+bug/1990012 For 8-9 mixed OS job
+        # the stable_version is 9 and it runs on a 9 node. We override
+        # distro for get_hash to fetch the right (8) hash for dlrn reporting
+        - name: Create hash_info file for dlrn reporting - Mixed OS jobs
+          when:
+            - ansible_distribution == "CentOS"
+            - ansible_distribution_major_version|int >= 8
+            - mixed_os_stable_version is defined
+            - mixed_os_stable_version is version(ansible_distribution_major_version, "==")
+          include_role:
+            name: get_hash
+            tasks_from: get_hash.yaml
+          vars:
+            distro: "centos8"
 
-    - name: Populate hash.info required for dlrn reporting
-      shell:
-        cmd: |
-          export WORKSPACE="{{ workspace }}"
-          export RELEASE="{{ component_release | default(release) }}"
-          export PROMOTE_NAME=tripleo-ci-testing
-          export DLRNAPI_DISTRO="{{ ansible_distribution }}"
-          export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
-          export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
-          export COMPONENT_NAME="{{ component | default('') }}"
-          bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
-      args:
-        chdir: '{{ workspace }}'
-      environment: "{{ zuul | zuul_legacy_vars }}"
-      changed_when: true
-      when: ansible_distribution == "RedHat" or ansible_distribution_major_version|int < 8
+        - name: Populate hash.info required for dlrn reporting
+          shell:
+            cmd: |
+              export WORKSPACE="{{ workspace }}"
+              export RELEASE="{{ component_release | default(release) }}"
+              export PROMOTE_NAME=tripleo-ci-testing
+              export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+              export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+              export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
+              export COMPONENT_NAME="{{ component | default('') }}"
+              bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
+          args:
+            chdir: '{{ workspace }}'
+          environment: "{{ zuul | zuul_legacy_vars }}"
+          changed_when: true
+          when: ansible_distribution == "RedHat" or ansible_distribution_major_version|int < 8
 
-    - name: Temporary hash info creation for centos in mixed distribution job
-      shell:
-        cmd: |
-          export WORKSPACE="{{ workspace }}"
-          export RELEASE="{{ component_release | default(release) }}"
-          export PROMOTE_NAME=tripleo-ci-testing
-          export DLRNAPI_DISTRO="CentOS"
-          export DLRNAPI_DISTRO_VERSION="7"
-          cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
-          cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/logs/hash_info_fedora.sh
-          bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
-          cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_centos.sh
-          cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/logs/hash_info_centos.sh
-          cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
-      args:
-        chdir: '{{ workspace }}'
-      environment: "{{ zuul | zuul_legacy_vars }}"
-      when: fedora_centos_mixed_distribution_job|default(false)
+        - name: Temporary hash info creation for centos in mixed distribution job
+          shell:
+            cmd: |
+              export WORKSPACE="{{ workspace }}"
+              export RELEASE="{{ component_release | default(release) }}"
+              export PROMOTE_NAME=tripleo-ci-testing
+              export DLRNAPI_DISTRO="CentOS"
+              export DLRNAPI_DISTRO_VERSION="7"
+              cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_fedora.sh
+              cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/logs/hash_info_fedora.sh
+              bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream/get-hash.sh
+              cp {{ workspace }}/hash_info.sh {{ workspace  }}/hash_info_centos.sh
+              cp {{ workspace }}/hash_info_centos.sh {{ workspace }}/logs/hash_info_centos.sh
+              cp {{ workspace }}/hash_info_fedora.sh {{ workspace }}/hash_info.sh
+          args:
+            chdir: '{{ workspace }}'
+          environment: "{{ zuul | zuul_legacy_vars }}"
+          when: fedora_centos_mixed_distribution_job|default(false)
