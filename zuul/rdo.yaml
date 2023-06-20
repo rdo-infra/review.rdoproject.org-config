@@ -1206,6 +1206,29 @@
           - openstack/whitebox-tempest-plugin
           - openstack/zaqar
 
+      github.com-git:
+        untrusted-projects:
+          - release-depot/patch_rebaser:
+              include:
+                - job
+                - project
+          - include: []
+            projects:
+              - ci-framework/repo-setup
+              - containers/buildah
+              - containers/podman
+              - gnocchixyz/gnocchi
+              - openstack-k8s-operators/lib-common
+              - pycontribs/molecule-libvirt
+              - pycontribs/molecule-openstack
+              - pycontribs/pytest-molecule
+              - rabbitmq/cluster-operator
+              # List of PCP test projects
+              - tripleo-ci/lib-common
+              - tripleo-ci/ansibleee-operator
+              - tripleo-ci/nova-operator
+              - ansible/ansible-lint
+
       github.com:
         untrusted-projects:
         - release-depot/patch_rebaser:
@@ -1235,7 +1258,6 @@
         - include: []
           projects:
           - ansible/ansible
-          - ansible/ansible-lint
           - ansible-collections/community.libvirt
           - ansible-collections/openvswitch.openvswitch
           - ansible-collections/community.general
@@ -1243,29 +1265,17 @@
           - ansible-collections/ansible.posix
           - ansible-collections/ansible.utils
           - ceph/ceph-ansible
-          - gnocchixyz/gnocchi
-          - containers/buildah
           - containers/podman
           - containers/ansible-podman-collections
-          - pycontribs/molecule-libvirt
-          - pycontribs/molecule-openstack
-          - pycontribs/pytest-molecule
           # NOTE(dpawlik) We don't have openshift-ansible repo in rdo yet.
           - rdo-infra/openshift-ansible
           # List of Podified control plane projects
           - openstack-k8s-operators/mariadb-operator
           - openstack-k8s-operators/keystone-operator
-          - openstack-k8s-operators/lib-common
           - openstack-k8s-operators/cinder-operator
           - openstack-k8s-operators/glance-operator
-          - rabbitmq/cluster-operator
           - openstack-k8s-operators/data-plane-adoption
           - openstack-k8s-operators/tcib
-          - ci-framework/repo-setup
-          # List of PCP test projects
-          - tripleo-ci/lib-common
-          - tripleo-ci/ansibleee-operator
-          - tripleo-ci/nova-operator
 
       pagure.io:
         untrusted-projects:
