@@ -1230,10 +1230,6 @@
 
       github.com:
         untrusted-projects:
-        - release-depot/patch_rebaser:
-            include:
-            - job
-            - project
         # job config loaded from these repos should
         # not be able to wedge our config as it will
         # only affect those repos. they are not config
@@ -1264,7 +1260,6 @@
           - ansible-collections/ansible.posix
           - ansible-collections/ansible.utils
           - ceph/ceph-ansible
-          - containers/podman
           - containers/ansible-podman-collections
           # NOTE(dpawlik) We don't have openshift-ansible repo in rdo yet.
           - rdo-infra/openshift-ansible
