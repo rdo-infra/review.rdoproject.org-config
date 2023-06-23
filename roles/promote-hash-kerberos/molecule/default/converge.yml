@@ -1,0 +1,84 @@
+---
+
+- hosts: all
+  gather_facts: false
+  vars:
+    molecule_testing: true
+    workspace: "/tmp"
+    rdo_infra_ci_config: "{{ workspace }}/ci-config"
+    release: master
+    ansible_distribution: CentOS
+    ansible_distribution_major_version: 8
+  tasks:
+
+    - name: emulate valid dlrnapi response  # noqa 301
+      shell:
+        cmd: |
+          cat dlrnapi_output
+      register: valid_dlrnapi_output
+
+    - name: emulate empty dlrnapi call  # noqa 301
+      shell:
+        cmd: |
+          echo '[]'
+      register: empty_dlrnapi_output
+
+    - name: emulate null dlrnapi response  # noqa 301
+      shell:
+        cmd: |
+          echo ''
+      register: null_dlrnapi_output
+
+    - name: emulate dlrnapi (no match) response  # noqa 301
+      shell:
+        cmd: |
+          cat dlrnapi_output_no_match
+      register: dlrnapi_output_no_match
+
+    - name: set local src dir for ci-config  # noqa 305
+      shell: "pwd"
+      args:
+        chdir: "{{ playbook_dir }}/../../../../"
+      register: ci_config_dir
+      delegate_to: localhost
+      changed_when: false
+
+    - name: install test requirements
+      pip:
+        requirements: "{{ ci_config_dir.stdout }}/test-requirements.txt"
+        virtualenv: "{{ workspace }}/.venv"
+      delegate_to: localhost
+
+    - name: install jmespath for json_query filter
+      pip:
+        name: jmespath
+        virtualenv: "{{ workspace }}/.venv"
+
+    - name: git clone ci-config repo
+      git:
+        repo: "https://github.com/rdo-infra/ci-config"
+        dest: "{{ rdo_infra_ci_config }}"
+        version: master
+
+    - block:
+        - name: test check-promotion-criteria.yaml
+          include_tasks: ../../tasks/check-promotion-criteria.yaml
+          vars:
+            # vars defined/changed in this playbook
+            reported_jobs: "{{ dlrnapi_report }}"
+            ci_config_repo: "{{ ci_config_dir.stdout }}"
+            promote_source: component-ci-testing
+            promote_target: promoted-components
+            component: compute
+          with_items:
+            - "{{ null_dlrnapi_output }}"
+            - "{{ empty_dlrnapi_output }}"
+            - "{{ dlrnapi_output_no_match }}"
+            - "{{ valid_dlrnapi_output }}"
+          loop_control:
+            loop_var: "dlrnapi_report"
+      rescue:
+        - name: molecule test failed?
+          debug:
+            msg: "Molecule test for check-promotion-criteria failed."
+      ignore_errors: yes
