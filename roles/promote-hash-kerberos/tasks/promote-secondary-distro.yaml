@@ -1,0 +1,53 @@
+- name: Ensure legacy workspace directory
+  file:
+    path: '{{ workspace }}'
+    state: directory
+
+- block:
+    - name: Promote consistent to tripleo-ci-testing for secondary (RHEL) repo if an equivalent exists
+      shell:
+        cmd: |
+          export WORKSPACE="{{ workspace }}"
+          export RELEASE="{{ component_release | default(release) }}"
+          export PROMOTE_NAME=tripleo-ci-testing
+          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream"
+          DLRNAPI_URL="https://trunk.rdoproject.org/api-rhel8-$RELEASE"
+          sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
+          source {{ workspace }}/hash_info.sh
+          cp {{ workspace }}/hash_info.sh {{ workspace }}/logs/hash_info.sh
+          # Since both RHEL and centos repos are created from the same rpm-master branch in distgit
+          # Commit hash and distro hash in both repos will be the same, but theres a catch:
+          # Not all the packages in centos are available in RHEL, so we may have a hash in centos
+          # built over a package that doesnt exist in RHEL, so the dlrn hash will have no equivalent there.
+          # We poll for a while waiting for it become available before continuing
+          source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
+          activate_dlrnapi_venv
+          echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
+          # TODO(evallesp): Needed for stage environment. Deleteme once in prod.
+          export SSL_VERIFY=0
+          # If the hash combination doesnt exist the API will report 404 and the command will exit 1
+          dlrnapi --url $DLRNAPI_URL --server-principal $DLRNAPI_SERVER_PRINCIPAL --auth-method kerberosAuth --force-auth repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+          if [[ "$?" == "1" ]]; then
+            echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in RHEL"
+            exit 1
+          fi
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+        chdir: '{{ workspace }}'
+      environment: >
+        "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+        'DLRNAPI_URL': dlrnapi_host}) }}"
+      when:
+      # Note that component jobs only have a primary distro
+        - release in ["train", "master"]
+        - component is not defined or component|length == 0
+      register: result
+      # rhel build times are lagging significantly
+      # see hashes in https://trunk.rdoproject.org/centos7-master/report.html
+      # vs https://trunk.rdoproject.org/rhel8-master/report.html
+      retries: 40
+      delay: 60
+      until: result is succeeded
+  rescue:
+    - name: Display commit hash
+      debug:
+        msg: "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in DLRN RHEL."
