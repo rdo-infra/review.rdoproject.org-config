@@ -1,0 +1,25 @@
+- name: Ensure legacy workspace directory
+  file:
+    path: '{{ workspace }}'
+    state: directory
+
+- name: Check reports from DLRN
+  shell:
+    cmd: |
+      export WORKSPACE="{{ workspace }}"
+      export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
+      source {{ workspace }}/hash_info.sh
+      bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
+    chdir: '{{ workspace }}'
+  environment: >
+    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+    'DLRNAPI_URL': dlrnapi_host}) }}"
+  changed_when: false
+
+- name: get the the dlrn output results
+  shell:
+    cmd: |
+       cat {{ workspace }}/commit_hash_promote_target_output.txt
+    chdir: '{{ workspace }}'
+  register: commit_hash_in_promote_target
+  changed_when: false
