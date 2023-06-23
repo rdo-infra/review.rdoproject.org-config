@@ -1,0 +1,6 @@
+ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+rdo_infra_ci_config: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/ci-config'].src_dir }}"
+workspace: "{{ ansible_user_dir }}/workspace"
+criteria_base_path: "{{ rdo_infra_ci_config }}/ci-scripts/dlrnapi_promoter/config"
+dlrnapi_user: review_rdoproject_org
+molecule_testing: false

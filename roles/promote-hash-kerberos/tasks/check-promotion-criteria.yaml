@@ -1,0 +1,31 @@
+- name: Ensure legacy workspace directory
+  file:
+    path: '{{ workspace }}'
+    state: directory
+
+- name: empty dlrnapi output (no jobs reported)
+  fail:
+    msg: "FAILURE: No successful jobs reported to delorean api"
+  when:
+    - reported_jobs.stdout | length == 0 or reported_jobs.stdout == '[]'
+
+- block:
+    - name: fetch criteria file
+      fetch:
+        dest: "{{ workspace }}/"
+        src: "{{ criteria_base_path }}/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/component/{{ osp_release|default(release) }}.yaml"
+        flat: yes
+
+    - name: load criteria for component promotion
+      include_vars:
+        file: "{{ workspace }}/{{  osp_release|default(release) }}.yaml"
+        name: "criteria"
+
+    - name: query to match promotion criteria
+      include: criteria-query.yaml
+      with_items: "{{ criteria[promote_target][component] }}"
+      loop_control:
+        loop_var: "criteria_job"
+  when:
+    - reported_jobs.stdout | length > 0
+    - reported_jobs.stdout != '[]'

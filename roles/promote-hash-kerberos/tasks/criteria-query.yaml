@@ -1,0 +1,30 @@
+# job_id is how dlrnapi output retrieves job names from dlrnapi
+# "job_id": "periodic-tripleo-ci-centos-8-standalone-compute-master"
+# see roles/promote-hash/molecule/default/dlrnapi_output for example
+# criteria is the nested dict loaded from yaml file
+- block:
+    - name: debug criteria job
+      debug:
+        msg: "DEBUG: criteria job --->{{ criteria_job }}<---"
+    - name: debug reported jobs
+      debug:
+        msg: "DEBUG: dlrnapi reported jobs --->{{ reported_jobs.stdout | from_json }}<---"
+    - name: debug json query result
+      vars:
+        query: "[?contains(job_id, '{{ criteria_job }}')]"
+      debug:
+        msg: "DEBUG: json query result --->{{ reported_jobs.stdout | from_json | json_query(query) }}<---"
+    # noqa 301
+    - name: criteria failed?
+      fail:
+        msg: "FAILURE! :( Promotion criteria failed to match."
+      vars:
+        query: "[?contains(job_id, '{{ criteria_job }}')]"
+      when: reported_jobs.stdout | from_json | json_query(query) == []
+
+    - name: criteria match?
+      debug:
+        msg: "SUCCESS! :) Promotion criteria match!"
+      vars:
+        query: "[?contains(job_id, '{{ criteria_job }}')]"
+      when: reported_jobs.stdout | from_json | json_query(query) != []
