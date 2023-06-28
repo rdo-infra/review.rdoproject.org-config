@@ -26,12 +26,6 @@ if [ -z "$UPLOAD_URL" ]; then
 fi
 echo "UPLOAD_URL is $UPLOAD_URL"
 
-# Note(chandankumar): downgrade rysnc for CentOS Stream 8
-# due to https://bugs.launchpad.net/tripleo/+bug/1984035
-if [[ "$DISTRO" =~ "centos8" ]]; then
-    sudo dnf -y downgrade rsync-3.1.3-14.el8
-fi
-
 # Check if directory $FULL_HASH exists, if not create it.
 if [ ! -d $FULL_HASH ]; then
     mkdir -p $FULL_HASH
