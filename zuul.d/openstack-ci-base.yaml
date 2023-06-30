@@ -43,6 +43,29 @@
         secret: quay_rdoproject_podified_antelope_centos_9_secret
 
 - job:
+    name: edpm-image-build-base
+    parent: base-minimal
+    description: |
+      A base job that builds containers with tcib
+    pre-run:
+      # Playbook to add ci-framework team ssh keys to the node
+      - playbooks/ci-framework-rdo-base/pre.yaml
+        # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/repo-setup
+        override-checkout: main
+      - opendev.org/zuul/zuul-jobs
+    attempts: 1
+    secrets:
+      - name: quay_login_secret_name_master
+        secret: quay_rdoproject_podified_master_centos_9_secret
+      - name: quay_login_secret_name_zed
+        secret: quay_rdoproject_podified_zed_centos_9_secret
+      - name: quay_login_secret_name_antelope
+        secret: quay_rdoproject_podified_antelope_centos_9_secret
+
+- job:
     name: copy-container-quay-base
     parent: base-minimal
     description: |
