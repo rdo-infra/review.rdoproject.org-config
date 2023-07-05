@@ -1,0 +1,85 @@
+---
+- hosts: controller
+  vars:
+    cloud_name: ovb-test
+    bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
+  tasks:
+
+    # FIXME: install in venv or package
+    - name: Install required packages
+      become: true
+      ansible.builtin.pip:
+        name: python-openstackclient
+
+    - name: Create openstack config dir
+      file:
+        path: ~/.config/openstack/
+        state: directory
+
+    - name: Create the crc based CI environment
+      environment:
+        OS_CLOUD: "{{ cloud_name }}"
+      block:
+        - name: Generate clouds config from cloud_secrets secret
+          template:
+            src: crc.clouds.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        - name: Set fact for new network
+          set_fact:
+            crc_ci_bootstrap_private_net: "zuul-ci-net-{{ zuul.build[:8] }}"
+            crc_ci_bootstrap_subnet: "zuul-ci-subnet-{{ zuul.build[:8] }}"
+            crc_ci_bootstrap_ipv6_subnet: "zuul-ci-ipv6-subnet-{{ zuul.build[:8] }}"
+
+        - name: Create new network
+          openstack.cloud.network:
+            cloud: "{{ cloud_name }}"
+            name: "{{ crc_ci_bootstrap_private_net }}"
+            state: present
+            external: false
+
+        - name: Create subnet - ipv4
+          openstack.cloud.subnet:
+            cloud: "{{ cloud_name }}"
+            state: present
+            name: "{{ crc_ci_bootstrap_subnet }}"
+            network_name: "{{ crc_ci_bootstrap_private_net }}"
+            cidr: 192.168.0.0/24
+
+        - name: Create subnet - ipv6
+          openstack.cloud.subnet:
+            cloud: "{{ cloud_name }}"
+            state: present
+            name: "{{ crc_ci_bootstrap_ipv6_subnet }}"
+            network_name: "{{ crc_ci_bootstrap_private_net }}"
+            ip_version: 6
+            cidr: 2db8:1::/64
+            dns_nameservers:
+                - 2001:4860:4860::8888
+                - 2001:4860:4860::8844
+            ipv6_ra_mode: dhcpv6-stateless
+            ipv6_address_mode: dhcpv6-stateless
+          when: crc_ci_bootstrap_create_ipv6_subnet | default(false)
+
+        # FIXME: move that to the ansible module
+        # FIXME: the openstackclient is not available, due it should be in venv
+        - name: Attach network to the controller
+          ansible.builtin.command:
+            cmd: >-
+              openstack server add network
+              {{ hosts.controller.nodepool.external_id }}
+              {{ crc_ci_bootstrap_private_net }}
+
+        - name: Attach network to the CRC
+          ansible.builtin.command:
+            cmd: >-
+              openstack server add network
+              {{ hosts.crc.nodepool.external_id }}
+              {{ crc_ci_bootstrap_private_net }}
+
+      always:
+        - name: Remove clouds.yml secret
+          file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent
