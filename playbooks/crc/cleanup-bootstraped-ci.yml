@@ -1,0 +1,29 @@
+---
+- hosts: controller
+  vars:
+    bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
+  tasks:
+    - name: Create openstack config dir
+      file:
+        path: ~/.config/openstack/
+        state: directory
+
+    - name: Create the crc based CI environment
+      block:
+
+        - name: Generate clouds config from cloud_secrets secret
+          template:
+            src: crc.clouds.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        - name: Bootstrap the OpenStack infra
+          ansible.builtin.import_role:
+            name: openstack_ci_bootstrap
+            tasks_from: cleanup.yml
+
+      always:
+        - name: Remove clouds.yml secret
+          file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent

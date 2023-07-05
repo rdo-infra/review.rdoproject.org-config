@@ -1,0 +1,41 @@
+---
+- hosts: controller
+  vars:
+    bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
+  tasks:
+
+    - name: Create openstack config dir
+      file:
+        path: ~/.config/openstack/
+        state: directory
+
+    - name: Create the crc based CI environment
+      block:
+
+        - name: Generate clouds config from cloud_secrets secret
+          template:
+            src: crc.clouds.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        - name: Bootstrap the OpenStack infra
+          vars:
+            cifmw_ocb_resource_suffix: "abcd123"
+            # TODO pending
+#            cifmw_ocb_instance_key_name: "pabrodri-key-pair"
+            cifmw_ocb_instances:
+              - name: compute
+                flavor: "m1.large"
+                image: "CentOS-Stream-9-latest"
+
+              - name: crc
+                flavor: "ci.standard.xxl"
+                image: "dpawlik-coreos-crc-extracted"
+          ansible.builtin.import_role:
+            name: openstack_ci_bootstrap
+
+      always:
+        - name: Remove clouds.yml secret
+          file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent
