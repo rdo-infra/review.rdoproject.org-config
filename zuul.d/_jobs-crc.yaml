@@ -42,3 +42,37 @@
         secret: crc_secret
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
+
+- job:
+    name: base-extracted-crc
+    parent: base-minimal
+    description: |
+      A base job that starts CRC environment from the extracted CRC image
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      # FIXME: Add playbook that is creating network and attach to the instances
+      # - playbooks/
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/install_yamls
+        override-checkout: main
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 3
+    secrets:
+      - name: crc_secret
+        secret: crc_secret
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
+      # FIXME: access the secret - playbooks/tripleo-ci-reproducer-base/templates/ovb-test.clouds.yaml.j2
+      - name: cloud_secrets
+        secret: cloud_secrets
+# FIXME: below lines are just a helper. Remove it later.
+#    nodeset:
+#      nodes:
+#        - name: controller
+#          label: cloud-centos-9-stream-tripleo-vexxhost
+#        - name: crc
+#          label: coreos-crc-extracted-xxl
