@@ -1,0 +1,63 @@
+---
+- hosts: controller
+  vars:
+    cloud_name: ovb-test
+    bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
+    private_network_name: "{{ crc_ci_bootstrap_private_net | default('zuul-ci-net-' + zuul.build[:8]) }}"
+    subnet_network_name: "{{ crc_ci_bootstrap_subnet | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
+    subnet_network_name_ipv6: "{{ crc_ci_bootstrap_ipv6_subnet | default('zuul-ci-ipv6-subnet-' + zuul.build[:8]) }}"
+  tasks:
+    - name: Create openstack config dir
+      file:
+        path: ~/.config/openstack/
+        state: directory
+
+    - name: Cleanup the CI CRC environment network
+      environment:
+          OS_CLOUD: "{{ cloud_name }}"
+      block:
+        - name: Generate clouds config from cloud_secrets secret
+          template:
+            src: crc.clouds.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        # FIXME: move that to the ansible module
+        # FIXME: the openstackclient is not available, due it should be in venv
+        - name: Dettach network from the controller
+          ansible.builtin.command:
+            cmd: >-
+              openstack server remove network
+              {{ hosts.controller.nodepool.external_id }}
+              {{ private_network_name }}
+
+        - name: Dettach network from the CRC
+          ansible.builtin.command: |
+            cmd: >-
+              openstack server remove network
+              {{ hosts.crc.nodepool.external_id }}
+              {{ private_network_name }}
+
+        - name: Delete subnet
+          openstack.cloud.subnet:
+            cloud: "{{ cloud_name }}"
+            state: absent
+            name: "{{ subnet_network_name }}"
+
+        - name: Delete subnet - ipv6
+          openstack.cloud.subnet:
+            cloud: ovb-test
+            state: absent
+            name: "{{ subnet_network_name_ipv6 }}"
+          when: crc_ci_bootstrap_create_ipv6_subnet | default(false)
+
+        - name: Delete network
+          openstack.cloud.network:
+            cloud: "{{ cloud_name }}"
+            name: "{{ private_network_name }}"
+            state: absent
+      always:
+        - name: Remove clouds.yml secret
+          file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent
