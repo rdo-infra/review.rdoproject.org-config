@@ -6,7 +6,13 @@ set -eu
 
 source $WORKSPACE/hash_info.sh
 pip_cmd=$(command -v pip || command -v pip3)
-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
+
+if [[ $KERBEROS_AUTH = true ]]; then
+    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
+else
+    $pip_cmd install --user dlrnapi-client shyaml
+fi
+
 PATH=$PATH:/home/$USER/.local/bin
 
 DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
@@ -16,12 +22,18 @@ if [[ ! -z $EXTENDED_HASH ]]; then
     DLRN_API_HASH_ARGS="$DLRN_API_HASH_ARGS \
     --extended-hash $EXTENDED_HASH"
 fi
-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
-export SSL_VERIFY=0
-dlrnapi --url $DLRNAPI_URL \
-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
-    --auth-method kerberosAuth \
-    repo-status  \
-    --force-auth \
-    $DLRN_API_HASH_ARGS \
-    --success true | tee -a $WORKSPACE/repo_success_output.txt
+
+if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
+    dlrnapi --url $DLRNAPI_URL \
+        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+        --auth-method kerberosAuth \
+        repo-status  \
+        --force-auth \
+        $DLRN_API_HASH_ARGS \
+        --success true | tee -a $WORKSPACE/repo_success_output.txt
+else
+    dlrnapi --url $DLRNAPI_URL \
+        repo-status  \
+        $DLRN_API_HASH_ARGS \
+        --success true | tee -a $WORKSPACE/repo_success_output.txt
+fi

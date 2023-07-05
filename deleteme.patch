@@ -1,0 +1,275 @@
+diff --git a/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh b/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
+index 8824cdcc..f9f34124 100644
+--- a/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
++++ b/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
+@@ -7,7 +7,13 @@ set -eu
+ 
+ source $WORKSPACE/hash_info.sh
+ pip_cmd=$(command -v pip || command -v pip3)
+-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
++
++if [[ $KERBEROS_AUTH = true ]]; then
++    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
++else
++    $pip_cmd install --user dlrnapi-client shyaml
++fi
++
+ PATH=$PATH:/home/$USER/.local/bin
+ 
+ DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
+@@ -17,13 +23,20 @@ if [[ ! -z $EXTENDED_HASH ]]; then
+     DLRN_API_HASH_ARGS="$DLRN_API_HASH_ARGS \
+     --extended-hash $EXTENDED_HASH"
+ fi
+-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
+-export SSL_VERIFY=0
+-dlrnapi --url $DLRNAPI_URL \
+-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+-    --auth-method kerberosAuth \
++
++if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
++    dlrnapi --url $DLRNAPI_URL \
++        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
++        --auth-method kerberosAuth \
++        promotion-get  \
++        --force-auth \
++        $DLRN_API_HASH_ARGS \
++        --promote-name $PROMOTE_TARGET \
++        | tee -a $WORKSPACE/commit_hash_promote_target_output.txt
++else
++    dlrnapi --url $DLRNAPI_URL \
+     promotion-get  \
+-    --force-auth \
+     $DLRN_API_HASH_ARGS \
+     --promote-name $PROMOTE_TARGET \
+     | tee -a $WORKSPACE/commit_hash_promote_target_output.txt
++fi
+diff --git a/ci-scripts/tripleo-upstream-kerberos/dlrnapi_check_reports.sh b/ci-scripts/tripleo-upstream-kerberos/dlrnapi_check_reports.sh
+index 155b2884..27a801b6 100644
+--- a/ci-scripts/tripleo-upstream-kerberos/dlrnapi_check_reports.sh
++++ b/ci-scripts/tripleo-upstream-kerberos/dlrnapi_check_reports.sh
+@@ -6,7 +6,13 @@ set -eu
+ 
+ source $WORKSPACE/hash_info.sh
+ pip_cmd=$(command -v pip || command -v pip3)
+-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
++
++if [[ $KERBEROS_AUTH = true ]]; then
++    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
++else
++    $pip_cmd install --user dlrnapi-client shyaml
++fi
++
+ PATH=$PATH:/home/$USER/.local/bin
+ 
+ DLRN_API_HASH_ARGS="--commit-hash $COMMIT_HASH \
+@@ -16,12 +22,18 @@ if [[ ! -z $EXTENDED_HASH ]]; then
+     DLRN_API_HASH_ARGS="$DLRN_API_HASH_ARGS \
+     --extended-hash $EXTENDED_HASH"
+ fi
+-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
+-export SSL_VERIFY=0
+-dlrnapi --url $DLRNAPI_URL \
+-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+-    --auth-method kerberosAuth \
+-    repo-status  \
+-    --force-auth \
+-    $DLRN_API_HASH_ARGS \
+-    --success true | tee -a $WORKSPACE/repo_success_output.txt
++
++if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
++    dlrnapi --url $DLRNAPI_URL \
++        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
++        --auth-method kerberosAuth \
++        repo-status  \
++        --force-auth \
++        $DLRN_API_HASH_ARGS \
++        --success true | tee -a $WORKSPACE/repo_success_output.txt
++else
++    dlrnapi --url $DLRNAPI_URL \
++        repo-status  \
++        $DLRN_API_HASH_ARGS \
++        --success true | tee -a $WORKSPACE/repo_success_output.txt
++fi
+\ No newline at end of file
+diff --git a/ci-scripts/tripleo-upstream-kerberos/dlrnapi_report.sh b/ci-scripts/tripleo-upstream-kerberos/dlrnapi_report.sh
+index 97b25d1f..cf324d26 100644
+--- a/ci-scripts/tripleo-upstream-kerberos/dlrnapi_report.sh
++++ b/ci-scripts/tripleo-upstream-kerberos/dlrnapi_report.sh
+@@ -18,17 +18,30 @@ else
+ fi
+ 
+ pip_cmd=$(command -v pip || command -v pip3)
+-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
+-PATH=$PATH:$HOME/.local/bin
+-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
+-export SSL_VERIFY=0
+-dlrnapi --url $DLRNAPI_URL \
+-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+-    --auth-method kerberosAuth \
+-    report-result \
+-    $HASH_ARGS \
+-    --job-id $TOCI_JOBTYPE \
+-    --info-url "$LOG_HOST_URL/$LOG_PATH" \
+-    --timestamp $(date +%s) \
+-    --success $SUCCESS
+ 
++if [[ $KERBEROS_AUTH = true ]]; then
++    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
++else
++    $pip_cmd install --user dlrnapi-client shyaml
++fi
++
++PATH=$PATH:$HOME/.local/bin
++if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
++    dlrnapi --url $DLRNAPI_URL \
++        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
++        --auth-method kerberosAuth \
++        report-result \
++        $HASH_ARGS \
++        --job-id $TOCI_JOBTYPE \
++        --info-url "$LOG_HOST_URL/$LOG_PATH" \
++        --timestamp $(date +%s) \
++        --success $SUCCESS
++else
++    dlrnapi --url $DLRNAPI_URL \
++        report-result \
++        $HASH_ARGS \
++        --job-id $TOCI_JOBTYPE \
++        --info-url "$LOG_HOST_URL/$LOG_PATH" \
++        --timestamp $(date +%s) \
++        --success $SUCCESS
++fi
+diff --git a/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh b/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
+index 6aae8fa7..d94743b4 100644
+--- a/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
++++ b/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
+@@ -23,17 +23,28 @@ if [[ ! -z $EXTENDED_HASH ]]; then
+     --extended-hash $EXTENDED_HASH"
+ fi
+ pip_cmd=$(command -v pip || command -v pip3)
+-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
++
++if [[ $KERBEROS_AUTH = true ]]; then
++    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
++else
++    $pip_cmd install --user dlrnapi-client shyaml
++fi
++
+ PATH=$PATH:$HOME/.local/bin
+-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
+-export SSL_VERIFY=0
+ # Assign label to the specific hash using the DLRN API
+-dlrnapi --url $DLRNAPI_URL \
+-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+-    --auth-method kerberosAuth \
+-    repo-promote \
+-    $DLRN_API_HASH_ARGS \
+-    --promote-name $PROMOTE_NAME
+-
++if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
++    dlrnapi --url $DLRNAPI_URL \
++        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
++        --auth-method kerberosAuth \
++        repo-promote \
++        $DLRN_API_HASH_ARGS \
++        --promote-name $PROMOTE_NAME
++else
++    dlrnapi --url $DLRNAPI_URL \
++        --username $DLRNAPI_USERNAME \
++        repo-promote \
++        $DLRN_API_HASH_ARGS \
++        --promote-name $PROMOTE_NAME
++fi
+ 
+ echo ======== PROMOTE HASH COMPLETED
+diff --git a/roles/promote-hash-kerberos/tasks/check-reported-jobs.yaml b/roles/promote-hash-kerberos/tasks/check-reported-jobs.yaml
+index b732923c..5d803cc0 100644
+--- a/roles/promote-hash-kerberos/tasks/check-reported-jobs.yaml
++++ b/roles/promote-hash-kerberos/tasks/check-reported-jobs.yaml
+@@ -11,9 +11,7 @@
+       source {{ workspace }}/hash_info.sh
+       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/dlrnapi_check_reports.sh
+     chdir: '{{ workspace }}'
+-  environment: >
+-    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+-    'DLRNAPI_URL': dlrnapi_host}) }}"
++  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+   register: reported_jobs_full_output
+   changed_when: false
+ 
+diff --git a/roles/promote-hash-kerberos/tasks/check_for_previous_promotions.yml b/roles/promote-hash-kerberos/tasks/check_for_previous_promotions.yml
+index 0fc712e3..6e4b6eb3 100644
+--- a/roles/promote-hash-kerberos/tasks/check_for_previous_promotions.yml
++++ b/roles/promote-hash-kerberos/tasks/check_for_previous_promotions.yml
+@@ -11,9 +11,7 @@
+       source {{ workspace }}/hash_info.sh
+       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
+     chdir: '{{ workspace }}'
+-  environment: >
+-    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+-    'DLRNAPI_URL': dlrnapi_host}) }}"
++  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+   changed_when: false
+ 
+ - name: get the the dlrn output results
+diff --git a/roles/promote-hash-kerberos/tasks/promote-primary-distro.yaml b/roles/promote-hash-kerberos/tasks/promote-primary-distro.yaml
+index 338361ee..61a0b390 100644
+--- a/roles/promote-hash-kerberos/tasks/promote-primary-distro.yaml
++++ b/roles/promote-hash-kerberos/tasks/promote-primary-distro.yaml
+@@ -23,9 +23,7 @@
+           export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
+           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
+         chdir: '{{ workspace }}'
+-      environment: >
+-        "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+-        'DLRNAPI_URL': dlrnapi_host}) }}"
++      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+       with_items: "{{ component_hash_info_files.stdout_lines }}"
+ 
+ - name: Promote hash label from {{ promote_source }} to {{ promote_target }}
+@@ -38,7 +36,5 @@
+       export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
+       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
+     chdir: '{{ workspace }}'
+-  environment: >
+-    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+-    'DLRNAPI_URL': dlrnapi_host}) }}"
++  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+   when: md5_url is not defined
+diff --git a/roles/promote-hash-kerberos/tasks/promote-secondary-distro.yaml b/roles/promote-hash-kerberos/tasks/promote-secondary-distro.yaml
+index 6ef7aec6..7805834a 100644
+--- a/roles/promote-hash-kerberos/tasks/promote-secondary-distro.yaml
++++ b/roles/promote-hash-kerberos/tasks/promote-secondary-distro.yaml
+@@ -10,7 +10,7 @@
+           export WORKSPACE="{{ workspace }}"
+           export RELEASE="{{ component_release | default(release) }}"
+           export PROMOTE_NAME=tripleo-ci-testing
+-          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream-kerberos"
++          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream"
+           DLRNAPI_URL="https://trunk.rdoproject.org/api-rhel8-$RELEASE"
+           sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
+           source {{ workspace }}/hash_info.sh
+@@ -23,19 +23,15 @@
+           source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
+           activate_dlrnapi_venv
+           echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
+-          # TODO(evallesp): Needed for stage environment. Deleteme once in prod.
+-          export SSL_VERIFY=0
+           # If the hash combination doesnt exist the API will report 404 and the command will exit 1
+-          dlrnapi --url $DLRNAPI_URL --server-principal $DLRNAPI_SERVER_PRINCIPAL --auth-method kerberosAuth --force-auth repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
++          dlrnapi --url $DLRNAPI_URL repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+           if [[ "$?" == "1" ]]; then
+             echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in RHEL"
+             exit 1
+           fi
+-          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
++          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
+         chdir: '{{ workspace }}'
+-      environment: >
+-        "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
+-        'DLRNAPI_URL': dlrnapi_host}) }}"
++      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
+       when:
+       # Note that component jobs only have a primary distro
+         - release in ["train", "master"]
