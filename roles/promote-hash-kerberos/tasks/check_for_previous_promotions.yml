@@ -11,9 +11,7 @@
       source {{ workspace }}/hash_info.sh
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/check-commit-hash-promote-target.sh
     chdir: '{{ workspace }}'
-  environment: >
-    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
-    'DLRNAPI_URL': dlrnapi_host}) }}"
+  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
   changed_when: false
 
 - name: get the the dlrn output results

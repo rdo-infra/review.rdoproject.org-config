@@ -23,17 +23,28 @@ if [[ ! -z $EXTENDED_HASH ]]; then
     --extended-hash $EXTENDED_HASH"
 fi
 pip_cmd=$(command -v pip || command -v pip3)
-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
-PATH=$PATH:$HOME/.local/bin
-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
-export SSL_VERIFY=0
-# Assign label to the specific hash using the DLRN API
-dlrnapi --url $DLRNAPI_URL \
-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
-    --auth-method kerberosAuth \
-    repo-promote \
-    $DLRN_API_HASH_ARGS \
-    --promote-name $PROMOTE_NAME
 
+if [[ $KERBEROS_AUTH = true ]]; then
+    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
+else
+    $pip_cmd install --user dlrnapi-client shyaml
+fi
+
+PATH=$PATH:$HOME/.local/bin
+# Assign label to the specific hash using the DLRN API
+if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
+    dlrnapi --url $DLRNAPI_URL \
+        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+        --auth-method kerberosAuth \
+        repo-promote \
+        $DLRN_API_HASH_ARGS \
+        --promote-name $PROMOTE_NAME
+else
+    dlrnapi --url $DLRNAPI_URL \
+        --username $DLRNAPI_USERNAME \
+        repo-promote \
+        $DLRN_API_HASH_ARGS \
+        --promote-name $PROMOTE_NAME
+fi
 
 echo ======== PROMOTE HASH COMPLETED

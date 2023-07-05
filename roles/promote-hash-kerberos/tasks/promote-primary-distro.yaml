@@ -23,9 +23,7 @@
           export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
           bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
         chdir: '{{ workspace }}'
-      environment: >
-        "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
-        'DLRNAPI_URL': dlrnapi_host}) }}"
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
       with_items: "{{ component_hash_info_files.stdout_lines }}"
 
 - name: Promote hash label from {{ promote_source }} to {{ promote_target }}
@@ -38,7 +36,5 @@
       export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
       bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
     chdir: '{{ workspace }}'
-  environment: >
-    "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
-    'DLRNAPI_URL': dlrnapi_host}) }}"
+  environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
   when: md5_url is not defined

@@ -10,7 +10,7 @@
           export WORKSPACE="{{ workspace }}"
           export RELEASE="{{ component_release | default(release) }}"
           export PROMOTE_NAME=tripleo-ci-testing
-          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream-kerberos"
+          export DLRN_VENV_SCRIPT_PATH="{{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream"
           DLRNAPI_URL="https://trunk.rdoproject.org/api-rhel8-$RELEASE"
           sed -i -e "s|DLRNAPI_URL=.*|DLRNAPI_URL=$DLRNAPI_URL|" {{ workspace }}/hash_info.sh
           source {{ workspace }}/hash_info.sh
@@ -23,19 +23,15 @@
           source $DLRN_VENV_SCRIPT_PATH/dlrnapi_venv.sh
           activate_dlrnapi_venv
           echo "Checking existence of commit $COMMIT_HASH / distro $DISTRO_HASH in RHEL"
-          # TODO(evallesp): Needed for stage environment. Deleteme once in prod.
-          export SSL_VERIFY=0
           # If the hash combination doesnt exist the API will report 404 and the command will exit 1
-          dlrnapi --url $DLRNAPI_URL --server-principal $DLRNAPI_SERVER_PRINCIPAL --auth-method kerberosAuth --force-auth repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
+          dlrnapi --url $DLRNAPI_URL repo-status --commit-hash $COMMIT_HASH --distro-hash $DISTRO_HASH > /dev/null
           if [[ "$?" == "1" ]]; then
             echo "commit $COMMIT_HASH / distro $DISTRO_HASH combination not found in RHEL"
             exit 1
           fi
-          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/promote-hash.sh
+          bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream/promote-hash.sh
         chdir: '{{ workspace }}'
-      environment: >
-        "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_SERVER_PRINCIPAL': dlrnapi_host_principal,
-        'DLRNAPI_URL': dlrnapi_host}) }}"
+      environment: "{{ zuul | zuul_legacy_vars | combine({'DLRNAPI_PASSWORD': dlrnapi.password,'DLRNAPI_USERNAME': dlrnapi_user}) }}"
       when:
       # Note that component jobs only have a primary distro
         - release in ["train", "master"]

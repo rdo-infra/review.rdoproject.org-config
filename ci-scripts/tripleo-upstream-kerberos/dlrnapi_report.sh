@@ -18,17 +18,30 @@ else
 fi
 
 pip_cmd=$(command -v pip || command -v pip3)
-$pip_cmd install --user dlrnapi-client[kerberos] shyaml
-PATH=$PATH:$HOME/.local/bin
-# TODO(evallesp): Delete when not testing. Not checking SSL Certificate by dlrnapi.
-export SSL_VERIFY=0
-dlrnapi --url $DLRNAPI_URL \
-    --server-principal $DLRNAPI_SERVER_PRINCIPAL \
-    --auth-method kerberosAuth \
-    report-result \
-    $HASH_ARGS \
-    --job-id $TOCI_JOBTYPE \
-    --info-url "$LOG_HOST_URL/$LOG_PATH" \
-    --timestamp $(date +%s) \
-    --success $SUCCESS
 
+if [[ $KERBEROS_AUTH = true ]]; then
+    $pip_cmd install --user dlrnapi-client[kerberos] shyaml
+else
+    $pip_cmd install --user dlrnapi-client shyaml
+fi
+
+PATH=$PATH:$HOME/.local/bin
+if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
+    dlrnapi --url $DLRNAPI_URL \
+        --server-principal $DLRNAPI_SERVER_PRINCIPAL \
+        --auth-method kerberosAuth \
+        report-result \
+        $HASH_ARGS \
+        --job-id $TOCI_JOBTYPE \
+        --info-url "$LOG_HOST_URL/$LOG_PATH" \
+        --timestamp $(date +%s) \
+        --success $SUCCESS
+else
+    dlrnapi --url $DLRNAPI_URL \
+        report-result \
+        $HASH_ARGS \
+        --job-id $TOCI_JOBTYPE \
+        --info-url "$LOG_HOST_URL/$LOG_PATH" \
+        --timestamp $(date +%s) \
+        --success $SUCCESS
+fi
