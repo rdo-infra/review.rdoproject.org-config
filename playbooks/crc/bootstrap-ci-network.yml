@@ -59,19 +59,15 @@
               {{ crc_ci_bootstrap_ipv6_subnet }}
 
         # FIXME: move that to the ansible module
-        - name: Attach network to the controller
+        - name: Attach network to each node
           ansible.builtin.command:
             cmd: >-
               openstack server add network
-              {{ hostvars['controller']['nodepool']['external_id'] }}
+              {{ hostvars[item.key]['nodepool']['external_id'] }}
               {{ crc_ci_bootstrap_private_net }}
-
-        - name: Attach network to the CRC
-          ansible.builtin.command:
-            cmd: >-
-              openstack server add network
-              {{ hostvars['crc']['nodepool']['external_id'] }}
-              {{ crc_ci_bootstrap_private_net }}
+          loop: "{{ hostvars | dict2items }}"
+          loop_control:
+            label: "{{ item.key }}"
 
       always:
         - name: Remove clouds.yml secret

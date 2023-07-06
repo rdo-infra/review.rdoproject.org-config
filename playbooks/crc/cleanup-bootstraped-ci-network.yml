@@ -23,19 +23,15 @@
             mode: 0600
 
         # FIXME: move that to the ansible module
-        - name: Dettach network from the controller
+        - name: Dettach network from each node
           ansible.builtin.command:
             cmd: >-
               openstack server remove network
-              {{ hostvars['controller']['nodepool']['external_id'] }}
+              {{ hostvars[item.key]['nodepool']['external_id'] }}
               {{ private_network_name }}
-
-        - name: Dettach network from the CRC
-          ansible.builtin.command: |
-            cmd: >-
-              openstack server remove network
-              {{ hostvars['crc']['nodepool']['external_id'] }}
-              {{ private_network_name }}
+          loop: "{{ hostvars | dict2items }}"
+          loop_control:
+            label: "{{ item.key }}"
 
         - name: Delete subnet
           register: crc_ci_bootstrap_subnet_delete_out
