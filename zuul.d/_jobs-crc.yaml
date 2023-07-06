@@ -60,8 +60,6 @@
       # Deletes generated network resources
       - playbooks/crc/cleanup-bootstraped-ci-network.yml
     required-projects:
-      - name: github.com/openstack-k8s-operators/install_yamls
-        override-checkout: main
       - opendev.org/zuul/zuul-jobs
       - config
     attempts: 3

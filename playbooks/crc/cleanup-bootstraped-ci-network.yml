@@ -2,14 +2,14 @@
 - hosts: controller
   vars:
     cloud_name: ovb-test
-    bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
+    bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
     private_network_name: "{{ crc_ci_bootstrap_private_net | default('zuul-ci-net-' + zuul.build[:8]) }}"
     subnet_network_name: "{{ crc_ci_bootstrap_subnet | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
     subnet_network_name_ipv6: "{{ crc_ci_bootstrap_ipv6_subnet | default('zuul-ci-ipv6-subnet-' + zuul.build[:8]) }}"
   tasks:
     - name: Create openstack config dir
       file:
-        path: ~/.config/openstack/
+        path: "{{ ansible_user_dir }}/.config/openstack/"
         state: directory
 
     - name: Cleanup the CI CRC environment network
@@ -43,18 +43,19 @@
             state: absent
             name: "{{ subnet_network_name }}"
 
+        - name: Delete subnet
+          register: crc_ci_bootstrap_subnet_delete_out
+          ansible.builtin.command:
+            cmd: "openstack subnet delete {{ subnet_network_name }}"
+
         - name: Delete subnet - ipv6
-          openstack.cloud.subnet:
-            cloud: ovb-test
-            state: absent
-            name: "{{ subnet_network_name_ipv6 }}"
           when: crc_ci_bootstrap_create_ipv6_subnet | default(false)
+          ansible.builtin.command:
+            cmd: "openstack subnet delete {{ subnet_network_name_ipv6 }}"
 
         - name: Delete network
-          openstack.cloud.network:
-            cloud: "{{ cloud_name }}"
-            name: "{{ private_network_name }}"
-            state: absent
+          ansible.builtin.command:
+            cmd: "openstack network delete {{ private_network_name }}"
       always:
         - name: Remove clouds.yml secret
           file:
