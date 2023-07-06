@@ -27,14 +27,14 @@
           ansible.builtin.command:
             cmd: >-
               openstack server remove network
-              {{ hosts.controller.nodepool.external_id }}
+              {{ hostvars['controller']['nodepool']['external_id'] }}
               {{ private_network_name }}
 
         - name: Dettach network from the CRC
           ansible.builtin.command: |
             cmd: >-
               openstack server remove network
-              {{ hosts.crc.nodepool.external_id }}
+              {{ hostvars['crc']['nodepool']['external_id'] }}
               {{ private_network_name }}
 
         - name: Delete subnet

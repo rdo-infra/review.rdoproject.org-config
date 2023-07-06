@@ -63,14 +63,14 @@
           ansible.builtin.command:
             cmd: >-
               openstack server add network
-              {{ hosts.controller.nodepool.external_id }}
+              {{ hostvars['controller']['nodepool']['external_id'] }}
               {{ crc_ci_bootstrap_private_net }}
 
         - name: Attach network to the CRC
           ansible.builtin.command:
             cmd: >-
               openstack server add network
-              {{ hosts.crc.nodepool.external_id }}
+              {{ hostvars['crc']['nodepool']['external_id'] }}
               {{ crc_ci_bootstrap_private_net }}
 
       always:
