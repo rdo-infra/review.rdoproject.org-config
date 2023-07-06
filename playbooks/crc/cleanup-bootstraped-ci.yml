@@ -10,18 +10,52 @@
 
     - name: Create the crc based CI environment
       block:
-
         - name: Generate clouds config from cloud_secrets secret
           template:
             src: crc.clouds.yaml.j2
             dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             mode: 0600
 
-        - name: Bootstrap the OpenStack infra
-          ansible.builtin.import_role:
-            name: openstack_ci_bootstrap
-            tasks_from: cleanup.yml
+        - name: Set fact for new network
+          set_fact:
+            private_network_name: "private-{{ zuul.build[:8] }}"
+            subnet_network_name: "subnet-{{ zuul.build[:8] }}"
+            subnet_network_name_ipv6: "subnet-ipv6-{{ zuul.build[:8] }}"
+          when: >
+            private_network_name not defined or subnet_network_name not defined
 
+        # FIXME: move that to the ansible module
+        # FIXME: the openstackclient is not available, due it should be in venv
+        - name: Dettach network to the controller
+          ansible.builtin.shell: |
+            openstack server remove network {{ hosts.controller.nodepool.external_id }} {{ private_network_name }}
+          environment:
+            OS_CLOUD: ovb-test
+
+        - name: Dettach network to the CRC
+          ansible.builtin.shell: |
+            openstack server remove network {{ hosts.crc.nodepool.external_id }} {{ private_network_name }}
+          environment:
+            OS_CLOUD: ovb-test
+
+        - name: Delete subnet - ipv4
+          openstack.cloud.subnet:
+            cloud: ovb-test
+            state: absent
+            name: "{{ subnet_network_name }}"
+
+        - name: Delete subnet - ipv6
+          openstack.cloud.subnet:
+            cloud: ovb-test
+            state: absent
+            name: "{{ subnet_network_name_ipv6 }}"
+          when: create_subnet_ipv6 | default(false)
+
+        - name: Delete network
+          openstack.cloud.network:
+            cloud: ovb-test
+            name: "{{ private_network_name }}"
+            state: absent
       always:
         - name: Remove clouds.yml secret
           file:

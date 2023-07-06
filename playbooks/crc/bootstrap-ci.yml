@@ -3,37 +3,76 @@
   vars:
     bootstrap_ci_cloud_yml_secret_path: "~/.config/openstack/clouds.yaml"
   tasks:
-
     - name: Create openstack config dir
       file:
         path: ~/.config/openstack/
         state: directory
 
+    # FIXME: install in venv or package
+    - name: Install required packages
+      become: true
+      ansible.builtin.pip:
+        name: python-openstackclient
+
     - name: Create the crc based CI environment
       block:
-
         - name: Generate clouds config from cloud_secrets secret
           template:
             src: crc.clouds.yaml.j2
             dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             mode: 0600
 
-        - name: Bootstrap the OpenStack infra
-          vars:
-            cifmw_ocb_resource_suffix: "abcd123"
-            # TODO pending
-#            cifmw_ocb_instance_key_name: "pabrodri-key-pair"
-            cifmw_ocb_instances:
-              - name: compute
-                flavor: "m1.large"
-                image: "CentOS-Stream-9-latest"
+        - name: Set fact for new network
+          set_fact:
+            private_network_name: "private-{{ zuul.build[:8] }}"
+            subnet_network_name: "subnet-{{ zuul.build[:8] }}"
+            subnet_network_name_ipv6: "subnet-ipv6-{{ zuul.build[:8] }}"
 
-              - name: crc
-                flavor: "ci.standard.xxl"
-                image: "dpawlik-coreos-crc-extracted"
-          ansible.builtin.import_role:
-            name: openstack_ci_bootstrap
+        - name: Create new network
+          openstack.cloud.network:
+            cloud: ovb-test
+            name: "{{ private_network_name }}"
+            state: present
+            external: false
 
+        - name: Create subnet - ipv4
+          openstack.cloud.subnet:
+            cloud: ovb-test
+            state: present
+            name: "{{ subnet_network_name }}"
+            network_name: "{{ private_network_name }}"
+            cidr: 192.168.0.0/24
+
+        - name: Create subnet - ipv6
+          openstack.cloud.subnet:
+            cloud: ovb-test
+            state: present
+            name: "{{ subnet_network_name_ipv6 }}"
+            network_name: "{{ private_network_name }}"
+            ip_version: 6
+            cidr: 2db8:1::/64
+            dns_nameservers:
+                - 2001:4860:4860::8888
+                - 2001:4860:4860::8844
+            ipv6_ra_mode: dhcpv6-stateless
+            ipv6_address_mode: dhcpv6-stateless
+          when: create_subnet_ipv6 | default(false)
+
+        # FIXME: move that to the ansible module
+        # FIXME: the openstackclient is not available, due it should be in venv
+        - name: Attach network to the controller
+          ansible.builtin.shell: |
+            openstack server add network {{ hosts.controller.nodepool.external_id }} {{ private_network_name }}
+          environment:
+            OS_CLOUD: ovb-test
+
+        - name: Attach network to the CRC
+          ansible.builtin.shell: |
+            openstack server add network {{ hosts.crc.nodepool.external_id }} {{ private_network_name }}
+          environment:
+            OS_CLOUD: ovb-test
+
+        # FIXME: go to the host and enable new interface on controller and crc host.
       always:
         - name: Remove clouds.yml secret
           file:
