@@ -1,0 +1,9 @@
+---
+- name: Set up variables for dlrn reporting
+  include_tasks: dlrn-vars-setup.yml
+  when: dlrn_report_mode == 'setup'
+
+- name: Report job results to dlrn
+  include_tasks: dlrn-report-results.yml
+  when: dlrn_report_mode == 'report'
+

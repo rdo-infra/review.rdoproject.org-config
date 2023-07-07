@@ -1,0 +1,27 @@
+---
+- name: Set zuul-log-path fact
+  include_role:
+    name: set-zuul-log-path-fact
+
+- name: Report results to dlrn for the tested hash
+  vars:
+    workspace: "{{ ansible_user_dir }}/workspace"
+    ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
+    dlrnapi_user: "{{ dlrnapi_user | default('review_rdoproject_org') }}"
+  shell:
+    cmd: |
+      source {{ workspace }}/hash_info.sh
+      export LOG_PATH="{{ zuul_log_path }}"
+      export LOG_HOST_URL="{{ log_host_url | default('https://logserver.rdoproject.org') }}"
+      export SUCCESS="{{ zuul_success | bool }}"
+      export TOCI_JOBTYPE="{{ zuul.job }}"
+      export SSL_CA_BUNDLE="/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt"
+      bash -xe {{ ci_config_repo }}/ci-scripts/tripleo-upstream-kerberos/dlrnapi_report.sh
+    chdir: '{{ workspace }}'
+  environment: |
+    {{ zuul | zuul_legacy_vars | combine({
+      'DLRNAPI_PASSWORD': dlrnapi.password,
+      'DLRNAPI_USERNAME': dlrnapi_user
+      }) }}
+  changed_when: true
+  when: report_dlrn|default(true)|bool

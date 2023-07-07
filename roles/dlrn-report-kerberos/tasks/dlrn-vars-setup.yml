@@ -1,0 +1,27 @@
+---
+- name: Create hash_info file for dlrn reporting
+  include_role:
+    name: get_hash
+    tasks_from: get_hash.yaml
+  when:
+    - release not in ['pike', 'queens', 'rocky', 'stein']
+    - ansible_distribution_major_version|int >= 8
+
+- name: Populate hash.info required for dlrn reporting
+  shell:
+    cmd: |
+      export WORKSPACE="{{ workspace }}"
+      # component_release is defined when only the component has different
+      # release value than the rest of the product
+      export RELEASE="{{ component_release | default(release) }}"
+      export PROMOTE_NAME=tripleo-ci-testing
+      export DLRNAPI_DISTRO="{{ ansible_distribution }}"
+      export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
+      export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
+      export HTTP_PROTOCOL="{{ http_protocol | default('https') }}"
+      export COMPONENT_NAME="{{ component | default('') }}"
+      bash -xe {{ rdo_infra_ci_config }}/ci-scripts/tripleo-upstream-kerberos/get-hash.sh
+  args:
+    chdir: '{{ workspace }}'
+  environment: "{{ zuul | zuul_legacy_vars }}"
+  when: (ansible_distribution == "RedHat" and osp_release is not defined) or ansible_distribution_major_version|int < 8
