@@ -34,7 +34,10 @@
 
         - name: Create new network
           ansible.builtin.command:
-            cmd: "openstack network create {{ crc_ci_bootstrap_private_net }}"
+            cmd: >-
+            openstack network create
+            {% if crc_ci_bootstrap_net_mtu is defined  %}--mtu {{ crc_ci_bootstrap_net_mtu }} {% endif %}
+            {{ crc_ci_bootstrap_private_net }}"
 
         - name: Create subnet - ipv4
           ansible.builtin.command:
