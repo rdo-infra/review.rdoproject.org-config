@@ -7,8 +7,9 @@
       for experimental ones github-manual pipeline.
     success-message: Build succeeded (check pipeline).
     failure-message: |
-      Build failed (check pipeline).  For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+      Build failed (check pipeline).  Post `recheck` (without leading slash)
+      to rerun all jobs. Make sure the failure cause has been resolved before
+      you rerun jobs.
     manager: independent
     require:
       rdoproject.org:
