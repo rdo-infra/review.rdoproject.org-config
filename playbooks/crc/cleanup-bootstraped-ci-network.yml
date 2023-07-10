@@ -15,6 +15,7 @@
     - name: Cleanup the CI CRC environment network
       environment:
         OS_CLOUD: "{{ cloud_name }}"
+      when: not crc_ci_bootstrap_skip_cleanup | default(false)
       block:
         - name: Generate clouds config from cloud_secrets secret
           template:
