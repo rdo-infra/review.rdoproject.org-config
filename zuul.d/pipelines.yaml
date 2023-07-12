@@ -28,13 +28,13 @@
     success:
       rdoproject.org:
         verified: 1
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         verified: -1
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -75,13 +75,13 @@
       rdoproject.org:
         Verified: 2
         submit: true
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       rdoproject.org:
         Verified: -2
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
@@ -98,15 +98,15 @@
         - event: ref-updated
           ref: ^refs/heads/.*$
     success:
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      opensearch:
+      opensearch_rdoproject_org:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
-        subject: '[Zuul] Job failed in post pipeline: {change.project}'
+        subject: "[Zuul] Job failed in post pipeline: {change.project}"
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -121,17 +121,17 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
-        subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
+        subject: "[Zuul] Job failed in pre-release pipeline: {change.project}"
 
 - pipeline:
     name: release
@@ -144,15 +144,15 @@
         - event: ref-updated
           ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
     success:
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      opensearch:
+      opensearch_rdoproject_org:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
-        subject: '[Zuul] Job failed in release pipeline: {change.project}'
+        subject: "[Zuul] Job failed in release pipeline: {change.project}"
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -164,17 +164,17 @@
     precedence: low
     trigger:
       timer:
-        - time: '0 0 * * *'
+        - time: "0 0 * * *"
     success:
-      opensearch:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      opensearch:
+      opensearch_rdoproject_org:
       smtp:
         from: "zuul@review.rdoproject.org"
         to: "root@localhost"
-        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
+        subject: "[Zuul] Job failed in periodic pipeline: {change.project}"
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -190,12 +190,12 @@
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental
     success:
-      opensearch:
+      opensearch_rdoproject_org:
       rdoproject.org: {}
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      opensearch:
+      opensearch_rdoproject_org:
       rdoproject.org: {}
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
