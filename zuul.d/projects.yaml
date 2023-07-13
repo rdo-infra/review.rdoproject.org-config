@@ -3789,30 +3789,14 @@
       jobs:
         - rpmlint:
             dependencies:
-              - DLRN-rpmbuild-centos8-pinned
+              - DLRN-rpmbuild-centos9-pinned
             branches: ^rpm-master$
-        - DLRN-build-tripleo:
-            dependencies:
-              - DLRN-rpmbuild-pinned
-            voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8-pinned:
-            branches: ^(rpm-master)|(train-rdo)$
-        - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-validate-centos8
-        - distgit-cbs-validate-centos8-stream
+        - DLRN-rpmbuild-centos9-pinned
+        - distgit-cbs-validate-centos9
     gate:
       jobs:
-        - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8-pinned:
-            branches: ^(rpm-master)|(train-rdo)$
-        - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
-        - distgit-cbs-final-build-centos8
+        - DLRN-rpmbuild-centos9-pinned
+        - distgit-cbs-final-build-centos9
 
 - project:
     name: review.rdoproject.org/openstack/oslo-upgradecheck
