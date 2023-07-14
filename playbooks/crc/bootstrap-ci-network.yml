@@ -66,11 +66,11 @@
         # FIXME: move that to the ansible module
         - name: Attach network to each node
           vars:
-            node_id: "{{ hostvars[item.key]['nodepool']['external_id'] }}"
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
             node_ip: >-
               {{
-                  crc_ci_bootstrap_node_ips[item.key]
-                  if (item.key in (crc_ci_bootstrap_node_ips | default({})))
+                  crc_ci_bootstrap_node_ips[item]
+                  if (item in (crc_ci_bootstrap_node_ips | default({})).keys())
                   else ""
               }}
           ansible.builtin.command:
@@ -86,9 +86,9 @@
               {%- if node_ip != "" %}
               --fixed-ip-address {{ node_ip }}
               {%- endif -%}
-          loop: "{{ hostvars | dict2items }}"
+          loop: "{{ hostvars.keys() }}"
           loop_control:
-            label: "{{ item.key }}"
+            label: "{{ item }}"
 
       always:
         - name: Remove clouds.yml secret
