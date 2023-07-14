@@ -119,7 +119,7 @@
         - name: Display server configuration
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
-          ansible.built.command:
+          ansible.builtin.command:
             cmd: openstack server show {{ node_id }}
           loop: "{{ hostvars.keys() }}"
 
