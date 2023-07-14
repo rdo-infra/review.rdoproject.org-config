@@ -65,11 +65,27 @@
 
         # FIXME: move that to the ansible module
         - name: Attach network to each node
+          vars:
+            node_id: "{{ hostvars[item.key]['nodepool']['external_id'] }}"
+            node_ip: >-
+              {{
+                  crc_ci_bootstrap_node_ips[item.key]
+                  if (item.key in (crc_ci_bootstrap_node_ips | default({})))
+                  else ""
+              }}
           ansible.builtin.command:
             cmd: >-
-              openstack server add network
-              {{ hostvars[item.key]['nodepool']['external_id'] }}
+              openstack server add
+              {% if node_ip == "" -%}
+              network
+              {% else -%}
+              fixed ip
+              {% endif -%}
+              {{ node_id }}
               {{ crc_ci_bootstrap_private_net }}
+              {%- if node_ip != "" %}
+              --fixed-ip-address {{ node_ip }}
+              {%- endif -%}
           loop: "{{ hostvars | dict2items }}"
           loop_control:
             label: "{{ item.key }}"
