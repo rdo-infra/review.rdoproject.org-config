@@ -70,7 +70,7 @@
             node_ip: >-
               {{
                   crc_ci_bootstrap_node_ips[item.key]
-                  if (item.key in (crc_ci_bootstrap_node_ips | default({})))
+                  if (item.key in (crc_ci_bootstrap_node_ips | default({})).keys())
                   else ""
               }}
           ansible.builtin.command:
