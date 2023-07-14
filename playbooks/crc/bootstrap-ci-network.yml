@@ -63,6 +63,29 @@
               --ipv6-address-mode dhcpv6-stateless
               {{ crc_ci_bootstrap_ipv6_subnet }}
 
+        - name: Debug commands
+          vars:
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+            node_ip: >-
+              {{
+                  crc_ci_bootstrap_node_ips[item]
+                  if (item in (crc_ci_bootstrap_node_ips | default({})))
+                  else ""
+              }}
+          ansible.builtin.debug:
+            msg:
+              openstack server add
+              {% if node_ip == "" -%}
+              network
+              {% else -%}
+              fixed ip --fixed-ip-address {{ node_ip }}
+              {% endif -%}
+              {{ node_id }}
+              {{ crc_ci_bootstrap_private_net }}
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "debug-{{ item }}"
+
         # FIXME: move that to the ansible module
         - name: Attach network to each node
           vars:
@@ -79,16 +102,26 @@
               {% if node_ip == "" -%}
               network
               {% else -%}
-              fixed ip
+              fixed ip --fixed-ip-address {{ node_ip }}
               {% endif -%}
               {{ node_id }}
               {{ crc_ci_bootstrap_private_net }}
-              {%- if node_ip != "" %}
-              --fixed-ip-address {{ node_ip }}
-              {%- endif -%}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
+
+        - name: Display some data about network and subnet
+          ansible.builtin.shell:
+            cmd: |
+              openstack network show {{ crc_ci_bootstrap_private_net }};
+              openstack subnet show  {{ crc_ci_bootstrap_subnet }};
+
+        - name: Display server configuration
+          vars:
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+          ansible.built.command:
+            cmd: openstack server show {{ node_id }}
+          loop: "{{ hostvars.keys() }}"
 
       always:
         - name: Remove clouds.yml secret
