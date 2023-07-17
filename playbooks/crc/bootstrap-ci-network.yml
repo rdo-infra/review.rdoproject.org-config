@@ -46,7 +46,7 @@
             cmd: >-
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
-              --subnet-range 192.168.0.0/24
+              --subnet-range {{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}
               {{ crc_ci_bootstrap_subnet }}
 
         - name: Create subnet - ipv6
@@ -56,7 +56,7 @@
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
               --ip-version 6
-              --subnet-range 2db8:1::/64
+              --subnet-range {{ crc_ci_bootstrap_ipv6_range | default('2db8:1::/64') }}
               --dns-nameserver 2001:4860:4860::8888
               --dns-nameserver 2001:4860:4860::8844
               --ipv6-ra-mode dhcpv6-stateless
@@ -73,15 +73,17 @@
                   else ""
               }}
           ansible.builtin.debug:
-            msg:
-              openstack server add
+            msg: >-
+              openstack port create
+              --network {{ crc_ci_bootstrap_private_net }}
               {% if node_ip == "" -%}
-              network
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% else -%}
-              fixed ip --fixed-ip-address {{ node_ip }}
+              --no-fixed-ip
               {% endif -%}
-              {{ node_id }}
-              {{ crc_ci_bootstrap_private_net }}
+              priv-{{ node_id }}
+
+              openstack server add port priv-{{ node_id }} {{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "debug-{{ item }}"
@@ -96,16 +98,20 @@
                   if (item in (crc_ci_bootstrap_node_ips | default({})))
                   else ""
               }}
-          ansible.builtin.command:
+          ansible.builtin.shell:
             cmd: >-
-              openstack server add
+              openstack port create
+              --network {{ crc_ci_bootstrap_private_net }}
               {% if node_ip == "" -%}
-              network
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% else -%}
-              fixed ip --fixed-ip-address {{ node_ip }}
+              --no-fixed-ip
               {% endif -%}
-              {{ node_id }}
-              {{ crc_ci_bootstrap_private_net }}
+              priv-{{ node_id }};
+
+              sleep 5;
+
+              openstack server add port priv-{{ node_id }} {{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
