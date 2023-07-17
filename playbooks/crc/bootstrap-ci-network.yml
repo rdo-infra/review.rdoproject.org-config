@@ -33,6 +33,7 @@
             crc_ci_bootstrap_ipv6_subnet: "zuul-ci-ipv6-subnet-{{ zuul.build[:8] }}"
 
         - name: Create new network
+          register: crc_ci_bootstrap_net_creation_out
           ansible.builtin.command:
             cmd: >-
               openstack network create
@@ -62,6 +63,34 @@
               --ipv6-ra-mode dhcpv6-stateless
               --ipv6-address-mode dhcpv6-stateless
               {{ crc_ci_bootstrap_ipv6_subnet }}
+
+        - name: Create the crc instance
+          register: crc_ci_bootstrap_crc_creation_out
+          ansible.builtin.command:
+            cmd: >-
+              openstack server create
+              --flavor {{ crc_ci_bootstrap_crc_flavor | default('8vcpu_24GB') }}
+              --image {{ crc_ci_bootstrap_crc_image | default('coreos-crc-extracted') }}
+              --nic
+                net-id={{ (crc_ci_bootstrap_net_creation_out.stdout | from_yaml).id }}
+                v4-fixed-ip={{ crc_ci_bootstrap_crc_ip | default('192.168.122.10') }}
+              --key-name {{ crc_ci_bootstrap_crc_keypair | default('zuul') }}
+              -f yaml
+              zuul-ci-crc-{{ zuul.build[:8] }}
+
+        - name: Wait for the crc instance to be ready
+          register: crc_ci_bootstrap_crc_creation_wait_out
+          ansible.builtin.command:
+            cmd: >-
+              openstack server show
+              -f value
+              -c status
+              {{ (crc_ci_bootstrap_crc_creation_out.stdout | from_yaml).id }}
+          until: >-
+            crc_ci_bootstrap_crc_creation_wait_out.rc == 0 and
+            crc_ci_bootstrap_crc_creation_wait_out.stdout | lower == 'active'
+          retries: "{{ crc_ci_bootstrap_crc_retries | default(100) }}"
+          delay: "{{ crc_ci_bootstrap_crc_delay | default(20)  }}"
 
         # Even if the variable isn't set, it won't fail, but display a generic
         # debug message like "UNDEFINED VAR" and continue
