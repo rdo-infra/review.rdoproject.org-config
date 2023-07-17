@@ -23,13 +23,13 @@
             dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             mode: 0600
 
-        # FIXME: move that to the ansible module
-        - name: Dettach network from each node
+        - name: Detach port and remove it
+          vars:
+            node_id: "{{ hostvars[item.key]['nodepool']['external_id'] }}"
           ansible.builtin.command:
             cmd: >-
-              openstack server remove network
-              {{ hostvars[item.key]['nodepool']['external_id'] }}
-              {{ private_network_name }}
+              openstack server port remove port-{{ node_id }} {{ node_id }};
+              openstack port delete port-{{ node_id }};
           loop: "{{ hostvars | dict2items }}"
           loop_control:
             label: "{{ item.key }}"
