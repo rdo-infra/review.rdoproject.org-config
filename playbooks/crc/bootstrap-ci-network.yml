@@ -142,3 +142,12 @@
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
+
+    - name: Wait for the API to be up after reboot
+      ansible.builtin.wait_for:
+        port: 6443
+        delay: 5
+        timeout: 300
+
+    - include_role:
+        name: start-zuul-console
