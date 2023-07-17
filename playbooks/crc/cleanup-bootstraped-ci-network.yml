@@ -23,6 +23,11 @@
             dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             mode: 0600
 
+        - name: Delete the crc instance
+          environment:
+          ansible.builtin.command:
+            cmd: "openstack server delete zuul-ci-crc-{{ zuul.build[:8] }}"
+
         - name: Detach port and remove it
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
