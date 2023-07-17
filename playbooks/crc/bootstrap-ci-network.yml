@@ -82,9 +82,7 @@
             msg: >-
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip == "" -%}
-              --no-fixed-ip
-              {% else -%}
+              {% if node_ip != "" -%}
               --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% endif -%}
               {{ item }}-{{ node_id }};
@@ -108,9 +106,7 @@
             cmd: >-
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip == "" -%}
-              --no-fixed-ip
-              {% else -%}
+              {% if node_ip != "" -%}
               --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% endif -%}
               {{ item }}-{{ node_id }};
