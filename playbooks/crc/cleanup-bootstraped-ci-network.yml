@@ -28,7 +28,7 @@
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
             cmd: >-
-              openstack server port remove {{ item }}-{{ node_id }} {{ node_id }};
+              openstack server remove port {{ node_id }} {{ item }}-{{ node_id }};
               openstack port delete {{ item }}-{{ node_id }};
           loop: "{{ hostvars.keys() }}"
           loop_control:
