@@ -63,6 +63,12 @@
               --ipv6-address-mode dhcpv6-stateless
               {{ crc_ci_bootstrap_ipv6_subnet }}
 
+        # Even if the variable isn't set, it won't fail, but display a generic
+        # debug message like "UNDEFINED VAR" and continue
+        - name: Debug parameters
+          ansible.builtin.debug:
+            var: crc_ci_bootstrap_node_ips
+
         - name: Debug commands
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
@@ -83,7 +89,7 @@
               {% endif -%}
               {{ item }}-{{ node_id }};
 
-              openstack server add port {{ item }}-{{ node_id }} {{ node_id }}
+              openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "debug-{{ item }}"
@@ -111,7 +117,7 @@
 
               sleep 1;
 
-              openstack server add port {{ item }}-{{ node_id }} {{ node_id }}
+              openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
