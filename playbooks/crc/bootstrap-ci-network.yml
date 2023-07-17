@@ -136,3 +136,9 @@
           file:
             path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             state: absent
+
+- hosts: crc
+  tasks:
+    - name: Reboot host after attaching network interface
+      become: true
+      ansible.builtin.reboot:
