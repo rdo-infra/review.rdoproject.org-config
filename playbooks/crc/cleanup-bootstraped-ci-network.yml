@@ -25,14 +25,14 @@
 
         - name: Detach port and remove it
           vars:
-            node_id: "{{ hostvars[item.key]['nodepool']['external_id'] }}"
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
             cmd: >-
-              openstack server port remove port-{{ node_id }} {{ node_id }};
-              openstack port delete port-{{ node_id }};
-          loop: "{{ hostvars | dict2items }}"
+              openstack server port remove {{ item }}-{{ node_id }} {{ node_id }};
+              openstack port delete {{ item }}-{{ node_id }};
+          loop: "{{ hostvars.keys() }}"
           loop_control:
-            label: "{{ item.key }}"
+            label: "{{ item }}"
 
         - name: Delete subnet
           register: crc_ci_bootstrap_subnet_delete_out

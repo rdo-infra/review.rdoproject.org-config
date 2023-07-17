@@ -77,13 +77,13 @@
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
               {% if node_ip == "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% else -%}
               --no-fixed-ip
+              {% else -%}
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% endif -%}
-              priv-{{ node_id }}
+              {{ item }}-{{ node_id }};
 
-              openstack server add port priv-{{ node_id }} {{ node_id }}
+              openstack server add port {{ item }}-{{ node_id }} {{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "debug-{{ item }}"
@@ -103,15 +103,15 @@
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
               {% if node_ip == "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% else -%}
               --no-fixed-ip
+              {% else -%}
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
               {% endif -%}
-              priv-{{ node_id }};
+              {{ item }}-{{ node_id }};
 
-              sleep 5;
+              sleep 1;
 
-              openstack server add port priv-{{ node_id }} {{ node_id }}
+              openstack server add port {{ item }}-{{ node_id }} {{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
