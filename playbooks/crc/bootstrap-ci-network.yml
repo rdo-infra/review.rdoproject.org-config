@@ -142,3 +142,5 @@
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
+
+    - include_role: name=start-zuul-console
