@@ -132,6 +132,17 @@
             cmd: openstack server show {{ node_id }}
           loop: "{{ hostvars.keys() }}"
 
+        - name: Extract MAC address for CRC private port
+          block:
+            - name: Get port description
+              register: extracted_port_value
+              ansible.builtin.command:
+                cmd: "openstack port show crc-{{ hostvars['crc']['nodepool']['external_id'] }} -f value -c mac_address"
+            - name: Extract port MAC
+              ansible.bultin.set_fact:
+                cacheable: true
+                crc_ci_bootstrap_port_mac: "{{ extracted_port_value['stdout'] | trim }}"
+
       always:
         - name: Remove clouds.yml secret
           file:
@@ -140,6 +151,28 @@
 
 - hosts: crc
   tasks:
+    - name: Extract ens3 MAC
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_ens3: "{{ ansible_facts['ansible_ens3']['macaddress'] }}"
+
+    - name: Debug udev rule
+      ansible.builtin.debug:
+        msg: |-
+          # this is moving ens3 to ens7
+          SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
+          # This is moving private network port to ens3
+          SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
+
+    - name: Switch interfaces with udev
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/udev/rules.d/70-ethernet.rules
+        content: |-
+          # this is moving ens3 to ens7
+          SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
+          # This is moving private network port to ens3
+          SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
+
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
