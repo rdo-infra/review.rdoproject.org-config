@@ -48,7 +48,6 @@
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
               --subnet-range {{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}
-              --no-dhcp
               {{ crc_ci_bootstrap_subnet }}
 
         - name: Create subnet - ipv6
@@ -154,7 +153,7 @@
   gather_facts: true
   tasks:
     - name: Change the interface name
-      when: crc_ci_bootstrap_rename_interfaces | default(true)
+      when: crc_ci_bootstrap_rename_interfaces | default(false)
       block:
         - name: Extract ens3 MAC
           ansible.builtin.set_fact:
