@@ -151,34 +151,38 @@
             path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             state: absent
 
-- hosts: crc
-  gather_facts: true
+- hosts: all
+  gather_facts: false
   tasks:
-    - name: Change the interface name
-      when: crc_ci_bootstrap_rename_interfaces | default(false)
-      block:
-        - name: Extract ens3 MAC
-          ansible.builtin.set_fact:
-            crc_ci_bootstrap_ens3: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+    - name: Configure fixed IP in nmcli
+      vars:
+        node_ip: >-
+          {{
+              crc_ci_bootstrap_node_ips[item]
+              if (item in (crc_ci_bootstrap_node_ips | default({})))
+              else ""
+          }}
+        gw_host: "{{ crc_ci_bootstrap_private_net.split('/')[0] }}"
+        net_netmask: "{{ crc_ci_bootstrap_private_net.split('/')[1] }}"
+      when:
+        - node_ip != ''
+      ansible.builtin.shell:
+        cmd: >-
+          CON=$(nmcli -g GENERAL.CONNECTION device show ens7);
+          nmcli con mod "${CON}"
+          ipv4.address {{ node_ip }}/{{ net_netmask }}
+          ipv4.gateway {{ gw_host }}
+          ipv4.method manual
+      loop: "{{ hostvars.keys() }}"
+      loop_control:
+        label: >-
+          {{ item }}: nmcli con mod "CON"
+          ipv4.address {{ node_ip }}/{{ net_netmask }}
+          ipv4.gateway {{ gw_host }}
+          ipv4.method manual
 
-        - name: Debug udev rule
-          ansible.builtin.debug:
-            msg: |-
-              # this is moving ens3 to ens7
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
-              # This is moving private network port to ens3
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
-
-        - name: Switch interfaces with udev
-          become: true
-          ansible.builtin.copy:
-            dest: /etc/udev/rules.d/70-ethernet.rules
-            content: |-
-              # this is moving ens3 to ens7
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
-              # This is moving private network port to ens3
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
-
+- hosts: crc
+  tasks:
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
