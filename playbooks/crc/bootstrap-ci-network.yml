@@ -140,34 +140,46 @@
 - hosts: all
   gather_facts: false
   tasks:
-    - name: Configure fixed IP in nmcli
-      become: true
-      vars:
-        crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
+    - name: Get fixed IP if any
+      ansible.builtin.set_fact:
         node_ip: >-
           {{
-              crc_ci_bootstrap_node_ips[item]
+              crc_ci_bootstrap_node_ips[inventory_hostname]
               if (item in (crc_ci_bootstrap_node_ips | default({})))
               else ""
           }}
-        gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
-        net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
+
+    - name: Set fixed IP if needed
       when:
         - node_ip != ''
-      ansible.builtin.shell:
-        cmd: >-
-          CON=$(nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}')
-          nmcli con mod "${CON}"
-          ipv4.address {{ node_ip }}/{{ net_netmask }}
-          ipv4.gateway {{ gw_host }}
-          ipv4.method manual
-      loop: "{{ hostvars.keys() }}"
-      loop_control:
-        label: >-
-          {{ item }}: nmcli con mod "CON"
-          ipv4.address {{ node_ip }}/{{ net_netmask }}
-          ipv4.gateway {{ gw_host }}
-          ipv4.method manual
+      block:
+        - name: Get connection name
+          register: connection_name
+          ansible.builtin.command:
+            cmd: nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}'
+
+        - name: Debug nmcli command
+          ansible.builtin.debug:
+            msg: >-
+              nmcli con mod "{{ connection_name.stdout | trim }}"
+              ipv4.address {{ node_ip }}/{{ net_netmask }}
+              ipv4.gateway {{ gw_host }}
+              ipv4.method manual
+
+        - name: Configure fixed IP in nmcli
+          when:
+            - connection_name.stdout != ''
+          become: true
+          vars:
+            crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
+            gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
+            net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
+          ansible.builtin.command:
+            cmd: >-
+              nmcli con mod "{{ connection_name.stdout | trim }}"
+              ipv4.address {{ node_ip }}/{{ net_netmask }}
+              ipv4.gateway {{ gw_host }}
+              ipv4.method manual
 
 - hosts: crc
   tasks:
