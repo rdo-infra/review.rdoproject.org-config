@@ -161,6 +161,9 @@
           register: connection_name
           ansible.builtin.command:
             cmd: nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}'
+          until: connection_name.rc == 0 and connection_name != ""
+          delay: 10
+          retries: 6
 
         - name: Debug nmcli command
           ansible.builtin.debug:
