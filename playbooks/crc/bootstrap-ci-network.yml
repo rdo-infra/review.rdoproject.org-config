@@ -39,6 +39,7 @@
               {% if crc_ci_bootstrap_net_mtu is defined -%}
               --mtu {{ crc_ci_bootstrap_net_mtu }}
               {% endif -%}
+              --disable-port-security
               {{ crc_ci_bootstrap_private_net }}
 
         - name: Create subnet - ipv4
@@ -139,7 +140,7 @@
               ansible.builtin.command:
                 cmd: "openstack port show crc-{{ hostvars['crc']['nodepool']['external_id'] }} -f value -c mac_address"
             - name: Extract port MAC
-              ansible.bultin.set_fact:
+              ansible.builtin.set_fact:
                 cacheable: true
                 crc_ci_bootstrap_port_mac: "{{ extracted_port_value['stdout'] | trim }}"
 
