@@ -42,12 +42,15 @@
               --disable-port-security
               {{ crc_ci_bootstrap_private_net }}
 
+        # NOTE: Don't take ip range that is in conflict with:
+        # https://github.com/openstack-k8s-operators/install_yamls/blob/main/scripts/gen-netatt.sh#L51-L52
         - name: Create subnet - ipv4
           ansible.builtin.command:
             cmd: >-
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
               --subnet-range {{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}
+              --allocation-pool start={{ crc_ci_bootstrap_ipv4_range_start | default('192.168.0.100') }},end={{ crc_ci_bootstrap_ipv4_range_end | default('192.168.0.200') }}
               {% if crc_ci_no_dhcp | default(false) -%}
               --no-dhcp
               {% endif -%}
