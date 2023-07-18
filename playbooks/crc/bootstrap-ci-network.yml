@@ -141,6 +141,7 @@
   gather_facts: false
   tasks:
     - name: Configure fixed IP in nmcli
+      become: true
       vars:
         crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
         node_ip: >-
@@ -155,7 +156,7 @@
         - node_ip != ''
       ansible.builtin.shell:
         cmd: >-
-          CON=$(nmcli -g GENERAL.CONNECTION device show ens7);
+          CON=$(nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}')
           nmcli con mod "${CON}"
           ipv4.address {{ node_ip }}/{{ net_netmask }}
           ipv4.gateway {{ gw_host }}
