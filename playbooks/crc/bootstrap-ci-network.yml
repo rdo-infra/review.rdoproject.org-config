@@ -145,7 +145,7 @@
         node_ip: >-
           {{
               crc_ci_bootstrap_node_ips[inventory_hostname]
-              if (item in (crc_ci_bootstrap_node_ips | default({})))
+              if (inventory_hostname in (crc_ci_bootstrap_node_ips | default({})))
               else ""
           }}
 
