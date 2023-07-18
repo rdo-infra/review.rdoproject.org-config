@@ -39,6 +39,7 @@
               {% if crc_ci_bootstrap_net_mtu is defined -%}
               --mtu {{ crc_ci_bootstrap_net_mtu }}
               {% endif -%}
+              --disable-port-security
               {{ crc_ci_bootstrap_private_net }}
 
         - name: Create subnet - ipv4
