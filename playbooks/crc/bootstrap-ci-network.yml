@@ -30,7 +30,6 @@
           set_fact:
             crc_ci_bootstrap_private_net: "zuul-ci-net-{{ zuul.build[:8] }}"
             crc_ci_bootstrap_subnet: "zuul-ci-subnet-{{ zuul.build[:8] }}"
-            crc_ci_bootstrap_ipv6_subnet: "zuul-ci-ipv6-subnet-{{ zuul.build[:8] }}"
 
         - name: Create new network
           ansible.builtin.command:
@@ -52,20 +51,6 @@
               --no-dhcp
               {% endif -%}
               {{ crc_ci_bootstrap_subnet }}
-
-        - name: Create subnet - ipv6
-          when: crc_ci_bootstrap_create_ipv6_subnet | default(false)
-          ansible.builtin.command:
-            cmd: >-
-              openstack subnet create
-              --network {{ crc_ci_bootstrap_private_net }}
-              --ip-version 6
-              --subnet-range {{ crc_ci_bootstrap_ipv6_range | default('2db8:1::/64') }}
-              --dns-nameserver 2001:4860:4860::8888
-              --dns-nameserver 2001:4860:4860::8844
-              --ipv6-ra-mode dhcpv6-stateless
-              --ipv6-address-mode dhcpv6-stateless
-              {{ crc_ci_bootstrap_ipv6_subnet }}
 
         # Even if the variable isn't set, it won't fail, but display a generic
         # debug message like "UNDEFINED VAR" and continue
@@ -151,34 +136,38 @@
             path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             state: absent
 
-- hosts: crc
-  gather_facts: true
+- hosts: all
+  gather_facts: false
   tasks:
-    - name: Change the interface name
-      when: crc_ci_bootstrap_rename_interfaces | default(false)
-      block:
-        - name: Extract ens3 MAC
-          ansible.builtin.set_fact:
-            crc_ci_bootstrap_ens3: "{{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+    - name: Configure fixed IP in nmcli
+      vars:
+        node_ip: >-
+          {{
+              crc_ci_bootstrap_node_ips[item]
+              if (item in (crc_ci_bootstrap_node_ips | default({})))
+              else ""
+          }}
+        gw_host: "{{ crc_ci_bootstrap_private_net.split('/')[0] | regex_replace('0$', '1') }}"
+        net_netmask: "{{ crc_ci_bootstrap_private_net.split('/')[1] }}"
+      when:
+        - node_ip != ''
+      ansible.builtin.shell:
+        cmd: >-
+          CON=$(nmcli -g GENERAL.CONNECTION device show ens7);
+          nmcli con mod "${CON}"
+          ipv4.address {{ node_ip }}/{{ net_netmask }}
+          ipv4.gateway {{ gw_host }}
+          ipv4.method manual
+      loop: "{{ hostvars.keys() }}"
+      loop_control:
+        label: >-
+          {{ item }}: nmcli con mod "CON"
+          ipv4.address {{ node_ip }}/{{ net_netmask }}
+          ipv4.gateway {{ gw_host }}
+          ipv4.method manual
 
-        - name: Debug udev rule
-          ansible.builtin.debug:
-            msg: |-
-              # this is moving ens3 to ens7
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
-              # This is moving private network port to ens3
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
-
-        - name: Switch interfaces with udev
-          become: true
-          ansible.builtin.copy:
-            dest: /etc/udev/rules.d/70-ethernet.rules
-            content: |-
-              # this is moving ens3 to ens7
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ crc_ci_bootstrap_ens3 }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens7"
-              # This is moving private network port to ens3
-              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ hostvars['controller']['crc_ci_bootstrap_port_mac'] }}", ATTR{type}=="1", KERNEL=="eth*", NAME="ens3"
-
+- hosts: crc
+  tasks:
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
