@@ -47,6 +47,7 @@
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
               --subnet-range {{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}
+              --no-dhcp
               {{ crc_ci_bootstrap_subnet }}
 
         - name: Create subnet - ipv6
