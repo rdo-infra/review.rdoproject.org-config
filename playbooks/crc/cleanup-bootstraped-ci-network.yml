@@ -22,13 +22,21 @@
             dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
             mode: 0600
 
-        - name: Detach port and remove it
+        - name: Detach port
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
-            cmd: >-
-              openstack server remove port {{ node_id }} {{ item }}-{{ node_id }};
-              openstack port delete {{ item }}-{{ node_id }};
+            cmd: "openstack server remove port {{ node_id }} {{ item }}-{{ node_id }}"
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+          ignore_errors: true
+
+        - name: Remove each port
+          vars:
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+          ansible.builtin.command:
+            cmd: "openstack port delete {{ item }}-{{ node_id }}"
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
