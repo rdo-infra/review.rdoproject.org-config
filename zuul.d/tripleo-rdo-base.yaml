@@ -15,9 +15,11 @@
       - dockerio_rdotripleomirror
     required-projects:
       - config
+      - opendev.org/openstack/tripleo-ansible
       - rdo-infra/ci-config
       - rdo-jobs
     roles:
+      - zuul: opendev.org/openstack/tripleo-ansible
       - zuul: rdo-infra/ci-config
       - zuul: rdo-jobs
 
