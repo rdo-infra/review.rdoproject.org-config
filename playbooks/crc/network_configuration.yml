@@ -1,0 +1,67 @@
+---
+- name: Debug commands
+  ansible.builtin.debug:
+    msg: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net }}
+      --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}
+      {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+      -c mac_address -f value;
+      openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
+
+- name: Attach network to
+  ansible.builtin.shell:
+    cmd: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net }}
+      --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}
+      {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+      -c mac_address -f value;
+
+      sleep 1;
+
+      openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
+  register: _port_mac_address
+
+- name: Display some data about network and subnet
+  ansible.builtin.shell:
+    cmd: |
+      openstack network show {{ crc_ci_bootstrap_private_net }};
+      openstack subnet show  {{ crc_ci_bootstrap_subnet }};
+      openstack port list --network {{ crc_ci_bootstrap_private_net }}
+
+- name: Create NetworkManager configuration file
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.copy:
+    content: |
+      [connection]
+      id={{ crc_ci_bootstrap_net_int[item].name | default('eth1') }}
+      uuid={{ 99999999 | random | to_uuid }}
+      type=ethernet
+      autoconnect-priority=-100
+
+      [ethernet]
+      mac-address={{ _port_mac_address.stdout }}
+
+      [ipv4]
+      address1={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}/24,{{ crc_ci_bootstrap_net_int.gateway | default('192.168.122.1') }}
+      dns={{ crc_ci_bootstrap_net_int.dns | random | default('1.1.1.1') }};
+      method=manual
+
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      method=auto
+
+      [proxy]
+    dest: /etc/NetworkManager/system-connections/private.nmconnection
+    mode: '0600'
+    owner: root
+    group: root
+
+- name: Reload NetworkManager
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: reloaded
