@@ -74,6 +74,13 @@
           loop_control:
             label: "{{ item }}"
 
+        - name: Display some data about network and subnet
+          ansible.builtin.shell:
+            cmd: |
+              openstack network show {{ crc_ci_bootstrap_private_net }};
+              openstack subnet show  {{ crc_ci_bootstrap_subnet }};
+              openstack port list --network {{ crc_ci_bootstrap_private_net }}
+
         - name: Display server configuration
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"

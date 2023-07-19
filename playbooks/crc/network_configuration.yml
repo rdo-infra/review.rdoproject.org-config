@@ -23,13 +23,6 @@
       openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
   register: _port_mac_address
 
-- name: Display some data about network and subnet
-  ansible.builtin.shell:
-    cmd: |
-      openstack network show {{ crc_ci_bootstrap_private_net }};
-      openstack subnet show  {{ crc_ci_bootstrap_subnet }};
-      openstack port list --network {{ crc_ci_bootstrap_private_net }}
-
 - name: Create ci dir in etc folder
   become: true
   delegate_to: "{{ item }}"
