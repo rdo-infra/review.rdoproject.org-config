@@ -59,59 +59,19 @@
           ansible.builtin.debug:
             var: crc_ci_bootstrap_node_ips
 
-        - name: Debug commands
+        - name: Create port and configure it on the host
           vars:
-            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
             node_ip: >-
               {{
                   crc_ci_bootstrap_node_ips[item]
                   if (item in (crc_ci_bootstrap_node_ips | default({})))
                   else ""
               }}
-          ansible.builtin.debug:
-            msg: >-
-              openstack port create
-              --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip != "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% endif -%}
-              {{ item }}-{{ node_id }};
-
-              openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
-          loop: "{{ hostvars.keys() }}"
-          loop_control:
-            label: "debug-{{ item }}"
-
-        - name: Attach network to each node
-          vars:
-            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
-            node_ip: >-
-              {{
-                  crc_ci_bootstrap_node_ips[item]
-                  if (item in (crc_ci_bootstrap_node_ips | default({})))
-                  else ""
-              }}
-          ansible.builtin.shell:
-            cmd: >-
-              openstack port create
-              --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip != "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% endif -%}
-              {{ item }}-{{ node_id }};
-
-              sleep 1;
-
-              openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
+          when: node_ip != ''
+          ansible.builtin.include_tasks: network_configuration.yml
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
-
-        - name: Display some data about network and subnet
-          ansible.builtin.shell:
-            cmd: |
-              openstack network show {{ crc_ci_bootstrap_private_net }};
-              openstack subnet show  {{ crc_ci_bootstrap_subnet }};
 
         - name: Display server configuration
           vars:
@@ -119,70 +79,6 @@
           ansible.builtin.command:
             cmd: openstack server show {{ node_id }}
           loop: "{{ hostvars.keys() }}"
-
-        - name: Extract MAC address for CRC private port
-          block:
-            - name: Get port description
-              register: extracted_port_value
-              ansible.builtin.command:
-                cmd: "openstack port show crc-{{ hostvars['crc']['nodepool']['external_id'] }} -f value -c mac_address"
-            - name: Extract port MAC
-              ansible.builtin.set_fact:
-                cacheable: true
-                crc_ci_bootstrap_port_mac: "{{ extracted_port_value['stdout'] | trim }}"
-
-      always:
-        - name: Remove clouds.yml secret
-          file:
-            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
-            state: absent
-
-- hosts: all
-  gather_facts: false
-  tasks:
-    - name: Get fixed IP if any
-      ansible.builtin.set_fact:
-        node_ip: >-
-          {{
-              crc_ci_bootstrap_node_ips[inventory_hostname]
-              if (inventory_hostname in (crc_ci_bootstrap_node_ips | default({})))
-              else ""
-          }}
-
-    - name: Set fixed IP if needed
-      when:
-        - node_ip != ''
-      vars:
-        crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
-        gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
-        net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
-      block:
-        - name: Get connection name
-          register: connection_name
-          ansible.builtin.command:
-            cmd: nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}'
-          until: connection_name.rc == 0 and connection_name != ""
-          delay: 10
-          retries: 6
-
-        - name: Debug nmcli command
-          ansible.builtin.debug:
-            msg: >-
-              nmcli con mod "{{ connection_name.stdout | trim }}"
-              ipv4.address {{ node_ip }}/{{ net_netmask }}
-              ipv4.gateway {{ gw_host }}
-              ipv4.method manual
-
-        - name: Configure fixed IP in nmcli
-          when:
-            - connection_name.stdout != ''
-          become: true
-          ansible.builtin.command:
-            cmd: >-
-              nmcli con mod "{{ connection_name.stdout | trim }}"
-              ipv4.address {{ node_ip }}/{{ net_netmask }}
-              ipv4.gateway {{ gw_host }}
-              ipv4.method manual
 
 - hosts: crc
   tasks:
