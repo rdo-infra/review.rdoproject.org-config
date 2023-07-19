@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Login into registries using container-login role
+      include_role:
+        name: container-login
+      when: registry_login_enabled|default(false)|bool

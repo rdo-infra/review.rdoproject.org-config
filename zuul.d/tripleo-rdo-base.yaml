@@ -6,16 +6,20 @@
     parent: base-minimal
     pre-run:
       - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/tripleo-rdo-base/container-login.yaml
+      - playbooks/tripleo-rdo-base/container-login-role.yaml
     vars:
       registry_login_enabled: true
+      registry_secrets:
+          docker.io: "dockerio_rdotripleomirror"
     secrets:
       - dockerio_rdotripleomirror
     required-projects:
       - config
       - rdo-infra/ci-config
+      - rdo-jobs
     roles:
       - zuul: rdo-infra/ci-config
+      - zuul: rdo-jobs
 
 # New integration pipeline
 - job:
