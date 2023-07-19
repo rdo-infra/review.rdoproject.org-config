@@ -60,7 +60,6 @@
     content: |
       [connection]
       id=ci-private-network
-      uuid={{ 99999999 | random | to_uuid }}
       type=ethernet
       autoconnect=true
 
@@ -76,18 +75,24 @@
       {% endif -%}
 
       [ipv6]
-      addr-gen-mode=stable-privacy
       method=disabled
 
-      [proxy]
     dest: /etc/NetworkManager/system-connections/private.nmconnection
     mode: '0600'
     owner: root
     group: root
 
-- name: Refresh NetworkManager
+- name: Load the NetworkManager configuration
   become: true
-  delegate_to: "{{ item }}"
-  ansible.builtin.systemd:
-    name: NetworkManager
-    state: restarted
+  ansible.builtin.command: >-
+    nmcli connection load
+    /etc/NetworkManager/system-connections/private.nmconnection
+
+- name: Ensure that the private network connection is up
+  become: true
+  ansible.builtin.command: >-
+    nmcli connection up ci-private-network
+
+- name: Show NetworkManager connections
+  become: true
+  ansible.builtin.command: nmcli connection show
