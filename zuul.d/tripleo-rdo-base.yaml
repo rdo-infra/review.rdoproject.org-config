@@ -1,4 +1,22 @@
 ---
+# Base job with container login
+- job:
+    name: base-minimal-container-login
+    abstract: true
+    parent: base-minimal
+    pre-run:
+      - playbooks/tripleo-rdo-base/pre.yaml
+      - playbooks/tripleo-rdo-base/container-login.yaml
+    vars:
+      registry_login_enabled: true
+    secrets:
+      - dockerio_rdotripleomirror
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+
 # New integration pipeline
 - job:
     name: tripleo-ci-base-promote-hash
