@@ -30,17 +30,29 @@
       openstack subnet show  {{ crc_ci_bootstrap_subnet }};
       openstack port list --network {{ crc_ci_bootstrap_private_net }}
 
-- name: Fetch device name based on MAC address
-  ansible.builtin.shell:
-    cmd: >-
-      ip -o link | awk -F ':' '/{{ _port_mac_address.stdout | trim | lower }}/ {print $2}'
-  register: _isolated_net_iface_name
+- name: Create ci dir in etc folder
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.file:
+    path: "/etc/ci"
+    state: directory
+    mode: '0755'
+
+- name: Save the MAC address for further usage if needed
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.copy:
+    dest: /etc/ci/private-mac.yml
+    content: |
+      private_iface_mac: {{ _port_mac_address.stdout }}
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Create NetworkManager configuration file
   become: true
   delegate_to: "{{ item }}"
   vars:
-    iface_name: "{{ _isolated_net_iface_name.stdout | trim }}"
     crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
     gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
     net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
@@ -48,7 +60,6 @@
     content: |
       [connection]
       id=ci-private-network
-      interface-name={{ iface_name }}
       uuid={{ 99999999 | random | to_uuid }}
       type=ethernet
       autoconnect=true
@@ -78,4 +89,4 @@
   delegate_to: "{{ item }}"
   ansible.builtin.systemd:
     name: NetworkManager
-    state: reloaded
+    state: restarted
