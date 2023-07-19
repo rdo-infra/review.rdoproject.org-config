@@ -61,6 +61,7 @@
 
         - name: Create port and configure it on the host
           vars:
+            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
             node_ip: >-
               {{
                   crc_ci_bootstrap_node_ips[item]
