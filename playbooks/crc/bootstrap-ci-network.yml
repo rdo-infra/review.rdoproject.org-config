@@ -59,46 +59,42 @@
           ansible.builtin.debug:
             var: crc_ci_bootstrap_node_ips
 
+        # NOTE:
+        # crc_ci_bootstrap_net_int:
+        #   dns:
+        #     - 1.1.1.1
+        #     - 8.8.8.8
+        #     - 9.9.9.9
+        #   gateway: 192.168.122.1
+        #   crc:
+        #     name: ens07
+        #     ens07: 192.168.122.10
+        #   controller:
+        #     eth1: 192.168.122.11
+        #   node:
+        #     eth1: 192.168.122.12
         - name: Debug commands
-          vars:
-            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
-            node_ip: >-
-              {{
-                  crc_ci_bootstrap_node_ips[item]
-                  if (item in (crc_ci_bootstrap_node_ips | default({})))
-                  else ""
-              }}
           ansible.builtin.debug:
             msg: >-
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip != "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% endif -%}
-              {{ item }}-{{ node_id }};
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}
+              {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+              -c mac_address -f value;
 
               openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "debug-{{ item }}"
 
-        - name: Attach network to each node
-          vars:
-            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
-            node_ip: >-
-              {{
-                  crc_ci_bootstrap_node_ips[item]
-                  if (item in (crc_ci_bootstrap_node_ips | default({})))
-                  else ""
-              }}
+        - name: Attach network to
           ansible.builtin.shell:
             cmd: >-
               openstack port create
               --network {{ crc_ci_bootstrap_private_net }}
-              {% if node_ip != "" -%}
-              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
-              {% endif -%}
-              {{ item }}-{{ node_id }};
+              --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}
+              {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+              -c mac_address -f value;
 
               sleep 1;
 
@@ -112,6 +108,7 @@
             cmd: |
               openstack network show {{ crc_ci_bootstrap_private_net }};
               openstack subnet show  {{ crc_ci_bootstrap_subnet }};
+              openstack port list --network {{ crc_ci_bootstrap_private_net }}
 
         - name: Display server configuration
           vars:
@@ -120,66 +117,47 @@
             cmd: openstack server show {{ node_id }}
           loop: "{{ hostvars.keys() }}"
 
-        - name: Extract MAC address for CRC private port
-          block:
-            - name: Get port description
-              register: extracted_port_value
-              ansible.builtin.command:
-                cmd: "openstack port show crc-{{ hostvars['crc']['nodepool']['external_id'] }} -f value -c mac_address"
-            - name: Extract port MAC
-              ansible.builtin.set_fact:
-                cacheable: true
-                crc_ci_bootstrap_port_mac: "{{ extracted_port_value['stdout'] | trim }}"
-
-      always:
-        - name: Remove clouds.yml secret
-          file:
-            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
-            state: absent
-
-- hosts: all
-  gather_facts: false
-  tasks:
-    - name: Get fixed IP if any
-      ansible.builtin.set_fact:
-        node_ip: >-
-          {{
-              crc_ci_bootstrap_node_ips[inventory_hostname]
-              if (inventory_hostname in (crc_ci_bootstrap_node_ips | default({})))
-              else ""
-          }}
-
-    - name: Set fixed IP if needed
-      when:
-        - node_ip != ''
-      vars:
-        crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
-        gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
-        net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
-      block:
-        - name: Get connection name
-          register: connection_name
-          ansible.builtin.command:
-            cmd: nmcli -g NAME,STATE con show | awk -F ':' '($2 ~ /^0?$/ && /Wired/){print $1}'
-
-        - name: Debug nmcli command
-          ansible.builtin.debug:
-            msg: >-
-              nmcli con mod "{{ connection_name.stdout | trim }}"
-              ipv4.address {{ node_ip }}/{{ net_netmask }}
-              ipv4.gateway {{ gw_host }}
-              ipv4.method manual
-
-        - name: Configure fixed IP in nmcli
-          when:
-            - connection_name.stdout != ''
+        - name: Create NetworkManager configuration file
           become: true
-          ansible.builtin.command:
-            cmd: >-
-              nmcli con mod "{{ connection_name.stdout | trim }}"
-              ipv4.address {{ node_ip }}/{{ net_netmask }}
-              ipv4.gateway {{ gw_host }}
-              ipv4.method manual
+          ansible.builtin.copy:
+            content: |
+              [connection]
+              id={{ crc_ci_bootstrap_net_int[item].name | default('eth1') }}
+              uuid={{ 99999999 | random | to_uuid }}
+              type=ethernet
+              autoconnect-priority=-100
+
+              [ethernet]
+              mac-address={{ port_mac_address }}
+
+              [ipv4]
+              address1={{ crc_ci_bootstrap_net_int[item].ens07 | default(crc_ci_bootstrap_net_int[item].eth1) }}/24,{{ crc_ci_bootstrap_net_int.gateway | default('192.168.122.1') }}
+              dns={{ crc_ci_bootstrap_net_int.dns | random (default('1.1.1.1')) }};
+              method=manual
+
+              [ipv6]
+              addr-gen-mode=stable-privacy
+              method=auto
+
+              [proxy]
+            dest: /etc/NetworkManager/system-connections/private.nmconnection
+            mode: '0600'
+            owner: root
+            group: root
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+          delegate_to: "{{ item }}"
+
+        - name: Reload NetworkManager
+          become: true
+          ansible.builtin.systemd:
+            name: NetworkManager
+            state: reloaded
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+          delegate_to: "{{ item }}"
 
 - hosts: crc
   tasks:
