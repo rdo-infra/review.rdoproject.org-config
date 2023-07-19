@@ -59,6 +59,14 @@
           ansible.builtin.debug:
             var: crc_ci_bootstrap_node_ips
 
+        - name: Create ci dir in etc folder
+          become: true
+          delegate_to: "{{ item }}"
+          ansible.builtin.file:
+            path: "/etc/ci"
+            state: directory
+            mode: '0755'
+
         - name: Create port and configure it on the host
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
@@ -87,6 +95,18 @@
           ansible.builtin.command:
             cmd: openstack server show {{ node_id }}
           loop: "{{ hostvars.keys() }}"
+
+        - name: Save MACs dict for further usage
+          vars:
+            content:
+              crc_ci_bootstrap_private_net_macs: "{{ crc_ci_bootstrap_private_net_macs }}"
+          become: true
+          ansible.builtin.copy:
+            dest: /etc/ci/env-private-net-macs.yml
+            content: "{{ content | to_nice_yaml }}"
+            owner: root
+            group: root
+            mode: '0644'
 
 - hosts: crc
   tasks:
