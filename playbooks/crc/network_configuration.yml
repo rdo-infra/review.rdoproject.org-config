@@ -68,11 +68,12 @@
       mac-address={{ _port_mac_address.stdout | trim | lower }}
 
       [ipv4]
-      address1={{ node_ip }}/{{ net_netmask }},{{ gw_host }}
-      {% if crc_ci_bootstrap_ipv4_dns is defined and crc_ci_bootstrap_ipv4_dns != '' -%}
-      dns={{ crc_ci_bootstrap_ipv4_dns }};
-      {% endif -%}
       method=manual
+      addresses={{ node_ip }}/{{ net_netmask }}
+      gateway={{ gw_host }}
+      {% if crc_ci_bootstrap_ipv4_dns is defined and crc_ci_bootstrap_ipv4_dns != '' -%}
+      dns={{ crc_ci_bootstrap_ipv4_dns }}
+      {% endif -%}
 
       [ipv6]
       addr-gen-mode=stable-privacy
@@ -84,9 +85,9 @@
     owner: root
     group: root
 
-- name: Reload NetworkManager
+- name: Refresh NetworkManager
   become: true
   delegate_to: "{{ item }}"
   ansible.builtin.systemd:
     name: NetworkManager
-    state: reloaded
+    state: restarted
