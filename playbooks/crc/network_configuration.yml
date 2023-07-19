@@ -1,0 +1,81 @@
+---
+- name: Debug commands
+  ansible.builtin.debug:
+    msg: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net }}
+      --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
+      {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+      -c mac_address -f value;
+      openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
+
+- name: Created private network port
+  ansible.builtin.shell:
+    cmd: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net }}
+      --fixed-ip subnet={{ crc_ci_bootstrap_subnet }},ip-address={{ node_ip }}
+      {{ item }}-{{ hostvars[item]['nodepool']['external_id'] }}
+      -c mac_address -f value;
+
+      sleep 1;
+
+      openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
+  register: _port_mac_address
+
+- name: Display some data about network and subnet
+  ansible.builtin.shell:
+    cmd: |
+      openstack network show {{ crc_ci_bootstrap_private_net }};
+      openstack subnet show  {{ crc_ci_bootstrap_subnet }};
+      openstack port list --network {{ crc_ci_bootstrap_private_net }}
+
+- name: Fetch device name based on MAC address
+  ansible.builtin.shell:
+    cmd: >-
+      ip -o link | awk -F ':' '/{{ _port_mac_address.stdout | trim | lower }}/ {print $2}'
+  register: _isolated_net_iface_name
+
+- name: Create NetworkManager configuration file
+  become: true
+  delegate_to: "{{ item }}"
+  vars:
+    iface_name: "{{ _isolated_net_iface_name.stdout }}"
+    crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
+    gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
+    net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
+  ansible.builtin.copy:
+    content: |
+      [connection]
+      id=ci-private-network
+      interface-name={{ iface_name }}
+      uuid={{ 99999999 | random | to_uuid }}
+      type=ethernet
+      autoconnect=true
+
+      [ethernet]
+      mac-address={{ _port_mac_address.stdout }}
+
+      [ipv4]
+      address1={{ node_ip }}/{{ net_netmask }},{{ gw_host }}
+      {% if crc_ci_bootstrap_ipv4_dns is defined and crc_ci_bootstrap_ipv4_dns != '' -%}
+      dns={{ crc_ci_bootstrap_ipv4_dns }};
+      {% endif -%}
+      method=manual
+
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      method=disabled
+
+      [proxy]
+    dest: /etc/NetworkManager/system-connections/private.nmconnection
+    mode: '0600'
+    owner: root
+    group: root
+
+- name: Reload NetworkManager
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: reloaded
