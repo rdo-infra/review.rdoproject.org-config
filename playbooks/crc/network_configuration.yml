@@ -55,12 +55,10 @@
   vars:
     crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
     gw_host: "{{ crc_ci_bootstrap_ipv4_net.split('/')[0] | regex_replace('0$', '1') }}"
-    net_netmask: "{{ crc_ci_bootstrap_ipv4_net.split('/')[1] }}"
   ansible.builtin.copy:
     content: |
       [connection]
       id=ci-private-network
-      uuid={{ 99999999 | random | to_uuid }}
       type=ethernet
       autoconnect=true
 
@@ -69,25 +67,31 @@
 
       [ipv4]
       method=manual
-      addresses={{ node_ip }}/{{ net_netmask }}
+      addresses={{ node_ip }}/32
       gateway={{ gw_host }}
       {% if crc_ci_bootstrap_ipv4_dns is defined and crc_ci_bootstrap_ipv4_dns != '' -%}
       dns={{ crc_ci_bootstrap_ipv4_dns }}
       {% endif -%}
 
       [ipv6]
-      addr-gen-mode=stable-privacy
       method=disabled
 
-      [proxy]
     dest: /etc/NetworkManager/system-connections/private.nmconnection
     mode: '0600'
     owner: root
     group: root
 
-- name: Refresh NetworkManager
+- name: Load the NetworkManager configuration
   become: true
-  delegate_to: "{{ item }}"
-  ansible.builtin.systemd:
-    name: NetworkManager
-    state: restarted
+  ansible.builtin.command: >-
+    nmcli connection load
+    /etc/NetworkManager/system-connections/private.nmconnection
+
+- name: Ensure that the private network connection is up
+  become: true
+  ansible.builtin.command: >-
+    nmcli connection up ci-private-network
+
+- name: Show NetworkManager connections
+  become: true
+  ansible.builtin.command: nmcli connection show
