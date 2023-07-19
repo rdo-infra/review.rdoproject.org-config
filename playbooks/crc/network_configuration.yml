@@ -30,14 +30,6 @@
       openstack subnet show  {{ crc_ci_bootstrap_subnet }};
       openstack port list --network {{ crc_ci_bootstrap_private_net }}
 
-- name: Create ci dir in etc folder
-  become: true
-  delegate_to: "{{ item }}"
-  ansible.builtin.file:
-    path: "/etc/ci"
-    state: directory
-    mode: '0755'
-
 - name: Save the MAC address for further usage if needed
   become: true
   delegate_to: "{{ item }}"
@@ -48,6 +40,20 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: Append the MAC to the MACs dict in the controller
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_private_net_macs: >-
+      {{
+        crc_ci_bootstrap_private_net_macs |
+        default({}) |
+        combine(
+          {
+            item : _port_mac_address.stdout
+          }
+        )
+      }}
+    cacheable: true
 
 - name: Create NetworkManager configuration file
   become: true
