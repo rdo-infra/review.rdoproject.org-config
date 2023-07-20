@@ -61,6 +61,7 @@
 
         - name: Create ci dir in etc folder
           become: true
+          delegate_to: all
           ansible.builtin.file:
             path: "/etc/ci"
             state: directory
