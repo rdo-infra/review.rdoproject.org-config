@@ -20,6 +20,13 @@
       environment:
         OS_CLOUD: "{{ cloud_name }}"
       block:
+        - name: Assert that every host has a given Fixed IP for the internal net
+          ansible.builtin.assert:
+            that:
+              - crc_ci_bootstrap_node_ips is defined
+              - hostvars.keys() == crc_ci_bootstrap_node_ips.keys()
+            msg: "Fixed IP for every instance should be provided"
+
         - name: Generate clouds config from cloud_secrets secret
           template:
             src: crc.clouds.yaml.j2
@@ -48,9 +55,7 @@
               openstack subnet create
               --network {{ crc_ci_bootstrap_private_net }}
               --subnet-range {{ crc_ci_bootstrap_ipv4_net }}
-              {% if crc_ci_no_dhcp | default(false) -%}
               --no-dhcp
-              {% endif -%}
               {{ crc_ci_bootstrap_subnet }}
 
         # Even if the variable isn't set, it won't fail, but display a generic
@@ -59,23 +64,10 @@
           ansible.builtin.debug:
             var: crc_ci_bootstrap_node_ips
 
-        - name: Create ci dir in etc folder
-          become: true
-          ansible.builtin.file:
-            path: "/etc/ci"
-            state: directory
-            mode: '0755'
-
         - name: Create port and configure it on the host
           vars:
             node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
-            node_ip: >-
-              {{
-                  crc_ci_bootstrap_node_ips[item]
-                  if (item in (crc_ci_bootstrap_node_ips | default({})))
-                  else ""
-              }}
-          when: node_ip != ''
+            node_ip: "{{ crc_ci_bootstrap_node_ips[item] }}"
           ansible.builtin.include_tasks: network_configuration.yml
           loop: "{{ hostvars.keys() }}"
           loop_control:

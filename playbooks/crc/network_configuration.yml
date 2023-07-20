@@ -23,6 +23,14 @@
       openstack server add port {{ node_id }} {{ item }}-{{ node_id }}
   register: _port_mac_address
 
+- name: Create ci dir in etc folder in the node
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.file:
+    path: "/etc/ci"
+    state: directory
+    mode: '0755'
+
 - name: Save the MAC address for further usage if needed
   become: true
   delegate_to: "{{ item }}"
