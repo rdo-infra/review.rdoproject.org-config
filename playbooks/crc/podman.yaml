@@ -9,11 +9,14 @@
       changed_when: true
       become: true
       when:
+        - ansible_distribution | lower == "centos"
         - ansible_distribution_major_version|int >= 8
         - ansible_distribution_major_version|int < 9
 
     - name: Install podman
-      when: registry_login_enabled|default(false)|bool
+      when:
+        - registry_login_enabled|default(false)|bool
+        - ansible_distribution | lower == "centos"
       become: true
       package:
         name:
@@ -22,7 +25,9 @@
         state: present
 
     - name: Set vars for Registry login and do podman login
-      when: registry_login_enabled|default(false)|bool
+      when:
+        - registry_login_enabled|default(false)|bool
+        - ansible_distribution | lower == "centos"
       block:
         - name: Set var name for quay login zuul secret
           set_fact:
