@@ -27,7 +27,7 @@
   become: true
   delegate_to: "{{ item }}"
   ansible.builtin.file:
-    path: "/etc/ci"
+    path: "/etc/ci/env"
     state: directory
     mode: '0755'
 
@@ -35,9 +35,9 @@
   become: true
   delegate_to: "{{ item }}"
   ansible.builtin.copy:
-    dest: /etc/ci/private-mac.yml
+    dest: /etc/ci/env/private-mac.yml
     content: |
-      private_iface_mac: {{ _port_mac_address.stdout }}
+      crc_ci_bootstrap_private_iface_mac: {{ _port_mac_address.stdout }}
     owner: root
     group: root
     mode: '0644'

@@ -93,7 +93,7 @@
               crc_ci_bootstrap_private_net_macs: "{{ crc_ci_bootstrap_private_net_macs }}"
           become: true
           ansible.builtin.copy:
-            dest: /etc/ci/env-private-net-macs.yml
+            dest: /etc/ci/env/private-net-macs.yml
             content: "{{ content | to_nice_yaml }}"
             owner: root
             group: root
