@@ -101,6 +101,9 @@
 
 - hosts: crc
   tasks:
+    - name: Reconfigure kubelet service
+      ansible.builtin.include_tasks: reconfigure_kubelet.yaml
+
     - name: Reboot host after attaching network interface
       become: true
       ansible.builtin.reboot:
