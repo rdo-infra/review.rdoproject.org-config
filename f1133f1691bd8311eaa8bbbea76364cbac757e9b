@@ -16,6 +16,24 @@
       "message": "I am looking for evidence are these things not only informative arguments for the pod scheduler (single node , which node to schedule ;-)).\n\nFor actual limiting other things might be needed than it is currently visible.",
       "revId": "f1133f1691bd8311eaa8bbbea76364cbac757e9b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e9efe5_52c39ee8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2023-07-24T07:40:23Z",
+      "side": 1,
+      "message": "The systemd kubelet service is using the /etc/node-sizing.env in the [Service] EnvironmentFile\u003d/etc/node-sizing.env\nAnd when I see via systemd status, the service looks like:\n\n/usr/bin/kubelet --config\u003d/etc/kubernetes/kubelet.conf --bootstrap-kubeconfig\u003d/etc/kubernetes/kubeconfig --kubeconfig\u003d/var/lib/kubelet/kubeconfig --container-runtime\u003dremote --container-runtime-endpoint\u003d/var/run/crio/crio.sock --runtime-cgroups\u003d/system.slice/crio.service --node-labels\u003dnode-role.kubernetes.io/control-plane,node-role.kubernetes.io/master,node.openshift.io/os_id\u003drhcos --node-ip\u003d192.168.126.11 --minimum-container-ttl-duration\u003d6m0s --cloud-provider\u003d --volume-plugin-dir\u003d/etc/kubernetes/kubelet-plugins/volume/exec --hostname-override\u003d --provider-id\u003d --register-with-taints\u003dnode-role.kubernetes.io/master\u003d:NoSchedule --pod-infra-container-image\u003dquay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:4a13c22901925a66052e1a9fccf23fbeec5262ead835bb26ea2ff0e21dd66d75 --system-reserved\u003dcpu\u003d200m,memory\u003d350Mi,ephemeral-storage\u003d350Mi --v\u003d2",
+      "parentUuid": "1186a239_4a955424",
+      "revId": "f1133f1691bd8311eaa8bbbea76364cbac757e9b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
