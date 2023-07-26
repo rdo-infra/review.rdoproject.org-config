@@ -4773,9 +4773,6 @@
       - system-required
     check:
       jobs:
-        - rdopkg-reqcheck:
-            voting: false
-            branches: ^rpm-master$
         - rpmlint:
             dependencies:
               - DLRN-rpmbuild-centos8
