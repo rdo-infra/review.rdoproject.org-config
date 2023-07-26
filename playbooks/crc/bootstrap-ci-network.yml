@@ -58,6 +58,17 @@
               --no-dhcp
               {{ crc_ci_bootstrap_subnet }}
 
+        - name: Create router and gateway
+          when:
+            - crc_ci_bootstrap_public_gw | default(true) |bool
+          block:
+            - name: Create router
+              ansible.builtin.command:
+                cmd: "openstack router add subnet {{ crc_ci_bootstrap_subnet }}"
+            - name: Set external gateway
+              ansible.builtin.command:
+                cmd: "openstack router set --external-gateway public {{ crc_ci_bootstrap_subnet }}"
+
         # Even if the variable isn't set, it won't fail, but display a generic
         # debug message like "UNDEFINED VAR" and continue
         - name: Debug parameters
@@ -78,7 +89,10 @@
             cmd: |
               openstack network show {{ crc_ci_bootstrap_private_net }};
               openstack subnet show  {{ crc_ci_bootstrap_subnet }};
-              openstack port list --network {{ crc_ci_bootstrap_private_net }}
+              openstack port list --network {{ crc_ci_bootstrap_private_net }};
+              {% if crc_ci_bootstrap_public_gw | default(true) |bool -%}
+              openstack router show {{ crc_ci_bootstrap_subnet }};
+              {% endif -%}
 
         - name: Display server configuration
           vars:
