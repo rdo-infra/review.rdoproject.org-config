@@ -98,3 +98,19 @@
   ansible.builtin.systemd:
     name: NetworkManager
     state: restarted
+
+- name: Get the default iface connection
+  delegate_to: "{{ item }}"
+  when: inventory_hostname is regex('^compute*')
+  register: crc_ci_bootstrap_host_default_connection
+  ansible.builtin.command:
+    cmd: "nmcli -g general.connection device show eth0"
+
+- name: Disable the defaul route of the public facing iface in computes
+  become: true
+  delegate_to: "{{ item }}"
+  when: inventory_hostname is regex('^compute*')
+  ansible.builtin.shell:
+    cmd: >-
+      nmcli connection modify {{ crc_ci_bootstrap_host_default_connection.stdout }} ipv4.never-default yes &&
+      nmcli connection up {{ crc_ci_bootstrap_host_default_connection.stdout }}
