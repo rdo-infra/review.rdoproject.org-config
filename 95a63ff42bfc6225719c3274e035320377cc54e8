@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055bc405_2e63ee1c",
+        "filename": "playbooks/crc/bootstrap-ci-network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2023-07-26T08:01:34Z",
+      "side": 1,
+      "message": "Try:\n            - name: Create router\n              ansible.builtin.command:\n                cmd: \"openstack router create {{ crc_ci_bootstrap_subnet }} -c id -f value\"\n              register: _router_id",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 76
+      },
+      "revId": "95a63ff42bfc6225719c3274e035320377cc54e8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76c9d37_b5c29660",
+        "filename": "playbooks/crc/bootstrap-ci-network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2023-07-26T08:01:34Z",
+      "side": 1,
+      "message": "here is missing router name, so I suggest:\n\n            - name: Add router to subnet\n              ansible.builtin.command:\n                cmd: \"openstack router add subnet {{ _router_id.stdout}} {{ crc_ci_bootstrap_subnet }} \"",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 80
+      },
+      "revId": "95a63ff42bfc6225719c3274e035320377cc54e8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
