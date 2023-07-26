@@ -28,8 +28,8 @@ if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
     dlrnapi --url $DLRNAPI_URL \
         --server-principal $DLRNAPI_SERVER_PRINCIPAL \
         --auth-method kerberosAuth \
-        promotion-get  \
         --force-auth \
+        promotion-get  \
         $DLRN_API_HASH_ARGS \
         --promote-name $PROMOTE_TARGET \
         | tee -a $WORKSPACE/commit_hash_promote_target_output.txt

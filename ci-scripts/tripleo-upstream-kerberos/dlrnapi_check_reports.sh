@@ -27,8 +27,8 @@ if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
     dlrnapi --url $DLRNAPI_URL \
         --server-principal $DLRNAPI_SERVER_PRINCIPAL \
         --auth-method kerberosAuth \
-        repo-status  \
         --force-auth \
+        repo-status  \
         $DLRN_API_HASH_ARGS \
         --success true | tee -a $WORKSPACE/repo_success_output.txt
 else
