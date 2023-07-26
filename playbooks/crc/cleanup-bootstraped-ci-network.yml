@@ -41,6 +41,21 @@
           loop_control:
             label: "{{ item }}"
 
+        # Router name is the same as subnet, making things easier to match.
+        - name: Manage router and gateway id needed
+          when:
+            - crc_ci_bootstrap_public_gw | default(true) |bool
+          block:
+            - name: Unset router gateway
+              ansible.builtin.command:
+                cmd: "openstack router unset --external-gateway {{ subnet_network_name }}"
+            - name: Dettach router from subnet
+              ansible.builtin.command:
+                cmd: "openstack router remove subnet {{ subnet_network_name }} {{ subnet_network_name }}"
+            - name: Delete router
+              ansible.builtin.command:
+                cmd: "openstack router delete {{ subnet_network_name }}"
+
         - name: Delete subnet
           register: crc_ci_bootstrap_subnet_delete_out
           ansible.builtin.command:
