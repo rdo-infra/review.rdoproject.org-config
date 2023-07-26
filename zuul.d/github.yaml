@@ -36,6 +36,7 @@
         comment: false
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
     failure:
       github.com:
         status: 'failure'
@@ -43,6 +44,7 @@
         comment: true
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
 
 - pipeline:
     <<: *defaults
