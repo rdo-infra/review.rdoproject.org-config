@@ -38,6 +38,7 @@
             crc_ci_bootstrap_private_net: "zuul-ci-net-{{ zuul.build[:8] }}"
             crc_ci_bootstrap_subnet: "zuul-ci-subnet-{{ zuul.build[:8] }}"
             crc_ci_bootstrap_ipv4_net: "{{ crc_ci_bootstrap_ipv4_range | default('192.168.0.0/24') }}"
+            crc_ci_bootstrap_router_name: "zuul-ci-subnet-router-{{ zuul.build[:8] }}"
 
         - name: Create new network
           ansible.builtin.command:
@@ -57,6 +58,22 @@
               --subnet-range {{ crc_ci_bootstrap_ipv4_net }}
               --no-dhcp
               {{ crc_ci_bootstrap_subnet }}
+
+        - name: Create router and gateway
+          when:
+            - crc_ci_bootstrap_public_gw | default(true) |bool
+          block:
+            - name: Create router
+              ansible.builtin.command:
+                cmd: >-
+                  openstack router create
+                  --external-gateway {{ crc_ci_bootstrap_public_gw_net | default('public') }}
+                  {{ crc_ci_bootstrap_router_name }}
+            - name: Add router to subnet
+              ansible.builtin.command:
+                cmd: >-
+                  openstack router add subnet
+                  {{ crc_ci_bootstrap_router_name }} {{ crc_ci_bootstrap_subnet }}
 
         # Even if the variable isn't set, it won't fail, but display a generic
         # debug message like "UNDEFINED VAR" and continue
@@ -78,7 +95,10 @@
             cmd: |
               openstack network show {{ crc_ci_bootstrap_private_net }};
               openstack subnet show  {{ crc_ci_bootstrap_subnet }};
-              openstack port list --network {{ crc_ci_bootstrap_private_net }}
+              openstack port list --network {{ crc_ci_bootstrap_private_net }};
+              {% if crc_ci_bootstrap_public_gw | default(true) |bool -%}
+              openstack router show {{ crc_ci_bootstrap_router_name }};
+              {% endif -%}
 
         - name: Display server configuration
           vars:

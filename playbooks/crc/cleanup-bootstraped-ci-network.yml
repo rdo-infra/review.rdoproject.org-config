@@ -5,6 +5,7 @@
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
     private_network_name: "{{ crc_ci_bootstrap_private_net | default('zuul-ci-net-' + zuul.build[:8]) }}"
     subnet_network_name: "{{ crc_ci_bootstrap_subnet | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
+    router_name: "zuul-ci-subnet-router-{{ zuul.build[:8] }}"
   tasks:
     - name: Create openstack config dir
       file:
@@ -40,6 +41,17 @@
           loop: "{{ hostvars.keys() }}"
           loop_control:
             label: "{{ item }}"
+
+        - name: Manage router and gateway id needed
+          when:
+            - crc_ci_bootstrap_public_gw | default(true) |bool
+          block:
+            - name: Dettach router from subnet
+              ansible.builtin.command:
+                cmd: "openstack router remove subnet {{ router_name }} {{ subnet_network_name }}"
+            - name: Delete router
+              ansible.builtin.command:
+                cmd: "openstack router delete {{ router_name }}"
 
         - name: Delete subnet
           register: crc_ci_bootstrap_subnet_delete_out
