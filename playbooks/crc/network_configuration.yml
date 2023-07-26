@@ -92,6 +92,20 @@
     owner: root
     group: root
 
+- name: Disable the defaul route of the public facing iface in computes
+  become: true
+  delegate_to: "{{ item }}"
+  when: inventory_hostname is regex('^compute*')
+  community.general.ini_file:
+    path: /etc/NetworkManager/system-connections/ens3.nmconnection
+    section: "ipv4"
+    option: "never-default"
+    value: "yes"
+    state: present
+    mode: '0600'
+    owner: root
+    group: root
+
 - name: Refresh NetworkManager
   become: true
   delegate_to: "{{ item }}"
