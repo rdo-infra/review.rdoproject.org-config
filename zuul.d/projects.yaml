@@ -91,32 +91,6 @@
       - system-required
 
 - project:
-    name: github.com/containers/ansible-podman-collections
-    templates:
-      - system-required
-    github-check:
-      jobs:
-        - tripleo-ci-centos-8-standalone:
-            files: &podman_col_files
-              - ^plugins/module_utils/podman/.*$
-              - ^plugins/modules/podman_container.*$
-              - ^plugins/modules/podman_image.*$
-              - ^plugins/modules/podman_play.*$
-              - ^plugins/modules/podman_pod.*$
-              - ^plugins/modules/podman_volume.*$
-        - tripleo-ci-centos-9-standalone:
-            files: *podman_col_files
-    github-manual:
-      jobs:
-        - tripleo-ci-centos-8-ovb-3ctlr_1comp-featureset001
-        - tripleo-ci-centos-8-standalone
-        - tripleo-ci-centos-8-containers-multinode
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001
-        - tripleo-ci-centos-9-standalone
-        - tripleo-ci-centos-9-containers-multinode
-        - tripleo-ci-centos-9-undercloud-upgrade
-
-- project:
     name: github.com/containers/buildah
     default-branch: main
     templates:
