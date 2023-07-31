@@ -13,8 +13,8 @@
       export WORKSPACE="{{ workspace }}"
       # component_release is defined when only the component has different
       # release value than the rest of the product
-      export RELEASE="{{ component_release | default(release) }}"
-      export PROMOTE_NAME=tripleo-ci-testing
+      export RELEASE="{{ component_release | default(openstack_release |default(release)) }}"
+      export PROMOTE_NAME="{{ promote_name | default(tripleo-ci-testing) }}"
       export DLRNAPI_DISTRO="{{ ansible_distribution }}"
       export DLRNAPI_DISTRO_VERSION="{{ ansible_distribution_major_version }}"
       export DLRNAPI_SERVER="{{ dlrn_server_url | default('trunk.rdoproject.org') }}"
