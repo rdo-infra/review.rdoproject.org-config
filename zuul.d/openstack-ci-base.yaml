@@ -43,6 +43,19 @@
         secret: quay_rdoproject_podified_antelope_centos_9_secret
 
 - job:
+    name: container-tcib-build-dlrn-base
+    parent: container-tcib-build-base
+    pre-run: playbooks/ci-framework-rdo-base/dlrn/pre-dlrn.yaml
+    post-run: playbooks/ci-framework-rdo-base/dlrn/post-dlrn.yaml
+    required-projects:
+      - config
+      - rdo-infra/ci-config
+    roles:
+      - zuul: rdo-infra/ci-config
+    secrets:
+      - dlrnapi
+
+- job:
     name: edpm-image-build-base
     parent: base-minimal
     description: |
