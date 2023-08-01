@@ -46,10 +46,13 @@
           ansible.builtin.import_tasks: bootstrap-ci-network-create-default-resources.yml
 
         - name: Create ports, VLANs and configure them on the instance
+          vars:
+            instance_id: "{{ hostvars[instance_item.key]['nodepool']['external_id'] }}"
           ansible.builtin.include_tasks: bootstrap-ci-network-instance.yml
           loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
           loop_control:
-            label: "{{ item.key }}"
+            label: "{{ instance_item.key }}"
+            loop_var: instance_item
 
         - name: Display some data about network ports
           ansible.builtin.shell:
@@ -57,9 +60,9 @@
 
         - name: Display server configuration
           vars:
-            node_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+            instance_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
-            cmd: openstack server show {{ node_id }}
+            cmd: openstack server show {{ instance_id }}
           loop: "{{ hostvars.keys() }}"
 
         - name: Save MACs dict for further usage
