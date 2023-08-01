@@ -1,0 +1,50 @@
+---
+- name: Create instance ports and attach if necessary
+  ansible.builtin.include_tasks: bootstrap-ci-network-instance-create-attch-port.yml
+
+- name: Give the instance some time to detect the interface
+  ansible.builtin.pause:
+    seconds: 2
+
+# For now we support only configuring NM for the default network. VLANs are, for now,
+# configured inside child jobs
+- name: Create NetworkManager configuration file
+  become: true
+  delegate_to: "{{ item }}"
+  vars:
+    instance_default_net_ip: "{{ item.value.networks.default.ip }}"
+    instance_default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range | default('192.168.0.0/24') }}"
+    iface_ip: "{{ instance_default_net_ip }}"
+    iface_netmask: "{{ instance_default_subnet_range.split('/')[1] }}"
+    iface_gw: "{{ instance_default_subnet_range.split('/')[0] | regex_replace('0$', '1') }}"
+    iface_dns: "{{ item.value.networks.default.dns | default('') }}"
+    iface_mac: "{{ crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address }}"
+  ansible.builtin.copy:
+    src: bootstrap-ci-network-nm-connection.nmconnection.j2
+    dest: /etc/NetworkManager/system-connections/private.nmconnection
+    mode: '0600'
+    owner: root
+    group: root
+
+- name: Refresh NetworkManager
+  become: true
+  delegate_to: "{{ item }}"
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: restarted
+
+- name: Get the default iface connection
+  delegate_to: "{{ item }}"
+  when: item is regex('^compute.*')
+  register: crc_ci_bootstrap_host_default_connection
+  ansible.builtin.command:
+    cmd: "nmcli -g general.connection device show eth0"
+
+- name: Disable the defaul route of the public facing iface in computes
+  become: true
+  delegate_to: "{{ item }}"
+  when: item is regex('^compute.*')
+  ansible.builtin.shell:
+    cmd: >-
+      nmcli connection modify '{{ crc_ci_bootstrap_host_default_connection.stdout }}' ipv4.never-default yes &&
+      nmcli connection up '{{ crc_ci_bootstrap_host_default_connection.stdout }}'

@@ -1,0 +1,61 @@
+---
+- name: Create the default network
+  ansible.builtin.command:
+    cmd: >-
+      openstack network create
+      {% if 'mtu' in default_network_config -%}
+      --mtu {{ default_network_config['mtu'] }}
+      {% endif -%}
+      --disable-port-security
+      zuul-ci-net-{{ zuul.build[:8] }}
+      -f yaml
+  register: crc_ci_bootstrap_private_net_create_out
+
+- name: Create subnet - ipv4
+  ansible.builtin.command:
+    cmd: >-
+      openstack subnet create
+      --network {{ (crc_ci_bootstrap_private_net_create_out.stdout | yaml).id }}
+      --subnet-range {{ default_network_config.range | default('192.168.0.0/24') }}
+      --no-dhcp
+      zuul-ci-subnet-{{ zuul.build[:8] }}
+      -f yaml
+  register: crc_ci_bootstrap_private_subnet_create_out
+
+- name: Set yaml returned data for further usage
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_private_subnet_create_yaml: "{{ crc_ci_bootstrap_private_subnet_create_out.stdout | yaml }}"
+    crc_ci_bootstrap_private_net_create_yaml: "{{ crc_ci_bootstrap_private_net_create_out.stdout | yaml }}"
+    cacheable: true
+
+- name: Create router and gateway
+  when: default_network_config.router | default(true) |bool
+  block:
+    - name: Create router
+      ansible.builtin.command:
+        cmd: >-
+          openstack router create
+          --external-gateway {{ default_network_config.router_net | default('public') }}
+          zuul-ci-subnet-router-{{ zuul.build[:8] }}
+      register: crc_ci_bootstrap_private_router_create_out
+
+    - name: Set router yaml returned data for further usage
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_private_router_create_yaml: "{{ crc_ci_bootstrap_private_router_create_out.stdout | yaml }}"
+        cacheable: true
+
+    - name: Add router to subnet
+      ansible.builtin.command:
+        cmd: >-
+          openstack router add subnet
+          {{ crc_ci_bootstrap_private_router_create_yaml.id }}
+          {{ crc_ci_bootstrap_private_subnet_create_yaml.id }}
+
+- name: Display some data about network, subnet and router
+  ansible.builtin.shell:
+    cmd: |
+      openstack network show {{ crc_ci_bootstrap_private_net_create_yaml.id }};
+      openstack subnet show  {{ crc_ci_bootstrap_private_subnet_create_yaml.id }};
+      {% if default_network_config.router | default(true) |bool -%}
+      openstack router show {{ crc_ci_bootstrap_private_router_create_yaml.id }};
+      {% endif -%}
