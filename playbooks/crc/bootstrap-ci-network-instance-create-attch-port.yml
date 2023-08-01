@@ -40,11 +40,11 @@
   block:
     - name: Create the trunk port
       ansible.builtin.command:
-      cmd: >-
-        openstack network trunk create
-        --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
-        zuul-ci-trunk-{{ item.key }}-{{ hostvars[item.key]['nodepool']['external_id'] }}
-        -f value -c id
+        cmd: >-
+          openstack network trunk create
+          --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
+          zuul-ci-trunk-{{ item.key }}-{{ hostvars[item.key]['nodepool']['external_id'] }}
+          -f value -c id
       register: crc_ci_bootstrap_instance_trunk_id_out
 
     - name: Create VLANs ports and attach them to the trunk
