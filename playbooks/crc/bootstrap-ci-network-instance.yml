@@ -10,14 +10,14 @@
 # configured inside child jobs
 - name: Create NetworkManager configuration file
   become: true
-  delegate_to: "{{ item }}"
+  delegate_to: "{{ instance_item.key }}"
   vars:
-    instance_default_net_ip: "{{ item.value.networks.default.ip }}"
+    instance_default_net_ip: "{{ instance_item.value.networks.default.ip }}"
     instance_default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range | default('192.168.0.0/24') }}"
     iface_ip: "{{ instance_default_net_ip }}"
     iface_netmask: "{{ instance_default_subnet_range.split('/')[1] }}"
     iface_gw: "{{ instance_default_subnet_range.split('/')[0] | regex_replace('0$', '1') }}"
-    iface_dns: "{{ item.value.networks.default.dns | default('') }}"
+    iface_dns: "{{ instance_item.value.networks.default.dns | default('') }}"
     iface_mac: "{{ crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address }}"
   ansible.builtin.template:
     src: bootstrap-ci-network-nm-connection.nmconnection.j2
@@ -28,22 +28,22 @@
 
 - name: Refresh NetworkManager
   become: true
-  delegate_to: "{{ item }}"
+  delegate_to: "{{ instance_item.key }}"
   ansible.builtin.systemd:
     name: NetworkManager
     state: restarted
 
 - name: Get the default iface connection
-  delegate_to: "{{ item }}"
-  when: item is regex('^compute.*')
+  delegate_to: "{{ instance_item.key }}"
+  when: instance_item.key is regex('^compute.*')
   register: crc_ci_bootstrap_host_default_connection
   ansible.builtin.command:
     cmd: "nmcli -g general.connection device show eth0"
 
 - name: Disable the defaul route of the public facing iface in computes
   become: true
-  delegate_to: "{{ item }}"
-  when: item is regex('^compute.*')
+  delegate_to: "{{ instance_item.key }}"
+  when: instance_item.key is regex('^compute.*')
   ansible.builtin.shell:
     cmd: >-
       nmcli connection modify '{{ crc_ci_bootstrap_host_default_connection.stdout }}' ipv4.never-default yes &&
