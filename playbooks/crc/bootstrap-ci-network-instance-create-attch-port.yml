@@ -24,7 +24,7 @@
   vars:
     instance_vlans_config: >-
       {{
-        item.value.networks | dict2items | rejectattr('value', 'equalto', 'default')
+        item.value.networks | dict2items | rejectattr('key', 'equalto', 'default')
       }}
     node_name: "{{ item.key }}"
   when: instance_vlans_config | length > 0
