@@ -37,6 +37,7 @@
           openstack router create
           --external-gateway {{ default_network_config.router_net | default('public') }}
           {{ crc_ci_bootstrap_router_name }}
+          -f yaml
       register: crc_ci_bootstrap_private_router_create_out
 
     - name: Set router yaml returned data for further usage
