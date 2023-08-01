@@ -58,7 +58,7 @@
       - playbooks/crc/podman.yaml
     cleanup-run:
       # Deletes generated network resources
-      - playbooks/crc/cleanup-bootstraped-ci-network.yml
+      - playbooks/crc/bootstraped-ci-network-cleanup.yml
     required-projects:
       - opendev.org/zuul/zuul-jobs
       - config
