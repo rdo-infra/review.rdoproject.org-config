@@ -15,7 +15,7 @@
   ansible.builtin.command:
     cmd: >-
       openstack subnet create
-      --network {{ (crc_ci_bootstrap_private_net_create_out.stdout | yaml).id }}
+      --network {{ (crc_ci_bootstrap_private_net_create_out.stdout | from_yaml).id }}
       --subnet-range {{ default_network_config.range | default('192.168.0.0/24') }}
       --no-dhcp
       {{ crc_ci_bootstrap_subnet_name }}
@@ -24,8 +24,8 @@
 
 - name: Set yaml returned data for further usage
   ansible.builtin.set_fact:
-    crc_ci_bootstrap_private_subnet_create_yaml: "{{ crc_ci_bootstrap_private_subnet_create_out.stdout | yaml }}"
-    crc_ci_bootstrap_private_net_create_yaml: "{{ crc_ci_bootstrap_private_net_create_out.stdout | yaml }}"
+    crc_ci_bootstrap_private_subnet_create_yaml: "{{ crc_ci_bootstrap_private_subnet_create_out.stdout | from_yaml }}"
+    crc_ci_bootstrap_private_net_create_yaml: "{{ crc_ci_bootstrap_private_net_create_out.stdout | from_yaml }}"
     cacheable: true
 
 - name: Create router and gateway
@@ -37,11 +37,12 @@
           openstack router create
           --external-gateway {{ default_network_config.router_net | default('public') }}
           {{ crc_ci_bootstrap_router_name }}
+          -f yaml
       register: crc_ci_bootstrap_private_router_create_out
 
     - name: Set router yaml returned data for further usage
       ansible.builtin.set_fact:
-        crc_ci_bootstrap_private_router_create_yaml: "{{ crc_ci_bootstrap_private_router_create_out.stdout | yaml }}"
+        crc_ci_bootstrap_private_router_create_yaml: "{{ crc_ci_bootstrap_private_router_create_out.stdout | from_yaml }}"
         cacheable: true
 
     - name: Add router to subnet
