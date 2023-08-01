@@ -1,0 +1,22 @@
+[connection]
+id=ci-private-network
+uuid={{ 99999999 | random | to_uuid }}
+type=ethernet
+autoconnect=true
+
+[ethernet]
+mac-address={{ iface_mac | trim | lower }}
+
+[ipv4]
+method=manual
+addresses={{ iface_ip }}/{{ iface_netmask }}
+gateway={{ iface_gw }}
+{% if iface_dns is defined and iface_dns != '' -%}
+dns={{ iface_dns }}
+{% endif -%}
+
+[ipv6]
+addr-gen-mode=stable-privacy
+method=disabled
+
+[proxy]
