@@ -1,22 +1,22 @@
 ---
 - name: Print the VLAN data
   ansible.builtin.debug:
-    var: item
+    var: instance_net_item
 
 - name: Create the VLAN port
   vars:
-    vlan_net_sanitized: "{{ item.key | regex_replace('[^a-zA-Z0-9-]+', '-') }}"
+    vlan_tag: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key].vlan }}"
   ansible.builtin.command:
     cmd: >-
       openstack port create
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
-      {{ node-name }}-{{ node_id }}-{{ vlan_net_sanitized }}
+      {{ node-name }}-{{ instance_id }}-{{ vlan_tag }}
       -f value -c id
     register: crc_ci_bootstrap_instance_vlan_port_id_out
 
 - name: Add the VLAN port to the trunk
   vars:
-    vlan_id: "{{ crc_ci_bootstrap_networking.networks[item].vlan }}"
+    vlan_id: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key].vlan }}"
   ansible.builtin.command:
     cmd: >-
       openstack network trunk set

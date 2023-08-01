@@ -1,7 +1,7 @@
 ---
 - name: Fetch port info
   vars:
-    port_name: "{{ item.key }}-{{ node_id }}"
+    port_name: "{{ item.key }}-{{ instance_id }}"
   ansible.builtin.command:
     cmd: "openstack port show {{ port_name }} -f yaml"
   register: crc_ci_bootstrap_cleanup_port_info_out
@@ -21,7 +21,7 @@
   block:
     - name: Detach port
       ansible.builtin.command:
-        cmd: "openstack server remove port {{ node_id }} {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
+        cmd: "openstack server remove port {{ instance_id }} {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
       ignore_errors: true
 
     - name: Delete the ports and trunk if available
