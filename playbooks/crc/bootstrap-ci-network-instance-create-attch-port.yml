@@ -1,17 +1,17 @@
 ---
 - name: Print the host networking data
   ansible.builtin.debug:
-    var: item
+    var: instance_item
 
 - name: Create the private network parent port
   vars:
-    default_net_fixed_ip: "{{ item.value.networks.default.ip }}"
+    default_net_fixed_ip: "{{ instance_item.value.networks.default.ip }}"
   ansible.builtin.command:
     cmd: >-
       openstack port create
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
       --fixed-ip subnet={{ crc_ci_bootstrap_private_subnet_create_yaml.id }},ip-address={{ default_net_fixed_ip }}
-      {{ item.key }}-{{ hostvars[item.key]['nodepool']['external_id'] }}
+      {{ instance_item.key }}-{{ instance_id }}
       -f yaml
   register: crc_ci_bootstrap_instance_parent_port_create_out
 
@@ -24,9 +24,9 @@
   vars:
     instance_vlans_config: >-
       {{
-        item.value.networks | dict2items | rejectattr('key', 'equalto', 'default')
+        instance_item.value.networks | dict2items | rejectattr('key', 'equalto', 'default')
       }}
-    node_name: "{{ item.key }}"
+    node_name: "{{ instance_item.key }}"
   when: instance_vlans_config | length > 0
   block:
     - name: Create the trunk port
@@ -34,7 +34,7 @@
         cmd: >-
           openstack network trunk create
           --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
-          zuul-ci-trunk-{{ item.key }}-{{ hostvars[item.key]['nodepool']['external_id'] }}
+          zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
           -f value -c id
       register: crc_ci_bootstrap_instance_trunk_id_out
 
@@ -42,18 +42,19 @@
       ansible.builtin.include_tasks: bootstrap-ci-network-instance-add-vlan.yml
       loop: "{{ instance_vlans_config }}"
       loop_control:
-        label: "{{ item.key }}"
+        label: "{{ instance_net_item.key }}"
+        loop_var: instance_net_item
 
 - name: Attach the port to the instance
   ansible.builtin.command:
     cmd: >-
       openstack server add port
-      {{ hostvars[item.key]['nodepool']['external_id'] }}
+      {{ instance_id }}
       {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
 
 - name: Create ci dir in etc folder in the node
   become: true
-  delegate_to: "{{ item.key }}"
+  delegate_to: "{{ instance_item.key }}"
   ansible.builtin.file:
     path: "/etc/ci/env"
     state: directory
@@ -61,7 +62,7 @@
 
 - name: Save the MAC address for further usage if needed
   become: true
-  delegate_to: "{{ item.key }}"
+  delegate_to: "{{ instance_item.key }}"
   ansible.builtin.copy:
     dest: /etc/ci/env/private-mac.yml
     content: |
@@ -78,7 +79,7 @@
         default({}) |
         combine(
           {
-            item.key : crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address
+            instance_item.key : crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address
           }
         )
       }}
