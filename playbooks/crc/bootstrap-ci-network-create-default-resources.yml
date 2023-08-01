@@ -51,12 +51,3 @@
           openstack router add subnet
           {{ crc_ci_bootstrap_private_router_create_yaml.id }}
           {{ crc_ci_bootstrap_private_subnet_create_yaml.id }}
-
-- name: Display some data about network, subnet and router
-  ansible.builtin.shell:
-    cmd: |
-      openstack network show {{ crc_ci_bootstrap_private_net_create_yaml.id }};
-      openstack subnet show  {{ crc_ci_bootstrap_private_subnet_create_yaml.id }};
-      {% if default_network_config.router | default(true) |bool -%}
-      openstack router show {{ crc_ci_bootstrap_private_router_create_yaml.id }};
-      {% endif -%}

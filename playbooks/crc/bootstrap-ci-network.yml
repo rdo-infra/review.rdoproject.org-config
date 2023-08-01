@@ -53,7 +53,7 @@
 
         - name: Display some data about network ports
           ansible.builtin.shell:
-            cmd: "openstack port list --network {{ crc_ci_bootstrap_private_net }}"
+            cmd: "openstack port list --network {{ crc_ci_bootstrap_network_name }}"
 
         - name: Display server configuration
           vars:

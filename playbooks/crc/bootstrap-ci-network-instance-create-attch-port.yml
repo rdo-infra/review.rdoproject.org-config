@@ -3,15 +3,6 @@
   ansible.builtin.debug:
     var: item
 
-- name: Port create debug command
-  ansible.builtin.debug:
-    msg: >-
-      openstack port create
-      --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
-      --fixed-ip subnet={{ crc_ci_bootstrap_private_subnet_create_yaml.id }},ip-address={{ default_net_fixed_ip }}
-      {{ item.key }}-{{ hostvars[item.key]['nodepool']['external_id'] }}
-      -f yaml
-
 - name: Create the private network parent port
   vars:
     default_net_fixed_ip: "{{ item.value.networks.default.ip }}"
