@@ -214,6 +214,7 @@
           - deps/python-setuptools_scm
           - deps/python-socksio
           - deps/python-ssh-python
+          - deps/python-sshtunnel
           - deps/python-tcolorpy
           - deps/python-toml
           - deps/python-tomli
@@ -1208,21 +1209,21 @@
 
       github.com-git:
         untrusted-projects:
-          - release-depot/patch_rebaser:
-              include:
-                - job
-                - project
-          - include: []
-            projects:
-              - containers/buildah
-              - containers/podman
-              - gnocchixyz/gnocchi
-              - pycontribs/molecule-libvirt
-              - pycontribs/molecule-openstack
-              - pycontribs/pytest-molecule
-              - rabbitmq/cluster-operator
+        - release-depot/patch_rebaser:
+            include:
+            - job
+            - project
+        - include: []
+          projects:
+          - containers/buildah
+          - containers/podman
+          - gnocchixyz/gnocchi
+          - pycontribs/molecule-libvirt
+          - pycontribs/molecule-openstack
+          - pycontribs/pytest-molecule
+          - rabbitmq/cluster-operator
               # List of PCP test projects
-              - ansible/ansible-lint
+          - ansible/ansible-lint
 
       github.com:
         untrusted-projects:
