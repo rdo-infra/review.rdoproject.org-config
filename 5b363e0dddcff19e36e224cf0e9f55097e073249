@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b454213d_df0fab48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-08-02T08:11:31Z",
+      "side": 1,
+      "message": "Wondering if we shouldn\u0027t push all of the openstack generated IDs in a file for later reference, when removal time comes...",
+      "revId": "5b363e0dddcff19e36e224cf0e9f55097e073249",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c6d449_2a560ff2",
+        "filename": "playbooks/crc/bootstrap-ci-network-instance-add-vlan.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-08-02T08:11:31Z",
+      "side": 1,
+      "message": "there\u0027s an ignore_case flag apparently:\nhttps://docs.ansible.com/ansible/latest/collections/ansible/builtin/regex_replace_filter.html\n\nI\u0027m also afraid it doesn\u0027t replace \"globally\", when reading this:\n\"\"\"\nReplace a substring defined by a regular expression with another defined by another regular expression based on the first match\n\"\"\"\nfirst match only? maybe we should leverage some \"g\" flag somewhere? Something to keep in mind for some future follow-up?",
+      "revId": "5b363e0dddcff19e36e224cf0e9f55097e073249",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "857aedce_79c25ab6",
+        "filename": "playbooks/crc/bootstrap-ci-network-instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-08-02T08:11:31Z",
+      "side": 1,
+      "message": "can\u0027t we have a \"retries\" until system displays the interface in nmcli output or something?",
+      "revId": "5b363e0dddcff19e36e224cf0e9f55097e073249",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
