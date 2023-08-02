@@ -3,6 +3,7 @@
   ansible.builtin.include_tasks: bootstrap-ci-network-instance-create-attch-port.yml
 
 - name: Wait till the interface exists
+  delegate_to: "{{ instance_item.key }}"
   ansible.builtin.command:
     cmd: "nmcli -g GENERAL.HWADDR device show"
   register: crc_ci_bootstrap_instance_wait_device_up_out
