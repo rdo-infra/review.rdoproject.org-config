@@ -26,7 +26,6 @@
       {{
         instance_item.value.networks | dict2items | rejectattr('key', 'equalto', 'default')
       }}
-    node_name: "{{ instance_item.key }}"
   when: instance_vlans_config | length > 0
   block:
     - name: Create the trunk port
