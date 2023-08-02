@@ -12,7 +12,7 @@
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
       {{ instance_item.key }}-{{ instance_id }}-{{ vlan_tag }}
       -f value -c id
-    register: crc_ci_bootstrap_instance_vlan_port_id_out
+  register: crc_ci_bootstrap_instance_vlan_port_id_out
 
 - name: Add the VLAN port to the trunk
   vars:
