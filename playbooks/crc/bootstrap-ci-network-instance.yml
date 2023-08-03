@@ -8,6 +8,7 @@
     - name: Create NetworkManager configuration file for the trunk port
       vars:
         iface_info: "{{ item.value }}"
+      become: true
       ansible.builtin.template:
         src: >-
           {{
