@@ -34,7 +34,7 @@
       openstack network trunk create
       --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
       zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
-      -f value -c id
+      -f yaml
   register: crc_ci_bootstrap_instance_trunk_id_out
 
 - name: Attach the port to the instance

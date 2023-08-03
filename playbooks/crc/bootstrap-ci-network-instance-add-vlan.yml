@@ -10,15 +10,18 @@
     cmd: >-
       openstack port create
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
+      --no-fixed-ip
       {{ instance_item.key }}-{{ instance_id }}-{{ vlan_tag }}
-      -f value -c id
+      -f yaml
   register: crc_ci_bootstrap_instance_vlan_port_id_out
 
 - name: Add the VLAN port to the trunk
   vars:
     vlan_id: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key].vlan }}"
+    port_id: "{{ (crc_ci_bootstrap_instance_vlan_port_id_out.stdout | from_yaml).id }}"
+    parent_port_id: "{{ (crc_ci_bootstrap_instance_trunk_id_out.stdout | from_yaml).id }}"
   ansible.builtin.command:
     cmd: >-
       openstack network trunk set
-      --subport port={{ crc_ci_bootstrap_instance_vlan_port_id_out.stdout }},segmentation-type=vlan,segmentation-id={{ vlan_id }}
-      {{ crc_ci_bootstrap_instance_trunk_id_out.stdout }}
+      --subport port={{ port_id }},segmentation-type=vlan,segmentation-id={{ vlan_id }}
+      {{ parent_port_id }}
