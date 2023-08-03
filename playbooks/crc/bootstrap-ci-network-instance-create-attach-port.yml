@@ -1,0 +1,140 @@
+---
+- name: Print the host networking data
+  ansible.builtin.debug:
+    var: instance_item
+
+- name: Create the private network parent port
+  vars:
+    default_net_fixed_ip: "{{ instance_item.value.networks.default.ip }}"
+  ansible.builtin.command:
+    cmd: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
+      --fixed-ip subnet={{ crc_ci_bootstrap_private_subnet_create_yaml.id }},ip-address={{ default_net_fixed_ip }}
+      {{ instance_item.key }}-{{ instance_id }}
+      -f yaml
+  register: crc_ci_bootstrap_instance_parent_port_create_out
+
+- name: Set parent port data as a fact for further usage
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_instance_parent_port_create_yaml: "{{ crc_ci_bootstrap_instance_parent_port_create_out.stdout | from_yaml }}"
+    cacheable: true
+
+- name: Attach the port to the instance
+  ansible.builtin.command:
+    cmd: >-
+      openstack server add port
+      {{ instance_id }}
+      {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
+
+- name: Wait till the interface exists
+  delegate_to: "{{ instance_item.key }}"
+  ansible.builtin.command:
+    cmd: "ip -j link"
+  register: crc_ci_bootstrap_instance_wait_device_up_out
+  until: >-
+      (crc_ci_bootstrap_instance_wait_device_up_out.stdout | from_json) |
+      selectattr(
+          'address',
+          'equalto',
+          crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower
+      ) | length > 0
+  retries: 30
+  delay: 2
+
+- name: Prepare interface data to be used configuring trunk and vlan ifaces
+  vars:
+    ip_link_json_out: >-
+      {{
+        (crc_ci_bootstrap_instance_wait_device_up_out.stdout | from_json) |
+        selectattr(
+          'address',
+          'equalto',
+          crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower
+        ) | first
+      }}
+    default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range }}"
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_instance_nm_trunk_iface_name: "{{ ip_link_json_out.ifname }}"
+    crc_ci_bootstrap_instance_nm_vlan_networks: >-
+      {{
+        instance_item.value.networks |
+        dict2items |
+        rejectattr('key', 'equalto', 'default')
+      }}
+    crc_ci_bootstrap_networks_out: >-
+      {{
+        crc_ci_bootstrap_networks_out |
+        default({}) |
+        combine(
+          {
+            instance_item.key: {
+              'default': {
+                'iface': ip_link_json_out.ifname,
+                'mac': crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower,
+                'connection': 'ci-private-network',
+                'ip': instance_item.value.networks.default.ip + "/" + default_subnet_range.split('/')[1],
+                'gw': default_subnet_range.split('/')[0] | regex_replace('0$', '1'),
+                'dns': crc_ci_bootstrap_networking.networks.default.dns | default(omit),
+              }
+            }
+          }, recursive=true)
+      }}
+    cacheable: true
+
+- name: Create VLANs ports and trunk
+  when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+  block:
+    - name: Create the trunk port
+      ansible.builtin.command:
+        cmd: >-
+          openstack network trunk create
+          --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
+          zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
+          -f value -c id
+      register: crc_ci_bootstrap_instance_trunk_id_out
+
+    - name: Create VLANs ports and attach them to the trunk
+      ansible.builtin.include_tasks: bootstrap-ci-network-instance-add-vlan.yml
+      loop: "{{ crc_ci_bootstrap_instance_nm_vlan_networks }}"
+      loop_control:
+        label: "{{ instance_net_item.key }}"
+        loop_var: instance_net_item
+
+    - name: Prepare VLANs interface data to be used configuring
+      vars:
+        network_config: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key] }}"
+        parent_net_info: "{{ crc_ci_bootstrap_networks_out[instance_item.key]['default'] }}"
+        iface_mac: >-
+          {{
+            '52:54:00' |
+            community.general.random_mac(
+              seed=addr + (network_config.vlan | string)
+            ) | lower
+          }}
+        iface_name: "{{ parent_net_info.iface + '.' + (network_config.vlan | string) }}"
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_networks_out: >-
+          {{
+            crc_ci_bootstrap_networks_out |
+            combine(
+              {
+                instance_item.key: {
+                  instance_net_item.key: {
+                    'iface': iface_name,
+                    'vlan': network_config.vlan,
+                    'parent_iface': parent_net_info.iface,
+                    'connection': 'ci-private-network-' + (network_config.vlan | string),
+                    'mac': iface_mac,
+                    'ip': instance_item.value.networks.default.ip + "/" + default_subnet_range.split('/')[1],
+                    'dns': crc_ci_bootstrap_networking.networks[instance_net_item.key].dns | default(omit),
+                  }
+                }
+              }, recursive=true)
+
+          }}
+        cacheable: true
+      loop: "{{ crc_ci_bootstrap_instance_nm_vlan_networks }}"
+      loop_control:
+        label: "{{ instance_net_item.key }}"
+        loop_var: instance_net_item

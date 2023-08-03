@@ -22,6 +22,13 @@
         path: "{{ ansible_user_dir }}/.config/openstack/"
         state: directory
 
+    - name: Create ci dir in etc folder in the controller
+      become: true
+      ansible.builtin.file:
+        path: "/etc/ci/env"
+        state: directory
+        mode: '0755'
+
     - name: Set global resource names as facts
       ansible.builtin.set_fact:
         crc_ci_bootstrap_network_name: "zuul-ci-net-{{ zuul.build[:8] }}"
@@ -65,23 +72,23 @@
             cmd: openstack server show {{ instance_id }}
           loop: "{{ hostvars.keys() }}"
 
-        - name: Save MACs dict for further usage
+      always:
+        - name: Remove cloud_secrets file
+          ansible.builtin.file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent
+
+        - name: Save networking data to file for further usage
           vars:
             content:
-              crc_ci_bootstrap_private_net_macs: "{{ crc_ci_bootstrap_private_net_macs }}"
+              crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out }}"
           become: true
           ansible.builtin.copy:
-            dest: /etc/ci/env/private-net-macs.yml
+            dest: /etc/ci/env/networking-info.yml
             content: "{{ content | to_nice_yaml }}"
             owner: root
             group: root
             mode: '0644'
-
-      always:
-        - name: Remove cloud_secrets file
-          file:
-            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
-            state: absent
 
 - hosts: crc
   tasks:
