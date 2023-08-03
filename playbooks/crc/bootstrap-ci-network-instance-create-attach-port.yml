@@ -134,7 +134,7 @@
         ip_with_prefix: >-
           {{
             instance_net_item.value.ip + "/" +
-            (instance_net_item.range | ansible.utils.ipaddr('prefix') | string)
+            (network_config.range | ansible.utils.ipaddr('prefix') | string)
           }}
       ansible.builtin.set_fact:
         crc_ci_bootstrap_networks_out: >-
