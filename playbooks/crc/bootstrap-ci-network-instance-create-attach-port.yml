@@ -18,6 +18,7 @@
 - name: Set common facts for further usage
   ansible.builtin.set_fact:
     crc_ci_bootstrap_instance_parent_port_create_yaml: "{{ crc_ci_bootstrap_instance_parent_port_create_out.stdout | from_yaml }}"
+    crc_ci_bootstrap_instance_default_net_config: "{{ crc_ci_bootstrap_networking.networks.default }}"
     crc_ci_bootstrap_instance_nm_vlan_networks: >-
       {{
         instance_item.value.networks |
@@ -69,7 +70,20 @@
           crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower
         ) | first
       }}
-    default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range }}"
+    ip_with_prefix: >-
+      {{
+        instance_item.value.networks.default.ip + "/" +
+        (crc_ci_bootstrap_instance_default_net_config.range | ansible.utils.ipaddr('prefix'))
+      }}
+    ip_gateway: >-
+      {{
+        crc_ci_bootstrap_instance_default_net_config.gw |
+        default(
+          crc_ci_bootstrap_instance_default_net_config.range |
+          ansible.utils.ipaddr('net') |
+          ansible.utils.ipmath(1)
+        )
+      }}
   ansible.builtin.set_fact:
     crc_ci_bootstrap_instance_nm_trunk_iface_name: "{{ ip_link_json_out.ifname }}"
     crc_ci_bootstrap_networks_out: >-
@@ -83,9 +97,9 @@
                 'iface': ip_link_json_out.ifname,
                 'mac': crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower,
                 'connection': 'ci-private-network',
-                'ip': instance_item.value.networks.default.ip + "/" + default_subnet_range.split('/')[1],
-                'gw': default_subnet_range.split('/')[0] | regex_replace('0$', '1'),
-                'dns': crc_ci_bootstrap_networking.networks.default.dns | default(omit),
+                'ip': ip_with_prefix,
+                'gw': ip_gateway,
+                'dns': crc_ci_bootstrap_instance_default_net_config.dns | default(omit),
               }
             }
           }, recursive=true)
@@ -117,6 +131,11 @@
             ) | lower
           }}
         iface_name: "{{ parent_net_info.iface + '.' + (network_config.vlan | string) }}"
+        ip_with_prefix: >-
+          {{
+            instance_net_item.value.ip + "/" +
+            (instance_net_item.range | ansible.utils.ipaddr('prefix'))
+          }}
       ansible.builtin.set_fact:
         crc_ci_bootstrap_networks_out: >-
           {{
@@ -130,8 +149,8 @@
                     'parent_iface': parent_net_info.iface,
                     'connection': 'ci-private-network-' + (network_config.vlan | string),
                     'mac': iface_mac,
-                    'ip': instance_item.value.networks.default.ip + "/" + default_subnet_range.split('/')[1],
-                    'dns': crc_ci_bootstrap_networking.networks[instance_net_item.key].dns | default(omit),
+                    'ip': ip_with_prefix,
+                    'dns': network_config.dns | default(omit),
                   }
                 }
               }, recursive=true)
