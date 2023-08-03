@@ -110,7 +110,10 @@
           {{
             '52:54:00' |
             community.general.random_mac(
-              seed=addr + (network_config.vlan | string)
+              seed=(
+                  (crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower) +
+                  (network_config.vlan | string)
+                )
             ) | lower
           }}
         iface_name: "{{ parent_net_info.iface + '.' + (network_config.vlan | string) }}"
