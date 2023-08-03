@@ -2,41 +2,25 @@
 - name: Create instance ports and attach if necessary
   ansible.builtin.include_tasks: bootstrap-ci-network-instance-create-attch-port.yml
 
-- name: Apply changes in the target instance
+- name: Apply Network Manager changes in the target instance
   delegate_to: "{{ instance_item.key }}"
   block:
-    - name: Wait till the interface exists
-      ansible.builtin.command:
-        cmd: "nmcli -g GENERAL.HWADDR device show"
-      register: crc_ci_bootstrap_instance_wait_device_up_out
-      until: >-
-        (crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower) in (
-          crc_ci_bootstrap_instance_wait_device_up_out.stdout_lines |
-          reject('equalto', '') |
-          map('lower') |
-          map('regex_replace', '\\\\', '')
-        )
-      retries: 30
-      delay: 2
-
-    # For now we support only configuring NM for the default network. VLANs are, for now,
-    # configured inside child jobs
-    - name: Create NetworkManager configuration file
-      become: true
+    - name: Create NetworkManager configuration file for the trunk port
       vars:
-        instance_default_net_ip: "{{ instance_item.value.networks.default.ip }}"
-        instance_default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range | default('192.168.0.0/24') }}"
-        iface_ip: "{{ instance_default_net_ip }}"
-        iface_netmask: "{{ instance_default_subnet_range.split('/')[1] }}"
-        iface_gw: "{{ instance_default_subnet_range.split('/')[0] | regex_replace('0$', '1') }}"
-        iface_dns: "{{ instance_item.value.networks.default.dns | default('') }}"
-        iface_mac: "{{ crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address }}"
+        iface_info: "{{ item.value }}"
       ansible.builtin.template:
-        src: bootstrap-ci-network-nm-connection.nmconnection.j2
-        dest: /etc/NetworkManager/system-connections/private.nmconnection
+        src: >-
+          {{
+            'bootstrap-ci-network-vlan-nm-connection.nmconnection.j2'
+            if (iface_vlan_id != '' else 'bootstrap-ci-network-nm-connection.nmconnection')
+          }}
+        dest: "/etc/NetworkManager/system-connections/{{ item.value.connection }}.nmconnection"
         mode: '0600'
         owner: root
         group: root
+      loop: "{{ crc_ci_bootstrap_networks_out[instance_item.key] | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
 
     - name: Refresh NetworkManager
       become: true

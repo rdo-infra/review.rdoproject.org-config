@@ -16,7 +16,7 @@
     cmd: >-
       openstack subnet create
       --network {{ (crc_ci_bootstrap_private_net_create_out.stdout | from_yaml).id }}
-      --subnet-range {{ default_network_config.range | default('192.168.0.0/24') }}
+      --subnet-range {{ default_network_config.range }}
       --no-dhcp
       {{ crc_ci_bootstrap_subnet_name }}
       -f yaml
@@ -29,7 +29,7 @@
     cacheable: true
 
 - name: Create router and gateway
-  when: default_network_config.router | default(true) |bool
+  when: default_network_config.router | default(true) | bool
   block:
     - name: Create router
       ansible.builtin.command:
