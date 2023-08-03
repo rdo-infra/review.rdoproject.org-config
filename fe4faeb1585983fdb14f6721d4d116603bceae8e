@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cc1795f_3495a799",
+        "filename": "playbooks/crc/bootstrap-ci-network-instance-create-attch-port.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-08-03T07:13:17Z",
+      "side": 1,
+      "message": "that\u0027s the kind of place where using \u003e- and multi-line things makes it more readable. I almost commented on unclosed parenthesis, while it was actually closed ^^\u0027.",
+      "revId": "fe4faeb1585983fdb14f6721d4d116603bceae8e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9c324f2_bf2901d2",
         "filename": "playbooks/crc/bootstrap-ci-network-instance.yml",
         "patchSetId": 1
@@ -48,6 +65,30 @@
       "writtenOn": "2023-08-03T07:00:22Z",
       "side": 1,
       "message": "missing \".j2\"\n\nI suggest to do that in 2 tasks with \"when\".",
+      "range": {
+        "startLine": 15,
+        "startChar": 88,
+        "endLine": 15,
+        "endChar": 89
+      },
+      "revId": "fe4faeb1585983fdb14f6721d4d116603bceae8e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab5fc32_969b7440",
+        "filename": "playbooks/crc/bootstrap-ci-network-instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2023-08-03T07:13:17Z",
+      "side": 1,
+      "message": "splitting in 2 tasks may indeed be more readable, but it also consumes more time. Especially in a loop - code duplication and all... I\u0027d rather avoid splitting things.",
+      "parentUuid": "c9c324f2_bf2901d2",
       "range": {
         "startLine": 15,
         "startChar": 88,
