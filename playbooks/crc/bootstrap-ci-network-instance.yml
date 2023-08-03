@@ -12,7 +12,7 @@
         src: >-
           {{
             'bootstrap-ci-network-vlan-nm-connection.nmconnection.j2'
-            if (iface_vlan_id != '' else 'bootstrap-ci-network-nm-connection.nmconnection.j2')
+            if ('vlan' in iface_info) else 'bootstrap-ci-network-nm-connection.nmconnection.j2'
           }}
         dest: "/etc/NetworkManager/system-connections/{{ item.value.connection }}.nmconnection"
         mode: '0600'
