@@ -15,10 +15,26 @@
       -f yaml
   register: crc_ci_bootstrap_instance_parent_port_create_out
 
-- name: Set parent port data as a fact for further usage
+- name: Set common facts for further usage
   ansible.builtin.set_fact:
     crc_ci_bootstrap_instance_parent_port_create_yaml: "{{ crc_ci_bootstrap_instance_parent_port_create_out.stdout | from_yaml }}"
+    crc_ci_bootstrap_instance_nm_vlan_networks: >-
+      {{
+        instance_item.value.networks |
+        dict2items |
+        rejectattr('key', 'equalto', 'default')
+      }}
     cacheable: true
+
+- name: Create the trunk port
+  when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+  ansible.builtin.command:
+    cmd: >-
+      openstack network trunk create
+      --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
+      zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
+      -f value -c id
+  register: crc_ci_bootstrap_instance_trunk_id_out
 
 - name: Attach the port to the instance
   ansible.builtin.command:
@@ -56,12 +72,6 @@
     default_subnet_range: "{{ crc_ci_bootstrap_networking.networks.default.range }}"
   ansible.builtin.set_fact:
     crc_ci_bootstrap_instance_nm_trunk_iface_name: "{{ ip_link_json_out.ifname }}"
-    crc_ci_bootstrap_instance_nm_vlan_networks: >-
-      {{
-        instance_item.value.networks |
-        dict2items |
-        rejectattr('key', 'equalto', 'default')
-      }}
     crc_ci_bootstrap_networks_out: >-
       {{
         crc_ci_bootstrap_networks_out |
@@ -85,15 +95,6 @@
 - name: Create VLANs ports and trunk
   when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
   block:
-    - name: Create the trunk port
-      ansible.builtin.command:
-        cmd: >-
-          openstack network trunk create
-          --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
-          zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
-          -f value -c id
-      register: crc_ci_bootstrap_instance_trunk_id_out
-
     - name: Create VLANs ports and attach them to the trunk
       ansible.builtin.include_tasks: bootstrap-ci-network-instance-add-vlan.yml
       loop: "{{ crc_ci_bootstrap_instance_nm_vlan_networks }}"
