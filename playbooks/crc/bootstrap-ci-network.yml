@@ -81,7 +81,7 @@
         - name: Save networking data to file for further usage
           vars:
             content:
-              crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out }}"
+              crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out | default({}) }}"
           become: true
           ansible.builtin.copy:
             dest: /etc/ci/env/networking-info.yml
