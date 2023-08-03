@@ -10,6 +10,7 @@
     cmd: >-
       openstack port create
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
+      --no-fixed-ip
       {{ instance_item.key }}-{{ instance_id }}-{{ vlan_tag }}
       -f value -c id
   register: crc_ci_bootstrap_instance_vlan_port_id_out
