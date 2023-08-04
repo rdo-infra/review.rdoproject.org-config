@@ -138,6 +138,7 @@
             instance_net_item.value.ip + "/" +
             (network_config.range | ansible.utils.ipaddr('prefix') | string)
           }}
+        iface_connection_name: "{{ 'ci-private-network-' + (network_config.vlan | string) }}"
       ansible.builtin.set_fact:
         crc_ci_bootstrap_networks_out: >-
           {{
@@ -149,7 +150,12 @@
                     'iface': iface_name,
                     'vlan': network_config.vlan,
                     'parent_iface': parent_net_info.iface,
-                    'connection': 'ci-private-network-' + (network_config.vlan | string),
+                    'connection':
+                      (
+                        iface_connection_name
+                        if (instance_net_item.value.config_nm | default(true) | bool)
+                        else omit
+                      ),
                     'mac': iface_mac,
                     'mtu': iface_mtu,
                     'ip': ip_with_prefix,

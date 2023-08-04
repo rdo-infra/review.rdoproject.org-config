@@ -9,13 +9,14 @@
       vars:
         iface_info: "{{ item.value }}"
       become: true
+      when: "iface_info.connection is defined and iface_info.connection != ''"
       ansible.builtin.template:
         src: >-
           {{
             'bootstrap-ci-network-vlan-nm-connection.nmconnection.j2'
             if ('vlan' in iface_info) else 'bootstrap-ci-network-nm-connection.nmconnection.j2'
           }}
-        dest: "/etc/NetworkManager/system-connections/{{ item.value.connection }}.nmconnection"
+        dest: "/etc/NetworkManager/system-connections/{{ iface_info.connection }}.nmconnection"
         mode: '0600'
         owner: root
         group: root
