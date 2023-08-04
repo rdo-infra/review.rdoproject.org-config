@@ -6,6 +6,7 @@ autoconnect=true
 
 [ethernet]
 cloned-mac-address={{ iface_info.mac | trim | lower }}
+mtu={{ iface_info.mtu }}
 
 [vlan]
 flags=1

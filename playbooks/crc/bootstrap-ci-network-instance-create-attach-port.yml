@@ -85,7 +85,6 @@
         )
       }}
   ansible.builtin.set_fact:
-    crc_ci_bootstrap_instance_nm_trunk_iface_name: "{{ ip_link_json_out.ifname }}"
     crc_ci_bootstrap_networks_out: >-
       {{
         crc_ci_bootstrap_networks_out |
@@ -96,6 +95,7 @@
               'default': {
                 'iface': ip_link_json_out.ifname,
                 'mac': crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower,
+                'mtu': crc_ci_bootstrap_instance_default_net_config.mtu | default(ip_link_json_out.mtu),
                 'connection': 'ci-private-network',
                 'ip': ip_with_prefix,
                 'gw': ip_gateway,
@@ -131,6 +131,8 @@
             ) | lower
           }}
         iface_name: "{{ parent_net_info.iface + '.' + (network_config.vlan | string) }}"
+        # VLAN iface MTU is the parent MTU minus the 802.1Q header size
+        iface_mtu: "{{ parent_net_info.mtu - 4 }}"
         ip_with_prefix: >-
           {{
             instance_net_item.value.ip + "/" +
@@ -149,6 +151,7 @@
                     'parent_iface': parent_net_info.iface,
                     'connection': 'ci-private-network-' + (network_config.vlan | string),
                     'mac': iface_mac,
+                    'mtu': iface_mtu,
                     'ip': ip_with_prefix,
                     'dns': network_config.dns | default(omit),
                   }

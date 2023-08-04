@@ -6,6 +6,7 @@ autoconnect=true
 
 [ethernet]
 mac-address={{ iface_info.mac | trim | lower }}
+mtu={{ iface_info.mtu }}
 
 [ipv4]
 method=manual
