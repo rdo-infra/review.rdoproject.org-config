@@ -1,0 +1,7 @@
+---
+- name: Report DLRN results after job run
+  hosts: primary
+  tasks:
+    - name: Report job status to DLRN
+      ansible.builtin.include_role:
+        name: dlrn_report
