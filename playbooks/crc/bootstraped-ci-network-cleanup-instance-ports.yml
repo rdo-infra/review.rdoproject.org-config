@@ -27,14 +27,17 @@
     - name: Delete the ports and trunk if available
       when: "'trunk_id' in crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details | default({})"
       block:
-        - name: Delete the trunk itself
-          ansible.builtin.command:
-            cmd: "openstack network trunk delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
-          register: crc_ci_bootstrap_cleanup_trunk_delete_out
+        - name: Delete port association with trunk network
+          ansible.builtin.shell: >
+            for trunk_port in $(openstack network trunk show
+            "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
+            -c sub_ports -f value | grep -o "'port_id': '[^']*'" | awk -F"'" '{print $4}');
+            do openstack network trunk unset "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}" --subport "$trunk_port"
+          register: crc_ci_bootstrap_unassign_trunk_port
           failed_when: >-
-            crc_ci_bootstrap_cleanup_trunk_delete_out.rc != 0 and
-            (not "object has no attribute 'id'" in crc_ci_bootstrap_cleanup_trunk_delete_out.stderr | lower)
-          changed_when: crc_ci_bootstrap_cleanup_trunk_delete_out.rc == 0
+            crc_ci_bootstrap_unassign_trunk_port.rc != 0 and
+            (not "object has no attribute 'id'" in crc_ci_bootstrap_unassign_trunk_port.stderr | lower)
+          changed_when: crc_ci_bootstrap_unassign_trunk_port.rc == 0
 
         - name: Delete trunk sub ports (tagged ones)
           register: crc_ci_bootstrap_cleanup_child_port_delete_out
@@ -45,6 +48,15 @@
             (not 'no port found' in crc_ci_bootstrap_cleanup_child_port_delete_out.stderr | lower)
           changed_when: crc_ci_bootstrap_cleanup_child_port_delete_out.rc == 0
           loop: "{{ crc_ci_bootstrap_cleanup_port_info_yaml.sub_ports | default([]) }}"
+
+        - name: Delete the trunk network itself
+          ansible.builtin.command:
+            cmd: "openstack network trunk delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
+          register: crc_ci_bootstrap_cleanup_trunk_delete_out
+          failed_when: >-
+            crc_ci_bootstrap_cleanup_trunk_delete_out.rc != 0 and
+            (not "object has no attribute 'id'" in crc_ci_bootstrap_cleanup_trunk_delete_out.stderr | lower)
+          changed_when: crc_ci_bootstrap_cleanup_trunk_delete_out.rc == 0
 
 - name: Remove the parent/trunk port itself
   when: crc_ci_bootstrap_cleanup_port_info_out.rc == 0
