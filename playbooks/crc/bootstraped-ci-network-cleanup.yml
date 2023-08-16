@@ -29,7 +29,8 @@
           ansible.builtin.include_tasks: bootstraped-ci-network-cleanup-instance-ports.yml
           loop: "{{ hostvars.keys() }}"
           loop_control:
-            label: "{{ item }}"
+            label: "{{ hostvar_item_key }}"
+            loop_var: hostvar_item_key
 
         - name: Manage router and gateway id needed
           when:
