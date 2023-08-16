@@ -1,7 +1,7 @@
 ---
 - name: Fetch port info
   vars:
-    port_name: "{{ item.key }}-{{ instance_id }}"
+    port_name: "{{ item }}-{{ instance_id }}"
   ansible.builtin.command:
     cmd: "openstack port show {{ port_name }} -f yaml"
   register: crc_ci_bootstrap_cleanup_port_info_out
