@@ -25,7 +25,7 @@
 
         - name: Delete ports from each host
           vars:
-            instance_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+            instance_id: "{{ hostvars[hostvar_item_key]['nodepool']['external_id'] }}"
           ansible.builtin.include_tasks: bootstraped-ci-network-cleanup-instance-ports.yml
           loop: "{{ hostvars.keys() }}"
           loop_control:
