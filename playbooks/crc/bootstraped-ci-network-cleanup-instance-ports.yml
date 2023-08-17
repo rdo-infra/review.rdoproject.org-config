@@ -25,19 +25,23 @@
       ignore_errors: true
 
     - name: Delete the ports and trunk if available
-      when: "'trunk_id' in crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details | default({})"
+      when: "'trunk_id' in (crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details | default({}))"
       block:
         - name: Delete port association with trunk network
-          ansible.builtin.shell: >
-            for trunk_port in $(openstack network trunk show
-            "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
-            -c sub_ports -f value | grep -o "'port_id': '[^']*'" | awk -F"'" '{print $4}');
-            do openstack network trunk unset "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}" --subport "$trunk_port"
-          register: crc_ci_bootstrap_unassign_trunk_port
+          register: crc_ci_bootstrap_cleanup_child_port_unset_out
+          ansible.builtin.command:
+            cmd: >-
+              openstack network trunk unset
+              {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}
+              --subport {{ subport_item.port_id }}
           failed_when: >-
-            crc_ci_bootstrap_unassign_trunk_port.rc != 0 and
-            (not "object has no attribute 'id'" in crc_ci_bootstrap_unassign_trunk_port.stderr | lower)
-          changed_when: crc_ci_bootstrap_unassign_trunk_port.rc == 0
+            crc_ci_bootstrap_cleanup_child_port_unset_out.rc != 0 and
+            (not "'NoneType' object is not subscriptable" in crc_ci_bootstrap_cleanup_child_port_unset_out.stderr | lower)
+          changed_when: crc_ci_bootstrap_cleanup_child_port_unset_out.rc == 0
+          loop: "{{ crc_ci_bootstrap_cleanup_port_info_yaml.sub_ports | default([]) }}"
+          loop_control:
+            label: "{{ subport_item }}"
+            loop_var: subport_item
 
         - name: Delete trunk sub ports (tagged ones)
           register: crc_ci_bootstrap_cleanup_child_port_delete_out
