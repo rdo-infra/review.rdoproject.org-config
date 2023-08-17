@@ -56,7 +56,7 @@
       - playbooks/crc/bootstrap-ci-network.yml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
-    cleanup-run:
+    post-run:
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml
     required-projects:

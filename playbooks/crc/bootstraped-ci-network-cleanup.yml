@@ -1,6 +1,6 @@
 ---
 - name: "Run playbooks/crc/bootstraped-ci-network-cleanup.yml"
-  hosts: localhost
+  hosts: controller
   vars:
     cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
