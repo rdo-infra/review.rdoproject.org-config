@@ -13,9 +13,9 @@
 
     # NOTE: Consider install openstackclient in virtualenv
     - name: Install required packages
-      become: true
       ansible.builtin.pip:
         name: python-openstackclient
+        extra_args: --user
 
     - name: Create openstack config dir
       ansible.builtin.file:
@@ -24,6 +24,7 @@
 
     - name: Create ci dir in etc folder in the controller
       become: true
+      delegate_to: controller
       ansible.builtin.file:
         path: "/etc/ci/env"
         state: directory
@@ -77,6 +78,7 @@
             content:
               crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out | default({}) }}"
           become: true
+          delegate_to: controller
           ansible.builtin.copy:
             dest: /etc/ci/env/networking-info.yml
             content: "{{ content | to_nice_yaml }}"
