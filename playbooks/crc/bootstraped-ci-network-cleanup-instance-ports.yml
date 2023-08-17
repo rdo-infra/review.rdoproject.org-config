@@ -3,7 +3,7 @@
   vars:
     port_name: "{{ hostvar_item_key }}-{{ instance_id }}"
   ansible.builtin.command:
-    cmd: "openstack port show {{ port_name }} -f yaml"
+    cmd: "{{ openstack_bin }} port show {{ port_name }} -f yaml"
   register: crc_ci_bootstrap_cleanup_port_info_out
   failed_when: >-
     crc_ci_bootstrap_cleanup_port_info_out.rc != 0 and
@@ -21,7 +21,7 @@
   block:
     - name: Detach port
       ansible.builtin.command:
-        cmd: "openstack server remove port {{ instance_id }} {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
+        cmd: "{{ openstack_bin }} server remove port {{ instance_id }} {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
       ignore_errors: true
 
     - name: Delete the ports and trunk if available
@@ -29,10 +29,10 @@
       block:
         - name: Delete port association with trunk network
           ansible.builtin.shell: >
-            for trunk_port in $(openstack network trunk show
+            for trunk_port in $({{ openstack_bin }} network trunk show
             "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
             -c sub_ports -f value | grep -o "'port_id': '[^']*'" | awk -F"'" '{print $4}');
-            do openstack network trunk unset "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}" --subport "$trunk_port"
+            do {{ openstack_bin }} network trunk unset "{{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}" --subport "$trunk_port"
           register: crc_ci_bootstrap_unassign_trunk_port
           failed_when: >-
             crc_ci_bootstrap_unassign_trunk_port.rc != 0 and
@@ -42,7 +42,7 @@
         - name: Delete trunk sub ports (tagged ones)
           register: crc_ci_bootstrap_cleanup_child_port_delete_out
           ansible.builtin.command:
-            cmd: "openstack port delete {{ subport_item.port_id }}"
+            cmd: "{{ openstack_bin }} port delete {{ subport_item.port_id }}"
           failed_when: >-
             crc_ci_bootstrap_cleanup_child_port_delete_out.rc != 0 and
             (not 'no port found' in crc_ci_bootstrap_cleanup_child_port_delete_out.stderr | lower)
@@ -54,7 +54,7 @@
 
         - name: Delete the trunk network itself
           ansible.builtin.command:
-            cmd: "openstack network trunk delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
+            cmd: "{{ openstack_bin }} network trunk delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
           register: crc_ci_bootstrap_cleanup_trunk_delete_out
           failed_when: >-
             crc_ci_bootstrap_cleanup_trunk_delete_out.rc != 0 and
@@ -64,7 +64,7 @@
 - name: Remove the parent/trunk port itself
   when: crc_ci_bootstrap_cleanup_port_info_out.rc == 0
   ansible.builtin.command:
-    cmd: "openstack port delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
+    cmd: "{{ openstack_bin }} port delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.id }}"
   register: crc_ci_bootstrap_cleanup_parent_port_delete_out
   failed_when: >-
     crc_ci_bootstrap_cleanup_parent_port_delete_out.rc != 0 and

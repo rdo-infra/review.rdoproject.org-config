@@ -8,7 +8,7 @@
     default_net_fixed_ip: "{{ instance_item.value.networks.default.ip }}"
   ansible.builtin.command:
     cmd: >-
-      openstack port create
+      {{ openstack_bin }} port create
       --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
       --fixed-ip subnet={{ crc_ci_bootstrap_private_subnet_create_yaml.id }},ip-address={{ default_net_fixed_ip }}
       {{ instance_item.key }}-{{ instance_id }}
@@ -31,7 +31,7 @@
   when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
   ansible.builtin.command:
     cmd: >-
-      openstack network trunk create
+      {{ openstack_bin }} network trunk create
       --parent-port {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
       zuul-ci-trunk-{{ instance_item.key }}-{{ instance_id }}
       -f yaml
@@ -40,7 +40,7 @@
 - name: Attach the port to the instance
   ansible.builtin.command:
     cmd: >-
-      openstack server add port
+      {{ openstack_bin }} server add port
       {{ instance_id }}
       {{ crc_ci_bootstrap_instance_parent_port_create_yaml.id }}
 
