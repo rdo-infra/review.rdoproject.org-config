@@ -25,20 +25,30 @@
       ignore_errors: true
 
     - name: Delete the ports and trunk if available
-      when: "'trunk_id' in (crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details | default({}))"
+      vars:
+        trunk_details: >-
+          {{
+            {}  if
+                (
+                  ('trunk_details' not in crc_ci_bootstrap_cleanup_port_info_yaml) or
+                  (crc_ci_bootstrap_cleanup_port_info_yaml['trunk_details']==None)
+                )
+                else  crc_ci_bootstrap_cleanup_port_info_yaml['trunk_details']
+          }}
+      when: "trunk_details | length > 0"
       block:
         - name: Delete port association with trunk network
           register: crc_ci_bootstrap_cleanup_child_port_unset_out
           ansible.builtin.command:
             cmd: >-
               openstack network trunk unset
-              {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}
+              {{ trunk_details.trunk_id }}
               --subport {{ subport_item.port_id }}
           failed_when: >-
             crc_ci_bootstrap_cleanup_child_port_unset_out.rc != 0 and
             (not "'NoneType' object is not subscriptable" in crc_ci_bootstrap_cleanup_child_port_unset_out.stderr | lower)
           changed_when: crc_ci_bootstrap_cleanup_child_port_unset_out.rc == 0
-          loop: "{{ crc_ci_bootstrap_cleanup_port_info_yaml.sub_ports | default([]) }}"
+          loop: "{{ trunk_details.sub_ports | default([]) }}"
           loop_control:
             label: "{{ subport_item }}"
             loop_var: subport_item
@@ -51,14 +61,14 @@
             crc_ci_bootstrap_cleanup_child_port_delete_out.rc != 0 and
             (not 'no port found' in crc_ci_bootstrap_cleanup_child_port_delete_out.stderr | lower)
           changed_when: crc_ci_bootstrap_cleanup_child_port_delete_out.rc == 0
-          loop: "{{ crc_ci_bootstrap_cleanup_port_info_yaml.sub_ports | default([]) }}"
+          loop: "{{ trunk_details.sub_ports | default([]) }}"
           loop_control:
             label: "{{ subport_item }}"
             loop_var: subport_item
 
         - name: Delete the trunk network itself
           ansible.builtin.command:
-            cmd: "openstack network trunk delete {{ crc_ci_bootstrap_cleanup_port_info_yaml.trunk_details['trunk_id'] }}"
+            cmd: "openstack network trunk delete {{ trunk_details.trunk_id }}"
           register: crc_ci_bootstrap_cleanup_trunk_delete_out
           failed_when: >-
             crc_ci_bootstrap_cleanup_trunk_delete_out.rc != 0 and
