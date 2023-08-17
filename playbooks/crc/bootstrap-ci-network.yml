@@ -3,6 +3,7 @@
   vars:
     cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    openstack_bin: ~/.local/bin/openstack
   tasks:
     - name: Debug parameters
       ansible.builtin.debug:
@@ -13,9 +14,9 @@
 
     # NOTE: Consider install openstackclient in virtualenv
     - name: Install required packages
-      become: true
       ansible.builtin.pip:
         name: python-openstackclient
+        extra_args: --user
 
     - name: Create openstack config dir
       ansible.builtin.file:
@@ -24,6 +25,7 @@
 
     - name: Create ci dir in etc folder in the controller
       become: true
+      delegate_to: controller
       ansible.builtin.file:
         path: "/etc/ci/env"
         state: directory
@@ -63,13 +65,13 @@
 
         - name: Display some data about network ports
           ansible.builtin.shell:
-            cmd: "openstack port list --network {{ crc_ci_bootstrap_network_name }}"
+            cmd: "{{ openstack_bin }} port list --network {{ crc_ci_bootstrap_network_name }}"
 
         - name: Display server configuration
           vars:
             instance_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
-            cmd: openstack server show {{ instance_id }}
+            cmd: {{ openstack_bin }} server show {{ instance_id }}
           loop: "{{ hostvars.keys() }}"
 
         - name: Save networking data to file for further usage
@@ -77,6 +79,7 @@
             content:
               crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out | default({}) }}"
           become: true
+          delegate_to: controller
           ansible.builtin.copy:
             dest: /etc/ci/env/networking-info.yml
             content: "{{ content | to_nice_yaml }}"
