@@ -7,7 +7,14 @@
   register: crc_ci_bootstrap_cleanup_port_info_out
   failed_when: >-
     crc_ci_bootstrap_cleanup_port_info_out.rc != 0 and
-    (not 'no port found' in crc_ci_bootstrap_cleanup_port_info_out.stderr | lower)
+    (
+      not 'no port found' in
+        (
+          crc_ci_bootstrap_cleanup_port_info_out.stderr |
+          default(crc_ci_bootstrap_cleanup_port_info_out.stdout, true) |
+          lower
+        )
+    )
   changed_when: crc_ci_bootstrap_cleanup_port_info_out.rc == 0
 
 - name: Set port info yaml for further usage
@@ -46,7 +53,14 @@
               --subport {{ subport_item.port_id }}
           failed_when: >-
             crc_ci_bootstrap_cleanup_child_port_unset_out.rc != 0 and
-            (not "'NoneType' object is not subscriptable" in crc_ci_bootstrap_cleanup_child_port_unset_out.stderr | lower)
+            (
+              not "'nonetype' object is not subscriptable" in
+                (
+                  crc_ci_bootstrap_cleanup_child_port_unset_out.stderr |
+                  default(crc_ci_bootstrap_cleanup_child_port_unset_out.stdout, true) |
+                  | lower
+                )
+            )
           changed_when: crc_ci_bootstrap_cleanup_child_port_unset_out.rc == 0
           loop: "{{ trunk_details.sub_ports | default([]) }}"
           loop_control:
@@ -59,7 +73,14 @@
             cmd: "openstack port delete {{ subport_item.port_id }}"
           failed_when: >-
             crc_ci_bootstrap_cleanup_child_port_delete_out.rc != 0 and
-            (not 'no port found' in crc_ci_bootstrap_cleanup_child_port_delete_out.stderr | lower)
+            (
+              not 'no port found' in
+                (
+                  crc_ci_bootstrap_cleanup_child_port_delete_out.stderr |
+                  default(crc_ci_bootstrap_cleanup_child_port_delete_out.stdout, true) |
+                  lower
+                )
+            )
           changed_when: crc_ci_bootstrap_cleanup_child_port_delete_out.rc == 0
           loop: "{{ trunk_details.sub_ports | default([]) }}"
           loop_control:
@@ -72,7 +93,14 @@
           register: crc_ci_bootstrap_cleanup_trunk_delete_out
           failed_when: >-
             crc_ci_bootstrap_cleanup_trunk_delete_out.rc != 0 and
-            (not "object has no attribute 'id'" in crc_ci_bootstrap_cleanup_trunk_delete_out.stderr | lower)
+            (
+              not "object has no attribute 'id'" in
+                (
+                  crc_ci_bootstrap_cleanup_trunk_delete_out.stderr |
+                  default(crc_ci_bootstrap_cleanup_trunk_delete_out.stdout, true) |
+                  lower
+                )
+            )
           changed_when: crc_ci_bootstrap_cleanup_trunk_delete_out.rc == 0
 
 - name: Remove the parent/trunk port itself
@@ -82,5 +110,12 @@
   register: crc_ci_bootstrap_cleanup_parent_port_delete_out
   failed_when: >-
     crc_ci_bootstrap_cleanup_parent_port_delete_out.rc != 0 and
-    (not 'no port found' in crc_ci_bootstrap_cleanup_parent_port_delete_out.stderr | lower)
+    (
+      not 'no port found' in
+        (
+          crc_ci_bootstrap_cleanup_parent_port_delete_out.stderr |
+          default(crc_ci_bootstrap_cleanup_parent_port_delete_out.stdout, true) |
+          lower
+        )
+    )
   changed_when: crc_ci_bootstrap_cleanup_parent_port_delete_out.rc == 0
