@@ -58,7 +58,7 @@
                 (
                   crc_ci_bootstrap_cleanup_child_port_unset_out.stderr |
                   default(crc_ci_bootstrap_cleanup_child_port_unset_out.stdout, true) |
-                  | lower
+                  lower
                 )
             )
           changed_when: crc_ci_bootstrap_cleanup_child_port_unset_out.rc == 0
