@@ -29,8 +29,10 @@
       timer:
         - time: '0 6 * * *'
     success:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
+      opensearch_rdoproject_org:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
