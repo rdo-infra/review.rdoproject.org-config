@@ -16,9 +16,6 @@
         openshift_pull_secret: "{{ crc_secret.openshift_pull_secret }}"
       no_log: true
 
-    - name: Apply workarounds
-      include_tasks: workarounds.yaml
-
     - name: Setup Microshift
       block:
         - name: Start Microshift deployment
@@ -65,11 +62,6 @@
 
             - name: Download required images before subscription is removed
               shell: /tmp/pull-images.sh
-
-        - name: Setup Dnsmasq
-          include_tasks: dnsmasq.yaml
-          when: setup_dnsmasq | default(true)
-
       always:
         - name: Remove sensitive data
           include_role:
