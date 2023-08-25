@@ -30,16 +30,29 @@
         name: NetworkManager
         state: restarted
 
-    - name: Get the default iface connection
-      when: instance_item.key is regex('^compute.*')
-      register: crc_ci_bootstrap_host_default_connection
+    - name: Debug fetch IP routes
+      register: crc_ci_bootstrap_host_routes_out
       ansible.builtin.command:
-        cmd: "nmcli -g general.connection device show eth0"
+        cmd: "ip route"
 
-    - name: Disable the defaul route of the public facing iface in computes
-      become: true
-      when: instance_item.key is regex('^compute.*')
-      ansible.builtin.shell:
-        cmd: >-
-          nmcli connection modify '{{ crc_ci_bootstrap_host_default_connection.stdout }}' ipv4.never-default yes &&
-          nmcli connection up '{{ crc_ci_bootstrap_host_default_connection.stdout }}'
+    - name: Debug IP routes
+      register: crc_ci_bootstrap_host_routes_out
+      ansible.builtin.debug:
+        var: crc_ci_bootstrap_host_routes_out
+
+    - name:  Disable the defaul route of the public facing iface in computes
+      when:
+        - instance_item.key is regex('^compute.*')
+        - instance_item.value.disable_default_gw | default(true) | bool
+      block:
+        - name: Get the default iface connection
+        register: crc_ci_bootstrap_host_default_connection
+        ansible.builtin.command:
+          cmd: "nmcli -g general.connection device show eth0"
+
+        - name: Disable the defaul route of the public facing iface in computes
+          become: true
+          ansible.builtin.shell:
+            cmd: >-
+              nmcli connection modify '{{ crc_ci_bootstrap_host_default_connection.stdout }}' ipv4.never-default yes &&
+              nmcli connection up '{{ crc_ci_bootstrap_host_default_connection.stdout }}'
