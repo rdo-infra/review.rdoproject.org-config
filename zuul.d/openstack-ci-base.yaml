@@ -25,15 +25,22 @@
       - playbooks/ci-framework-rdo-base/pre.yaml
         # Playbooks for podman
       - playbooks/crc/podman.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - name: github.com/openstack-k8s-operators/tcib
         override-checkout: main
       - name: github.com/openstack-k8s-operators/repo-setup
         override-checkout: main
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
       - opendev.org/zuul/zuul-jobs
     roles:
       - zuul: github.com/openstack-k8s-operators/tcib
+      - zuul: github.com/openstack-k8s-operators/ci-framework
     attempts: 1
+    vars:
+      cifmw_dlrn_report_result: false
     secrets:
       - name: quay_login_secret_name_master
         secret: quay_rdoproject_podified_master_centos_9_secret
@@ -41,20 +48,6 @@
         secret: quay_rdoproject_podified_zed_centos_9_secret
       - name: quay_login_secret_name_antelope
         secret: quay_rdoproject_podified_antelope_centos_9_secret
-
-- job:
-    name: container-tcib-build-base-dlrn
-    parent: container-tcib-build-base
-    description: |
-      A base containers build job that reports to DLRN
-    post-run:
-      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
-    required-projects:
-      - name: github.com/openstack-k8s-operators/ci-framework
-        override-checkout: main
-    roles:
-      - zuul: github.com/openstack-k8s-operators/ci-framework
-    secrets:
       - dlrnapi
 
 - job:
@@ -67,11 +60,19 @@
       - playbooks/ci-framework-rdo-base/pre.yaml
         # Playbooks for podman
       - playbooks/crc/podman.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - name: github.com/openstack-k8s-operators/repo-setup
         override-checkout: main
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
       - opendev.org/zuul/zuul-jobs
     attempts: 1
+    vars:
+      cifmw_dlrn_report_result: false
     secrets:
       - name: quay_login_secret_name_master
         secret: quay_rdoproject_podified_master_centos_9_secret
@@ -79,6 +80,7 @@
         secret: quay_rdoproject_podified_zed_centos_9_secret
       - name: quay_login_secret_name_antelope
         secret: quay_rdoproject_podified_antelope_centos_9_secret
+      - dlrnapi
 
 - job:
     name: copy-container-quay-base
@@ -87,21 +89,6 @@
       A base job with login to copy containers to quay registries
     pre-run: playbooks/ci-framework-rdo-base/pre.yaml
     run: playbooks/ci-framework-rdo-base/copy-containers/main.yaml
-    required-projects:
-      - name: github.com/openstack-k8s-operators/ci-framework
-        override-checkout: main
-    roles:
-      - zuul: github.com/openstack-k8s-operators/ci-framework
-    vars:
-      work_dir: /home/zuul/workspace
-    secrets:
-      - quayio_rdoci
-
-- job:
-    name: copy-container-quay-base-dlrn
-    parent: copy-container-quay-base
-    description: |
-      A base containers copy job that reports to DLRN
     post-run:
       - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
@@ -109,7 +96,11 @@
         override-checkout: main
     roles:
       - zuul: github.com/openstack-k8s-operators/ci-framework
+    vars:
+      work_dir: /home/zuul/workspace
+      cifmw_dlrn_report_result: false
     secrets:
+      - quayio_rdoci
       - dlrnapi
 
 - job:
@@ -122,32 +113,3 @@
     required-projects:
       - opendev.org/zuul/zuul-jobs
     attempts: 3
-
-- job:
-    name: periodic-podified-edpm-deployment-master-ocp-crc-1cs9-dlrn
-    parent: periodic-podified-edpm-deployment-master-ocp-crc-1cs9
-    description: |
-      A edpm job that reports to DLRN
-    post-run:
-      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
-    required-projects:
-      - name: openstack-k8s-operators/install_yamls
-        override-checkout: main
-      - name: openstack-k8s-operators/openstack-operator
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/ci-framework
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/repo-setup
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/dataplane-operator
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/infra-operator
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/openstack-baremetal-operator
-        override-checkout: main
-      - name: github.com/openstack-k8s-operators/edpm-ansible
-        override-checkout: main
-    roles:
-      - zuul: github.com/openstack-k8s-operators/ci-framework
-    secrets:
-      - dlrnapi
