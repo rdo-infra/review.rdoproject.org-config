@@ -33,15 +33,24 @@
         # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/crc/simple-start.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - config
       - opendev.org/zuul/zuul-jobs
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
     attempts: 1
+    vars:
+      cifmw_dlrn_report_result: false
     secrets:
       - name: crc_secret
         secret: crc_secret
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
+      - dlrnapi
 
 - job:
     name: base-extracted-crc
@@ -59,12 +68,20 @@
     post-run:
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - opendev.org/zuul/zuul-jobs
       - config
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
     attempts: 3
+    vars:
+      cifmw_dlrn_report_result: false
     secrets:
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
       - name: cloud_secrets
         secret: cloud_secrets
+      - dlrnapi
