@@ -23,6 +23,7 @@
       loop: "{{ crc_ci_bootstrap_networks_out[instance_item.key] | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
+        pause: 0.1
 
     - name: Refresh NetworkManager
       become: true

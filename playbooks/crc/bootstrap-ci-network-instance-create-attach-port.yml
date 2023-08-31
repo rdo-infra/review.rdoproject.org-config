@@ -115,6 +115,7 @@
       loop_control:
         label: "{{ instance_net_item.key }}"
         loop_var: instance_net_item
+        pause: 0.1
 
     - name: Prepare VLANs interface data to be used configuring
       vars:
@@ -170,3 +171,4 @@
       loop_control:
         label: "{{ instance_net_item.key }}"
         loop_var: instance_net_item
+        pause: 0.1
