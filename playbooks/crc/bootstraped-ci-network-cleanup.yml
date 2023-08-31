@@ -32,6 +32,7 @@
           loop_control:
             label: "{{ hostvar_item_key }}"
             loop_var: hostvar_item_key
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Manage router and gateway id needed
           when:
