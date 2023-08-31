@@ -7,6 +7,7 @@
     private_network_name: "{{ crc_ci_bootstrap_network_name | default('zuul-ci-net-' + zuul.build[:8]) }}"
     subnet_network_name: "{{ crc_ci_bootstrap_subnet_name | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
     router_name: "{{ crc_ci_bootstrap_router_name | default('zuul-ci-subnet-router-' + zuul.build[:8]) }}"
+    crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
   tasks:
     - name: Create openstack config dir
       file:
@@ -32,6 +33,7 @@
           loop_control:
             label: "{{ hostvar_item_key }}"
             loop_var: hostvar_item_key
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Manage router and gateway id needed
           when:

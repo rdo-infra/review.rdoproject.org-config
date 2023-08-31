@@ -66,6 +66,7 @@
           loop_control:
             label: "{{ subport_item }}"
             loop_var: subport_item
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Delete trunk sub ports (tagged ones)
           register: crc_ci_bootstrap_cleanup_child_port_delete_out
@@ -86,6 +87,7 @@
           loop_control:
             label: "{{ subport_item }}"
             loop_var: subport_item
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Delete the trunk network itself
           ansible.builtin.command:

@@ -3,6 +3,7 @@
   vars:
     cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
   tasks:
     - name: Debug parameters
       ansible.builtin.debug:
@@ -60,6 +61,7 @@
           loop_control:
             label: "{{ instance_item.key }}"
             loop_var: instance_item
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Display some data about network ports
           ansible.builtin.shell:
@@ -71,6 +73,9 @@
           ansible.builtin.command:
             cmd: openstack server show {{ instance_id }}
           loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Save networking data to file for further usage
           vars:

@@ -115,6 +115,7 @@
       loop_control:
         label: "{{ instance_net_item.key }}"
         loop_var: instance_net_item
+        pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
     - name: Prepare VLANs interface data to be used configuring
       vars:
