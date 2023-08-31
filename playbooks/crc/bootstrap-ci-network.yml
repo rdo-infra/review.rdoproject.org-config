@@ -60,6 +60,7 @@
           loop_control:
             label: "{{ instance_item.key }}"
             loop_var: instance_item
+            pause: 0.1
 
         - name: Display some data about network ports
           ansible.builtin.shell:
@@ -71,6 +72,9 @@
           ansible.builtin.command:
             cmd: openstack server show {{ instance_id }}
           loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+            pause: 0.1
 
         - name: Save networking data to file for further usage
           vars:

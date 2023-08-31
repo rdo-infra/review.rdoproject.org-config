@@ -32,6 +32,7 @@
           loop_control:
             label: "{{ hostvar_item_key }}"
             loop_var: hostvar_item_key
+            pause: 0.1
 
         - name: Manage router and gateway id needed
           when:

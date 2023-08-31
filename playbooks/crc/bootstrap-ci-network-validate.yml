@@ -33,6 +33,7 @@
   loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+    pause: 0.1
 
 - name: Assert that every host references an valid/declared network
   vars:
@@ -44,6 +45,7 @@
   loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+    pause: 0.1
 
 - name: Assert that all instances has in range fixed IP for each net
   vars:
@@ -63,6 +65,7 @@
   loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+    pause: 0.1
 
 - name: Assert that all non-default nets has the vlan tag
   vars:
