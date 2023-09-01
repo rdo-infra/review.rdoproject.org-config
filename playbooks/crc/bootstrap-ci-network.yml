@@ -27,10 +27,12 @@
 
     - name: Create ci dir in etc folder in the controller
       become: true
+      delegate_to: "{{ item }}"
       ansible.builtin.file:
         path: "/etc/ci/env"
         state: directory
         mode: '0755'
+      loop: "{{ hostvars.keys() }}"
 
     - name: Set global resource names as facts
       ansible.builtin.set_fact:
@@ -87,17 +89,23 @@
           retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
           until: crc_ci_bootstrap_server_show_out.rc == 0
 
+        - name: Fetch underneath provider DNSs
+          ansible.builtin.include_tasks: bootstrap-ci-network-fetch-provider-dns.yml
+
         - name: Save networking data to file for further usage
           vars:
             content:
               crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out | default({}) }}"
+              crc_ci_bootstrap_provider_dns: "{{ crc_ci_bootstrap_networks_out | default([]) }}"
           become: true
+          delegate_to: "{{ item }}"
           ansible.builtin.copy:
             dest: /etc/ci/env/networking-info.yml
             content: "{{ content | to_nice_yaml }}"
             owner: root
             group: root
             mode: '0644'
+          loop: "{{ hostvars.keys() }}"
 
       always:
         - name: Remove cloud_secrets file
