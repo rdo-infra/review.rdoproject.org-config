@@ -4,6 +4,8 @@
     cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
     crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
+    crc_ci_bootstrap_openstack_cmd_retries_value: "{{ crc_ci_bootstrap_openstack_cmd_retries | default(10) }}"
+    crc_ci_bootstrap_openstack_cmd_delay_value: "{{ crc_ci_bootstrap_openstack_cmd_delay | default(5) }}"
   tasks:
     - name: Debug parameters
       ansible.builtin.debug:
@@ -64,8 +66,12 @@
             pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Display some data about network ports
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "openstack port list --network {{ crc_ci_bootstrap_network_name }}"
+          register: crc_ci_bootstrap_global_port_list_out
+          delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+          retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+          until: crc_ci_bootstrap_global_port_list_out.rc == 0
 
         - name: Display server configuration
           vars:
@@ -76,6 +82,10 @@
           loop_control:
             label: "{{ item }}"
             pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
+          register: crc_ci_bootstrap_server_show_out
+          delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+          retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+          until: crc_ci_bootstrap_server_show_out.rc == 0
 
         - name: Save networking data to file for further usage
           vars:

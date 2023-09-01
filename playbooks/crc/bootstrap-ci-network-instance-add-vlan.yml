@@ -14,6 +14,9 @@
       {{ instance_item.key }}-{{ instance_id }}-{{ vlan_tag }}
       -f yaml
   register: crc_ci_bootstrap_instance_vlan_port_creation_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_instance_vlan_port_creation_out.rc == 0
 
 - name: Add the VLAN port to the trunk
   vars:
@@ -25,3 +28,7 @@
       openstack network trunk set
       --subport port={{ port_id }},segmentation-type=vlan,segmentation-id={{ vlan_id }}
       {{ parent_port_id }}
+  register: crc_ci_bootstrap_instance_vlan_port_set_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_instance_vlan_port_set_out.rc == 0

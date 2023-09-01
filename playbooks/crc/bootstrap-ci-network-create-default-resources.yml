@@ -10,6 +10,9 @@
       {{ crc_ci_bootstrap_network_name }}
       -f yaml
   register: crc_ci_bootstrap_private_net_create_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_private_net_create_out.rc == 0
 
 - name: Create subnet - ipv4
   ansible.builtin.command:
@@ -21,6 +24,9 @@
       {{ crc_ci_bootstrap_subnet_name }}
       -f yaml
   register: crc_ci_bootstrap_private_subnet_create_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_private_subnet_create_out.rc == 0
 
 - name: Set yaml returned data for further usage
   ansible.builtin.set_fact:
@@ -39,6 +45,9 @@
           {{ crc_ci_bootstrap_router_name }}
           -f yaml
       register: crc_ci_bootstrap_private_router_create_out
+      delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+      retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+      until: crc_ci_bootstrap_private_router_create_out.rc == 0
 
     - name: Set router yaml returned data for further usage
       ansible.builtin.set_fact:
@@ -51,3 +60,7 @@
           openstack router add subnet
           {{ crc_ci_bootstrap_private_router_create_yaml.id }}
           {{ crc_ci_bootstrap_private_subnet_create_yaml.id }}
+      register: crc_ci_bootstrap_router_add_to_subnet_out
+      delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+      retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+      until: crc_ci_bootstrap_router_add_to_subnet_out.rc == 0
