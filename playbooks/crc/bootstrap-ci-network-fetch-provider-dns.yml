@@ -1,0 +1,17 @@
+---
+- name: Fetch the DNS list of the default interface
+  ansible.builtin.command:
+    cmd: "nmcli -g IP4.DNS device show {{ ansible_default_ipv4.interface  }}"
+  register: crc_ci_bootstrap_nmcli_dns_show_out
+
+- name: Set provider DNS for further usage
+  vars:
+    dns_list: >-
+      {{
+        crc_ci_bootstrap_nmcli_dns_show_out.stdout |
+        split('|') |
+        map('trim')
+      }}
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_provider_dns: "{{ dns_list }}"
+    cacheable: true
