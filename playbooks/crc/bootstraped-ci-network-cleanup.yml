@@ -8,6 +8,8 @@
     subnet_network_name: "{{ crc_ci_bootstrap_subnet_name | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
     router_name: "{{ crc_ci_bootstrap_router_name | default('zuul-ci-subnet-router-' + zuul.build[:8]) }}"
     crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
+    crc_ci_bootstrap_openstack_cmd_retries_value: "{{ crc_ci_bootstrap_openstack_cmd_retries | default(10) }}"
+    crc_ci_bootstrap_openstack_cmd_delay_value: "{{ crc_ci_bootstrap_openstack_cmd_delay | default(5) }}"
   tasks:
     - name: Create openstack config dir
       file:
