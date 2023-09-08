@@ -1232,10 +1232,11 @@
         # only affect those repos. they are not config
         # repos and cannot shadow other jobs, projects
         # or nodesets.
+        - openstack-k8s-operators/ci-framework:
+          include: [job, project, nodeset, project-template]
         - include: [job, project, nodeset]
           projects:
           - openstack-k8s-operators/tcib
-          - openstack-k8s-operators/ci-framework
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
           - openstack-k8s-operators/install_yamls
