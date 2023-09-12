@@ -75,17 +75,9 @@
       - ovb-experimental
     openstack-check:
       jobs:
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001:
-            branches: stable/2.0
-            vars:
-              bmc_template_name: bmc-template
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039:
-            branches: stable/2.0
-            vars:
-              bmc_template_name: bmc-template
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001-ovb-master:
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp-featureset001-ovb-wallaby:
             branches: master
-        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039-ovb-master:
+        - tripleo-ci-centos-9-ovb-3ctlr_1comp_1supp-featureset039-ovb-wallaby:
             branches: master
 
 - project:
