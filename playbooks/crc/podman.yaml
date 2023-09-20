@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: all,!compute
   tasks:
     - name: Enable container-tools rhel-modules for c8/crc node
       shell:
