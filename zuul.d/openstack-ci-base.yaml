@@ -113,3 +113,12 @@
     required-projects:
       - opendev.org/zuul/zuul-jobs
     attempts: 3
+
+- job:
+    name: base-ci-framework-dlrn-promote
+    parent: base-ci-framework
+    description: |
+      A base job that promotes the current-podified hash
+    run: playbooks/ci-framework-rdo-base/dlrn/dlrn-promote.yaml
+    secrets:
+      - dlrnapi

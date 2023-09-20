@@ -1,0 +1,7 @@
+---
+- name: Promote current-podified hash
+  hosts: all
+  tasks:
+    - name: Promote current-podified hash based on criteria file
+      ansible.builtin.include_role:
+        name: dlrn_promote
