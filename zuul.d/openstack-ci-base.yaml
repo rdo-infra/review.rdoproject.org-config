@@ -120,5 +120,10 @@
     description: |
       A base job that promotes the current-podified hash
     run: playbooks/ci-framework-rdo-base/dlrn/dlrn-promote.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
     secrets:
       - dlrnapi
