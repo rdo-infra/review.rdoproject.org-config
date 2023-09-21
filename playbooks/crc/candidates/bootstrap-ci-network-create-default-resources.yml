@@ -1,0 +1,66 @@
+---
+- name: Create the default network
+  ansible.builtin.command:
+    cmd: >-
+      openstack network create
+      {% if 'mtu' in default_network_config -%}
+      --mtu {{ default_network_config['mtu'] }}
+      {% endif -%}
+      --disable-port-security
+      {{ crc_ci_bootstrap_network_name }}
+      -f yaml
+  register: crc_ci_bootstrap_private_net_create_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_private_net_create_out.rc == 0
+
+- name: Create subnet - ipv4
+  ansible.builtin.command:
+    cmd: >-
+      openstack subnet create
+      --network {{ (crc_ci_bootstrap_private_net_create_out.stdout | from_yaml).id }}
+      --subnet-range {{ default_network_config.range }}
+      --no-dhcp
+      {{ crc_ci_bootstrap_subnet_name }}
+      -f yaml
+  register: crc_ci_bootstrap_private_subnet_create_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_private_subnet_create_out.rc == 0
+
+- name: Set yaml returned data for further usage
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_private_subnet_create_yaml: "{{ crc_ci_bootstrap_private_subnet_create_out.stdout | from_yaml }}"
+    crc_ci_bootstrap_private_net_create_yaml: "{{ crc_ci_bootstrap_private_net_create_out.stdout | from_yaml }}"
+    cacheable: true
+
+- name: Create router and gateway
+  when: default_network_config.router | default(true) | bool
+  block:
+    - name: Create router
+      ansible.builtin.command:
+        cmd: >-
+          openstack router create
+          --external-gateway {{ default_network_config.router_net | default('public') }}
+          {{ crc_ci_bootstrap_router_name }}
+          -f yaml
+      register: crc_ci_bootstrap_private_router_create_out
+      delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+      retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+      until: crc_ci_bootstrap_private_router_create_out.rc == 0
+
+    - name: Set router yaml returned data for further usage
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_private_router_create_yaml: "{{ crc_ci_bootstrap_private_router_create_out.stdout | from_yaml }}"
+        cacheable: true
+
+    - name: Add router to subnet
+      ansible.builtin.command:
+        cmd: >-
+          openstack router add subnet
+          {{ crc_ci_bootstrap_private_router_create_yaml.id }}
+          {{ crc_ci_bootstrap_private_subnet_create_yaml.id }}
+      register: crc_ci_bootstrap_router_add_to_subnet_out
+      delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+      retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+      until: crc_ci_bootstrap_router_add_to_subnet_out.rc == 0

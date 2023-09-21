@@ -1,0 +1,41 @@
+---
+- name: Create instance ports and attach if necessary
+  ansible.builtin.include_tasks: bootstrap-ci-network-instance-create-attach-port.yml
+
+- name: Apply Network Manager changes in the target instance
+  delegate_to: "{{ instance_item.key }}"
+  block:
+    - name: Create NetworkManager configuration file for the trunk port
+      vars:
+        iface_info: "{{ item.value }}"
+      become: true
+      when: "iface_info.connection is defined and iface_info.connection != ''"
+      ansible.builtin.template:
+        src: >-
+          {{
+            'bootstrap-ci-network-vlan-nm-connection.nmconnection.j2'
+            if ('vlan' in iface_info) else 'bootstrap-ci-network-nm-connection.nmconnection.j2'
+          }}
+        dest: "/etc/NetworkManager/system-connections/{{ iface_info.connection }}.nmconnection"
+        mode: '0600'
+        owner: root
+        group: root
+      loop: "{{ crc_ci_bootstrap_networks_out[instance_item.key] | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Refresh NetworkManager
+      become: true
+      ansible.builtin.systemd:
+        name: NetworkManager
+        state: restarted
+
+    - name: Debug fetch IP routes
+      register: crc_ci_bootstrap_host_routes_out
+      ansible.builtin.command:
+        cmd: "ip route"
+
+    - name: Debug IP routes
+      register: crc_ci_bootstrap_host_routes_out
+      ansible.builtin.debug:
+        var: crc_ci_bootstrap_host_routes_out

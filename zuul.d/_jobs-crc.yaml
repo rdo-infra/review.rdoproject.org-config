@@ -85,3 +85,38 @@
       - name: cloud_secrets
         secret: cloud_secrets
       - dlrnapi
+
+- job:
+    name: base-extracted-crc-candidate
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts CRC environment from the extracted CRC image
+    pre-run:
+      # Playbook to add tripleo-ci team ssh keys to the node
+      - playbooks/tripleo-rdo-base/pre.yaml
+      # Playbook that creates the environment network in the target cloud
+      - playbooks/crc/candidates/bootstrap-ci-network.yml
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    post-run:
+      # Deletes generated network resources
+      - playbooks/crc/candidates/bootstraped-ci-network-cleanup.yml
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
+    required-projects:
+      - opendev.org/zuul/zuul-jobs
+      - config
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
+    attempts: 3
+    vars:
+      cifmw_dlrn_report_result: false
+      crc_ci_bootstrap_cloud_name: vexxhost
+    secrets:
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
+      - name: cloud_secrets
+        secret: cloud_secrets
+      - dlrnapi

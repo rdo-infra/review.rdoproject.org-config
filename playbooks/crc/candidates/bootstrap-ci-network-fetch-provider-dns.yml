@@ -1,0 +1,15 @@
+---
+- name: Fetch the DNS list of the default interface
+  ansible.builtin.slurp:
+    src: /etc/resolv.conf
+  register: crc_ci_bootstrap_resolv_conf_slurp
+
+- name: Set provider DNS for further usage
+  ansible.builtin.set_fact:
+    crc_ci_bootstrap_provider_dns: >-
+      {{
+        crc_ci_bootstrap_resolv_conf_slurp['content'] |
+        b64decode |
+        regex_findall('nameserver\s(.*)')
+      }}
+    cacheable: true

@@ -1,0 +1,125 @@
+---
+- hosts: controller
+  vars:
+    bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
+    crc_ci_bootstrap_openstack_cmd_retries_value: "{{ crc_ci_bootstrap_openstack_cmd_retries | default(10) }}"
+    crc_ci_bootstrap_openstack_cmd_delay_value: "{{ crc_ci_bootstrap_openstack_cmd_delay | default(5) }}"
+  tasks:
+    - name: Debug parameters
+      ansible.builtin.debug:
+        var: crc_ci_bootstrap_networking
+
+    - name: Validate the input data
+      ansible.builtin.import_tasks: bootstrap-ci-network-validate.yml
+
+    # NOTE: Consider install openstackclient in virtualenv
+    - name: Install required packages
+      become: true
+      ansible.builtin.pip:
+        name: python-openstackclient
+
+    - name: Create openstack config dir
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/openstack/"
+        state: directory
+
+    - name: Create ci dir in etc folder in the controller
+      become: true
+      delegate_to: "{{ item }}"
+      ansible.builtin.file:
+        path: "/etc/ci/env"
+        state: directory
+        mode: '0755'
+      loop: "{{ hostvars.keys() }}"
+
+    - name: Set global resource names as facts
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_network_name: "zuul-ci-net-{{ zuul.build[:8] }}"
+        crc_ci_bootstrap_subnet_name: "zuul-ci-subnet-{{ zuul.build[:8] }}"
+        crc_ci_bootstrap_router_name: "zuul-ci-subnet-router-{{ zuul.build[:8] }}"
+        cacheable: true
+
+    - name: Create the crc based CI environment
+      vars:
+      environment:
+        OS_CLOUD: "{{ crc_ci_bootstrap_cloud_name }}"
+      block:
+        - name: Generate clouds config from cloud_secrets secret
+          ansible.builtin.template:
+            src: crc.clouds.candidate.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        - name: Create the default network, subnet and router (if necessary)
+          vars:
+            default_network_config: "{{ crc_ci_bootstrap_networking.networks.default }}"
+          ansible.builtin.import_tasks: bootstrap-ci-network-create-default-resources.yml
+
+        - name: Create ports, VLANs and configure them on the instance
+          vars:
+            instance_id: "{{ hostvars[instance_item.key]['nodepool']['external_id'] }}"
+          ansible.builtin.include_tasks: bootstrap-ci-network-instance.yml
+          loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
+          loop_control:
+            label: "{{ instance_item.key }}"
+            loop_var: instance_item
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
+
+        - name: Display some data about network ports
+          ansible.builtin.command:
+            cmd: "openstack port list --network {{ crc_ci_bootstrap_network_name }}"
+          register: crc_ci_bootstrap_global_port_list_out
+          delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+          retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+          until: crc_ci_bootstrap_global_port_list_out.rc == 0
+
+        - name: Display server configuration
+          vars:
+            instance_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
+          ansible.builtin.command:
+            cmd: openstack server show {{ instance_id }}
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ item }}"
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
+          register: crc_ci_bootstrap_server_show_out
+          delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+          retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+          until: crc_ci_bootstrap_server_show_out.rc == 0
+
+        - name: Fetch underneath provider DNSs
+          ansible.builtin.include_tasks: bootstrap-ci-network-fetch-provider-dns.yml
+
+        - name: Save networking data to file for further usage
+          vars:
+            content:
+              crc_ci_bootstrap_networks_out: "{{ crc_ci_bootstrap_networks_out | default({}) }}"
+              crc_ci_bootstrap_provider_dns: "{{ crc_ci_bootstrap_provider_dns | default([]) }}"
+          become: true
+          delegate_to: "{{ item }}"
+          ansible.builtin.copy:
+            dest: /etc/ci/env/networking-info.yml
+            content: "{{ content | to_nice_yaml }}"
+            owner: root
+            group: root
+            mode: '0644'
+          loop: "{{ hostvars.keys() }}"
+
+      always:
+        - name: Remove cloud_secrets file
+          ansible.builtin.file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent
+
+- hosts: crc
+  tasks:
+    - name: Reconfigure kubelet service
+      ansible.builtin.include_tasks: reconfigure_kubelet.yaml
+
+    - name: Reboot host after kubelet is reconfigured
+      become: true
+      ansible.builtin.reboot:
+
+    - include_role:
+        name: start-zuul-console
