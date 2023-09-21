@@ -2,7 +2,6 @@
 - name: "Run playbooks/crc/bootstraped-ci-network-cleanup.yml"
   hosts: controller
   vars:
-    cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
     private_network_name: "{{ crc_ci_bootstrap_network_name | default('zuul-ci-net-' + zuul.build[:8]) }}"
     subnet_network_name: "{{ crc_ci_bootstrap_subnet_name | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
@@ -23,7 +22,7 @@
 
     - name: Cleanup the CI CRC environment network
       environment:
-        OS_CLOUD: "{{ cloud_name }}"
+        OS_CLOUD: "{{ crc_ci_bootstrap_cloud_name }}"
       when: >-
         not (
           (crc_ci_bootstrap_skip_cleanup | default(false) | bool) or

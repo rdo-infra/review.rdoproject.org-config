@@ -43,6 +43,26 @@
   retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
   until: crc_ci_bootstrap_instance_trunk_creation_out.rc == 0
 
+- name: Modify NetworkManager config in the target instance
+  delegate_to: "{{ instance_item.key }}"
+  become: true
+  when: crc_ci_bootstrap_disable_default_nm_connection | default(false) | bool
+  block:
+    - name: Avoid NetworkManager to automatically picked up the new interface
+      ansible.builtin.ini_file:
+          path: /etc/NetworkManager/NetworkManager.conf
+          state: present
+          no_extra_spaces: true
+          section: main
+          option: no-auto-default
+          value: "{{ crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower }}"
+          backup: true
+
+    - name: Refresh NetworkManager
+      ansible.builtin.systemd:
+        name: NetworkManager
+        state: reloaded
+
 - name: Attach the port to the instance
   ansible.builtin.command:
     cmd: >-
@@ -53,7 +73,6 @@
   delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
   retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
   until: crc_ci_bootstrap_instance_server_add_port_out.rc == 0
-
 
 - name: Wait till the interface exists
   delegate_to: "{{ instance_item.key }}"
