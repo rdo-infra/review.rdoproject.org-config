@@ -11,56 +11,6 @@
     default-branch: rpm-master
 
 - project:
-    name: ceph/ceph-ansible
-    queue: ceph
-    templates:
-      - system-required
-    github-manual:
-      jobs:
-        - tripleo-centos-8-ceph-integration-victoria
-        - tripleo-centos-8-ceph-ansible-integration-victoria
-        - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-centos-8-ceph-ansible-integration-ussuri
-        - tripleo-centos-8-ceph-integration-train
-        - tripleo-centos-8-ceph-ansible-integration-train
-        - tripleo-ceph-integration-centos-8-scenario001-standalone-victoria:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-victoria
-        - tripleo-ceph-integration-centos-8-scenario004-standalone-victoria:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-victoria
-        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-victoria:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-victoria
-        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-victoria:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-victoria
-        - tripleo-ceph-integration-centos-8-scenario001-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-ceph-integration-centos-8-scenario004-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-ussuri
-        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-ussuri
-        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-ussuri:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-ussuri
-        - tripleo-ceph-integration-centos-8-scenario001-standalone-train:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-train
-        - tripleo-ceph-integration-centos-8-scenario004-standalone-train:
-            dependencies:
-              - tripleo-centos-8-ceph-integration-train
-        - tripleo-ceph-ansible-integration-centos-8-scenario001-standalone-train:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-train
-        - tripleo-ceph-ansible-integration-centos-8-scenario004-standalone-train:
-            dependencies:
-              - tripleo-centos-8-ceph-ansible-integration-train
-
-- project:
     name: config
     templates:
       - system-required
@@ -210,10 +160,6 @@
       - system-required
     periodic:
       jobs:
-        - octavia-build-amphora-centos7:
-            branches: ^(stable/(queens|rocky|stein|train))$
-        - octavia-build-amphora-centos8:
-            branches: ^(stable/(ussuri|victoria))$
         - octavia-build-amphora-centos9:
             branches: ^(master|stable/(wallaby|xena|yoga|zed))$
 
@@ -1485,31 +1431,10 @@
       - system-required
     check:
       jobs:
-        - rpmlint:
-            dependencies:
-              - DLRN-rpmbuild-centos8-pinned
-            branches: ^rpm-master$
-        - DLRN-build-tripleo:
-            dependencies:
-              - DLRN-rpmbuild-pinned
-            voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8-pinned:
-            branches: ^(rpm-master)|(train-rdo)$
-        - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
-        - DLRN-rpmbuild-pinned:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8-pinned:
-            branches: ^(rpm-master)|(train-rdo)$
-        - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -3294,14 +3219,10 @@
       - system-required
     check:
       jobs:
-        - distgit-cbs-validate:
-            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-validate-centos8
         - distgit-cbs-validate-centos8-stream
     gate:
       jobs:
-        - distgit-cbs-final-build:
-            branches: ^(queens|rocky|stein|train)-rdo$
         - distgit-cbs-final-build-centos8
 
 - project:
@@ -4648,38 +4569,6 @@
       - system-required
 
 - project:
-    name: review.rdoproject.org/openstack/tripleo-heat-templates-compat-distgit
-    default-branch: rpm-master
-    templates:
-      - system-required
-    check:
-      jobs:
-        - rpmlint:
-            dependencies:
-              - DLRN-rpmbuild-centos8
-            branches: ^rpm-master$
-        - DLRN-build-tripleo:
-            dependencies:
-              - DLRN-rpmbuild
-            voting: false
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-build-tripleo-centos8:
-            dependencies:
-              - DLRN-rpmbuild-centos8
-            voting: false
-            branches: ^(rpm-master)$
-        - DLRN-rpmbuild:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8:
-            branches: ^train-rdo$
-    gate:
-      jobs:
-        - DLRN-rpmbuild:
-            branches: ^(queens-rdo)|(rocky-rdo)|(stein-rdo)|(train-rdo)$
-        - DLRN-rpmbuild-centos8:
-            branches: ^train-rdo$
-
-- project:
     name: review.rdoproject.org/openstack/tripleo-heat-templates-distgit
     default-branch: rpm-master
     templates:
@@ -5941,10 +5830,6 @@
             files:
               - ^docs/.*$
               - ^.*\.rst$
-        - weirdo-integration-train-packstack-scenario001:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario003-centos8:
             irrelevant-files:
               - ^README.rst$
@@ -5971,19 +5856,11 @@
               - ^README.rst$
     experimental:
       jobs:
-        - weirdo-integration-train-packstack-scenario003:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos8:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
         - weirdo-integration-master-packstack-scenario001-centos9:
-            irrelevant-files:
-              - ^.*$
-              - ^README.rst$
-        - weirdo-integration-train-puppet-scenario003:
             irrelevant-files:
               - ^.*$
               - ^README.rst$
@@ -6292,23 +6169,12 @@
       - weirdo-xena-promotion-pipeline-centos-stream-8
       - weirdo-wallaby-promotion-pipeline
       - weirdo-wallaby-promotion-pipeline-centos-stream-8
-      - weirdo-victoria-promotion-pipeline-centos-stream-8
-      - weirdo-train-promotion-pipeline-centos-stream-8
     check:
       jobs:
         - tox-linters
         - tox-py36
-        - rdoinfo-DLRN-check:
-            files:
-              - ^tags/queens.yml$
-              - ^tags/rocky.yml$
-              - ^tags/stein.yml$
-              - ^tags/train.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/train.yml$
-              - ^tags/ussuri.yml$
-              - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
               - ^tags/yoga.yml$
@@ -6357,24 +6223,6 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/bobcat-uc.yml$
-        - rdoinfo-tripleo-train-testing-centos-8-scenario001-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
-        - rdoinfo-tripleo-train-testing-centos-8-containers-multinode:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
-        - rdoinfo-tripleo-train-testing-centos-8-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
         - rdoinfo-tripleo-wallaby-release-centos-8-scenario001-standalone:
             dependencies:
               - validate-buildsys-tags
@@ -6384,29 +6232,13 @@
         - validate-buildsys-tags
     experimental:
       jobs:
-        # Keeps ovn jobs as experimental
-        - rdoinfo-tripleo-train-testing-centos-8-scenario007-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-train-testing.yml$
         - validate-buildsys-tags
 
     gate:
       jobs:
         - tox-py36
-        - rdoinfo-DLRN-check:
-            files:
-              - ^tags/queens.yml$
-              - ^tags/rocky.yml$
-              - ^tags/stein.yml$
-              - ^tags/train.yml$
         - rdoinfo-DLRN-check-centos8:
             files:
-              - ^tags/train.yml$
-              - ^tags/ussuri.yml$
-              - ^tags/victoria.yml$
               - ^tags/wallaby.yml$
               - ^tags/xena.yml$
               - ^tags/yoga.yml$
