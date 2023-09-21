@@ -1,4 +1,11 @@
 ---
+- name: Assert crc_ci_bootstrap_cloud_name is defined
+  ansible.builtin.assert:
+    that:
+      - crc_ci_bootstrap_cloud_name is defined
+    msg: "Cloud name is mandatory"
+    quiet: true
+
 - name: Assert crc_ci_bootstrap_networking is defined and contains the minimum fields
   ansible.builtin.assert:
     that:

@@ -1,0 +1,22 @@
+---
+- name: "Run test play"
+  hosts: controller
+  gather_facts: true
+  tasks:
+    - name: IP command
+      ansible.builtin.command:
+        cmd: ip addr
+      register: cmd_ip_out
+
+    - name: Debug IP
+      ansible.builtin.debug:
+        var: cmd_ip_out
+
+    - name: NMCLI command
+      ansible.builtin.command:
+        cmd: nmcli connection show
+      register: cmd_nmcli_out
+
+    - name: Debug nmcli
+      ansible.builtin.debug:
+        var: cmd_nmcli_out

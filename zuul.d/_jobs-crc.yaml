@@ -85,3 +85,65 @@
       - name: cloud_secrets
         secret: cloud_secrets
       - dlrnapi
+
+
+- job:
+    name: cifmw-podified-multinode-edpm-base-crc-test-base
+    parent: base-extracted-crc
+    timeout: 10800
+    attempts: 1
+    files:
+      - playbooks/
+    nodeset:
+      nodes:
+        - name: controller
+          label: cloud-centos-9-stream-tripleo-vexxhost
+        - name: compute
+          label: cloud-centos-9-stream-tripleo-vexxhost
+        - name: crc
+          label: coreos-crc-extracted-xxl
+    vars:
+      zuul_log_collection: true
+      crc_ci_bootstrap_cloud_name: vexxhost
+      crc_ci_bootstrap_networking:
+        networks:
+          default:
+            mtu: 1500
+            range: 192.168.122.0/24
+          internal-api:
+            vlan: 20
+            range: 172.17.0.0/24
+          storage:
+            vlan: 21
+            range: 172.18.0.0/24
+          tenant:
+            vlan: 22
+            range: 172.19.0.0/24
+        instances:
+          controller:
+            networks:
+              default:
+                ip: 192.168.122.11
+          crc:
+            networks:
+              default:
+                ip: 192.168.122.10
+              internal-api:
+                ip: 172.17.0.5
+              storage:
+                ip: 172.18.0.5
+              tenant:
+                ip: 172.19.0.5
+          compute:
+            networks:
+              default:
+                ip: 192.168.122.100
+              internal-api:
+                ip: 172.17.0.100
+                config_nm: false
+              storage:
+                ip: 172.18.0.100
+                config_nm: false
+              tenant:
+                ip: 172.19.0.100
+                config_nm: false
