@@ -1,16 +1,16 @@
 clouds:
-  ovb-test:
-    identity_api_version: {{ cloud_secrets.vexxhost.identity_api_version }}
-    region_name: {{ cloud_secrets.vexxhost.region_name }}
+  {{ crc_ci_bootstrap_cloud_name }}:
+    identity_api_version: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].identity_api_version }}
+    region_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].region_name }}
     auth:
-      username: {{ cloud_secrets.vexxhost.username }}
-      password: {{ cloud_secrets.vexxhost.password }}
-      project_name: {{ cloud_secrets.vexxhost.project_name }}
-      auth_url: {{ cloud_secrets.vexxhost.auth_url }}
-      user_domain_name: {{ cloud_secrets.vexxhost.user_domain_name }}
-      project_domain_name: {{ cloud_secrets.vexxhost.project_domain_name }}
+      username: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].username }}
+      password: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].password }}
+      project_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].project_name }}
+      auth_url: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].auth_url }}
+      user_domain_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].user_domain_name }}
+      project_domain_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].project_domain_name }}
     regions:
-      - name: {{ cloud_secrets.vexxhost.region_name }}
+      - name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].region_name }}
         values:
           networks:
             - name: public
