@@ -1,0 +1,34 @@
+---
+- name: Print the VLAN data
+  ansible.builtin.debug:
+    var: instance_net_item
+
+- name: Create the VLAN port
+  vars:
+    vlan_tag: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key].vlan }}"
+  ansible.builtin.command:
+    cmd: >-
+      openstack port create
+      --network {{ crc_ci_bootstrap_private_net_create_yaml.id }}
+      --no-fixed-ip
+      {{ instance_item.key }}-{{ instance_id }}-{{ vlan_tag }}
+      -f yaml
+  register: crc_ci_bootstrap_instance_vlan_port_creation_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_instance_vlan_port_creation_out.rc == 0
+
+- name: Add the VLAN port to the trunk
+  vars:
+    vlan_id: "{{ crc_ci_bootstrap_networking.networks[instance_net_item.key].vlan }}"
+    port_id: "{{ (crc_ci_bootstrap_instance_vlan_port_creation_out.stdout | from_yaml).id }}"
+    parent_port_id: "{{ (crc_ci_bootstrap_instance_trunk_creation_out.stdout | from_yaml).id }}"
+  ansible.builtin.command:
+    cmd: >-
+      openstack network trunk set
+      --subport port={{ port_id }},segmentation-type=vlan,segmentation-id={{ vlan_id }}
+      {{ parent_port_id }}
+  register: crc_ci_bootstrap_instance_vlan_port_set_out
+  delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
+  retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
+  until: crc_ci_bootstrap_instance_vlan_port_set_out.rc == 0

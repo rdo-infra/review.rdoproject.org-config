@@ -1,0 +1,95 @@
+---
+- name: Assert crc_ci_bootstrap_cloud_name is defined
+  ansible.builtin.assert:
+    that:
+      - crc_ci_bootstrap_cloud_name is defined
+    msg: "Cloud name is mandatory"
+    quiet: true
+
+- name: Assert crc_ci_bootstrap_networking is defined and contains the minimum fields
+  ansible.builtin.assert:
+    that:
+      - crc_ci_bootstrap_networking is defined
+      - "'networks' in crc_ci_bootstrap_networking"
+      - "'instances' in crc_ci_bootstrap_networking"
+    msg: "Network configuration with networks and instances is mandatory"
+    quiet: true
+
+- name: Assert that the default network exists and has no VLAN tag
+  ansible.builtin.assert:
+    that:
+      - "'default' in crc_ci_bootstrap_networking.networks"
+      - "'vlan' not in crc_ci_bootstrap_networking.networks['default']"
+    msg: "Default network should exist and cannot contain a VLAN tag"
+    quiet: true
+
+- name: Assert that all instances has a given fixed IP for each net and default net is present
+  ansible.builtin.assert:
+    that:
+      - "'networks' in crc_ci_bootstrap_networking.instances[item.key]"
+      - "'default' in crc_ci_bootstrap_networking.instances[item.key]['networks']"
+      - >-
+          (
+            item.value.networks.values() |
+            selectattr('ip', 'defined') |
+            map(attribute='ip') |
+            ansible.utils.ipaddr | length
+          ) == (item.value.networks | length)
+    msg: "Every net instance should has an IP for each net and should contain the default net"
+    quiet: true
+  loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Assert that every host references an valid/declared network
+  vars:
+    unknown_nets: "{{ item.value.networks.keys() | reject('in', crc_ci_bootstrap_networking.networks.keys()) }}"
+  ansible.builtin.assert:
+    that: unknown_nets | length == 0
+    msg: "Host {{ item.key }} contains unknown nets: {{ unknown_nets |join(', ') }}"
+    quiet: true
+  loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Assert that all instances has in range fixed IP for each net
+  vars:
+    invalid_range_instance_ips: >-
+      {%- set non_net_ips=[] -%}
+      {%- for net, net_data in item.value.networks.items() -%}
+      {%- set ipnet=crc_ci_bootstrap_networking.networks[net].range -%}
+      {%- if net_data and 'ip' in net_data and net_data['ip'] and not (ipnet | ansible.utils.network_in_usable(net_data['ip'])) -%}
+      {%- set _ = non_net_ips.append(net_data['ip']) -%}
+      {%- endif -%}
+      {%- endfor -%}
+      {{ non_net_ips  }}
+  ansible.builtin.assert:
+    that: invalid_range_instance_ips | length == 0
+    quiet: true
+    msg: "Instance {{ item.key }} IPs not in network range: {{ invalid_range_instance_ips | join(' ') }}"
+  loop: "{{ crc_ci_bootstrap_networking.instances | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Assert that all non-default nets has the vlan tag
+  vars:
+    no_vlan_tag_nets: >-
+      {{
+        crc_ci_bootstrap_networking.networks | dict2items |
+        rejectattr('key', 'equalto', 'default') |
+        rejectattr('value.vlan', 'integer') |
+        map(attribute='key')
+      }}
+    forbidden_vlan_id_nets: >-
+      {{
+        crc_ci_bootstrap_networking.networks | dict2items |
+        rejectattr('key', 'equalto', 'default') |
+        selectattr('value.vlan', 'integer') |
+        selectattr('value.vlan', 'le', 0) |
+        map(attribute='key')
+      }}
+    invalid_vlan_nets: "{{ no_vlan_tag_nets + forbidden_vlan_id_nets }}"
+  ansible.builtin.assert:
+    that: invalid_vlan_nets | length == 0
+    msg: "Networks with no VLAN or invalid positive integer value: {{ invalid_vlan_nets | join(',') }}"
+    quiet: true
