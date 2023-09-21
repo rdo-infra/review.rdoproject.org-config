@@ -1,7 +1,6 @@
 ---
 - hosts: controller
   vars:
-    cloud_name: ovb-test
     bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
     crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
     crc_ci_bootstrap_openstack_cmd_retries_value: "{{ crc_ci_bootstrap_openstack_cmd_retries | default(10) }}"
@@ -44,7 +43,7 @@
     - name: Create the crc based CI environment
       vars:
       environment:
-        OS_CLOUD: "{{ cloud_name }}"
+        OS_CLOUD: "{{ crc_ci_bootstrap_cloud_name }}"
       block:
         - name: Generate clouds config from cloud_secrets secret
           ansible.builtin.template:
