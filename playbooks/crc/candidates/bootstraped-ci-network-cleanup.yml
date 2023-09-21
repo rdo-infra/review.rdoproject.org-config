@@ -1,0 +1,96 @@
+---
+- name: "Run playbooks/crc/bootstraped-ci-network-cleanup.yml"
+  hosts: controller
+  vars:
+    cloud_name: "{{ crc_ci_bootstrap_networking.cloud_secret | default ('upshift') }}"
+    bootstrap_ci_cloud_yml_secret_path: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    private_network_name: "{{ crc_ci_bootstrap_network_name | default('zuul-ci-net-' + zuul.build[:8]) }}"
+    subnet_network_name: "{{ crc_ci_bootstrap_subnet_name | default('zuul-ci-subnet-' + zuul.build[:8]) }}"
+    router_name: "{{ crc_ci_bootstrap_router_name | default('zuul-ci-subnet-router-' + zuul.build[:8]) }}"
+    crc_ci_bootstrap_pause_max_value: "{{ crc_ci_bootstrap_pause_max | default(3) }}"
+    crc_ci_bootstrap_openstack_cmd_retries_value: "{{ crc_ci_bootstrap_openstack_cmd_retries | default(10) }}"
+    crc_ci_bootstrap_openstack_cmd_delay_value: "{{ crc_ci_bootstrap_openstack_cmd_delay | default(5) }}"
+  tasks:
+    - name: Create openstack config dir
+      file:
+        path: "{{ ansible_user_dir }}/.config/openstack/"
+        state: directory
+
+    - name: Check for cleanup skip flag file presence
+      ansible.builtin.stat:
+        path: "{{ ansible_user_dir }}/crc-ci-bootstrap-skip-cleanup"
+      register: crc_ci_bootstrap_skip_file_stat
+
+    - name: Cleanup the CI CRC environment network
+      environment:
+        OS_CLOUD: "{{ cloud_name }}"
+      when: >-
+        not (
+          (crc_ci_bootstrap_skip_cleanup | default(false) | bool) or
+          (crc_ci_bootstrap_skip_file_stat.stat.exists | bool)
+        )
+      block:
+        - name: Generate clouds config from cloud_secrets secret
+          template:
+            src: crc.clouds.candidate.yaml.j2
+            dest: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            mode: 0600
+
+        - name: Delete ports from each host
+          vars:
+            instance_id: "{{ hostvars[hostvar_item_key]['nodepool']['external_id'] }}"
+          ansible.builtin.include_tasks: bootstraped-ci-network-cleanup-instance-ports.yml
+          loop: "{{ hostvars.keys() }}"
+          loop_control:
+            label: "{{ hostvar_item_key }}"
+            loop_var: hostvar_item_key
+            pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
+
+        - name: Manage router and gateway id needed
+          when:
+            - crc_ci_bootstrap_networking is defined
+            - "'networks' in crc_ci_bootstrap_networking"
+            - "'default' in crc_ci_bootstrap_networking['networks']"
+            - crc_ci_bootstrap_networking.networks.default.router | default(true) | bool
+          block:
+            - name: Dettach router from subnet
+              register: crc_ci_bootstrap_router_subnet_delete_out
+              ansible.builtin.command:
+                cmd: "openstack router remove subnet {{ router_name }} {{ subnet_network_name }}"
+              failed_when: >-
+                crc_ci_bootstrap_router_subnet_delete_out.rc != 0 and
+                (not 'no router found' in crc_ci_bootstrap_router_subnet_delete_out.stderr | lower) and
+                (not 'no subnet found' in crc_ci_bootstrap_router_subnet_delete_out.stderr | lower)
+              changed_when: crc_ci_bootstrap_router_subnet_delete_out.rc == 0
+
+            - name: Delete router
+              register: crc_ci_bootstrap_router_delete_out
+              ansible.builtin.command:
+                cmd: "openstack router delete {{ router_name }}"
+              failed_when: >-
+                crc_ci_bootstrap_router_delete_out.rc != 0 and
+                (not 'no router found' in crc_ci_bootstrap_router_delete_out.stderr | lower)
+              changed_when: crc_ci_bootstrap_router_delete_out.rc == 0
+
+        - name: Delete subnet
+          register: crc_ci_bootstrap_subnet_delete_out
+          ansible.builtin.command:
+            cmd: "openstack subnet delete {{ subnet_network_name }}"
+          failed_when: >-
+            crc_ci_bootstrap_subnet_delete_out.rc != 0 and
+            (not 'no subnet found' in crc_ci_bootstrap_subnet_delete_out.stderr | lower)
+          changed_when: crc_ci_bootstrap_subnet_delete_out.rc == 0
+
+        - name: Delete network
+          register: crc_ci_bootstrap_network_delete_out
+          ansible.builtin.command:
+            cmd: "openstack network delete {{ private_network_name }}"
+          failed_when: >-
+            crc_ci_bootstrap_network_delete_out.rc != 0 and
+            (not 'no network found' in crc_ci_bootstrap_network_delete_out.stderr | lower)
+          changed_when: crc_ci_bootstrap_network_delete_out.rc == 0
+      always:
+        - name: Remove clouds.yml secret
+          file:
+            path: "{{ bootstrap_ci_cloud_yml_secret_path }}"
+            state: absent

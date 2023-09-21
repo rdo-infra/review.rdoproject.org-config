@@ -1,0 +1,18 @@
+clouds:
+  {{ crc_ci_bootstrap_cloud_name }}:
+    identity_api_version: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].identity_api_version }}
+    region_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].region_name }}
+    auth:
+      username: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].username }}
+      password: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].password }}
+      project_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].project_name }}
+      auth_url: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].auth_url }}
+      user_domain_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].user_domain_name }}
+      project_domain_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].project_domain_name }}
+    regions:
+      - name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].region_name }}
+        values:
+          networks:
+            - name: public
+              routes_externally: true
+            - name: private
