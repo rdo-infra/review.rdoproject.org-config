@@ -3766,6 +3766,14 @@
               - DLRN-rpmbuild-centos9-pinned
             branches: ^rpm-master$
         - DLRN-rpmbuild-centos9-pinned
+        - distgit-cbs-validate-centos9
+    gate:
+      jobs:
+        - DLRN-rpmbuild-centos9-pinned
+        - distgit-cbs-final-build-centos9
+    experimental:
+      jobs:
+        - DLRN-rpmbuild-centos9-pinned
         - DLRN-rpmbuild-centos9-compare-deps:
             dependencies:
               - DLRN-rpmbuild-centos9-pinned
@@ -3775,11 +3783,6 @@
         - DLRN-rpmbuild-centos9-compare-files:
             dependencies:
               - DLRN-rpmbuild-centos9-pinned
-        - distgit-cbs-validate-centos9
-    gate:
-      jobs:
-        - DLRN-rpmbuild-centos9-pinned
-        - distgit-cbs-final-build-centos9
 
 - project:
     name: review.rdoproject.org/openstack/oslo-upgradecheck
