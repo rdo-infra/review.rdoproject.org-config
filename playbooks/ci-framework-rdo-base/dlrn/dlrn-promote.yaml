@@ -2,6 +2,10 @@
 - name: Promote current-podified hash
   hosts: all
   tasks:
+    - name: Clone repos in the job workspace
+      ansible.builtin.include_role:
+        name: prepare-workspace
+
     - name: Promote current-podified hash based on criteria file
       ansible.builtin.include_role:
         name: dlrn_promote
