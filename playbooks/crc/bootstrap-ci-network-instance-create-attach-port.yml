@@ -46,7 +46,6 @@
 - name: Modify NetworkManager config in the target instance
   delegate_to: "{{ instance_item.key }}"
   become: true
-  when: crc_ci_bootstrap_disable_default_nm_connection | default(false) | bool
   block:
     - name: Avoid NetworkManager to automatically picked up the new interface
       ansible.builtin.ini_file:
