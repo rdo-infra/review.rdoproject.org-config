@@ -1,0 +1,18 @@
+# Antelope line
+- pipeline:
+    name: openstack-operators-periodic-integration-antelope-centos9
+    post-review: true
+    description: Jobs in this queue are triggered to run periodically twice a day.
+    manager: independent
+    precedence: normal
+    trigger:
+      timer:
+        - time: '0 9,20 * * *'
+    success:
+      opensearch_rdoproject_org:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      opensearch_rdoproject_org:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
