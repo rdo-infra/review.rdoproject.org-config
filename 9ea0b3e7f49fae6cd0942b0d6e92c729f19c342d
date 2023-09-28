@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b8c6e9_4522f0cd",
+        "filename": "zuul.d/secrets.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 111
+      },
+      "writtenOn": "2023-09-28T06:40:02Z",
+      "side": 1,
+      "message": "It will break the existing master container build job.\nI think we can take following actions to avoid breaking the container build job:\n1. Drop this secret quay_rdoproject_podified_main_centos_9_secret and add quay_rdoproject_podified_master_centos_9_secret in the same patch. Get it merged.\n2. Update the https://github.com/rdo-infra/rdo-jobs/blob/master/zuul.d/container-jobs-master-centos9.yaml#L46 to point to podified-master-centos9 and run testproject with periodic-container-tcib-build-push-centos-9-master job.\n3. If above secret does not work, revert it and refollow the above steps.",
+      "range": {
+        "startLine": 839,
+        "startChar": 9,
+        "endLine": 840,
+        "endChar": 9
+      },
+      "revId": "9ea0b3e7f49fae6cd0942b0d6e92c729f19c342d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
