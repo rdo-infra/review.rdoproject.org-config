@@ -1,0 +1,57 @@
+---
+- hosts: crc
+  tasks:
+    - name: Fail when openshift_pull_sec not provided
+      ansible.builtin.fail:
+        msg: "The openshift_pull_secret variable can not be empty!"
+      when: crc_secret.openshift_pull_secret == ""
+
+    - name: Create openshift-pull-secret
+      block:
+        - name: Create script to login and verify services
+          ansible.builtin.template:
+            src: ensure_logged.sh.j2
+            dest: /tmp/ensure_logged.sh
+            mode: '0755'
+
+        - name: Copy script ensure_services_up.sh
+          ansible.builtin.copy:
+            src: ensure_services_up.sh
+            dest: /tmp/ensure_services_up.sh
+
+        - name: Create pull-secret.txt file
+          copy:
+            content: "{{ crc_secret.openshift_pull_secret }}"
+            dest: /etc/crio/openshift-pull-secret
+          when: crc_secret.openshift_pull_secret != ""
+          no_log: true
+
+        - name: Create cri-o configuration file
+          become: true
+          ansible.builtin.copy:
+            content: |
+              [crio.image]
+              global_auth_file="/etc/crio/openshift-pull-secret"
+              pause_image_auth_file = "/etc/crio/openshift-pull-secret"
+            dest: /etc/crio/crio.conf.d/00-zuul
+
+        - name: Restart cri-o service to apply secret
+          become: true
+          ansible.builtin.systemd:
+            name: crio
+            state: restarted
+
+        - name: Ensure that user is logged
+          shell: /tmp/ensure_logged.sh
+
+        - name: Ensure all pods are up and running
+          shell: /tmp/ensure_services_up.sh
+
+      always:
+        # NOTE: At this point, when all pods are available, we can remove
+        # the file and skip restart the cri-o service.
+        - name: Ensure pull secret is removed
+          become: true
+          ansible.builtin.file:
+            path: /etc/crio/openshift-pull-secret
+            state: absent

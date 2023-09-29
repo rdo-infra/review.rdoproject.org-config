@@ -1,0 +1,25 @@
+#!/bin/bash
+
+PASSWORD=""
+
+if [ -f ~/crc-start.log ]; then
+    PASSWORD=$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')
+fi
+
+if [ -z "$PASSWORD" ]; then
+    PASSWORD="{{ crc_password | default('123456789') }}"
+fi
+
+for i in {1..25}; do
+    echo "Checking login to the cluster ${i}..."
+    if /usr/local/bin/oc login \
+           -u kubeadmin \
+           -p "$PASSWORD" \
+           https://api.crc.testing:6443 \
+           --insecure-skip-tls-verify=true; then
+        break;
+    else
+        echo "Can not login to the CRC cluster. Sleeping..."
+        sleep 5
+    fi
+done
