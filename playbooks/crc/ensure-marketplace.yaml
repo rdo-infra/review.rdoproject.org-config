@@ -57,5 +57,8 @@
         - name: Ensure pull secret is removed
           become: true
           ansible.builtin.file:
-            path: /etc/crio/openshift-pull-secret
+            path: "{{ item }}"
             state: absent
+          loop:
+            - "/etc/crio/openshift-pull-secret"
+            - "/etc/crio/crio.conf.d/00-zuul"
