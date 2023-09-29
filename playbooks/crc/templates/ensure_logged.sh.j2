@@ -12,14 +12,17 @@ fi
 
 for i in {1..25}; do
     echo "Checking login to the cluster ${i}..."
-    if /usr/local/bin/oc login \
+    if /usr/bin/oc login \
            -u kubeadmin \
            -p "$PASSWORD" \
            https://api.crc.testing:6443 \
            --insecure-skip-tls-verify=true; then
-        break;
+        exit 0
     else
         echo "Can not login to the CRC cluster. Sleeping..."
         sleep 5
     fi
 done
+
+# It should fail, when it can not login to the cluster.
+exit 1
