@@ -22,6 +22,7 @@
             dest: /tmp/ensure_services_up.sh
 
         - name: Create pull-secret.txt file
+          become: true
           copy:
             content: "{{ crc_secret.openshift_pull_secret }}"
             dest: /etc/crio/openshift-pull-secret
