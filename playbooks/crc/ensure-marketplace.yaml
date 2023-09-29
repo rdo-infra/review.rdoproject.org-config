@@ -20,6 +20,7 @@
           ansible.builtin.copy:
             src: ensure_services_up.sh
             dest: /tmp/ensure_services_up.sh
+            mode: '0755'
 
         - name: Create pull-secret.txt file
           become: true
