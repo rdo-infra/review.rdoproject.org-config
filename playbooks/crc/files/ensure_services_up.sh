@@ -2,7 +2,7 @@
 
 for i in {1..20}; do
     echo "Ensuring that containers are spawned... ${i}"
-    count=$(oc get pods --no-headers --all-namespaces | grep -viEc 'running|complete')
+    count=$(/usr/bin/oc get pods --no-headers --all-namespaces | grep -viEc 'running|complete')
     if [ "$count" -eq "0" ]; then
         echo "Cluster seems to be running"
         exit 0

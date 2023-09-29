@@ -12,7 +12,7 @@ fi
 
 for i in {1..25}; do
     echo "Checking login to the cluster ${i}..."
-    if /usr/local/bin/oc login \
+    if /usr/bin/oc login \
            -u kubeadmin \
            -p "$PASSWORD" \
            https://api.crc.testing:6443 \
