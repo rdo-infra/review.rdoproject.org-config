@@ -67,8 +67,10 @@
             pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
         - name: Display some data about network ports
-          ansible.builtin.command:
-            cmd: "openstack port list --network {{ crc_ci_bootstrap_network_name }}"
+          openstack.cloud.port_info:
+            cloud: {{ crc_ci_bootstrap_cloud_name }}: 
+            filters:
+              network: "{{ crc_ci_bootstrap_network_name }}"
           register: crc_ci_bootstrap_global_port_list_out
           delay: "{{ crc_ci_bootstrap_openstack_cmd_delay_value }}"
           retries: "{{ crc_ci_bootstrap_openstack_cmd_retries_value }}"
