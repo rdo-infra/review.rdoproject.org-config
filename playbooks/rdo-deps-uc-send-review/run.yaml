@@ -6,7 +6,8 @@
         cmd: |
           set +e -x
           source '{{ ansible_user_dir }}/rdopkg-venv/bin/activate'
-          MASTER_RELEASE="$(rdopkg info | grep -e "in development phase" | awk '{print $1}')"
+          MASTER_RELEASE="$(rdopkg release -s development)"
+          MASTER_SOURCE_BRANCH="$(rdopkg release -r $MASTER_RELEASE | grep "source_branch" | awk '{print $2}')"
           deactivate
           TOPIC="deps-uc-update"
 
@@ -16,7 +17,7 @@
               exit 1
           fi
 
-          echo -e "$UPSTREAM_BRANCHES" | jq -r '.[].name' | grep -e "stable/$MASTER_RELEASE" >/dev/null 2>&1
+          echo -e "$UPSTREAM_BRANCHES" | jq -r '.[].name' | grep -q -e "$MASTER_SOURCE_BRANCH"
           if [ $? -eq 0 ]; then
               echo "RDO master release is currently $MASTER_RELEASE, but this release is already in stable branches in https://github.com/openstack/requirements project. Exiting."
               exit 0
