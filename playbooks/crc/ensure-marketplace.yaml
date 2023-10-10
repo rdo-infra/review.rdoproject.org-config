@@ -35,6 +35,7 @@
               copy:
                 content: "{{ crc_secret.openshift_pull_secret }}"
                 dest: /etc/crio/openshift-pull-secret
+                mode: "0400"
               when: crc_secret.openshift_pull_secret != ""
               no_log: true
 
