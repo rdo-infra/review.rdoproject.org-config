@@ -22,28 +22,34 @@
             dest: /tmp/ensure_services_up.sh
             mode: '0755'
 
-        - name: Create pull-secret.txt file
-          become: true
-          copy:
-            content: "{{ crc_secret.openshift_pull_secret }}"
-            dest: /etc/crio/openshift-pull-secret
-          when: crc_secret.openshift_pull_secret != ""
-          no_log: true
+        - name: Check if CRI-O is available
+          ansible.builtin.stat:
+            path: /etc/crio
+          register: _crio_dir
 
-        - name: Create cri-o configuration file
+        - name: Create pull secret when CRI-O exists
+          when: _crio_dir.stat.exists
           become: true
-          ansible.builtin.copy:
-            content: |
-              [crio.image]
-              global_auth_file="/etc/crio/openshift-pull-secret"
-              pause_image_auth_file = "/etc/crio/openshift-pull-secret"
-            dest: /etc/crio/crio.conf.d/00-zuul
+          block:
+            - name: Create pull-secret.txt file
+              copy:
+                content: "{{ crc_secret.openshift_pull_secret }}"
+                dest: /etc/crio/openshift-pull-secret
+              when: crc_secret.openshift_pull_secret != ""
+              no_log: true
 
-        - name: Restart cri-o service to apply secret
-          become: true
-          ansible.builtin.systemd:
-            name: crio
-            state: restarted
+            - name: Create cri-o configuration file
+              ansible.builtin.copy:
+                content: |
+                  [crio.image]
+                  global_auth_file="/etc/crio/openshift-pull-secret"
+                  pause_image_auth_file = "/etc/crio/openshift-pull-secret"
+                dest: /etc/crio/crio.conf.d/00-zuul
+
+            - name: Restart cri-o service to apply secret
+              ansible.builtin.systemd:
+                name: crio
+                state: restarted
 
         - name: Ensure that user is logged
           shell: /tmp/ensure_logged.sh
