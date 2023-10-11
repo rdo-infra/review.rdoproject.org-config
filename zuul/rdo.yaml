@@ -222,6 +222,7 @@
           - deps/python-uhashring
           - deps/python-xmlschema
           - deps/re2
+          - deps/scapy
           - deps/wyhash
           - deps/xxhash
           - openstack/UcsSdk
@@ -1234,10 +1235,10 @@
         # or nodesets.
         - openstack-k8s-operators/ci-framework:
             include:
-              - job
-              - project
-              - nodeset
-              - project-template
+            - job
+            - project
+            - nodeset
+            - project-template
         - include: [job, project, nodeset]
           projects:
           - openstack-k8s-operators/tcib
