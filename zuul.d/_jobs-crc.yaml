@@ -33,6 +33,8 @@
         # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/crc/simple-start.yaml
+      - playbooks/data_plane_adoption/setup_crc_use_install_yamls.yaml
+      - playbooks/data_plane_adoption/deploy_standalone.yaml
     post-run:
       - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
