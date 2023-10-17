@@ -117,6 +117,11 @@
             dependencies:
               - podman-package-centos-9
 
+# Set default branch to 'main' for all openstack-k8s-operators projects
+- project:
+    name: '^github.com/openstack-k8s-operators/.*'
+    default-branch: main
+
 - project:
     name: github.com/openstack-k8s-operators/data-plane-adoption
     templates:
