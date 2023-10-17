@@ -1,4 +1,10 @@
 - project:
+    name: '^github.com/openstack-k8s-operators/.*-operator$'
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
     name: ^review.rdoproject.org/deps/.*
     templates:
       - deps-distgit-check-jobs
@@ -118,12 +124,49 @@
               - podman-package-centos-9
 
 - project:
+    name: github.com/openstack-k8s-operators/ci-framework
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
     name: github.com/openstack-k8s-operators/data-plane-adoption
+    default-branch: main
     templates:
       - system-required
     github-check:
       jobs:
         - data-plane-adoption-github-rdo-centos-9-crc-single-node
+
+- project:
+    name: github.com/openstack-k8s-operators/edpm-ansible
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
+    name: github.com/openstack-k8s-operators/install_yamls
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
+    name: github.com/openstack-k8s-operators/lib-common
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
+    name: github.com/openstack-k8s-operators/repo-setup
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
+    name: github.com/openstack-k8s-operators/tcib
+    default-branch: main
+    templates:
+      - system-required
 
 # EDPM PCP job template
 - project:
