@@ -117,13 +117,43 @@
             dependencies:
               - podman-package-centos-9
 
+# Set default branch to 'main' for all openstack-k8s-operators projects
+- project:
+    name: '^github.com/openstack-k8s-operators/.*-operator$'
+    default-branch: main
+
+- project:
+    name: github.com/openstack-k8s-operators/ci-framework
+    default-branch: main
+
 - project:
     name: github.com/openstack-k8s-operators/data-plane-adoption
+    default-branch: main
     templates:
       - system-required
     github-check:
       jobs:
         - data-plane-adoption-github-rdo-centos-9-crc-single-node
+
+- project:
+    name: github.com/openstack-k8s-operators/edpm-ansible
+    default-branch: main
+
+- project:
+    name: github.com/openstack-k8s-operators/install_yamls
+    default-branch: main
+
+- project:
+    name: github.com/openstack-k8s-operators/lib-common
+    default-branch: main
+
+- project:
+    name: github.com/openstack-k8s-operators/repo-setup
+    default-branch: main
+
+- project:
+    name: github.com/openstack-k8s-operators/tcib
+    default-branch: main
 
 # EDPM PCP job template
 - project:
