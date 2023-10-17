@@ -20,6 +20,7 @@
           pushd "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}"
           pip install .
           popd
+          pip install rdopkg
           # Prepare environment to send a review
           cat >> ~/.ssh/config << EOF
 
@@ -34,8 +35,8 @@
           git config --global --add gitreview.username "rdo-trunk"
 
           BASE_CMD="rdo_release_review -u rdo-trunk -c RDO -e dev@lists.rdoproject.org"
-          RELEASES="train ussuri victoria wallaby xena yoga zed antelope bobcat"
-          MASTER_RELEASE="bobcat"
+          RELEASES="$(rdopkg release -l ~/rdoinfo/ | grep -e "^name:" | awk '{print $2}' | paste -sd ' ')"
+          MASTER_RELEASE="$(rdopkg release -l ~/rdoinfo -s development)"
           for r in $RELEASES;do
             if [ $r == $MASTER_RELEASE ]; then
               TAG_OPTION=" -t ${r}-uc"
