@@ -1,0 +1,10 @@
+- hosts: standalone
+  tasks:
+    - name: Register standalone node with red hat subscription for data plane adoption
+      no_log: true
+      become: true
+      community.general.redhat_subscription:
+        state: present
+        activationKey: "{{ dpa_sub_man_key.activation_key }}"
+        org_id: "{{ dpa_sub_man_orgid.org_id }}"
+        force_register: true
