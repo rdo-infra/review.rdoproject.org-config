@@ -68,9 +68,11 @@
       - playbooks/crc/bootstrap-ci-network.yml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
+      - playbooks/data_plane_adoption/register_standalone_rhel.yaml
     post-run:
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml
+      - playbooks/data_plane_adoption/unregister_standalone_rhel.yaml
       - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - opendev.org/zuul/zuul-jobs
@@ -91,3 +93,7 @@
       - dlrnapi
       - name: crc_secret
         secret: crc_secret
+      - name: dpa_sub_man_orgid
+        secret: dpa_sub_man_orgid
+      - name: dpa_sub_man_key
+        secret: dpa_sub_man_key
