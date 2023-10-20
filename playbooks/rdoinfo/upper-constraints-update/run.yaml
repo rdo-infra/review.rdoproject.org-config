@@ -37,6 +37,7 @@
             rm -f upper-constraints.txt
             curl --connect-timeout 5 --max-time 10 --retry 6 --retry-max-time 60 -o upper-constraints.txt "https://opendev.org/openstack/requirements/raw/branch/${GIT_BRANCH}/upper-constraints.txt"
             update_uc -t $UC_BRANCH
+            bash {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}/scripts/pin_non_os_puppet_modules.sh "$GIT_BRANCH" "$UC_BRANCH"
             DIFF=$(git diff *.yml */*.yml)
             if [ -n "$DIFF" ]; then
               # Check for an open change, if so reuse it
@@ -46,9 +47,9 @@
               previous=$(echo "$change_info" | grep "^  number:" | awk '{print $2}')
               if [ -n "$previous" ]; then
                   CHANGE_ID=$(echo "$change_info" | grep "^change" | awk '{print $2}')
-                  COMMIT_MSG="Bump rdoinfo $UC_BRANCH tags to latest upper-constraints\n\nChange-Id: $CHANGE_ID\n"
+                  COMMIT_MSG="Bump rdoinfo $UC_BRANCH tags to latest upper-constraints or latest Puppetfile\n\nChange-Id: $CHANGE_ID\n"
               else
-                  COMMIT_MSG="Bump rdoinfo $UC_BRANCH tags to latest upper-constraints"
+                  COMMIT_MSG="Bump rdoinfo $UC_BRANCH tags to latest upper-constraints or latest Puppetfile"
               fi
               git config user.name "rdo-trunk"
               git config user.email "amoralej+rdo-trunk@redhat.com"
