@@ -11,3 +11,6 @@ repos:
         # https://github.com/ansible/ansible-lint/issues/611
         verbose: true
         entry: ansible-lint --force-color -p -v
+        additional_dependencies:
+          - 'ruamel.yaml<=0.18.3'
+          - 'ansible>=2.9.22,<2.10'
