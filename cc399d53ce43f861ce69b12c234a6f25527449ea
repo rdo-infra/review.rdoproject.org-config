@@ -16,6 +16,24 @@
       "message": "Probably related to the cleanup networking playbook that removes all the networks from the multinode layout? Anyway, since there is no security issue here, +2 to move it to rdo-jobs",
       "revId": "cc399d53ce43f861ce69b12c234a6f25527449ea",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ba5731f_e8dc66e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2023-11-02T08:02:54Z",
+      "side": 1,
+      "message": "sounds plausible. perhaps we can revisit this, if we can work out how to make it work with the post-run play you mentioned. there are other benefits to having it be in cleanup-run (like, you hold a node for debug but it is already unregistered if we are running in post-run). \n\nso it can still be moved to cleanup-run, but i think we agree it should also move to rdo jobs and we can add cleanup-run there if we can make it work (lets revisit)\n\nit works fine in the last run there in post-run:\n\n\nhttps://logserver.rdoproject.org/53/50653/4/check/data-plane-adoption-OSP-17-to-extracted-crc/9391dd9/job-output.txt\n\n```\n2023-11-01 17:10:43.859759 | POST-RUN START: [untrusted : review.rdoproject.org/rdo-jobs/playbooks/data_plane_adoption/unregister_RH_subscription_standalone.yaml@master]\n2023-11-01 17:10:44.506506 | \n2023-11-01 17:10:44.506628 | PLAY [standalone]\n2023-11-01 17:10:44.524419 | \n2023-11-01 17:10:44.524506 | TASK [Unregister system with subscription-manager]\n2023-11-01 13:10:45.638510 | standalone | Unregistering from: subscription.rhsm.redhat.com:443/subscription\n2023-11-01 13:10:45.638600 | standalone | System has been unregistered.\n2023-11-01 17:10:46.059878 | standalone | changed\n2023-11-01 17:10:46.082455 | \n2023-11-01 17:10:46.082599 | PLAY RECAP\n2023-11-01 17:10:46.082654 | standalone | ok: 1 changed: 1 unreachable: 0 failed: 0 skipped: 0 rescued: 0 ignored: 0\n```",
+      "parentUuid": "11913da1_85863dc5",
+      "revId": "cc399d53ce43f861ce69b12c234a6f25527449ea",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ],
   "submitRequirementResults": []
