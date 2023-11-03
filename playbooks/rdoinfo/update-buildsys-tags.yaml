@@ -21,7 +21,7 @@
           # Install requirements
           virtualenv --system-site-packages .venv
           . .venv/bin/activate
-          pip install ruamel.yaml rdopkg
+          pip install 'ruamel.yaml<=0.18.3' rdopkg
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/
           WORKSPACE="{{ ansible_user_dir }}/workspace"
           case $PROJECT in
