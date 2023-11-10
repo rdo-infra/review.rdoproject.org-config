@@ -1,46 +1,46 @@
 resources:
   groups:
-    deps/python-platfomdirs-core:
-      description: Core developers for project python-platfomdirs
+    deps/python-platformdirs-core:
+      description: Core developers for project python-platformdirs
       members:
       - amoralej@redhat.com
       - jcapitao@redhat.com
       - kkula@redhat.com
-    deps/python-platfomdirs-ptl:
-      description: Project team lead for project python-platfomdirs
+    deps/python-platformdirs-ptl:
+      description: Project team lead for project python-platformdirs
       members:
       - admin@review.rdoproject.org
   acls:
-    deps-python-platfomdirs:
+    deps-python-platformdirs:
       file: |
         [access "refs/*"]
-          read = group deps/python-platfomdirs-core
-          owner = group deps/python-platfomdirs-ptl
+          read = group deps/python-platformdirs-core
+          owner = group deps/python-platformdirs-ptl
           owner = group rdo-superusers
         [access "refs/heads/*"]
-          label-Code-Review = -2..+2 group deps/python-platfomdirs-core
-          label-Code-Review = -2..+2 group deps/python-platfomdirs-ptl
+          label-Code-Review = -2..+2 group deps/python-platformdirs-core
+          label-Code-Review = -2..+2 group deps/python-platformdirs-ptl
           label-Code-Review = -2..+2 group rdo-provenpackagers
           label-Code-Review = -2..+2 group rdo-superusers
           label-Code-Review = -2..+2 group rdo-deps-core
-          submit = group deps/python-platfomdirs-ptl
+          submit = group deps/python-platformdirs-ptl
           submit = group rdo-superusers
           submit = group rdo-deps-core
           read = group Registered Users
-          read = group deps/python-platfomdirs-core
+          read = group deps/python-platformdirs-core
           read = group rdo-provenpackagers
           read = group rdo-deps-core
-          label-Verified = -2..+0 group deps/python-platfomdirs-ptl
+          label-Verified = -2..+0 group deps/python-platformdirs-ptl
           label-Verified = -2..+0 group rdo-superusers
           label-Verified = -2..+2 group rdo-deps-core
           label-Workflow = -1..+0 group Registered Users
-          label-Workflow = -1..+0 group deps/python-platfomdirs-core
-          label-Workflow = -1..+0 group deps/python-platfomdirs-ptl
+          label-Workflow = -1..+0 group deps/python-platformdirs-core
+          label-Workflow = -1..+0 group deps/python-platformdirs-ptl
           label-Workflow = -1..+0 group rdo-provenpackagers
           label-Workflow = -1..+1 group rdo-deps-core
         [access "refs/meta/config"]
           read = group Registered Users
-          read = group deps/python-platfomdirs-core
+          read = group deps/python-platformdirs-core
           read = group rdo-provenpackagers
         [receive]
           requireChangeId = true
@@ -48,15 +48,15 @@ resources:
           mergeContent = false
           action = rebase if necessary
       groups:
-      - deps/python-platfomdirs-core
-      - deps/python-platfomdirs-ptl
+      - deps/python-platformdirs-core
+      - deps/python-platformdirs-ptl
       - rdo-provenpackagers
       - rdo-superusers
       - rdo-deps-core
   repos:
-    deps/python-platfomdirs:
-      acl: deps-python-platfomdirs
-      description: Packaging of RDO dependency python-platfomdirs
+    deps/python-platformdirs:
+      acl: deps-python-platformdirs
+      description: Packaging of RDO dependency python-platformdirs
       default-branch: c9s-caracal-rdo
       branches:
         master: '0'
