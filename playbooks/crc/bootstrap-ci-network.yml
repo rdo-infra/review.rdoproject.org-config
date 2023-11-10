@@ -40,6 +40,19 @@
         crc_ci_bootstrap_router_name: "zuul-ci-subnet-router-{{ zuul.build[:8] }}"
         cacheable: true
 
+    - name: Generate IBM cert and load IBM related vars
+      when: crc_ci_bootstrap_cloud_name in ["ibm-bm4-nodepool"]
+      become: true
+      block:
+        - name: Generate IBM CA cert file
+          ansible.builtin.copy:
+            content: "{{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].ca_cert }}"
+            dest: "{{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].ca_cert_path }}"
+            mode: 0755
+
+        - name: Update CA certs
+          ansible.builtin.command: update-ca-trust
+
     - name: Create the crc based CI environment
       vars:
       environment:

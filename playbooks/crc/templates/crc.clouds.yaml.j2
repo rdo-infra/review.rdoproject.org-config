@@ -2,6 +2,7 @@ clouds:
   {{ crc_ci_bootstrap_cloud_name }}:
     identity_api_version: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].identity_api_version }}
     region_name: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].region_name }}
+    cacert: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].ca_cert_path | default('') }}
     auth:
       username: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].username }}
       password: {{ cloud_secrets[ crc_ci_bootstrap_cloud_name ].password }}
