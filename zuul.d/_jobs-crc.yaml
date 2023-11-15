@@ -68,7 +68,7 @@
       - playbooks/crc/bootstrap-ci-network.yml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
-      - playbooks/data_plane_adoption/register_RH_subscription.yaml
+      - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
     post-run:
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml

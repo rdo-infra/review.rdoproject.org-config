@@ -8,3 +8,12 @@
         - skip_standalone_vm | default(false) | bool
       ansible.builtin.shell: |
         subscription-manager register --force --org {{ dpa_sub_man_orgid.org_id }} --activationkey {{ dpa_sub_man_key.activation_key }}
+
+    - name: Login to registry.redhat.io for standalone deployment containers
+      become: true
+      no_log: true
+      when:
+        - skip_standalone_vm is defined
+        - skip_standalone_vm | default(false) | bool
+      ansible.builtin.shell: |
+        podman login --username {{ dpa_registry_user.name }} --password {{ dpa_registry_pass.password }}
