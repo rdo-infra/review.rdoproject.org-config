@@ -22,4 +22,5 @@
         - skip_standalone_vm is defined
         - skip_standalone_vm | default(false) | bool
       ansible.builtin.shell: |
-        podman login --username {{ dpa_registry_user.name }} --password {{ dpa_registry_pass.password }}
+        podman login --username "{{ dpa_registry_user.name }}" --password "{{ dpa_registry_pass.password }}"
+        
