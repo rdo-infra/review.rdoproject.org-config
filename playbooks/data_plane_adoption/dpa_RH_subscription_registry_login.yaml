@@ -9,6 +9,12 @@
       ansible.builtin.shell: |
         subscription-manager register --force --org {{ dpa_sub_man_orgid.org_id }} --activationkey {{ dpa_sub_man_key.activation_key }}
 
+    - name: Install podman for container registry login
+      become: true
+      ansible.builtin.package:
+        name: podman
+        state: present
+
     - name: Login to registry.redhat.io for standalone deployment containers
       become: true
       no_log: true
