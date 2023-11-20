@@ -41,7 +41,7 @@
         cacheable: true
 
     - name: Generate IBM cert and load IBM related vars
-      when: crc_ci_bootstrap_cloud_name in ["ibm-bm4-nodepool"]
+      when: 'ca_cert' in cloud_secrets[ crc_ci_bootstrap_cloud_name ]
       become: true
       block:
         - name: Generate IBM CA cert file
