@@ -1,0 +1,32 @@
+---
+- hosts: controller
+  tasks:
+    - name: Check repo log
+      ansible.builtin.shell: |
+        git log
+      args:
+        chdir: "{{ zuul.projects['github.com/openstack-k8s-operators/ci-framework'].src_dir }}"
+      register: log_out_1
+
+    - name: Debug output
+      ansible.builtin.debug:
+        var: log_out_1
+
+    - name: Check repo status
+      ansible.builtin.shell: |
+        git status
+      args:
+        chdir: "{{ zuul.projects['github.com/openstack-k8s-operators/ci-framework'].src_dir }}"
+      register: log_out_2
+
+    - name: Debug output 2
+      ansible.builtin.debug:
+        var: log_out_2
+
+    - name: Debug output 3
+      ansible.builtin.debug:
+        var: hostvars
+
+    - name: Test include a child repo role
+      include_role:
+        name: cifmw_test_role
