@@ -23,11 +23,16 @@
     - name: Apply CRC features
       include_tasks: features.yaml
 
+    - name: Delete the cluster if there's a non-default bundle URL
+      when: crc_ocp_bundle is defined
+      shell: |
+        /usr/local/bin/crc delete -f
+
     - name: Start crc
       block:
         - name: Execute crc start command
           shell: |
-            /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} &> ~/crc-start.log
+            /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} {% if crc_ocp_bundle is defined %}--bundle {{ crc_ocp_bundle }}{% endif %} &> ~/crc-start.log
           register: _crc_start_status
 
         - name: Create script to login into the CRC cluster
