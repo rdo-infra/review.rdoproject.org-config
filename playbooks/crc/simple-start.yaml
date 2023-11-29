@@ -34,6 +34,35 @@
           shell: |
             /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} {% if crc_ocp_bundle is defined %}--bundle {{ crc_ocp_bundle }}{% endif %} &> ~/crc-start.log
           register: _crc_start_status
+          ignore_errors: "{{ crc_ocp_bundle is defined | bool }}"
+
+        - name: Get the cache dir for crc
+          when: crc_ocp_bundle is defined | bool
+          shell:
+            cmd: |
+              crc status | grep "Cache Directory" | cut -d' ' -f3
+          register: cache_dir
+
+          # Depending on the output of "crc status --output json", this check
+          # might be possible without using ``oc`` and setting the KUBECONFIG
+          # env var
+          # experiments and testing of this commant and check are done in
+          # https://github.com/infrawatch/service-telemetry-operator/pull/523,
+          # which runs the ci/post-debug_crc.yml playbook in the post-run stage
+          # of stf-multi-crc-base, which is a temperory base job for testing.
+          # The playbook is in the post-run stage so because run is skipped when
+          # a pre-run playbook (i.e. this one) fails. The post-deploy_crc.yml
+          # playbook allows the CRC command to be debugged.
+        - name: Wait up to 10 minutes when using a non-default bundle to see if the cluster will come up anyway
+          when: crc_ocp_bundle is defined | bool
+          shell:
+            cmd: |
+              KUBECONFIG={{ cache_dir.stdout }}/{{ crc_ocp_bundle | basename | splitext | first }}/kubeconfig oc status
+          register: output
+          ignore_errors: true
+          retries: 100
+          delay: 6
+          until: output.rc == 0
 
         - name: Create script to login into the CRC cluster
           copy:
