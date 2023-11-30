@@ -52,6 +52,24 @@
       "parentUuid": "e15df740_e198e2b4",
       "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a67e556_a72151c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 718
+      },
+      "writtenOn": "2023-11-30T19:34:29Z",
+      "side": 1,
+      "message": "Would it be feasible to add a \"Download the OCP bundle\" task that tried to curl the bundle in the short term? Eventually, these stages can be separated out into a new job.\n\nI\u0027m very much interested in multi-version-crc jobs, so that we can test STF in particular, but more generally, because I want to be able to do early testing on the newest versions of OCP, so there\u0027s less of a crunch when it come time to switch over the OCP version.\n\n\n\u003e so in that case, you can not use CRC nested or extracted version, but you need to setup the CRC from scratch\n\nI was hoping that wasn\u0027t going to be the answer.\n\n\u003e It would also require to add some \"logic\" or (optionally) additional variable into the base crc job(s) that will handle that (for example skip start process. Maybe it will not break the job, but it is not necessary to run).\n\nIn this situation, would a base job have a defined version of OCP, or would the child jobs be left to pass that? (If that doesn\u0027t completely make sense, I need to think about it a bit more and get some more background info).\n\n```\n# playbook/crc/download_bundle.yml:\n...\n  # this fails if the version isn\u0027t found. \n- name: get bundle for {{ ocp_version }}\n  set_fact:\n     bundle_url: \"{{ bundle_version_mappings[ocp_version] }}\"\n\n- name: try to download the bundle\n  curl: src\u003dbundle_url\n\n- name: do the other steps, like maybe installing a particular CRC version\n....\n```\n\n```\n# rdo/config/zuul.d/_crc_jobs.yaml\njob:\n  name: download-and-extract-ocp-bundle\n  pre-run: download_bundle.yml\n\njob:\n    name: base-multi-crc\n    parent: download-and-extract-ocp-bundle\n    pre-run: playbooks/crc/start.yml\n\n\n# in infrawatch [1]:\n\njob:\n    name: stf-base\n    parent: base-multi-crc\n\njob:\n    name: stf-crc-ocp_414\n    parent: stf-base\n    vars:\n        ocp_version: \"4.14\"\n```\n\n\nI am concerned about the impact that this would have on all the other jobs.\nUnless, there was a \"crc-latest\" variation that would be the existing job, and then we\u0027d have to opt-in to swapping over,\nI am also concerned about how to test such a job, since we\u0027d need to have it defined in this config repo, because the secret would be required.\n\n\n[1] https://github.com/infrawatch/service-telemetry-operator/blob/master/.zuul.yaml",
+      "parentUuid": "88689adb_e3e9b94d",
+      "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
