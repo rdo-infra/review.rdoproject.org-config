@@ -16,6 +16,24 @@
       "message": "That patch will not work, because you delete the current deployment and then you run start, without running \"setup\" command, so it will not work.\n\nCurrently, we are creating a CRC VM snapshot (for nested) or create bundle from the deployment (extracted), but all the things are done by using specified version: https://softwarefactory-project.io/r/plugins/gitiles/software-factory/sf-infra/+/refs/heads/master/roles/extra/crc/defaults/main.yaml#21 . With that way, we save at least 30-40 minutes to start a CI job and we have less possibility that the job will fail (sometimes the CRC mirror is slow, sometimes the CRC deployment fails etc). So if you want to create an image with other CRC release, I suggest to create another image and create new nodeset and base job.\n\nOr maybe I don\u0027t understand your needs, so if you can explain me more your needs?",
       "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15df740_e198e2b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 718
+      },
+      "writtenOn": "2023-11-30T11:15:35Z",
+      "side": 1,
+      "message": "It seems to have been working in simple-start, which I\u0027ve been running as a base for muli-version CRC jobs for a while in github.com/infrawatch/service-telemetry-operator/\n\nI want to be able to test against multiple versions of OCP for each PR, since we support running STF on multiple versions of OCP.\n\nI\u0027d love to be able to do this with a baremetal/extracted CRC, but that needs new images and nodesets to be deployed.\n\nHow can I create a new image and nodeset? Is there a doc I can follow?",
+      "parentUuid": "12a188e0_9dcb209c",
+      "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
