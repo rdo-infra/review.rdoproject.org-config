@@ -126,7 +126,12 @@
                 'iface': ip_link_json_out.ifname,
                 'mac': crc_ci_bootstrap_instance_parent_port_create_yaml.mac_address | lower,
                 'mtu': crc_ci_bootstrap_instance_default_net_config.mtu | default(ip_link_json_out.mtu),
-                'connection': 'ci-private-network',
+                'connection':
+                  (
+                    'ci-private-network'
+                    if (crc_ci_bootstrap_instance_default_net_config.config_nm | default(true) | bool)
+                    else omit
+                  ),
                 'ip': ip_with_prefix,
                 'gw': ip_gateway,
                 'dns': crc_ci_bootstrap_instance_default_net_config.dns | default(omit),
