@@ -101,43 +101,21 @@
       - name: dpa_registry_pass
         secret: dpa_registry_pass
 
-
 - job:
     name: base-config-repo-temporal-testing
-    parent: base-minimal
+    parent: cifmw-test-base-job
     abstract: true
     description: |
       Temporal job to be deleted
     pre-run:
-      # Playbook to add tripleo-ci team ssh keys to the node
-      - playbooks/tripleo-rdo-base/pre-keys.yaml
-      # FIXME: Playbook with a workaround for broken openshift-marketplace
-      # missing image issue. Remove it when marketplace is not needed.
       - playbooks/base-config-repo-testing/run.yml
     required-projects:
       - opendev.org/zuul/zuul-jobs
       - config
+      - name: github.com/openstack-k8s-operators/install_yamls
+        override-checkout: main
       - name: github.com/openstack-k8s-operators/ci-framework
         override-checkout: main
     roles:
       - zuul: github.com/openstack-k8s-operators/ci-framework
-    attempts: 3
-    vars:
-      crc_ci_bootstrap_cloud_name: vexxhost
-      cifmw_dlrn_report_result: false
-    secrets:
-      - name: quay_login_secret_name
-        secret: quay_nextgen_zuulgithubci
-      - name: cloud_secrets
-        secret: cloud_secrets
-      - dlrnapi
-      - name: crc_secret
-        secret: crc_secret
-      - name: dpa_sub_man_orgid
-        secret: dpa_sub_man_orgid
-      - name: dpa_sub_man_key
-        secret: dpa_sub_man_key
-      - name: dpa_registry_user
-        secret: dpa_registry_user
-      - name: dpa_registry_pass
-        secret: dpa_registry_pass
+    attempts: 1
