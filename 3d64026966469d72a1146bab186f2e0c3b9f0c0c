@@ -34,6 +34,24 @@
       "parentUuid": "12a188e0_9dcb209c",
       "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88689adb_e3e9b94d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2023-11-30T13:44:00Z",
+      "side": 1,
+      "message": "I want to be able to test against multiple versions of OCP for each PR, since we support running STF on multiple versions of OCP. \u003d\u003e so in that case, you can not use CRC nested or extracted version, but you need to setup the CRC from scratch by using for exaple our CRC role:  https://softwarefactory-project.io/r/plugins/gitiles/software-factory/sf-infra/+/refs/heads/master/roles/extra/crc and later in the job definition, you can overwrite the crc_version var to this one what you would like to run.\n\nIt would also require to add some \"logic\" or (optionally) additional variable into the base crc job(s) that will handle that (for example skip start process. Maybe it will not break the job, but it is not necessary to run).\n\nNormally I don\u0027t have anything against including many bundles version into the CRC image, so we don\u0027t need to download the bundle each time in the job, but just use the --bundle parameter to setup the CRC, but still, it will require some refactor in crc role and base crc job and it would have a side effect: the images would be huge and the extracted version would be not possible to do.",
+      "parentUuid": "e15df740_e198e2b4",
+      "revId": "3d64026966469d72a1146bab186f2e0c3b9f0c0c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
