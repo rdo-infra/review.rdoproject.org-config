@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90d35fb6_d4e6d84d",
+        "filename": "playbooks/crc/simple-start.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 718
+      },
+      "writtenOn": "2023-12-01T14:20:14Z",
+      "side": 1,
+      "message": "Using the default version of CRC means that we don\u0027t need to download and boot the bespoke version.\n\nThis keeps the runtime lower and saves resources. Downloading the bundle version only, rather than the new CRC image could save some time with using a configurable OCP version.\n\nWhen I was developing the multi-crc jobs in infrawatch, I passed numerous different versions into the job (4.10-4.13) and they worked, which is why I wanted to suggest skipping the new CRC version. https://github.com/infrawatch/service-telemetry-operator/pull/432",
+      "parentUuid": "e8ccb735_f2f35a91",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "42811d8f3e59981141307967723d098d669d9ba7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3983bde8_d7e37562",
         "filename": "playbooks/crc/simple-start.yaml",
         "patchSetId": 1
