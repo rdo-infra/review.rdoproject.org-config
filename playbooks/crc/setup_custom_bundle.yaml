@@ -1,0 +1,36 @@
+---
+# From https://softwarefactory-project.io/r/plugins/gitiles/software-factory/sf-infra/+/refs/heads/master/roles/extra/crc/tasks/download.yaml
+- name: Get CRC client - {{ crc_version }}
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/{{ crc_version }}/crc-linux-amd64.tar.xz"
+    dest: /usr/local/bin
+    extra_opts:
+      - "--strip-components=1"
+    remote_src: true
+
+- name: Check the crc version
+  ansible.builtin.shell: |
+    /usr/local/bin/crc version
+
+# Destroy and cleanup old setup
+- name: Destroy CRC deployment
+  ansible.builtin.shell: |
+    /usr/local/bin/crc delete -f
+
+- name: Cleaup CRC resources
+  ansible.builtin.shell: |
+    /usr/local/bin/crc cleanup
+
+# From https://softwarefactory-project.io/r/plugins/gitiles/software-factory/sf-infra/+/refs/heads/master/roles/extra/crc/tasks/setup.yaml
+- name: Configure crc - set password
+  shell: |
+    /usr/local/bin/crc config set kubeadmin-password "{{ openshift_admin_password | default('123456789') }}"
+
+- name: Configure crc - set pull secret
+  shell: |
+    /usr/local/bin/crc config set pull-secret-file pull-secret.txt
+
+- name: Setup custom crc
+  shell: |
+    /usr/local/bin/crc setup {% if crc_debug | default(true) %}--log-level debug{% endif %} &> crc-setup.log
