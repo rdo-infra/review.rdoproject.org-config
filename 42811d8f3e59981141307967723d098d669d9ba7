@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8ccb735_f2f35a91",
+        "filename": "playbooks/crc/simple-start.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2023-12-01T13:49:51Z",
+      "side": 1,
+      "message": "nit: Would it not be more safe to run dedicated version of CRC binary?\n\n```\ncurl -LO https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/2.29.0/crc-linux-amd64.tar.xz\ntar xaf crc-linux-amd64.tar.xz\n./crc-linux-2.29.0-amd64/crc start {{ crc_parameters | default(\"--memory 14000 --disk-size 80 --cpus 6\") }} {% if crc_ocp_bundle is defined %}--bundle {{ crc_ocp_bundle }}{% endif %} \u0026\u003e ~/crc-start.log\n```",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "42811d8f3e59981141307967723d098d669d9ba7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3983bde8_d7e37562",
         "filename": "playbooks/crc/simple-start.yaml",
         "patchSetId": 1
