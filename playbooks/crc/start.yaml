@@ -20,6 +20,10 @@
       when: crc_secret.openshift_pull_secret != ""
       no_log: true
 
+    - name: Setup custom CRC bundle
+      include_tasks: setup_custom_bundle.yaml
+      when: crc_version
+
     - name: Apply CRC features
       include_tasks: features.yaml
 
