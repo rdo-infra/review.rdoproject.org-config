@@ -45,12 +45,12 @@
   when: cloud_name in ["ibm-bm3-nodepool"]
 
 - name: Install openstack client
-  include: install_openstack_deps.yml
+  include_tasks: install_openstack_deps.yml
 
 - name: Create OVB stack
-  include: ovb-create-stack.yml
+  include_tasks: ovb-create-stack.yml
   when: ovb_manage_stack_mode == 'create'
 
 - name: Delete OVB stack
-  include: ovb-delete-stack.yml
+  include_tasks: ovb-delete-stack.yml
   when: ovb_manage_stack_mode == 'delete'

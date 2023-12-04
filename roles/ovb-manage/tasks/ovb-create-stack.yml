@@ -11,10 +11,10 @@
     dest: "{{ ovb_working_dir }}/idnum"
 
 - name: Generate OVB parameters template
-  include: generate_template.yml
+  include_tasks: generate_template.yml
 
 - name: Find out undercloud host ID
-  include: find_undercloud_uuid.yml
+  include_tasks: find_undercloud_uuid.yml
   when: attach_to_ovb_networks|bool
 
 - name: Generate clouds.yaml file
