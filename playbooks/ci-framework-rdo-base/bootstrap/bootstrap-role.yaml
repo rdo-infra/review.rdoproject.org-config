@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Call ci-bootstrap role to set up initial job configurations
+      ansible.builtin.include_role:
+        name: ci-bootstrap
+      when:  ci_bootstrap_role_enabled|default(false)|bool

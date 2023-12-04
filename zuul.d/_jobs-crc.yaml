@@ -102,20 +102,42 @@
         secret: dpa_registry_pass
 
 - job:
-    name: base-config-repo-temporal-testing
-    parent: cifmw-test-base-job
+    name: cifmw-bootstrap-extracted-crc
+    parent: cifmw-multinode-base-job
     abstract: true
     description: |
-      Temporal job to be deleted
+      Configures ci-framework multinode environment using an extracted CRC image
     pre-run:
-      - playbooks/base-config-repo-testing/run.yml
+      # TODO: move into ci-bootstrap
+      - playbooks/crc/ensure-marketplace.yaml
+      # Playbook that creates the environment network in the target cloud
+      # (old) playbooks/crc/bootstrap-ci-network.yml
+      - playbooks/ci-framework-rdo-base/bootstrap/bootstrap-role.yaml
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+    post-run:
+      # Deletes generated network resources
+      - playbooks/ci-framework-rdo-base/bootstrap/bootstrap-role-cleanup.yaml
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
     required-projects:
       - opendev.org/zuul/zuul-jobs
       - config
-      - name: github.com/openstack-k8s-operators/install_yamls
+      - name: github.com/openstack-k8s-operators/ci-bootstrap
         override-checkout: main
       - name: github.com/openstack-k8s-operators/ci-framework
         override-checkout: main
     roles:
+      - zuul: github.com/openstack-k8s-operators/ci-bootstrap
       - zuul: github.com/openstack-k8s-operators/ci-framework
-    attempts: 1
+    attempts: 3
+    vars:
+      crc_ci_bootstrap_cloud_name: vexxhost
+      cifmw_dlrn_report_result: false
+    secrets:
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
+      - name: cloud_secrets
+        secret: cloud_secrets
+      - dlrnapi
+      - name: crc_secret
+        secret: crc_secret
