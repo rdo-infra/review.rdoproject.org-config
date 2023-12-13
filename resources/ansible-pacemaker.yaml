@@ -1,0 +1,47 @@
+resources:
+  groups:
+    redhat-openstack/ansible-pacemaker-core:
+      description: Core developers for project ansible-pacemaker
+      members:
+      - mbultel@redhat.com
+    redhat-openstack/ansible-pacemaker-ptl:
+      description: Project team lead for project ansible-pacemaker
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    redhat-openstack/ansible-pacemaker:
+      file: |
+        [access "refs/*"]
+          read = group redhat-openstack/ansible-pacemaker-core
+          owner = group redhat-openstack/ansible-pacemaker-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group redhat-openstack/ansible-pacemaker-core
+          label-Code-Review = -2..+2 group redhat-openstack/ansible-pacemaker-ptl
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group redhat-openstack/ansible-pacemaker-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group redhat-openstack/ansible-pacemaker-core
+          abandon = group redhat-openstack/ansible-pacemaker-core
+          label-Verified = -2..+2 group redhat-openstack/ansible-pacemaker-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group redhat-openstack/ansible-pacemaker-core
+          label-Workflow = -1..+1 group redhat-openstack/ansible-pacemaker-ptl
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group redhat-openstack/ansible-pacemaker-core
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - redhat-openstack/ansible-pacemaker-core
+      - redhat-openstack/ansible-pacemaker-ptl
+      - rdo-superusers
+  repos:
+    redhat-openstack/ansible-pacemaker:
+      acl: redhat-openstack/ansible-pacemaker-core
+      description: Mirror of upstream ansible-pacemaker (mirror + patches)
