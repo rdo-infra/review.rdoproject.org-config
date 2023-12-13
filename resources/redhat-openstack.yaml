@@ -1,0 +1,33 @@
+resources:
+  groups:
+    redhat-openstack-core:
+      description: Core developers for redhat-openstack projects
+      members:
+      - alan.pevec@redhat.com
+      - mbultel@redhat.com
+  acls:
+    redhat-openstack-default:
+      file: |
+        [access "refs/*"]
+          owner = group redhat-openstack-core
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group redhat-openstack-core
+            label-Verified = -2..+2 group redhat-openstack-core
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group redhat-openstack-core
+            submit = group redhat-openstack-core
+            read = group redhat-openstack-core
+            read = group Registered Users
+        [access "refs/meta/config"]
+            read = group redhat-openstack-core
+            read = group Registered Users
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+        - redhat-openstack-core
+  repos:
+    redhat-openstack/ansible-pacemaker:
+      acl: redhat-openstack-default
