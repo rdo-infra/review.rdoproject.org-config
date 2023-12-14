@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PASSWORD=""
+OC_PATH=/usr/local/bin/oc
 
 if [ -f ~/crc-start.log ]; then
     PASSWORD=$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')
@@ -10,9 +11,18 @@ if [ -z "$PASSWORD" ]; then
     PASSWORD="{{ crc_password | default('123456789') }}"
 fi
 
+if ! [ -f "$OC_PATH" ]; then
+    OC_PATH=$(command -v oc)
+fi
+
+if [ -z "$OC_PATH" ]; then
+    echo "Can not detect oc binary!"
+    exit 1
+fi
+
 for i in {1..25}; do
     echo "Checking login to the cluster ${i}..."
-    if /usr/bin/oc login \
+    if $OC_PATH login \
            -u kubeadmin \
            -p "$PASSWORD" \
            https://api.crc.testing:6443 \
