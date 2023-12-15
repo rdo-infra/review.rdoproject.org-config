@@ -1,0 +1,8 @@
+---
+- hosts: controller
+  tasks:
+    - name: Call ci-bootstrap role to cleanup job configurations
+      ansible.builtin.include_role:
+        name: bootstrap
+        tasks_from: cleanup_networking.yml
+      when:  ci_bootstrap_role_enabled|default(false)|bool
