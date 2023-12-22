@@ -143,11 +143,9 @@
       - name: dpa_registry_pass
         secret: dpa_registry_pass
 
-# TODO(dviroel): Inherit from cifmw network mapper job
-#   once is validated.
 - job:
     name: base-extracted-crc-ci-bootstrap-staging
-    parent: base-extracted-crc-wo-networks
+    parent: cifmw-extracted-crc-pre-bootstrap
     abstract: true
     pre-run:
       - playbooks/ci-framework-rdo-base/bootstrap/network-bootstrap.yaml
