@@ -143,6 +143,25 @@
       - name: dpa_registry_pass
         secret: dpa_registry_pass
 
+# Base crc jobs using ci-bootstrap to configure cloud resources
+- job:
+    name: base-extracted-crc-ci-bootstrap
+    parent: cifmw-extracted-crc-pre-bootstrap
+    abstract: true
+    pre-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-bootstrap.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-cleanup.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-bootstrap
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-bootstrap
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_app_credentials
+
+# Runs ci-bootstrap from staging branch for testing purposes
 - job:
     name: base-extracted-crc-ci-bootstrap-staging
     parent: cifmw-extracted-crc-pre-bootstrap
