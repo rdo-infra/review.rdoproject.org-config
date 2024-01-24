@@ -11,3 +11,12 @@
         content: "{{ rdoinfo_ssh.private_key }}"
         dest: ~/.ssh/rdoinfo_id_rsa
         mode: 0600
+
+    - name: pip install rdopkg
+      # noqa 403
+      pip:
+        name: rdopkg
+        virtualenv: "{{ ansible_user_dir }}/rdopkg-venv"
+        virtualenv_command: "/usr/bin/python{{ ansible_python.version.major }} -m venv"
+        virtualenv_site_packages: true
+
