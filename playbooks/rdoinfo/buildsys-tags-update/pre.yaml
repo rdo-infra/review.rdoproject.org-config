@@ -12,6 +12,13 @@
         dest: ~/.ssh/rdoinfo_id_rsa
         mode: 0600
 
+    - name: install rdopkg dependencies
+      become: true
+      changed_when: true
+      shell:
+        cmd: |
+          dnf install -y python3-pip python3-pyOpenSSL rpmlint python3-rpm
+
     - name: pip install rdopkg
       # noqa 403
       pip:
