@@ -20,7 +20,7 @@
       when: crc_secret.openshift_pull_secret != ""
       no_log: true
 
-    - name: Apply CRC features
+    - name: Apply CRC features and print image build date
       include_tasks: features.yaml
 
     - name: Delete the cluster if there's a non-default bundle URL
