@@ -12,6 +12,13 @@
         dest: ~/.ssh/rdoinfo_id_rsa
         mode: 0600
 
+    - name: install rdopkg dependencies
+      become: true
+      changed_when: true
+      shell:
+        cmd: |
+          dnf install -y python3-pip rpmlint python3-rpm {{ 'python3-pyOpenSSL' if centos_release == "centos8" }}
+
     - name: pip install rdopkg
       # noqa 403
       pip:
