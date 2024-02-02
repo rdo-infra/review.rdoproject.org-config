@@ -3,6 +3,7 @@ id={{ iface_info.connection }}
 uuid={{ 99999999 | random | to_uuid }}
 type=vlan
 autoconnect=true
+interface-name={{ iface_info.connection }}
 
 [ethernet]
 cloned-mac-address={{ iface_info.mac | trim | lower }}
