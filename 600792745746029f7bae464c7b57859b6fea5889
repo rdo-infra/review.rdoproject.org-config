@@ -16,6 +16,40 @@
       "message": "we\u0027ll have to ensure we don\u0027t break that once moving to the new roles.",
       "revId": "600792745746029f7bae464c7b57859b6fea5889",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c630c9a1_765c0809",
+        "filename": "playbooks/crc/templates/bootstrap-ci-network-nm-connection.nmconnection.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 879
+      },
+      "writtenOn": "2024-02-02T12:53:45Z",
+      "side": 1,
+      "message": "Should be iface_info.iface",
+      "revId": "600792745746029f7bae464c7b57859b6fea5889",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2374fc0c_622a962d",
+        "filename": "playbooks/crc/templates/bootstrap-ci-network-vlan-nm-connection.nmconnection.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 879
+      },
+      "writtenOn": "2024-02-02T12:53:45Z",
+      "side": 1,
+      "message": "Should be interface-name\u003d{{ iface_info.parent_iface }}.{{ iface_info.vlan }}",
+      "revId": "600792745746029f7bae464c7b57859b6fea5889",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
