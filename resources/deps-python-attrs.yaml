@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-attrs-core:
+      description: Core developers for project python-attrs
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-attrs-ptl:
+      description: Project team lead for project python-attrs
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-attrs:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-attrs-core
+          owner = group deps/python-attrs-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-attrs-core
+          label-Code-Review = -2..+2 group deps/python-attrs-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-attrs-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-attrs-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-attrs-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-attrs-core
+          label-Workflow = -1..+0 group deps/python-attrs-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-attrs-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-attrs-core
+      - deps/python-attrs-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-attrs:
+      acl: deps-python-attrs
+      description: Packaging of RDO dependency python-attrs
+      default-branch: c9s-caracal-rdo
+      branches:
+        master: '0'
