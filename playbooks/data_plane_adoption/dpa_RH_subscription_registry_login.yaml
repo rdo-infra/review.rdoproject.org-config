@@ -12,8 +12,11 @@
         name: podman
         state: present
 
-    - name: Login to registry.redhat.io for tripleo deployment containers
-      become: true
+    - name: Login to registry.redhat.io for tripleo containers (zuul and root users)
+      become: "{{ item == 'root' }}"
       no_log: true
       ansible.builtin.shell: |
         podman login --username "{{ dpa_registry_user.name }}" --password "{{ dpa_registry_pass.password }}" registry.redhat.io
+      loop:
+        - "root"
+        - "zuul"
