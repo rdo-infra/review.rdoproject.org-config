@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e7c6459_6b94819f",
+        "filename": "playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 192
+      },
+      "writtenOn": "2024-02-12T08:34:56Z",
+      "side": 1,
+      "message": "i tested this syntax locally:\n\n```\n  tasks:\n    - name: Place standalone_ip into vars.yaml for EDPM\n      become: \"{{ item \u003d\u003d \u0027yes\u0027 }}\"\n      ansible.builtin.lineinfile:\n        path: \"{{ rdo_dir }}/vars.yaml\"\n        regexp: \"\u0027^{{ item }}:\u0027\"\n        value: \"{{ item }}: {{ standalone_ip }}\"\n      loop:\n        - \"edpm_node_ip\"\n        - \"source_mariadb_ip\"\n        - \"source_ovndb_ip\"\n        - \"yes\"\n\n```\n\nIt ran the first three items and failed the last because it was asking for root pass:\n\n```\nfailed: [127.0.0.1] (item\u003dyes) \u003d\u003e {\n    \"ansible_loop_var\": \"item\",\n    \"changed\": false,\n    \"item\": \"yes\",\n    \"module_stderr\": \"sudo: a password is required\\n\",\n    \"module_stdout\": \"\",\n    \"msg\": \"MODULE FAILURE\\nSee stdout/stderr for the exact error\",\n    \"rc\": 1\n}\n\nPLAY RECAP *********************************************************************************************************************************************\n127.0.0.1                  : ok\u003d1    changed\u003d0    unreachable\u003d0    failed\u003d1    skipped\u003d0    rescued\u003d0    ignored\u003d0   \n```\n\n\nthe vars.yaml has the first three loop items (before \"yes\")\n\n```\n$ cat vars.yaml \n\nedpm_node_ip: 1.2.3.4\nsource_mariadb_ip: 1.2.3.4\nsource_ovndb_ip: 1.2.3.4\n\n```",
+      "revId": "5259e54e2eaf7556b05c6c5043cc37ae899254f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
