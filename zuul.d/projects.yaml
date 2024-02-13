@@ -3368,6 +3368,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/os-diff
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/os-diff-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/os-faults
     templates:
       - package-check-jobs
