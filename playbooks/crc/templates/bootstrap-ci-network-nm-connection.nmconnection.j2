@@ -12,6 +12,7 @@ mtu={{ iface_info.mtu }}
 [ipv4]
 method=manual
 addresses={{ iface_info.ip }}
+never-default=true
 {% if iface_info.gw is defined and iface_info.gw != '' -%}
 gateway={{ iface_info.gw }}
 {% endif -%}
