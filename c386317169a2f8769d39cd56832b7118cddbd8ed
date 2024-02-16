@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "223d0eec_ea0a6ab8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-02-16T11:08:40Z",
+      "side": 1,
+      "message": "https://issues.redhat.com/browse/OSPCIX-187",
+      "parentUuid": "a03bf3c5_748dc6ed",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 46
+      },
+      "revId": "c386317169a2f8769d39cd56832b7118cddbd8ed",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac59a47c_591db8ab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-16T07:57:22Z",
       "side": 1,
       "message": "how/why was it created is it a new thing? has it always been there but only just started affecting us? if so what changed",
+      "range": {
+        "startLine": 14,
+        "startChar": 25,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "c386317169a2f8769d39cd56832b7118cddbd8ed",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fcad99_efecf99d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-02-16T11:08:40Z",
+      "side": 1,
+      "message": "So, with the change to OCP4.14 when install_yamls deploys openstack a NNCP resource is created, this NNCP resource used to configure a default route for the control plain interface. Prior to OCP 4.14 (With no update to the NNCP) this second default route started being configured differently due to some change in nmstate or Network Manager.\n\nThe change in behavior made it so the controlplane default route could take priority over the external interface provided by the cloud provider. When this would happen traffic between controller and CRC node would be fine (Traffic would arrive on external interface of CRC node but leave the controlplane interface which the controller node also has configured) but traffic from external to the CRC node would fail, such as from your system or Zuul executor causing post failures because log collection would fail.\n\nFirst I patched install_yamls[1] to not create that second default route for ospbr (controlplane) however during the bootstrap phase when we originally connect this second interface it creates a second default route. When NNCP tries to remove the second default route it succeeds but fails pass it\u0027s verification ping probe test. This is because you can\u0027t remove a default route using nmstate operator, the ping probe tests are generated before the default route is removed so it will always fail checking that removed default route.[2]\n\nTo resolve this issue we still need [1] but we also need to prevent the second default route from being created in the first place in the bootstrap phase which is what the patch does. Tested here [3]\n\nThe same patch is needed here, downstream [4] in ci-bootstrap [5] and in the reproducer role [6]\n\nTo answer your question about what changed? I couldn\u0027t isolate a commit from nmstate/network manager or k8s-nmstate that changed this behavior but I ran 4.12 and 4.14 side by side in the same job and the default route was created differently as mentioned above with no difference in NNCP.  \n\n[1] https://github.com/openstack-k8s-operators/install_yamls/pull/725\n[2] https://bugzilla.redhat.com/show_bug.cgi?id\u003d1933723\n[3] https://review.rdoproject.org/r/c/testproject/+/51542\n[4] https://code.engineering.redhat.com/gerrit/c/openstack/tripleo-ci-internal-config/+/450160\n[5] https://github.com/openstack-k8s-operators/ci-bootstrap/pull/32\n[6] https://github.com/openstack-k8s-operators/ci-framework/pull/1149",
+      "parentUuid": "ac59a47c_591db8ab",
       "range": {
         "startLine": 14,
         "startChar": 25,
@@ -60,6 +108,23 @@
       "writtenOn": "2024-02-16T07:57:22Z",
       "side": 1,
       "message": "ok but would like to have some more context. \n\nhow confident are we on this fix (we cannot test it until we merge)",
+      "revId": "c386317169a2f8769d39cd56832b7118cddbd8ed",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6593d3d9_a574f5fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-02-16T11:08:40Z",
+      "side": 1,
+      "message": "Thank you as always Marios, please let me know if you have any further questions and please let me know where I should put this information next time. I thought it might be too much for the commit message.",
       "revId": "c386317169a2f8769d39cd56832b7118cddbd8ed",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
