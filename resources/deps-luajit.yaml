@@ -1,0 +1,66 @@
+resources:
+  groups:
+    deps/luajit-core:
+      description: Core developers for project luajit
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/luajit-ptl:
+      description: Project team lead for project luajit
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-luajit:
+      file: |
+        [access "refs/*"]
+          read = group deps/luajit-core
+          owner = group deps/luajit-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/luajit-core
+          label-Code-Review = -2..+2 group deps/luajit-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/luajit-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/luajit-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/luajit-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/luajit-core
+          label-Workflow = -1..+0 group deps/luajit-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/luajit-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/luajit-core
+      - deps/luajit-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/luajit:
+      acl: deps-luajit
+      description: Packaging of RDO dependency luajit
+      default-branch: c9s-caracal-rdo
+      branches:
+        c9s-yoga-rdo: c9s-xena-rdo
+        c9s-zed-rdo: c9s-yoga-rdo
+        c9s-antelope-rdo: c9s-zed-rdo
+        c9s-bobcat-rdo: c9s-antelope-rdo
+        c9s-caracal-rdo: c9s-bobcat-rdo
