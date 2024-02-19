@@ -214,9 +214,10 @@
           - deps/python-platformdirs
           - deps/python-poetry-core
           - deps/python-pytz-deprecation-shim
-          - deps/python-setuptools_scm
           - deps/python-setuptools
+          - deps/python-setuptools_scm
           - deps/python-socksio
+          - deps/python-spnego
           - deps/python-ssh-python
           - deps/python-sshtunnel
           - deps/python-tcolorpy
@@ -1242,7 +1243,7 @@
         - include: [job, project, nodeset, project-template]
           projects:
           - openstack-k8s-operators/ci-framework:
-              include-branches: ["^main$"]
+              include-branches: [^main$]
           - openstack-k8s-operators/tcib
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
