@@ -201,6 +201,7 @@
           - deps/python-datetimerange
           - deps/python-deprecated
           - deps/python-editables
+          - deps/python-elementpath
           - deps/python-faker
           - deps/python-greenlet
           - deps/python-hatch-fancy-pypi-readme
@@ -1243,7 +1244,7 @@
         - include: [job, project, nodeset, project-template]
           projects:
           - openstack-k8s-operators/ci-framework:
-              include-branches: ["^main$"]
+              include-branches: [^main$]
           - openstack-k8s-operators/tcib
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
