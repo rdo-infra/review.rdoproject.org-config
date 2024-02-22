@@ -194,6 +194,7 @@
           - deps/google-benchmark
           - deps/gtest
           - deps/luajit
+          - deps/pysnmp-lextudio
           - deps/python-aniso8601
           - deps/python-anyio
           - deps/python-asgiref
@@ -1248,7 +1249,7 @@
         - include: [job, project, nodeset, project-template]
           projects:
           - openstack-k8s-operators/ci-framework:
-              include-branches: ["^main$"]
+              include-branches: [^main$]
           - openstack-k8s-operators/tcib
           - openstack-k8s-operators/nova-operator
           - openstack-k8s-operators/placement-operator
