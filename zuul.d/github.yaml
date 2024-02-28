@@ -60,3 +60,15 @@
         - event: pull_request
           action: comment
           comment: (?i)^\s*(check-github|check-rdo)\s*$
+
+- pipeline:
+    name: github-post
+    post-review: true
+    description: |
+      This pipeline runs jobs that operate after each change is merged.
+    manager: independent
+    precedence: low
+    trigger:
+      github.com:
+        - event: push
+          ref: ^refs/heads/.*$
