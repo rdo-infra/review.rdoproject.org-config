@@ -1269,12 +1269,28 @@
           - openstack-k8s-operators/openstack-baremetal-operator
           - infrawatch/feature-verification-tests:
               include-branches:
-              - ^main$
-          - infrawatch/prometheus-webhook-snmp
-          - infrawatch/service-telemetry-operator
-          - infrawatch/sg-bridge
-          - infrawatch/sg-core
-          - infrawatch/smart-gateway-operator
+              - ^master$
+              - ^stable-\d*.\d*$
+          - infrawatch/prometheus-webhook-snmp:
+              include-branches:
+              - ^master$
+              - ^stable-\d*.\d*$
+          - infrawatch/service-telemetry-operator:
+              include-branches:
+              - ^master$
+              - ^stable-\d*.\d*$
+          - infrawatch/sg-bridge:
+              include-branches:
+              - ^master$
+              - ^stable-\d*.\d*$
+          - infrawatch/sg-core:
+              include-branches:
+              - ^master$
+              - ^stable-\d*.\d*$
+          - infrawatch/smart-gateway-operator:
+              include-branches:
+              - ^master$
+              - ^stable-\d*.\d*$
           - openstack-k8s-operators/openstack-operator
           - os-net-config/os-net-config
           - openstack-k8s-operators/ovn-operator
