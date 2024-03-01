@@ -22,7 +22,9 @@ def add_project_resources(prefix, name, maintainers, deps_current_release):
 
     # Add project to gerritbot configuration
     with open("gerritbot/channels.yaml") as gerritbot:
-        info = yaml.load(gerritbot, Loader=yaml.RoundTripLoader)
+        yml_gerritbot = yaml.YAML()
+        yml_gerritbot.indent(mapping=4, sequence=4, offset=2)
+        info = yml_gerritbot.load(gerritbot)
 
     if prefix != 'deps':
         newkey = "%s/%s-distgit" % (project_prefix, project_name)
@@ -38,9 +40,7 @@ def add_project_resources(prefix, name, maintainers, deps_current_release):
         print("Key %s already in gerritbot" % newkey)
 
     info['rdo']['projects'].sort()
-    with open('gerritbot/channels.yaml', 'w') as outfile:
-        outfile.write(yaml.dump(info, Dumper=yaml.RoundTripDumper,
-                                indent=4, block_seq_indent=2))
+    yml_gerritbot.dump(info, open('gerritbot/channels.yaml', 'w'))
 
     # And also to the Zuul configuration, but only for distgits
     # The specific -distgit repo is only created for RDO Trunk packages,
@@ -48,6 +48,8 @@ def add_project_resources(prefix, name, maintainers, deps_current_release):
     if prefix != 'deps':
         yml = yaml.YAML()
         yml.indent(mapping=2, sequence=4, offset=2)
+        yml.preserve_quotes = True
+        yml.width = sys.maxsize
 
         with open("zuul.d/projects.yaml") as infile:
             info = yml.load(infile)
@@ -109,7 +111,10 @@ def add_project_package(prefix, name, deps_current_release):
     release = deps_current_release
 
     with open('resources/rdo.yaml') as fp:
-        resource =  yaml.load(fp, Loader=yaml.RoundTripLoader, preserve_quotes=True)
+        yml_rdo = yaml.YAML(typ='rt')
+        yml_rdo.indent(mapping=2, sequence=2)
+        yml_rdo.preserve_quotes = True
+        resource = yml_rdo.load(fp)
 
     if prefix != 'deps':
         project = "%s/%s-distgit" % (prefix, name)
@@ -136,11 +141,7 @@ def add_project_package(prefix, name, deps_current_release):
     resource['resources']['projects']['RDO']['source-repositories'] = sorted(
         resource['resources']['projects']['RDO']['source-repositories'], key=lambda i: sorted(i.keys()))
 
-    with open('resources/rdo.yaml', 'w') as fp:
-        fp.write(yaml.dump(resource,
-                           Dumper=yaml.RoundTripDumper,
-                           indent=2,
-                           block_seq_indent=0))
+    yml_rdo.dump(resource, open('resources/rdo.yaml', 'w'))
 
 
 if __name__ == '__main__':
