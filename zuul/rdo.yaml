@@ -1307,7 +1307,9 @@
           - openstack-k8s-operators/neutron-operator
           - openstack-k8s-operators/octavia-operator
           - openstack-k8s-operators/swift-operator
-          - openstack-k8s-operators/telemetry-operator
+          - openstack-k8s-operators/telemetry-operator:
+              include-branches:
+                - ^main$
           - openstack-k8s-operators/openstack-must-gather
           - openstack-k8s-operators/ci-bootstrap
           - openstack-k8s-operators/data-plane-adoption
