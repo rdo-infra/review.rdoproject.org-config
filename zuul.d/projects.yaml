@@ -378,6 +378,13 @@
       - system-required
 
 - project:
+    name: opendev.org/openstack/telemetry-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+      - rdo-telemetry-tempest-plugin-jobs
+
+- project:
     name: opendev.org/openstack/tempest
     templates:
       - system-required
@@ -4547,7 +4554,6 @@
     templates:
       - package-check-jobs
       - system-required
-      - rdo-telemetry-tempest-plugin-jobs
 
 - project:
     name: review.rdoproject.org/openstack/telemetry-tempest-plugin-distgit
