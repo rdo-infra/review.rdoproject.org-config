@@ -97,7 +97,7 @@
     post-run: playbooks/distgit-cbs-validate/post.yaml
     required-projects:
       - name: gating_scripts
-    nodeset: rdo-centos-7
+    nodeset: rdo-centos-9-stream
     vars:
       centos_releasever: 7
     secrets:
@@ -106,7 +106,6 @@
 - job:
     name: distgit-cbs-validate-centos8-stream
     parent: distgit-cbs-validate
-    nodeset: rdo-centos-8-stream
     branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
     vars:
       centos_releasever: 8
@@ -114,7 +113,6 @@
 - job:
     name: distgit-cbs-validate-centos9
     parent: distgit-cbs-validate
-    nodeset: rdo-centos-8-stream
     branches: ^(yoga-rdo|zed-rdo|antelope-rdo|bobcat-rdo|caracal-rdo)$
     vars:
       centos_releasever: 9
@@ -141,7 +139,6 @@
 - job:
     name: distgit-cbs-final-build-centos8
     parent: distgit-cbs-final-build
-    nodeset: rdo-centos-8-stream
     branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
     vars:
       centos_releasever: 8
@@ -149,7 +146,6 @@
 - job:
     name: distgit-cbs-final-build-centos9
     parent: distgit-cbs-final-build
-    nodeset: rdo-centos-8-stream
     branches: ^(yoga-rdo|zed-rdo|antelope-rdo|bobcat-rdo|caracal-rdo)$
     vars:
       centos_releasever: 9
