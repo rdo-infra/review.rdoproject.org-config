@@ -13,6 +13,17 @@
       changed_when: true
       when: ansible_distribution_major_version|int == 8
 
+    - name: Temporary install centos-packager from EPEL for CS9
+      shell:
+        cmd: |
+          sudo {{ ansible_pkg_mgr }} install -y 'dnf-command(config-manager)';
+          sudo {{ ansible_pkg_mgr }} config-manager --set-enabled crb;
+          sudo {{ ansible_pkg_mgr }} install -y epel-release;
+          sudo {{ ansible_pkg_mgr }} install -y centos-packager;
+          sudo {{ ansible_pkg_mgr }} remove -y epel-release
+      changed_when: true
+      when: ansible_distribution_major_version|int == 9
+
     - name: Install yum deps
       shell:
         cmd: |
@@ -23,9 +34,9 @@
     - name: Install ansible-packaging with macros for ansible collections
       shell:
         cmd: |
-          YUM="{{ ansible_pkg_mgr }}"
-          sudo curl -L http://trunk.rdoproject.org/centos8-yoga/delorean-deps.repo -o /etc/yum.repos.d/delorean-deps.repo;
-          sudo $YUM install -y ansible-packaging;
+          RELEASE="{{ 'centos9-bobcat' if ansible_distribution_major_version|int == 9 else 'centos8-yoga' }}"
+          sudo curl -L http://trunk.rdoproject.org/${RELEASE}/delorean-deps.repo -o /etc/yum.repos.d/delorean-deps.repo;
+          sudo {{ ansible_pkg_mgr }} install -y ansible-packaging;
       changed_when: true
       when: ansible_distribution_major_version|int == 8
 
