@@ -6,5 +6,12 @@
           export WORKSPACE={{ ansible_user_dir }}
           ./dep-validate.sh "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
         chdir: "{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
-      environment: '{{ zuul | zuul_legacy_vars }}'
+      environment:
+        ZUUL3_HOME: "{{ ansible_env.HOME }}"
+        ZUUL_REF: "{{ zuul.ref }}"
+        ZUUL_PROJECT: "{{ zuul.project.name }}"
+        ZUUL_BRANCH: "{{ zuul.branch }}"
+        ZUUL_PIPELINE: "{{ zuul.pipeline }}"
+        ZUUL_CHANGES: "{% set comma = joiner('^') %} {% for chg in zuul['items'] %}{{ comma() }}{{ chg.project.name }}:{{ chg.branch }}:{{ chg.change_url }}{% endfor %}"  # noqa 204
+        LANG: 'en_US.UTF-8'
       changed_when: true
