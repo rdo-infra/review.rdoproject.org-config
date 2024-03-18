@@ -6,7 +6,7 @@
       changed_when: true
       shell:
         cmd: |
-          dnf install -y python3-pip python3-pyOpenSSL rpmlint python3-rpm
+          dnf install -y python3-pip rpmlint python3-rpm
 
     - name: pip install rdopkg
       pip:
@@ -71,7 +71,7 @@
       shell:
         cmd: |
           set +e -x
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pip install git-review rdopkg ruamel.yaml Jinja2
           cd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
