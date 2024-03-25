@@ -66,6 +66,8 @@
       - playbooks/crc/ensure-marketplace.yaml
       # Playbook that creates the environment network in the target cloud
       - playbooks/crc/bootstrap-ci-network.yml
+      # Ensure once again, that the all services are running after reboot
+      - playbooks/crc/ensure-marketplace.yaml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
