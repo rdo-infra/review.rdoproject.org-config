@@ -130,6 +130,23 @@
     - name: Reconfigure kubelet service
       ansible.builtin.include_tasks: reconfigure_kubelet.yaml
 
+    - name: Change systemd service timeout to avoid reboot timeout
+      become: true
+      ansible.builtin.lineinfile:
+        dest: "/etc/systemd/system.conf"
+        state: present
+        regexp: "#DefaultTimeoutStopSec"
+        line: "DefaultTimeoutStopSec=45s"
+      register: _systemd_timeout
+
+    - name: Reload crond service to apply systemd configuration after doing change
+      become: true
+      ansible.builtin.systemd:
+        name: crond
+        state: reloaded
+        daemon-reload: true
+      when: _systemd_timeout.changed
+
     - name: Reboot host after kubelet is reconfigured
       become: true
       ansible.builtin.reboot:
