@@ -10,34 +10,14 @@
 
     - name: Create openshift-pull-secret
       block:
-        - name: Check if CRI-O is available
-          ansible.builtin.stat:
-            path: /etc/crio
-          register: _crio_dir
-
-        - name: Create pull secret when CRI-O exists
-          when: _crio_dir.stat.exists
+        - name: Copy pull-secret to kubelet config.json
           become: true
-          block:
-            - name: Create pull-secret.txt file
-              copy:
-                content: "{{ crc_secret.openshift_pull_secret }}"
-                dest: /etc/crio/openshift-pull-secret
-              when: crc_secret.openshift_pull_secret != ""
-              no_log: true
-
-            - name: Create cri-o configuration file
-              ansible.builtin.copy:
-                content: |
-                  [crio.image]
-                  global_auth_file="/etc/crio/openshift-pull-secret"
-                  pause_image_auth_file = "/etc/crio/openshift-pull-secret"
-                dest: /etc/crio/crio.conf.d/00-zuul
-
-            - name: Restart cri-o service to apply secret
-              ansible.builtin.systemd:
-                name: crio
-                state: restarted
+          ansible.builtin.copy:
+            content: |
+              {{ crc_secret.openshift_pull_secret }}
+            dest: /var/lib/kubelet/config.json
+          when: crc_secret.openshift_pull_secret != ""
+          no_log: true
 
         - name: Verify that OpenShift is up and running
           ansible.builtin.include_tasks: verify_openshift_start.yaml
@@ -47,9 +27,7 @@
         # the file and skip restart the cri-o service.
         - name: Ensure pull secret is removed
           become: true
-          ansible.builtin.file:
-            path: "{{ item }}"
-            state: absent
-          loop:
-            - "/etc/crio/openshift-pull-secret"
-            - "/etc/crio/crio.conf.d/00-zuul"
+          ansible.builtin.copy:
+            content: |
+              {}
+            dest: /var/lib/kubelet/config.json
