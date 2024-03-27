@@ -63,9 +63,7 @@
       - playbooks/tripleo-rdo-base/pre.yaml
       # Playbook that creates the environment network in the target cloud
       - playbooks/crc/bootstrap-ci-network.yml
-      # FIXME: Playbook with a workaround for broken openshift-marketplace
-      # missing image issue. Remove it when marketplace is not needed.
-      - playbooks/crc/ensure-marketplace.yaml
+      - playbooks/crc/inject-pull-secret.yaml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
@@ -110,9 +108,7 @@
     pre-run:
       # Playbook to add tripleo-ci team ssh keys to the node
       - playbooks/tripleo-rdo-base/pre.yaml
-      # FIXME: Playbook with a workaround for broken openshift-marketplace
-      # missing image issue. Remove it when marketplace is not needed.
-      - playbooks/crc/ensure-marketplace.yaml
+      - playbooks/crc/inject-pull-secret.yaml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
