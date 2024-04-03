@@ -1,0 +1,43 @@
+resources:
+  groups:
+    rdo-mkdocs-website:
+      description: 'RDO Website repository admins'
+      members:
+      - admin@review.rdoproject.org
+      - alan.pevec@redhat.com
+      - amoralej@redhat.com
+      - amy@demarco.com
+      - aschultz@next-development.com
+      - chkumar@redhat.com
+      - jcapitao@redhat.com
+      - lhh@redhat.com
+      - rlandy@redhat.com
+      - ykarel@redhat.com
+  acls:
+    rdo-mkdocs-website:
+      file: |
+        [access "refs/*"]
+            read = group rdo-mkdocs-website
+            owner = group rdo-mkdocs-website
+        [access "refs/heads/*"]
+            label-Code-Review = -2..+2 group rdo-mkdocs-website
+            submit = group rdo-mkdocs-website
+            read = group Registered Users
+            read = group rdo-mkdocs-website
+            label-Verified = -2..+2 group rdo-mkdocs-website
+            label-Workflow = -1..+0 group Registered Users
+            label-Workflow = -1..+1 group rdo-mkdocs-website
+        [access "refs/meta/config"]
+            read = group Registered Users
+            read = group rdo-mkdocs-website
+        [receive]
+            requireChangeId = true
+        [submit]
+            mergeContent = false
+            action = rebase if necessary
+      groups:
+      - rdo-mkdocs-website
+  repos:
+    rdo-mkdocs-website:
+      acl: rdo-mkdocs-website
+      description: "RDO Website repository"
