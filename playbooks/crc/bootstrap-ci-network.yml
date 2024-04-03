@@ -133,6 +133,7 @@
     - name: Reboot host after kubelet is reconfigured
       become: true
       ansible.builtin.reboot:
+        reboot_timeout: 900
 
     - include_role:
         name: start-zuul-console
