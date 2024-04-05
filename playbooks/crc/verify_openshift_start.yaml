@@ -25,3 +25,7 @@
 - name: Print image date if available
   when: _image_date.stat.exists
   ansible.builtin.command: cat image_build_date
+
+- name: Fix machineconfigpool
+  ansible.builtin.include_tasks: machineconfigpool.yaml
+  when: change_machineconfigpool | default(true)
