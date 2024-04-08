@@ -28,4 +28,4 @@
 
 - name: Fix machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
-  when: change_machineconfigpool | default(true)
+  when: change_machineconfigpool | default(false)
