@@ -37,6 +37,13 @@
         - machine-config-controller
         - machine-config-operator
 
+    - name: Wait for machineconfigpool to be updated
+      ansible.builtin.shell: |
+        oc wait --for=condition=Updated --timeout=600s machineconfigpool/{{ item }}
+      loop:
+        - master
+        - worker
+
     - name: Get degradedMachineCount for machineconfigpool worker
       ansible.builtin.shell: |
         oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
