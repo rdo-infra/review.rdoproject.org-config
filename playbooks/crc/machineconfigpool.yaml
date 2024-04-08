@@ -6,6 +6,7 @@
     select(.type == "NodeDegraded") | .message' |
     grep -Eo rendered-master-[0-9a-f]{32}
   register: _missing_mcp
+  failed_when: _missing_mcp.rc not in [0,1]
 
 - name: Check if file is available
   ansible.builtin.stat:
