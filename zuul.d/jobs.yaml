@@ -175,23 +175,6 @@
       - sig_jenkins
 
 - job:
-    name: validate-dependencies-rebuilds
-    parent: base
-    description: |
-      This job does scratch build from fedora srpm in CBS.
-    final: true
-    pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/rdoinfo/validate-dependencies-rebuilds/run.yaml
-    post-run: playbooks/rdoinfo/validate-dependencies-rebuilds/post.yaml
-    timeout: 10800
-    required-projects:
-      - name: rdoinfo
-      - name: gating_scripts
-    nodeset: rdo-centos-8-stream
-    secrets:
-      - koji_centos
-
-- job:
     name: rdoinfo-buildsys-tags-update-testing
     parent: base
     description: |
@@ -270,23 +253,6 @@
       - name: gating_scripts
       - name: graffiti
       - name: rdoinfo
-    secrets:
-      - koji_centos
-
-- job:
-    name: rebuild-fedora-dependencies
-    parent: base
-    description: |
-      This job rebuilds srpm from fedora in CBS.
-    final: true
-    pre-run: playbooks/distgit-cbs-validate/pre.yaml
-    run: playbooks/rdoinfo/rebuild-fedora-dependencies/run.yaml
-    post-run: playbooks/rdoinfo/rebuild-fedora-dependencies/post.yaml
-    timeout: 10800
-    required-projects:
-      - name: rdoinfo
-      - name: gating_scripts
-    nodeset: rdo-centos-8-stream
     secrets:
       - koji_centos
 
