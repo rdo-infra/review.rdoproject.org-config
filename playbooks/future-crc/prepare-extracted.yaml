@@ -1,0 +1,23 @@
+---
+- hosts: crc
+  tasks:
+    - name: Print build date
+      ansible.builtin.include_tasks: build_date.yaml
+
+    - name: Stop kubelet service
+      ansible.builtin.include_tasks: stop_kubelet.yaml
+
+    - name: Inject pull secret
+      ansible.builtin.include_tasks: inject-pull-secret.yaml
+
+    - name: Reconfigure kubelet
+      ansible.builtin.include_tasks: reconfigure_kubelet.yaml
+
+    - name: Reboot CRC host to apply changes
+      ansible.builtin.include_tasks: reboot_crc.yaml
+
+    - name: Verify OpenShift start
+      ansible.builtin.include_tasks: verify_openshift_start.yaml
+
+    - name: Update machineconfigpool
+      ansible.builtin.include_tasks: machineconfigpool.yaml

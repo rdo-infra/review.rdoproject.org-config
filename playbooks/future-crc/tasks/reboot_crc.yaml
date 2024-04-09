@@ -1,0 +1,8 @@
+---
+- name: Reboot host after adding pull secret and changing kubelet node params
+  become: true
+  ansible.builtin.reboot:
+    reboot_timeout: 900
+
+- include_role:
+    name: start-zuul-console
