@@ -20,7 +20,7 @@
           if [ $(($DAY%2)) -eq 0 -a $PHASE == "testing" ]||[ $(($DAY%2)) -ne 0 -a $PHASE == "release" ]; then
             exit 0
           fi
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pushd {{ ansible_user_dir }}/{{ zuul.projects['softwarefactory-project.io/graffiti'].src_dir }}
           pip install .
