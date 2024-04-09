@@ -1,0 +1,10 @@
+---
+- hosts: crc
+  tasks:
+    - name: Reboot host after kubelet or pull secret injection is done
+      become: true
+      ansible.builtin.reboot:
+        reboot_timeout: 900
+
+    - include_role:
+        name: start-zuul-console

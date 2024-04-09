@@ -1,31 +1,20 @@
 ---
-- name: Create script to login and verify services
-  ansible.builtin.template:
-    src: ensure_logged.sh.j2
-    dest: /tmp/ensure_logged.sh
-    mode: '0755'
+- hosts: crc
+  tasks:
+    - name: Create script to login and verify services
+      ansible.builtin.template:
+        src: ensure_logged.sh.j2
+        dest: /tmp/ensure_logged.sh
+        mode: '0755'
 
-- name: Copy script ensure_services_up.sh
-  ansible.builtin.copy:
-    src: ensure_services_up.sh
-    dest: /tmp/ensure_services_up.sh
-    mode: '0755'
+    - name: Copy script ensure_services_up.sh
+      ansible.builtin.copy:
+        src: ensure_services_up.sh
+        dest: /tmp/ensure_services_up.sh
+        mode: '0755'
 
-- name: Ensure that user is logged
-  ansible.builtin.command: /tmp/ensure_logged.sh
+    - name: Ensure that user is logged
+      ansible.builtin.command: /tmp/ensure_logged.sh
 
-- name: Ensure all pods are up and running
-  ansible.builtin.command: /tmp/ensure_services_up.sh
-
-- name: Check if there is a image build date file
-  ansible.builtin.stat:
-    path: image_build_date
-  register: _image_date
-
-- name: Print image date if available
-  when: _image_date.stat.exists
-  ansible.builtin.command: cat image_build_date
-
-- name: Fix machineconfigpool
-  ansible.builtin.include_tasks: machineconfigpool.yaml
-  when: change_machineconfigpool | default(false)
+    - name: Ensure all pods are up and running
+      ansible.builtin.command: /tmp/ensure_services_up.sh

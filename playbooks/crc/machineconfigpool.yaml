@@ -1,64 +1,82 @@
 ---
-- name: Get missing machineconfigpool config
-  ansible.builtin.shell: >
-    oc get mcp master -o json |
-    jq -r '.status.conditions[] |
-    select(.type == "NodeDegraded") | .message' |
-    grep -Eo rendered-master-[0-9a-f]{32}
-  register: _missing_mcp
-  failed_when: _missing_mcp.rc not in [0,1]
+- hosts: crc
+  tasks:
+    - name: Fix machineconfigpool
+      when: change_machineconfigpool | default(false)
+      block:
+        - name: Get missing machineconfigpool config
+          ansible.builtin.shell: >
+            oc get mcp master -o json |
+            jq -r '.status.conditions[] |
+            select(.type == "NodeDegraded") | .message' |
+            grep -Eo rendered-master-[0-9a-f]{32}
+          register: _missing_mcp
+          failed_when: _missing_mcp.rc not in [0,1]
 
-- name: Check if file is available
-  ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
-  register: _mcp_file
+        - name: Check if file is available
+          ansible.builtin.stat:
+            path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
+          register: _mcp_file
 
-- name: Apply machineconfigpool if available and restart deployments
-  when: _mcp_file.stat.exists
-  block:
-    - name: Apply machineconfigpool
-      ansible.builtin.command: |
-        oc apply -f {{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml
+        - name: Apply machineconfigpool if available and restart deployments
+          when: _mcp_file.stat.exists
+          block:
+            - name: Copy script to modify the file
+              become: true
+              ansible.builtin.copy:
+                src: remove-machineconfigpool-keys.py
+                dest: /usr/local/bin/remove-machineconfigpool-keys.py
+                mode: "0755"
 
-    - name: Restart deployments
-      ansible.builtin.shell: |
-        oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
-      loop:
-        - machine-config-controller
-        - machine-config-operator
+            - name: Remove keys in conflict for missing mc
+              ansible.builtin.shell: >
+                /usr/local/bin/remove-machineconfigpool-keys.py
+                {{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml
+                {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
 
-    - name: Wait for deployments to be ready
-      ansible.builtin.shell: >
-        oc -n openshift-machine-config-operator
-        wait --for=condition=available
-        --timeout=600s
-        deployment.apps/{{ item }}
-      loop:
-        - machine-config-controller
-        - machine-config-operator
+            - name: Apply machineconfigpool
+              ansible.builtin.command: |
+                oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
 
-    - name: Wait for machineconfigpool to be updated
-      ansible.builtin.shell: |
-        oc wait --for=condition=Updated --timeout=600s machineconfigpool/{{ item }}
-      loop:
-        - master
-        - worker
+            - name: Restart deployments
+              ansible.builtin.shell: |
+                oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+              loop:
+                - machine-config-controller
+                - machine-config-operator
 
-    - name: Get degradedMachineCount for machineconfigpool worker
-      ansible.builtin.shell: |
-        oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
-      register: _worker_status
+            - name: Wait for deployments to be ready
+              ansible.builtin.shell: >
+                oc -n openshift-machine-config-operator
+                wait --for=condition=available
+                --timeout=600s
+                deployment.apps/{{ item }}
+              loop:
+                - machine-config-controller
+                - machine-config-operator
 
-    - name: Get degradedMachineCount for machineconfigpool master
-      ansible.builtin.shell: |
-        oc get mcp master -o json | jq -r '.status.degradedMachineCount'
-      register: _master_status
+            - name: Wait for machineconfigpool to be updated
+              ansible.builtin.shell: |
+                oc wait --for=condition=Updated --timeout=600s machineconfigpool/{{ item }}
+              loop:
+                - master
+                - worker
 
-    - name: Assert that degradaded machineconfigpool is 0
-      ansible.builtin.assert:
-        that:
-          - " _worker_status.stdout | int  == 0"
-          - " _master_status.stdout | int  == 0"
+            - name: Get degradedMachineCount for machineconfigpool worker
+              ansible.builtin.shell: |
+                oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
+              register: _worker_status
 
-- name: Print current machineconfigpool
-  ansible.builtin.command: oc get machineconfigpool
+            - name: Get degradedMachineCount for machineconfigpool master
+              ansible.builtin.shell: |
+                oc get mcp master -o json | jq -r '.status.degradedMachineCount'
+              register: _master_status
+
+            - name: Assert that degradaded machineconfigpool is 0
+              ansible.builtin.assert:
+                that:
+                  - " _worker_status.stdout | int  == 0"
+                  - " _master_status.stdout | int  == 0"
+
+    - name: Print current machineconfigpool
+      ansible.builtin.command: oc get machineconfigpool
