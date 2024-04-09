@@ -9,6 +9,13 @@
 # Those values are set in /etc/node-sizing.env (base on kubelet service file)
 # with values: https://github.com/crc-org/snc/blob/release-4.12/node-sizing-enabled.env
 # Helpful doc: https://docs.openshift.com/container-platform/4.12/nodes/nodes/nodes-nodes-resources-configuring.html
+# NOTE: Before doing crc bundle generate, the machineconfigpool got values:
+# NODE_SIZING_ENABLED:false
+# SYSTEM_RESERVED_MEMORY:1Gi
+# SYSTEM_RESERVED_CPU: 500m
+# SYSTEM_RESERVED_ES:1Gi
+# There are same for master and worker. To avoid later error, where we restore missing
+# machineconfigpool manifest, let's set the value to be same.
 - name: Change the kubelet service EnvironmentFile
   become: true
   ansible.builtin.lineinfile:
@@ -17,11 +24,13 @@
     line: "{{ item.line }}"
   loop:
     - regexp: "^SYSTEM_RESERVED_CPU=200m"
-      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('800m') }}"
+      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('500m') }}"
     - regexp: "^SYSTEM_RESERVED_MEMORY=350Mi"
-      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('700Mi') }}"
+      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('1Gi') }}"
     - regexp: "^SYSTEM_RESERVED_ES=350Mi"
-      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('700Mi') }}"
+      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('1Gi') }}"
+    - regexp: "^NODE_SIZING_ENABLED=false"
+      line: "NODE_SIZING_ENABLED={{ bootstrap_ci_crc_systemd_autosizing | default('false') }}"
 
 - name: Change the kubelet sizing enabled
   become: true
@@ -31,10 +40,10 @@
     line: "{{ item.line }}"
   loop:
     - regexp: "^SYSTEM_RESERVED_CPU=200m"
-      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('800m') }}"
+      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('500m') }}"
     - regexp: "^SYSTEM_RESERVED_MEMORY=350Mi"
-      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('700Mi') }}"
+      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('1Gi') }}"
     - regexp: "^SYSTEM_RESERVED_ES=350Mi"
-      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('700Mi') }}"
+      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('1Gi') }}"
     - regexp: "^NODE_SIZING_ENABLED=false"
       line: "NODE_SIZING_ENABLED={{ bootstrap_ci_crc_systemd_autosizing | default('false') }}"
