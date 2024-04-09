@@ -32,7 +32,7 @@
               DEPS=""
             ;;
           esac
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pushd {{ ansible_user_dir }}/{{ zuul.projects['softwarefactory-project.io/graffiti'].src_dir }}
           pip install .
