@@ -54,14 +54,6 @@
             container_registry_logins:
               quay.rdoproject.org: "{'{{ quay_login_secret_name.user }}': '{{ quay_login_secret_name.password }}'}"
 
-        - name: Store the content in a file temprorily
-          no_log: true
-          when: quay_login_store_secret | default('false') | bool
-          ansible.builtin.copy:
-            content: |
-              {{ container_registry_logins }}
-            dest: /tmp/foobar
-
         - name: Perform container registry login(s) with podman
           shell: |-
             podman login --username=$REGISTRY_USERNAME \
