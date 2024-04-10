@@ -3,6 +3,6 @@
   tasks:
     - name: Stop kubelet service
       become: true
-      ansible.builtin.systemd_service:
+      ansible.builtin.systemd:
         name: kubelet
         state: stopped
