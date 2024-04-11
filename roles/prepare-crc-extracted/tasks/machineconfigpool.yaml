@@ -19,6 +19,16 @@
     - name: Apply machineconfigpool if available and restart deployments
       when: _mcp_file.stat.exists
       block:
+        # NOTE: To avoid future problems where rendered-{master,worker} mcp
+        # will be DEGRADED, let's pause them. More info:
+        # https://www.redhat.com/en/blog/the-consequences-of-pausing-machineconfig-pools-in-openshifts-machine-config-operator-mco
+        - name: Pause machineconfigpool
+          ansible.builtin.shell: |
+            oc patch machineconfigpool {{ item }} --type merge --patch '{"spec":{"paused": true}}'
+          loop:
+            - master
+            - worker
+
         - name: Copy script to modify the file
           become: true
           ansible.builtin.copy:
@@ -52,13 +62,6 @@
           loop:
             - machine-config-controller
             - machine-config-operator
-
-        - name: Wait for machineconfigpool to be updated
-          ansible.builtin.shell: |
-            oc wait --for=condition=Updated --timeout=600s machineconfigpool/{{ item }}
-          loop:
-            - master
-            - worker
 
         - name: Get degradedMachineCount for machineconfigpool worker
           ansible.builtin.shell: |
