@@ -19,7 +19,7 @@
           FAILED=0
           PROJECT="{{ zuul.project.name }}"
           # Install requirements
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pip install 'ruamel.yaml<=0.18.3' rdopkg
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/
