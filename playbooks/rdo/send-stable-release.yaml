@@ -4,10 +4,10 @@
     - name: Install required dependencies
       package:
         name:
-          - python3-virtualenv
           - rpmdevtools
         state: present
       become: true
+
     - name: rdo-send-stable-release
       shell:
         cmd: |
@@ -15,7 +15,7 @@
           # Currently releng requires rdoinfo to be in $HOME/rdoinfo
           rm -rf ~/rdoinfo
           ln -s "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdoinfo'].src_dir }}" ~/rdoinfo
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pushd "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}"
           pip install .
