@@ -1,6 +1,15 @@
 - hosts: all
   name: rdoinfo-upper-constraints-update playbook
   tasks:
+    - name: Install required dependencies
+      package:
+        name:
+          - krb5-devel
+          - python3-devel
+          - gcc
+        state: present
+      become: true
+
     - name: rdoinfo-upper-constraints-update
       shell:
         cmd: |
@@ -19,9 +28,9 @@
           STABLE_RELEASES="$(rdopkg release -s maintained) $(rdopkg release -s extended_maintenance)"
           deactivate
 
-          virtualenv --system-site-packages ~/.venv
+          python3 -m venv --system-site-packages .venv
           source ~/.venv/bin/activate
-          pip install 'ruamel.yaml<=0.15' git-review
+          pip install 'ruamel.yaml<=0.18.3' git-review
           # Install releng, needed for update_uc command
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo-infra/releng'].src_dir }}
           pip install .
