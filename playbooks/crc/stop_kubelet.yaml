@@ -1,0 +1,8 @@
+---
+- hosts: crc
+  tasks:
+    - name: Stop kubelet service
+      become: true
+      ansible.builtin.systemd:
+        name: kubelet
+        state: stopped
