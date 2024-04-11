@@ -5,9 +5,10 @@ import os
 import sys
 
 # Usage: remove-keys.py machineconfigpool/render-master.yaml new-master.yaml
-
+# NOTE: by adding '/etc/node-sizing-enabled.env', your host
+# will reboot after a while, when machineconfig operator will
+# "catch" the difference.
 content_to_remove = ['/var/lib/kubelet/config.json',
-                     '/etc/node-sizing-enabled.env',
                      '/etc/containers/registries.conf']
 
 
