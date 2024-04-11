@@ -19,7 +19,7 @@
           STABLE_RELEASES="$(rdopkg release -s maintained) $(rdopkg release -s extended_maintenance)"
           deactivate
 
-          virtualenv --system-site-packages ~/.venv
+          python3 -m venv --system-site-packages .venv
           source ~/.venv/bin/activate
           pip install 'ruamel.yaml<=0.15' git-review
           # Install releng, needed for update_uc command
