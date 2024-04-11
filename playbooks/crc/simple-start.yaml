@@ -36,7 +36,9 @@
           register: _crc_start_status
 
         - name: Verify that OpenShift is up and running
-          ansible.builtin.include_tasks: verify_openshift_start.yaml
+          ansible.builtin.include_role:
+            name: prepare-crc-extracted
+            tasks_from: verify_openshift_start.yaml
 
         - name: Show available nodes
           shell: |

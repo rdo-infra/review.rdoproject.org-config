@@ -7,6 +7,7 @@
 
 - name: Reconfigure kubelet
   ansible.builtin.include_tasks: reconfigure_kubelet.yaml
+  when: reconfigure_kubelet
 
 - name: Reboot CRC host to apply changes
   ansible.builtin.include_tasks: reboot_crc.yaml
@@ -16,3 +17,6 @@
 
 - name: Update machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
+
+- name: Inject once again pull secret to ensure that it is set
+  ansible.builtin.include_tasks: inject-pull-secret.yaml
