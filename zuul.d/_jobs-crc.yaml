@@ -59,13 +59,11 @@
     description: |
       A base job that starts CRC environment from the extracted CRC image
     pre-run:
-      # NOTE(dpawlik): Stop kubelet before changing its configuration like: inject pull secret.
-      - playbooks/crc/stop_kubelet.yaml
       # Playbook to add tripleo-ci team ssh keys to the node
       - playbooks/tripleo-rdo-base/pre.yaml
       # Playbook that creates the environment network in the target cloud
       - playbooks/crc/bootstrap-ci-network.yml
-      - playbooks/crc/prepare-extracted.yaml
+      - playbooks/crc/inject-pull-secret.yaml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
@@ -116,7 +114,7 @@
       - playbooks/future-crc/bootstrap-ci-network.yml
       - playbooks/future-crc/prepare-extracted.yaml
       # Playbooks for podman
-      - playbooks/future-crc/podman.yaml
+      - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
     post-run:
       # Deletes generated network resources
@@ -157,11 +155,9 @@
     description: |
       A base job that starts CRC environment from the extracted CRC image
     pre-run:
-      # NOTE(dpawlik): Stop kubelet before changing its configuration like: inject pull secret.
-      - playbooks/crc/stop_kubelet.yaml
       # Playbook to add tripleo-ci team ssh keys to the node
       - playbooks/tripleo-rdo-base/pre.yaml
-      - playbooks/crc/prepare-extracted.yaml
+      - playbooks/crc/inject-pull-secret.yaml
       # Playbooks for podman
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
