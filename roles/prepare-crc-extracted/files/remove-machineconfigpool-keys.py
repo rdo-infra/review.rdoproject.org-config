@@ -7,7 +7,8 @@ import sys
 # Usage: remove-keys.py machineconfigpool/render-master.yaml new-master.yaml
 
 content_to_remove = ['/var/lib/kubelet/config.json',
-                     '/etc/node-sizing-enabled.env']
+                     '/etc/node-sizing-enabled.env',
+                     '/etc/containers/registries.conf']
 
 
 def read_yaml(yaml_path):
