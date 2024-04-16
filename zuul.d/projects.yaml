@@ -6268,7 +6268,6 @@
     queue: whitebox-tempest-plugin
     templates:
       - system-required
-      - rdoinfo-wallaby-testing-tripleo-jobs
       - weirdo-validate-buildsys-tags-jobs
       - weirdo-dlrn-jobs
       - periodic-cloudsig-jobs
@@ -6344,12 +6343,6 @@
             branches: ^(rpm-)?master$
             files:
               - ^tags/dalmatian-uc.yml$
-        - rdoinfo-tripleo-wallaby-release-centos-8-scenario001-standalone:
-            dependencies:
-              - validate-buildsys-tags
-            voting: false
-            files:
-              - ^buildsys-tags/cloud8s-openstack-wallaby-release.yml$
         - validate-buildsys-tags
     experimental:
       jobs:
