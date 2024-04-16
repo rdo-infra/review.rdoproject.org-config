@@ -5,10 +5,14 @@ import os
 import sys
 
 # Usage: remove-keys.py machineconfigpool/render-master.yaml new-master.yaml
-
+# NOTE: by adding '/etc/node-sizing-enabled.env' or /etc/node-sizing.env,
+# your host will reboot after a while, when machineconfig operator will
+# "catch" the difference. Later the kubelet will have troubles to start, due
+# the config file is "generated" via script before kubelet systemd service
+# starts.
 content_to_remove = ['/var/lib/kubelet/config.json',
-                     '/etc/node-sizing-enabled.env',
-                     '/etc/containers/registries.conf']
+                     '/etc/containers/registries.conf',
+                     '/etc/containers/policy.json']
 
 
 def read_yaml(yaml_path):
