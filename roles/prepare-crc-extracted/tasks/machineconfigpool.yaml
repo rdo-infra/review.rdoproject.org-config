@@ -19,6 +19,26 @@
     - name: Apply machineconfigpool if available and restart deployments
       when: _mcp_file.stat.exists
       block:
+        # NOTE: To avoid future problems where rendered-{master,worker} mcp
+        # will be DEGRADED, let's pause them. More info:
+        # https://www.redhat.com/en/blog/the-consequences-of-pausing-machineconfig-pools-in-openshifts-machine-config-operator-mco
+        - name: Pause machineconfigpool
+          ansible.builtin.shell: |
+            oc patch machineconfigpool {{ item }} --type merge --patch '{"spec":{"paused": true}}'
+          loop:
+            - master
+            - worker
+
+        - name: Get current rendered machineconfig
+          ansible.builtin.shell: |
+            oc get machineconfig | grep rendered-master- | awk '{print $1}'
+          register: _current_mc
+
+        - name: Dump current machineconfig to yaml
+          ansible.builtin.shell: >
+            oc get machineconfig {{ _current_mc.stdout }}
+            -o yaml > {{ ansible_user_dir }}/machineconfigpool/current-{{ _current_mc.stdout }}.yaml
+
         - name: Copy script to modify the file
           become: true
           ansible.builtin.copy:
@@ -36,6 +56,24 @@
           ansible.builtin.command: |
             oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
 
+        - name: Remove keys in conflict for current machineconfig
+          ansible.builtin.shell: >
+            /usr/local/bin/remove-machineconfigpool-keys.py
+            {{ ansible_user_dir }}/machineconfigpool/current-{{ _current_mc.stdout }}.yaml
+            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ _current_mc.stdout }}.yaml
+
+        # NOTE: Even that the mco will render new config, it will raise an issue, eg.:
+        # Node crc-pjmnl-master-0 is reporting:
+        # "machineconfig.machineconfiguration.openshift.io \"rendered-master-8c2328bb766a8c34c8a1a70c74c1fd5f\" not found"
+        # We need to remove it and create previous config without conflicting keys
+        - name: Delete current machineconfig
+          ansible.builtin.shell: |
+            oc delete machineconfig {{ _current_mc.stdout }}
+
+        - name: Recreate machineconfig
+          ansible.builtin.shell: |
+            oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ _current_mc.stdout }}.yaml
+
         - name: Restart deployments
           ansible.builtin.shell: |
             oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
@@ -52,13 +90,6 @@
           loop:
             - machine-config-controller
             - machine-config-operator
-
-        - name: Wait for machineconfigpool to be updated
-          ansible.builtin.shell: |
-            oc wait --for=condition=Updated --timeout=600s machineconfigpool/{{ item }}
-          loop:
-            - master
-            - worker
 
         - name: Get degradedMachineCount for machineconfigpool worker
           ansible.builtin.shell: |
