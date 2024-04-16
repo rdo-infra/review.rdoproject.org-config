@@ -22,11 +22,11 @@
     line: "{{ item.line }}"
   loop:
     - regexp: "^SYSTEM_RESERVED_MEMORY=350Mi"
-      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('1Gi') }}"
+      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem }}"
     - regexp: "^SYSTEM_RESERVED_CPU=200m"
-      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('500m') }}"
+      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu }}"
     - regexp: "^SYSTEM_RESERVED_ES=350Mi"
-      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('1Gi') }}"
+      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk }}"
 
 - name: Change the kubelet sizing
   become: true
@@ -36,8 +36,8 @@
     line: "{{ item.line }}"
   loop:
     - regexp: "^SYSTEM_RESERVED_MEMORY=350Mi"
-      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem | default('1Gi') }}"
+      line: "SYSTEM_RESERVED_MEMORY={{ bootstrap_ci_crc_systemd_mem }}"
     - regexp: "^SYSTEM_RESERVED_CPU=200m"
-      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu | default('500m') }}"
+      line: "SYSTEM_RESERVED_CPU={{ bootstrap_ci_crc_systemd_cpu }}"
     - regexp: "^SYSTEM_RESERVED_ES=350Mi"
-      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk | default('1Gi') }}"
+      line: "SYSTEM_RESERVED_ES={{ bootstrap_ci_crc_systemd_disk }}"
