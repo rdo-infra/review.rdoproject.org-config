@@ -6176,11 +6176,17 @@
       - system-required
     check:
       jobs:
-        - tox-linters
+        - tox-linters:
+            # TODO(jcapitao): remove nodeset definition once the default one moved
+            # to CS9 (default nodeset is defined in 'base-minimal' job)
+            nodeset: rdo-centos-9-stream
         - build-releng-container-image
     gate:
       jobs:
-        - tox-linters
+        - tox-linters:
+            # TODO(jcapitao): remove nodeset definition once the default one moved
+            # to CS9 (default nodeset is defined in 'base-minimal' job)
+            nodeset: rdo-centos-9-stream
         - build-and-push-releng-container-image
 
 - project:
