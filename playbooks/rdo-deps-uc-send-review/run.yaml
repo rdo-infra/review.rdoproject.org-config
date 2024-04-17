@@ -25,7 +25,7 @@
 
           GATING_SCRIPTS_BASE="{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}"
           source ${GATING_SCRIPTS_BASE}/deps-uc-send-review.common
-          virtualenv --system-site-packages .venv
+          python3 -m venv --system-site-packages .venv
           . .venv/bin/activate
           pip install pymod2pkg sh git-review ruamel.yaml rdopkg koji rpm_vercmp
           # Install releng, needed for add-buildsys-tags.py script

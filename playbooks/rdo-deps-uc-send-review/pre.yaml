@@ -1,21 +1,28 @@
 - hosts: all
   tasks:
-    - name: Install koji from EPEL and centos-packager
+    - name: Temporary install centos-packager from EPEL for CS9
       shell:
         cmd: |
-          sudo dnf install -y epel-release;
-          sudo dnf config-manager --enable epel;
-          sudo dnf install -y https://download.copr.fedorainfracloud.org/results/ykarel/ykarel-centos-stream/centos-stream-x86_64/01239149-python-centos/python-centos-0.1.1-2.el8.noarch.rpm;  # noqa 204
-          sudo dnf install -y https://download.copr.fedorainfracloud.org/results/ykarel/ykarel-centos-stream/centos-stream-x86_64/01239164-centos-packager/centos-packager-0.5.5-2.el8.noarch.rpm;  # noqa 204
-          sudo dnf install -y koji;
-          sudo dnf config-manager --disable epel;
+          sudo {{ ansible_pkg_mgr }} install -y 'dnf-command(config-manager)';
+          sudo {{ ansible_pkg_mgr }} config-manager --set-enabled crb;
+          sudo {{ ansible_pkg_mgr }} install -y epel-release;
+          sudo {{ ansible_pkg_mgr }} install -y centos-packager;
+          sudo {{ ansible_pkg_mgr }} remove -y epel-release
       changed_when: true
+      become: true
 
-    - name: Install deps
-      shell:
-        cmd: |
-          sudo dnf install -y jq rpmdevtools python3-pip rpmlint python3-rpm {{ 'python3-pyOpenSSL' if ansible_distribution_major_version == "8" }};
-      changed_when: true
+    - name: Install required dependencies
+      package:
+        name:
+          - git
+          - jq
+          - mock
+          - python3-pip
+          - python3-rpm
+          - rpmdevtools
+          - rpmlint
+        state: present
+      become: true
 
     - name: pip install rdopkg
       # noqa 403
