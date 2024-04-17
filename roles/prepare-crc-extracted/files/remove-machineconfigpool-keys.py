@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import yaml
-import os
 import sys
 
 # Usage: remove-keys.py machineconfigpool/render-master.yaml new-master.yaml
@@ -35,14 +34,14 @@ def remove_keys(yaml_content):
         return yaml_content
     else:
         print("File does not contain valid machineconfigpool manifest")
-        os.exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Please provide more arguments, like:")
         print("remove-keys.py machineconfigpool/master.yaml new-master.yaml")
-        os.exit(1)
+        sys.exit(1)
 
     yaml_path = sys.argv[1]
     yaml_content = read_yaml(yaml_path)
