@@ -11,13 +11,3 @@
   retries: 60
   delay: 10
   changed_when: false
-
-- name: Copy script ensure_services_up.sh
-  ansible.builtin.copy:
-    src: ensure_services_up.sh
-    dest: /tmp/ensure_services_up.sh
-    mode: '0755'
-
-- name: Ensure all pods are up and running
-  ansible.builtin.command: /tmp/ensure_services_up.sh
-  changed_when: false
