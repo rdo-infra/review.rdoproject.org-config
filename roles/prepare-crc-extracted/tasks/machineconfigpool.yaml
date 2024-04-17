@@ -91,21 +91,21 @@
             - machine-config-controller
             - machine-config-operator
 
-        - name: Get degradedMachineCount for machineconfigpool worker
-          ansible.builtin.shell: |
-            oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
-          register: _worker_status
-
-        - name: Get degradedMachineCount for machineconfigpool master
+        - name: Wait until master machineconfigpool is not degraded
           ansible.builtin.shell: |
             oc get mcp master -o json | jq -r '.status.degradedMachineCount'
+          retries: 60
+          delay: 10
           register: _master_status
+          until: _master_status.stdout | int  == 0
 
-        - name: Assert that degradaded machineconfigpool is 0
-          ansible.builtin.assert:
-            that:
-              - " _worker_status.stdout | int  == 0"
-              - " _master_status.stdout | int  == 0"
+        - name: Wait until worker machineconfigpool is not degraded
+          ansible.builtin.shell: |
+            oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
+          retries: 60
+          delay: 10
+          register: _worker_status
+          until: _worker_status.stdout | int  == 0
 
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
