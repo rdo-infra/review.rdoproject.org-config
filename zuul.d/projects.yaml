@@ -6284,8 +6284,14 @@
       - weirdo-wallaby-promotion-pipeline-centos-stream-8
     check:
       jobs:
-        - tox-linters
-        - tox-py36
+        - tox-linters:
+            # TODO(jcapitao): remove nodeset definition once the default one moved
+            # to CS9 (default nodeset is defined in 'base-minimal' job)
+            nodeset: rdo-centos-9-stream
+        - tox-py39:
+            # TODO(jcapitao): remove nodeset definition once the default one moved
+            # to CS9 (default nodeset is defined in 'base-minimal' job)
+            nodeset: rdo-centos-9-stream
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/wallaby.yml$
@@ -6350,7 +6356,10 @@
 
     gate:
       jobs:
-        - tox-py36
+        - tox-py39:
+            # TODO(jcapitao): remove nodeset definition once the default one moved
+            # to CS9 (default nodeset is defined in 'base-minimal' job)
+            nodeset: rdo-centos-9-stream
         - rdoinfo-DLRN-check-centos8:
             files:
               - ^tags/wallaby.yml$
