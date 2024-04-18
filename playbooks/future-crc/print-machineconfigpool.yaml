@@ -1,0 +1,6 @@
+---
+- hosts: crc
+  tasks:
+    - name: Print machineconfigpool
+      ansible.builtin.command: oc get machineconfigpool
+      ignore_errors: true

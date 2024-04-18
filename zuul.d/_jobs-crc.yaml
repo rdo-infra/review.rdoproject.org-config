@@ -115,6 +115,7 @@
       - playbooks/crc/podman.yaml
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
     post-run:
+      - playbooks/future-crc/print-machineconfigpool.yaml
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml
       - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
