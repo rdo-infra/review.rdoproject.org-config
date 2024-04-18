@@ -420,6 +420,7 @@
     run: playbooks/releng-container-image/run.yaml
     required-projects:
       - review.rdoproject.org/rdo-infra/releng
+    nodeset: rdo-centos-9-stream
     vars:
       push_to_registry: false
       context: .
