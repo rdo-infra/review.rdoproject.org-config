@@ -19,6 +19,13 @@
     - name: Apply machineconfigpool if available and restart deployments
       when: _mcp_file.stat.exists
       block:
+        - name: Copy script to modify the file
+          become: true
+          ansible.builtin.copy:
+            src: remove-machineconfigpool-keys.py
+            dest: /usr/local/bin/remove-machineconfigpool-keys.py
+            mode: "0755"
+
         # NOTE: To avoid future problems where rendered-{master,worker} mcp
         # will be DEGRADED, let's pause them. More info:
         # https://www.redhat.com/en/blog/the-consequences-of-pausing-machineconfig-pools-in-openshifts-machine-config-operator-mco
@@ -31,20 +38,16 @@
 
         - name: Get current rendered machineconfig
           ansible.builtin.shell: |
-            oc get machineconfig | grep rendered-master- | awk '{print $1}'
+            oc get machineconfig --no-headers | grep rendered-master- | awk '{print $1}'
           register: _current_mc
 
+        # NOTE: It might happen, that the MCO will create additional
+        # rendered-master-* config, due OpenShift start took too much time.
         - name: Dump current machineconfig to yaml
           ansible.builtin.shell: >
-            oc get machineconfig {{ _current_mc.stdout }}
-            -o yaml > {{ ansible_user_dir }}/machineconfigpool/current-{{ _current_mc.stdout }}.yaml
-
-        - name: Copy script to modify the file
-          become: true
-          ansible.builtin.copy:
-            src: remove-machineconfigpool-keys.py
-            dest: /usr/local/bin/remove-machineconfigpool-keys.py
-            mode: "0755"
+            oc get machineconfig {{ item | trim }}
+            -o yaml > {{ ansible_user_dir }}/machineconfigpool/current-{{ item | trim }}.yaml
+          loop: "{{ _current_mc.stdout_lines }}"
 
         - name: Remove keys in conflict for missing mc
           ansible.builtin.shell: >
@@ -59,20 +62,30 @@
         - name: Remove keys in conflict for current machineconfig
           ansible.builtin.shell: >
             /usr/local/bin/remove-machineconfigpool-keys.py
-            {{ ansible_user_dir }}/machineconfigpool/current-{{ _current_mc.stdout }}.yaml
-            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ _current_mc.stdout }}.yaml
+            {{ ansible_user_dir }}/machineconfigpool/current-{{ item | trim }}.yaml
+            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item | trim }}.yaml
+          loop: "{{ _current_mc.stdout_lines }}"
+
+        - name: Remove keys in conflict for current machineconfig
+          ansible.builtin.shell: >
+            /usr/local/bin/remove-machineconfigpool-keys.py
+            {{ ansible_user_dir }}/machineconfigpool/current-{{ item | trim }}.yaml
+            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item | trim }}.yaml
+          loop: "{{ _current_mc.stdout_lines }}"
 
         # NOTE: Even that the mco will render new config, it will raise an issue, eg.:
         # Node crc-pjmnl-master-0 is reporting:
         # "machineconfig.machineconfiguration.openshift.io \"rendered-master-8c2328bb766a8c34c8a1a70c74c1fd5f\" not found"
         # We need to remove it and create previous config without conflicting keys
         - name: Delete current machineconfig
-          ansible.builtin.shell: |
-            oc delete machineconfig {{ _current_mc.stdout }}
+          ansible.builtin.shell: >
+            oc delete machineconfig {{ item | trim }}
+          loop: "{{ _current_mc.stdout_lines }}"
 
         - name: Recreate machineconfig
-          ansible.builtin.shell: |
-            oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ _current_mc.stdout }}.yaml
+          ansible.builtin.shell: >
+            oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item | trim }}.yaml
+          loop: "{{ _current_mc.stdout_lines }}"
 
         - name: Restart deployments
           ansible.builtin.shell: |
@@ -106,6 +119,12 @@
           delay: 10
           register: _worker_status
           until: _worker_status.stdout | int  == 0
+  always:
+    - name: Remove machineconfig dir
+      when: not keep_machineconfigpool_configs
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/machineconfigpool"
+        state: absent
 
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
