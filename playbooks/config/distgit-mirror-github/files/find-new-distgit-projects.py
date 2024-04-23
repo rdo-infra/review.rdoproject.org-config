@@ -5,7 +5,8 @@ import sys
 def find_distgit(filename):
     # Find new distgit projects in a SF resource file
     with open(filename) as resource:
-        info = yaml.load(resource, Loader=yaml.RoundTripLoader)
+        info_yaml = yaml.YAML(typ='rt')
+        info = info_yaml.load(resource)
 
     for key in info['resources']['repos']:
         if key.endswith('-distgit'):

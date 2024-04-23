@@ -7,11 +7,10 @@
           set -e +x
           cd {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
           pushd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/rdo_gating_scripts'].src_dir }}/rdo-create-project
-          virtualenv .venv
+          python3 -m venv .venv
           . .venv/bin/activate
           pip install -r requirements.txt
-          pip install 'ruamel.yaml<=0.15.0'
-          pip install --upgrade urllib3
+          pip install ruamel.yaml
           popd
           # Set up git configuration
           git config user.name "rdo-trunk"
