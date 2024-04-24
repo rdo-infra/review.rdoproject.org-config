@@ -73,7 +73,10 @@
     check:
       jobs:
         - config-check
-        - tox-linters
+        - tox-linters:
+            nodeset: rdo-centos-9-stream
+            # (TODO amoralej) setting non-voting to avoid blocking the gate in case it fails as we can not pre-test it.
+            voting: false
     gate:
       jobs:
         - config-check
