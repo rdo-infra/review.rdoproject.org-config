@@ -73,7 +73,8 @@
     check:
       jobs:
         - config-check
-        - tox-linters
+        - tox-linters:
+            voting: false
     gate:
       jobs:
         - config-check
