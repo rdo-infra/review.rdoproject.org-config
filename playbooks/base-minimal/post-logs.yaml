@@ -1,4 +1,19 @@
 ---
+- hosts: all
+  tasks:
+    - block:
+        - include_role: name=fetch-output
+      when:
+        - "ansible_connection != 'kubectl'"
+        - ansible_user_dir is defined
+    - block:
+        - include_role: name=fetch-output-openshift
+      when:
+        - "ansible_connection == 'kubectl'"
+        - ansible_user_dir is defined
+    - import_role: name=merge-output-to-logs
+      when: ansible_user_dir is defined
+
 - hosts: localhost
   roles:
     - role: generate-zuul-manifest
