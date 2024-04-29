@@ -66,13 +66,6 @@
             {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item }}.yaml
           loop: "{{ _current_mc.stdout_lines }}"
 
-        - name: Remove keys in conflict for current machineconfig
-          ansible.builtin.shell: >
-            /usr/local/bin/remove-machineconfigpool-keys.py
-            {{ ansible_user_dir }}/machineconfigpool/current-{{ item }}.yaml
-            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item }}.yaml
-          loop: "{{ _current_mc.stdout_lines }}"
-
         # NOTE: Even that the mco will render new config, it will raise an issue, eg.:
         # Node crc-pjmnl-master-0 is reporting:
         # "machineconfig.machineconfiguration.openshift.io \"rendered-master-8c2328bb766a8c34c8a1a70c74c1fd5f\" not found"
@@ -82,10 +75,19 @@
             oc delete machineconfig {{ item }}
           loop: "{{ _current_mc.stdout_lines }}"
 
+        # Try to update currently running machineconfig pull. If it fails,
+        # just skip. It is not a proper place to fail.
+        # NOTE: If the machineconfig manifest will be not updated, it should fail
+        # in other task, where we are checking if .status.degradedMachineCount equal to 0.
         - name: Recreate machineconfig
           ansible.builtin.shell: >
             oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item }}.yaml
           loop: "{{ _current_mc.stdout_lines }}"
+          register: _current_mc_manifest
+          until: _current_mc_manifest.rc  == 0
+          retries: 10
+          delay: 2
+          ignore_errors: true
 
         - name: Restart deployments
           ansible.builtin.shell: |
