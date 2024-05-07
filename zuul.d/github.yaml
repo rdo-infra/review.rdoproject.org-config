@@ -62,6 +62,77 @@
           comment: (?i)^\s*(check-github|check-rdo)\s*$
 
 - pipeline:
+    name: github-gate
+    description: |
+      Changes that have been approved by core developers are enqueued
+      in order in this pipeline, and if they pass tests, will be
+      merged.
+    success-message: Build succeeded (gate pipeline).
+    failure-message: |
+      Build failed (gate pipeline).  For information on how to proceed, see
+      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    manager: dependent
+    precedence: high
+    supercedes: check
+    require:
+      github.com:
+        review: []
+        # Require label
+        label:
+          - lgtm
+          - approve
+        open: True
+        current-patchset: True
+    trigger:
+      github.com:
+        - event: pull_request_review
+          action: submitted
+          state: approved
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*recheck-gate\s*$
+        - event: pull_request_review
+          action: submitted
+          state: approved
+        - event: pull_request_review
+          action: dismissed
+          state: request_changes
+        - event: pull_request
+          action: status
+          status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
+        - event: pull_request
+          action: labeled
+          label:
+            - lgtm
+            - approve
+    start:
+      github.com:
+        status: 'pending'
+        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+        comment: false
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      github.com:
+        status: 'success'
+        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        merge: true
+        comment: true
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
+    failure:
+      github.com:
+        status: 'failure'
+        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        comment: true
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
+    window-floor: 20
+    window-increase-factor: 2
+
+- pipeline:
     name: github-post
     post-review: true
     description: |
