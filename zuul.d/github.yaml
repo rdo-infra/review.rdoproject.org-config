@@ -105,6 +105,17 @@
           label:
             - lgtm
             - approved
+        - event: pull_request
+          action: comment
+          comment: "Get these labels resolved in order to get it merged."
+          reject:
+            label:
+              - backports/unvalidated-commits
+              - do-not-merge/hold
+              - do-not-merge/invalid-owners-file
+              - do-not-merge/work-in-progress
+              - jira/invalid-bug
+              - needs-rebase
     start:
       github.com:
         status: 'pending'
