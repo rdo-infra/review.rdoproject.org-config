@@ -18,3 +18,8 @@
   shell: |
     /usr/local/bin/crc config set preset microshift
   when: crc_config_microshift_preset | default(false)
+
+- name: Set additional parameters for crc - enable okd preset
+  shell: |
+    /usr/local/bin/crc config set preset okd
+  when: crc_config_okd_preset | default(false)
