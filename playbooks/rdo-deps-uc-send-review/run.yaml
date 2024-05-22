@@ -115,6 +115,10 @@
                   distgit_status=$(setup_distgit $pkg_name $in_koji_nvr $MASTER_RELEASE 9s)
                   if [ $? -eq 0 ]; then
                     pushd workdir/$pkg_name
+                    # Remove usage of "autorelease" macro
+                    version=$(rpmspec -P SPECS/*.spec | grep "Version:" | awk '{print $2}')
+                    sed -i s/\%autorelease/$version/g SPECS/*.spec
+                    sed -i '/^## START: Set by rpmautospec/,/^## END: Set by rpmautospec/d' SPECS/*.spec
                     git add .
                     COMMIT_MSG="Update to ${pkg_vers}"
                     git commit -m "$COMMIT_MSG"
