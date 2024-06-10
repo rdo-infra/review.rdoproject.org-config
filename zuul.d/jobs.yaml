@@ -68,7 +68,7 @@
       - zuul: rdo-jobs
     timeout: 1800
     post-timeout: 5400
-    nodeset: rdo-centos-8-stream
+    nodeset: rdo-centos-9-stream
     secrets:
       - secret: site_logserver
         name: site_logs
@@ -440,3 +440,7 @@
     vars:
       push_to_registry: true
       upload_container_image_promote: false
+
+- job:
+    name: tox-linters
+    parent: base-minimal-test
