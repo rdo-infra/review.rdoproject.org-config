@@ -4,7 +4,7 @@ PASSWORD=""
 OC_PATH=/usr/local/bin/oc
 
 if [ -f ~/crc-start.log ]; then
-    PASSWORD=$(tail ~/crc-start.log  | grep -i password | head -1 | awk '{print $2}')
+    PASSWORD=$(cat ~/crc-start.log  | grep -e "Password:" | head -1 | awk '{print $2}')
 fi
 
 if [ -z "$PASSWORD" ]; then
