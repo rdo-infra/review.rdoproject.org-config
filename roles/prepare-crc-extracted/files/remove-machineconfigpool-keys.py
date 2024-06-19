@@ -24,6 +24,12 @@ def write_yaml(yaml_path, yaml_content):
         yaml.safe_dump(yaml_content, f)
 
 
+def remove_metadata_version(yaml_content):
+    if 'resourceVersion' in yaml_content.get('metadata'):
+        del yaml_content['metadata']['resourceVersion']
+    return yaml_content
+
+
 def remove_keys(yaml_content):
     new_files = []
     if yaml_content.get('spec').get('config').get('storage').get('files'):
@@ -31,6 +37,7 @@ def remove_keys(yaml_content):
             if 'path' in file and file['path'] not in content_to_remove:
                 new_files.append(file)
         yaml_content['spec']['config']['storage']['files'] = new_files
+        yaml_content = remove_metadata_version(yaml_content)
         return yaml_content
     else:
         print("File does not contain valid machineconfigpool manifest")
@@ -46,4 +53,4 @@ if __name__ == "__main__":
     yaml_path = sys.argv[1]
     yaml_content = read_yaml(yaml_path)
     changed_yaml = remove_keys(yaml_content)
-    write_yaml(sys.argv[2], yaml_content)
+    write_yaml(sys.argv[2], changed_yaml)

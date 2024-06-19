@@ -38,7 +38,7 @@
 
         - name: Get current rendered machineconfig
           ansible.builtin.shell: |
-            oc get machineconfig --no-headers | grep rendered-master- | awk '{print $1}'
+            oc get machineconfig --no-headers | grep -E 'rendered-master-|00-master|00-worker' | awk '{print $1}'
           register: _current_mc
 
         # NOTE: It might happen, that the MCO will create additional
@@ -49,6 +49,7 @@
             -o yaml > {{ ansible_user_dir }}/machineconfigpool/current-{{ item }}.yaml
           loop: "{{ _current_mc.stdout_lines }}"
 
+        ### Add first missing machineconfigs
         - name: Remove keys in conflict for missing mc
           ansible.builtin.shell: >
             /usr/local/bin/remove-machineconfigpool-keys.py
@@ -58,7 +59,9 @@
         - name: Apply machineconfigpool
           ansible.builtin.command: |
             oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
+        ###
 
+        ### Patch current machineconfig with problematic keys that we modify in the CI job
         - name: Remove keys in conflict for current machineconfig
           ansible.builtin.shell: >
             /usr/local/bin/remove-machineconfigpool-keys.py
@@ -88,6 +91,7 @@
           retries: 10
           delay: 2
           ignore_errors: true
+        ###
 
         - name: Restart deployments
           ansible.builtin.shell: |
