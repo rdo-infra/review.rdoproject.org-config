@@ -29,12 +29,12 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
         comment: false
     success:
       github.com:
         status: 'success'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: false
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -42,7 +42,7 @@
     failure:
       github.com:
         status: 'failure'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: true
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -116,14 +116,14 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://review.rdoproject.org/zuul/status/change/{change.number},{change.patchset}"
+        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
         comment: false
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         status: 'success'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         merge: true
         comment: true
       mqtt:
@@ -132,7 +132,7 @@
     failure:
       github.com:
         status: 'failure'
-        status-url: 'https://review.rdoproject.org/zuul/buildset/{buildset.uuid}'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: true
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
