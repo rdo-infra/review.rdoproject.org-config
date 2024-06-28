@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ecdb332_b041a54b",
+        "filename": "playbooks/rdo-deps-uc-send-review/run.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-06-28T06:11:01Z",
+      "side": 1,
+      "message": "it\u0027s missing the double quotes\n\n`\necho \"Release:        %{autorelease}\" \u003e test.spec \u0026\u0026 sed  -E  s/\\%\\{autorelease\\}?/$release%{?dist}/g test.spec\nsed: -e expression #1, char 29: Invalid content of \\{\\}\n`\n\n`\necho \"Release:        %{autorelease}\" \u003e test.spec \u0026\u0026 sed  -E \"s/\\%\\{autorelease\\}?/$release%{?dist}/g\" *.spec\nRelease:        %{?dist}\n`",
+      "range": {
+        "startLine": 120,
+        "startChar": 31,
+        "endLine": 120,
+        "endChar": 71
+      },
+      "revId": "8cf1b8464c604d98e8485bf8b570ffd6cba2545a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
