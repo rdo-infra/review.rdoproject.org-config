@@ -1,0 +1,75 @@
+---
+    # We need to have the pull secret after, due the imagePullPolicy is set to
+    # "Always" in some operators.
+    - name: Parse the config.json to the URL JSON
+      ansible.builtin.shell: |
+        set -o pipefail
+        printf %s $(cat /var/lib/kubelet/config.json)| jq -sRr @uri
+      register: _pull_secret_url_json
+      changed_when: false
+      no_log: true
+
+    - name: Create machineconfig manifest to overwrite config.json
+      ansible.builtin.copy:
+        content: |
+          apiVersion: machineconfiguration.openshift.io/v1
+          kind: MachineConfig
+          metadata:
+            labels:
+              machineconfiguration.openshift.io/role: {{ item }}
+            name: 99-overwrite-kubelet-config-{{ item }}
+          spec:
+            config:
+              ignition:
+                version: 3.4.0
+              storage:
+                files:
+                - contents:
+                    source: data:,{{ _pull_secret_url_json.stdout }}
+                  mode: 384
+                  overwrite: true
+                  path: /var/lib/kubelet/config.json
+        dest: /tmp/mc-{{ item }}.yaml
+      loop:
+        - master
+        - worker
+
+    - name: Apply machineconfig manifest
+      ansible.builtin.command: oc apply -f /tmp/mc-{{ item }}.yaml
+      changed_when: false
+      loop:
+        - master
+        - worker
+
+    - name: Restart deployments
+      ansible.builtin.shell: |
+        oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+      loop:
+        - machine-config-controller
+        - machine-config-operator
+
+    - name: Wait for deployments to be ready
+      ansible.builtin.shell: >
+        oc -n openshift-machine-config-operator
+        wait --for=condition=available
+        --timeout=600s
+        deployment.apps/{{ item }}
+      loop:
+        - machine-config-controller
+        - machine-config-operator
+
+    - name: Wait until master machineconfigpool is not degraded
+      ansible.builtin.shell: |
+        oc get mcp master -o json | jq -r '.status.degradedMachineCount'
+      retries: 60
+      delay: 10
+      register: _master_status
+      until: _master_status.stdout | int  == 0
+
+    - name: Wait until worker machineconfigpool is not degraded
+      ansible.builtin.shell: |
+        oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
+      retries: 60
+      delay: 10
+      register: _worker_status
+      until: _worker_status.stdout | int  == 0

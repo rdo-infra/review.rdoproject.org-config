@@ -1,0 +1,8 @@
+---
+- name: Copy new generated KUBECONFIG
+  ansible.builtin.copy:
+    src: /opt/kubeconfig
+    dest: .kube/config
+    remote_src: true
+    owner: core
+    group: core

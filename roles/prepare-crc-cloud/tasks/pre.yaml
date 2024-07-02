@@ -1,0 +1,44 @@
+---
+- name: Create workdir
+  ansible.builtin.file:
+    path: workdir
+    state: directory
+
+- name: Clone crc-cloud repository
+  ansible.builtin.git:
+    repo: https://github.com/crc-org/crc-cloud
+    dest: ~core/workdir/crc-cloud
+    version: main
+    single_branch: true
+
+# Add workaround to not loose SSH access
+- name: Ensure directory exists
+  ansible.builtin.file:
+    path: ~core/.ssh/authorized_keys.d/
+    state: directory
+    owner: core
+    group: core
+
+- name: Make a copy of current authorized key before script execution
+  ansible.builtin.copy:
+    src: ~core/.ssh/authorized_keys.d/ignition
+    dest: ~core/.ssh/authorized_keys.d/zuul-keys
+    remote_src: true
+    owner: core
+    group: core
+    mode: "0600"
+
+- name: Create .kube dir
+  ansible.builtin.file:
+    path: .kube
+    state: directory
+    owner: core
+    group: core
+
+- name: Copy bundle preinstalled KUBECONFIG
+  ansible.builtin.copy:
+    src: /opt/kubeconfig
+    dest: .kube/config
+    remote_src: true
+    owner: core
+    group: core

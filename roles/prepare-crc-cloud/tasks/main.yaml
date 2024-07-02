@@ -1,0 +1,15 @@
+---
+- name: Prepare for executing crc-cloud
+  ansible.builtin.include_tasks: pre.yaml
+
+- name: Add pull-secret into /var/lib/kubelet/config.json
+  ansible.builtin.include_tasks: pull-secret.yaml
+
+- name: Start crc-cloud script
+  ansible.builtin.include_tasks: start.yaml
+
+- name: Post tasks after crc-cloud script execution
+  ansible.builtin.include_tasks: post.yaml
+
+- name: Update machineconfigpool
+  ansible.builtin.include_tasks: machineconfigpool.yaml
