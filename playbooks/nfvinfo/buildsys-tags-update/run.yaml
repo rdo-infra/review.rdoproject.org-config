@@ -49,12 +49,6 @@
                 -r 2 \
                 -p $PHASE \
                 --include-list $version \
-                --centos-release 8s
-            python {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/update-buildsys-tags-nfv.py \
-                -c {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/gating_scripts'].src_dir }}/buildsys-tags/graffiti_config.yaml \
-                -r 2 \
-                -p $PHASE \
-                --include-list $version \
                 --centos-release 9s
 
             DIFF=$(git diff *.yml)
