@@ -1,0 +1,38 @@
+---
+- name: Create script for executing crc-cloud
+  ansible.builtin.copy:
+    content: |
+      #!/bin/bash
+
+      set -x
+
+      export PULL_SECRET="{{ crc_secret_pabrodri.openshift_pull_secret | b64encode }}"
+      export PASS_DEVELOPER="{{ developer_pass }}"
+      export PASS_KUBEADMIN="{{ kubeadmin_pass }}"
+      export PASS_REDHAT="{{ redhat_pass }}"
+      export IIP="{{ ansible_default_ipv4.address }}"
+      export EIP="{{ hostname }}"
+      # Workaround for openshift-marketplace and openshift-console container pull error
+      # https://github.com/danpawlik/crc-cloud/commits/global-pull-secret/
+      export GLOBAL_SECURED_REGISTRIES=true
+      sudo -E bash ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh > ~core/workdir/crc-cloud-log 2> ~core/workdir/crc-cloud-error-log
+    dest: ~core/workdir/start-crc-cloud.sh
+    mode: "0755"
+
+- name: Execute script
+  ansible.builtin.command: |
+    ~core/workdir/start-crc-cloud.sh
+  register: _script_exec
+  ignore_errors: true
+  changed_when: false
+
+- name: Write log to the file
+  ansible.builtin.copy:
+    content: |
+      {{ _script_exec.stdout }}
+    dest: ~core/workdir/crc-cloud.log
+
+- name: Fail, if the script fails
+  when: _script_exec.rc != 0
+  ansible.builtin.fail:
+    msg: "CRC Cloud script failed. Check the crc-cloud.log file for more information!"
