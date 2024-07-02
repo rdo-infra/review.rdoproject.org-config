@@ -1,0 +1,12 @@
+---
+- name: Prepare for executing crc-cloud
+  ansible.builtin.include_tasks: pre.yaml
+
+- name: Start crc-cloud script
+  ansible.builtin.include_tasks: start.yaml
+
+- name: Post tasks after crc-cloud script execution
+  ansible.builtin.include_tasks: post.yaml
+
+- name: Show machineconfigpool
+  ansible.builtin.include_tasks: machineconfigpool.yaml
