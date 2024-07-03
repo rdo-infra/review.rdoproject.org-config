@@ -68,6 +68,13 @@
     dest: /etc/NetworkManager/conf.d/00-custom-crc.conf
   register: _custom_dns
 
+- name: Add missing domain to the dnsmasq
+  become: true
+  ansible.builtin.copy:
+    content: |
+      address=/{{ hostname }}.nip.io/{{ ansible_default_ipv4.address }}
+    dest: /etc/dnsmasq.d/crc-custom-domain.conf
+
 - name: Reload NetworkManager after creating custom rules
   when: _custom_dns.changed
   become: true
