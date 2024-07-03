@@ -8,25 +8,8 @@
 - name: Inject pull secret
   ansible.builtin.include_tasks: inject-pull-secret.yaml
 
-# NOTE: reconfigure_kubelet will break machineconfigpool.
-- name: Reconfigure kubelet
-  ansible.builtin.include_tasks: reconfigure_kubelet.yaml
-  when: reconfigure_kubelet
-
-# NOTE: Reboot is required here even when the reconfigure_kubelet
-# is set to false, due waiting for the mco operator
-# to apply changes for pull-secret might take long time.
-- name: Reboot CRC host to apply changes
-  ansible.builtin.include_tasks: reboot_crc.yaml
-
-- name: Login to the OpenShift
-  ansible.builtin.include_tasks: openshift_login.yaml
-
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
 
 - name: Update machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
-
-- name: Inject once again pull secret to ensure that it is set
-  ansible.builtin.include_tasks: inject-pull-secret.yaml
