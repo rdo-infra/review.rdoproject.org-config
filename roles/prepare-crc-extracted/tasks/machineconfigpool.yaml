@@ -1,6 +1,6 @@
 ---
 - name: Fix machineconfigpool
-  when: change_machineconfigpool | default(true)
+  when: change_machineconfigpool
   block:
     - name: Get missing machineconfigpool config
       ansible.builtin.shell: >
@@ -19,37 +19,7 @@
     - name: Apply machineconfigpool if available and restart deployments
       when: _mcp_file.stat.exists
       block:
-        - name: Copy script to modify the file
-          become: true
-          ansible.builtin.copy:
-            src: remove-machineconfigpool-keys.py
-            dest: /usr/local/bin/remove-machineconfigpool-keys.py
-            mode: "0755"
-
-        # NOTE: To avoid future problems where rendered-{master,worker} mcp
-        # will be DEGRADED, let's pause them. More info:
-        # https://www.redhat.com/en/blog/the-consequences-of-pausing-machineconfig-pools-in-openshifts-machine-config-operator-mco
-        - name: Pause machineconfigpool
-          ansible.builtin.shell: |
-            oc patch machineconfigpool {{ item }} --type merge --patch '{"spec":{"paused": true}}'
-          loop:
-            - master
-            - worker
-
-        - name: Get current rendered machineconfig
-          ansible.builtin.shell: |
-            oc get machineconfig --no-headers | grep -E 'rendered-master-|00-master|00-worker' | awk '{print $1}'
-          register: _current_mc
-
-        # NOTE: It might happen, that the MCO will create additional
-        # rendered-master-* config, because OpenShift start took too much time.
-        - name: Dump current machineconfig to yaml
-          ansible.builtin.shell: >
-            oc get machineconfig {{ item }}
-            -o yaml > {{ ansible_user_dir }}/machineconfigpool/current-{{ item }}.yaml
-          loop: "{{ _current_mc.stdout_lines }}"
-
-        ### Add first missing machineconfigs
+        ### Add missing machineconfigs
         - name: Remove keys in conflict for missing mc
           ansible.builtin.shell: >
             /usr/local/bin/remove-machineconfigpool-keys.py
@@ -61,44 +31,41 @@
             oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
         ###
 
-        ### Patch current machineconfig with problematic keys that we modify in the CI job
-        - name: Remove keys in conflict for current machineconfig
-          ansible.builtin.shell: >
-            /usr/local/bin/remove-machineconfigpool-keys.py
-            {{ ansible_user_dir }}/machineconfigpool/current-{{ item }}.yaml
-            {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item }}.yaml
-          loop: "{{ _current_mc.stdout_lines }}"
+        - name: Pause machineconfigpool
+          ansible.builtin.shell: |
+            oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
+          loop:
+            - master
+            - worker
+          changed_when: false
 
-        # NOTE: Even that the mco will render new config, it will raise an issue, eg.:
-        # Node crc-pjmnl-master-0 is reporting:
-        # "machineconfig.machineconfiguration.openshift.io \"rendered-master-8c2328bb766a8c34c8a1a70c74c1fd5f\" not found"
-        # We need to remove it and create previous config without conflicting keys
-        - name: Delete current machineconfig
+        - name: Patch node
           ansible.builtin.shell: >
-            oc delete machineconfig {{ item }}
-          loop: "{{ _current_mc.stdout_lines }}"
+            oc patch node crc
+            --type merge
+            -p '{"metadata": {"annotations": {"machineconfiguration.openshift.io/{{ item }}": null }}}'
+          loop:
+            - currentConfig
+            - desiredConfig
+          changed_when: false
 
-        # Try to update currently running machineconfig pull. If it fails,
-        # just skip. It is not a proper place to fail.
-        # NOTE: If the machineconfig manifest will be not updated, it should fail
-        # in other task, where we are checking if .status.degradedMachineCount equal to 0.
-        - name: Recreate machineconfig
+        - name: Patch machineconfigpool to set custom node
           ansible.builtin.shell: >
-            oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-current-{{ item }}.yaml
-          loop: "{{ _current_mc.stdout_lines }}"
-          register: _current_mc_manifest
-          until: _current_mc_manifest.rc  == 0
-          retries: 10
-          delay: 2
-          ignore_errors: true
-        ###
+            oc patch machineconfigpool {{ item }}
+            --type merge
+            -p '{"spec":{"nodeSelector": {"matchLabels": {"node-role.kubernetes.io/{{ item }}": "", "node-type": "custom" }}}}'
+          loop:
+            - master
+            - worker
+          changed_when: false
 
         - name: Restart deployments
-          ansible.builtin.shell: |
+          ansible.builtin.shell: >
             oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
           loop:
             - machine-config-controller
             - machine-config-operator
+          changed_when: false
 
         - name: Wait for deployments to be ready
           ansible.builtin.shell: >
@@ -109,22 +76,28 @@
           loop:
             - machine-config-controller
             - machine-config-operator
+          changed_when: false
 
         - name: Wait until master machineconfigpool is not degraded
           ansible.builtin.shell: |
+            set -o pipefail
             oc get mcp master -o json | jq -r '.status.degradedMachineCount'
           retries: 60
           delay: 10
           register: _master_status
           until: _master_status.stdout | int  == 0
+          changed_when: false
 
         - name: Wait until worker machineconfigpool is not degraded
           ansible.builtin.shell: |
+            set -o pipefail
             oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
           retries: 60
           delay: 10
           register: _worker_status
           until: _worker_status.stdout | int  == 0
+          changed_when: false
+
   always:
     - name: Remove machineconfig dir
       when: not keep_machineconfigpool_configs
