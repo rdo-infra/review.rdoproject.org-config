@@ -1,1 +1,104 @@
-../../prepare-crc-extracted/tasks/machineconfigpool.yaml
+---
+- name: Fix machineconfigpool
+  when: change_machineconfigpool
+  block:
+    - name: Get missing machineconfigpool config
+      ansible.builtin.shell: >
+        oc get mcp master -o json |
+        jq -r '.status.conditions[] |
+        select(.type == "NodeDegraded") | .message' |
+        grep -Eo rendered-master-[0-9a-f]{32}
+      register: _missing_mcp
+      failed_when: _missing_mcp.rc not in [0,1]
+
+    - name: Check if file is available
+      ansible.builtin.stat:
+        path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
+      register: _mcp_file
+
+    - name: Apply machineconfigpool if available and restart deployments
+      when: _mcp_file.stat.exists
+      block:
+        ### Add missing machineconfigs
+        - name: Apply machineconfigpool
+          ansible.builtin.command: |
+            oc apply -f {{ ansible_user_dir }}/machineconfigpool/updated-{{ _missing_mcp.stdout }}.yaml
+        ###
+
+        - name: Pause machineconfigpool
+          ansible.builtin.shell: |
+            oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
+          loop:
+            - master
+            - worker
+          changed_when: false
+
+        - name: Patch node
+          ansible.builtin.shell: >
+            oc patch node crc
+            --type merge
+            -p '{"metadata": {"annotations": {"machineconfiguration.openshift.io/{{ item }}": null }}}'
+          loop:
+            - currentConfig
+            - desiredConfig
+          changed_when: false
+
+        - name: Patch machineconfigpool to set custom node
+          ansible.builtin.shell: >
+            oc patch machineconfigpool {{ item }}
+            --type merge
+            -p '{"spec":{"nodeSelector": {"matchLabels": {"node-role.kubernetes.io/{{ item }}": "", "node-type": "custom" }}}}'
+          loop:
+            - master
+            - worker
+          changed_when: false
+
+        - name: Restart deployments
+          ansible.builtin.shell: >
+            oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+          loop:
+            - machine-config-controller
+            - machine-config-operator
+          changed_when: false
+
+        - name: Wait for deployments to be ready
+          ansible.builtin.shell: >
+            oc -n openshift-machine-config-operator
+            wait --for=condition=available
+            --timeout=600s
+            deployment.apps/{{ item }}
+          loop:
+            - machine-config-controller
+            - machine-config-operator
+          changed_when: false
+
+        - name: Wait until master machineconfigpool is not degraded
+          ansible.builtin.shell: |
+            set -o pipefail
+            oc get mcp master -o json | jq -r '.status.degradedMachineCount'
+          retries: 60
+          delay: 10
+          register: _master_status
+          until: _master_status.stdout | int  == 0
+          changed_when: false
+
+        - name: Wait until worker machineconfigpool is not degraded
+          ansible.builtin.shell: |
+            set -o pipefail
+            oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
+          retries: 60
+          delay: 10
+          register: _worker_status
+          until: _worker_status.stdout | int  == 0
+          changed_when: false
+
+  always:
+    - name: Remove machineconfig dir
+      when: not keep_machineconfigpool_configs
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/machineconfigpool"
+        state: absent
+
+- name: Print current machineconfigpool
+  ansible.builtin.command: oc get machineconfigpool
+  changed_when: false
