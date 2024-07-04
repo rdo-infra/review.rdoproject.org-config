@@ -1,1 +1,15 @@
-../../prepare-crc-extracted/tasks/main.yaml
+---
+- name: Print build date
+  ansible.builtin.include_tasks: build_date.yaml
+
+- name: Login to the OpenShift
+  ansible.builtin.include_tasks: openshift_login.yaml
+
+- name: Inject pull secret
+  ansible.builtin.include_tasks: inject-pull-secret.yaml
+
+- name: Verify OpenShift services that are up
+  ansible.builtin.include_tasks: ensure_services_up.yaml
+
+- name: Add missing machineconfig and disable machineconfigpool
+  ansible.builtin.include_tasks: machineconfigpool.yaml
