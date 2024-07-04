@@ -4,11 +4,9 @@
     path: workdir
     state: directory
 
-# FIXME: Use official repo, when https://github.com/crc-org/crc-cloud/pull/188
-# is merged.
 - name: Clone crc-cloud repository with workaround
   ansible.builtin.git:
-    repo: https://github.com/danpawlik/crc-cloud
+    repo: https://github.com/crc-org/crc-cloud
     dest: ~core/workdir/crc-cloud
     version: global-pull-secret
     single_branch: true
@@ -68,6 +66,13 @@
     dest: /etc/NetworkManager/conf.d/00-custom-crc.conf
   register: _custom_dns
 
+- name: Add missing domain to the dnsmasq
+  become: true
+  ansible.builtin.copy:
+    content: |
+      address=/{{ crc_hostname }}.nip.io/{{ ansible_default_ipv4.address }}
+    dest: /etc/dnsmasq.d/crc-custom-domain.conf
+
 - name: Reload NetworkManager after creating custom rules
   when: _custom_dns.changed
   become: true
@@ -76,3 +81,21 @@
     state: reloaded
   tags:
     - skip_ansible_lint
+
+# Required by machine config operator
+- name: Generate id_rsa.pub
+  community.crypto.openssh_keypair:
+    path: ~core/.ssh/id_rsa
+
+- name: Copy pub key to the expected location
+  ansible.builtin.copy:
+    src: ~core/.ssh/id_rsa.pub
+    dest: ~core/id_rsa.pub
+    remote_src: true
+
+- name: Inject pull secret into /var/lib/kubelet/config.json
+  become: true
+  ansible.builtin.copy:
+    content: |
+      {{ crc_secret_pabrodri.openshift_pull_secret }}
+    dest: /var/lib/kubelet/config.json
