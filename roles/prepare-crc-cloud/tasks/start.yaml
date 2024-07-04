@@ -13,7 +13,7 @@
       export PASS_KUBEADMIN="{{ kubeadmin_pass }}"
       export PASS_REDHAT="{{ redhat_pass }}"
       export IIP="{{ ansible_default_ipv4.address }}"
-      export EIP="{{ hostname }}"
+      export EIP="{{ crc_hostname }}"
 
       # Workaround for openshift-marketplace and openshift-console container pull error
       # https://github.com/danpawlik/crc-cloud/commits/global-pull-secret/
