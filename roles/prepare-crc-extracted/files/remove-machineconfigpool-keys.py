@@ -9,8 +9,7 @@ import sys
 # "catch" the difference. Later the kubelet will have troubles to start, due
 # the config file is "generated" via script before kubelet systemd service
 # starts.
-content_to_remove = ['/var/lib/kubelet/config.json',
-                     '/etc/containers/registries.conf',
+content_to_remove = ['/etc/containers/registries.conf',
                      '/etc/containers/policy.json']
 
 
