@@ -1,0 +1,1 @@
+../../prepare-crc-extracted/files/remove-machineconfigpool-keys.py

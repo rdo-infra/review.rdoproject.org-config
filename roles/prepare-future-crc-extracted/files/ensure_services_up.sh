@@ -1,0 +1,1 @@
+../../prepare-crc-extracted/files/ensure_services_up.sh
