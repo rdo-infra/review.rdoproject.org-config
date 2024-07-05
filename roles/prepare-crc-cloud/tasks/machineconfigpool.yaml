@@ -7,9 +7,17 @@
     - worker
   changed_when: false
 
+- name: Get node name
+  ansible.builtin.shell: |
+    oc get nodes --no-headers | awk '{print $1}'
+  register: _crc_node
+  changed_when: false
+  tags:
+    - skip_ansible_lint
+
 - name: Patch node
   ansible.builtin.shell: >
-    oc patch node crc
+    oc patch node {{ _crc_node.stdout }}
     --type merge
     -p '{"metadata": {"annotations": {"machineconfiguration.openshift.io/{{ item }}": null }}}'
   loop:
@@ -64,4 +72,8 @@
   delay: 10
   register: _worker_status
   until: _worker_status.stdout | int  == 0
+  changed_when: false
+
+- name: Print current machineconfigpool
+  ansible.builtin.command: oc get machineconfigpool
   changed_when: false
