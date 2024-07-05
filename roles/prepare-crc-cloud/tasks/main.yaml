@@ -1,4 +1,7 @@
 ---
+- name: Reboot CRC host to get the network interfaces
+  ansible.builtin.include_tasks: reboot_crc.yaml
+
 - name: Prepare for executing crc-cloud
   ansible.builtin.include_tasks: pre.yaml
 
