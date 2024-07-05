@@ -16,6 +16,24 @@
       "message": "I don\u0027t know much that part, but if machineconfigpool is disabled, does it mean we can\u0027t apply MachineConfig objects, or just that they are not \"cleanly\" handled?",
       "revId": "4f5d2faf0e3082ccc4f229df774a3da8e55a490e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5f3e6a_b736ccdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2024-07-05T14:02:14Z",
+      "side": 1,
+      "message": "you can still apply mc manifests, but it would be not \"rendered\" to the node.\nIn other words, we changed expectation for the mcp to other node, so the node metadata will look like:\n```\n[core@crc ~]$ oc get node crc -o yaml | less\nmetadata:\n  annotations:\n(...)\n    machineconfiguration.openshift.io/currentConfig: rendered-master-f79706b80cbf571853704326a37fc05a\n    machineconfiguration.openshift.io/desiredDrain: uncordon-rendered-master-f79706b80cbf571853704326a37fc05a\n    machineconfiguration.openshift.io/lastAppliedDrain: uncordon-rendered-master-f79706b80cbf571853704326a37fc05a\n    machineconfiguration.openshift.io/lastSyncedControllerConfigResourceVersion: \"44957\"\n    machineconfiguration.openshift.io/post-config-action: \"\"\n    machineconfiguration.openshift.io/reason: machineconfiguration.openshift.io/desiredConfig\n    ```\n    \nAnd the new mc changes would be not applied for the node, because the MCP will still wait for \"correct\" node.",
+      "parentUuid": "7936f53c_37ed417f",
+      "revId": "4f5d2faf0e3082ccc4f229df774a3da8e55a490e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
