@@ -33,9 +33,14 @@
             - worker
           changed_when: false
 
+        - name: Get node name
+          ansible.builtin.shell: |
+            oc get nodes --no-headers | awk '{print $1}'
+          register: _crc_node
+
         - name: Patch node
           ansible.builtin.shell: >
-            oc patch node crc
+            oc patch node {{ _crc_node.stdout }}
             --type merge
             -p '{"metadata": {"annotations": {"machineconfiguration.openshift.io/{{ item }}": null }}}'
           loop:
