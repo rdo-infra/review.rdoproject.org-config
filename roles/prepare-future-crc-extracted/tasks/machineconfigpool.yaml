@@ -58,6 +58,16 @@
             - worker
           changed_when: false
 
+        - name: Patch machineconfigpool to set custom node for role
+          ansible.builtin.shell: >
+            oc patch machineconfigpool {{ item }}
+            --type merge
+            -p '{"spec":{"machineConfigSelector": {"matchLabels": {"machineconfiguration.openshift.io/role": "", "node-type":"custom" }}}}'
+          loop:
+            - master
+            - worker
+          changed_when: false
+
         - name: Restart deployments
           ansible.builtin.shell: >
             oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
