@@ -93,6 +93,12 @@
     dest: ~core/id_rsa.pub
     remote_src: true
 
+- name: Copy generated pub key to authorized keys
+  ansible.builtin.copy:
+    src: ~core/.ssh/id_rsa.pub
+    dest: ~core/.ssh/authorized_keys.d/generated
+    remote_src: true
+
 - name: Inject pull secret into /var/lib/kubelet/config.json
   become: true
   ansible.builtin.copy:
