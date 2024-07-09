@@ -1,0 +1,11 @@
+---
+# It contains the list of jobs running as a rdo third party job against
+# opendev repos
+
+- project:
+    name: opendev.org/x/whitebox-neutron-tempest-plugin
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - noop
