@@ -423,6 +423,14 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
+    name: opendev.org/x/whitebox-neutron-tempest-plugin
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - noop
+
+- project:
     name: review.rdoproject.org/centos-opstools/centos-release-opstools
     templates:
       - system-required
