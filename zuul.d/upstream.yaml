@@ -20,15 +20,15 @@
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|rdo-check|verify-rdo)
     success:
-      # Note: we are using another connection to report with rdo project ci account
-      rdoci:
-        Verified: 1
+      # Note: opendev.org is the account name used to vote on opendev change.
+      opendev.org:
+        Code-Review: 1
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      # Note: we are using another connection to report with rdo project ci account
-      rdoci:
-        Verified: -1
+      # Note: opendev.org is the account name used to vote on opendev change.
+      opendev.org:
+        Code-Review: 1
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
