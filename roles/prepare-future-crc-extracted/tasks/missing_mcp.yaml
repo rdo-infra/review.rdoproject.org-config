@@ -1,0 +1,28 @@
+---
+- name: "Get missing machineconfigpool config for {{ item }}"
+  ansible.builtin.shell: >
+    oc get mcp {{ item }} -o json |
+    jq -r '.status.conditions[] |
+    select(.type == "NodeDegraded") | .message' |
+    grep -Eo rendered-{{ item }}-[0-9a-f]{32}
+  register: _missing_mcp
+  failed_when: _missing_mcp.rc not in [0,1]
+
+- name: "Check if file is available for {{ item }}"
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
+  register: _mcp_file
+
+- name: Remove problematic keys just in keys
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
+    regexp: "{{ item }}"
+    state: absent
+  loop:
+    - "^  resourceVersion:"
+    - "^  uid:"
+
+- name: Apply machineconfigpool if available and restart deployments
+  when: _mcp_file.stat.exists
+  ansible.builtin.command: |
+    oc apply -f {{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml
