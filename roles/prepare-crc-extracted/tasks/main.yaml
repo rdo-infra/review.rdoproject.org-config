@@ -1,4 +1,7 @@
 ---
+- name: Configure dnsmasq and NetworkManager to make OpenShift stable after reboot
+  ansible.builtin.include_tasks: dnsmasq-nm.yaml
+
 - name: Reboot CRC host to get the network interfaces
   ansible.builtin.include_tasks: reboot_crc.yaml
 
