@@ -19,3 +19,12 @@
 
 - name: Add missing machineconfig and disable machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
+
+- name: Wait for node after machineconfig daemon triggers reboot
+  ansible.builtin.include_tasks: post_machineconfigpool.yaml
+
+- name: Login to the OpenShift
+  ansible.builtin.include_tasks: openshift_login.yaml
+
+- name: Remove drain machineconfig for the node
+  ansible.builtin.include_tasks: remove_annotations.yaml
