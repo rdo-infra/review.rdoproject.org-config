@@ -31,6 +31,39 @@
         - "^  resourceVersion:"
         - "^  uid:"
 
+#    - name: "Change kubelet config.json in {{ _missing_mcp.stdout }}"
+#      when: _mcp_file.stat.exists
+#      ansible.builtin.lineinfile:
+#        path: "{{ ansible_user_dir }}/machineconfigpool/{{ _missing_mcp.stdout }}.yaml"
+#        regexp: "          source: data:,%7B%7D%0A"
+#        line: "          source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | urlencode }}"
+
+    - name: Create machineconfig manifest to overwrite config.json
+      ansible.builtin.copy:
+        content: |
+          apiVersion: machineconfiguration.openshift.io/v1
+          kind: MachineConfig
+          metadata:
+            labels:
+              machineconfiguration.openshift.io/role: {{ item }}
+            name: 99-overwrite-kubelet-config-{{ item }}
+          spec:
+            config:
+              ignition:
+                version: 3.4.0
+              storage:
+                files:
+                - contents:
+                    source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | urlencode }}
+                  mode: 384
+                  overwrite: true
+                  path: /var/lib/kubelet/config.json
+        dest: /tmp/mc-{{ item }}.yaml
+
+    - name: Apply machineconfig manifest
+      ansible.builtin.command: oc apply -f /tmp/mc-{{ item }}.yaml
+      changed_when: false
+
     - name: Apply machineconfigpool manifest {{ _missing_mcp.stdout }}
       when: _mcp_file.stat.exists
       ansible.builtin.command: |

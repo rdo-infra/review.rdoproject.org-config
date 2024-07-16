@@ -8,6 +8,17 @@
         - master
         - worker
 
+    - name: Wait for render new machineconfig
+      ansible.builtin.pause:
+        seconds: 10
+
+    # NOTE: The issue is most for the master mcp, not for the worker.
+    # Let's keep it in a loop for the future.
+    - name: Change the rendered machineconfig for the node
+      ansible.builtin.include_tasks: change_mcp.yaml
+      loop:
+        - master
+
     - name: Restart deployments
       ansible.builtin.shell: >
         oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
