@@ -8,6 +8,10 @@
   include_role:
     name: start-zuul-console
 
+- name: Pause few seconds
+  ansible.builtin.pause:
+    seconds: 10
+
 - name: Ensure dnsmasq is running
   become: true
   ansible.builtin.service:

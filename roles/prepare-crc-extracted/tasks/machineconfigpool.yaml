@@ -2,53 +2,34 @@
 - name: Fix machineconfigpool
   when: change_machineconfigpool
   block:
+    - name: Create machineconfig with pull secret
+      ansible.builtin.include_tasks: create_mc.yaml
+      loop:
+        - master
+        - worker
+
     - name: Apply missing machineconfigpool manifests
       ansible.builtin.include_tasks: missing_mcp.yaml
       loop:
         - master
         - worker
 
-    - name: Restart deployments
-      ansible.builtin.shell: >
-        oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+    - name: Wait for render new machineconfig
+      ansible.builtin.pause:
+        seconds: 10
+
+    # NOTE: The issue is most for the master mcp, not for the worker.
+    # Let's keep it in a loop for the future.
+    - name: Change the rendered machineconfig for the node
+      ansible.builtin.include_tasks: change_mcp.yaml
       loop:
-        - machine-config-controller
-        - machine-config-operator
-      changed_when: false
+        - master
 
-    - name: Wait for deployments to be ready
-      ansible.builtin.shell: >
-        oc -n openshift-machine-config-operator
-        wait --for=condition=available
-        --timeout=600s
-        deployment.apps/{{ item }}
-      loop:
-        - machine-config-controller
-        - machine-config-operator
-      changed_when: false
-
-    - name: Wait for machineconfigpool
-      when: wait_for_mcp
-      block:
-        - name: Wait until master machineconfigpool is not degraded
-          ansible.builtin.shell: |
-            set -o pipefail
-            oc get mcp master -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
-          retries: 60
-          delay: 10
-          register: _master_status
-          until: not _master_status.stdout | bool
-          changed_when: false
-
-        - name: Wait until worker machineconfigpool is not degraded
-          ansible.builtin.shell: |
-            set -o pipefail
-            oc get mcp worker -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
-          retries: 60
-          delay: 10
-          register: _worker_status
-          until: not _worker_status.stdout | bool
-          changed_when: false
+    - name: Create a file to force trigger reconfiguration
+      become: true
+      ansible.builtin.file:
+        path: /run/machine-config-daemon-force
+        state: touch
 
   always:
     - name: Remove machineconfig dir
@@ -57,6 +38,10 @@
         path: "{{ ansible_user_dir }}/machineconfigpool"
         state: absent
 
-- name: Print current machineconfigpool
-  ansible.builtin.command: oc get machineconfigpool
-  changed_when: false
+- name: Wait for render new machineconfig
+  ansible.builtin.pause:
+    seconds: 30
+  delegate_to: localhost
+
+- name: Wait for node
+  ansible.builtin.wait_for_connection:
