@@ -12,14 +12,14 @@
   ansible.builtin.service_facts:
 
 - name: Ensure dnsmasq is running
-  when: "'crc-dnsmasq' not in services"
+  when: "'crc-dnsmasq.service' not in services"
   become: true
   ansible.builtin.service:
     name: dnsmasq
     state: started
 
 - name: Ensure crc-dnsmasq is running when legacy
-  when: "'crc-dnsmasq' in services"
+  when: "'crc-dnsmasq.service' in services"
   become: true
   ansible.builtin.service:
     name: crc-dnsmasq
