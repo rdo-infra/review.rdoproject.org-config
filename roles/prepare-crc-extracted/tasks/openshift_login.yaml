@@ -11,3 +11,14 @@
   retries: 60
   delay: 10
   changed_when: false
+
+- name: Get OCP version
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc version -o yaml  | grep openshiftVersion | awk '{print $2}'
+  register: _ocp_version
+  changed_when: false
+
+- name: Set OCP version as fact
+  ansible.builtin.set_fact:
+    ocp_version: "{{ _ocp_version.stdout }}"

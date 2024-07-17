@@ -1,0 +1,14 @@
+---
+- name: Wait for machineconfig daemon to reboot the host
+  ansible.builtin.pause:
+    minutes: 1
+  delegate_to: localhost
+
+- name: Wait for node
+  ansible.builtin.wait_for_connection:
+
+- name: Ensure dnsmasq is running if it fails. If running, just restart
+  become: true
+  ansible.builtin.service:
+    name: dnsmasq
+    state: restarted
