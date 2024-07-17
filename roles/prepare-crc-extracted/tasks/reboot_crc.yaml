@@ -8,8 +8,19 @@
   include_role:
     name: start-zuul-console
 
+- name: Get running services
+  ansible.builtin.service_facts:
+
 - name: Ensure dnsmasq is running
+  when: "'crc-dnsmasq' not in services"
   become: true
   ansible.builtin.service:
     name: dnsmasq
     state: started
+
+- name: Ensure crc-dnsmasq is running when legacy
+  when: "'crc-dnsmasq' in services"
+  become: true
+  ansible.builtin.service:
+    name: crc-dnsmasq
+    state: restarted
