@@ -1,0 +1,32 @@
+---
+- name: Get node name
+  ansible.builtin.shell: |
+    set -o pipefail;
+    oc get nodes --no-headers | awk '{print $1}'
+  register: _crc_node
+  changed_when: false
+
+- name: Get last rendered machineconfig
+  ansible.builtin.shell: >
+    set -o pipefail;
+    oc get mc --sort-by=.metadata.creationTimestamp |
+    grep rendered-{{ item }} |
+    tail -n1 |
+    awk '{print $1}'
+  register: _new_mc
+  failed_when: _new_mc.rc not in [0,1]
+  changed_when: false
+
+- name: Patch node - {{ _crc_node.stdout }} to use {{  _new_mc.stdout }} machineconfig
+  ansible.builtin.shell: >
+    oc patch node {{ _crc_node.stdout }}
+    --type merge
+    -p '{"metadata": {"annotations": {"{{ mc_item.key }}": "{{ mc_item.value }}" }}}'
+  loop:
+    - key: machineconfiguration.openshift.io/currentConfig
+      value: "{{ _new_mc.stdout }}"
+    - key: machineconfiguration.openshift.io/desiredConfig
+      value: "{{ _new_mc.stdout }}"
+  loop_control:
+    loop_var: mc_item
+  changed_when: false

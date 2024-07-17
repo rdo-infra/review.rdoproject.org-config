@@ -7,3 +7,13 @@
 - name: Print image date if available
   when: _image_date.stat.exists
   ansible.builtin.command: cat image_build_date
+
+- name: Get OCP version
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc version -o yaml  | grep openshiftVersion | awk '{print $2}'
+  register: _ocp_version
+
+- name: Set OCP version as fact
+  ansible.builtin.set_fact:
+    ocp_version: "{{ _ocp_version.stdout }}"
