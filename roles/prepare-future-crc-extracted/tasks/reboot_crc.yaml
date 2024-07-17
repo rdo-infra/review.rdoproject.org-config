@@ -1,1 +1,19 @@
-../../prepare-crc-extracted/tasks/reboot_crc.yaml
+---
+- name: Reboot host after adding network infterfaces
+  become: true
+  ansible.builtin.reboot:
+    reboot_timeout: 900
+
+- name: Start Zuul console after reboot
+  ansible.builtin.include_role:
+    name: start-zuul-console
+
+- name: Pause few seconds
+  ansible.builtin.pause:
+    seconds: 5
+
+- name: Ensure dnsmasq is running
+  become: true
+  ansible.builtin.service:
+    name: dnsmasq
+    state: restarted
