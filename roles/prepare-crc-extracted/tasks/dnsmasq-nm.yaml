@@ -68,3 +68,18 @@
             path: /etc/dnsmasq.d/crc-dnsmasq.conf
             line: "server={{ item }}"
           loop: "{{ ansible_dns.nameservers }}"
+
+        - name: Create a dnsmasq.service.d directory
+          become: true
+          ansible.builtin.file:
+            path: /etc/systemd/system/dnsmasq.service.d
+            state: directory
+
+        - name: Create an dnsmasq override conf file
+          become: true
+          ansible.builtin.copy:
+            content: |
+              [Unit]
+              After=network.target NetworkManager.service network-online.target
+              Wants=network-online.target
+            dest: /etc/systemd/system/dnsmasq.service.d/override.conf
