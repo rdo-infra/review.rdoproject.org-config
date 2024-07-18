@@ -68,3 +68,16 @@
             path: /etc/dnsmasq.d/crc-dnsmasq.conf
             line: "server={{ item }}"
           loop: "{{ ansible_dns.nameservers }}"
+
+        - name: Remount /usr dir to edit dnsmasq.service
+          become: true
+          ansible.builtin.mount:
+            path: /usr
+            state: remounted
+
+        - name: Make sure dnsmasq is started after NetworkManager
+          become: true
+          ansible.builtin.lineinfile:
+            path: /usr/lib/systemd/system/dnsmasq.service
+            regexp: '^After=network.target'
+            line: 'After=network.target NetworkManager.service network-online.target'
