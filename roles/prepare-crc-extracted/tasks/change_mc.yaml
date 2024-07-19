@@ -1,0 +1,25 @@
+---
+- name: Get current machineconfig for generated registries
+  ansible.builtin.shell: >
+    oc get machineconfig 99-master-generated-registries
+    -o yaml  > /tmp/99-{{ item }}-generated-registries.yaml
+
+- name: Remove resourceVersion
+  ansible.builtin.lineinfile:
+    path: "/tmp/99-{{ item }}-generated-registries.yaml"
+    regexp: "^  resourceVersion:"
+    state: absent
+
+- name: Replace machineconfig name
+  ansible.builtin.replace:
+    path: "/tmp/99-{{ item }}-generated-registries.yaml"
+    regexp: "99-{{ item }}-generated-registries"
+    replace: "90-{{ item }}-generated-registries"
+
+- name: Create new machineconfig
+  ansible.builtin.command: |
+    oc create -f /tmp/99-{{ item }}-generated-registries.yaml
+
+- name: Remove old machineconfig
+  ansible.builtin.command: |
+    oc delete machineconfig 99-{{ item }}-generated-registries

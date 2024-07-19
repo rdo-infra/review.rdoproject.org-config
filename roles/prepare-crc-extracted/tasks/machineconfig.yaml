@@ -1,0 +1,6 @@
+---
+- name: Change the machineconfig priority
+  ansible.builtin.include_tasks: change_mc.yaml
+  loop:
+    - master
+    - worker
