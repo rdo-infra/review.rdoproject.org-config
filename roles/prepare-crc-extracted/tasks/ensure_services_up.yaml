@@ -1,4 +1,10 @@
 ---
+# https://github.com/crc-org/crc/issues/4109#issuecomment-2042497411
+- name: Delete all openshift-marketplace pods
+  ansible.builtin.command: |
+    oc delete pods --all -n openshift-marketplace
+  changed_when: false
+
 - name: Copy script ensure_services_up.sh
   ansible.builtin.copy:
     src: ensure_services_up.sh
