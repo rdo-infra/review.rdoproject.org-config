@@ -11,25 +11,22 @@
     oc annotate node {{ _crc_node.stdout }} machineconfiguration.openshift.io/lastAppliedDrain-
   changed_when: false
 
-- name: Wait for machineconfigpool
-  when: wait_for_mcp
-  block:
-    - name: Wait until master machineconfigpool is not degraded
-      ansible.builtin.shell: |
-        set -o pipefail
-        oc get mcp master -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
-      retries: 60
-      delay: 10
-      register: _master_status
-      until: not _master_status.stdout | bool
-      changed_when: false
+- name: Wait until master machineconfigpool is not degraded
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc get mcp master -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
+  retries: 60
+  delay: 10
+  register: _master_status
+  until: not _master_status.stdout | bool
+  changed_when: false
 
-    - name: Wait until worker machineconfigpool is not degraded
-      ansible.builtin.shell: |
-        set -o pipefail
-        oc get mcp worker -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
-      retries: 60
-      delay: 10
-      register: _worker_status
-      until: not _worker_status.stdout | bool
-      changed_when: false
+- name: Wait until worker machineconfigpool is not degraded
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc get mcp worker -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
+  retries: 60
+  delay: 10
+  register: _worker_status
+  until: not _worker_status.stdout | bool
+  changed_when: false

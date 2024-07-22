@@ -17,14 +17,17 @@
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
 
-- name: Add missing machineconfig and disable machineconfigpool
+- name: Pause machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
+  when: not wait_for_mcp
 
-- name: "Wait for node after machineconfig daemon triggers reboot on OCP {{ ocp_version }}"
-  ansible.builtin.include_tasks: post_machineconfigpool.yaml
+- name: Fix machineconfigpool degradation - it will reboot host
+  ansible.builtin.include_tasks: machineconfigpool.yaml
+  when: wait_for_mcp
 
-- name: Login to the OpenShift
+- name: Login to the OpenShift - ensure OpenShift is up running
   ansible.builtin.include_tasks: openshift_login.yaml
 
 - name: Remove drain machineconfig for the node
   ansible.builtin.include_tasks: remove_annotations.yaml
+  when: wait_for_mcp
