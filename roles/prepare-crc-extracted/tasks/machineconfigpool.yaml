@@ -50,6 +50,15 @@
           until: not _worker_status.stdout | bool
           changed_when: false
 
+    - name: Pause the machineconfig configuration if mcp is not needed
+      when: not wait_for_mcp
+      ansible.builtin.shell: |
+        oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
+      loop:
+        - master
+        - worker
+      changed_when: false
+
   always:
     - name: Remove machineconfig dir
       when: not keep_machineconfigpool_configs
