@@ -19,3 +19,6 @@
 
 - name: Add missing machineconfig and disable machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
+
+- name: Ensure the secret are set
+  ansible.builtin.include_tasks: inject-pull-secret.yaml
