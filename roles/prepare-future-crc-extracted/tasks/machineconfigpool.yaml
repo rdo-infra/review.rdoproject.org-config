@@ -15,7 +15,6 @@
         - worker
 
     - name: Apply patches for mcp when OCP lower than 4.16
-      when: ocp_version < '4.16.0'
       block:
         - name: Wait for render new machineconfig
           ansible.builtin.pause:
