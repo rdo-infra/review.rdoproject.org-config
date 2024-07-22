@@ -20,20 +20,11 @@
 - name: Add missing machineconfig and disable machineconfigpool
   ansible.builtin.include_tasks: machineconfigpool.yaml
 
-- name: "Wait for node after machineconfig daemon triggers reboot {{ ocp_version }}"
+- name: "Wait for node after machineconfig daemon triggers reboot on OCP {{ ocp_version }}"
   ansible.builtin.include_tasks: post_machineconfigpool.yaml
-  when: ocp_version < '4.16.0'
-  tags:
-    - skip_ansible_lint
 
 - name: Login to the OpenShift
   ansible.builtin.include_tasks: openshift_login.yaml
-  when: ocp_version < '4.16.0'
-  tags:
-    - skip_ansible_lint
 
 - name: Remove drain machineconfig for the node
   ansible.builtin.include_tasks: remove_annotations.yaml
-  when: ocp_version < '4.16.0'
-  tags:
-    - skip_ansible_lint
