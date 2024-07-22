@@ -8,28 +8,37 @@
         - master
         - worker
 
-    - name: Restart deployments
-      ansible.builtin.shell: >
-        oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+    - name: Pause the machineconfig configuration if mcp is not needed
+      when: not wait_for_mcp
+      ansible.builtin.shell: |
+        oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
       loop:
-        - machine-config-controller
-        - machine-config-operator
+        - master
+        - worker
       changed_when: false
 
-    - name: Wait for deployments to be ready
-      ansible.builtin.shell: >
-        oc -n openshift-machine-config-operator
-        wait --for=condition=available
-        --timeout=600s
-        deployment.apps/{{ item }}
-      loop:
-        - machine-config-controller
-        - machine-config-operator
-      changed_when: false
-
-    - name: Wait for machineconfigpool
+    - name: Wait for machineconfigpool to not being degraded
       when: wait_for_mcp
       block:
+        - name: Restart deployments
+          ansible.builtin.shell: >
+            oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
+          loop:
+            - machine-config-controller
+            - machine-config-operator
+          changed_when: false
+
+        - name: Wait for deployments to be ready
+          ansible.builtin.shell: >
+            oc -n openshift-machine-config-operator
+            wait --for=condition=available
+            --timeout=600s
+            deployment.apps/{{ item }}
+          loop:
+            - machine-config-controller
+            - machine-config-operator
+          changed_when: false
+
         - name: Wait until master machineconfigpool is not degraded
           ansible.builtin.shell: |
             set -o pipefail
