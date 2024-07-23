@@ -30,3 +30,7 @@
   register: _worker_status
   until: not _worker_status.stdout | bool
   changed_when: false
+
+- name: Print current machineconfigpool
+  ansible.builtin.command: oc get machineconfigpool
+  changed_when: false

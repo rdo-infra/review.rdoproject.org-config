@@ -6,3 +6,7 @@
     - master
     - worker
   changed_when: false
+
+- name: Print current machineconfigpool
+  ansible.builtin.command: oc get machineconfigpool
+  changed_when: false
