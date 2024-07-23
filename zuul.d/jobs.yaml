@@ -104,14 +104,6 @@
       - koji_centos
 
 - job:
-    name: distgit-cbs-validate-centos8-stream
-    parent: distgit-cbs-validate
-    nodeset: rdo-centos-8-stream
-    branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
-    vars:
-      centos_releasever: 8
-
-- job:
     name: distgit-cbs-validate-centos9
     parent: distgit-cbs-validate
     branches: ^(yoga-rdo|zed-rdo|antelope-rdo|bobcat-rdo|caracal-rdo)$
@@ -136,14 +128,6 @@
     secrets:
       - secret: rdobuilder_ssh_key
         name: rdobuilder_ssh_key
-
-- job:
-    name: distgit-cbs-final-build-centos8
-    parent: distgit-cbs-final-build
-    nodeset: rdo-centos-8-stream
-    branches: ^(victoria-rdo|wallaby-rdo|xena-rdo|yoga-rdo)$
-    vars:
-      centos_releasever: 8
 
 - job:
     name: distgit-cbs-final-build-centos9
@@ -186,7 +170,7 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      supported_releases: dalmatian,9s caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s xena,9s wallaby,9s
+      supported_releases: dalmatian,9s caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s
       master_release: dalmatian
     nodeset: rdo-centos-9-stream
     timeout: 3600
