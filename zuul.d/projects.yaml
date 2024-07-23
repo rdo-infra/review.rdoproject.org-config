@@ -4754,15 +4754,12 @@
       jobs:
         - rpmlint:
             dependencies:
-              - DLRN-rpmbuild-centos8
+              - DLRN-rpmbuild-centos9
             branches: ^rpm-master$
-        - DLRN-rpmbuild
-        - DLRN-rpmbuild-centos8
         - DLRN-rpmbuild-centos9
     gate:
       jobs:
-        - DLRN-rpmbuild
-        - DLRN-rpmbuild-centos8
+        - DLRN-rpmbuild-centos9
 
 - project:
     name: review.rdoproject.org/openstack/tripleo-ui
@@ -6191,8 +6188,6 @@
       - weirdo-antelope-promotion-pipeline
       - weirdo-zed-promotion-pipeline
       - weirdo-yoga-promotion-pipeline
-      - weirdo-xena-promotion-pipeline
-      - weirdo-wallaby-promotion-pipeline
     check:
       jobs:
         - tox-linters:
@@ -6203,15 +6198,8 @@
             # TODO(jcapitao): remove nodeset definition once the default one moved
             # to CS9 (default nodeset is defined in 'base-minimal' job)
             nodeset: rdo-centos-9-stream
-        - rdoinfo-DLRN-check-centos8:
-            files:
-              - ^tags/wallaby.yml$
-              - ^tags/xena.yml$
-              - ^tags/yoga.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
-              - ^tags/wallaby.yml$
-              - ^tags/xena.yml$
               - ^tags/yoga.yml$
               - ^tags/zed.yml$
               - ^tags/antelope.yml$
@@ -6271,15 +6259,8 @@
             # TODO(jcapitao): remove nodeset definition once the default one moved
             # to CS9 (default nodeset is defined in 'base-minimal' job)
             nodeset: rdo-centos-9-stream
-        - rdoinfo-DLRN-check-centos8:
-            files:
-              - ^tags/wallaby.yml$
-              - ^tags/xena.yml$
-              - ^tags/yoga.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
-              - ^tags/wallaby.yml$
-              - ^tags/xena.yml$
               - ^tags/yoga.yml$
               - ^tags/zed.yml$
               - ^tags/antelope.yml$
