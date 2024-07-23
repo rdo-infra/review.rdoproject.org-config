@@ -26,23 +26,23 @@
           loop:
             - master
 
-        - name: Create a file to force trigger reconfiguration
-          become: true
-          ansible.builtin.file:
-            path: /run/machine-config-daemon-force
-            state: touch
-
-        - name: Wait for machineconfig daemon to reboot the host
-          ansible.builtin.pause:
-            minutes: 1
-          delegate_to: localhost
-
-        - name: Wait for node to be up
-          ansible.builtin.wait_for_connection:
-
   always:
     - name: Remove machineconfig dir
       when: not keep_machineconfigpool_configs
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/machineconfigpool"
         state: absent
+
+- name: Create a file to force trigger reconfiguration
+  become: true
+  ansible.builtin.file:
+    path: /run/machine-config-daemon-force
+    state: touch
+
+- name: Wait for machineconfig daemon to reboot the host
+  ansible.builtin.pause:
+    minutes: 1
+  delegate_to: localhost
+
+- name: Wait for node to be up
+  ansible.builtin.wait_for_connection:
