@@ -1,5 +1,6 @@
 ---
 - name: Create machineconfig manifest to overwrite config.json
+  no_log: true
   ansible.builtin.copy:
     content: |
       apiVersion: machineconfiguration.openshift.io/v1
@@ -19,8 +20,13 @@
               mode: 384
               overwrite: true
               path: /var/lib/kubelet/config.json
-    dest: /tmp/mc-{{ item }}.yaml
+    dest: "/tmp/mc-{{ item }}.yaml"
 
 - name: Apply machineconfig manifest
   ansible.builtin.command: oc apply -f /tmp/mc-{{ item }}.yaml
   changed_when: false
+
+- name: Remove the generated mc
+  ansible.builtin.file:
+    path: "/tmp/mc-{{ item }}.yaml"
+    state: absent

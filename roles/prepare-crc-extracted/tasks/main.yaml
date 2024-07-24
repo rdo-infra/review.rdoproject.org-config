@@ -1,12 +1,15 @@
 ---
+- name: Print build date
+  ansible.builtin.include_tasks: build_date.yaml
+
 - name: Configure dnsmasq and NetworkManager to make OpenShift stable after reboot
   ansible.builtin.include_tasks: dnsmasq-nm.yaml
 
 - name: Reboot CRC host to get the network interfaces
   ansible.builtin.include_tasks: reboot_crc.yaml
 
-- name: Print build date
-  ansible.builtin.include_tasks: build_date.yaml
+- name: Start Zuul console after reboot
+  ansible.builtin.include_tasks: zuul-console.yaml
 
 - name: Login to the OpenShift
   ansible.builtin.include_tasks: openshift_login.yaml
@@ -17,8 +20,20 @@
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
 
-- name: Add missing machineconfig and disable machineconfigpool
-  ansible.builtin.include_tasks: machineconfigpool.yaml
+- name: Pause machineconfigpool
+  ansible.builtin.include_tasks: pause_mcp.yaml
+  when: not wait_for_mcp
 
-- name: Ensure the secret are set
-  ansible.builtin.include_tasks: inject-pull-secret.yaml
+- name: Fix machineconfigpool degradation - it will reboot host
+  ansible.builtin.include_tasks: machineconfigpool.yaml
+  when: wait_for_mcp
+
+- name: Start Zuul console after reboot
+  ansible.builtin.include_tasks: zuul-console.yaml
+
+- name: Login to the OpenShift - ensure OpenShift is up running
+  ansible.builtin.include_tasks: openshift_login.yaml
+
+- name: Remove drain machineconfig for the node
+  ansible.builtin.include_tasks: remove_annotations.yaml
+  when: wait_for_mcp
