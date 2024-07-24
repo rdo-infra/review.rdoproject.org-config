@@ -356,7 +356,7 @@
         override-checkout: "stable/2.0"
     vars:
       configure_swap_size: 4096
-      bmc_template_name: bmc-template
+      bmc_template_name: bmc-template-cs9
 
 - job:
     name: tripleo-ci-ovb-rdo-centos-9
@@ -403,7 +403,7 @@
       - name: opendev.org/openstack/openstack-virtual-baremetal
         override-checkout: "stable/2.0"
     vars:
-      bmc_template_name: bmc-template
+      bmc_template_name: bmc-template-cs9
 
 - job:
     name: periodic-tripleo-ci-ovb-rdo-centos-9

@@ -21,7 +21,7 @@
     - - 'baremetal_image:.*'
       - 'baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}'
     - - 'bmc_image:.*'
-      - 'bmc_image: {{ bmc_template_name|default("bmc-template") }}'
+      - 'bmc_image: {{ bmc_template_name|default("bmc-template-cs9") }}'
     - - 'key_name:.*'
       - 'key_name: {{ key_name }}'
     - - 'node_count:.*'
@@ -148,7 +148,7 @@
             private_net: private
             baremetal_prefix: baremetal
             bmc_prefix: bmc
-            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_image: {{ bmc_template_name|default("bmc-template-cs9") }}
             {% if cloud_settings is defined and  cloud_name in cloud_settings -%}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
@@ -201,7 +201,7 @@
             key_name: {{ key_name }}
             baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
             bmc_use_cache: True
-            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_image: {{ bmc_template_name|default("bmc-template-cs9") }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
@@ -238,7 +238,7 @@
             key_name: {{ key_name }}
             baremetal_image: {{ baremetal_image_name|default("ipxe-boot") }}
             bmc_use_cache: True
-            bmc_image: {{ bmc_template_name|default("bmc-template") }}
+            bmc_image: {{ bmc_template_name|default("bmc-template-cs9") }}
             {% if cloud_settings is defined and cloud_name in cloud_settings -%}
             baremetal_flavor: {{ cloud_settings[cloud_name]['baremetal_flavor'] }}
             bmc_flavor: {{ cloud_settings[cloud_name]['bmc_flavor'] }}
