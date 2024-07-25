@@ -24,16 +24,23 @@
   ansible.builtin.include_tasks: pause_mcp.yaml
   when: not wait_for_mcp
 
-- name: Fix machineconfigpool degradation - it will reboot host
-  ansible.builtin.include_tasks: machineconfigpool.yaml
+- name: Estabilish cluster when machineconfigpool can not be degraded
   when: wait_for_mcp
+  block:
+    - name: Fix machineconfigpool degradation - it will reboot host
+      ansible.builtin.include_tasks: machineconfigpool.yaml
 
-- name: Start Zuul console after reboot
-  ansible.builtin.include_tasks: zuul-console.yaml
+    - name: Start Zuul console after reboot
+      ansible.builtin.include_tasks: zuul-console.yaml
 
-- name: Login to the OpenShift - ensure OpenShift is up running
-  ansible.builtin.include_tasks: openshift_login.yaml
+    - name: Login to the OpenShift - ensure OpenShift is up running
+      ansible.builtin.include_tasks: openshift_login.yaml
 
-- name: Remove drain machineconfig for the node
-  ansible.builtin.include_tasks: remove_annotations.yaml
-  when: wait_for_mcp
+    - name: Remove drain machineconfig for the node
+      ansible.builtin.include_tasks: remove_annotations.yaml
+
+    - name: Post machineconfigpool tasks
+      ansible.builtin.include_tasks: post_machineconfigpool.yaml
+
+- name: Recreate OpenShift Marketplace
+  ansible.builtin.include_tasks: recreate_marketplace.yaml

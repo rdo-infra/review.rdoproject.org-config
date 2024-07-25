@@ -1,0 +1,36 @@
+---
+# NOTE: Normally, we should check if Degraded status is False and
+# Updating status is also False, but it takes many minutes.
+# What is important here, to continue CI job when the
+# /var/lib/kubelet/config.json is not empty.
+- name: Wait until master machineconfigpool is not degraded
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc get mcp master -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
+  retries: 60
+  delay: 10
+  register: _master_status
+  until: not _master_status.stdout | bool
+  changed_when: false
+
+- name: Wait until worker machineconfigpool is not degraded
+  ansible.builtin.shell: |
+    set -o pipefail
+    oc get mcp worker -o json | jq -r '.status.conditions[] | select(.type == "Degraded") | .status'
+  retries: 60
+  delay: 10
+  register: _worker_status
+  until: not _worker_status.stdout | bool
+  changed_when: false
+
+- name: Print current machineconfigpool
+  ansible.builtin.command: oc get machineconfigpool
+  changed_when: false
+
+- name: Wait for /var/lib/kubelet/config.json to be updated
+  become: true
+  ansible.builtin.wait_for:
+    path: /var/lib/kubelet/config.json
+    search_regex: '{"auths":'
+    delay: 10
+    timeout: 600
