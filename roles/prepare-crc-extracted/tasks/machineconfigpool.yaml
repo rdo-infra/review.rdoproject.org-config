@@ -39,6 +39,13 @@
     path: /run/machine-config-daemon-force
     state: touch
 
+- name: Speedup host reboot
+  ansible.builtin.command: |
+    oc -n openshift-machine-config-operator rollout restart {{ item }}
+  loop:
+    - deployment.apps/machine-config-controller
+    - deployment.apps/machine-config-operator
+
 - name: Wait for machineconfig daemon to reboot the host
   ansible.builtin.pause:
     minutes: 1
