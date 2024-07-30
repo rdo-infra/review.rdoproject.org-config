@@ -20,7 +20,7 @@ if [ -z "$OC_PATH" ]; then
     exit 1
 fi
 
-for i in {1..25}; do
+for i in {1..60}; do
     echo "Checking login to the cluster ${i}..."
     if $OC_PATH login \
            -u kubeadmin \
