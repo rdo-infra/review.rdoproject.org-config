@@ -421,7 +421,11 @@
       - system-required
     openstack-check:
       jobs:
-        - noop
+        - openstack-meta-content-provider:
+            override-checkout: main
+        - whitebox-neutron-tempest-plugin-podified-multinode-edpm-deployment-crc-2comp:
+            dependencies:
+              - openstack-meta-content-provider
 
 - project:
     name: review.rdoproject.org/centos-opstools/centos-release-opstools
