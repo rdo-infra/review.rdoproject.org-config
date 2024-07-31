@@ -72,6 +72,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecc356f_573e4da2",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-07-31T12:14:11Z",
+      "side": 1,
+      "message": "So I think for now we are okay with including `18.0.0-proposed`, yes it may change soon or not but for now we should include it and update later if needed.",
+      "parentUuid": "7b79fbcc_35b7c432",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f8e6895_fbac555d",
@@ -121,6 +139,24 @@
       "side": 1,
       "message": "ah we have a few others\n\nhttps://github.com/openstack-k8s-operators/nova-operator/branches/all\n\nform the previous deve previes\n\nlet me confirm with gibi and ill covert those to tags if they agree.\n\nby the way nodeset defintion should not be able to \"break\" zuul even if they refernce old lables they can case errors in the log but should nto break zuuls operation.",
       "parentUuid": "2c04f7c3_7602cbbe",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a613627d_581e7a3d",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-07-31T12:14:11Z",
+      "side": 1,
+      "message": "Yes, you can just remove the branches but this filtering IMO is the correct approach. I\u0027m trying to clean old nodesets, that\u0027s what triggered this patch.\n\nSpeculative testing still works with the filter so that\u0027s okay, with the filter you can branch all you want without effecting anything in the future :) \n\nThe remaining question I have for you Sean is should we include dev-preview3 branch as well as 18 purposed and main for the nova-operator repo?",
+      "parentUuid": "f747bfa5_1c4ddb32",
       "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
