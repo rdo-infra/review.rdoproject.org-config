@@ -20,9 +20,6 @@
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
 
-- name: Create udev file to keep main network interface name
-  ansible.builtin.include_tasks: udev.yaml
-
 - name: Pause machineconfigpool
   ansible.builtin.include_tasks: pause_mcp.yaml
   when: not wait_for_mcp

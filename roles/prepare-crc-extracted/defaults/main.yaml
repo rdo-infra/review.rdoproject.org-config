@@ -14,8 +14,3 @@ keep_machineconfigpool_configs: false
 # NOTE: By enabling the wait_for_mcp, it might vanish or change
 # the /var/lib/kubelet/config.json or /etc/containers/{policy.json,registries.conf}
 wait_for_mcp: false
-
-# If the wait_for_mcp is set to true, after a reboot, the network
-# interface name can be changed to other name, eg. enp7s0.
-# To avoid CI tests to fail, let's do a udev rules to keep that name.
-crc_net_interface_name: enp6s0
