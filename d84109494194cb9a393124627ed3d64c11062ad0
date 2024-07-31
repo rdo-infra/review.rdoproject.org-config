@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70971d12_d5092dfe",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-07-31T10:34:20Z",
+      "side": 1,
+      "message": "there is still some debate over what the \"stable\" branch will be called but we will likely keep  18.0.0-proposed  as the stable branch for the entirety of 18.0.0\n\nThe exact workflow for this is still being discussed but its we will probably need to have slightly different ci jobs running on 18.0.0-proposed vs main as at some point main will not be using stable/antelope and shoudl move to deploying master\n\nwe need to dicuss the time line for that too but ideally before the end of the year or early next year main will need to be deploying master",
+      "parentUuid": "139bf48e_0a244bdd",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f8e6895_fbac555d",
         "filename": "zuul/rdo.yaml",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-31T06:23:55Z",
       "side": 1,
       "message": "Nova was the only project causing issues because they define a job with a nodeset, other projects are just parenting. \n\nSome Nova branches have been created and are now stale and using the old nodesets so they can\u0027t be removed.\n\nWe should ignore these other branches.\n\nOther repos were just added as they define Zuul resources and may in the future, break things as well so best to be safe.",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c04f7c3_7602cbbe",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-07-31T10:34:20Z",
+      "side": 1,
+      "message": "we can remove the old branches\n\nthe node set definition would only cause issues if you removed the labels the refence.\n\ncurrently there is only one stable branch \n\nhttps://github.com/openstack-k8s-operators/nova-operator/tree/dev-preview3\n\ni can convert that back to a tag and then delete that\n\nim ok with filtering this if and only if this filtering will still allow job content to be develped vai prs with speculivie execution.\n\nif not then we cannot do this.",
+      "parentUuid": "0f8e6895_fbac555d",
       "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
