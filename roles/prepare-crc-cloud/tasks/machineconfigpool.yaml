@@ -1,79 +1,73 @@
 ---
-- name: Pause machineconfigpool
-  ansible.builtin.shell: |
-    oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
+- name: Fix machineconfigpool
+  block:
+    - name: Create machineconfig with pull secret
+      ansible.builtin.include_tasks: create_mc.yaml
+      loop:
+        - master
+        - worker
+
+    - name: Apply patches for mcp when OCP
+      block:
+        - name: Wait for render new machineconfig
+          ansible.builtin.pause:
+            seconds: 10
+
+        # NOTE: The issue is most for the master mcp, not for the worker.
+        # Let's keep it in a loop for the future.
+        - name: Change the rendered machineconfig for the node
+          ansible.builtin.include_tasks: change_mcp.yaml
+          loop:
+            - master
+    - name: Fail when openshift_pull_sec not provided
+      ansible.builtin.fail:
+        msg: "The openshift_pull_secret variable can not be empty!"
+      when: crc_secret_pabrodri.openshift_pull_secret | length == 0
+
+    - name: Copy pull-secret to kubelet config.json
+      become: true
+      ansible.builtin.copy:
+        content: |
+          {{ crc_secret_pabrodri.openshift_pull_secret | replace('\n','') | b64encode }}
+        dest: /var/lib/kubelet/config.json
+      when: crc_secret_pabrodri.openshift_pull_secret | length > 0
+      no_log: true
+
+    - name: Get current used render
+      ansible.builtin.command: |
+        oc get mcp master -o jsonpath="{ .status.configuration.name }"
+      register: _current_render_mc
+
+    - name: "Make dump of the rendered mc - {{ _current_render_mc.stdout }}"
+      ansible.builtin.shell: |
+        oc get mc {{ _current_render_mc.stdout }} -o yaml > dump-{{ _current_render_mc.stdout }}.yaml
+
+    - name: Replace empty kubelet
+      ansible.builtin.replace:
+        path: dump-{{ _current_render_mc.stdout }}.yaml
+        regexp: '^          source: data:,%7B%7D%0A'
+        replace: "          source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | replace('\n','') | urlencode }}"
+
+    - name: "Apply updated rendered {{ _current_render_mc.stdout }}"
+      ansible.builtin.command: |
+        oc apply -f dump-{{ _current_render_mc.stdout }}.yaml
+
+    - name: Remove current machineconfig config
+      become: true
+      ansible.builtin.file:
+        path: /etc/machine-config-daemon/currentconfig
+        state: absent
+  always:
+    - name: Remove machineconfig dir
+      when: not keep_machineconfigpool_configs
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/machineconfigpool"
+        state: absent
+
+- name: Speedup host reboot
+  ansible.builtin.command: |
+    oc -n openshift-machine-config-operator rollout restart {{ item }}
   loop:
-    - master
-    - worker
-  changed_when: false
-
-- name: Get node name
-  ansible.builtin.shell: |
-    oc get nodes --no-headers | awk '{print $1}'
-  register: _crc_node
-  changed_when: false
-  tags:
-    - skip_ansible_lint
-
-- name: Patch node
-  ansible.builtin.shell: >
-    oc patch node {{ _crc_node.stdout }}
-    --type merge
-    -p '{"metadata": {"annotations": {"machineconfiguration.openshift.io/{{ item }}": null }}}'
-  loop:
-    - currentConfig
-    - desiredConfig
-  changed_when: false
-
-- name: Patch machineconfigpool to set custom node
-  ansible.builtin.shell: >
-    oc patch machineconfigpool {{ item }}
-    --type merge
-    -p '{"spec":{"nodeSelector": {"matchLabels": {"node-role.kubernetes.io/{{ item }}": "", "node-type": "custom" }}}}'
-  loop:
-    - master
-    - worker
-  changed_when: false
-
-- name: Restart deployments
-  ansible.builtin.shell: >
-    oc -n openshift-machine-config-operator rollout restart deployment.apps/{{ item }}
-  loop:
-    - machine-config-controller
-    - machine-config-operator
-  changed_when: false
-
-- name: Wait for deployments to be ready
-  ansible.builtin.shell: >
-    oc -n openshift-machine-config-operator
-    wait --for=condition=available
-    --timeout=600s
-    deployment.apps/{{ item }}
-  loop:
-    - machine-config-controller
-    - machine-config-operator
-  changed_when: false
-
-- name: Wait until master machineconfigpool is not degraded
-  ansible.builtin.shell: |
-    set -o pipefail
-    oc get mcp master -o json | jq -r '.status.degradedMachineCount'
-  retries: 60
-  delay: 10
-  register: _master_status
-  until: _master_status.stdout | int  == 0
-  changed_when: false
-
-- name: Wait until worker machineconfigpool is not degraded
-  ansible.builtin.shell: |
-    set -o pipefail
-    oc get mcp worker -o json | jq -r '.status.degradedMachineCount'
-  retries: 60
-  delay: 10
-  register: _worker_status
-  until: _worker_status.stdout | int  == 0
-  changed_when: false
-
-- name: Print current machineconfigpool
-  ansible.builtin.command: oc get machineconfigpool
+    - deployment.apps/machine-config-controller
+    - deployment.apps/machine-config-operator
   changed_when: false
