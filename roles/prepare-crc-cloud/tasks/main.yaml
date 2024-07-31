@@ -11,5 +11,21 @@
 - name: Post tasks after crc-cloud script execution
   ansible.builtin.include_tasks: post.yaml
 
-- name: Show machineconfigpool
-  ansible.builtin.include_tasks: machineconfigpool.yaml
+- name: Pause machineconfigpool
+  ansible.builtin.include_tasks: pause_mcp.yaml
+  when: not wait_for_mcp
+
+- name: Estabilish cluster when machineconfigpool can not be degraded
+  when: wait_for_mcp
+  block:
+    - name: Recreate kubelet config.json to be same as mcp expects
+      ansible.builtin.include_tasks: inject-pull-secret.yaml
+
+    - name: Fix machineconfigpool degradation
+      ansible.builtin.include_tasks: machineconfigpool.yaml
+
+    - name: Remove drain machineconfig for the node
+      ansible.builtin.include_tasks: remove_annotations.yaml
+
+    - name: Post machineconfigpool tasks
+      ansible.builtin.include_tasks: post_machineconfigpool.yaml
