@@ -27,14 +27,8 @@
 - name: Estabilish cluster when machineconfigpool can not be degraded
   when: wait_for_mcp
   block:
-    - name: Fix machineconfigpool degradation - it will reboot host
+    - name: Fix machineconfigpool degradation
       ansible.builtin.include_tasks: machineconfigpool.yaml
-
-    - name: Start Zuul console after reboot
-      ansible.builtin.include_tasks: zuul-console.yaml
-
-    - name: Login to the OpenShift - ensure OpenShift is up running
-      ansible.builtin.include_tasks: openshift_login.yaml
 
     - name: Remove drain machineconfig for the node
       ansible.builtin.include_tasks: remove_annotations.yaml

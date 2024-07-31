@@ -33,12 +33,6 @@
         path: "{{ ansible_user_dir }}/machineconfigpool"
         state: absent
 
-- name: Create a file to force trigger reconfiguration
-  become: true
-  ansible.builtin.file:
-    path: /run/machine-config-daemon-force
-    state: touch
-
 - name: Speedup host reboot
   ansible.builtin.command: |
     oc -n openshift-machine-config-operator rollout restart {{ item }}
@@ -46,11 +40,3 @@
     - deployment.apps/machine-config-controller
     - deployment.apps/machine-config-operator
   changed_when: false
-
-- name: Wait for machineconfig daemon to reboot the host
-  ansible.builtin.pause:
-    minutes: 1
-  delegate_to: localhost
-
-- name: Wait for node to be up
-  ansible.builtin.wait_for_connection:
