@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "139bf48e_0a244bdd",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-07-31T06:23:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we really need to include the 18.0.0-proposed branch and would like some opinion :)",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f8e6895_fbac555d",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 930
+      },
+      "writtenOn": "2024-07-31T06:23:55Z",
+      "side": 1,
+      "message": "Nova was the only project causing issues because they define a job with a nodeset, other projects are just parenting. \n\nSome Nova branches have been created and are now stale and using the old nodesets so they can\u0027t be removed.\n\nWe should ignore these other branches.\n\nOther repos were just added as they define Zuul resources and may in the future, break things as well so best to be safe.",
+      "revId": "d84109494194cb9a393124627ed3d64c11062ad0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
