@@ -1,5 +1,6 @@
 ---
 - name: Create script for executing crc-cloud
+  no_log: true
   ansible.builtin.copy:
     content: |
       #!/bin/bash
@@ -20,7 +21,6 @@
       sudo -E bash ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh > ~core/workdir/crc-cloud-log 2> ~core/workdir/crc-cloud-error-log
     dest: ~core/workdir/start-crc-cloud.sh
     mode: "0755"
-    no_log: true
 
 - name: Execute script
   ansible.builtin.command: |
