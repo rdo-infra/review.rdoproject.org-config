@@ -20,6 +20,7 @@
       sudo -E bash ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh > ~core/workdir/crc-cloud-log 2> ~core/workdir/crc-cloud-error-log
     dest: ~core/workdir/start-crc-cloud.sh
     mode: "0755"
+    no_log: true
 
 - name: Execute script
   ansible.builtin.command: |
@@ -38,3 +39,8 @@
   when: _script_exec.rc != 0
   ansible.builtin.fail:
     msg: "CRC Cloud script failed. Check the crc-cloud.log file for more information!"
+
+- name: Remove start script
+  ansible.builtin.file:
+    path: ~core/workdir/start-crc-cloud.sh
+    state: absent
