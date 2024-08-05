@@ -84,35 +84,34 @@
         open: True
         current-patchset: True
     trigger:
-      github.com:
-        - event: pull_request_review
-          action: submitted
-          state: approved
-        - event: pull_request
-          action: comment
-          comment: (?i)^\s*recheck-gate\s*$
-        - event: pull_request_review
-          action: submitted
-          state: approved
-        - event: pull_request_review
-          action: dismissed
-          state: request_changes
-        - event: pull_request
-          action: status
-          status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
-        - event: pull_request
-          action: labeled
+      - event: pull_request_review
+        action: submitted
+        state: approved
+      - event: pull_request
+        action: comment
+        comment: (?i)^\s*recheck-gate\s*$
+      - event: pull_request_review
+        action: submitted
+        state: approved
+      - event: pull_request_review
+        action: dismissed
+        state: request_changes
+      - event: pull_request
+        action: status
+        status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
+      - event: pull_request
+        action: labeled
+        label:
+          - lgtm
+          - approved
+        reject:
           label:
-            - lgtm
-            - approved
-          reject:
-            label:
-              - backports/unvalidated-commits
-              - do-not-merge/hold
-              - do-not-merge/invalid-owners-file
-              - do-not-merge/work-in-progress
-              - jira/invalid-bug
-              - needs-rebase
+            - backports/unvalidated-commits
+            - do-not-merge/hold
+            - do-not-merge/invalid-owners-file
+            - do-not-merge/work-in-progress
+            - jira/invalid-bug
+            - needs-rebase
     start:
       github.com:
         status: 'pending'
