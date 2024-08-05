@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Create compressed log tar gz file
+      become: true
+      vars:
+        compressed_file: "{{ inventory_hostname_short }}-all-logs.tar.gz"
+      ansible.builtin.shell: |
+        tar -caf {{ ansible_user_dir }}/{{ compressed_file }} {{ ansible_user_dir }}/zuul-output/
+        mv {{ ansible_user_dir }}/{{ compressed_file }}  {{ ansible_user_dir }}/zuul-output/
+        chown "{{ ansible_user }}" {{ ansible_user_dir }}/zuul-output/{{ compressed_file }}
+      changed_when: false
+      ignore_errors: true
