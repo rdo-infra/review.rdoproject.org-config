@@ -243,6 +243,7 @@
       - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
     post-run:
       - playbooks/crc/print-machineconfigpool.yaml
+      - playbooks/crc/compress-crc-cloud-logs.yaml
       - playbooks/crc/compress-logs.yaml
       # Deletes generated network resources
       - playbooks/crc/bootstraped-ci-network-cleanup.yml

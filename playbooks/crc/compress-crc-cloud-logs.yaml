@@ -1,0 +1,24 @@
+---
+- hosts: crc
+  tasks:
+    - name: Create compressed log tar gz file - crc-cloud logs
+      become: true
+      vars:
+        compressed_file: "crc-cloud-workdir-{{ inventory_hostname_short }}-all-logs.tar.gz"
+      ansible.builtin.shell: |
+        tar -caf {{ ansible_user_dir }}/{{ compressed_file }} {{ ansible_user_dir }}/workdir/*log
+        mv {{ ansible_user_dir }}/{{ compressed_file }}  {{ ansible_user_dir }}/zuul-output/logs/{{ compressed_file }}
+        chown "{{ ansible_user }}" {{ ansible_user_dir }}/zuul-output/logs/{{ compressed_file }}
+      changed_when: false
+      ignore_errors: true
+
+    - name: Copy crc-cloud logs
+      become: true
+      vars:
+        output_dir: "{{ ansible_user_dir }}/zuul-output/logs/crc-cloud"
+      ansible.builtin.shell: |
+        mkdir -p {{ output_dir }}
+        cp -a {{ ansible_user_dir }}/workdir/*log {{ output_dir }}/
+        chown -R "{{ ansible_user }}" {{ output_dir }}
+      changed_when: false
+      ignore_errors: true
