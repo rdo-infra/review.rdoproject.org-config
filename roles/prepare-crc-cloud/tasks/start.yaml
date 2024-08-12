@@ -1,12 +1,43 @@
 ---
-- name: Create script for executing crc-cloud
+- name: Get user info
+  check_mode: true
+  ansible.builtin.user:
+    name: "{{ ansible_user | default(ansible_user_id) }}"
+    state: present
+  register: _core_user_info
+
+- name: Execute crc cloud clustersetup.sh script from Ansible
+  become: true
+  become_method: sudo
+  become_flags: '-E'
+  ansible.builtin.shell: |
+    bash ./crc-cloud/pkg/bundle/setup/clustersetup.sh > crc-cloud-log 2> crc-cloud-error-log
+  args:
+    chdir: "{{ _core_user_info.home }}/workdir"
+  environment:
+      LOG_PATH: "{{ _core_user_info.home }}/workdir"
+      LOG_FILE: "{{ _core_user_info.home }}/workdir/clustersetup-log"
+      KUBECONFIG: /opt/kubeconfig
+      PULL_SECRET: "{{ crc_secret_pabrodri.openshift_pull_secret | b64encode }}"
+      PASS_DEVELOPER: "{{ developer_pass }}"
+      PASS_KUBEADMIN: "{{ kubeadmin_pass }}"
+      PASS_REDHAT: "{{ redhat_pass }}"
+      IIP: "{{ ansible_default_ipv4.address }}"
+      EIP: "{{ crc_hostname }}"
+  register: _script_exec
+  until: "_script_exec.rc == 0"
+  retries: 3
+  delay: 5
+  ignore_errors: true
+
+- name: Create script for executing crc-cloud - just in case
   no_log: true
   ansible.builtin.copy:
     content: |
       #!/bin/bash
 
       # Waiting for merge: https://github.com/crc-org/crc-cloud/pull/189
-      export LOG_PATH="$(realpath ~core/workdir)"
+      export LOG_PATH="{{ _core_user_info.home }}/workdir"
       export LOG_FILE="$LOG_PATH/clustersetup-log"
 
       export KUBECONFIG=/opt/kubeconfig
@@ -18,16 +49,9 @@
       export IIP="{{ ansible_default_ipv4.address }}"
       export EIP="{{ crc_hostname }}"
 
-      sudo -E bash ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh > ~core/workdir/crc-cloud-log 2> ~core/workdir/crc-cloud-error-log
-    dest: ~core/workdir/start-crc-cloud.sh
+      sudo -E bash {{ _core_user_info.home }}/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh > $LOG_PATH/crc-cloud-log 2> $LOG_PATH/crc-cloud-error-log
+    dest: "{{ _core_user_info.home }}/workdir/start-crc-cloud.sh"
     mode: "0755"
-
-- name: Execute script
-  ansible.builtin.command: |
-    ~core/workdir/start-crc-cloud.sh
-  register: _script_exec
-  ignore_errors: true
-  changed_when: false
 
 - name: Write log to the file
   ansible.builtin.copy:
@@ -39,8 +63,3 @@
   when: _script_exec.rc != 0
   ansible.builtin.fail:
     msg: "CRC Cloud script failed. Check the crc-cloud.log file for more information!"
-
-- name: Remove start script
-  ansible.builtin.file:
-    path: ~core/workdir/start-crc-cloud.sh
-    state: absent
