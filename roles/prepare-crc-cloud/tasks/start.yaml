@@ -26,9 +26,6 @@
   ansible.builtin.command: |
     ~core/workdir/start-crc-cloud.sh
   register: _script_exec
-  until: "_script_exec.rc == 0"
-  retries: 3
-  delay: 5
   ignore_errors: true
   changed_when: false
 
