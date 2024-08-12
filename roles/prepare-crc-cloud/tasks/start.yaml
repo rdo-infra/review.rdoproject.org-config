@@ -1,5 +1,5 @@
 ---
-- name: Create script for executing crc-cloud
+- name: Create script for executing crc-cloud just in case
   no_log: true
   ansible.builtin.copy:
     content: |
@@ -22,15 +22,29 @@
     dest: ~core/workdir/start-crc-cloud.sh
     mode: "0755"
 
-- name: Execute script
-  ansible.builtin.command: |
-    ~core/workdir/start-crc-cloud.sh
+- name: Execute crc cloud clustersetup.sh script from Ansible
+  become: true
+  become_method: sudo
+  become_flags: '-E'
+  ansible.builtin.shell: |
+    bash -x ./crc-cloud/pkg/bundle/setup/clustersetup.sh > crc-cloud-log 2> crc-cloud-error-log
+  args:
+    chdir: ~core/workdir
+  environment:
+      LOG_PATH: "$(realpath ~core/workdir)"
+      LOG_FILE: "$LOG_PATH/clustersetup-log"
+      KUBECONFIG: /opt/kubeconfig
+      PULL_SECRET: "{{ crc_secret_pabrodri.openshift_pull_secret | b64encode }}"
+      PASS_DEVELOPER: "{{ developer_pass }}"
+      PASS_KUBEADMIN: "{{ kubeadmin_pass }}"
+      PASS_REDHAT: "{{ redhat_pass }}"
+      IIP: "{{ ansible_default_ipv4.address }}"
+      EIP: "{{ crc_hostname }}"
   register: _script_exec
   until: "_script_exec.rc == 0"
   retries: 3
   delay: 5
   ignore_errors: true
-  changed_when: false
 
 - name: Write log to the file
   ansible.builtin.copy:
