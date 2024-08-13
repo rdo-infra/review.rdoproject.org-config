@@ -49,7 +49,7 @@
   ansible.builtin.replace:
     path: dump-{{ _current_render_mc.stdout }}.yaml
     regexp: '^          source: data:,%7B%7D%0A'
-    replace: "          source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | urlencode }}"
+    replace: "          source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | replace(' ', '') | urlencode }}"
   no_log: true
 
 - name: "Apply updated rendered {{ _current_render_mc.stdout }}"

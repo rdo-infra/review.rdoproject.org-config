@@ -103,5 +103,5 @@
   become: true
   ansible.builtin.copy:
     content: |
-      {{ crc_secret_pabrodri.openshift_pull_secret }}
+      {{ crc_secret_pabrodri.openshift_pull_secret | replace(" ", "") }}
     dest: /var/lib/kubelet/config.json

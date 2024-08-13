@@ -16,7 +16,7 @@
           storage:
             files:
             - contents:
-                source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | urlencode }}
+                source: data:,{{ crc_secret_pabrodri.openshift_pull_secret | replace(" ", "") | urlencode }}
               mode: 384
               overwrite: true
               path: /var/lib/kubelet/config.json
