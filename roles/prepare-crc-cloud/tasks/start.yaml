@@ -6,30 +6,17 @@
     state: present
   register: _core_user_info
 
-- name: Execute crc cloud clustersetup.sh script from Ansible
-  become: true
-  become_method: sudo
-  become_flags: '-E'
-  ansible.builtin.shell: |
-    bash ./crc-cloud/pkg/bundle/setup/clustersetup.sh > crc-cloud-log 2> crc-cloud-error-log
-  args:
-    chdir: "{{ _core_user_info.home }}/workdir"
-  environment:
-      LOG_PATH: "{{ _core_user_info.home }}/workdir"
-      LOG_FILE: "{{ _core_user_info.home }}/workdir/clustersetup-log"
-      KUBECONFIG: /opt/kubeconfig
-      PULL_SECRET: "{{ crc_secret_pabrodri.openshift_pull_secret | replace(' ', '') | b64encode }}"
-      PASS_DEVELOPER: "{{ developer_pass }}"
-      PASS_KUBEADMIN: "{{ kubeadmin_pass }}"
-      PASS_REDHAT: "{{ redhat_pass }}"
-      IIP: "{{ ansible_default_ipv4.address }}"
-      EIP: "{{ crc_hostname }}"
-  register: _script_exec
-  until: "_script_exec.rc == 0"
-  retries: 3
-  delay: 5
-  ignore_errors: true
-  changed_when: false
+- name: Run clustersetup.sh script
+  ansible.builtin.include_tasks: run-clustersetup.yaml
+
+- name: Remove all machineconfig pods
+  when: _script_exec.rc != 0
+  ansible.builtin.command: |
+    oc delete pods --all -n openshift-machine-config-operator
+
+- name: Re-run clustersetup.sh script after removing machineconfig pods
+  when: _script_exec.rc != 0
+  ansible.builtin.include_tasks: run-clustersetup.yaml
 
 - name: Write log to the file
   ansible.builtin.copy:
