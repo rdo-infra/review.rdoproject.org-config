@@ -48,6 +48,55 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
       opensearch_rdoproject_org:
 
+- pipeline: &experimental
+    name: github-experimental
+    description: |
+      Newly uploaded patchsets on GitHub enter this pipeline to receive an
+      initial +/-1 Verified vote. Should be used by production ready jobs,
+      for experimental ones github-manual pipeline.
+    success-message: Build succeeded (check pipeline).
+    failure-message: |
+      Build failed (check pipeline).  Post `recheck` (without leading slash)
+      to rerun all jobs. Make sure the failure cause has been resolved before
+      you rerun jobs.
+    manager: independent
+    precedence: high
+    require:
+      rdoproject.org:
+        open: True
+        current-patchset: True
+    trigger:
+      github.com:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo|\/test all)
+    start:
+      github.com:
+        status: 'pending'
+        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
+        comment: false
+    success:
+      github.com:
+        status: 'success'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
+        comment: false
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
+    failure:
+      github.com:
+        status: 'failure'
+        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
+        comment: true
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+      opensearch_rdoproject_org:
+
 - pipeline:
     <<: *defaults
     name: github-manual
