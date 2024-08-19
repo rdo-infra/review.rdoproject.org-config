@@ -1,0 +1,96 @@
+---
+- name: Trigger Nested Virt from GitHub PR
+  hosts: primary
+  vars:
+    gerrit_key_name: "rdoinfo_id_rsa"
+    trigger_repository: "nested-virt-repo"
+    trigger_branch: "master"
+    trigger_os_distro: "centos9"
+    trigger_component: "nestedvirt"
+    commit_message: "Trigger Gerrit review for nested virt based on GitHub PR comment"
+  tasks:
+    - name: Install system dependencies
+      ansible.builtin.package:
+        name: git
+        state: present
+      become: true
+
+    - name: Install git-review
+      ansible.builtin.pip:
+        name: git-review
+
+    - name: Ensure .ssh directory exists
+      ansible.builtin.file:
+        path: "~/.ssh"
+        state: directory
+        mode: "0700"
+
+    - name: Install SSH private key from secret
+      ansible.builtin.copy:
+        content: "{{ rdoinfo_ssh.private_key }}"
+        dest: "~/.ssh/{{ gerrit_key_name }}"
+        mode: "0600"
+
+    - name: Setup SSH config for Gerrit
+      ansible.builtin.shell: |
+        cat >> ~/.ssh/config << EOF
+        PubkeyAcceptedKeyTypes +ssh-rsa
+        Host review.rdoproject.org
+          IdentityFile "~/.ssh/{{ gerrit_key_name }}"
+        EOF
+        ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+      changed_when: true
+
+    - name: Clone the nested-virt trigger repository
+      ansible.builtin.git:
+        repo: "https://review.rdoproject.org/r/{{ trigger_repository }}"
+        dest: "{{ trigger_repository }}"
+        version: "{{ trigger_branch }}"
+
+    - name: Setup git identity config
+      ansible.builtin.command: |
+        set -e +x
+        git config user.name "rdo-trunk"
+        git config user.email "amoralej+rdo-trunk@redhat.com"
+        git config gitreview.username "rdo-trunk"
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Run git-review setup
+      ansible.builtin.command: git review -s -v
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Generate unique ChangeID for Gerrit
+      ansible.builtin.shell: |
+        set -o pipefail
+        (echo -n "{{ trigger_branch }} {{ trigger_os_distro }} {{ trigger_component|default('') }} Trigger for "; date "+%Y-%m") | git hash-object --stdin
+      changed_when: false
+      register: _change_id
+
+    - name: Create a trigger file in the repo
+      ansible.builtin.command: |
+        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
+        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Create a commit for the trigger
+      ansible.builtin.command:
+        argv:
+          - git
+          - commit
+          - "-m"
+          - "{{ commit_message }} Change-Id: I{{ _change_id.stdout }}"
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Submit the Gerrit review
+      ansible.builtin.command: git review
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
