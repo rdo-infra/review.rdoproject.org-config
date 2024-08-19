@@ -1,0 +1,87 @@
+---
+- hosts: primary
+  vars:
+    gerrit_key_name: "rdoinfo_id_rsa"
+    trigger_repository: "nested-virt-repo"
+    trigger_branch: "master"
+    trigger_os_distro: "centos9"
+    trigger_component: "nestedvirt"
+    commit_message: "Trigger Gerrit review for nested virt based on GitHub PR comment"
+
+  tasks:
+    - name: Install system dependencies
+      package:
+        name: git
+        state: present
+      become: true
+
+    - name: Install git-review
+      pip:
+        name: git-review
+
+    - name: Ensure .ssh directory exists
+      file:
+        path: "~/.ssh"
+        state: directory
+        mode: 0700
+
+    - name: Install SSH private key from secret
+      copy:
+        content: "{{ rdoinfo_ssh.private_key }}"
+        dest: "~/.ssh/{{ gerrit_key_name }}"
+        mode: 0600
+
+    - name: Setup SSH config for Gerrit
+      shell: |
+        cat >> ~/.ssh/config << EOF
+        PubkeyAcceptedKeyTypes +ssh-rsa
+        Host review.rdoproject.org
+          IdentityFile "~/.ssh/{{ gerrit_key_name }}"
+        EOF
+        ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+      changed_when: true
+
+    - name: Clone the nested-virt trigger repository
+      shell: git clone https://review.rdoproject.org/r/{{ trigger_repository }}
+      changed_when: true
+
+    - name: Setup git identity config
+      shell: |
+        git config user.name "son-vyas"
+        git config user.email "son-vyas+rdo-trunk@redhat.com"
+        git config gitreview.username "rdo-trunk"
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Run git-review setup
+      shell: git review -s -v
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Generate a unique ChangeID for Gerrit
+      shell: |
+        (echo -n "{{ trigger_branch }} {{ trigger_os_distro }} {{ trigger_component|default('') }} Trigger for "; date "+%Y-%m") | git hash-object --stdin
+      changed_when: false
+      register: _change_id
+
+    - name: Create a trigger file in the repo
+      shell: |
+        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
+        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Create a commit for the trigger
+      command: git commit -m "{{ commit_message }} Change-Id: I{{ _change_id.stdout }}"
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"
+
+    - name: Submit the Gerrit review
+      shell: git review
+      changed_when: true
+      args:
+        chdir: "{{ trigger_repository }}"

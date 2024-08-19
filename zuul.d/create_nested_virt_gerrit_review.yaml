@@ -1,0 +1,15 @@
+- job:
+    name: create-nested-virt-trigger-from-github-pr
+    description: Set a trigger for downstream run in the nested-virt repo based on a GitHub PR comment
+    run: playbooks/trigger_nested_virt_github_pr.yaml
+    vars:
+      trigger_repository: tripleo-downstream-trigger-nested-virt
+      trigger_branch: master
+      trigger_os_distro: centos9
+      trigger_component: nestedvirt
+    secrets:
+      - rdoinfo_ssh
+    nodeset:
+      nodes:
+        - name: primary
+          label: cloud-centos-9-stream-tripleo-vexxhost
