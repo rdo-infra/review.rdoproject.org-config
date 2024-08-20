@@ -13,18 +13,11 @@
         - master
         - worker
 
-    - name: Apply patches for mcp when OCP lower than 4.16
-      block:
-        - name: Wait for render new machineconfig
-          ansible.builtin.pause:
-            seconds: 10
-
-        # NOTE: The issue is most for the master mcp, not for the worker.
-        # Let's keep it in a loop for the future.
-        - name: Change the rendered machineconfig for the node
-          ansible.builtin.include_tasks: change_mcp.yaml
-          loop:
-            - master
+    - name: Remove current machineconfig config
+      become: true
+      ansible.builtin.file:
+        path: /etc/machine-config-daemon/currentconfig
+        state: absent
 
   always:
     - name: Remove machineconfig dir
@@ -33,7 +26,7 @@
         path: "{{ ansible_user_dir }}/machineconfigpool"
         state: absent
 
-- name: Speedup host reboot
+- name: Speedup applying changes by the machineconfig
   ansible.builtin.command: |
     oc -n openshift-machine-config-operator rollout restart {{ item }}
   loop:
