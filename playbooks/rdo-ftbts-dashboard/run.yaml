@@ -1,0 +1,6 @@
+- hosts: all
+  name: create-ftbfs-report playbook
+  tasks:
+    - name: create-ftbfs-report
+      command: ./create-ftbfs-report.sh
+      changed_when: True 

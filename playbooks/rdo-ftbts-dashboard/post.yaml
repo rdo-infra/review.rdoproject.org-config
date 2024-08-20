@@ -1,0 +1,12 @@
+- hosts: all
+  tasks:
+    - name: Sent ftbfs report to elasticsearch
+     shell:
+       cmd: |
+         git clone https://opendev.org/openstack/ci-log-processing.git
+         pushd ci-log-processing/
+         python setup.py install
+         pip install -r requirements.txt
+         popd
+         logsender --config ~/logsender.config
+       changed_when: true
