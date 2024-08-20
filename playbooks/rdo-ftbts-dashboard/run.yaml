@@ -1,0 +1,6 @@
+- hosts: all
+  name: create-ftbfs-report playbook
+  tasks:
+    - name: create-ftbfs-report
+      command: python create-ftbfs-report.py
+      changed_when: True 
