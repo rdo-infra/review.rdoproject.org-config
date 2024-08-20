@@ -1,0 +1,15 @@
+---
+- name: Get network interfaces names
+  become: true
+  ansible.builtin.shell: |
+    set -o pipefail
+    nmcli device status | grep connected | awk '{print $1}' | sort | uniq
+  register: _interfaces_names
+  changed_when: false
+
+- name: Write current network interface nmstate to file using nmstatectl --kernel
+  become: true
+  ansible.builtin.shell: |
+    nmstatectl show --kernel {{ item }} > /etc/nmstate/{{ item }}.yml
+  loop: "{{ _interfaces_names.stdout_lines }}"
+  changed_when: false
