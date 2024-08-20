@@ -294,6 +294,19 @@
     secrets:
       - rdoinfo_ssh
 
+- job:
+    name: create-ftbfs-report
+    parent: base
+    pre-run: playbooks/rdo-ftbts-dashboard/pre.yaml
+    run: playbooks/rdo-ftbts-dashboard/run.yaml
+    timeout: 3600
+    nodeset:
+      nodes: 
+        - name: fedora_container
+          label: fedora-latest-container 
+    secrets:
+      - ftbfs-logsender-config
+
 - semaphore:
     name: semaphore-config-update
     max: 1
