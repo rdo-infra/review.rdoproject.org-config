@@ -38,3 +38,7 @@
 
 - name: Recreate OpenShift Marketplace
   ansible.builtin.include_tasks: recreate_marketplace.yaml
+
+- name: Dump current network settings using nmstatectl
+  when: create_network_info
+  ansible.builtin.include_tasks: nmstate.yaml
