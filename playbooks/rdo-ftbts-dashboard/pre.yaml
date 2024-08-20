@@ -1,0 +1,6 @@
+-- hosts: all
+  tasks:
+    - name: Copy logsender config file
+      copy:
+        content: {{ ftbfs_logsender_config.config }} 
+        dest: ~/logsender.config
