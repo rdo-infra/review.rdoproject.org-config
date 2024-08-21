@@ -76,8 +76,8 @@
     - name: Create a trigger file in the repo
       ansible.builtin.shell: |
         set -e +x
-        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
-        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
+        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component | default('') }}_{{ trigger_job_name | default('') }}
+        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component | default('') }}_{{ trigger_job_name | default('') }}
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
