@@ -33,12 +33,15 @@
 
     - name: Setup SSH config for Gerrit
       ansible.builtin.shell: |
+        set +e -x
         cat >> ~/.ssh/config << EOF
         PubkeyAcceptedKeyTypes +ssh-rsa
         Host review.rdoproject.org
           IdentityFile "~/.ssh/{{ gerrit_key_name }}"
         EOF
+        chmod 0400 ~/.ssh/config
         ssh-keyscan -p 29418 review.rdoproject.org >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
       changed_when: true
 
     - name: Clone the nested-virt trigger repository
@@ -48,12 +51,12 @@
         version: "{{ trigger_branch }}"
 
     - name: Setup git identity config
-      ansible.builtin.command: |
+      ansible.builtin.shell: |
         set -e +x
         git config user.name "rdo-trunk"
         git config user.email "amoralej+rdo-trunk@redhat.com"
         git config gitreview.username "rdo-trunk"
-      changed_when: true
+      changed_when: false
       args:
         chdir: "{{ trigger_repository }}"
 
@@ -71,7 +74,8 @@
       register: _change_id
 
     - name: Create a trigger file in the repo
-      ansible.builtin.command: |
+      ansible.builtin.shell: |
+        set -e +x
         touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
         git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component|default('') }}
       changed_when: true
@@ -81,11 +85,16 @@
     - name: Create a commit for the trigger
       ansible.builtin.command:
         argv:
-          - git
-          - commit
+          - "git"
+          - "commit"
           - "-m"
-          - "{{ commit_message }} Change-Id: I{{ _change_id.stdout }}"
+          - "{{ commit_message }}"
       changed_when: true
+      vars:
+        commit_message: |
+          {{ trigger_commit_msg|default('Trigger for scenario010-kvm') }}
+
+          Change-Id: I{{ _change_id.stdout }}
       args:
         chdir: "{{ trigger_repository }}"
 
