@@ -4,10 +4,8 @@
   vars:
     gerrit_key_name: "rdoinfo_id_rsa"
     trigger_repository: "tripleo-downstream-trigger-nested-virt"
-    trigger_branch: "master"
-    trigger_os_distro: "centos9"
-    trigger_component: "nestedvirt"
-    commit_message: "Trigger Gerrit review for nested virt based on GitHub PR comment"
+    trigger_job_name: ""
+    commit_message: "Gerrit review generated from GitHub"
   tasks:
     - name: Install system dependencies
       ansible.builtin.package:
@@ -48,7 +46,7 @@
       ansible.builtin.git:
         repo: "https://review.rdoproject.org/r/{{ trigger_repository }}"
         dest: "{{ trigger_repository }}"
-        version: "{{ trigger_branch }}"
+        version: "master"
 
     - name: Setup git identity config
       ansible.builtin.shell: |
@@ -69,15 +67,15 @@
     - name: Generate unique ChangeID for Gerrit
       ansible.builtin.shell: |
         set -o pipefail
-        (echo -n "{{ trigger_branch }} {{ trigger_os_distro }} {{ trigger_component|default('') }} Trigger for "; date "+%Y-%m") | git hash-object --stdin
+        (echo -n "{{ trigger_job_name }} Trigger for "; date "+%Y-%m") | git hash-object --stdin
       changed_when: false
       register: _change_id
 
     - name: Create a trigger file in the repo
       ansible.builtin.shell: |
         set -e +x
-        touch trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component | default('') }}_{{ trigger_job_name | default('') }}
-        git add trigger_{{ trigger_branch }}_{{ trigger_os_distro }}_{{ trigger_component | default('') }}_{{ trigger_job_name | default('') }}
+        touch trigger_{{ trigger_job_name | default('') }}
+        git add trigger_{{ trigger_job_name | default('') }}
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
@@ -92,7 +90,7 @@
       changed_when: true
       vars:
         commit_message: |
-          {{ trigger_commit_msg|default('Trigger for scenario010-kvm') }}
+          {{ trigger_commit_msg|default('Trigger for GitHub') }}
 
           Change-Id: I{{ _change_id.stdout }}
       args:
