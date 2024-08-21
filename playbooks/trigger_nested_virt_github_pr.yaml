@@ -3,10 +3,6 @@
   hosts: primary
   vars:
     gerrit_key_name: "rdoinfo_id_rsa"
-    trigger_repository: "nested-virt-repo"
-    trigger_branch: "master"
-    trigger_os_distro: "centos9"
-    trigger_component: "nestedvirt"
     commit_message: "Trigger Gerrit review for nested virt based on GitHub PR comment"
   tasks:
     - name: Install system dependencies
