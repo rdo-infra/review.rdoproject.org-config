@@ -4,7 +4,6 @@
   vars:
     gerrit_key_name: "rdoinfo_id_rsa"
     trigger_repository: "tripleo-downstream-trigger-nested-virt"
-    trigger_job_name: "{{ trigger_job_name }}"
   tasks:
     - name: Install system dependencies
       ansible.builtin.package:
