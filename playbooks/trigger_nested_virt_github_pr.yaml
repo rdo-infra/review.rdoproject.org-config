@@ -87,6 +87,15 @@
         - zuul is defined
         - "'change_url' in item"
 
+    - name: Create Zuul Change list
+      ansible.builtin.set_fact:
+        trigger_change_list: "{{ trigger_change_list | default([]) + [item.change_url] }}"
+        cacheable: true
+      with_items: "{{ zuul['items'] }}"
+      when:
+        - zuul is defined
+        - "'change_url' in item"
+
     - name: Create a commit for the trigger
       ansible.builtin.command:
         argv:
@@ -98,6 +107,12 @@
       vars:
         commit_message: |
           {{ trigger_commit_msg|default('Trigger for GitHub') }} by {{ trigger_origin_pr | first }}
+
+          {% if trigger_change_list | length > 0 %}
+          {% for change in trigger_change_list %}
+          Depends-On: {{ change }}
+          {% endfor %}
+          {% endif %}
 
           Change-Id: I{{ _change_id.stdout }}
       args:
