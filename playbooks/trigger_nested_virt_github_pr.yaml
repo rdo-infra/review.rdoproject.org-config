@@ -4,8 +4,7 @@
   vars:
     gerrit_key_name: "rdoinfo_id_rsa"
     trigger_repository: "tripleo-downstream-trigger-nested-virt"
-    trigger_job_name: ""
-    commit_message: "Gerrit review generated from GitHub"
+    trigger_job_name: "{{ trigger_job_name }}"
   tasks:
     - name: Install system dependencies
       ansible.builtin.package:
@@ -74,8 +73,8 @@
     - name: Create a trigger file in the repo
       ansible.builtin.shell: |
         set -e +x
-        touch trigger_{{ trigger_job_name | default('') }}
-        git add trigger_{{ trigger_job_name | default('') }}
+        touch trigger_{{ trigger_job_name }}
+        git add trigger_{{ trigger_job_name }}
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
