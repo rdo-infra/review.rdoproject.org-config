@@ -65,8 +65,9 @@
     trigger:
       github.com:
         - event: pull_request
-          action: comment
-          comment: (?i)^\s*(\/trigger github-experimental)
+          action: labeled
+          label:
+            - github-experimental
     start:
       github.com:
         status: 'pending'
