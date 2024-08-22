@@ -127,3 +127,26 @@
       - zuul: github.com/openstack-k8s-operators/ci-framework
     secrets:
       - dlrnapi
+
+- job:
+    name: build-push-container-base
+    parent: base-minimal
+    description: |
+      A simple base job that adds the CI-Framework team ssh keys
+      to the node and logs podman into the quay.rdoproject.com
+      registry
+    pre-run:
+      # Add CI-Framework team ssh keys to the node
+      - playbooks/ci-framework-rdo-base/pre.yaml
+        # Log Podman into the quay.rdoproject.com registry
+      - playbooks/crc/podman.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+      - opendev.org/zuul/zuul-jobs
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
+    attempts: 1
+    secrets:
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
