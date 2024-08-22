@@ -78,6 +78,15 @@
       args:
         chdir: "{{ trigger_repository }}"
 
+    - name: Parse the trigger origin Pull request
+      ansible.builtin.set_fact:
+        trigger_origin_pr: "{{ trigger_origin_pr | default([]) + [item.change_url] }}"
+        cacheable: true
+      with_items: "{{ zuul['buildset_refs'] }}"
+      when:
+        - zuul is defined
+        - "'change_url' in item"
+
     - name: Create a commit for the trigger
       ansible.builtin.command:
         argv:
@@ -88,7 +97,7 @@
       changed_when: true
       vars:
         commit_message: |
-          {{ trigger_commit_msg|default('Trigger for GitHub') }}
+          {{ trigger_commit_msg|default('Trigger for GitHub') }} by {{ trigger_origin_pr | first }}
 
           Change-Id: I{{ _change_id.stdout }}
       args:
