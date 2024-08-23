@@ -65,7 +65,7 @@
     - name: Generate unique ChangeID for Gerrit
       ansible.builtin.shell: |
         set -o pipefail
-        (echo -n "{{ trigger_job_name }} Trigger for "; date "+%Y-%m") | git hash-object --stdin
+        (echo -n "{{ trigger_job_name }} Trigger for "; date "+%s") | git hash-object --stdin
       changed_when: false
       register: _change_id
 
