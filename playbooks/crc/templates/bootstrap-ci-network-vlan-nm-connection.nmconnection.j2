@@ -4,6 +4,9 @@ uuid={{ 99999999 | random | to_uuid }}
 type=vlan
 autoconnect=true
 interface-name={{ iface_info.parent_iface }}.{{ iface_info.vlan }}
+{% if 'autoconnect_priority' in iface_info -%}
+autoconnect-priority={{ iface_info.autoconnect_priority }}
+{% endif %}
 
 [ethernet]
 cloned-mac-address={{ iface_info.mac | trim | lower }}

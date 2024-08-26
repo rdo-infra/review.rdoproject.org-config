@@ -4,6 +4,9 @@ uuid={{ 99999999 | random | to_uuid }}
 type=ethernet
 autoconnect=true
 interface-name={{ iface_info.iface }}
+{% if 'autoconnect_priority' in iface_info -%}
+autoconnect-priority={{ iface_info.autoconnect_priority }}
+{% endif %}
 
 [ethernet]
 mac-address={{ iface_info.mac | trim | lower }}
