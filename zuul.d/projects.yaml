@@ -242,11 +242,63 @@
     templates:
       - system-required
       - ovb-001-experimental
+
 - project:
     name: opendev.org/openstack/neutron
     templates:
       - system-required
-      - ovb-001-experimental
+    openstack-check:
+      jobs:
+        - openstack-meta-content-provider:
+            override-checkout: main
+            branches: ^(stable|unmaintained)/2023.1$
+            voting: false
+            irrelevant-files: &irrelevant_files_neutron_trigger_whitebox
+              # From ovn-irrelevant-files https://github.com/openstack/neutron/blob/master/zuul.d/tempest-singlenode.yaml
+              - ^\.pylintrc$
+              - ^test-requirements.txt$
+              - ^releasenotes/.*$
+              - ^doc/.*$
+              - ^setup.cfg$
+              - ^.*\.conf\.sample$
+              - ^.*\.rst$
+              - ^neutron/locale/.*$
+              - ^neutron/tests/.*$
+              - ^tools/.*$
+              - ^tox.ini$
+              - ^plugin.spec$
+              - ^tools/ovn_migration/.*$
+              - ^neutron/agent/dhcp/.*$
+              - ^neutron/agent/l2/.*$
+              - ^neutron/agent/l3/.*$
+              - ^neutron/agent/metadata/.*$
+              - ^neutron/agent/dhcp_agent.py
+              - ^neutron/agent/l3_agent.py
+              - ^neutron/agent/metadata_agent.py
+              - ^neutron/agent/resource_cache.py
+              - ^neutron/agent/rpc.py
+              - ^neutron/agent/securitygroup_rpc.py
+              - ^neutron/plugins/ml2/drivers/linuxbridge/.*$
+              - ^neutron/plugins/ml2/drivers/openvswitch/.*$
+              - ^neutron/plugins/ml2/drivers/macvtap/.*$
+              - ^neutron/plugins/ml2/drivers/mech_sriov/.*$
+              - ^neutron/services/qos/drivers/linuxbridge/.*$
+              - ^neutron/services/qos/drivers/openvswitch/.*$
+              - ^neutron/services/trunk/drivers/linuxbridge/.*$
+              - ^neutron/services/trunk/drivers/openvswitch/.*$
+              - ^neutron/scheduler/.*$
+              - ^roles/.*functional.*$
+              - ^playbooks/.*functional.*$
+              # Additional irrelevant files
+              - ^devstack/.*$
+              - ^zuul.d/.*$
+        - whitebox-neutron-tempest-plugin-podified-multinode-edpm-deployment-crc-2comp:
+            override-checkout: main
+            branches: ^(stable|unmaintained)/2023.1$
+            voting: false
+            irrelevant-files: *irrelevant_files_neutron_trigger_whitebox
+            dependencies:
+              - openstack-meta-content-provider
 
 - project:
     name: opendev.org/openstack/neutron-tempest-plugin
