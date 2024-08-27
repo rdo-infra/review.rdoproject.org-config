@@ -17,6 +17,9 @@
 - name: Inject pull secret
   ansible.builtin.include_tasks: inject-pull-secret.yaml
 
+- name: Recreate OpenShift Marketplace
+  ansible.builtin.include_tasks: recreate_marketplace.yaml
+
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
 
@@ -35,6 +38,3 @@
 
     - name: Post machineconfigpool tasks
       ansible.builtin.include_tasks: post_machineconfigpool.yaml
-
-- name: Recreate OpenShift Marketplace
-  ansible.builtin.include_tasks: recreate_marketplace.yaml
