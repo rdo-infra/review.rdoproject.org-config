@@ -249,6 +249,19 @@
       - ovb-001-experimental
 
 - project:
+    name: opendev.org/openstack/neutron-tempest-plugin
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - openstack-meta-content-provider:
+            override-checkout: main
+        - whitebox-neutron-tempest-plugin-podified-multinode-edpm-deployment-crc-2comp:
+            override-checkout: main
+            dependencies:
+              - openstack-meta-content-provider
+
+- project:
     name: opendev.org/openstack/nova
     templates:
       - system-required
