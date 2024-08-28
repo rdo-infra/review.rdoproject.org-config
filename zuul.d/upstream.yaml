@@ -85,11 +85,13 @@
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(check rdo experimental)
     success:
-      rdoci: {}
+      opendev.org:
+        Code-Review: 1
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      rdoci: {}
+      opendev.org:
+        Code-Review: -1
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
