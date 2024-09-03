@@ -317,7 +317,19 @@
     name: opendev.org/openstack/nova
     templates:
       - system-required
-      - opendev-nova-edpm-pipeline
+      # - opendev-nova-edpm-pipeline
+    openstack-experimental:
+      jobs:
+        - openstack-meta-content-provider:
+            override-checkout: main
+            vars:
+              cifmw_bop_openstack_release: master
+              cifmw_bop_dlrn_baseurl: "https://trunk.rdoproject.org/centos9-master"
+              cifmw_repo_setup_branch: master
+        - nova-operator-tempest-multinode:
+            override-checkout: main
+            vars:
+              cifmw_repo_setup_branch: master
 
 - project:
     name: opendev.org/openstack/octavia
