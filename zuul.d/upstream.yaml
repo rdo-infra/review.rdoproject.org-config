@@ -9,6 +9,7 @@
       Build failed (check pipeline).  For information on how to proceed, see
       http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: independent
+    precedence: low
     require:
       rdoproject.org:
         open: True
@@ -507,7 +508,7 @@
     post-review: true
     description: Runs periodically to promote components to promoted-components.
     manager: independent
-    precedence: normal
+    precedence: high
     trigger:
       timer:
         - time: '0 */2 * * *'
