@@ -1,0 +1,63 @@
+resources:
+  groups:
+    deps/python-parameterized-core:
+      description: Core developers for project python-parameterized
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-parameterized-ptl:
+      description: Project team lead for project python-parameterized
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-parameterized:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-parameterized-core
+          owner = group deps/python-parameterized-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-parameterized-core
+          label-Code-Review = -2..+2 group deps/python-parameterized-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-parameterized-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-parameterized-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-parameterized-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-parameterized-core
+          label-Workflow = -1..+0 group deps/python-parameterized-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-parameterized-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-parameterized-core
+      - deps/python-parameterized-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-parameterized:
+      acl: deps-python-parameterized
+      description: Packaging of RDO dependency python-parameterized
+      default-branch: c9s-dalmatian-rdo
+      branches:
+        master: '0'
+        c9s-caracal-rdo: c9s-dalmatian-rdo
