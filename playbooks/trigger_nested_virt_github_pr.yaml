@@ -70,10 +70,17 @@
       register: _change_id
 
     - name: Create a trigger file in the repo
+      vars:
+        _trigger_file: >-
+          {% if trigger_branch_name is defined %}
+          {{ trigger_job_name }} + "_" + {{ trigger_branch_name }}
+          {% else %}
+          {{ trigger_job_name }}
+          {% endif %}
       ansible.builtin.shell: |
         set -e +x
-        touch trigger_{{ trigger_job_name }}
-        git add trigger_{{ trigger_job_name }}
+        touch trigger_{{ _trigger_file }}
+        git add trigger_{{ _trigger_file }}
       changed_when: true
       args:
         chdir: "{{ trigger_repository }}"
