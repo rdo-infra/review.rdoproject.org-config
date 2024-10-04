@@ -14,6 +14,12 @@
 - name: Ensure that user is logged
   ansible.builtin.command: /tmp/ensure_logged.sh
 
+# https://github.com/crc-org/crc/issues/4109#issuecomment-2042497411
+- name: Delete all openshift-marketplace pods
+  ansible.builtin.command: |
+    oc delete pods --all -n openshift-marketplace
+  changed_when: false
+
 - name: Ensure all pods are up and running
   ansible.builtin.command: /tmp/ensure_services_up.sh
 
