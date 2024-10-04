@@ -5,10 +5,13 @@
       become: true
       ansible.builtin.script: ./create-ftbfs-report.sh
 
-    - name: Install ci-log-processing repo
-      ansible.builtin.pip:
-        name: git+https://opendev.org/openstack/ci-log-processing
-
-    - name: Sent ftbfs report to elasticsearch
-      ansible.builtin.shell:
-        cmd: logsender --config ~/logsender.config
+    - name: Install logsender and send logs
+      block:
+        - name: Install ci-log-processing repo
+          ansible.builtin.pip:
+            name: git+https://opendev.org/openstack/ci-log-processing
+            virtualenv: /tmp/log_venv
+            virtualenv_command: "{{ ansible_python_interpreter }} -m venv --system-site-packages"
+        - name: Sent ftbfs report to elasticsearch
+          ansible.builtin.shell:
+            cmd: . /tmp/log_venv/bin/activate; logsender --config ~/logsender.config
