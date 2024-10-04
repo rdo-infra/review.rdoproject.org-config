@@ -10,6 +10,17 @@ export PATH=$PATH:/usr/local/bin/
 report_csv_file="/tmp/ftbfs_report.csv"
 releng_workdir="${HOME}/releng"
 
+echo "*** removing '.venv-ftbfs-report' if(exists), and creating a virtualenv for ftbfs-report"
+rm -rf .venv-ftbfs-report
+echo ""
+echo "*** using virtualenv with '--system-site-packages' needed by DNF python
+module"
+
+python3 -mvenv .venv-ftbfs-report --system-site-packages
+
+echo ""
+source .venv-ftbfs-report/bin/activate
+
 # upgrade pip
 pip install pip -U
 
@@ -36,4 +47,4 @@ echo ""
 echo "*** add releng scripts to PYTHONPATH"
 export PYTHONPATH="${PYTHONPATH}:${HOME}/releng/scripts"
 echo "PYTHONPATH='${PYTHONPATH}'"
-
+deactivate
