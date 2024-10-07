@@ -170,8 +170,8 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: testing
-      supported_releases: dalmatian,9s caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s
-      master_release: dalmatian
+      supported_releases: epoxy,9s dalmatian,9s caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s
+      master_release: epoxy
     nodeset: rdo-centos-9-stream
     timeout: 3600
     required-projects:
@@ -195,8 +195,8 @@
     run: playbooks/rdoinfo/buildsys-tags-update/run.yaml
     vars:
       rdoinfo_phase: release
-      supported_releases: caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s
-      master_release: dalmatian
+      supported_releases: dalmatian,9s caracal,9s bobcat,9s antelope,9s zed,9s yoga,9s
+      master_release: epoxy
     nodeset: rdo-centos-9-stream
     timeout: 3600
     required-projects:
