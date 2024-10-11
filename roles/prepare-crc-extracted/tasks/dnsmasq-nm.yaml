@@ -54,19 +54,32 @@
             regexp: "192.168.130.11"
             replace: "{{ ansible_default_ipv4.address }}"
 
-        - name: Ensure that bind-interfaces is set in dnsmasq
+        - name: Ensure that listen-address is absent
           become: true
           ansible.builtin.lineinfile:
             path: /etc/dnsmasq.d/crc-dnsmasq.conf
-            insertbefore: '^server'
-            line: 'bind-interfaces'
-            firstmatch: true
+            regexp: 'listen-address'
+            state: absent
+
+        - name: Set listen-address to 0.0.0.0
+          become: true
+          ansible.builtin.blockinfile:
+            path: /etc/dnsmasq.d/crc-dnsmasq.conf
+            block: |
+              no-dhcp-interface=
+              listen-address=0.0.0.0
+              listen-address=::
+              interface=
+              bind-interfaces
+            insertbefore: '^expand-hosts'
+            marker: "# {mark} ANSIBLE MANAGED BLOCK - BASE JOB"
 
         - name: Set DNS nameservers provided by cloud provider
           become: true
-          ansible.builtin.lineinfile:
+          ansible.builtin.blockinfile:
             path: /etc/dnsmasq.d/crc-dnsmasq.conf
-            line: "server={{ item }}"
+            block: "server={{ item }}"
+            marker: "# {mark-server} ANSIBLE MANAGED BLOCK - BASE JOB"
           loop: "{{ ansible_dns.nameservers }}"
 
         - name: Create a dnsmasq.service.d directory
