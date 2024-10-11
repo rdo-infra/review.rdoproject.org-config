@@ -30,3 +30,4 @@
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
   changed_when: false
+  register: _mcp_status

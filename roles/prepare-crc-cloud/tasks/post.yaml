@@ -6,3 +6,7 @@
     remote_src: true
     owner: core
     group: core
+
+- name: Ensure OpenShift API is stable - wait few minutes
+  ansible.builtin.pause:
+    minutes: "{{ wait_for_openshift_api }}"
