@@ -62,11 +62,26 @@
             line: 'bind-interfaces'
             firstmatch: true
 
-        - name: Set DNS nameservers provided by cloud provider
+        - name: Ensure that listen-address is absent
           become: true
           ansible.builtin.lineinfile:
             path: /etc/dnsmasq.d/crc-dnsmasq.conf
-            line: "server={{ item }}"
+            regexp: '^listen-address'
+            state: absent
+
+        - name: Change the listen address
+          become: true
+          ansible.builtin.lineinfile:
+            path: /etc/dnsmasq.d/crc-dnsmasq.conf
+            line: |
+              listen-address=0.0.0.0
+              listen-address=::
+
+        - name: Set DNS nameservers provided by cloud provider
+          become: true
+          ansible.builtin.blockinfile:
+            path: /etc/dnsmasq.d/crc-dnsmasq.conf
+            block: "server={{ item }}"
           loop: "{{ ansible_dns.nameservers }}"
 
         - name: Create a dnsmasq.service.d directory
