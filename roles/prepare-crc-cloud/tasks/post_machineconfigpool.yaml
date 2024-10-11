@@ -30,3 +30,6 @@
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
   changed_when: false
+  register: _mcp_status
+  retries: 30
+  delay: 20
