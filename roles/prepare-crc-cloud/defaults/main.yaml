@@ -11,3 +11,6 @@ keep_machineconfigpool_configs: false
 # NOTE: By enabling the wait_for_mcp, it might vanish or change
 # the /var/lib/kubelet/config.json or /etc/containers/{policy.json,registries.conf}
 wait_for_mcp: false
+# The OpenShift API sometimes it is not stable enough after executing
+# the clustersetup.sf script. Wait 2 minutes before continue
+wait_for_openshift_api: 2
