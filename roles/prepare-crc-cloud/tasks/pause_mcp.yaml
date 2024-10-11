@@ -6,7 +6,19 @@
     - master
     - worker
   changed_when: false
+  retries: 6
+  delay: 10
+  register: _mc_pause
+  failed_when:
+    - "'The connection to the server api.crc.testing:6443 was refused' not in _mc_pause.stderr"
+    - _mc_pause.rc != 0
 
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
   changed_when: false
+  retries: 6
+  delay: 10
+  register: _mc_get
+  failed_when:
+    - "'The connection to the server api.crc.testing:6443 was refused' not in _mc_get.stderr"
+    - _mc_get.rc != 0
