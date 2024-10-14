@@ -437,3 +437,17 @@
     vars:
       push_to_registry: true
       upload_container_image_promote: false
+
+- job:
+    name: propose-packstack-modules-update
+    parent: base
+    description: |
+      Propose sync of the module versions between
+      Packstack and p-o-i projects.
+    run: playbooks/propose-packstack-module-update/propose-packstack-modules-update.yaml
+    nodeset: rdo-centos-9-stream
+    required-projects:
+      - opendev.org/x/packstack
+      - opendev.org/openstack/puppet-openstack-integration
+    secrets:
+      - rdo_release_bot_ubuntuone
