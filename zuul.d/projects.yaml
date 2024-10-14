@@ -5067,6 +5067,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/watcher-dashboard
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/watcher-dashboard-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/watcher-distgit
     default-branch: rpm-master
     templates:
