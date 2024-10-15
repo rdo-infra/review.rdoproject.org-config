@@ -6215,6 +6215,8 @@
             # TODO(jcapitao): remove nodeset definition once the default one moved
             # to CS9 (default nodeset is defined in 'base-minimal' job)
             nodeset: rdo-centos-9-stream
+            pre-run:
+              - playbooks/releng/pre-tox-linters.yaml
         - build-and-push-releng-container-image
 
 - project:
