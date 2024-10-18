@@ -29,7 +29,7 @@
   delay: 10
   register: _mc_status
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _mc_status.stderr"
+    - "'connect: connection refused' not in _mc_status.stderr"
     - _mc_status.rc != 0
 
 - name: Remove the generated mc

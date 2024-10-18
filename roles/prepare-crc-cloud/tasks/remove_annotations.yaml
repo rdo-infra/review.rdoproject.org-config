@@ -8,7 +8,7 @@
   retries: 6
   delay: 10
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _crc_node.stderr"
+    - "'connect: connection refused' not in _crc_node.stderr"
     - _crc_node.rc != 0
 
 - name: Remove drain annotation
@@ -19,5 +19,5 @@
   retries: 6
   delay: 10
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _oc_annotate.stderr"
+    - "'connect: connection refused' not in _oc_annotate.stderr"
     - _oc_annotate.rc != 0

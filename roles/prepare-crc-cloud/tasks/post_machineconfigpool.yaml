@@ -17,7 +17,7 @@
   until: not _master_status.stdout | bool
   changed_when: false
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _master_status.stderr"
+    - "'connect: connection refused' not in _master_status.stderr"
     - _master_status.rc != 0
 
 - name: Wait until worker machineconfigpool is not updating
@@ -30,7 +30,7 @@
   until: not _worker_status.stdout | bool
   changed_when: false
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _worker_status.stderr"
+    - "'connect: connection refused' not in _worker_status.stderr"
     - _worker_status.rc != 0
 
 - name: Print current machineconfigpool
@@ -40,5 +40,5 @@
   retries: 30
   delay: 20
   failed_when:
-    - "'The connection to the server api.crc.testing:6443 was refused' not in _mcp_status.stderr"
+    - "'connect: connection refused' not in _mcp_status.stderr"
     - _mcp_status.rc != 0
