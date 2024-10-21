@@ -23,8 +23,8 @@
         dest: ~/create-ftbfs-report.sh
         mode: '0755'
 
-    - name: Copy logsender config file
+    - name: Copy sent report script
       ansible.builtin.copy:
-        content: "{{ ftbfs_logsender_config.config }}"
-        dest: ~/logsender.config
-      no_log: true
+        src: send_ftbfs_report.py
+        dest: ~/send_ftbfs_report.py
+        mode: '0755'
