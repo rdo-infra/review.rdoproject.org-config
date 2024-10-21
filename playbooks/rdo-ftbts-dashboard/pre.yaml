@@ -17,14 +17,19 @@
           - python3-devel
         state: present
 
+    - name: Install required pip modules
+      ansible.builtin.pip:
+        name: opensearch-py
+
     - name: Copy create ftbfs script
       ansible.builtin.copy:
         src: create-ftbfs-report.sh
         dest: ~/create-ftbfs-report.sh
         mode: '0755'
 
-    - name: Copy logsender config file
-      ansible.builtin.copy:
-        content: "{{ ftbfs_logsender_config.config }}"
-        dest: ~/logsender.config
+    - name: Copy sent report script
+      ansible.builtin.template:
+        src: templates/send_ftbfs_report.j2
+        dest: ~/send_ftbfs_report.py
+        mode: '0755'
       no_log: true
