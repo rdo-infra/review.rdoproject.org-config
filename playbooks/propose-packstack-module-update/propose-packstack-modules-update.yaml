@@ -51,11 +51,14 @@
             mkdir -p ~/.ssh
             ssh-keyscan -p 29418 review.opendev.org >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
-            git config --global --add user.name "{{ rdo_release_bot_ubuntuone.ssh_username }}"
-            git config --global --add user.email "rhos-role-rdo-admin@redhat.com"
-            git config --global --add gitreview.username "{{ rdo_release_bot_ubuntuone.ssh_username }}"
 
             pushd {{ ansible_user_dir }}/{{ zuul.projects['opendev.org/x/packstack'].src_dir }}
+
+            git config user.name "{{ rdo_release_bot_ubuntuone.ssh_username }}"
+            git config user.email "rhos-role-rdo-admin@redhat.com"
+            git config gitreview.username "{{ rdo_release_bot_ubuntuone.ssh_username }}"
+            git review -s -v
+
             SUBJECT="Updated from Packstack modules constraints"
             opened_patch=$(curl --retry 3 --retry-delay 5 -L "http://review.opendev.org/changes/?q=project:x/packstack" | sed '1d' | jq --arg BRANCH "master" --arg SUBJECT "${SUBJECT}" -r '.[] | select(.branch == $BRANCH) | select(.status as $status | ["NEW"] | index ($status)) | select(.subject == $SUBJECT)')
             id=$(echo "$opened_patch" | jq '._number')
