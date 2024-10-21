@@ -6402,3 +6402,11 @@
     templates:
       - noop
       - system-required
+
+- project:
+    name: opendev.org/openstack/packstack
+    templates:
+      - system-required
+    periodic:
+      jobs:
+        - propose-packstack-modules-update
