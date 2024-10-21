@@ -37,7 +37,7 @@
 
       - name: Create SSH private key from secret
         copy:
-          content: "{{ rdo_release_bot.ssh_private_key }}"
+          content: "{{ rdo_release_bot_ubuntuone.ssh_private_key }}"
           dest: "{{ ssh_private_key_tmp.path }}"
           mode: 0600
 
