@@ -489,6 +489,14 @@
         - tripleo-ci-centos-8-ovb-3ctlr_1comp_1supp-featureset039
 
 - project:
+    name: opendev.org/x/packstack
+    templates:
+      - system-required
+    periodic:
+      jobs:
+        - propose-packstack-modules-update
+
+- project:
     name: opendev.org/x/whitebox-neutron-tempest-plugin
     templates:
       - system-required
