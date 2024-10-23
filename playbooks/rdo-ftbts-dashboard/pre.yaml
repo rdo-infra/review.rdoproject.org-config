@@ -24,12 +24,12 @@
     - name: Copy create ftbfs script
       ansible.builtin.copy:
         src: create-ftbfs-report.sh
-        dest: ~/create-ftbfs-report.sh
+        dest: create-ftbfs-report.sh
         mode: '0755'
 
     - name: Copy sent report script
       ansible.builtin.template:
         src: send_ftbfs_report.j2
-        dest: ~/send_ftbfs_report.py
+        dest: send_ftbfs_report.py
         mode: '0755'
       no_log: true
