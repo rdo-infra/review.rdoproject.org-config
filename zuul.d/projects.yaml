@@ -494,7 +494,8 @@
       - system-required
     periodic:
       jobs:
-        - propose-packstack-modules-update
+        - propose-packstack-modules-update:
+            branches: master
 
 - project:
     name: opendev.org/x/whitebox-neutron-tempest-plugin
