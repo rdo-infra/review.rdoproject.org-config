@@ -115,7 +115,7 @@
     parent: distgit-cbs-validate
     run: playbooks/deps-cbs-validate/run.yaml
     nodeset: rdo-centos-9-stream
-    branches: ^(c[8|9]s-.*-rdo)$
+    branches: ^(c9s-.*-rdo|c10s-.*-rdo)$
     timeout: 5400
 
 - job:
@@ -123,7 +123,7 @@
     parent: distgit-cbs-validate
     run: playbooks/deps-cbs-final-build/run.yaml
     nodeset: rdo-centos-9-stream
-    branches: ^(c[8|9]s-.*-rdo)$
+    branches: ^(c9s-.*-rdo|c10s-.*-rdo)$
     timeout: 5400
     secrets:
       - secret: rdobuilder_ssh_key
