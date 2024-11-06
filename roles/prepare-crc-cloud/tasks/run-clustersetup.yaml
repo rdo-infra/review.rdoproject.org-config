@@ -4,7 +4,7 @@
   become_method: sudo
   become_flags: '-E'
   ansible.builtin.shell: |
-    bash ./crc-cloud/pkg/bundle/setup/clustersetup.sh > crc-cloud-log 2> crc-cloud-error-log
+    bash ./crc-cloud/pkg/bundle/setup/clustersetup.sh
   args:
     chdir: "{{ _core_user_info.home }}/workdir"
   environment:
