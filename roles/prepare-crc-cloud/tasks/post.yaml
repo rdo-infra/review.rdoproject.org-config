@@ -1,8 +1,20 @@
 ---
+- name: Ensure kube config does not exists
+  ansible.builtin.stat:
+    path: .kube/config
+  register: _kubeconfig
+
 - name: Copy new generated KUBECONFIG
+  when: not _kubeconfig.stat.exists
   ansible.builtin.copy:
     src: /opt/kubeconfig
     dest: .kube/config
     remote_src: true
     owner: core
     group: core
+
+# https://github.com/crc-org/crc/issues/4109#issuecomment-2042497411
+- name: Delete all openshift-marketplace pods
+  ansible.builtin.command: |
+    oc delete pods --all -n openshift-marketplace
+  changed_when: false
