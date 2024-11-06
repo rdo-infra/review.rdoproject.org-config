@@ -22,7 +22,10 @@
     dest: ~core/workdir/crc-cloud-error.log
 
 - name: Re-run clustersetup.sh script
-  when: _script_exec.rc != 0 and 'routes.route.openshift.io "default-route" not found' not in _script_exec.stderr
+  when:
+    - _script_exec.rc != 0
+    - ('routes.route.openshift.io "default-route" not found' not in _script_exec.stderr or
+       'routes.route.openshift.io "default-route" not found' not in _script_exec.stdout)
   block:
     - name: Remove all machineconfig pods
       ansible.builtin.command: |
