@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-pytest-randomly-core:
+      description: Core developers for project python-pytest-randomly
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-pytest-randomly-ptl:
+      description: Project team lead for project python-pytest-randomly
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-pytest-randomly:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-pytest-randomly-core
+          owner = group deps/python-pytest-randomly-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-pytest-randomly-core
+          label-Code-Review = -2..+2 group deps/python-pytest-randomly-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-pytest-randomly-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-pytest-randomly-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-pytest-randomly-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-pytest-randomly-core
+          label-Workflow = -1..+0 group deps/python-pytest-randomly-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-pytest-randomly-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-pytest-randomly-core
+      - deps/python-pytest-randomly-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-pytest-randomly:
+      acl: deps-python-pytest-randomly
+      description: Packaging of RDO dependency python-pytest-randomly
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
