@@ -11,6 +11,9 @@
 - name: Recreate kubelet config.json
   ansible.builtin.include_tasks: inject-pull-secret.yaml
 
+- name: Ensure you are logged in to the OpenShift
+  ansible.builtin.include_tasks: openshift_login.yaml
+
 - name: Post tasks after crc-cloud script execution
   ansible.builtin.include_tasks: post.yaml
 
