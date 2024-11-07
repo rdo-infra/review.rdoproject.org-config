@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-pyproject-api-core:
+      description: Core developers for project python-pyproject-api
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-pyproject-api-ptl:
+      description: Project team lead for project python-pyproject-api
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-pyproject-api:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-pyproject-api-core
+          owner = group deps/python-pyproject-api-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-pyproject-api-core
+          label-Code-Review = -2..+2 group deps/python-pyproject-api-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-pyproject-api-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-pyproject-api-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-pyproject-api-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-pyproject-api-core
+          label-Workflow = -1..+0 group deps/python-pyproject-api-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-pyproject-api-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-pyproject-api-core
+      - deps/python-pyproject-api-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-pyproject-api:
+      acl: deps-python-pyproject-api
+      description: Packaging of RDO dependency python-pyproject-api
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
