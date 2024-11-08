@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-factory-boy-core:
+      description: Core developers for project python-factory-boy
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-factory-boy-ptl:
+      description: Project team lead for project python-factory-boy
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-factory-boy:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-factory-boy-core
+          owner = group deps/python-factory-boy-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-factory-boy-core
+          label-Code-Review = -2..+2 group deps/python-factory-boy-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-factory-boy-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-factory-boy-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-factory-boy-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-factory-boy-core
+          label-Workflow = -1..+0 group deps/python-factory-boy-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-factory-boy-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-factory-boy-core
+      - deps/python-factory-boy-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-factory-boy:
+      acl: deps-python-factory-boy
+      description: Packaging of RDO dependency python-factory-boy
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
