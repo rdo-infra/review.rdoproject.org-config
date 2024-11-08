@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/fish-core:
+      description: Core developers for project fish
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/fish-ptl:
+      description: Project team lead for project fish
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-fish:
+      file: |
+        [access "refs/*"]
+          read = group deps/fish-core
+          owner = group deps/fish-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/fish-core
+          label-Code-Review = -2..+2 group deps/fish-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/fish-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/fish-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/fish-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/fish-core
+          label-Workflow = -1..+0 group deps/fish-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/fish-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/fish-core
+      - deps/fish-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/fish:
+      acl: deps-fish
+      description: Packaging of RDO dependency fish
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
