@@ -1281,6 +1281,7 @@
           - openstack-k8s-operators/ci-framework:
               include-branches: &default_branches
               - ^main$
+              - ^18.0-fr1$
           - openstack-k8s-operators/nova-operator:
               include-branches: *default_branches
           - openstack-k8s-operators/telemetry-operator:
@@ -1316,31 +1317,50 @@
               include-branches: *infrawatch_branches
 
           - openstack-k8s-operators/placement-operator
+              include-branches: *default_branches
+
           - openstack-k8s-operators/infra-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/ansible-microshift-role
           # No longer used - keeping for backward compatibility
-          - openstack-k8s-operators/dataplane-operator
-          - openstack-k8s-operators/openstack-ansibleee-operator
           - openstack-k8s-operators/repo-setup
           - openstack-k8s-operators/edpm-image-builder
+              include-branches: *default_branches
           - openstack-k8s-operators/openstack-baremetal-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/openstack-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/ovn-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/barbican-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/cinder-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/designate-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/glance-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/heat-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/horizon-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/ironic-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/keystone-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/mariadb-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/neutron-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/octavia-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/swift-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/ci-bootstrap
           - openstack-k8s-operators/data-plane-adoption
+              include-branches: *default_branches
           - openstack-k8s-operators/test-operator
+              include-branches: *default_branches
           - openstack-k8s-operators/ci-playground
           - os-net-config/os-net-config
         - include: []
