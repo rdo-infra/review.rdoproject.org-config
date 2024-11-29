@@ -6123,19 +6123,19 @@
       - noop
       - system-required
 
-- project:
-    name: review.rdoproject.org/rdo-infra/ci-config
-    templates:
-      - system-required
-    check:
-      jobs:
-        - tox-linters
-    gate:
-      jobs:
-        - tox-linters
-    post:
-      jobs:
-        - publish-cico-jjb
+# - project:
+#     name: review.rdoproject.org/rdo-infra/ci-config
+#     templates:
+#       - system-required
+#     check:
+#       jobs:
+#         - tox-linters
+#     gate:
+#       jobs:
+#         - tox-linters
+#     post:
+#       jobs:
+#         - publish-cico-jjb
 
 - project:
     name: review.rdoproject.org/rdo-infra/example-distgit
