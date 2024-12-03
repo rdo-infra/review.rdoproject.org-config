@@ -1,0 +1,63 @@
+resources:
+  groups:
+    deps/python-packaging-core:
+      description: Core developers for project python-packaging
+      members:
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-packaging-ptl:
+      description: Project team lead for project python-packaging
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-packaging:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-packaging-core
+          owner = group deps/python-packaging-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-packaging-core
+          label-Code-Review = -2..+2 group deps/python-packaging-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-packaging-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-packaging-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-packaging-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-packaging-core
+          label-Workflow = -1..+0 group deps/python-packaging-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-packaging-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-packaging-core
+      - deps/python-packaging-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-packaging:
+      acl: deps-python-packaging
+      description: Packaging of RDO dependency python-packaging
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
+        c9s-caracal-rdo: c9s-dalmatian-rdo
+        c9s-epoxy-rdo: c9s-dalmatian-rdo
