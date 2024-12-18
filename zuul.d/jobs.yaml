@@ -451,3 +451,11 @@
       - opendev.org/openstack/puppet-openstack-integration
     secrets:
       - rdo_release_bot_ubuntuone
+
+- jobs:
+    name: devstack-platform-centos-10-stream
+    parent: devstack-platform-centos-9-stream
+    nodeset:
+      nodes:
+        - name: controller
+          label: cloud-centos-10-stream-20241204

@@ -182,11 +182,8 @@
       - system-required
     openstack-check:
       jobs:
-        - devstack-platform-centos-9-stream:
-            nodeset:
-              nodes:
-                - name: controller
-                  label: cloud-centos-10-stream-20241204
+        - noop
+        - devstack-platform-centos-10-stream:
             voting: false
 
 # EDPM PCP job template
