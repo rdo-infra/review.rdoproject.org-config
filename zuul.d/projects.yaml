@@ -505,6 +505,19 @@
               - openstack-meta-content-provider
 
 - project:
+    name: opendev.org/openstack/devstack
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - devstack-platform-centos-9-stream:
+            nodeset:
+              nodes:
+                - name: container
+                  label: cloud-centos-10-stream-20241204
+            voting: false
+
+- project:
     name: review.rdoproject.org/centos-opstools/centos-release-opstools
     templates:
       - system-required
