@@ -176,6 +176,19 @@
     templates:
       - system-required
 
+- project:
+    name: opendev.org/openstack/devstack
+    templates:
+      - system-required
+    openstack-check:
+      jobs:
+        - devstack-platform-centos-9-stream:
+            nodeset:
+              nodes:
+                - name: controller
+                  label: cloud-centos-10-stream-20241204
+            voting: false
+
 # EDPM PCP job template
 - project:
     name: opendev.org/openstack/dib-utils
