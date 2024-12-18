@@ -31,7 +31,7 @@
         path: "/etc/ci/env"
         state: directory
         mode: '0755'
-      loop: "{{ hostvars.keys() }}"
+      loop: "{{ hostvars.keys() | reject('==', 'localhost') }}"
 
     - name: Set global resource names as facts
       ansible.builtin.set_fact:
@@ -92,7 +92,7 @@
             instance_id: "{{ hostvars[item]['nodepool']['external_id'] }}"
           ansible.builtin.command:
             cmd: openstack server show {{ instance_id }}
-          loop: "{{ hostvars.keys() }}"
+          loop: "{{ hostvars.keys() | reject('==', 'localhost') }}"
           loop_control:
             label: "{{ item }}"
             pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
@@ -117,7 +117,7 @@
             owner: root
             group: root
             mode: '0644'
-          loop: "{{ hostvars.keys() }}"
+          loop: "{{ hostvars.keys() | reject('==', 'localhost') }}"
 
       always:
         - name: Remove cloud_secrets file
