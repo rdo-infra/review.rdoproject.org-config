@@ -6308,8 +6308,6 @@
       - weirdo-caracal-promotion-pipeline
       - weirdo-bobcat-promotion-pipeline
       - weirdo-antelope-promotion-pipeline
-      - weirdo-zed-promotion-pipeline
-      - weirdo-yoga-promotion-pipeline
     check:
       jobs:
         - tox-linters:
@@ -6322,8 +6320,6 @@
             nodeset: rdo-centos-9-stream
         - rdoinfo-DLRN-check-centos9:
             files:
-              - ^tags/yoga.yml$
-              - ^tags/zed.yml$
               - ^tags/antelope.yml$
               - ^tags/bobcat.yml$
               - ^tags/caracal.yml$
@@ -6384,8 +6380,6 @@
             nodeset: rdo-centos-9-stream
         - rdoinfo-DLRN-check-centos9:
             files:
-              - ^tags/yoga.yml$
-              - ^tags/zed.yml$
               - ^tags/antelope.yml$
               - ^tags/bobcat.yml$
               - ^tags/caracal.yml$

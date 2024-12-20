@@ -1,18 +1,5 @@
 - hosts: all
   tasks:
-    # TODO(ykarel) remove once centos-packager is in official centos8 repos
-    - name: Temporary install centos-packager from copr for CS8
-      shell:
-        cmd: |
-          YUM="{{ ansible_pkg_mgr }}"
-          sudo $YUM install -y epel-release;
-          sudo $YUM config-manager --enable epel;
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/ykarel/ykarel-centos-stream/centos-stream-x86_64/01239149-python-centos/python-centos-0.1.1-2.el8.noarch.rpm;  # noqa 204
-          sudo $YUM install -y https://download.copr.fedorainfracloud.org/results/ykarel/ykarel-centos-stream/centos-stream-x86_64/01239164-centos-packager/centos-packager-0.5.5-2.el8.noarch.rpm;  # noqa 204
-          sudo $YUM config-manager --disable epel;
-      changed_when: true
-      when: ansible_distribution_major_version|int == 8
-
     - name: Temporary install centos-packager from EPEL for CS9
       shell:
         cmd: |
@@ -30,15 +17,6 @@
           # TODO(pabelanger): migrate to bindep.txt
           sudo {{ ansible_pkg_mgr }} -y install centos-packager createrepo
       changed_when: true
-
-    - name: Install ansible-packaging with macros for ansible collections
-      shell:
-        cmd: |
-          RELEASE="{{ 'centos9-bobcat' if ansible_distribution_major_version|int == 9 else 'centos8-yoga' }}"
-          sudo curl -L http://trunk.rdoproject.org/${RELEASE}/delorean-deps.repo -o /etc/yum.repos.d/delorean-deps.repo;
-          sudo {{ ansible_pkg_mgr }} install -y ansible-packaging;
-      changed_when: true
-      when: ansible_distribution_major_version|int == 8
 
     - name: Create koji centos cert
       copy:
