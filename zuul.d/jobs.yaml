@@ -459,3 +459,49 @@
       nodes:
         - name: controller
           label: cloud-centos-10-stream-20241204
+
+# copy/pasted from https://github.com/openstack/tempest/blob/15f50013abd4bcebb5ef54378fa003b80f4cac85/zuul.d/integrated-gate.yaml#L64
+# Zuul cannot find it when including it from upstream/tempest project so we have to copy/paste it.
+- job:
+    name: tempest-full-py3
+    parent: devstack-tempest
+    # This job version is with swift enabled on py3
+    # as swift is ready on py3 from stable/ussuri onwards.
+    # As this use 'integrated-full' tox env which is not
+    # available in old tempest used till stable/wallaby,
+    # this job definition is only for stable/xena onwards
+    # and separate job definition until stable/wallaby
+    branches:
+      regex: ^.*/(victoria|wallaby)$
+      negate: true
+    # NOTE(sean-k-mooney): this job and its descendants frequently times out
+    # run on rax-* providers with a timeout of 2 hours. temporary increase
+    # the timeout to 2.5 hours.
+    timeout: 9000
+    description: |
+      Base integration test with Neutron networking, horizon, swift enable,
+      and py3.
+      Former names for this job where:
+        * legacy-tempest-dsvm-py35
+        * gate-tempest-dsvm-py35
+    required-projects:
+      - opendev.org/openstack/horizon
+    vars:
+      # NOTE(gmann): Default concurrency is higher (number of cpu -2) which
+      # end up 6 in upstream CI. Higher concurrency means high parallel
+      # requests to services and can cause more oom issues. To avoid the
+      # oom issue, setting the concurrency to 4 in this job.
+      # NOTE(sean-k-mooney): now that we use zswap we should be able to
+      # increase the concurrency to 6.
+      tempest_concurrency: 4
+      tox_envlist: integrated-full
+      devstack_localrc:
+        USE_PYTHON3: true
+        FORCE_CONFIG_DRIVE: true
+        ENABLE_VOLUME_MULTIATTACH: true
+        GLANCE_USE_IMPORT_WORKFLOW: True
+      devstack_plugins:
+        neutron: https://opendev.org/openstack/neutron
+      devstack_services:
+        # Enable horizon so that we can run horizon test.
+        horizon: true
