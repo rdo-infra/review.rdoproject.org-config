@@ -1119,10 +1119,6 @@
         - openstack/tempest:
             include:
             - job
-        - openstack/openstack-zuul-jobs:
-            shadow: rdo-jobs
-            include:
-            - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
         - include: []
@@ -1151,6 +1147,7 @@
           - openstack/heat-templates
           - openstack/horizon
           - openstack/devstack-gate
+          - openstack/openstack-zuul-jobs
           - zuul/zuul
           - openstack/instack
           - openstack/instack-undercloud
