@@ -1119,6 +1119,9 @@
         - openstack/tempest:
             include:
             - job
+        - openstack/openstack-zuul-jobs:
+            include:
+            - job
           # Don't load any configuration from these projects because we
           # don't gate them, so they could wedge our config.
         - include: []
