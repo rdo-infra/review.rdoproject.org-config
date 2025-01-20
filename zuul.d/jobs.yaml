@@ -459,6 +459,10 @@
       nodes:
         - name: controller
           label: cloud-centos-10-stream-20241204
+      groups:
+        - name: tempest
+          nodes:
+            - controller
 
 # copy/pasted from https://github.com/openstack/tempest/blob/15f50013abd4bcebb5ef54378fa003b80f4cac85/zuul.d/integrated-gate.yaml#L64
 # Zuul cannot find it when including it from upstream/tempest project so we have to copy/paste it.
