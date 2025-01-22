@@ -49,7 +49,8 @@ def generate_bulk_data(csv_file, index_name):
                     "release": row["Release"],
                     "review": row["Review"],
                     "logs": row["Logs"],
-                    "@timestamp": formatted_date
+                    "@timestamp": datetime.datetime.now().isoformat(),
+                    "ftbfsdate": formatted_date
                 }
             }
 
