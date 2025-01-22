@@ -498,6 +498,8 @@
       # NOTE(sean-k-mooney): now that we use zswap we should be able to
       # increase the concurrency to 6.
       tempest_concurrency: 4
+      tempest_tox_environment:
+        PATH: "$PATH:/usr/local/bin"
       tox_envlist: integrated-full
       devstack_localrc:
         USE_PYTHON3: true
