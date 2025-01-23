@@ -22,7 +22,7 @@
         name: "criteria"
 
     - name: query to match promotion criteria
-      include: criteria-query.yaml
+      ansible.builtin.include_tasks: criteria-query.yaml
       with_items: "{{ criteria[promote_target][component] }}"
       loop_control:
         loop_var: "criteria_job"
