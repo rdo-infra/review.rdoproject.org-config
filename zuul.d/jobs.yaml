@@ -499,7 +499,7 @@
       # increase the concurrency to 6.
       tempest_concurrency: 4
       tempest_tox_environment:
-        PATH: "$PATH:/usr/local/bin"
+        PATH: "/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
       tox_envlist: integrated-full
       devstack_localrc:
         USE_PYTHON3: true
