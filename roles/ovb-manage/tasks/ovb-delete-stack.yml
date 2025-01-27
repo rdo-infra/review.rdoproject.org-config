@@ -34,7 +34,7 @@
       {% endfor %}
 
 - name: Find out undercloud host ID
-  include: find_undercloud_uuid.yml
+  import_tasks: find_undercloud_uuid.yml
 
 - name: Generate clouds.yaml file
   include_tasks: ovb-clouds-config.yml

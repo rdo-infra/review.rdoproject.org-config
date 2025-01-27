@@ -40,14 +40,14 @@
         - name: Push container to RDO registry
           vars:
             image: "{{ item }}"
-          include: push.yaml
+          import_tasks: push.yaml
           static: no
           with_items: "{{ built_images.stdout_lines }}"
 
         - name: Tag w/ _arch suffix and push retagged images (x86_64)
           vars:
             image: "{{ item }}"
-          include: tag.yaml
+          include_tasks: tag.yaml
           static: no
           with_items: "{{ built_images.stdout_lines }}"
           when:
