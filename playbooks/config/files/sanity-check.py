@@ -32,7 +32,6 @@ IGNORED_PROJECTS = {
         'test-project-2',
         'smoke-test-vexxhost',
         'nfvinfo',
-        'tripleo-downstream-trigger-nested-virt',
     ],
     'gerritbot': [
         'demo-project',
