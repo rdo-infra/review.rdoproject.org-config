@@ -16,8 +16,8 @@
 - name: Ensure dnsmasq is running
   when: >
     'crc-dnsmasq.service' not in ansible_facts.services or
-    ('UnitFileState' in crc_dnsmasq_status.status and
-    crc_dnsmasq_status.status["UnitFileState"] != "enabled")
+    ('ActiveState' in crc_dnsmasq_status.status and
+    crc_dnsmasq_status.status['ActiveState'] == 'inactive')
   become: true
   ansible.builtin.service:
     name: dnsmasq
@@ -25,13 +25,14 @@
 
 - name: Ensure crc-dnsmasq is running when legacy
   when: >
-    'crc-dnsmasq.service' in ansible_facts.services
+    'crc-dnsmasq.service' in ansible_facts.services and
+    ('ActiveState' in crc_dnsmasq_status.status and
+    crc_dnsmasq_status.status['ActiveState'] == 'active') and
+    ('UnitFileState' in crc_dnsmasq_status.status and
+    crc_dnsmasq_status.status["UnitFileState"] == "enabled")
   block:
     - name: Ensure dnsmasq is stopped
       become: true
-      when: >
-        'UnitFileState' in crc_dnsmasq_status.status and
-        crc_dnsmasq_status.status["UnitFileState"] == "enabled"
       ansible.builtin.systemd:
         name: dnsmasq
         state: stopped
@@ -39,9 +40,6 @@
 
     - name: Restart crc-dnsmasq
       become: true
-      when: >
-        'UnitFileState' in crc_dnsmasq_status.status and
-        crc_dnsmasq_status.status["UnitFileState"] == "enabled"
       ansible.builtin.systemd:
         name: crc-dnsmasq
         state: restarted
