@@ -27,7 +27,8 @@
   when: >
     'crc-dnsmasq.service' in ansible_facts.services and
     ('ActiveState' in crc_dnsmasq_status.status and
-    crc_dnsmasq_status.status['ActiveState'] == 'active') and
+    crc_dnsmasq_status.status['ActiveState'] == 'active' or
+    crc_dnsmasq_status.status['ActiveState'] == 'failed') and
     ('UnitFileState' in crc_dnsmasq_status.status and
     crc_dnsmasq_status.status["UnitFileState"] == "enabled")
   block:
