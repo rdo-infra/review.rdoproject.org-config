@@ -7,9 +7,15 @@
 - name: Get running services
   ansible.builtin.service_facts:
 
+- name: Get service status - crc-dnsmasq
+  ansible.builtin.systemd:
+    name: crc-dnsmasq
+  register: crc_dnsmasq_status
+
 - name: Ensure dnsmasq is running
   when: >
-    'crc-dnsmasq.service' not in ansible_facts.services
+    'crc-dnsmasq.service' not in ansible_facts.services or
+    crc_dnsmasq_status.status["UnitFileState"] != "enabled"
   become: true
   ansible.builtin.service:
     name: dnsmasq
@@ -19,11 +25,6 @@
   when: >
     'crc-dnsmasq.service' in ansible_facts.services
   block:
-    - name: Get service status - crc-dnsmasq
-      ansible.builtin.systemd:
-        name: crc-dnsmasq
-      register: crc_dnsmasq_status
-
     - name: Ensure dnsmasq is stopped
       become: true
       when: crc_dnsmasq_status.status["UnitFileState"] == "enabled"
