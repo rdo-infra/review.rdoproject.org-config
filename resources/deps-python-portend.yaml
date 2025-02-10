@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-portend-core:
+      description: Core developers for project python-portend
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-portend-ptl:
+      description: Project team lead for project python-portend
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-portend:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-portend-core
+          owner = group deps/python-portend-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-portend-core
+          label-Code-Review = -2..+2 group deps/python-portend-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-portend-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-portend-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-portend-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-portend-core
+          label-Workflow = -1..+0 group deps/python-portend-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-portend-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-portend-core
+      - deps/python-portend-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-portend:
+      acl: deps-python-portend
+      description: Packaging of RDO dependency python-portend
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
