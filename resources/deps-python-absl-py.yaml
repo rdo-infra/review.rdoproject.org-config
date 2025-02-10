@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-absl-py-core:
+      description: Core developers for project python-absl-py
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-absl-py-ptl:
+      description: Project team lead for project python-absl-py
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-absl-py:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-absl-py-core
+          owner = group deps/python-absl-py-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-absl-py-core
+          label-Code-Review = -2..+2 group deps/python-absl-py-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-absl-py-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-absl-py-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-absl-py-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-absl-py-core
+          label-Workflow = -1..+0 group deps/python-absl-py-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-absl-py-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-absl-py-core
+      - deps/python-absl-py-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-absl-py:
+      acl: deps-python-absl-py
+      description: Packaging of RDO dependency python-absl-py
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
