@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/xorg-x11-drv-libinput-core:
+      description: Core developers for project xorg-x11-drv-libinput
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/xorg-x11-drv-libinput-ptl:
+      description: Project team lead for project xorg-x11-drv-libinput
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-xorg-x11-drv-libinput:
+      file: |
+        [access "refs/*"]
+          read = group deps/xorg-x11-drv-libinput-core
+          owner = group deps/xorg-x11-drv-libinput-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/xorg-x11-drv-libinput-core
+          label-Code-Review = -2..+2 group deps/xorg-x11-drv-libinput-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/xorg-x11-drv-libinput-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/xorg-x11-drv-libinput-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/xorg-x11-drv-libinput-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/xorg-x11-drv-libinput-core
+          label-Workflow = -1..+0 group deps/xorg-x11-drv-libinput-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/xorg-x11-drv-libinput-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/xorg-x11-drv-libinput-core
+      - deps/xorg-x11-drv-libinput-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/xorg-x11-drv-libinput:
+      acl: deps-xorg-x11-drv-libinput
+      description: Packaging of RDO dependency xorg-x11-drv-libinput
+      default-branch: c10s-epoxy-rdo
+      branches:
+        master: '0'

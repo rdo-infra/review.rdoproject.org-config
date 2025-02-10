@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-expandvars-core:
+      description: Core developers for project python-expandvars
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-expandvars-ptl:
+      description: Project team lead for project python-expandvars
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-expandvars:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-expandvars-core
+          owner = group deps/python-expandvars-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-expandvars-core
+          label-Code-Review = -2..+2 group deps/python-expandvars-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-expandvars-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-expandvars-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-expandvars-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-expandvars-core
+          label-Workflow = -1..+0 group deps/python-expandvars-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-expandvars-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-expandvars-core
+      - deps/python-expandvars-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-expandvars:
+      acl: deps-python-expandvars
+      description: Packaging of RDO dependency python-expandvars
+      default-branch: c10s-epoxy-rdo
+      branches:
+        master: '0'
