@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-pycares-core:
+      description: Core developers for project python-pycares
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-pycares-ptl:
+      description: Project team lead for project python-pycares
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-pycares:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-pycares-core
+          owner = group deps/python-pycares-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-pycares-core
+          label-Code-Review = -2..+2 group deps/python-pycares-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-pycares-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-pycares-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-pycares-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-pycares-core
+          label-Workflow = -1..+0 group deps/python-pycares-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-pycares-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-pycares-core
+      - deps/python-pycares-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-pycares:
+      acl: deps-python-pycares
+      description: Packaging of RDO dependency python-pycares
+      default-branch: c9s-epoxy-rdo
+      branches:
+        master: '0'
