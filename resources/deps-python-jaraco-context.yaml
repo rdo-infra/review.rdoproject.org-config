@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/python-jaraco-context-core:
+      description: Core developers for project python-jaraco-context
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/python-jaraco-context-ptl:
+      description: Project team lead for project python-jaraco-context
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-python-jaraco-context:
+      file: |
+        [access "refs/*"]
+          read = group deps/python-jaraco-context-core
+          owner = group deps/python-jaraco-context-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/python-jaraco-context-core
+          label-Code-Review = -2..+2 group deps/python-jaraco-context-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/python-jaraco-context-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/python-jaraco-context-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/python-jaraco-context-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/python-jaraco-context-core
+          label-Workflow = -1..+0 group deps/python-jaraco-context-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/python-jaraco-context-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/python-jaraco-context-core
+      - deps/python-jaraco-context-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/python-jaraco-context:
+      acl: deps-python-jaraco-context
+      description: Packaging of RDO dependency python-jaraco-context
+      default-branch: c10s-epoxy-rdo
+      branches:
+        master: '0'
