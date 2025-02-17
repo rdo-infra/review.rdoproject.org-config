@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/rubygem-scanf-core:
+      description: Core developers for project rubygem-scanf
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/rubygem-scanf-ptl:
+      description: Project team lead for project rubygem-scanf
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-rubygem-scanf:
+      file: |
+        [access "refs/*"]
+          read = group deps/rubygem-scanf-core
+          owner = group deps/rubygem-scanf-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/rubygem-scanf-core
+          label-Code-Review = -2..+2 group deps/rubygem-scanf-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/rubygem-scanf-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/rubygem-scanf-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/rubygem-scanf-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/rubygem-scanf-core
+          label-Workflow = -1..+0 group deps/rubygem-scanf-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/rubygem-scanf-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/rubygem-scanf-core
+      - deps/rubygem-scanf-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/rubygem-scanf:
+      acl: deps-rubygem-scanf
+      description: Packaging of RDO dependency rubygem-scanf
+      default-branch: c10s-epoxy-rdo-rdo
+      branches:
+        master: '0'
