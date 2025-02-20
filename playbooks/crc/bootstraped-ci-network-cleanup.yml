@@ -15,6 +15,11 @@
         path: "{{ ansible_user_dir }}/.config/openstack/"
         state: directory
 
+    - name: Create debuging directory
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/zuul-output/logs/network_details"
+        state: directory
+
     - name: Check for cleanup skip flag file presence
       ansible.builtin.stat:
         path: "{{ ansible_user_dir }}/crc-ci-bootstrap-skip-cleanup"
