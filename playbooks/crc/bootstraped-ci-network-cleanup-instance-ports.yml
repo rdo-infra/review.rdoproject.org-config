@@ -89,7 +89,13 @@
             loop_var: subport_item
             pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
 
+        - name: Show trunk details - for debugging
+          ansible.builtin.copy:
+            content: "{{ trunk_details }}"
+            dest: /tmp/trunk_details_{{ 100 | random }}
+
         - name: Delete the trunk network itself
+          when:  "'trunk_id' in trunk_details"
           ansible.builtin.command:
             cmd: "openstack network trunk delete {{ trunk_details.trunk_id }}"
           register: crc_ci_bootstrap_cleanup_trunk_delete_out
