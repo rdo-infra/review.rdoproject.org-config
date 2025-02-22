@@ -17,7 +17,7 @@
     - name: Install required packages
       become: true
       ansible.builtin.pip:
-        name: python-openstackclient==7.2.1
+        name: python-openstackclient!=7.3.0
 
     - name: Create openstack config dir
       ansible.builtin.file:
