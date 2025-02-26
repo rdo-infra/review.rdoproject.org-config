@@ -425,6 +425,12 @@
             branches: ^master$
 
 - project:
+    name: opendev.org/openstack/python-watcherclient
+    templates:
+      - system-required
+      - opendev-watcher-edpm-pipeline
+
+- project:
     name: opendev.org/openstack/releases
     templates:
       - system-required
@@ -482,6 +488,18 @@
     name: opendev.org/openstack/tripleo-upgrade
     templates:
       - system-required
+
+- project:
+    name: opendev.org/openstack/watcher
+    templates:
+      - system-required
+      - opendev-watcher-edpm-pipeline
+
+- project:
+    name: opendev.org/openstack/watcher-dashboard
+    templates:
+      - system-required
+      - opendev-watcher-edpm-pipeline
 
 - project:
     name: opendev.org/openstack/watcher-tempest-plugin
