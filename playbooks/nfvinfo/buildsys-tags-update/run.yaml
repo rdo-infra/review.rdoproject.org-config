@@ -41,7 +41,7 @@
           chmod 644 ~/.ssh/known_hosts
 
           cd {{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/nfvinfo'].src_dir }}
-          for version in openvswitch2.17,ovn22.06,9s openvswitch-selinux-extra-policy,9s openvswitch-selinux-extra-policy,10s openvswitch3.1,ovn22.12,9s openvswitch3.2,ovn23.09,9s openvswitch3.3,ovn24.03,9s openvswitch3.4,ovn24.09,9s openvswitch3.4,ovn24.09,10s
+          for version in openvswitch2.17,ovn22.06,9s openvswitch-selinux-extra-policy,9s openvswitch-selinux-extra-policy,10s openvswitch3.1,ovn22.12,9s openvswitch3.2,ovn23.09,9s openvswitch3.3,ovn24.03,9s openvswitch3.4,ovn24.09,9s openvswitch3.4,ovn24.09,10s openvswitch3.5,9s openvswitch3.5,10s
           do
             centos_version=$(echo $version | rev | cut -d, -f1 | rev)
             packages=$(echo $version | rev | cut -d, -f2- | rev)
