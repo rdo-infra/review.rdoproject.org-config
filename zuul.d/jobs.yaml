@@ -106,7 +106,7 @@
 - job:
     name: distgit-cbs-validate-centos9
     parent: distgit-cbs-validate
-    branches: ^(antelope-rdo|bobcat-rdo|caracal-rdo|dalmatian-rdo)$
+    branches: ^(antelope-rdo|bobcat-rdo|caracal-rdo|dalmatian-rdo|epoxy-rdo)$
     vars:
       centos_releasever: 9
 
@@ -132,7 +132,7 @@
 - job:
     name: distgit-cbs-final-build-centos9
     parent: distgit-cbs-final-build
-    branches: ^(antelope-rdo|bobcat-rdo|caracal-rdo|dalmatian-rdo)$
+    branches: ^(antelope-rdo|bobcat-rdo|caracal-rdo|dalmatian-rdo|epoxy-rdo)$
     vars:
       centos_releasever: 9
 
