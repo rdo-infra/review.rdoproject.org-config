@@ -1351,7 +1351,9 @@
           - openstack-k8s-operators/edpm-ansible:
               include-branches: *default_branches
           - openstack-k8s-operators/tcib:
-              include-branches: *default_branches
+              include-branches:
+              - ^main$
+              - ^antelope$
           - openstack-k8s-operators/watcher-operator:
               include-branches: *default_branches
           - infrawatch/feature-verification-tests:
