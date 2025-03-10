@@ -1326,11 +1326,14 @@
         - include: [job, project, nodeset, project-template]
           projects:
           - openstack-k8s-operators/ci-framework:
-              include-branches: &default_branches
+              include-branches: &ci-framework-branches
               - ^main$
               - ^18.0-fr1$
           - openstack-k8s-operators/nova-operator:
-              include-branches: *default_branches
+              include-branches: &default_branches
+              - ^main$
+              - ^18.0-fr1$
+              - ^18.0-fr2$
           - openstack-k8s-operators/telemetry-operator:
               include-branches: *default_branches
           - openstack-k8s-operators/install_yamls:
@@ -1346,8 +1349,7 @@
           - openstack-k8s-operators/tcib:
               include-branches: *default_branches
           - openstack-k8s-operators/watcher-operator:
-              include-branches: &main_branch_only
-              - ^main$
+              include-branches: *default_branches
           - infrawatch/feature-verification-tests:
               include-branches: &infrawatch_branches
               - ^master$
@@ -1362,7 +1364,6 @@
               include-branches: *infrawatch_branches
           - infrawatch/smart-gateway-operator:
               include-branches: *infrawatch_branches
-
           - openstack-k8s-operators/placement-operator:
               include-branches: *default_branches
           - openstack-k8s-operators/infra-operator:
@@ -1373,7 +1374,8 @@
           - openstack-k8s-operators/openstack-ansibleee-operator
           - openstack-k8s-operators/repo-setup
           - openstack-k8s-operators/edpm-image-builder:
-              include-branches: *main_branch_only
+              include-branches: &main_branch_only
+              - ^main$
           - openstack-k8s-operators/openstack-baremetal-operator:
               include-branches: *default_branches
           - openstack-k8s-operators/openstack-operator:
