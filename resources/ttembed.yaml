@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/ttembed-core:
+      description: Core developers for project ttembed
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/ttembed-ptl:
+      description: Project team lead for project ttembed
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-ttembed:
+      file: |
+        [access "refs/*"]
+          read = group deps/ttembed-core
+          owner = group deps/ttembed-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/ttembed-core
+          label-Code-Review = -2..+2 group deps/ttembed-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/ttembed-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/ttembed-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/ttembed-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/ttembed-core
+          label-Workflow = -1..+0 group deps/ttembed-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/ttembed-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/ttembed-core
+      - deps/ttembed-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/ttembed:
+      acl: deps-ttembed
+      description: Packaging of RDO dependency ttembed
+      default-branch: c10s-epoxy-rdo
+      branches:
+        master: '0'

@@ -1,0 +1,62 @@
+resources:
+  groups:
+    deps/fontawesome-fonts-core:
+      description: Core developers for project fontawesome-fonts
+      members:
+      - amoralej@redhat.com
+      - jcapitao@redhat.com
+      - kkula@redhat.com
+    deps/fontawesome-fonts-ptl:
+      description: Project team lead for project fontawesome-fonts
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    deps-fontawesome-fonts:
+      file: |
+        [access "refs/*"]
+          read = group deps/fontawesome-fonts-core
+          owner = group deps/fontawesome-fonts-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group deps/fontawesome-fonts-core
+          label-Code-Review = -2..+2 group deps/fontawesome-fonts-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          label-Code-Review = -2..+2 group rdo-deps-core
+          submit = group deps/fontawesome-fonts-ptl
+          submit = group rdo-superusers
+          submit = group rdo-deps-core
+          read = group Registered Users
+          read = group deps/fontawesome-fonts-core
+          read = group rdo-provenpackagers
+          read = group rdo-deps-core
+          label-Verified = -2..+0 group deps/fontawesome-fonts-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Verified = -2..+2 group rdo-deps-core
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group deps/fontawesome-fonts-core
+          label-Workflow = -1..+0 group deps/fontawesome-fonts-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+          label-Workflow = -1..+1 group rdo-deps-core
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group deps/fontawesome-fonts-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - deps/fontawesome-fonts-core
+      - deps/fontawesome-fonts-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+      - rdo-deps-core
+  repos:
+    deps/fontawesome-fonts:
+      acl: deps-fontawesome-fonts
+      description: Packaging of RDO dependency fontawesome-fonts
+      default-branch: c10s-epoxy-rdo
+      branches:
+        master: '0'
