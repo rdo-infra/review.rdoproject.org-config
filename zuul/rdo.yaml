@@ -258,6 +258,7 @@
           - deps/python-poetry-core
           - deps/python-portend
           - deps/python-pyasn1-lextudio
+          - deps/python-pyasyncore
           - deps/python-pycares
           - deps/python-pycurl
           - deps/python-pyproject-api
@@ -1330,7 +1331,7 @@
         - include: [job, project, nodeset, project-template]
           projects:
           - openstack-k8s-operators/ci-framework:
-              include-branches: &ci_framework_branches
+              include-branches:
               - ^main$
               - ^18.0-fr1$
           - openstack-k8s-operators/nova-operator:
@@ -1380,7 +1381,7 @@
           - openstack-k8s-operators/openstack-ansibleee-operator
           - openstack-k8s-operators/repo-setup
           - openstack-k8s-operators/edpm-image-builder:
-              include-branches: &main_branch_only
+              include-branches:
               - ^main$
           - openstack-k8s-operators/openstack-baremetal-operator:
               include-branches: *default_branches
