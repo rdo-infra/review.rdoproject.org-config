@@ -15,6 +15,15 @@
     }
     }' image.config.openshift.io/cluster
 
+- name: Check if id_ed25519 key exists
+  ansible.builtin.stat:
+    path: "~/.crc/machines/crc/id_ed25519"
+  stat: _ed25519_key
+
+- name: Set fact if new keypair exists
+  ansible.builtin.set_fact:
+    new_keypair: "id_ed25519"
+
 - name: update the /etc/containers/registries.conf in crc vm
   vars:
     ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
@@ -22,6 +31,6 @@
     ansible-playbook -i {{ crc_ip.stdout }},
     -u core
     -e "content_provider_registry_ip={{ content_provider_registry_ip }}"
-    -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
+    -e "ansible_ssh_private_key_file=~/.crc/machines/crc/{{ new_keypair | default('id_ecdsa') }}"
     -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
     {{ ci_config_repo }}/playbooks/crc/set_insecure_registry_crc_vm.yaml
