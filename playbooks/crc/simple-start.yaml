@@ -50,6 +50,15 @@
           register: crc_ip
           ansible.builtin.command: "crc ip"
 
+        - name: Check if id_ed25519 key exists
+          ansible.builtin.stat:
+            path: "~/.crc/machines/crc/id_ed25519"
+          stat: _ed25519_key
+
+        - name: Set fact if new keypair exists
+          ansible.builtin.set_fact:
+            new_keypair: "id_ed25519"
+
         - name: Run crc
           vars:
             ci_config_repo: "{{ ansible_user_dir }}/{{ zuul.projects['review.rdoproject.org/config'].src_dir }}"
@@ -57,6 +66,6 @@
             ansible-playbook -i {{ crc_ip.stdout }},
             -u core
             -e @{{ openshift_pull_secret_path }}
-            -e "ansible_ssh_private_key_file=~/.crc/machines/crc/id_ecdsa"
+            -e "ansible_ssh_private_key_file=~/.crc/machines/crc/{{ new_keypair | default('id_ecdsa') }}"
             -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
             {{ ci_config_repo }}/playbooks/crc/manage_crc_secret.yaml
