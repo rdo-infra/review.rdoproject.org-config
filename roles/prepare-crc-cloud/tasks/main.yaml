@@ -5,6 +5,10 @@
 - name: Prepare for executing crc-cloud
   ansible.builtin.include_tasks: pre.yaml
 
+- name: Use ramdisk for etcd
+  ansible.builtin.include_tasks: ramdisk.yaml
+  when: enable_ramdisk
+
 - name: Start crc-cloud script
   ansible.builtin.include_tasks: start.yaml
 
