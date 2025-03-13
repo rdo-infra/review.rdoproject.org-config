@@ -17,3 +17,13 @@ wait_for_openshift_api: 2
 
 # If true, clustersetup.sh will not deploy nip.io additional domain.
 remove_additional_domains: true
+
+# Do not use it on the production!
+# That feature might be useful for the CI, especially when the disk is slow.
+# This does not support host restart
+enable_ramdisk: false
+# Ramdisk size
+ramdisk_size: 1g
+# There are two places:
+# /var/lib/etcd or /sysroot/ostree/deploy/rhcos/var/lib/etcd
+etcd_path: /var/lib/etcd
