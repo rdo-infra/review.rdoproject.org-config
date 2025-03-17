@@ -18,7 +18,7 @@
 - name: Check if id_ed25519 key exists
   ansible.builtin.stat:
     path: "~/.crc/machines/crc/id_ed25519"
-  stat: _ed25519_key
+  register: _ed25519_key
 
 - name: Set fact if new keypair exists
   when: _ed25519_key.stat.exists
