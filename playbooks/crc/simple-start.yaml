@@ -56,6 +56,7 @@
           stat: _ed25519_key
 
         - name: Set fact if new keypair exists
+          when: _ed25519_key.stat.exists
           ansible.builtin.set_fact:
             new_keypair: "id_ed25519"
 
