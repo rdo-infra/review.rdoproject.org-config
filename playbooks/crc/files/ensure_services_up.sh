@@ -29,14 +29,8 @@ fi
 
 for i in {1..60}; do
     echo "Ensuring that containers are spawned... ${i}"
-    not_running_pods=$(oc get pods --no-headers --all-namespaces | grep -viE 'running|complete')
-    if [ $? -eq 1 ]; then
-        echo "There is some issue on getting pods info"
-        sleep 10
-        continue
-    fi
-    count=$(echo -n "$not_running_pods" | wc -l)
-    if [ "$count" -eq "0" ]; then
+    not_running_pods=$(oc get pods --no-headers --all-namespaces 2>/dev/null | grep -viE 'running|completed')
+    if [ -z "$not_running_pods" ]; then
         echo "Cluster seems to be running"
         exit 0
     else
