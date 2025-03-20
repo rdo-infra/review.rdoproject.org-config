@@ -1,13 +1,38 @@
 ---
-- name: Login to the OpenShift
-  ansible.builtin.command: >
-    oc login
-    -u kubeadmin
-    -p "{{ crc_password }}"
-    https://api.crc.testing:6443
-    --insecure-skip-tls-verify=true
-  register: _openshift_login
-  until: _openshift_login.rc != 1
-  retries: 120
-  delay: 10
-  changed_when: false
+- name: Try login to the OpenShift cluster
+  block:
+    - name: Login to the OpenShift
+      ansible.builtin.command: >
+        oc login
+        -u kubeadmin
+        -p "{{ crc_password }}"
+        https://api.crc.testing:6443
+        --insecure-skip-tls-verify=true
+      register: _openshift_login
+      until: _openshift_login.rc != 1
+      retries: 60
+      delay: 10
+      changed_when: false
+      ignore_errors: true
+  rescue:
+    # NOTE: We can not reboot the host if the etcd might be on ramdisk.
+    # There is also no ensure that the service would work after reboot.
+    # Let's try to restart kubelet and check if cluster is stable.
+    - name: Restart kubelet
+      become: true
+      ansible.builtin.service:
+        name: kubelet
+        state: restarted
+
+    - name: Login to the OpenShift after kubelet restart
+      ansible.builtin.command: >
+        oc login
+        -u kubeadmin
+        -p "{{ crc_password }}"
+        https://api.crc.testing:6443
+        --insecure-skip-tls-verify=true
+      register: _openshift_login
+      until: _openshift_login.rc != 1
+      retries: 120
+      delay: 10
+      changed_when: false
