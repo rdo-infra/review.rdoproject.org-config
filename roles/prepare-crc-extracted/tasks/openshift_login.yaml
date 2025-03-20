@@ -1,13 +1,35 @@
 ---
-- name: Login to the OpenShift
-  ansible.builtin.command: >
-    oc login
-    -u kubeadmin
-    -p "{{ crc_password }}"
-    https://api.crc.testing:6443
-    --insecure-skip-tls-verify=true
-  register: _openshift_login
-  until: _openshift_login.rc != 1
-  retries: 120
-  delay: 10
-  changed_when: false
+- name: Try login to the OpenShift cluster
+  block:
+    - name: Login to the OpenShift
+      ansible.builtin.command: >
+        oc login
+        -u kubeadmin
+        -p "{{ crc_password }}"
+        https://api.crc.testing:6443
+        --insecure-skip-tls-verify=true
+      register: _openshift_login
+      until: _openshift_login.rc != 1
+      retries: 60
+      delay: 10
+      changed_when: false
+      ignore_errors: true
+  rescue:
+    - name: Reboot CRC host if login fails
+      ansible.builtin.include_tasks: reboot_crc.yaml
+
+    - name: Start Zuul console after reboot
+      ansible.builtin.include_tasks: zuul-console.yaml
+  always:
+    - name: Login to the OpenShift - again
+      ansible.builtin.command: >
+        oc login
+        -u kubeadmin
+        -p "{{ crc_password }}"
+        https://api.crc.testing:6443
+        --insecure-skip-tls-verify=true
+      register: _openshift_login
+      until: _openshift_login.rc != 1
+      retries: 60
+      delay: 10
+      changed_when: false
