@@ -29,6 +29,9 @@
           shell: |
             /usr/local/bin/crc start {{ crc_parameters | default("--memory 14000 --disk-size 80 --cpus 6") }} &> ~/crc-start.log
           register: _crc_start_status
+          retries: 3
+          delay: 30
+          until: _crc_start_status.rc != 1
 
         - name: Verify that OpenShift is up and running
           ansible.builtin.include_tasks: verify_openshift_start.yaml
