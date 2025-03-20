@@ -129,16 +129,20 @@
       github.com:
         - event: pull_request_review
           action: submitted
-          state: approved
+          state:
+            - approved
         - event: pull_request
           action: comment
           comment: (?i)^\s*recheck-gate\s*$
         - event: pull_request_review
           action: submitted
-          state: approved
+          state:
+            - todo
+            - approved
         - event: pull_request_review
           action: dismissed
-          state: request_changes
+          state:
+            - request_changes
         - event: pull_request
           action: status
           status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
