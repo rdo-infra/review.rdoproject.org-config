@@ -16,7 +16,6 @@
     trigger:
       opendev.org:
         - event: patchset-created
-        - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|rdo-check|verify-rdo)
     success:
@@ -50,7 +49,6 @@
     trigger:
       opendev.org:
         - event: patchset-created
-        - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo|rdo-check|verify-rdo)
     success:
@@ -568,7 +566,6 @@
     trigger:
       opendev.org:
         - event: patchset-created
-        - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|check-rdo)
     success:
