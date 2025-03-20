@@ -8,6 +8,6 @@
     --insecure-skip-tls-verify=true
   register: _openshift_login
   until: _openshift_login.rc != 1
-  retries: 60
+  retries: 120
   delay: 10
   changed_when: false
