@@ -332,8 +332,9 @@
       - playbooks/tripleo-rdo-base/pre-ovb-create.yaml
     post-run:
       - playbooks/tripleo-rdo-base/post-ovb-delete.yaml
-    cleanup-run:
-      - playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
+      - name: playbooks/tripleo-rdo-base/post-ovb-cleanup.yaml
+        cleanup: true
+    cleanup: true
     secrets:
       - cloud_secrets
     vars:
