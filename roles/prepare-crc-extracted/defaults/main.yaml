@@ -14,3 +14,7 @@ keep_machineconfigpool_configs: false
 # NOTE: By enabling the wait_for_mcp, it might vanish or change
 # the /var/lib/kubelet/config.json or /etc/containers/{policy.json,registries.conf}
 wait_for_mcp: false
+
+# Set etcd to low profile to avoid CI flakyness
+# https://www.redhat.com/en/blog/introducing-selectable-profiles-for-etcd
+crc_etcd_slow_profile: true
