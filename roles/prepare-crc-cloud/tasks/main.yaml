@@ -25,6 +25,10 @@
   ansible.builtin.include_tasks: pause_mcp.yaml
   when: not wait_for_mcp
 
+- name: Set low profile to etcd to avoid flakyness
+  ansible.builtin.include_tasks: slow_etcd.yaml
+  when: crc_etcd_slow_profile
+
 - name: Estabilish cluster when machineconfigpool can not be degraded
   when: wait_for_mcp
   block:
