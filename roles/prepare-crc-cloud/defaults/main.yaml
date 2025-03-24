@@ -27,3 +27,7 @@ ramdisk_size: 1g
 # There are two places:
 # /var/lib/etcd or /sysroot/ostree/deploy/rhcos/var/lib/etcd
 etcd_path: /var/lib/etcd
+
+# Set etcd to low profile to avoid CI flakyness
+# https://www.redhat.com/en/blog/introducing-selectable-profiles-for-etcd
+crc_etcd_slow_profile: true
