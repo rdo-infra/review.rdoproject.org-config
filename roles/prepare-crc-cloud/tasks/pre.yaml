@@ -4,7 +4,7 @@
     path: workdir
     state: directory
 
-- name: Clone crc-cloud repository with workaround
+- name: Clone crc-cloud repository
   ansible.builtin.git:
     repo: https://github.com/crc-org/crc-cloud
     dest: ~core/workdir/crc-cloud
