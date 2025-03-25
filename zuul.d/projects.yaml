@@ -492,6 +492,10 @@
     templates:
       - system-required
       - opendev-watcher-edpm-pipeline
+    openstack-check:
+      jobs:
+        - openstack-meta-content-provider-master
+        - watcher-operator-validation-master
 
 - project:
     name: opendev.org/openstack/watcher-dashboard
