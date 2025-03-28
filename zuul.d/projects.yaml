@@ -494,8 +494,10 @@
     openstack-check:
       debug: true
       jobs:
-        - openstack-meta-content-provider-master
-        - watcher-operator-validation-master
+        - openstack-meta-content-provider-master:
+            override-checkout: main
+        - watcher-operator-validation-master:
+            override-checkout: main
 
 - project:
     name: opendev.org/openstack/watcher-dashboard
