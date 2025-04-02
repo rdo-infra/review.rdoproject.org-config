@@ -35,9 +35,13 @@
   ansible.builtin.command: restorecon -F {{ etcd_path }}
   changed_when: false
 
-- name: Restart kubelet after enabling ramdisk
+- name: Start kubelet after enabling ramdisk
   become: true
   ansible.builtin.systemd:
     name: kubelet
-    state: restarted
+    state: started
     enabled: true
+  register: _kubelet_start
+  retries: 5
+  delay: 10
+  until: _kubelet_start is success
