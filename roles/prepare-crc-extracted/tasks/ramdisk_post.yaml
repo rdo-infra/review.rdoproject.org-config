@@ -1,0 +1,43 @@
+---
+- name: Move current etcd to other place
+  become: true
+  ansible.builtin.command: |
+    mv {{ etcd_path }} {{ etcd_path }}-old
+  changed_when: false
+
+- name: Mount ramdisk
+  become: true
+  ansible.posix.mount:
+    src: tmpfs
+    name: "{{ etcd_path }}"
+    fstype: tmpfs
+    state: mounted
+    opts: "defaults,size={{ ramdisk_size }}"
+
+- name: Set proper permissions after mount
+  become: true
+  ansible.builtin.file:
+    path: "{{ etcd_path }}"
+    state: directory
+    mode: "0700"
+    owner: root
+    group: root
+
+- name: Copy content from old location to ramdisk
+  become: true
+  ansible.builtin.copy:
+    src: "{{ etcd_path }}-old/"
+    dest: "{{ etcd_path }}"
+    remote_src: true
+
+- name: Set proper SELinux context
+  become: true
+  ansible.builtin.command: restorecon -F {{ etcd_path }}
+  changed_when: false
+
+- name: Restart kubelet after enabling ramdisk
+  become: true
+  ansible.builtin.systemd:
+    name: kubelet
+    state: restarted
+    enabled: true

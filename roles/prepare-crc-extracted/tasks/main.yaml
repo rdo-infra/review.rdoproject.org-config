@@ -5,11 +5,25 @@
 - name: Configure dnsmasq and NetworkManager to make OpenShift stable after reboot
   ansible.builtin.include_tasks: dnsmasq-nm.yaml
 
+# NOTE: The mcp migth reboot host on applying changes, so it means, that
+# when it happens, all data would be removed and cluster will be not stable.
+- name: Fail when ramdisk and machineconfigpool are set
+  ansible.builtin.fail:
+    msg: "You can not set enable_ramdisk and wait_for_mcp in same time. Choose one!"
+
+- name: Prepare CI to use etcd on ramdisk
+  ansible.builtin.include_tasks: ramdisk_pre.yaml
+  when: enable_ramdisk
+
 - name: Reboot CRC host to get the network interfaces
   ansible.builtin.include_tasks: reboot_crc.yaml
 
 - name: Start Zuul console after reboot
   ansible.builtin.include_tasks: zuul-console.yaml
+
+- name: Post CI to use etcd on ramdisk
+  ansible.builtin.include_tasks: ramdisk_post.yaml
+  when: enable_ramdisk
 
 - name: Login to the OpenShift
   ansible.builtin.include_tasks: openshift_login.yaml
