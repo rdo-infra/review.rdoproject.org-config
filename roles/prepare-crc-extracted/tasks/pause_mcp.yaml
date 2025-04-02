@@ -1,4 +1,7 @@
 ---
+- name: Ensure you are logged into the OpenShift
+  ansible.builtin.include_tasks: openshift_login.yaml
+
 - name: Pause the machineconfig configuration if mcp is not needed
   ansible.builtin.shell: |
     oc patch machineconfigpool {{ item }} --type merge --patch '{"spec": {"paused": true }}'
