@@ -1,0 +1,7 @@
+---
+- name: Disable kubelet from being starting with system
+  become: true
+  ansible.builtin.systemd:
+    name: kubelet
+    state: stopped
+    enabled: false
