@@ -79,3 +79,7 @@
           ansible.builtin.include_role:
             name: prepare-crc-cloud
             tasks_from: slow_etcd.yaml
+
+        - name: Set limit for disk usage - IOPS and Read/Write
+          when: crc_disk_limitation | default(false)
+          ansible.builtin.include_tasks: limit-disk-usage.yaml
