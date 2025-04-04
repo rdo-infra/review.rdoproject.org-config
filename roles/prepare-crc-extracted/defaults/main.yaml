@@ -17,12 +17,12 @@ wait_for_mcp: false
 
 # Set etcd to low profile to avoid CI flakyness
 # https://www.redhat.com/en/blog/introducing-selectable-profiles-for-etcd
-crc_etcd_slow_profile: true
+crc_etcd_slow_profile: false
 
 # Do not use it on the production!
 # That feature might be useful for the CI, especially when the disk is slow.
 # This does not support host restart
-enable_ramdisk: false
+enable_ramdisk: true
 # Ramdisk size
 ramdisk_size: 1g
 # There are two places:
