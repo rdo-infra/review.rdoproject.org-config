@@ -1,0 +1,15 @@
+---
+- hosts: crc
+  vars:
+    use_crc_cloud: "{{ 'crc-cloud' in nodepool.label| default('true') }}"
+    use_crc_extracted: "{{ 'crc-extracted' in nodepool.label | default('false') }}"
+  tasks:
+    - name: Run crc-cloud preparation
+      when: use_crc_cloud | bool
+      ansible.builtin.include_role:
+        name: prepare-crc-cloud
+
+    - name: Run crc-extracted preparation
+      when: use_crc_extracted | bool
+      ansible.builtin.include_role:
+        name: prepare-crc-extracted
