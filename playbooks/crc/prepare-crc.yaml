@@ -1,0 +1,39 @@
+---
+# NOTE: This is just a new layer that will be dropped after
+# migration from crc-extracted to crc-cloud is done.
+# To avoid unexpected complication and many pull requests
+# that will be failing because of missmatch for nodesets
+# in parents and in child (e.g. parent would be crc-cloud where
+# child is overwriting nodeset to crc-extracted, so all the
+# other (childs) nodesets needs to be updated in the same time),
+# we create such base "layer".
+- name: Generic task for migration time to crc-cloud
+  hosts: crc
+  tasks:
+    - name: Check if there is a image build date file
+      ansible.builtin.stat:
+        path: image_build_date
+      register: _image_date
+
+    - name: Print image date if available and run preparation
+      when: _image_date.stat.exists
+      block:
+        - name: Print image date
+          ansible.builtin.command: cat image_build_date
+          changed_when: false
+          register: _image_build_info
+
+        - name: Run crc-cloud preparation
+          when: "'crc-cloud' in _image_build_info.stdout"
+          ansible.builtin.include_role:
+            name: prepare-crc-cloud
+
+        - name: Run crc-extracted preparation
+          when: "'crc-cloud' not in _image_build_info.stdout"
+          ansible.builtin.include_role:
+            name: prepare-crc-extracted
+
+    - name: Fail when image build date does not exists
+      when: not _image_date.stat.exists
+      ansible.builtin.fail:
+        msg: "The image should contain 'image_build_date' file. Can not recognize job"
