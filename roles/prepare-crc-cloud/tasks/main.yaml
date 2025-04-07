@@ -1,4 +1,7 @@
 ---
+- name: Print build date
+  ansible.builtin.include_tasks: build_date.yaml
+
 - name: Reboot CRC host to get the network interfaces
   ansible.builtin.include_tasks: reboot_crc.yaml
 
