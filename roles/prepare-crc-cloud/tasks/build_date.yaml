@@ -1,0 +1,10 @@
+---
+- name: Check if there is a image build date file
+  ansible.builtin.stat:
+    path: image_build_date
+  register: _image_date
+
+- name: Print image date if available
+  when: _image_date.stat.exists
+  ansible.builtin.command: cat image_build_date
+  changed_when: false
