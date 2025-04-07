@@ -52,6 +52,10 @@
         secret: quay_nextgen_zuulgithubci
       - dlrnapi
 
+#
+# CRC EXTRACTED
+#
+
 - job:
     name: base-extracted-crc
     parent: base-minimal
@@ -226,6 +230,10 @@
       - name: cloud_secrets
         secret: cloud_app_credentials
 
+#
+# CRC CLOUD
+#
+
 - job:
     name: base-crc-cloud
     parent: base-minimal
@@ -275,3 +283,79 @@
         secret: dpa_registry_user
       - name: dpa_registry_pass
         secret: dpa_registry_pass
+
+- job:
+    name: base-crc-cloud-wo-networks
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts CRC environment from the CRC cloud image
+    pre-run:
+      # Playbook to add podified-ci team ssh keys to the node
+      - playbooks/ci-framework-rdo-base/pre.yaml
+      - playbooks/crc/prepare-cloud.yaml
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+      - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
+    required-projects:
+      - opendev.org/zuul/zuul-jobs
+      - config
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
+    attempts: 3
+    vars:
+      cifmw_dlrn_report_result: false
+    secrets:
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
+      - dlrnapi
+      - name: crc_secret_pabrodri
+        secret: crc_secret_pabrodri
+      - name: dpa_sub_man_orgid
+        secret: dpa_sub_man_orgid
+      - name: dpa_sub_man_key
+        secret: dpa_sub_man_key
+      - name: dpa_registry_user
+        secret: dpa_registry_user
+      - name: dpa_registry_pass
+        secret: dpa_registry_pass
+
+# Base crc jobs using ci-bootstrap to configure cloud resources
+- job:
+    name: base-crc-cloud-ci-bootstrap
+    parent: cifmw-crc-cloud-pre-bootstrap
+    abstract: true
+    pre-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-bootstrap.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-cleanup.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-bootstrap
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-bootstrap
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_app_credentials
+
+# Runs ci-bootstrap from staging branch for testing purposes
+- job:
+    name: base-crc-cloud-ci-bootstrap-staging
+    parent: cifmw-crc-cloud-pre-bootstrap
+    abstract: true
+    pre-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-bootstrap.yaml
+    post-run:
+      - playbooks/ci-framework-rdo-base/bootstrap/network-cleanup.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/ci-bootstrap
+        override-checkout: staging
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-bootstrap
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_app_credentials
