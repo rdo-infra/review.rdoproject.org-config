@@ -491,25 +491,7 @@
     name: opendev.org/openstack/watcher
     templates:
       - system-required
-    openstack-check:
-      debug: true
-      jobs:
-        - openstack-meta-content-provider-master:
-            override-checkout: main
-            vars:
-              # Note(Chandan Kumar): When there is no depends-on
-              # from Github Watcher operator, It does not build
-              # watcher operator image.
-              # The Dependent EDPM job installs standalone watcher
-              # operator from content provider, if there is no
-              # watcher operator image, the job will fail.
-              # Adding cifmw_operator_build_operators allow us to
-              # build the operator.
-              cifmw_operator_build_operators:
-                - name: watcher-operator
-                  src: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/watcher-operator"
-        - watcher-operator-validation-master:
-            override-checkout: main
+      - opendev-watcher-edpm-pipeline
 
 - project:
     name: opendev.org/openstack/watcher-dashboard
