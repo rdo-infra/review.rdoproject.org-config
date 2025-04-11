@@ -1,4 +1,13 @@
 ---
+- name: Set UTC timezone on all hosts
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Set timezone to UTC
+      become: true
+      community.general.timezone:
+        name: UTC
+
 - hosts: controller
   vars:
     openshift_pull_secret_path: pull-secret.txt

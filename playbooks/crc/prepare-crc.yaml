@@ -1,4 +1,13 @@
 ---
+- name: Set UTC timezone on all hosts
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Set timezone to UTC
+      become: true
+      community.general.timezone:
+        name: UTC
+
 # NOTE: This is just a new layer that will be dropped after
 # migration from crc-extracted to crc-cloud is done.
 # To avoid unexpected complication and many pull requests
