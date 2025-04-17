@@ -1,0 +1,21 @@
+---
+- name: Set crc.testing domains into /etc/hosts
+  become: true
+  ansible.builtin.lineinfile:
+    dest: "/etc/hosts"
+    regexp: ".*{{ item }}$"
+    line: "{{ ansible_default_ipv4.address }} {{ item }}"
+  loop: "{{ crc_block_domains }}"
+
+- name: Get default interface name
+  ansible.builtin.shell: |
+    ip route get 1.2.3.4 | sed -n 's/.*dev \([^\ ]*\).*/\1/p'
+  register: _default_interface_name
+
+- name: Block CRC domains also using iptables
+  become: true
+  ansible.builtin.shell: |
+    set -o pipefail;
+    hex_string=$(perl -e 'print "|".join("|", map { sprintf("%02X", length($_))."|".$_ }  split(/\./, "'{{ item }}'") )."|"'});
+    iptables -o "{{ _default_interface_name.stdout }}" -A OUTPUT -p udp --dport 53 -m string --algo bm --hex-string "$hex_string" -j DROP
+  loop: "{{ crc_block_domains }}"
