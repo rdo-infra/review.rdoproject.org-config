@@ -31,3 +31,15 @@ etcd_path: /var/lib/etcd
 # Set etcd to low profile to avoid CI flakyness
 # https://www.redhat.com/en/blog/introducing-selectable-profiles-for-etcd
 crc_etcd_slow_profile: false
+
+# NOTE: The *.crc.testing domains in some CI jobs are redirecting
+# queries to ISP provider DNS, which is odd, due it should be handled
+# by the dnsmasq.
+crc_block_domains:
+  - console-openshift-console.crc.testing
+  - api.crc.testing
+  - api-int.crc.testing
+  - canary-openshift-ingress-canary.crc.testing
+  - default-route-openshift-image-registry.crc.testing
+  - downloads-openshift-console.crc.testing
+  - oauth-openshift.crc.testing crc.testing

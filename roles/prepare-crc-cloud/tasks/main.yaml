@@ -18,6 +18,9 @@
   ansible.builtin.include_tasks: ramdisk.yaml
   when: enable_ramdisk
 
+- name: Block crc.testing domains
+  ansible.builtin.include_tasks: block_crc_domains.yaml
+
 - name: Start crc-cloud script
   ansible.builtin.include_tasks: start.yaml
 

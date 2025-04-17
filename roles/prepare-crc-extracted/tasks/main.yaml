@@ -32,6 +32,9 @@
   ansible.builtin.include_tasks: ramdisk_post.yaml
   when: enable_ramdisk
 
+- name: Block crc.testing domains
+  ansible.builtin.include_tasks: block_crc_domains.yaml
+
 - name: Login to the OpenShift
   ansible.builtin.include_tasks: openshift_login.yaml
 
