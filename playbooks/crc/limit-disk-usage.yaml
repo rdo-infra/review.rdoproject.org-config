@@ -10,7 +10,7 @@
     # VMs are on one hypervisor, 50 IOPS might be over that limit.
     # NOTE: useful info about etcd HW requirements: https://etcd.io/docs/v3.5/op-guide/hardware/
     iops_per_gb_limit: 50
-    rw_total_limit: 1048576 # in bytes
+    rw_total_limit: 104857600 # 100MB in Bytes
 
 - name: Get disk size in GB
   become: true
