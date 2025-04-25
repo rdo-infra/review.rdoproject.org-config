@@ -1,4 +1,56 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b756fd60_78278706",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2025-04-25T09:30:39Z",
+      "side": 1,
+      "message": "LGTM I have a small question that might not be the same output in other places.",
+      "revId": "1751ce7387b068235be28981daf10560012fe056",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21434015_f0c38390",
+        "filename": "playbooks/crc/limit-disk-usage.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2025-04-25T09:30:39Z",
+      "side": 1,
+      "message": "praise: Awesome! Thanks for the doc.",
+      "revId": "1751ce7387b068235be28981daf10560012fe056",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57191acf_f7a1e56f",
+        "filename": "playbooks/crc/limit-disk-usage.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2025-04-25T09:30:39Z",
+      "side": 1,
+      "message": "Unsure about this command: I see the point but is not df | grep /dev/vda wouldn\u0027t be necessary to also grep by \"/$\" to get the root folder and not double counting what\u0027s under /home/ ... etc\n\nAt least my laptop has 1 Tb, and that command return the total 3Tb because:\ndf  | grep /dev/dm-0 \n/dev/dm-0      998524228 21439804 976120900   3% /\n/dev/dm-0      998524228 21439804 976120900   3% /home\n/dev/dm-0      998524228 21439804 976120900   3% /var/lib/libvirt/images",
+      "revId": "1751ce7387b068235be28981daf10560012fe056",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ],
   "submitRequirementResults": []
 }
