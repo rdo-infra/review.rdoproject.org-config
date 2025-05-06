@@ -6,6 +6,9 @@
       {% if 'mtu' in default_network_config -%}
       --mtu {{ default_network_config['mtu'] }}
       {% endif -%}
+      {% if default_network_config.transparent | default(false) | bool -%}
+      --transparent-vlan
+      {% endif -%}
       --disable-port-security
       {{ crc_ci_bootstrap_network_name }}
       -f yaml
