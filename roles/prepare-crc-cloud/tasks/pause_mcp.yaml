@@ -22,3 +22,19 @@
   failed_when:
     - "'connect: connection refused' not in _mc_get.stderr"
     - _mc_get.rc != 0
+
+- name: Disable Machine Config Operaotr in ClusterVersion
+  ansible.builtin.shell: >
+    oc patch clusterversion version -p
+    '{"spec":{"overrides":[{"group":"machineconfiguration.openshift.io",
+    "kind":"Deployment",
+    "name":"machine-config-operator",
+    "namespace":"openshift-machine-config-operator",
+    "unmanaged":true}]}}' --type=merge
+
+- name: Scale down the Machine Config Operator deployment and controller
+  ansible.builtin.shell: |
+    oc scale deployment -n openshift-machine-config-operator {{ item }} --replicas=0
+  loop:
+    - machine-config-operator
+    - machine-config-controller
