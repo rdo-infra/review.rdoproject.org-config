@@ -44,7 +44,9 @@
       ansible.builtin.command:
         cmd: >-
           openstack router create
+          {% if default_network_config.router_net | default('public') != "" -%}
           --external-gateway {{ default_network_config.router_net | default('public') }}
+          {% endif -%}
           {{ crc_ci_bootstrap_router_name }}
           -f yaml
       register: crc_ci_bootstrap_private_router_create_out
