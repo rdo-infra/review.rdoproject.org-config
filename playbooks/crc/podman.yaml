@@ -31,7 +31,7 @@
       block:
         - name: Set var name for quay login zuul secret
           set_fact:
-            quay_login_secret_name: "{{ lookup('vars', 'quay_login_secret_name_' + openstack_release, default=quay_login_secret_name)}}"
+            quay_login_secret_name: "{{ lookup('vars', 'quay_login_secret_name_' + openstack_release + secret_distro_ver|default(''), default=quay_login_secret_name)}}"
           when:
             - openstack_release is defined
             - quay_login_secret_name is not defined
