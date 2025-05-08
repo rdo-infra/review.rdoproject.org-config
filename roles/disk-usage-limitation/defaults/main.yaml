@@ -1,0 +1,14 @@
+---
+# NOTE: We based on example requirements for etcd
+# https://etcd.io/docs/v3.5/op-guide/hardware/
+# The etcd service is on ramdisk, so it is not related to it, but
+# we need to limit the job usage, due some jobs are affecting others, so
+# even openshift apiserver got healthcheck issues and in the kubelet
+# there is a message:
+#
+#   kubelet may be retrying requests that are timing out in CRI-O due to system load.
+#
+main_blk_name: /dev/vda
+iops_limit: 20000
+# 100mb in bytes
+rw_total_limit: 104857600
