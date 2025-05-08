@@ -1,41 +1,40 @@
 ---
-  tasks:
-    - name: Get block device major:minor
-      become: true
-      ansible.builtin.shell: |
-        lsblk -nd -o MAJ:MIN {{ main_blk_name }}
-      register: _blk_dev
-      changed_when: false
+- name: Get block device major:minor
+  become: true
+  ansible.builtin.shell: |
+    lsblk -nd -o MAJ:MIN {{ main_blk_name }}
+  register: _blk_dev
+  changed_when: false
 
-    - name: Set IOPS limit in the root cgroup
-      become: true
-      ansible.builtin.shell: >
-        echo "{{ _blk_dev.stdout }}
-        riops={{ iops_limit }}
-        wiops={{ iops_limit }}
-        rbps={{ rw_total_limit }}
-        wbps={{ rw_total_limit }}" > {{ item }}
-      loop:
-        - /sys/fs/cgroup/init.scope/io.max
-        - /sys/fs/cgroup/machine.slice/io.max
-        - /sys/fs/cgroup/system.slice/io.max
-        - /sys/fs/cgroup/user.slice/io.max
-      ignore_errors: true
-      changed_when: false
+- name: Set IOPS limit in the root cgroup
+  become: true
+  ansible.builtin.shell: >
+    echo "{{ _blk_dev.stdout }}
+    riops={{ iops_limit }}
+    wiops={{ iops_limit }}
+    rbps={{ rw_total_limit }}
+    wbps={{ rw_total_limit }}" > {{ item }}
+  loop:
+    - /sys/fs/cgroup/init.scope/io.max
+    - /sys/fs/cgroup/machine.slice/io.max
+    - /sys/fs/cgroup/system.slice/io.max
+    - /sys/fs/cgroup/user.slice/io.max
+  ignore_errors: true
+  changed_when: false
 
-    - name: Verify the IOPS limit
-      ansible.builtin.command: |
-        echo "init";
-        cat /sys/fs/cgroup/init.scope/io.max;
-        echo "machine";
-        cat /sys/fs/cgroup/machine.slice/io.max;
-        echo "syste";
-        cat /sys/fs/cgroup/system.slice/io.max;
-        echo "user"
-        cat /sys/fs/cgroup/user.slice/io.max;
-      register: _current_io_max
-      changed_when: false
+- name: Verify the IOPS limit
+  ansible.builtin.command: |
+    echo "init";
+    cat /sys/fs/cgroup/init.scope/io.max;
+    echo "machine";
+    cat /sys/fs/cgroup/machine.slice/io.max;
+    echo "syste";
+    cat /sys/fs/cgroup/system.slice/io.max;
+    echo "user"
+    cat /sys/fs/cgroup/user.slice/io.max;
+  register: _current_io_max
+  changed_when: false
 
-    - name: Print the current io.max value
-      ansible.builtin.debug:
-        msg: "{{ _current_io_max.stdout_lines }}"
+- name: Print the current io.max value
+  ansible.builtin.debug:
+    msg: "{{ _current_io_max.stdout_lines }}"
