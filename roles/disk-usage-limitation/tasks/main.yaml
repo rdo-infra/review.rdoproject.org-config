@@ -23,18 +23,16 @@
   changed_when: false
 
 - name: Verify the IOPS limit
-  ansible.builtin.command: |
-    echo "init";
-    cat /sys/fs/cgroup/init.scope/io.max;
-    echo "machine";
-    cat /sys/fs/cgroup/machine.slice/io.max;
-    echo "syste";
-    cat /sys/fs/cgroup/system.slice/io.max;
-    echo "user"
-    cat /sys/fs/cgroup/user.slice/io.max;
+  ansible.builtin.shell: >
+    echo "init";    cat /sys/fs/cgroup/init.scope/io.max;
+    echo "machine"; cat /sys/fs/cgroup/machine.slice/io.max;
+    echo "system";  cat /sys/fs/cgroup/system.slice/io.max;
+    echo "user";    cat /sys/fs/cgroup/user.slice/io.max;
   register: _current_io_max
+  ignore_errors: true
   changed_when: false
 
 - name: Print the current io.max value
+  when: _current_io_max is defined and _current_io_max
   ansible.builtin.debug:
     msg: "{{ _current_io_max.stdout_lines }}"
