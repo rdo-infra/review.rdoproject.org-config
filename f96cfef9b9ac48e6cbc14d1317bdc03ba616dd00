@@ -34,6 +34,24 @@
       "parentUuid": "bc6733e5_a506cdb2",
       "revId": "f96cfef9b9ac48e6cbc14d1317bdc03ba616dd00",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b432a9bb_e64b9fdd",
+        "filename": "playbooks/crc/bootstrap-ci-network-create-default-resources.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-08T08:32:13Z",
+      "side": 1,
+      "message": "the test1 should be empty, but ok.\n\n```\n---\n- name: test condition\n  hosts: localhost\n  tasks:\n    - name: The text should not appear\n      vars:\n        default_network_config: {}\n      copy:\n        content: |\n          {% if default_network_config.router_net | default(\u0027public\u0027) !\u003d \"\" -%}\n          test 1\n          {% endif %}\n        dest: /tmp/test1\n\n    - name: The text should not appear v2\n      vars:\n        default_network_config:\n          router_net: \"\"\n      copy:\n        content: |\n          {% if default_network_config.router_net | default(\u0027public\u0027) !\u003d \"\" -%}\n          test 2\n          {% endif %}\n        dest: /tmp/test2\n\n    - name: The text should show\n      vars:\n        default_network_config:\n          router_net: \"public\"\n      copy:\n        content: |\n          {% if default_network_config.router_net | default(\u0027public\u0027) !\u003d \"\" -%}\n          test 3\n          {% endif %}\n        dest: /tmp/test3\n```",
+      "parentUuid": "6956145d_fe2b9185",
+      "revId": "f96cfef9b9ac48e6cbc14d1317bdc03ba616dd00",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
