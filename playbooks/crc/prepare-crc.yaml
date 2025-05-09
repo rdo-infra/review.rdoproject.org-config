@@ -8,15 +8,6 @@
       community.general.timezone:
         name: UTC
 
-- name: Set IOPS and Read/Write disk limitation
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: Set limit for disk usage - IOPS and Read/Write
-      when: crc_disk_limitation | default(false)
-      ansible.builtin.include_role:
-        name: disk-usage-limitation
-
 # NOTE: This is just a new layer that will be dropped after
 # migration from crc-extracted to crc-cloud is done.
 # To avoid unexpected complication and many pull requests
@@ -55,3 +46,12 @@
       when: not _image_date.stat.exists
       ansible.builtin.fail:
         msg: "The image should contain 'image_build_date' file. Can not recognize job"
+
+- name: Set IOPS and Read/Write disk limitation
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Set limit for disk usage - IOPS and Read/Write
+      when: crc_disk_limitation | default(false)
+      ansible.builtin.include_role:
+        name: disk-usage-limitation
