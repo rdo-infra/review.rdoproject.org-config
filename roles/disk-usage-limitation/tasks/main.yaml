@@ -21,6 +21,11 @@
     - /sys/fs/cgroup/system.slice
     - /sys/fs/cgroup/user.slice
 
+- name: Enable IO limit in cgroup subtree
+  become: true
+  ansible.builtin.shell: |
+    echo "+io" | tee /sys/fs/cgroup/cgroup.subtree_control
+
 - name: Set IOPS limit in the root cgroup
   become: true
   ansible.builtin.shell: >
