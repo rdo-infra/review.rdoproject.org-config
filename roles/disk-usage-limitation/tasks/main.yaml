@@ -21,12 +21,17 @@
     - /sys/fs/cgroup/system.slice
     - /sys/fs/cgroup/user.slice
 
-- name: Enable IO limit in cgroup subtree
+- name: Enable IO limit
   become: true
-  ansible.builtin.shell: |
-    set -o pipefail;
-    echo "+io" | tee /sys/fs/cgroup/cgroup.subtree_control
-  changed_when: false
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system.conf
+    regexp: '^#DefaultIOAccounting=no'
+    line: 'DefaultIOAccounting=yes'
+  notify:
+    - Reload systemd daemon after enabling IOAccounting
+
+- name: Flush handlers that will call systemd daemon-reload
+  ansible.builtin.meta: flush_handlers
 
 - name: Wait for system.slice cgroup to have io.max file
   become: true
@@ -49,7 +54,7 @@
     - /sys/fs/cgroup/system.slice/io.max
     - /sys/fs/cgroup/user.slice/io.max
     - /sys/fs/cgroup/kubepods.slice/io.max
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   changed_when: false
 
 - name: Verify the IOPS limit
@@ -60,7 +65,7 @@
     echo "user";    cat /sys/fs/cgroup/user.slice/io.max;
     echo "kubernetes";    cat /sys/fs/cgroup/kubepods.slice/io.max;
   register: _current_io_max
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   changed_when: false
 
 - name: Print the current io.max value
