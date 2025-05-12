@@ -21,12 +21,19 @@
     - /sys/fs/cgroup/system.slice
     - /sys/fs/cgroup/user.slice
 
-- name: Enable IO limit in cgroup subtree
+- name: Enable IO limit
   become: true
-  ansible.builtin.shell: |
-    set -o pipefail;
-    echo "+io" | tee /sys/fs/cgroup/cgroup.subtree_control
-  changed_when: false
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system.conf
+    regexp: '^#DefaultIOAccounting=no'
+    line: 'DefaultIOAccounting=yes'
+  register: _io_accounting
+
+- name: Reload systemd after enabling ioaccounting
+  become: true
+  when: _io_accounting.changed
+  ansible.builtin.systemd_service:
+    daemon_reload: true
 
 - name: Wait for system.slice cgroup to have io.max file
   become: true
