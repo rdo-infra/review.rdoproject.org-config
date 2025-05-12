@@ -6,6 +6,21 @@
   register: _blk_dev
   changed_when: false
 
+# NOTE: That role is applied in very early stage, so
+# some of the cgroup dirs might not exists yet especially
+# on other hosts than crc host.
+# Create the cgroup dirs just to set the limit for the future.
+- name: Ensure that some cgroup dirs exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /sys/fs/cgroup/init.scope
+    - /sys/fs/cgroup/machine.slice
+    - /sys/fs/cgroup/system.slice
+    - /sys/fs/cgroup/user.slice
+
 - name: Set IOPS limit in the root cgroup
   become: true
   ansible.builtin.shell: >
