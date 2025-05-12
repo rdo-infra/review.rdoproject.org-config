@@ -6,6 +6,11 @@
   register: _blk_dev
   changed_when: false
 
+- name: Enable IO limit in cgroup subtree
+  become: true
+  ansible.builtin.shell: |
+    echo "+io" | tee /sys/fs/cgroup/cgroup.subtree_control
+
 # NOTE: That role is applied in very early stage, so
 # some of the cgroup dirs might not exists yet especially
 # on other hosts than crc host.
