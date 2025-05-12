@@ -52,6 +52,6 @@
   gather_facts: false
   tasks:
     - name: Set limit for disk usage - IOPS and Read/Write
-      when: crc_disk_limitation | default(false)
+      when: crc_disk_limitation | default(true)
       ansible.builtin.include_role:
         name: disk-usage-limitation
