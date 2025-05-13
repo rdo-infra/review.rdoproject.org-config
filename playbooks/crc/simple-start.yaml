@@ -92,3 +92,14 @@
         - name: Set limit for disk usage - IOPS and Read/Write
           when: crc_disk_limitation | default(false)
           ansible.builtin.include_tasks: limit-disk-usage.yaml
+
+# NOTE: We already set the limitation for CRC in virsh.
+# It is not required to do it again for other services.
+- name: Set IOPS and Read/Write disk limitation excluding controller
+  hosts: all,!controller
+  gather_facts: false
+  tasks:
+    - name: Set limit for disk usage - IOPS and Read/Write
+      when: crc_disk_limitation | default(false)
+      ansible.builtin.include_role:
+        name: disk-usage-limitation

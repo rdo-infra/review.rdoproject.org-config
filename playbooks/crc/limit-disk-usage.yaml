@@ -7,39 +7,24 @@
     # NOTE: AWS/Google/OVH is setting 30 IOPS per GB (depends what storage
     # is used, but the "default" storage is low).
     # NOTE: the current disks are making 100k IOPS, but if we take how many
-    # VMs are on one hypervisor, 50 IOPS might be over that limit.
+    # VMs are on one hypervisor, 18k IOPS might be over that limit.
     # NOTE: useful info about etcd HW requirements: https://etcd.io/docs/v3.5/op-guide/hardware/
-    iops_per_gb_limit: 50
-    rw_total_limit: 104857600 # 100MB in Bytes
+    iops_limit: 18000
+    # 250MB in Bytes
+    rw_limit: 262144000
 
-- name: Get disk size in GB
-  become: true
-  ansible.builtin.shell: |
-    df | grep "^{{ vm_block_device }}" |  awk '{s+=$2} END {print s/1048576}'
-  register: _vm_block_device_size
-  changed_when: false
-
-- name: Fail when disk size is empty
-  when: _vm_block_device_size.stdout == ''
-  ansible.builtin.fail:
-    msg: The block device size is empty. Check if vm_block_device is correct
-
-- name: Calculate IOPS limit
-  ansible.builtin.set_fact:
-    iops_total_limit: "{{ _vm_block_device_size.stdout | int * iops_per_gb_limit }}"
-
-- name: Print limits
+- name: Print limits for the disk
   ansible.builtin.debug:
     msg: >
       Set limit to crc VM to the vda disk:
-      iops {{ iops_total_limit }}
-      read/write {{ rw_total_limit }}
+      iops {{ iops_limit }}
+      read/write {{ rw_limit }}
 
 - name: Set limit to crc VM to the vda disk
   become: true
   ansible.builtin.shell: >
     virsh blkdeviotune crc vda
-    --total-iops-sec {{ iops_total_limit }}
-    --read-bytes-sec {{ rw_total_limit }}
-    --write-bytes-sec {{ rw_total_limit }}
+    --total-iops-sec {{ iops_limit }}
+    --read-bytes-sec {{ rw_limit }}
+    --write-bytes-sec {{ rw_limit }}
     --live
