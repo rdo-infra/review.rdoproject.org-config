@@ -31,7 +31,9 @@
     cacheable: true
 
 - name: Create the trunk port
-  when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+  when:
+    - crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+    - not crc_ci_bootstrap_instance_default_net_config.transparent | default(false) | bool
   ansible.builtin.command:
     cmd: >-
       openstack network trunk create
@@ -142,7 +144,9 @@
     cacheable: true
 
 - name: Create VLANs ports and trunk
-  when: crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+  when:
+    - crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
+    - not crc_ci_bootstrap_instance_default_net_config.transparent | default(false) | bool
   block:
     - name: Create VLANs ports and attach them to the trunk
       ansible.builtin.include_tasks: bootstrap-ci-network-instance-add-vlan.yml
