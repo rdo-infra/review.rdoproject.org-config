@@ -1,7 +1,7 @@
 ---
-developer_pass: 123456789
-kubeadmin_pass: 123456789
-redhat_pass: 123456789
+pass_developer: 123456789
+pass_kubeadmin: 123456789
+pass_redhat: 123456789
 crc_hostname: crc
 
 # machineconfigpool
@@ -15,8 +15,9 @@ wait_for_mcp: false
 # the clustersetup.sf script. Wait 2 minutes before continue
 wait_for_openshift_api: 2
 
-# If true, clustersetup.sh will not deploy nip.io additional domain.
-remove_additional_domains: true
+# If true, crc-cloud role would deploy nip.io additional domain.
+# You can use string, eg. "test.dev" instead of setting false value.
+alternative_domain: false
 
 # Do not use it on the production!
 # That feature might be useful for the CI, especially when the disk is slow.
@@ -43,3 +44,4 @@ crc_block_domains:
   - default-route-openshift-image-registry.crc.testing
   - downloads-openshift-console.crc.testing
   - oauth-openshift.crc.testing crc.testing
+  - oauth-openshift.apps-crc.testing
