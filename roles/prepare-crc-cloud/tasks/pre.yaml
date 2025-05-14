@@ -4,33 +4,6 @@
     path: workdir
     state: directory
 
-- name: Clone crc-cloud repository
-  ansible.builtin.git:
-    repo: https://github.com/crc-org/crc-cloud
-    dest: ~core/workdir/crc-cloud
-    version: main
-    single_branch: true
-
-# NOTE: We don't need to create additional domains.
-- name: Remove creating additional domains like nip.io
-  when: remove_additional_domains
-  block:
-    - name: Remove execution unnecessary functions
-      ansible.builtin.lineinfile:
-        path: ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh
-        state: absent
-        regexp: "^{{ item }}$"
-      loop:
-        - "create_certificate_and_patch_secret"
-        - "patch_ingress_config"
-        - "patch_api_server"
-        - "patch_default_route"
-
-    - name: Remove waiting for console for update
-      ansible.builtin.shell: >
-        sed -i '/oc get route console-custom -n openshift-console/,$d'
-        ~core/workdir/crc-cloud/pkg/bundle/setup/clustersetup.sh
-
 # Add workaround to not loose SSH access
 - name: Ensure directory exists
   ansible.builtin.file:
