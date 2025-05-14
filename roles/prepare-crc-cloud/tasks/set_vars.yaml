@@ -1,0 +1,9 @@
+---
+- name: Set required facts
+  ansible.builtin.set_fact:
+    alternative_domain: false
+    pass_developer: "{{ pass_developer }}"
+    pass_kubeadmin: "{{ pass_kubeadmin }}"
+    pass_redhat: "{{ pass_redhat }}"
+    openshift_pull_secret: "{{ crc_secret_pabrodri.openshift_pull_secret | replace(' ', '') }}"
+  no_log: true

@@ -21,8 +21,12 @@
 - name: Block crc.testing domains
   ansible.builtin.include_tasks: block_crc_domains.yaml
 
-- name: Start crc-cloud script
-  ansible.builtin.include_tasks: start.yaml
+- name: Set required facts
+  ansible.builtin.include_tasks: set_vars.yaml
+
+- name: Start crc-cloud role when Zuul defined
+  ansible.builtin.include_role:
+    name: deploy-crc-cloud
 
 - name: Recreate kubelet config.json
   ansible.builtin.include_tasks: inject-pull-secret.yaml
