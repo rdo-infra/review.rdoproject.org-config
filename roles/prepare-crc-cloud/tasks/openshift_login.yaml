@@ -3,7 +3,7 @@
   ansible.builtin.command: >
     oc login
     -u kubeadmin
-    -p "{{ kubeadmin_pass }}"
+    -p "{{ pass_kubeadmin }}"
     https://api.crc.testing:6443
     --insecure-skip-tls-verify=true
   register: _openshift_login
