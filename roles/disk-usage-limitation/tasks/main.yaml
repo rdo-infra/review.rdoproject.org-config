@@ -63,7 +63,10 @@
     echo "machine"; cat /sys/fs/cgroup/machine.slice/io.max;
     echo "system";  cat /sys/fs/cgroup/system.slice/io.max;
     echo "user";    cat /sys/fs/cgroup/user.slice/io.max;
-    echo "kubernetes";    cat /sys/fs/cgroup/kubepods.slice/io.max;
+    if [ -f /sys/fs/cgroup/kubepods.slice/io.max ]; then
+      echo "kubernetes";
+      cat /sys/fs/cgroup/kubepods.slice/io.max;
+    fi
   register: _current_io_max
   ignore_errors: true # noqa: ignore-errors
   changed_when: false
