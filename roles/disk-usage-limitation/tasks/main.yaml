@@ -53,8 +53,22 @@
     - /sys/fs/cgroup/machine.slice/io.max
     - /sys/fs/cgroup/system.slice/io.max
     - /sys/fs/cgroup/user.slice/io.max
-    - /sys/fs/cgroup/kubepods.slice/io.max
-  ignore_errors: true # noqa: ignore-errors
+  changed_when: false
+
+- name: Check if kubepods.slice exists
+  ansible.builtin.stat:
+    path: /sys/fs/cgroup/kubepods.slice/io.max
+  register: _kubepods_slice_io
+
+- name: Set IOPS limit in the root cgroup - kubepods.slice
+  when: _kubepods_slice_io.stat.exists
+  become: true
+  ansible.builtin.shell: >
+    echo "{{ _blk_dev.stdout }}
+    riops={{ iops_limit }}
+    wiops={{ iops_limit }}
+    rbps={{ rw_total_limit }}
+    wbps={{ rw_total_limit }}" > /sys/fs/cgroup/kubepods.slice/io.max
   changed_when: false
 
 - name: Verify the IOPS limit
@@ -68,7 +82,6 @@
       cat /sys/fs/cgroup/kubepods.slice/io.max;
     fi
   register: _current_io_max
-  ignore_errors: true # noqa: ignore-errors
   changed_when: false
 
 - name: Print the current io.max value
