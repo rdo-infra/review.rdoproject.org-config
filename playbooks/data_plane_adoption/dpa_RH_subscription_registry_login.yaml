@@ -1,10 +1,15 @@
+---
 - hosts: rh-subscription
   tasks:
     - name: Register node with red hat subscription for data plane adoption
       become: true
       no_log: true
-      ansible.builtin.shell: |
-        subscription-manager register --force --org {{ dpa_sub_man_orgid.org_id }} --activationkey {{ dpa_sub_man_key.activation_key }}
+      community.general.redhat_subscription:
+        activationkey: "{{ dpa_sub_man_key.activation_key }}"
+        org_id: "{{ dpa_sub_man_orgid.org_id }}"
+        release: "{{ ansible_distribution_version }}"
+        force_register: true
+        state: present
 
     - name: Install podman for container registry login
       become: true
