@@ -26,7 +26,13 @@
 
 - name: Start crc-cloud role when Zuul defined
   ansible.builtin.include_role:
+    name: "{{ zuul.projects['github.com/crc-org/crc-cloud'].src_dir }}/roles/deploy-crc-cloud"
+  when: zuul is defined
+
+- name: Start crc-cloud role when Zuul is not defined
+  ansible.builtin.include_role:
     name: deploy-crc-cloud
+  when: zuul is not defined
 
 - name: Recreate kubelet config.json
   ansible.builtin.include_tasks: inject-pull-secret.yaml
