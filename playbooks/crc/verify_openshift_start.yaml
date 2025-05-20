@@ -5,12 +5,6 @@
     dest: /tmp/ensure_logged.sh
     mode: '0755'
 
-- name: Copy script ensure_services_up.sh
-  ansible.builtin.copy:
-    src: ensure_services_up.sh
-    dest: /tmp/ensure_services_up.sh
-    mode: '0755'
-
 - name: Ensure that user is logged
   ansible.builtin.command: /tmp/ensure_logged.sh
 
@@ -20,8 +14,17 @@
     oc delete pods --all -n openshift-marketplace
   changed_when: false
 
-- name: Ensure all pods are up and running
-  ansible.builtin.command: /tmp/ensure_services_up.sh
+- name: Ensure all services are up
+  when: crc_ensure_services_up | default(false)
+  block:
+    - name: Copy script ensure_services_up.sh
+      ansible.builtin.copy:
+        src: ensure_services_up.sh
+        dest: /tmp/ensure_services_up.sh
+        mode: '0755'
+
+    - name: Ensure all pods are up and running
+      ansible.builtin.command: /tmp/ensure_services_up.sh
 
 - name: Check if there is a image build date file
   ansible.builtin.stat:

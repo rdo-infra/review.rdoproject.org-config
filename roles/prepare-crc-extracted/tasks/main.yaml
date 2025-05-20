@@ -46,6 +46,7 @@
 
 - name: Verify OpenShift services that are up
   ansible.builtin.include_tasks: ensure_services_up.yaml
+  when: crc_ensure_services_up
 
 - name: Pause machineconfigpool
   ansible.builtin.include_tasks: pause_mcp.yaml
