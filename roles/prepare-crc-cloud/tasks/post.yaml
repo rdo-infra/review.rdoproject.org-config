@@ -1,4 +1,28 @@
 ---
+- name: Set DNS nameservers provided by cloud provider
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/dnsmasq.d/crc-dnsmasq.conf
+    line: "server={{ item }}"
+  loop: "{{ ansible_dns.nameservers }}"
+  register: _set_dns_servers
+
+- name: Increase dnsmasq cache size
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/dnsmasq.d/crc-dnsmasq.conf
+    line: "cache-size=2500"
+  register: _increase_cache
+
+- name: Reload NetworkManager after adding cache and DNS server
+  when: _set_dns_servers.changed or _increase_cache.changed
+  become: true
+  ansible.builtin.service:
+    name: NetworkManager
+    state: reloaded
+  tags:
+    - skip_ansible_lint
+
 - name: Ensure kube config does not exists
   ansible.builtin.stat:
     path: .kube/config
