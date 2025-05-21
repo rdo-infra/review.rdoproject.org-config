@@ -1,0 +1,83 @@
+---
+- name: Create necessary files to deploy hotstack
+  hosts: all
+  vars:
+    hotstack_work_dir: "{{ zuul.executor.work_root }}/hotstack"
+  tasks:
+    - name: Assert scenario is defined
+      ansible.builtin.assert:
+        that:
+          - scenario is defined
+          - scenario | length > 0
+
+    - name: Load bootstrap vars
+      ansible.builtin.include_vars:
+        file: "{{ scenario_dir }}/{{ scenario }}/bootstrap_vars.yml"
+        name: bootstrap_vars
+    
+    - name: Set up infrastucture (Heat stack)
+      ansible.builtin.include_role:
+        name: heat_stack
+      vars:
+        os_cloud: default
+        stack_name: "hs-{{ zuul.build }}"
+        stack_template_path: "{{ bootstrap_vars.stack_template_path }}"
+        stack_parameters: "{{ cloud_stack_params[cloud_name] }}"
+          
+    - name: Load stack output vars from file
+      ansible.builtin.include_vars:
+        file: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
+        name: stack_outputs
+
+    - name: Load hotstack cloud secret vars from file
+      ansible.builtin.include_vars:
+        file: "/etc/hotstack/cloud-secrets.yaml"
+        name: hotstack_cloud_secrets
+
+    - name: Prepare the controller node
+      ansible.builtin.include_role:
+        name: controller
+      vars:
+        controller_ansible_host: "{{ stack_outputs.controller_ansible_host }}"
+
+    - name: Install Openshift
+      ansible.builtin.include_role:
+        name: ocp_agent_installer
+        apply:
+          delegate_to: controller-0
+      vars:
+        install_config: "{{ stack_outputs.ocp_install_config }}"
+        agent_config: "{{ stack_outputs.ocp_agent_config }}"
+        pull_secret: "{{ crc_secret_pabrodri.openshift_pull_secret | trim | ansible.builtin.b64encode }}"
+        openstack_operator_channel: "{{ bootstrap_vars.openstack_operator_channel }}"
+        openshift_version: "{{ bootstrap_vars.openshift_version }}"
+
+    - name: Set up RedFish Virtual bmc
+      when:
+        - stack_outputs.sushy_emulator_uuids | default({}) | length > 0
+      ansible.builtin.include_role:
+        name: redfish_virtual_bmc
+        apply:
+          delegate_to: controller-0
+      vars:
+        instances_uuids: "{{ stack_outputs.sushy_emulator_uuids.values() }}"
+        ingress_domain: "apps.{{ stack_outputs.ocp_install_config.metadata.name }}.{{ stack_outputs.ocp_install_config.baseDomain }}"
+
+    - name: Load automation vars
+      ansible.builtin.include_vars:
+        file: "{{ bootstrap_vars.automation_vars_file }}"
+        name: automation_vars
+
+    - name: Deploy RHOSO
+      ansible.builtin.include_role:
+        name: hotloop
+        apply:
+          delegate_to: controller-0
+      vars:
+        work_dir: "{{ scenario_dir }}/{{ scenario }}"
+        automation: "{{ automation_vars }}"
+        openstack_operators_image: "{{ bootstrap_vars.openstack_operators_image }}"
+        ovn_k8s_gateway_config_host_routing: "{{ bootstrap_vars.ovn_k8s_gateway_config_host_routing }}"
+        enable_iscsi: "{{ bootstrap_vars.enable_iscsi }}"
+        enable_multipath: "{{ bootstrap_vars.enable_multipath }}"
+        cinder_volume_pvs: "{{ bootstrap_vars.cinder_volume_pvs }}"
