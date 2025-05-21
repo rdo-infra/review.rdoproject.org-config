@@ -1,0 +1,74 @@
+---
+- job:
+    name: base-hotstack
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts hotstack environment
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/run.yaml
+    post-run:
+      - playbooks/hotstack/post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 1
+    secrets:
+      - name: crc_secret_pabrodri
+        secret: crc_secret_pabrodri
+      - name: cloud_secrets
+        secret: cloud_secrets
+    vars:
+      cloud_name: "{{ nodepool.cloud | replace('-nodepool-tripleo', '') }}"
+      scenario_dir: >-
+        {{
+          [
+            zuul.executor.work_root,
+            zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
+            'scenarios'
+          ] | ansible.builtin.path_join
+        }}
+      cloud_stack_params:
+        vexxhost:
+          dns_servers:
+            - 199.204.44.24
+            - 199.204.47.54
+          ntp_servers: []
+          router_external_network: public
+          floating_ip_network: public
+          controller_params:
+            image: hotstack-controller
+            # vpu: 1 ram 2GB disk: 20GB
+            flavor: c1.m1.small
+          ocp_master_params:
+            image: ipxe-boot-usb
+            # vpu: 12 ram 32GB disk: 200GB
+            flavor: 12vcpu_32GB
+          ocp_worker_params:
+            image: ipxe-boot-usb
+            # vpu: 12 ram 32GB disk: 200GB
+            flavor: 12vcpu_32GB
+          compute_params:
+            image: cloud-centos-9-stream
+            # vpu: 2 ram 4GB disk: 40GB
+            flavor: ci.m1.medium
+          networker_params:
+            image: cloud-centos-9-stream
+            # vpu: 2 ram 4GB disk: 40GB
+            flavor: ci.m1.medium
+          bmh_params:
+            image: sushy-tools-blank-image
+            cd_image: sushy-tools-blank-image
+            # vpu: 2 ram 4GB disk: 40GB
+            flavor: ci.m1.medium
+          ironic_params:
+            image: sushy-tools-blank-image
+            cd_image: sushy-tools-blank-image
+            # vpu: 1 ram 2GB disk: 20GB
+            flavor: c1.m1.small
+      # These are here for compatibility
+      dns_servers: "{{ cloud_stack_params[cloud_name].dns_servers }}"
+      ntp_servers: "{{ cloud_stack_params[cloud_name].ntp_servers }}"
