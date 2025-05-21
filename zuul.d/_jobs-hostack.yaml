@@ -1,0 +1,49 @@
+---
+- job:
+    name: base-hotstack
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts hotstack environment
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/run.yaml
+    post-run:
+      - playbooks/hotstack/post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 3
+    secrets:
+      - name: crc_secret_pabrodri
+        secret: crc_secret_pabrodri
+      - name: cloud_secrets
+        secret: cloud_secrets
+    vars:
+      scenario_dir: "{{ zuul.executor.src_root }}/hotstack/scenarios"
+      cloud_stack_params:
+        # TODO(hjensas): 
+        # - Need images in the cloud
+        # - Values need to be adjusted
+        vexxhost:
+          controller_ssh_pub_key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_rsa.pub') }}"
+          dataplane_ssh_pub_key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_rsa.pub') }}"
+          router_external_network: public
+          floating_ip_network: public
+          keypair: default
+          controller_params:
+            image: hotstack-controller
+            flavor: ci.m1.small
+          ocp_master_params:
+            image: ipxe-boot-usb
+            flavor: 24vcpu_48GB
+          bmh_params:
+            image: CentOS-Stream-GenericCloud-9
+            cd_image: sushy-tools-blank-image
+            flavor: ci.m1.xlarge
+          ironics_params:
+            image: CentOS-Stream-GenericCloud-9
+            cd_image: sushy-tools-blank-image
+            flavor: ci.m1.medium
