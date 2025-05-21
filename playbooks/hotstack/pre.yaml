@@ -1,0 +1,127 @@
+---
+- name: Create necessary files to deploy hotstack
+  hosts: all
+  vars:
+    hotstack_work_dir: "{{ zuul.executor.work_root }}/hotstack"
+  tasks:
+    - name: Ensure HotStack work and log dir
+      ansible.builtin.file:
+        path: "{{ hotstack_work_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0750"
+      loop:
+        - "{{ hotstack_work_dir }}"
+        - "{{ hotstack_work_dir }}/logs"
+
+    - name: Ensure clouds yaml dir
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: "{{ ansible_user }}"
+        mode: "0750"
+      loop:
+        - /etc/openstack
+        - /etc/hotstack
+
+    - name: Write clouds.yaml
+      become: true
+      ansible.builtin.copy:
+        dest: "/etc/openstack/clouds.yaml"
+        owner: root
+        group: "{{ ansible_user }}"
+        mode: "0640"
+        content: |
+          {%- if cloud_secrets[cloud_name].auth_type is defined %}
+          {%- set _auth_type = cloud_secrets[cloud_name].auth_type %}
+          {%- elif cloud_secrets[cloud_name].identity_api_version == 3 -%}
+          {%- set _auth_type = 'v3password' -%}
+          {%- else %}
+          {%- set _auth_type = 'password' -%}
+          {%- endif -%}
+          ---
+          clouds:
+            default:
+              identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+              region_name: {{ cloud_secrets[cloud_name].region_name }}
+          {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+              cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+          {% endif %}
+              auth_type: {{ _auth_type }}
+              auth:
+                auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+          {% if _auth_type in ['v3password', 'password'] %}
+                username: {{ cloud_secrets[cloud_name].username }}
+                password: {{ cloud_secrets[cloud_name].password }}
+                project_name: {{ cloud_secrets[cloud_name].project_name }}
+                user_domain_name: {{ cloud_secrets[cloud_name].user_domain_name }}
+                project_domain_name: {{ cloud_secrets[cloud_name].project_domain_name }}
+          {% elif cloud_secrets[cloud_name].auth_type == 'v3applicationcredential' %}
+                application_credential_id: {{ cloud_secrets[cloud_name].application_credential_id }}
+                application_credential_secret: {{ cloud_secrets[cloud_name].application_credential_secret }}
+          {% endif %}
+
+    - name: Create application credential for sushy-emulator
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: >
+          openstack application credential create hotstack-{{ zuul.build }}
+          --unrestricted
+          --expiration "{{ '%Y-%m-%dT%H:%M:%S' | strftime(ansible_date_time.epoch | int + zuul.timeout + 300 ) | ansible.builtin.quote }}"
+          -f json -c id -c secret
+      register: _app_credential_out
+
+    - name: Delete clouds.yaml
+      become: true
+      ansible.builtin.file:
+        path: "/etc/openstack/clouds.yaml"
+        state: absent
+
+    - name: Write hotstack cloud-secret.yaml
+      vars:
+        application_credential: "{{ _app_credential_out.stdout | from_json }}"
+      become: true
+      ansible.builtin.copy:
+        dest: "/etc/hotstack/cloud-secrets.yaml"
+        owner: root
+        group: "{{ ansible_user }}"
+        mode: "0640"
+        content: |
+          ---
+          auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+          auth_type: v3applicationcredential
+          identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+          region_name: {{ cloud_secrets[cloud_name].region_name }}
+          application_credential_id: {{ application_credential.id }}
+          application_credential_secret: {{ application_credential.secret }}
+          {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+          cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+          {% endif %}
+
+    - name: Write new clouds.yaml with application credentials
+      vars:
+        application_credential: "{{ _app_credential_out.stdout | from_json }}"
+      become: true
+      ansible.builtin.copy:
+        dest: "/etc/openstack/clouds.yaml"
+        owner: root
+        group: "{{ ansible_user }}"
+        mode: "0640"
+        content: |
+          ---
+          clouds:
+            default:
+              identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+              region_name: {{ cloud_secrets[cloud_name].region_name }}
+          {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+              cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+          {% endif %}
+              auth_type: v3applicationcredential
+              auth:
+                auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+                application_credential_id: {{ application_credential.id }}
+                application_credential_secret: {{ application_credential.secret }}

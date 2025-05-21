@@ -1,0 +1,25 @@
+---
+- job:
+    name: base-hotstack
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts hotstack environment
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/run.yaml
+    post-run:
+      - playbooks/hotstack/post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 3
+    secrets:
+      - name: crc_secret_pabrodri
+        secret: crc_secret_pabrodri
+      - name: cloud_secrets
+        secret: cloud_secrets
+    vars:
+      scenario_dir: "{{ zuul.executor.src_root }}/hotstack/scenarios"
