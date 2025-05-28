@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b1ba67_35e00346",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "don\u0027t think all is ok, it should point to one host/group.",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dba7c7c_4d9c7c74",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "Don\u0027t think it would work, the clouds.yaml is done later",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a47ca8f2_644e08da",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "for sure, `no_log: true` is needed.",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9c4b3e_45b0005c",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "nit: I would suggest just to support application_credentials, because they are easy to revoke in potential leak.",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228d3468_c7f2d022",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "loop is not needed if you don\u0027t call `{{ item }}` in L9 right?",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c70f048_156aa548",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "add `no_log: true`",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769eb522_6140d3f8",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "also add `no_log: true` here",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33529ce0_7d580d04",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "here I also would suggest to add: `no_log: true` just in case if someone will have an idea to put also there sensitive data, but later you are printing those vars. \nSomething to consider in the future.",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11eb8ace_4a658d4f",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "here definitely `no_log: true`",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37f69495_34202584",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "the `vars` would be printed. Add `no_log: true`",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1266623_2c8259fb",
+        "filename": "zuul.d/_jobs-hostack.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "nit: maybe on first execution 1 would be fine.",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "094bf0b2_f6716886",
+        "filename": "zuul.d/_jobs-hostack.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-05-28T13:52:18Z",
+      "side": 1,
+      "message": "they have own DNS\u0027es:\n```\nnameserver 199.204.44.24\nnameserver 199.204.47.54\n```",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
