@@ -18,6 +18,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c3589c3_261676fb",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done, I changed it to `hotstack` in all the files - and we can have nodeset like: https://github.com/openstack-k8s-operators/hotstack/pull/68/files",
+      "parentUuid": "01b1ba67_35e00346",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dba7c7c_4d9c7c74",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-28T13:52:18Z",
       "side": 1,
       "message": "Don\u0027t think it would work, the clouds.yaml is done later",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b58a311_d37cf33a",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "We have the application credentials created in pre.yaml still. It is used to delete the stack. Once that is done, it needs the one with user/password to delete the application credential.",
+      "parentUuid": "4dba7c7c_4d9c7c74",
       "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9dea1332_94b97db4",
+        "filename": "playbooks/hotstack/post.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "I can try, but I think we need the user to run the next task which is deleting the app credential we created in pre.yaml. An application credential cannot create another application credential, so I think it won\u0027t let us delete it either.\n\nWe may want to do that delete elsewhere? Like a periodic job that does a query for expired application credentials and deletes them?",
+      "parentUuid": "0c9c4b3e_45b0005c",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "228d3468_c7f2d022",
         "filename": "playbooks/hotstack/pre.yaml",
         "patchSetId": 16
@@ -82,6 +136,24 @@
       "writtenOn": "2025-05-28T13:52:18Z",
       "side": 1,
       "message": "loop is not needed if you don\u0027t call `{{ item }}` in L9 right?",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c120bd0d_f6ce889e",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "228d3468_c7f2d022",
       "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
@@ -103,6 +175,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6825e575_2987482f",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c70f048_156aa548",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "769eb522_6140d3f8",
@@ -116,6 +206,47 @@
       "writtenOn": "2025-05-28T13:52:18Z",
       "side": 1,
       "message": "also add `no_log: true` here",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "851edd64_3153dcd7",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "769eb522_6140d3f8",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c52878a_0614638c",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "I added `no_log: true` here as well.",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 10
+      },
       "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
@@ -139,6 +270,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9326ee8f_b37914e6",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done, I removed the debug task following this as well.",
+      "parentUuid": "33529ce0_7d580d04",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af8a8fc_95e07c68",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Added `no_log: true` here as well, just in case.",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11eb8ace_4a658d4f",
         "filename": "playbooks/hotstack/run.yaml",
         "patchSetId": 16
@@ -150,6 +322,24 @@
       "writtenOn": "2025-05-28T13:52:18Z",
       "side": 1,
       "message": "here definitely `no_log: true`",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c505d9_137fdec6",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11eb8ace_4a658d4f",
       "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
@@ -171,6 +361,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9dee8e4_ba9dece2",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37f69495_34202584",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1266623_2c8259fb",
@@ -188,6 +396,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b94dc27_20a1fd29",
+        "filename": "zuul.d/_jobs-hostack.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1266623_2c8259fb",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "094bf0b2_f6716886",
@@ -201,6 +427,24 @@
       "writtenOn": "2025-05-28T13:52:18Z",
       "side": 1,
       "message": "they have own DNS\u0027es:\n```\nnameserver 199.204.44.24\nnameserver 199.204.47.54\n```",
+      "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7c4248_976ec9e5",
+        "filename": "zuul.d/_jobs-hostack.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-28T14:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "094bf0b2_f6716886",
       "revId": "0669fbb195e7041ac4cee4275a5f64e68c92cf94",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
