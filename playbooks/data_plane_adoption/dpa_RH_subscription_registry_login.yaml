@@ -7,7 +7,6 @@
       community.general.redhat_subscription:
         activationkey: "{{ dpa_sub_man_key.activation_key }}"
         org_id: "{{ dpa_sub_man_orgid.org_id }}"
-        release: "{{ ansible_distribution_version }}"
         force_register: true
         state: present
 
