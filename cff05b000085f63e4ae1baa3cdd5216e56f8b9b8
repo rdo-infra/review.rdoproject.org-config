@@ -72,6 +72,30 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "299b03c4_cdef2930",
+        "filename": "playbooks/hotstack/pre.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-31T22:15:43Z",
+      "side": 1,
+      "message": "Marking this as resolved. I updated the code to have two ansible blocks, that run on condition of the `auth_type`. If we have a user account, run tasks in the block that create the temporary application credential with a short expire time. If the `auth_type` is already application credential it run\u0027s a block that passes that on.",
+      "parentUuid": "3f5fbced_33c24bd4",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 60
+      },
+      "revId": "cff05b000085f63e4ae1baa3cdd5216e56f8b9b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c7bbf32_a9c69bef",
@@ -95,6 +119,30 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b54094f_e459ed3e",
+        "filename": "playbooks/hotstack/run.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-31T22:15:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c7bbf32_a9c69bef",
+      "range": {
+        "startLine": 69,
+        "startChar": 1,
+        "endLine": 93,
+        "endChar": 12
+      },
+      "revId": "cff05b000085f63e4ae1baa3cdd5216e56f8b9b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97eb2cad_1558f7a4",
@@ -108,6 +156,30 @@
       "writtenOn": "2025-05-28T12:03:23Z",
       "side": 1,
       "message": "Not sure, can I assume there is a ssh-key? Or do we need to generate keys in pre.yaml?",
+      "range": {
+        "startLine": 34,
+        "startChar": 66,
+        "endLine": 34,
+        "endChar": 83
+      },
+      "revId": "cff05b000085f63e4ae1baa3cdd5216e56f8b9b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "305bc445_3b1bbddb",
+        "filename": "zuul.d/_jobs-hostack.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 469
+      },
+      "writtenOn": "2025-05-31T22:15:43Z",
+      "side": 1,
+      "message": "I added a task to create ssh-keypair in `pre.yaml`.",
+      "parentUuid": "97eb2cad_1558f7a4",
       "range": {
         "startLine": 34,
         "startChar": 66,
