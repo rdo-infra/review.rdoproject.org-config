@@ -1,0 +1,90 @@
+---
+- name: Update hotstack sushy-tools-blank-image
+  hosts: hotstack
+  tasks:
+    - name: Install packages (dependencies)
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - make
+          - qemu-img
+
+    - name: Set hotstack images dir fact
+      ansible.builtin.set_fact:
+        hotstack_images_dir: >-
+          {{
+            [
+              zuul.executor.work_root,
+              zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
+              'images'
+            ] | ansible.builtin.path_join
+          }}
+
+    - name: Build the sushy-tools-blank-image image
+      ansible.builtin.command:
+        cmd: make blank
+      args:
+        chdir: "{{ hotstack_images_dir }}"
+        creates: "{{ hotstack_images_dir }}/blank-image.qcow2"
+
+    - name: Set image name fact
+      ansible.builtin.set_fact:
+        image_name: sushy-tools-blank-image-{{ zuul.build[:8] }}
+
+    - name: Upload image to glance
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: >-
+          openstack image create --disk-format qcow2 --file blank-image.qcow2 {{ image_name }}
+          --property hw_firmware_type=uefi
+          --property hw_machine_type=q35
+          --property os_shutdown_timeout=5
+      args:
+        chdir: "{{ hotstack_images_dir }}"
+
+    - name: Get current sushy-tools-blank image id's
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: openstack image list --name sushy-tools-blank-image -f value -c ID
+      register: _hotstack_blank_image_ids
+
+    - name: Add archived suffix to old images
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: "openstack image set --name sushy-tools-blank-image-archived {{ item }}"
+      loop: "{{ _hotstack_blank_image_ids.stdout_lines }}"
+
+    - name: Rename new image
+      ansible.builtin.command:
+        cmd: "openstack image set --name sushy-tools-blank-image {{ image_name }}"
+
+    - name: Clean up archived images
+      block:
+        - name: Get archived images
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: openstack image list --name sushy-tools-blank-image-archived -f value -c ID
+          register: _archived_images
+
+        - name: Delete archived images if possible
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: "openstack image delete {{ item }}"
+          loop: "{{ _archived_images.stdout_lines }}"
+          register: _delete_archived_images_results
+      rescue:
+        - name: DEBUG - Archived images delete
+          ansible.builtin.debug:
+            msg: |
+              Not all arhicved images where deleted.
+
+              Archived images: {{ _archived_images }}
+
+              Delete results:
+
+              {{ _delete_archived_images_results }}

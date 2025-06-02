@@ -68,3 +68,83 @@
       # These are here for compatibility
       dns_servers: "{{ cloud_stack_params[cloud_name].dns_servers }}"
       ntp_servers: "{{ cloud_stack_params[cloud_name].ntp_servers }}"
+
+- job:
+    name: base-hotstack-controller-image-periodic
+    parent: base-minimal
+    abstract: true
+    description: |
+      A peridoc job to update the hotstack-controller image
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/hotstack-controller-image-run.yaml
+    post-run:
+      - playbooks/hotstack/hotstack-image-post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 1
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_secrets
+
+- job:
+    name: base-hotstack-blank-image-periodic
+    parent: base-minimal
+    abstract: true
+    description: |
+      A peridoc job to update the hotstack-blank image
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/hotstack-blank-image-run.yaml
+    post-run:
+      - playbooks/hotstack/hotstack-image-post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 1
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_secrets
+
+- job:
+    name: base-hotstack-ixpe-image-periodic
+    parent: base-minimal
+    abstract: true
+    description: |
+      A peridoc job to update the hotstack-blank image
+    pre-run:
+      - playbooks/hotstack/pre.yaml
+    run:
+      - playbooks/hotstack/hotstack-ipxe-image-run.yaml
+    post-run:
+      - playbooks/hotstack/hotstack-image-post.yaml
+    required-projects:
+      - name: github.com/openstack-k8s-operators/hotstack
+      - opendev.org/zuul/zuul-jobs
+      - config
+    attempts: 1
+    secrets:
+      - name: cloud_secrets
+        secret: cloud_secrets
+
+# TBD
+# - job:
+#    name: vexxhost-hotstack-controller-image-periodic
+#    parent: base-hotstack-controller-image-periodic
+#    vars:
+#      cloud_name: vexxhost
+# - job:
+#    name: vexxhost-hotstack-blank-image-periodic
+#    parent: base-hotstack-controller-image-periodic
+#    vars:
+#      cloud_name: vexxhost
+# - job:
+#    name: vexxhost-hotstack-ipxe-image-periodic
+#    parent: base-hotstack-controller-image-periodic
+#    vars:
+#      cloud_name: vexxhost
