@@ -1,0 +1,150 @@
+---
+- name: Update hotstack iPXE images
+  hosts: hotstack
+  tasks:
+    - name: Install packages (dependencies)
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - make
+          - qemu-img
+          - gcc
+          - xorriso
+          - syslinux-nonlinux
+          - xz-devel
+          - guestfs-tools
+          - perl
+
+    - name: Set hotstack iPXE dir fact
+      ansible.builtin.set_fact:
+        hotstack_ipxe_dir: >-
+          {{
+            [
+              zuul.executor.work_root,
+              zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
+              'ipxe'
+            ] | ansible.builtin.path_join
+          }}
+
+    - name: Build the iPXE images
+      ansible.builtin.command:
+        cmd: make
+      args:
+        chdir: "{{ hotstack_ipxe_dir }}"
+        creates: "{{ hotstack_ipxe_dir }}ipxe-boot.img"
+
+    - name: Set image name facts
+      ansible.builtin.set_fact:
+        iso_image_name: ipxe-iso-image-{{ zuul.build[:8] }}
+        usb_image_name: ipxe-boot-usb-{{ zuul.build[:8] }}
+
+    - name: Get current iPXE ISO images
+      no_log: true
+      openstack.cloud.image_info:
+        cloud: default
+        filters:
+          name: ipxe-iso-image
+      register: _old_ipxe_iso_images
+
+    - name: Get current iPXE USB images
+      no_log: true
+      openstack.cloud.image_info:
+        cloud: default
+        filters:
+          name: ipxe-boot-usb
+      register: _old_ipxe_usb_images
+
+    - name: Upload iPXE ISO image to glance
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        name: "{{ iso_image_name }}"
+        container_format: bare
+        disk_format: iso
+        state: present
+        filename: "{{ hotstack_ipxe_dir }}/ipxe-boot.img"
+        tags:
+          - hotstack
+          - hotstack-ipxe-iso-image
+        properties:
+          hw_firmware_type: uefi
+          hw_machine_type: q35
+          os_shutdown_timeout: "5"
+      register: _new_hotstack_ipxe_iso_image
+
+    - name: Upload iPXE USB image to glance
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        name: "{{ usb_image_name }}"
+        container_format: bare
+        disk_format: raw
+        state: present
+        filename: "{{ hotstack_ipxe_dir }}/ipxe-boot-usb.raw"
+        tags:
+          - hotstack
+          - hotstack-ipxe-usb-image
+        properties:
+          os_shutdown_timeout: "5"
+      register: _new_hotstack_ipxe_usb_image
+
+    - name: Add archived suffix to old iPXE ISO images
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ item.id }}"
+        name: "{{ item.name }}-archived"
+        tags:
+          - hotstack
+          - hotstack-ipxe-iso-image
+          - hotstack-archived
+      loop: "{{ _old_ipxe_iso_images.images }}"
+
+    - name: Add archived suffix to old iPXE USB images
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ item.id }}"
+        name: "{{ item.name }}-archived"
+        tags:
+          - hotstack
+          - hotstack-ipxe-usb-image
+          - hotstack-archived
+      loop: "{{ _old_ipxe_usb_images.images }}"
+
+    - name: Rename new iPXE ISO image
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ _new_hotstack_ipxe_iso_image.image.id }}"
+        name: "ipxe-iso-image"
+
+    - name: Rename new iPXE USB image
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ _new_hotstack_ipxe_usb_image.image.id }}"
+        name: "ipxe-boot-usb"
+
+    - name: Clean up archived images
+      block:
+        - name: Delete archived images if possible
+          no_log: true
+          openstack.cloud.image:
+            cloud: default
+            id: "{{ item.id }}"
+            name: "{{ item.name }}"
+            state: absent
+          loop: "{{ _old_ipxe_usb_images.images + _old_ipxe_iso_images.images }}"
+          register: _delete_archived_images_results
+      rescue:
+        - name: DEBUG - Archived images delete
+          ansible.builtin.fail:
+            msg: |
+              Not all arhicved images where deleted.
+
+              Archived images: {{ _archived_ipxe_iso_images + _archived_ipxe_usb_images }}
+
+              Delete results:
+
+              {{ _delete_archived_images_results }}
