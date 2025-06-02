@@ -2,6 +2,10 @@
 - name: Print build date
   ansible.builtin.include_tasks: build_date.yaml
 
+- name: Tune Kubelet config file
+  ansible.builtin.include_tasks: kubelet.yaml
+  when: not wait_for_mcp and tune_kubelet_conf
+
 - name: Configure dnsmasq and NetworkManager to make OpenShift stable after reboot
   ansible.builtin.include_tasks: dnsmasq-nm.yaml
 
