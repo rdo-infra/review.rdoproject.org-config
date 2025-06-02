@@ -1,0 +1,132 @@
+---
+- name: Update hotstack iPXE images
+  hosts: hotstack
+  tasks:
+    - name: Install packages (dependencies)
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - make
+          - qemu-img
+          - gcc
+          - xorriso
+          - syslinux-nonlinux
+          - xz-devel
+          - guestfs-tools
+          - perl
+
+    - name: Set hotstack iPXE dir fact
+      ansible.builtin.set_fact:
+        hotstack_ipxe_dir: >-
+          {{
+            [
+              zuul.executor.work_root,
+              zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
+              'ipxe'
+            ] | ansible.builtin.path_join
+          }}
+
+    - name: Build the iPXE images
+      ansible.builtin.command:
+        cmd: make
+      args:
+        chdir: "{{ hotstack_ipxe_dir }}"
+        creates: "{{ hotstack_ipxe_dir }}ipxe-boot.img"
+
+    - name: Set image name facts
+      ansible.builtin.set_fact:
+        iso_image_name: ipxe-iso-image-{{ zuul.build[:8] }}
+        usb_image_name: ipxe-boot-usb-{{ zuul.build[:8] }}
+
+    - name: Upload iPXE ISO image to glance
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: >-
+          openstack image create --disk-format=iso --file ipxe-boot.img {{ iso_image_name }}
+          --property os_shutdown_timeout=5
+          --property hw_firmware_type=uefi
+          --property hw_machine_type=q35
+      args:
+        chdir: "{{ hotstack_ipxe_dir }}"
+
+    - name: Upload iPXE USB image to glance
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: >-
+          openstack image create --disk-format=raw --file ipxe-boot-usb.raw {{ usb_image_name }}
+          --property os_shutdown_timeout=5
+      args:
+        chdir: "{{ hotstack_ipxe_dir }}"
+
+    - name: Get current iPXE ISO image id's
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: openstack image list --name ipxe-iso-image -f value -c ID
+      register: _ipxe_iso_image_ids
+
+    - name: Get current iPXE USB image id's
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: openstack image list --name ipxe-boot-usb -f value -c ID
+      register: _ipxe_usb_image_ids
+
+    - name: Add archived suffix to old iPXE ISO images
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: "openstack image set --name ipxe-iso-image-archived {{ item }}"
+      loop: "{{ _ipxe_iso_image_ids.stdout_lines }}"
+
+    - name: Add archived suffix to old iPXE USB images
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: "openstack image set --name ipxe-boot-usb-archived {{ item }}"
+      loop: "{{ _ipxe_usb_image_ids.stdout_lines }}"
+
+    - name: Rename new iPXE ISO image
+      ansible.builtin.command:
+        cmd: "openstack image set --name ipxe-iso-image {{ iso_image_name }}"
+
+    - name: Rename new iPXE USB image
+      ansible.builtin.command:
+        cmd: "openstack image set --name ipxe-boot-usb {{ usb_image_name }}"
+
+    - name: Clean up archived images
+      block:
+        - name: Get archived iPXE ISO images
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: openstack image list --name ipxe-iso-image-archived -f value -c ID
+          register: _archived_ipxe_iso_images
+
+        - name: Get archived iPXE USB images
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: openstack image list --name ipxe-boot-usb-archived -f value -c ID
+          register: _archived_ipxe_usb_images
+
+        - name: Delete archived images if possible
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: "openstack image delete {{ item }}"
+          loop: "{{ _archived_ipxe_iso_images.stdout_lines + _archived_ipxe_usb_images.stdout_lines }}"
+          register: _delete_archived_images_results
+      rescue:
+        - name: DEBUG - Archived images delete
+          ansible.builtin.debug:
+            msg: |
+              Not all arhicved images where deleted.
+
+              Archived images: {{ _archived_ipxe_iso_images + _archived_ipxe_usb_images }}
+
+              Delete results:
+
+              {{ _delete_archived_images_results }}
