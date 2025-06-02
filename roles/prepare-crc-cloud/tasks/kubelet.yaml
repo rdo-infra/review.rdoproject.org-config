@@ -1,0 +1,31 @@
+---
+# https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/
+- name: Change kubelet default parameters
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/kubernetes/kubelet.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    # NOTE(dpawlik): Currently we don't set any limit
+    # for download images. This can cause a higher disk load
+    # and more likely that pods would get the imagePullError
+    # state more often.
+    - regexp: '^maxParallelImagePulls'
+      line: 'maxParallelImagePulls: 5' # default nil (unlimited)
+    - regexp: '^serializeImagePulls'
+      line: 'serializeImagePulls: false' # default true
+    - regexp: '^maxPods'
+      line: 'maxPods: 300' # crc sets to 250; default 110
+    # Optional values. By default there is no limit, but we should
+    # consider to set some.
+    - regexp: '^systemReserved'
+      line: |
+        systemReserved:
+          cpu: 200m
+          memory: 2G
+    - regexp: '^kubeReserved'
+      line: |
+        kubeReserved:
+          cpu: 100m
+          memory: 1G
