@@ -40,31 +40,42 @@ while [ $attempt -le $MAX_RETRIES ]; do
     echo "Attempt $attempt of $MAX_RETRIES..."
     # Assign label to the specific hash using the DLRN API
     if [[ ! -z $DLRNAPI_SERVER_PRINCIPAL ]] && [[ $KERBEROS_AUTH = true ]]; then
-        dlrnapi --url $DLRNAPI_URL \
+
+        if dlrnapi --url $DLRNAPI_URL \
             --server-principal $DLRNAPI_SERVER_PRINCIPAL \
             --auth-method kerberosAuth \
             repo-promote \
             $DLRN_API_HASH_ARGS \
-            --promote-name $PROMOTE_NAME
+            --promote-name $PROMOTE_NAME; then
+            echo ======== PROMOTE HASH COMPLETED
+            exit 0
+        else
+            echo "dlrnapi command fails, going to retry..."
+            if [ $attempt -eq $MAX_RETRIES ]; then
+                echo "Max retries reached. Exiting."
+                exit 1
+            fi
+            echo "Waiting $DELAY seconds before retrying..."
+            sleep $DELAY
+            attempt=$((attempt + 1))
+        fi
     else
-        dlrnapi --url $DLRNAPI_URL \
+        if dlrnapi --url $DLRNAPI_URL \
             --username $DLRNAPI_USERNAME \
             repo-promote \
             $DLRN_API_HASH_ARGS \
-            --promote-name $PROMOTE_NAME
-    fi
-    # Check the exit code of the DLRN command
-    if [ $? -eq 0 ]; then
-        echo ======== PROMOTE HASH COMPLETED
-        exit 0
-    else
-        echo "Command failed with HTTP 504 or other error occured"
-        if [ $attempt -eq $MAX_RETRIES ]; then
-            echo "Max retries reached. Exiting."
-            exit 1
+            --promote-name $PROMOTE_NAME; then
+            echo ======== PROMOTE HASH COMPLETED
+            exit 0
+        else
+            echo "dlrnapi command fails, going to retry..."
+            if [ $attempt -eq $MAX_RETRIES ]; then
+                echo "Max retries reached. Exiting."
+                exit 1
+            fi
+            echo "Waiting $DELAY seconds before retrying..."
+            sleep $DELAY
+            attempt=$((attempt + 1))
         fi
-        echo "Waiting $DELAY seconds before retrying..."
-        sleep $DELAY
-        attempt=$(( attempt+1 ))
     fi
 done
