@@ -32,25 +32,22 @@ while [ $attempt -le $MAX_RETRIES ]; do
     echo "Attempt $attempt of $MAX_RETRIES..."
 
     # Assign label to the specific hash using the DLRN API
-    dlrnapi --url $DLRNAPI_URL \
-        --username $DLRNAPI_USERNAME \
+    if dlrnapi --url "$DLRNAPI_URL" \
+        --username "$DLRNAPI_USERNAME" \
         repo-promote \
         $DLRN_API_HASH_ARGS \
-        --promote-name $PROMOTE_NAME
-
-    # Check the exit code of the DLRN command
-    if [ $? -eq 0 ]; then
-        echo ======== PROMOTE HASH COMPLETED
+        --promote-name "$PROMOTE_NAME"; then
+        echo "======== PROMOTE HASH COMPLETED"
         exit 0
     else
-        echo "Command failed with HTTP 504 or other error occured"
-        if [ $attempt -eq $MAX_RETRIES ]; then
+        echo "Command failed with HTTP 504 or another error"
+        if [ "$attempt" -eq "$MAX_RETRIES" ]; then
             echo "Max retries reached. Exiting."
             exit 1
         fi
         echo "Waiting $DELAY seconds before retrying..."
-        sleep $DELAY
-        attempt=$(( attempt+1 ))
+        sleep "$DELAY"
+        attempt=$((attempt + 1))
     fi
 done
 
