@@ -4,11 +4,11 @@ install_epel: false
 packages:
   - gcc
   - python3-pip
+  - python-openstackclient
   - python3-virtualenv
 
 # C8 needs glanceclient
 pip_packages:
-  - python-openstackclient
   - python-heatclient
   - python-novaclient
   - python-neutronclient

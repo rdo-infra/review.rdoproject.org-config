@@ -16,7 +16,7 @@
     # NOTE: Consider install openstackclient in virtualenv
     - name: Install required packages
       become: true
-      ansible.builtin.pip:
+      ansible.builtin.package:
         name: python-openstackclient
 
     - name: Create openstack config dir
