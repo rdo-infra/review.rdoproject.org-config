@@ -6347,6 +6347,9 @@
             # TODO(jcapitao): remove nodeset definition once the default one moved
             # to CS9 (default nodeset is defined in 'base-minimal' job)
             nodeset: rdo-centos-9-stream
+        - rdoinfo-DLRN-check-centos10:
+            files:
+              - ^tags/flamingo-uc.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
               - ^tags/antelope.yml$
@@ -6354,49 +6357,6 @@
               - ^tags/caracal.yml$
               - ^tags/dalmatian.yml$
               - ^tags/epoxy.yml$
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-packstack-scenario003-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario001-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario002-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario003-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario004-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-puppet-scenario005-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
-        - weirdo-dlrn-master-tcib-container-build-scenario000-centos9:
-            dependencies:
-              - rdoinfo-DLRN-check-centos9
-            branches: ^(rpm-)?master$
-            files:
-              - ^tags/flamingo-uc.yml$
         - validate-buildsys-tags
     experimental:
       jobs:
@@ -6408,6 +6368,9 @@
             # TODO(jcapitao): remove nodeset definition once the default one moved
             # to CS9 (default nodeset is defined in 'base-minimal' job)
             nodeset: rdo-centos-9-stream
+        - rdoinfo-DLRN-check-centos10:
+            files:
+              - ^tags/flamingo-uc.yml$
         - rdoinfo-DLRN-check-centos9:
             files:
               - ^tags/antelope.yml$
@@ -6415,7 +6378,6 @@
               - ^tags/caracal.yml$
               - ^tags/dalmatian.yml$
               - ^tags/epoxy.yml$
-              - ^tags/flamingo-uc.yml$
         - validate-buildsys-tags
     periodic:
       jobs:
