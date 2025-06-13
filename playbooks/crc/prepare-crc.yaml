@@ -8,6 +8,17 @@
       community.general.timezone:
         name: UTC
 
+    - name: Configure /etc/gai.conf to prever ipv4 over ipv6
+      when: prefer_ipv4 | default(false)
+      become: true
+      ansible.builtin.copy:
+        content: |
+          scopev4 ::ffff:169.254.0.0/112  2
+          scopev4 ::ffff:127.0.0.0/104    2
+          scopev4 ::ffff:0.0.0.0/96       14
+          precedence ::ffff:0:0/96        100
+        dest: /etc/gai.conf
+
 # NOTE: This is just a new layer that will be dropped after
 # migration from crc-extracted to crc-cloud is done.
 # To avoid unexpected complication and many pull requests
