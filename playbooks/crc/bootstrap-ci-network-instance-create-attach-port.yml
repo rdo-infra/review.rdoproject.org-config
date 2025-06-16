@@ -146,7 +146,6 @@
 - name: Create VLANs ports and trunk
   when:
     - crc_ci_bootstrap_instance_nm_vlan_networks | length > 0
-    - not crc_ci_bootstrap_instance_default_net_config.transparent | default(false) | bool
   block:
     - name: Create VLANs ports and attach them to the trunk
       ansible.builtin.include_tasks: bootstrap-ci-network-instance-add-vlan.yml
@@ -155,6 +154,8 @@
         label: "{{ instance_net_item.key }}"
         loop_var: instance_net_item
         pause: "{{ crc_ci_bootstrap_pause_max_value | random }}"
+      when:
+        - not crc_ci_bootstrap_instance_default_net_config.transparent | default(false) | bool
 
     - name: Prepare VLANs interface data to be used configuring
       vars:
