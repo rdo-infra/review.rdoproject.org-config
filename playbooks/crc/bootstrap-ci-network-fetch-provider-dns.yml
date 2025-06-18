@@ -1,15 +1,41 @@
 ---
-- name: Fetch the DNS list of the default interface
-  ansible.builtin.slurp:
-    src: /etc/resolv.conf
-  register: crc_ci_bootstrap_resolv_conf_slurp
+# NOTE: The DNS are set and configure in dnsmasq located on CRC node,
+# and configured by:
+# - https://review.rdoproject.org/cgit/config/tree/roles/prepare-crc-cloud/tasks/post.yaml#n2
+# - https://review.rdoproject.org/cgit/config/tree/roles/prepare-crc-extracted/tasks/dnsmasq-nm.yaml#n65
+#
+# DO NOT SET CLOUD PROVIDER DNS ADDRESSES HERE, BECAUSE IT MIGHT DO
+# DNS REQUEST FLOOD.
+# In that case, better is to set CRC public ip address, which should be
+# accessible from other nodes.
 
-- name: Set provider DNS for further usage
-  ansible.builtin.set_fact:
-    crc_ci_bootstrap_provider_dns: >-
-      {{
-        crc_ci_bootstrap_resolv_conf_slurp['content'] |
-        b64decode |
-        regex_findall('nameserver\s(.*)')
-      }}
-    cacheable: true
+- name: Configure cloud provider dns
+  when: crc_bootstrap_set_provider_dns | default(false)
+  block:
+    - name: Fetch the DNS list of the default interface
+      ansible.builtin.slurp:
+        src: /etc/resolv.conf
+      register: crc_ci_bootstrap_resolv_conf_slurp
+
+    - name: Set provider DNS for further usage
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_provider_dns: >-
+          {{
+            crc_ci_bootstrap_resolv_conf_slurp['content'] |
+            b64decode |
+            regex_findall('nameserver\s(.*)')
+          }}
+        cacheable: true
+
+- name: Configure CRC node as default DNS server
+  when: not crc_bootstrap_set_provider_dns | default(false)
+  block:
+    - name: Set fact with crc_ci_bootstrap_provider_dns
+      ansible.builtin.set_fact:
+        crc_ci_bootstrap_provider_dns: ["{{ hostvars['crc']['nodepool']['public_ipv4'] }}"]
+        cacheable: true
+
+    - name: Assert that crc_ci_bootstrap_provider_dns is not empty
+      ansible.builtin.assert:
+        that:
+          - crc_ci_bootstrap_provider_dns | length > 0
