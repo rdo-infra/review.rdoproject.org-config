@@ -1350,6 +1350,7 @@
               - ^main$
               - ^18.0-fr1$
               - ^18.0-fr2$
+              - ^18.0-fr3$
           - openstack-k8s-operators/telemetry-operator:
               include-branches: *default_branches
           - openstack-k8s-operators/install_yamls:
@@ -1359,7 +1360,10 @@
           - openstack-k8s-operators/openstack-must-gather:
               include-branches: *default_branches
           - openstack-k8s-operators/architecture:
-              include-branches: *default_branches
+              include-branches:
+              - ^main$
+              - ^18.0-fr1$
+              - ^18.0-fr2$
           - openstack-k8s-operators/edpm-ansible:
               include-branches: *default_branches
           - openstack-k8s-operators/tcib:
