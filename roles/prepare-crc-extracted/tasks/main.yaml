@@ -20,7 +20,6 @@
   when: crc_etcd_slow_profile and enable_ramdisk
   ansible.builtin.fail:
     msg: "There is no sense to use crc_etcd_slow_profile with etcd on ramdisk!"
-  ignore_errors: true
 
 - name: Prepare CI to use etcd on ramdisk
   ansible.builtin.include_tasks: ramdisk_pre.yaml
