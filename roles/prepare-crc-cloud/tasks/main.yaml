@@ -66,3 +66,7 @@
 
     - name: Post machineconfigpool tasks
       ansible.builtin.include_tasks: post_machineconfigpool.yaml
+
+- name: Enable monitoring and cluster-monitoring-operator
+  ansible.builtin.include_tasks: monitoring.yaml
+  when: crc_enable_monitoring
