@@ -16,7 +16,6 @@
   when: crc_etcd_slow_profile and enable_ramdisk
   ansible.builtin.fail:
     msg: "There is no sense to use crc_etcd_slow_profile with etcd on ramdisk!"
-  ignore_errors: true
 
 - name: Use ramdisk for etcd
   ansible.builtin.include_tasks: ramdisk.yaml
@@ -51,11 +50,11 @@
   ansible.builtin.include_tasks: pause_mcp.yaml
   when: not wait_for_mcp
 
-- name: Set low profile to etcd to avoid flakyness
+- name: Set low profile to etcd to avoid flakiness
   ansible.builtin.include_tasks: slow_etcd.yaml
   when: crc_etcd_slow_profile
 
-- name: Estabilish cluster when machineconfigpool can not be degraded
+- name: Establish cluster when machineconfigpool can not be degraded
   when: wait_for_mcp
   block:
     - name: Fix machineconfigpool degradation
@@ -66,3 +65,7 @@
 
     - name: Post machineconfigpool tasks
       ansible.builtin.include_tasks: post_machineconfigpool.yaml
+
+- name: Enable monitoring and cluster-monitoring-operator
+  ansible.builtin.include_tasks: monitoring.yaml
+  when: crc_enable_monitoring
