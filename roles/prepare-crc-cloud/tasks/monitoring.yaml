@@ -1,0 +1,26 @@
+---
+- name: Get cluster-monitoring-operator index
+  ansible.builtin.shell: >
+    oc get clusterversion version -o json |
+    jq '.spec.overrides | to_entries | map(select(.value.name=="cluster-monitoring-operator")) | .[0].key'
+  register: _cmo_index
+  changed_when: false
+
+- name: Get monitoring index
+  ansible.builtin.shell: >
+    oc get clusterversion version -o json |
+    jq '.spec.overrides | to_entries | map(select(.value.name=="monitoring")) | .[0].key'
+  register: _monitoring_index
+  changed_when: false
+
+- name: Remove cluster-monitoring-operator override
+  ansible.builtin.shell: >
+    oc patch clusterversion version
+    --type json
+    -p "[{"op":"remove","path":"/spec/overrides/{{ _cmo_index.stdout }}"}]"
+
+- name: Remove monitoring override
+  ansible.builtin.shell: >
+    oc patch clusterversion version
+    --type json
+    -p "[{"op":"remove","path":"/spec/overrides/{{ _monitoring_index.stdout }}"}]"
