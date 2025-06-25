@@ -16,6 +16,24 @@
       "message": "(blocking) question: Why do we need to remove the spec overrides? Monitoring is set by default and overrides before to not be running?",
       "revId": "b33c9cf8e9643ed8ddef66c14fe31538640f11b9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcd3c27c_f68a0d30",
+        "filename": "roles/prepare-crc-cloud/tasks/monitoring.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2025-06-25T10:08:31Z",
+      "side": 1,
+      "message": "CRC is disabling that feature by default. It is enabled by setting vars in config https://crc.dev/docs/administrative-tasks/#_starting_monitoring\n\n This one is just doing same steps as it is here: https://github.com/crc-org/crc/blob/main/pkg/crc/cluster/monitoring.go#L12\n \n there are other overrides there:\n \n```\n    overrides:\n    - group: config.openshift.io\n      kind: ClusterOperator\n      name: monitoring\n      namespace: \"\"\n      unmanaged: true\n    - group: config.openshift.io\n      kind: ClusterOperator\n      name: cloud-credential\n      namespace: \"\"\n      unmanaged: true\n    - group: apps\n      kind: Deployment\n      name: cluster-autoscaler-operator\n      namespace: openshift-machine-api\n      unmanaged: true\n    - group: config.openshift.io\n      kind: ClusterOperator\n      name: cluster-autoscaler\n      namespace: \"\"\n      unmanaged: true\n    - group: apps\n      kind: Deployment\n      name: cluster-cloud-controller-manager-operator\n      namespace: openshift-cloud-controller-manager-operator\n      unmanaged: true\n    - group: config.openshift.io\n      kind: ClusterOperator\n      name: cloud-controller-manager\n      namespace: \"\"\n      unmanaged: true\n```",
+      "parentUuid": "cbd80b26_ff296aca",
+      "revId": "b33c9cf8e9643ed8ddef66c14fe31538640f11b9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
