@@ -131,6 +131,7 @@ install_epel: true
 # based on lastest stein versions picked from
 # https://releases.openstack.org/stein/index.html#service-client-projects
 pip_packages:
+  - python-openstackclient
   - python-heatclient
   - python-novaclient
   - python-neutronclient
@@ -140,6 +141,5 @@ constraint_file: https://opendev.org/openstack/requirements/raw/tag/train-eol/up
 packages:
   - gcc
   - python-pip
-  - python-openstackclient
   - python-virtualenv
 public_net_allocation_pools: [{"start": "10.0.0.128", "end": "10.0.0.199"}]
