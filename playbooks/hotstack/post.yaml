@@ -2,7 +2,7 @@
 - name: Collect hotstack logs and clean up environment
   hosts: hotstack
   vars:
-    hotstack_work_dir: "{{ zuul.executor.work_root }}/hotstack"
+    hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
     stack_name: "hs-{{ zuul.build }}"
   tasks:
     - name: Load stack output vars from file
@@ -17,7 +17,7 @@
         name: hotlogs
       vars:
         controller_floating_ip: "{{ stack_outputs.controller_floating_ip }}"
-        hotlog_dir: "{{ zuul.executor.log_root }}/hotlogs"
+        hotlog_dir: "{{ ansible_user_dir }}/logs/hotlogs"
 
     - name: Set _auth_type fact
       no_log: true

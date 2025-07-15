@@ -2,14 +2,12 @@
 - name: Create necessary files to deploy hotstack scenario
   hosts: hotstack
   vars:
-    hotstack_work_dir: "{{ zuul.executor.work_root }}/hotstack"
+    hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
   tasks:
     - name: Ensure HotStack work dir
       ansible.builtin.file:
         path: "{{ hotstack_work_dir }}"
         state: directory
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
         mode: "0750"
 
     - name: Ensure etc directories
@@ -27,7 +25,7 @@
     - name: Ensure .ssh dir exists
       no_log: true
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.ssh"
+        path: "{{ ansible_user_dir }}/.ssh"
         state: directory
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
@@ -37,8 +35,8 @@
       no_log: true
       ansible.builtin.command:
         cmd: >-
-          ssh-keygen -q -t rsa -b 4096 -N '' -f {{ ansible_env.HOME }}/.ssh/id_rsa
-        creates: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+          ssh-keygen -q -t rsa -b 4096 -N '' -f {{ ansible_user_dir }}/.ssh/id_rsa
+        creates: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
 
     - name: Generate cert and load related vars
       when: cloud_secrets[cloud_name].ca_cert is defined

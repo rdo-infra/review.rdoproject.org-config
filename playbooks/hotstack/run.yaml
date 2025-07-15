@@ -2,7 +2,7 @@
 - name: Create hotstack scenario
   hosts: hotstack
   vars:
-    hotstack_work_dir: "{{ zuul.executor.work_root }}/hotstack"
+    hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
   tasks:
     - name: Assert scenario is defined
       ansible.builtin.assert:
@@ -15,7 +15,7 @@
       ansible.builtin.set_fact:
         controller_ssh_pub_key: >-
           {{
-            lookup('ansible.builtin.file', "{{ ansible_env.HOME }}/.ssh/id_rsa.pub")
+            lookup('ansible.builtin.file', "{{ ansible_user_dir }}/.ssh/id_rsa.pub")
           }}
 
     - name: Load bootstrap vars
