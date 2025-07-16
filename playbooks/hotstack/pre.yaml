@@ -3,6 +3,16 @@
   hosts: hotstack
   vars:
     hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
+  roles:
+    - role: add-authorized-keys
+      public_keys:
+        # Harald Jensås (hjensas)
+        - public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCINPOs6XsfMVQMqjmiduT3Bxhogy7\
+            MbAFOWlR+9LlKkTW1kV6glsCXY5svtggd2zRtc40UWalHaj9jC+yEkZdI35h2PkK+Sww\
+            52u4nczqgNpIFNt7Dm2xtYKbTolAV9jSeNkRlGMCq9EBzQlwiV0HkHx1CdNR/zzXbyNZ\
+            LmOybFkXqR150H01kUhdv0v6AMWTDZjMEWO/PaWCOgzZhH9ztXjy+rwa7pdaI4+0Pb9K\
+            ib+d8/IrgNsLB/sCazqD+9/COI6AHqzTDS1aU9/gMQrUN1ronzMEQhzzOuoI8WeLqU++\
+            j+0dT2UWVPlQqoln+RYu7dUn/DSZDrsYenudT5+P"
   tasks:
     - name: Ensure HotStack work dir
       ansible.builtin.file:
