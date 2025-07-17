@@ -140,10 +140,21 @@
               --column secret
           register: _app_credential_out
 
+        - name: Check application credential create results
+          ansible.builtin.assert:
+            that:
+              - _app_credential_out.rc == 0
+              - _app_credential_out.stdout | from_json | length == 2
+            fail_msg: "Application credential creation failed. rc: {{ _app_credential_out.rc }}."
+            success_msg: "Application credential created successfully. rc: {{ _app_credential_out.rc }}."
+
+        - name: Set application credential variable
+          no_log: true
+          ansible.builtin.set_fact:
+            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+
         - name: Write new clouds.yaml with application credentials
           no_log: true
-          vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/openstack/clouds.yaml"
@@ -167,8 +178,6 @@
 
         - name: Write hotstack cloud-secret.yaml
           no_log: true
-          vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/hotstack/cloud-secrets.yaml"
