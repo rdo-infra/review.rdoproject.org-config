@@ -4,6 +4,7 @@
   vars:
     hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
   roles:
+    - role: prepare-workspace
     - role: add-authorized-keys
       public_keys:
         # Harald Jensås (hjensas)
@@ -14,6 +15,20 @@
             ib+d8/IrgNsLB/sCazqD+9/COI6AHqzTDS1aU9/gMQrUN1ronzMEQhzzOuoI8WeLqU++\
             j+0dT2UWVPlQqoln+RYu7dUn/DSZDrsYenudT5+P"
   tasks:
+    - name: Enesure openstack release repo is installed
+      become: true
+      ansible.builtin.dnf:
+        name: centos-release-openstack-epoxy
+        state: present
+
+    - name: Install openstack client packages
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - python-openstackclient
+          - python-heatclient
+        state: present
+
     - name: Ensure HotStack work dir
       ansible.builtin.file:
         path: "{{ hotstack_work_dir }}"
