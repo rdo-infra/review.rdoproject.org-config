@@ -140,6 +140,24 @@
               --column secret
           register: _app_credential_out
 
+        - name: Check application credential create results
+          ansible.builtin.assert:
+            that:
+              - _app_credential_out.rc == 0
+              - _app_credential_out.stdout | from_json | length == 2
+            fail_msg: "Application credential creation failed. rc: {{ _app_credential_out.rc }}."
+            success_msg: "Application credential created successfully. rc: {{ _app_credential_out.rc }}."
+
+        - name: Check application credential create json load
+          vars:
+            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+          ansible.builtin.assert:
+            that:
+              - application_credential.id is defined
+              - application_credential.secret is defined
+            fail_msg: "Application credential creation failed. Unable to load json, no id or secret key."
+            success_msg: "Application credential created successfully, and json loaded ok."
+
         - name: Write new clouds.yaml with application credentials
           no_log: true
           vars:
