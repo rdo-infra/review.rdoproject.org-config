@@ -15,6 +15,23 @@
             ib+d8/IrgNsLB/sCazqD+9/COI6AHqzTDS1aU9/gMQrUN1ronzMEQhzzOuoI8WeLqU++\
             j+0dT2UWVPlQqoln+RYu7dUn/DSZDrsYenudT5+P"
   tasks:
+    - name: Assert cloud name and cloud secret
+      ansible.builtin.assert:
+        that:
+          - cloud_name is defined
+          - cloud_secrets is defined
+          - cloud_name in cloud_secrets
+          - cloud_secrets[cloud_name] is defined
+          - cloud_secrets[cloud_name].auth_url is defined
+          - cloud_secrets[cloud_name].identity_api_version is defined
+          - cloud_secrets[cloud_name].region_name is defined
+          - (cloud_secrets[cloud_name].username is defined or
+             cloud_secrets[cloud_name].application_credential_id is defined)
+          - (cloud_secrets[cloud_name].password is defined or
+             cloud_secrets[cloud_name].application_credential_secret is defined)
+        fail_msg: "cloud_secrets or cloud_name is not defined or missing required fields"
+        success_msg: "cloud_secrets and cloud_name is defined and all required fields are present"
+
     - name: Enesure openstack release repo is installed
       become: true
       ansible.builtin.dnf:
