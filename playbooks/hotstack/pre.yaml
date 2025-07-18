@@ -142,8 +142,6 @@
 
         - name: Write new clouds.yaml with application credentials
           no_log: true
-          vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/openstack/clouds.yaml"
@@ -162,13 +160,11 @@
                   auth_type: v3applicationcredential
                   auth:
                     auth_url: {{ cloud_secrets[cloud_name].auth_url }}
-                    application_credential_id: {{ application_credential.id }}
-                    application_credential_secret: {{ application_credential.secret }}
+                    application_credential_id: {{ (_app_credential_out.stdout | from_json).id }}
+                    application_credential_secret: {{ (_app_credential_out.stdout | from_json).secret }}
 
         - name: Write hotstack cloud-secret.yaml
           no_log: true
-          vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/hotstack/cloud-secrets.yaml"
@@ -181,11 +177,11 @@
               auth_type: v3applicationcredential
               identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
               region_name: {{ cloud_secrets[cloud_name].region_name }}
-              application_credential_id: {{ application_credential.id }}
-              application_credential_secret: {{ application_credential.secret }}
               {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
               cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
               {% endif %}
+              application_credential_id: {{ (_app_credential_out.stdout | from_json).id }}
+              application_credential_secret: {{ (_app_credential_out.stdout | from_json).secret }}
 
     - name: Cloud secret is application credential
       when: _auth_type in ['v3applicationcredential', 'applicationcredential']
