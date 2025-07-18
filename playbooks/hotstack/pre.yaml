@@ -146,14 +146,14 @@
                  | strftime(ansible_date_time.epoch | int + zuul.timeout + 300)
                  | ansible.builtin.quote
               }}
-          ansible.builtin.command:
+          ansible.builtin.shell:
             cmd: >
               openstack application credential create hotstack-{{ zuul.build }}
               --unrestricted
               --expiration {{ expiration_time }}
               --format json
               --column id
-              --column secret
+              --column secret > /tmp/hotstack-application-credential.json
           register: _app_credential_out
 
         - name: Dump the application credential result to file
@@ -171,13 +171,19 @@
           ansible.builtin.assert:
             that:
             - _app_credential_out.rc == 0
-            - _app_credential_out.stdout | from_json | length == 2
           ignore_errors: true
+
+        - name: Read application credential from file
+          no_log: true
+          become: true
+          ansible.builtin.slurp:
+            path: /tmp/hotstack-application-credential.json
+          register: _app_credential_out_file
 
         - name: Assert application credential id and secret
           no_log: true
           vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+            application_credential: "{{ _app_credential_out_file.content | b64decode | from_json }}"
           ansible.builtin.assert:
             that:
               - application_credential.id is defined
@@ -187,7 +193,7 @@
         - name: Write application credential to file
           no_log: true
           vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+            application_credential: "{{ _app_credential_out_file.content | b64decode | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/hotstack/application-credential.yaml"
@@ -203,7 +209,7 @@
         - name: Write new clouds.yaml with application credentials
           no_log: true
           vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+            application_credential: "{{ _app_credential_out_file.content | b64decode | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/openstack/clouds.yaml"
@@ -237,41 +243,6 @@
             mode: "0640"
             content: "{{ _clouds_yaml_out }}"
 
-        - name: Write new clouds.yaml with application credentials
-          no_log: true
-          become: true
-          ansible.builtin.copy:
-            dest: "/etc/openstack/clouds.yaml"
-            owner: root
-            group: "{{ ansible_user }}"
-            mode: "0640"
-            content: |
-              ---
-              clouds:
-                default:
-                  identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
-                  region_name: {{ cloud_secrets[cloud_name].region_name }}
-              {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
-                  cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
-              {% endif %}
-                  auth_type: v3applicationcredential
-                  auth:
-                    auth_url: {{ cloud_secrets[cloud_name].auth_url }}
-                    application_credential_id: {{ (_app_credential_out.stdout | from_json).id }}
-                    application_credential_secret: {{ (_app_credential_out.stdout | from_json).secret }}
-          ignore_errors: true
-          register: _clouds_yaml_out2
-
-        - name: Dump the clouds.yaml with application credentials result to file
-          no_log: true
-          become: true
-          ansible.builtin.copy:
-            dest: "/etc/hotstack/_clouds_yaml_out_no_vars"
-            owner: root
-            group: root
-            mode: "0640"
-            content: "{{ _clouds_yaml_out2 }}"
-
         - name: FAIL FAIL FAIL
           ansible.builtin.fail:
             msg: "FAIL FAIL FAIL"
@@ -279,7 +250,7 @@
         - name: Write hotstack cloud-secret.yaml
           no_log: true
           vars:
-            application_credential: "{{ _app_credential_out.stdout | from_json }}"
+            application_credential: "{{ _app_credential_out_file.content | b64decode | from_json }}"
           become: true
           ansible.builtin.copy:
             dest: "/etc/hotstack/cloud-secrets.yaml"
