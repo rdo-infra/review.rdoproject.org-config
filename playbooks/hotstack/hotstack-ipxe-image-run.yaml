@@ -20,7 +20,7 @@
         hotstack_ipxe_dir: >-
           {{
             [
-              zuul.executor.work_root,
+              ansible_user_dir,
               zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
               'ipxe'
             ] | ansible.builtin.path_join
