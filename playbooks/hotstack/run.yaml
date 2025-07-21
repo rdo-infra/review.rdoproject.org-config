@@ -10,13 +10,20 @@
           - scenario is defined
           - scenario | length > 0
 
+    - name: Create SSH keypair if it doesn't exist
+      no_log: true
+      community.crypto.openssh_keypair:
+        path: "{{ ansible_user_dir }}/.ssh/id_rsa"
+        type: rsa
+        size: 4096
+        state: present
+        force: false
+      register: _ssh_keypair_result
+
     - name: Set controller_ssh_pub_key fact
       no_log: true
       ansible.builtin.set_fact:
-        controller_ssh_pub_key: >-
-          {{
-            lookup('ansible.builtin.file', "{{ ansible_user_dir }}/.ssh/id_rsa.pub")
-          }}
+        controller_ssh_pub_key: "{{ _ssh_keypair_result.public_key }}"
 
     - name: Load bootstrap vars
       no_log: true
