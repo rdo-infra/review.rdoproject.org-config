@@ -10,14 +10,22 @@
       ansible.builtin.include_vars:
         file: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
         name: stack_outputs
+      register: _load_stack_outputs_result
+      ignore_errors: true
 
     - name: Collect hotstack logs
+      when: not _load_stack_outputs_result.failed
       no_log: true
       ansible.builtin.include_role:
         name: hotlogs
       vars:
         controller_floating_ip: "{{ stack_outputs.controller_floating_ip }}"
         hotlog_dir: "{{ ansible_user_dir }}/logs/hotlogs"
+
+    - name: Print message that stack outputs failed to load
+      when: _load_stack_outputs_result.failed
+      ansible.builtin.debug:
+        msg: "WARNING: Stack outputs failed to load, no hotstack logs will be collected. Continue with cleanup ..."
 
     - name: Set _auth_type fact
       no_log: true
@@ -67,12 +75,36 @@
           ansible.builtin.command:
             cmd: >
               openstack application credential delete hotstack-{{ zuul.build }}
+          register: _delete_app_cred_result
+          ignore_errors: true
+
+        - name: Print message that application credential failed to delete
+          when: _delete_app_cred_result.rc != 0
+          ansible.builtin.debug:
+            msg: "WARNING: Application credential failed to delete, continue with cleanup ..."
+
+        - name: Print message that application credential deleted successfully
+          when: _delete_app_cred_result.rc == 0
+          ansible.builtin.debug:
+            msg: "Application credential deleted successfully."
 
     - name: Delete the heat stack
       environment:
-        OS_CLOUD: "{{ os_cloud }}"
+        OS_CLOUD: default
       ansible.builtin.command:
         cmd: "openstack stack delete {{ stack_name }} --yes --wait"
+      register: _delete_stack_result
+      ignore_errors: true
+
+    - name: Print message that stack failed to delete
+      when: _delete_stack_result.failed
+      ansible.builtin.debug:
+        msg: "WARNING: Stack failed to delete, continue with cleanup ..."
+
+    - name: Print message that stack deleted successfully
+      when: not _delete_stack_result.failed
+      ansible.builtin.debug:
+        msg: "Stack deleted successfully."
 
     - name: Delete clouds.yaml
       no_log: true
