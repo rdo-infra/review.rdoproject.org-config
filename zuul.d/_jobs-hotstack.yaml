@@ -11,6 +11,8 @@
       - playbooks/hotstack/run.yaml
     post-run:
       - playbooks/hotstack/post.yaml
+    roles:
+      - zuul: github.com/openstack-k8s-operators/hotstack
     required-projects:
       - name: github.com/openstack-k8s-operators/hotstack
       - opendev.org/zuul/zuul-jobs
