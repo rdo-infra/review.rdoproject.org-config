@@ -10,35 +10,49 @@
           - scenario is defined
           - scenario | length > 0
 
+    - name: Fetch bootstrap vars from remote to zuul executor
+      no_log: true
+      ansible.builtin.fetch:
+        src: "{{ scenario_dir }}/{{ scenario }}/bootstrap_vars.yml"
+        dest: "{{ zuul.executor.work_root }}/bootstrap_vars.yml"
+        flat: true
+
+    - name: Load bootstrap vars with template resolution
+      no_log: true
+      ansible.builtin.include_vars:
+        file: "{{ zuul.executor.work_root }}/bootstrap_vars.yml"
+        name: bootstrap_vars
+
+    - name: Fetch automation vars from remote to zuul executor
+      no_log: true
+      ansible.builtin.fetch:
+        src: "{{ bootstrap_vars.automation_vars_file }}"
+        dest: "{{ zuul.executor.work_root }}/{{ bootstrap_vars.automation_vars_file | basename }}"
+        flat: true
+
+    - name: Load automation vars with template resolution
+      no_log: true
+      ansible.builtin.include_vars:
+        file: "{{ zuul.executor.work_root }}/{{ bootstrap_vars.automation_vars_file | basename }}"
+        name: automation_vars
+
     - name: Slurp zuul-build-sshkey from file
       no_log: true
       ansible.builtin.slurp:
         src: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
       register: _zuul_build_ssh_key
 
-    - name: Set Hotstack controller_ssh_pub_key fact
+    - name: Set up infrastucture (Heat stack)
       no_log: true
-      ansible.builtin.set_fact:
+      vars:
+        os_cloud: default
+        stack_name: "hs-{{ zuul.build }}"
         controller_ssh_pub_key: >-
           {{
             _zuul_build_ssh_key.content
             | ansible.builtin.b64decode
             | trim
           }}
-
-    - name: Load bootstrap vars
-      no_log: true
-      ansible.builtin.include_vars:
-        file: "{{ scenario_dir }}/{{ scenario }}/bootstrap_vars.yml"
-        name: bootstrap_vars
-
-    - name: Set up infrastucture (Heat stack)
-      no_log: true
-      ansible.builtin.include_role:
-        name: heat_stack
-      vars:
-        os_cloud: default
-        stack_name: "hs-{{ zuul.build }}"
         stack_template_path: >-
           {{
             hotstack_overrides.stack_template_path
@@ -48,27 +62,46 @@
           {{
             hotstack_overrides.stack_parameters
             | default(cloud_stack_params[cloud_name])
-            | combine({'controller_ssh_pub_key': controller_ssh_pub_key})
+            | combine({
+                'controller_ssh_pub_key': controller_ssh_pub_key
+            })
           }}
+      ansible.builtin.include_role:
+        name: heat_stack
 
-    - name: Load stack output vars from file
+    - name: Fetch stack outputs from remote to zuul executor
+      no_log: true
+      ansible.builtin.fetch:
+        src: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
+        dest: "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
+        flat: true
+
+    - name: Load stack output vars with template resolution
       no_log: true
       ansible.builtin.include_vars:
-        file: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
+        file: "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
         name: stack_outputs
 
-    - name: Load hotstack cloud secret vars from file
+    - name: Fetch cloud secrets from remote to zuul executor
+      no_log: true
+      ansible.builtin.fetch:
+        src: "/etc/hotstack/cloud-secrets.yaml"
+        dest: "{{ zuul.executor.work_root }}/cloud-secrets.yaml"
+        flat: true
+
+    - name: Load hotstack cloud secret vars with template resolution
       no_log: true
       ansible.builtin.include_vars:
-        file: "/etc/hotstack/cloud-secrets.yaml"
-        name: hotstack_cloud_secrets
+        file: "{{ zuul.executor.work_root }}/cloud-secrets.yaml"
+        name: _hotstack_cloud_secrets
 
     - name: Prepare the controller node
+      vars:
+        controller_ansible_host: "{{ stack_outputs.controller_ansible_host }}"
+        hotstack_cloud_secrets: "{{ _hotstack_cloud_secrets }}"
       no_log: true
       ansible.builtin.include_role:
         name: controller
-      vars:
-        controller_ansible_host: "{{ stack_outputs.controller_ansible_host }}"
 
     - name: Install Openshift
       no_log: true
@@ -112,28 +145,17 @@
           }}
 
     - name: Set up RedFish Virtual bmc
+      no_log: true
+      vars:
+        instances_uuids: "{{ stack_outputs.sushy_emulator_uuids.values() }}"
+        ingress_domain: "apps.{{ stack_outputs.ocp_install_config.metadata.name }}.{{ stack_outputs.ocp_install_config.baseDomain }}"
       when:
         - stack_outputs.sushy_emulator_uuids | default({}) | length > 0
       ansible.builtin.include_role:
         name: redfish_virtual_bmc
-      vars:
-        instances_uuids: "{{ stack_outputs.sushy_emulator_uuids.values() }}"
-        ingress_domain: "apps.{{ stack_outputs.ocp_install_config.metadata.name }}.{{ stack_outputs.ocp_install_config.baseDomain }}"
-
-    - name: Load automation vars
-      ansible.builtin.include_vars:
-        file: >-
-          {{
-            hotstack_overrides.automation_vars_file
-            | default(bootstrap_vars.automation_vars_file)
-          }}
-        name: automation_vars
 
     - name: Deploy RHOSO
-      ansible.builtin.include_role:
-        name: hotloop
-        apply:
-          delegate_to: controller-0
+      no_log: true
       vars:
         work_dir: "{{ scenario_dir }}/{{ scenario }}"
         automation: "{{ automation_vars }}"
@@ -147,3 +169,19 @@
             hotstack_overrides.openstack_operator_channel
             | default(bootstrap_vars.openstack_operator_channel)
           }}
+      ansible.builtin.include_role:
+        name: hotloop
+        apply:
+          delegate_to: controller-0
+
+    - name: Clean up temporary files on zuul executor
+      no_log: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      delegate_to: localhost
+      loop:
+        - "{{ zuul.executor.work_root }}/bootstrap_vars.yml"
+        - "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
+        - "{{ zuul.executor.work_root }}/cloud-secrets.yaml"
+        - "{{ zuul.executor.work_root }}/{{ bootstrap_vars.automation_vars_file | basename }}"
