@@ -10,12 +10,20 @@
           - scenario is defined
           - scenario | length > 0
 
-    - name: Set controller_ssh_pub_key fact
+    - name: Slurp zuul-build-sshkey from file
+      no_log: true
+      ansible.builtin.slurp:
+        src: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
+      register: _zuul_build_ssh_key
+
+    - name: Set Hotstack controller_ssh_pub_key fact
       no_log: true
       ansible.builtin.set_fact:
         controller_ssh_pub_key: >-
           {{
-            lookup('ansible.builtin.file', "{{ ansible_user_dir }}/.ssh/id_rsa.pub")
+            _zuul_build_ssh_key.content
+            | ansible.builtin.b64decode
+            | trim
           }}
 
     - name: Load bootstrap vars
