@@ -95,6 +95,24 @@
         file: "{{ zuul.executor.work_root }}/cloud-secrets.yaml"
         name: _hotstack_cloud_secrets
 
+    - name: Add Hotstack controller-0 to ansible inventory
+      no_log: true
+      ansible.builtin.add_host: "{{ stack_outputs.controller_ansible_host }}"
+
+    - name: Wait for Hotstack controller-0 to be ready
+      no_log: true
+      ansible.builtin.wait_for_connection:
+        host: "{{ stack_outputs.controller_ansible_host }}"
+        delay: 5
+        timeout: 300
+
+    - name: Start Zuul console on Hotstack controller-0
+      no_log: true
+      ansible.builtin.include_role:
+        name: start-zuul-console
+        apply:
+          delegate_to: controller-0
+
     - name: Prepare the controller node
       vars:
         controller_ansible_host: "{{ stack_outputs.controller_ansible_host }}"
