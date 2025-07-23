@@ -44,7 +44,7 @@
           controller_params:
             image: hotstack-controller
             # vpu: 1 ram 2GB disk: 20GB
-            flavor: c1.m1.small
+            flavor: ci.m1.small
           ocp_master_params:
             image: ipxe-boot-usb
             # vpu: 12 ram 32GB disk: 200GB
@@ -70,7 +70,7 @@
             image: sushy-tools-blank-image
             cd_image: sushy-tools-blank-image
             # vpu: 1 ram 2GB disk: 20GB
-            flavor: c1.m1.small
+            flavor: ci.m1.small
       # These are here for compatibility
       dns_servers: "{{ cloud_stack_params[cloud_name].dns_servers }}"
       ntp_servers: "{{ cloud_stack_params[cloud_name].ntp_servers }}"
