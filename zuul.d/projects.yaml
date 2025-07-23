@@ -1773,6 +1773,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/cloudkitty-tempest-plugin
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/cloudkitty-tempest-plugin-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/cloudkittyclient
     templates:
       - package-check-jobs
