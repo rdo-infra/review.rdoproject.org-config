@@ -1,8 +1,8 @@
 resources:
   projects:
     RDO:
-      description: OpenStack packaged by the RDO Community for the Enterprise Linux
-        communities
+      description: OpenStack packaged by the RDO Community for the Enterprise 
+        Linux communities
       website: https://www.rdoproject.org/
       tenant: rdoproject.org
       documentation: https://www.rdoproject.org/documentation/
@@ -808,6 +808,11 @@ resources:
       - openstack/cloudkitty-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]
+          default-branch: rpm-master
+      - openstack/cloudkitty-tempest-plugin-distgit:
+          zuul/include: []
+          repoxplorer/branches:
+          - rpm-master
           default-branch: rpm-master
       - openstack/cloudkittyclient-distgit:
           zuul/include: []
