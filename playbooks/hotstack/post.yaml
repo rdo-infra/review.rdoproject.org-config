@@ -5,27 +5,44 @@
     hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
     stack_name: "hs-{{ zuul.build }}"
   tasks:
-    - name: Load stack output vars from file
-      no_log: true
-      ansible.builtin.include_vars:
-        file: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
-        name: stack_outputs
-      register: _load_stack_outputs_result
-      ignore_errors: true
+    - name: Process stack outputs and collect logs
+      block:
+        - name: Fetch stack outputs from remote to zuul executor
+          no_log: true
+          ansible.builtin.fetch:
+            src: "{{ hotstack_work_dir }}/hs-{{ zuul.build }}-outputs.yaml"
+            dest: "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
+            flat: true
 
-    - name: Collect hotstack logs
-      when: not _load_stack_outputs_result.failed
-      no_log: true
-      ansible.builtin.include_role:
-        name: hotlogs
-      vars:
-        controller_floating_ip: "{{ stack_outputs.controller_floating_ip }}"
-        hotlog_dir: "{{ ansible_user_dir }}/logs/hotlogs"
+        - name: Load stack output vars with template resolution
+          no_log: true
+          ansible.builtin.include_vars:
+            file: "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
+            name: stack_outputs
 
-    - name: Print message that stack outputs failed to load
-      when: _load_stack_outputs_result.failed
-      ansible.builtin.debug:
-        msg: "WARNING: Stack outputs failed to load, no hotstack logs will be collected. Continue with cleanup ..."
+        - name: Add Hotstack controller-0 to ansible inventory
+          no_log: true
+          ansible.builtin.add_host: "{{ stack_outputs.controller_ansible_host }}"
+
+        - name: Wait for Hotstack controller-0 to be ready
+          no_log: true
+          delegate_to: "{{ stack_outputs.controller_ansible_host.name }}"
+          ansible.builtin.wait_for_connection:
+            delay: 5
+            timeout: 300
+
+        - name: Collect hotstack logs
+          no_log: true
+          ansible.builtin.include_role:
+            name: hotlogs
+          vars:
+            controller_floating_ip: "{{ stack_outputs.controller_floating_ip }}"
+            hotlog_dir: "{{ ansible_user_dir }}/logs/hotlogs"
+
+      rescue:
+        - name: Print message that log collection failed
+          ansible.builtin.debug:
+            msg: "WARNING: Log collection failed and may be incomplete. Continue with cleanup ..."
 
     - name: Set _auth_type fact
       no_log: true
