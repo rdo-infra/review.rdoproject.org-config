@@ -37,7 +37,7 @@
             name: hotlogs
           vars:
             controller_floating_ip: "{{ stack_outputs.controller_floating_ip }}"
-            hotlog_dir: "{{ ansible_user_dir }}/zuul-output/hotlogs"
+            hotlog_dir: "{{ ansible_user_dir }}/zuul-output/logs/hotlogs"
 
       rescue:
         - name: Print message that log collection failed
