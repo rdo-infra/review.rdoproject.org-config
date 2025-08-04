@@ -1,7 +1,7 @@
 resources:
   projects:
     RDO:
-      description: OpenStack packaged by the RDO Community for the Enterprise
+      description: OpenStack packaged by the RDO Community for the Enterprise 
         Linux communities
       website: https://www.rdoproject.org/
       tenant: rdoproject.org
@@ -668,6 +668,11 @@ resources:
           zuul/include: []
           repoxplorer/branches: ["master"]
           default-branch: master
+      - openstack/aetos-distgit:
+          zuul/include: []
+          repoxplorer/branches:
+          - rpm-master
+          default-branch: rpm-master
       - openstack/ansible-collections-openstack-distgit:
           zuul/include: []
           repoxplorer/branches: ["rpm-master"]

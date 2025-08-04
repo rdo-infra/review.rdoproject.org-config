@@ -1,0 +1,96 @@
+resources:
+  groups:
+    openstack/aetos-core:
+      description: Core developers for project aetos
+      members:
+      - jlarriba@redhat.com
+      - jwysogla@redhat.com
+    openstack/aetos-ptl:
+      description: Project team lead for project aetos
+      members:
+      - admin@review.rdoproject.org
+  acls:
+    openstack-aetos-distgit:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aetos-core
+          owner = group openstack/aetos-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aetos-core
+          label-Code-Review = -2..+2 group openstack/aetos-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aetos-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aetos-core
+          read = group rdo-provenpackagers
+          abandon = group openstack/aetos-core
+          label-Verified = -2..+2 group openstack/aetos-ptl
+          label-Verified = -2..+2 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+1 group openstack/aetos-core
+          label-Workflow = -1..+1 group openstack/aetos-ptl
+          label-Workflow = -1..+1 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aetos-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = true
+          action = rebase if necessary
+      groups:
+      - openstack/aetos-core
+      - openstack/aetos-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+    openstack-aetos:
+      file: |
+        [access "refs/*"]
+          read = group openstack/aetos-core
+          owner = group openstack/aetos-ptl
+          owner = group rdo-superusers
+        [access "refs/heads/*"]
+          label-Code-Review = -2..+2 group openstack/aetos-core
+          label-Code-Review = -2..+2 group openstack/aetos-ptl
+          label-Code-Review = -2..+2 group rdo-provenpackagers
+          label-Code-Review = -2..+2 group rdo-superusers
+          submit = group openstack/aetos-ptl
+          submit = group rdo-superusers
+          read = group Registered Users
+          read = group openstack/aetos-core
+          read = group rdo-provenpackagers
+          label-Verified = -2..+0 group openstack/aetos-ptl
+          label-Verified = -2..+0 group rdo-superusers
+          label-Workflow = -1..+0 group Registered Users
+          label-Workflow = -1..+0 group openstack/aetos-core
+          label-Workflow = -1..+0 group openstack/aetos-ptl
+          label-Workflow = -1..+0 group rdo-provenpackagers
+        [access "refs/meta/config"]
+          read = group Registered Users
+          read = group openstack/aetos-core
+          read = group rdo-provenpackagers
+        [receive]
+          requireChangeId = true
+        [submit]
+          mergeContent = false
+          action = rebase if necessary
+      groups:
+      - openstack/aetos-core
+      - openstack/aetos-ptl
+      - rdo-provenpackagers
+      - rdo-superusers
+  repos:
+    openstack/aetos:
+      acl: openstack-aetos
+      
+      description: Mirror of upstream aetos (mirror + patches)
+    openstack/aetos-distgit:
+      acl: openstack-aetos-distgit
+      description: Packaging of upstream aetos
+      default-branch: rpm-master
+      branches:
+        master: '0'
