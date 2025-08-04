@@ -1304,6 +1304,19 @@
       - system-required
 
 - project:
+    name: review.rdoproject.org/openstack/aetos
+    templates:
+      - package-check-jobs
+      - system-required
+
+- project:
+    name: review.rdoproject.org/openstack/aetos-distgit
+    default-branch: rpm-master
+    templates:
+      - package-distgit-check-jobs
+      - system-required
+
+- project:
     name: review.rdoproject.org/openstack/ansible-collections-openstack
     templates:
       - package-check-jobs
