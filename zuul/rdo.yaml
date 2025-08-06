@@ -1458,6 +1458,10 @@
           - openstack-k8s-operators/lib-common
           - openstack-k8s-operators/os-diff
           - redhat-openstack/ansible-pacemaker
+          # novnc is required to support the devstack jobs to workaround
+          # bug 2109592. Without this rdo zuul will have config errors as
+          # this will now be a required project for devstack-base
+          - novnc/novnc
 
       pagure.io:
         untrusted-projects:
