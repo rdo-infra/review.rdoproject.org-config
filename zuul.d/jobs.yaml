@@ -454,7 +454,12 @@
 
 - job:
     name: devstack-platform-centos-10-stream
+    # move to devstack-platform-centos-10-stream or drop job if not needed once
+    # https://review.opendev.org/c/openstack/devstack/+/937251 merges
     parent: devstack-platform-centos-9-stream
+    vars:
+      devstack_localrc:
+        PYTHON3_VERSION: 3.12
     nodeset:
       nodes:
         - name: controller
