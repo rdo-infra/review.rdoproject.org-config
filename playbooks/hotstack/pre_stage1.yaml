@@ -31,7 +31,7 @@
           - (cloud_secrets[cloud_name].password is defined or
              cloud_secrets[cloud_name].application_credential_secret is defined)
 
-    - name: Enesure openstack release repo is installed
+    - name: Ensure openstack release repo is installed
       become: true
       ansible.builtin.dnf:
         name: centos-release-openstack-epoxy
@@ -268,3 +268,4 @@
               {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
               cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
               {% endif %}
+
