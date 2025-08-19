@@ -57,7 +57,7 @@
           {%- endif -%}
           {{ _type }}
 
-    - name: Cloud secret is user credential - Delete temporary appication credential
+    - name: Cloud secret is user credential - Delete temporary application credential
       when: _auth_type in ['v3password', 'password']
       block:
         - name: Write clouds.yaml
@@ -104,6 +104,32 @@
           when: _delete_app_cred_result.rc == 0
           ansible.builtin.debug:
             msg: "Application credential deleted successfully."
+
+    - name: Cloud secret is application credential
+      when: _auth_type in ['v3applicationcredential', 'applicationcredential']
+      block:
+        - name: Write clouds.yaml with application credentials
+          no_log: true
+          become: true
+          ansible.builtin.copy:
+            dest: "/etc/openstack/clouds.yaml"
+            owner: root
+            group: "{{ ansible_user }}"
+            mode: "0640"
+            content: |
+              ---
+              clouds:
+                default:
+                  auth_type: v3applicationcredential
+                  identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+                  region_name: {{ cloud_secrets[cloud_name].region_name }}
+              {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+                  cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+              {% endif %}
+                  auth:
+                    auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+                    application_credential_id: {{ cloud_secrets[cloud_name].application_credential_id }}
+                    application_credential_secret: {{ cloud_secrets[cloud_name].application_credential_secret }}
 
     - name: Delete the heat stack
       environment:

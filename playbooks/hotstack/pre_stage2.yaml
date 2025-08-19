@@ -42,7 +42,7 @@
         src: "{{ ansible_user_dir }}/.ssh/id_rsa.pub"
       register: _zuul_build_ssh_key
 
-    - name: Set up infrastucture (Heat stack)
+    - name: Set up infrastructure (Heat stack)
       no_log: true
       vars:
         os_cloud: default
@@ -122,11 +122,6 @@
         name: controller
 
     - name: Install Openshift
-      no_log: true
-      ansible.builtin.include_role:
-        name: ocp_agent_installer
-        apply:
-          delegate_to: controller-0
       vars:
         install_config: "{{ stack_outputs.ocp_install_config }}"
         agent_config: "{{ stack_outputs.ocp_agent_config }}"
@@ -161,6 +156,11 @@
             hotstack_overrides.cinder_volume_pvs
             | default(bootstrap_vars.cinder_volume_pvs)
           }}
+      no_log: true
+      ansible.builtin.include_role:
+        name: ocp_agent_installer
+        apply:
+          delegate_to: controller-0
 
     - name: Set up RedFish Virtual bmc
       no_log: true
@@ -172,34 +172,22 @@
       ansible.builtin.include_role:
         name: redfish_virtual_bmc
 
-    - name: Deploy RHOSO
+    - name: Remove the cloud-secrets.yaml file from zuul executor
       no_log: true
-      vars:
-        work_dir: "{{ scenario_dir }}/{{ scenario }}"
-        automation: "{{ automation_vars }}"
-        openstack_operators_image: >-
-          {{
-            hotstack_overrides.openstack_operators_image
-            | default(bootstrap_vars.openstack_operators_image)
-          }}
-        openstack_operator_channel: >-
-          {{
-            hotstack_overrides.openstack_operator_channel
-            | default(bootstrap_vars.openstack_operator_channel)
-          }}
-      ansible.builtin.include_role:
-        name: hotloop
-        apply:
-          delegate_to: controller-0
-
-    - name: Clean up temporary files on zuul executor
-      no_log: true
+      become: true
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
       delegate_to: localhost
       loop:
-        - "{{ zuul.executor.work_root }}/bootstrap_vars.yml"
-        - "{{ zuul.executor.work_root }}/hs-{{ zuul.build }}-outputs.yaml"
         - "{{ zuul.executor.work_root }}/cloud-secrets.yaml"
-        - "{{ zuul.executor.work_root }}/{{ bootstrap_vars.automation_vars_file | basename }}"
+
+    - name: Remove the cloud-secret files
+      no_log: true
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/hotstack/cloud-secrets.yaml
+        - /etc/openstack/clouds.yaml
