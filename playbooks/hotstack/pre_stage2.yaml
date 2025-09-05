@@ -174,7 +174,6 @@
 
     - name: Remove the cloud-secrets.yaml file from zuul executor
       no_log: true
-      become: true
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
