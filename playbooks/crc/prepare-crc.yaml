@@ -1,13 +1,8 @@
 ---
-- name: Set UTC timezone on all hosts
+- name: Prefer ipv4 over ipv6
   hosts: all
   gather_facts: false
   tasks:
-    - name: Set timezone to UTC
-      become: true
-      community.general.timezone:
-        name: UTC
-
     - name: Configure /etc/gai.conf to prever ipv4 over ipv6
       when: prefer_ipv4 | default(false)
       become: true

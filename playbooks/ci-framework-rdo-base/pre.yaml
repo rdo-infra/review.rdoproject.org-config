@@ -1,5 +1,10 @@
 - hosts: all
   roles:
+    - name: Set timezone to UTC
+      become: true
+      community.general.timezone:
+        name: UTC
+
     # TODO(pabelanger): Maybe promote this in to base jobs? But is
     # openstack-infra specific. Worth to check
     - role: mirror-info-fork
