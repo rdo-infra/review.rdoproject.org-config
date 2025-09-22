@@ -1,10 +1,5 @@
 - hosts: all
   roles:
-    - name: Set timezone to UTC
-      become: true
-      community.general.timezone:
-        name: UTC
-
     # TODO(pabelanger): Maybe promote this in to base jobs? But is
     # openstack-infra specific. Worth to check
     - role: mirror-info-fork
@@ -145,6 +140,11 @@
         - public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICy6GpGEtwevXEEn4mm\
             LR5lmSLe23dGgAvzkB9DMNbkf rsafrono@rsafrono"
   tasks:
+    - name: Set timezone to UTC
+      become: true
+      community.general.timezone:
+        name: UTC
+
     - name: Create nodepool directory
       file:
         path: /etc/nodepool
