@@ -21,12 +21,21 @@
     - /sys/fs/cgroup/system.slice
     - /sys/fs/cgroup/user.slice
 
-- name: Enable IO limit
+- name: Ensure systemd configuration directory
   become: true
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/system.conf
-    regexp: '^#DefaultIOAccounting=no'
-    line: 'DefaultIOAccounting=yes'
+  ansible.builtin.file:
+    path: /etc/systemd/system.conf.d
+    state: directory
+    mode: '0755'
+
+- name: Enable IO limit via override configuration
+  become: true
+  ansible.builtin.copy:
+    content: |
+      [Manager]
+      DefaultIOAccounting=yes
+    dest: /etc/systemd/system.conf.d/override.conf
+    mode: '0644'
   notify:
     - Reload systemd daemon after enabling IOAccounting
 
