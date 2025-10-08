@@ -1344,7 +1344,7 @@
         # only affect those repos. they are not config
         # repos and cannot shadow other jobs, projects
         # or nodesets.
-        - include: [job, project, nodeset, project-template]
+        - include: [job, project, nodeset, project-template, semaphore]
           projects:
           - openstack-k8s-operators/ci-framework:
               include-branches:
