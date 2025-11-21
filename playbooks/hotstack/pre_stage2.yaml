@@ -60,8 +60,13 @@
           }}
         stack_parameters: >-
           {{
-            hotstack_overrides.stack_parameters
-            | default(cloud_stack_params[cloud_name])
+            (
+              cloud_stack_params[cloud_name] | default({})
+            )
+            | combine(
+                hotstack_overrides.stack_parameters | default({}),
+                recursive=True
+              )
             | combine({
                 'controller_ssh_pub_key': controller_ssh_pub_key
             })
