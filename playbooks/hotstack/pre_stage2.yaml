@@ -123,6 +123,7 @@
 
     - name: Install Openshift
       vars:
+        # OpenShift installation variables
         install_config: "{{ stack_outputs.ocp_install_config }}"
         agent_config: "{{ stack_outputs.ocp_agent_config }}"
         pull_secret: >-
@@ -155,6 +156,74 @@
           {{
             hotstack_overrides.cinder_volume_pvs
             | default(bootstrap_vars.cinder_volume_pvs)
+          }}
+        # Content-provider configuration: compute intermediate values
+        _content_provider_default_mirror: ['quay.io', 'quay.rdoproject.org']
+        _content_provider_available: >-
+          {{
+            (
+              content_provider_registry_ip is defined
+              and content_provider_registry_ip | trim | length > 0
+            )
+          }}
+        _content_provider_registry: >-
+          {{
+            (content_provider_registry_ip + ':5001')
+            if _content_provider_available
+            else ''
+          }}
+        _content_provider_mirror_registries: >-
+          {{
+            hotstack_overrides.content_provider_mirror_registries
+            | default(_content_provider_default_mirror)
+          }}
+        _content_provider_icsp_mirrors: >-
+          {{
+            (
+              [
+                {
+                  'mirrors': [_content_provider_registry],
+                  'source': registry
+                }
+                for registry in _content_provider_mirror_registries
+              ]
+              if _content_provider_available
+              else []
+            )
+          }}
+        # Configure ICSP
+        enable_image_content_source_policy: >-
+          {{
+            hotstack_overrides.enable_image_content_source_policy
+            | default(_content_provider_available)
+          }}
+        # Merge ICSP mirrors from overrides and content-provider.
+        # Note: If the same source registry appears in both, they will create
+        # separate ICSP entries (OpenShift supports multiple mirrors per source).
+        # The 'unique' filter only removes exact duplicate entries.
+        image_content_source_policy_mirrors: >-
+          {{
+            (
+              (hotstack_overrides.image_content_source_policy_mirrors | default([]))
+              + _content_provider_icsp_mirrors
+            )
+            | unique
+            | list
+          }}
+        # Configure insecure registries
+        ocp_agent_installer_enable_insecure_registries: >-
+          {{
+            hotstack_overrides.ocp_agent_installer_enable_insecure_registries
+            | default(_content_provider_available)
+          }}
+        ocp_agent_installer_insecure_registries: >-
+          {{
+            (
+              (hotstack_overrides.ocp_agent_installer_insecure_registries | default([]))
+              + ([_content_provider_registry] if _content_provider_registry else [])
+            )
+            | unique
+            | list
           }}
       no_log: true
       ansible.builtin.include_role:
