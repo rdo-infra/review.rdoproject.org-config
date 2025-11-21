@@ -1,0 +1,102 @@
+---
+- name: Update hotstack nat64-appliance image
+  hosts: hotstack
+  tasks:
+    - name: Install packages (dependencies)
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - make
+          - qemu-img
+          - guestfs-tools
+          - git
+          - python3
+          - python3-pip
+          - gcc
+
+    - name: Set hotstack images dir fact
+      ansible.builtin.set_fact:
+        hotstack_images_dir: >-
+          {{
+            [
+              ansible_user_dir,
+              zuul.projects['github.com/openstack-k8s-operators/hotstack'].src_dir,
+              'images'
+            ] | ansible.builtin.path_join
+          }}
+
+    - name: Build the hotstack-nat64-appliance image
+      ansible.builtin.command:
+        cmd: make nat64
+      args:
+        chdir: "{{ hotstack_images_dir }}"
+        creates: "{{ hotstack_images_dir }}/nat64-appliance.qcow2"
+
+    - name: Set image name fact
+      ansible.builtin.set_fact:
+        image_name: nat64-appliance-{{ zuul.build[:8] }}
+
+    - name: Get current hotstack-nat64-appliance images
+      no_log: true
+      openstack.cloud.image_info:
+        cloud: default
+        filters:
+          name: nat64-appliance
+      register: _old_hotstack_nat64_appliance_images
+
+    - name: Upload image to glance
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        name: "{{ image_name }}"
+        container_format: bare
+        disk_format: raw
+        state: present
+        filename: "{{ hotstack_images_dir }}/nat64-appliance.qcow2"
+        tags:
+          - hotstack
+          - hotstack-nat64-appliance-image
+      register: _new_hotstack_nat64_appliance_image
+
+    - name: Add archived suffix to old images
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ item.id }}"
+        name: "{{ item.name }}-archived"
+        tags:
+          - hotstack
+          - hotstack-nat64-appliance-image
+          - hotstack-archived
+      loop: "{{ _old_hotstack_nat64_appliance_images.images }}"
+
+    - name: Rename new image
+      no_log: true
+      openstack.cloud.image:
+        cloud: default
+        id: "{{ _new_hotstack_nat64_appliance_image.image.id }}"
+        name: "nat64-appliance"
+
+    - name: Clean up archived images
+      block:
+        - name: Delete archived images if possible
+          no_log: true
+          openstack.cloud.image:
+            cloud: default
+            id: "{{ item.id }}"
+            name: "{{ item.name }}"
+            state: absent
+          loop: "{{ _old_hotstack_nat64_appliance_images.images }}"
+          register: _delete_archived_images_results
+      rescue:
+        - name: DEBUG - Archived images delete
+          ansible.builtin.fail:
+            msg: |
+              Not all archived images where deleted.
+
+              Archived images: {{ _old_hotstack_nat64_appliance_images }}
+
+              Delete results:
+
+              {{ _delete_archived_images_results }}
+
