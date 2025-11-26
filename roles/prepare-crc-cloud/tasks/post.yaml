@@ -42,3 +42,7 @@
   ansible.builtin.command: |
     oc delete pods --all -n openshift-marketplace
   changed_when: false
+  register: command_result
+  retries: 5
+  delay: 30
+  until: command_result is succeeded
