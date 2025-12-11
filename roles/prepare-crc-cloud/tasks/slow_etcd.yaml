@@ -7,6 +7,9 @@
     -p '{ "spec": { "controlPlaneHardwareSpeed": "Slower" }}'
   register: _slow_etcd_status
   changed_when: false
+  retries: 60
+  delay: 10
+  until: "('patched' in pod_status.stdout) or ('no change' not in _slow_etcd_status.stdout)"
 
 - name: Wait for etcd pods to stabilize
   when: "'no change' not in _slow_etcd_status.stdout"
