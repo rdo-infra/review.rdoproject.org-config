@@ -46,6 +46,10 @@
 - name: Post tasks after crc-cloud script execution
   ansible.builtin.include_tasks: post.yaml
 
+- name: Create workaround for expired cert
+  when: auto_accept_csr
+  ansible.builtin.include_tasks: cluster_cert.yaml
+
 - name: Pause machineconfigpool
   ansible.builtin.include_tasks: pause_mcp.yaml
   when: not wait_for_mcp
