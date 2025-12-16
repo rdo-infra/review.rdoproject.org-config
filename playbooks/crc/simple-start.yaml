@@ -112,6 +112,15 @@
             tasks_from: cluster_cert.yaml
           when: auto_accept_csr | default(true)
 
+        # Based on https://github.com/crc-org/crc-cloud/blob/main/pkg/bundle/setup/clustersetup.sh#L149
+        - name: Ensure that all cluster operators are stable
+          ansible.builtin.shell: |
+            oc get co  --no-headers | awk '{print $3}'
+          register: component_status
+          retries: 15
+          delay: 20
+          until: "'False' not in component_status.stdout_lines"
+
 # NOTE: We already set the limitation for CRC in virsh.
 # It is not required to do it again for other services.
 - name: Set IOPS and Read/Write disk limitation excluding controller
