@@ -51,3 +51,7 @@ tune_kubelet_conf: false
 
 # Enable monitoring and cluster-monitoring-operator
 crc_enable_monitoring: false
+
+# Workaround for expired certificate until CRC team does not fix it
+# Affcted versions: CRC 2.56.0 (OCP 4.20.1) and CRC Cloud 4.20.1
+auto_accept_csr: true

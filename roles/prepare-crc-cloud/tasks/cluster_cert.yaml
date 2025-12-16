@@ -1,0 +1,20 @@
+---
+# FIXME: Workaround for expired cluster certificate.
+# If the cluster certificate would not be accepted, the
+# pods would be in "Pending" state or other issues might raise.
+- name: Get OpenShift version
+  ansible.builtin.shell: |
+    oc version -o json | jq -r '.openshiftVersion'
+  register: _oc_version
+
+- name: Apply workaround for auto accept cluster certificates - OCP 4.20.1
+  when: _oc_version.stdout is version('4.20.1', '==')
+  block:
+    - name: Create service account for - auto-csr-approver
+      ansible.builtin.copy:
+        src: cluster-cert-approver.yaml
+        dest: /tmp/cluster-cert-approver.yaml
+
+    - name: Apply cluster cert approver
+      ansible.builtin.command: |
+        oc apply -f /tmp/cluster-cert-approver.yaml
