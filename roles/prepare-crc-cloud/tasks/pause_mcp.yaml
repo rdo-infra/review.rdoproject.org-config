@@ -9,9 +9,7 @@
   retries: 6
   delay: 10
   register: _mc_pause
-  failed_when:
-    - "'connect: connection refused' not in _mc_pause.stderr"
-    - _mc_pause.rc != 0
+  until: _mc_pause is succeeded
 
 - name: Print current machineconfigpool
   ansible.builtin.command: oc get machineconfigpool
@@ -19,6 +17,4 @@
   retries: 6
   delay: 10
   register: _mc_get
-  failed_when:
-    - "'connect: connection refused' not in _mc_get.stderr"
-    - _mc_get.rc != 0
+  until: _mc_get is succeeded
