@@ -1,4 +1,39 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c680f863_7bc9e34f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-12-18T16:44:47Z",
+      "side": 1,
+      "message": "this is proably a mistake and shoudl be reverted.",
+      "revId": "1a324d80ef59155aaac37f02725146fc25dd6f26",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa7bcf6_5ee6c6ed",
+        "filename": "zuul/rdo.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-12-18T16:44:47Z",
+      "side": 1,
+      "message": "the devstack jobs were bing loaded because the rdo ci also use devstack and the devstack job definition to test code.\n\nit runs a thirdparty ci job on devsstack for exmaple.\n\nnow we have have moved some of the centos 10 coverage upstream to devstack itself its not a good assumption that rdo zuul does nto use these jobs.",
+      "revId": "1a324d80ef59155aaac37f02725146fc25dd6f26",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ],
   "submitRequirementResults": []
 }
