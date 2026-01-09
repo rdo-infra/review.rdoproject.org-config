@@ -13,7 +13,7 @@
 
     - name: Add site_install_server server to known hosts
       known_hosts:
-        name: 'git.centos.org'
+        name: 'gitlab.com'
         key: "{{ rdobuilder_ssh_key.ssh_known_hosts }}"
 
     - name: run dep-export.sh
