@@ -7,6 +7,9 @@
     set -o pipefail;
     oc version -o json | jq -r '.openshiftVersion'
   register: _oc_version
+  until: _oc_version.rc != 1
+  retries: 60
+  delay: 10
   changed_when: false
 
 - name: Apply workaround for auto accept cluster certificates - OCP 4.20.1
@@ -20,3 +23,8 @@
     - name: Apply cluster cert approver
       ansible.builtin.command: |
         oc apply -f /tmp/cluster-cert-approver.yaml
+      register: _cert_approver
+      until: _cert_approver.rc != 1
+      retries: 60
+      delay: 10
+      changed_when: false
