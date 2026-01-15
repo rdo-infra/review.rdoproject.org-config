@@ -1165,7 +1165,9 @@
             include:
             - job
         - openstack/devstack:
-            include: []
+            shadow: config
+            include:
+            - job
         - openstack/project-config:
             include:
             - job
