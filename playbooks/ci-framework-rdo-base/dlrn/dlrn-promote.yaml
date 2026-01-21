@@ -2,6 +2,10 @@
 - name: Promote current-podified hash
   hosts: all
   tasks:
+    - name: Include necessary variables from ci-framework
+      ansible.builtin.include_vars:
+        file: "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/ci-framework/group_vars/all.yml"
+
     - name: Clone repos in the job workspace
       ansible.builtin.include_role:
         name: prepare-workspace
