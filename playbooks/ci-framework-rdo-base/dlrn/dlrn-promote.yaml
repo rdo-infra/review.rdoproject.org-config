@@ -1,6 +1,8 @@
 ---
 - name: Promote current-podified hash
   hosts: all
+  vars_files:
+    - "{{ ansible_user_dir }}/src/github.com/openstack-k8s-operators/ci-framework/group_vars/all.yml"
   tasks:
     - name: Clone repos in the job workspace
       ansible.builtin.include_role:
