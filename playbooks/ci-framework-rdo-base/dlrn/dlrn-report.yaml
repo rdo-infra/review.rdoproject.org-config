@@ -3,5 +3,7 @@
   hosts: all:!crc:!compute:!computes:!rh-subscription
   tasks:
     - name: Report job status to DLRN
+      vars:
+        cifmw_basedir: "{{ ansible_user_dir }}/ci-framework"
       ansible.builtin.include_role:
         name: dlrn_report
