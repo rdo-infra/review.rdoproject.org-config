@@ -1,19 +1,16 @@
 ---
-# FIXME: Workaround for expired cluster certificate.
-# If the cluster certificate would not be accepted, the
-# pods would be in "Pending" state or other issues might raise.
-- name: Get OpenShift version
+- name: Check if there are some CA cert waiting for acceptance
   ansible.builtin.shell: |
     set -o pipefail;
-    oc version -o json | jq -r '.openshiftVersion'
-  register: _oc_version
-  until: _oc_version.rc != 1
+    oc get csr --no-headers | awk '/Pending/ {print $1}' | wc -l
+  register: _waiting_csr
+  until: _waiting_csr.rc != 1
   retries: 60
   delay: 10
   changed_when: false
 
-- name: Apply workaround for auto accept cluster certificates - OCP 4.20.1
-  when: _oc_version.stdout is version('4.20.1', '==')
+- name: Apply workaround for auto accept cluster certificates
+  when: _waiting_csr.stdout | int > 0
   block:
     - name: Create service account for - auto-csr-approver
       ansible.builtin.copy:
