@@ -47,6 +47,8 @@
     attempts: 1
     vars:
       cifmw_dlrn_report_result: false
+      # More info: https://github.com/crc-org/crc-cloud/pull/214
+      ca_cert_approver: true
     secrets:
       - name: crc_secret_pabrodri
         secret: crc_secret_pabrodri
@@ -267,6 +269,8 @@
     vars:
       crc_ci_bootstrap_cloud_name: vexxhost
       cifmw_dlrn_report_result: false
+      # More info: https://github.com/crc-org/crc-cloud/pull/214
+      ca_cert_approver: true
     secrets:
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
