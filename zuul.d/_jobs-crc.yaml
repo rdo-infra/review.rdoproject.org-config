@@ -49,6 +49,8 @@
       cifmw_dlrn_report_result: false
       # More info: https://github.com/crc-org/crc-cloud/pull/214
       ca_cert_approver: true
+      max_retries: 60
+      retry_delay: 15
     secrets:
       - name: crc_secret_pabrodri
         secret: crc_secret_pabrodri
@@ -271,6 +273,8 @@
       cifmw_dlrn_report_result: false
       # More info: https://github.com/crc-org/crc-cloud/pull/214
       ca_cert_approver: true
+      max_retries: 60
+      retry_delay: 15
     secrets:
       - name: quay_login_secret_name
         secret: quay_nextgen_zuulgithubci
