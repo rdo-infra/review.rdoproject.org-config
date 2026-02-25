@@ -20,7 +20,7 @@ if [ -z "$OC_PATH" ]; then
     exit 1
 fi
 
-for i in {1..60}; do
+for i in {1..90}; do
     echo "Checking login to the cluster ${i}..."
     if $OC_PATH login \
            -u kubeadmin \
@@ -30,7 +30,7 @@ for i in {1..60}; do
         exit 0
     else
         echo "Can not login to the CRC cluster. Sleeping..."
-        sleep 5
+        sleep 10
     fi
 done
 
