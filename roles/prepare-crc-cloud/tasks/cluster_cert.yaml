@@ -10,7 +10,7 @@
   changed_when: false
 
 - name: Apply workaround for auto accept cluster certificates
-  when: _waiting_csr.stdout | int > 0
+  when: ca_cert_approver | bool
   block:
     - name: Create service account for - auto-csr-approver
       ansible.builtin.copy:

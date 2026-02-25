@@ -110,7 +110,7 @@
           ansible.builtin.include_role:
             name: prepare-crc-cloud
             tasks_from: cluster_cert.yaml
-          when: auto_accept_csr | default(true)
+          when: ca_cert_approver | default(true)
 
         # Based on https://github.com/crc-org/crc-cloud/blob/main/pkg/bundle/setup/clustersetup.sh#L149
         - name: Ensure that all cluster operators are stable
