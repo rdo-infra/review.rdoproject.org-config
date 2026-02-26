@@ -1,27 +1,26 @@
 ---
-- name: Check if there are some CA cert waiting for acceptance
-  ansible.builtin.shell: |
+- name: Re-run accept certificates in Pending state few times
+  ansible.builtin.shell: >
     set -o pipefail;
-    oc get csr --no-headers | awk '/Pending/ {print $1}' | wc -l
-  register: _waiting_csr
-  until: _waiting_csr.rc != 1
+    oc get csr --no-headers |
+    awk '/Pending/ {print $1}' |
+    xargs --no-run-if-empty oc adm certificate approve
+  loop: "{{ range(1, 4) | list }}"
+  loop_control:
+    pause: 10
+  ignore_errors: true
+  changed_when: false
+
+- name: Create service account for - auto-csr-approver
+  ansible.builtin.copy:
+    src: cluster-cert-approver.yaml
+    dest: /tmp/cluster-cert-approver.yaml
+
+- name: Apply cluster cert approver
+  ansible.builtin.command: |
+    oc apply -f /tmp/cluster-cert-approver.yaml
+  register: _cert_approver
+  until: _cert_approver.rc != 1
   retries: 60
   delay: 10
   changed_when: false
-
-- name: Apply workaround for auto accept cluster certificates
-  when: ca_cert_approver | bool
-  block:
-    - name: Create service account for - auto-csr-approver
-      ansible.builtin.copy:
-        src: cluster-cert-approver.yaml
-        dest: /tmp/cluster-cert-approver.yaml
-
-    - name: Apply cluster cert approver
-      ansible.builtin.command: |
-        oc apply -f /tmp/cluster-cert-approver.yaml
-      register: _cert_approver
-      until: _cert_approver.rc != 1
-      retries: 60
-      delay: 10
-      changed_when: false
