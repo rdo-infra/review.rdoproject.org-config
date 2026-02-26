@@ -24,7 +24,7 @@
       ansible.builtin.shell: |
         timeout 5 oc get pods -n openshift-etcd -o jsonpath='{.items[*].status.phase}'
       register: pod_status
-      retries: 60
+      retries: 90
       delay: 10
       until: "pod_status.stdout == 'Running' or pod_status.stdout == 'Running Succeeded'"
       changed_when: false
