@@ -9,7 +9,9 @@
       - playbooks/hotstack/pre_stage1.yaml
       - playbooks/hotstack/pre_stage2.yaml
     post-run:
-      - playbooks/hotstack/post.yaml
+      - name: playbooks/hotstack/post.yaml
+      - name: playbooks/hotstack/post-clean.yaml
+        cleanup: true
     roles:
       - zuul: github.com/openstack-k8s-operators/hotstack
     required-projects:

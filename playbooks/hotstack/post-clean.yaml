@@ -1,0 +1,118 @@
+---
+- name: Clean up hotstack environment
+  hosts: hotstack
+  vars:
+    hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
+    stack_name: "hs-{{ zuul.build }}"
+  tasks:
+    - name: Set _auth_type fact
+      no_log: true
+      ansible.builtin.set_fact:
+        _auth_type: >-
+          {%- if cloud_secrets[cloud_name].auth_type is defined -%}
+          {%- set _type = cloud_secrets[cloud_name].auth_type -%}
+          {%- elif cloud_secrets[cloud_name].identity_api_version == 3 -%}
+          {%- set _type = 'v3password' -%}
+          {%- else -%}
+          {%- set _type = 'password' -%}
+          {%- endif -%}
+          {{ _type }}
+
+    - name: Cloud secret is user credential - Delete temporary application credential
+      when: _auth_type in ['v3password', 'password']
+      block:
+        - name: Write clouds.yaml
+          no_log: true
+          become: true
+          ansible.builtin.copy:
+            dest: "/etc/openstack/clouds.yaml"
+            owner: root
+            group: "{{ ansible_user }}"
+            mode: "0640"
+            content: |
+              ---
+              clouds:
+                default:
+                  auth_type: {{ _auth_type }}
+                  identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+                  region_name: {{ cloud_secrets[cloud_name].region_name }}
+              {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+                  cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+              {% endif %}
+                  auth:
+                    auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+                    username: {{ cloud_secrets[cloud_name].username }}
+                    password: {{ cloud_secrets[cloud_name].password }}
+                    project_name: {{ cloud_secrets[cloud_name].project_name }}
+                    user_domain_name: {{ cloud_secrets[cloud_name].user_domain_name }}
+                    project_domain_name: {{ cloud_secrets[cloud_name].project_domain_name }}
+
+        - name: Delete application credentials
+          environment:
+            OS_CLOUD: default
+          ansible.builtin.command:
+            cmd: >
+              openstack application credential delete hotstack-{{ zuul.build }}
+          register: _delete_app_cred_result
+          ignore_errors: true
+
+        - name: Print message that application credential failed to delete
+          when: _delete_app_cred_result.rc != 0
+          ansible.builtin.debug:
+            msg: "WARNING: Application credential failed to delete, continue with cleanup ..."
+
+        - name: Print message that application credential deleted successfully
+          when: _delete_app_cred_result.rc == 0
+          ansible.builtin.debug:
+            msg: "Application credential deleted successfully."
+
+    - name: Cloud secret is application credential
+      when: _auth_type in ['v3applicationcredential', 'applicationcredential']
+      block:
+        - name: Write clouds.yaml with application credentials
+          no_log: true
+          become: true
+          ansible.builtin.copy:
+            dest: "/etc/openstack/clouds.yaml"
+            owner: root
+            group: "{{ ansible_user }}"
+            mode: "0640"
+            content: |
+              ---
+              clouds:
+                default:
+                  auth_type: v3applicationcredential
+                  identity_api_version: {{ cloud_secrets[cloud_name].identity_api_version }}
+                  region_name: {{ cloud_secrets[cloud_name].region_name }}
+              {% if cloud_secrets[cloud_name].ca_cert_path is defined %}
+                  cacert: {{ cloud_secrets[cloud_name].ca_cert_path }}
+              {% endif %}
+                  auth:
+                    auth_url: {{ cloud_secrets[cloud_name].auth_url }}
+                    application_credential_id: {{ cloud_secrets[cloud_name].application_credential_id }}
+                    application_credential_secret: {{ cloud_secrets[cloud_name].application_credential_secret }}
+
+    - name: Delete the heat stack
+      environment:
+        OS_CLOUD: default
+      ansible.builtin.command:
+        cmd: "openstack stack delete {{ stack_name }} --yes --wait"
+      register: _delete_stack_result
+      ignore_errors: true
+
+    - name: Print message that stack failed to delete
+      when: _delete_stack_result.failed
+      ansible.builtin.debug:
+        msg: "WARNING: Stack failed to delete, continue with cleanup ..."
+
+    - name: Print message that stack deleted successfully
+      when: not _delete_stack_result.failed
+      ansible.builtin.debug:
+        msg: "Stack deleted successfully."
+
+    - name: Delete clouds.yaml
+      no_log: true
+      become: true
+      ansible.builtin.file:
+        path: "/etc/openstack/clouds.yaml"
+        state: absent
