@@ -1,26 +1,3 @@
-- name: Generate IBM cert and load IBM related vars
-  when: cloud_name in ["ibm-bm3-nodepool"]
-  block:
-    - name: Load IBM CA certs vars
-      include_vars:
-        file: files/{{ cloud_name }}.yaml
-        name: ibm_cert
-
-    - name: Generate IBM CA cert file
-      become: true
-      copy:
-        content: "{{ ibm_cert.ca_cert }}"
-        dest: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ca_cert_name }}"
-        mode: 0755
-
-    - name: Set the cacert_file path
-      set_fact:
-       cacert_path: "/etc/pki/ca-trust/source/anchors/{{ ibm_cert.ca_cert_name }}"
-
-    - name: Update CA certs
-      command: update-ca-trust
-      become: true
-
 - name: Generate clouds.yaml file
   template:
     src: clouds.yaml.j2
