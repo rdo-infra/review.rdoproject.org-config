@@ -97,7 +97,9 @@
 
         - name: Set limit for disk usage - IOPS and Read/Write
           when: crc_disk_limitation | default(true)
-          ansible.builtin.include_tasks: limit-disk-usage.yaml
+          ansible.builtin.include_role:
+            name: disk-usage-limitation
+            tasks_from: crc.yaml
 
         - name: Pause machineconfigpool
           ansible.builtin.include_role:
