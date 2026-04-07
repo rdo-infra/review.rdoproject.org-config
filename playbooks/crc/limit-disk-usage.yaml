@@ -9,9 +9,9 @@
     # NOTE: the current disks are making 100k IOPS, but if we take how many
     # VMs are on one hypervisor, 18k IOPS might be over that limit.
     # NOTE: useful info about etcd HW requirements: https://etcd.io/docs/v3.5/op-guide/hardware/
-    iops_limit: 18000
-    # 250MB in Bytes
-    rw_total_limit: 262144000
+    iops_limit: 25000
+    # 350MB in Bytes
+    rw_total_limit: 367001600
 
 - name: Print limits for the disk
   ansible.builtin.debug:
