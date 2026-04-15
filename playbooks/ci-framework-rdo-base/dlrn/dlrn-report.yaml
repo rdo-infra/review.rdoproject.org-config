@@ -1,9 +1,13 @@
 ---
 - name: Report DLRN results after job run
   hosts: all:!crc:!compute:!computes:!rh-subscription
+  vars:
+    cifmw_basedir: "{{ ansible_user_dir }}/ci-framework"
   tasks:
+    - name: Include vars from ci-framework group_vars
+      ansible.builtin.include_vars:
+        file: "{{ cifmw_basedir }}/group_vars/all.yml"
+
     - name: Report job status to DLRN
-      vars:
-        cifmw_basedir: "{{ ansible_user_dir }}/ci-framework"
       ansible.builtin.include_role:
         name: dlrn_report
