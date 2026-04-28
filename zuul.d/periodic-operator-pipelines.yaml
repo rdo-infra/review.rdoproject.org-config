@@ -8,11 +8,3 @@
     trigger:
       timer:
         - time: '0 9,20 * * *'
-    success:
-      opensearch_rdoproject_org:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
-    failure:
-      opensearch_rdoproject_org:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
