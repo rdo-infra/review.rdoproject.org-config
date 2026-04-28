@@ -22,14 +22,10 @@
       # Note: opendev.org is the account name used to vote on opendev change.
       opendev.org:
         Code-Review: 1
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       # Note: opendev.org is the account name used to vote on opendev change.
       opendev.org:
         Code-Review: -1
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-experimental
@@ -52,13 +48,9 @@
     success:
       opendev.org:
         Code-Review: 1
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       opendev.org:
         Code-Review: -1
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-regular
@@ -70,11 +62,7 @@
       timer:
         - time: '10 14 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-daily
@@ -86,11 +74,7 @@
       timer:
         - time: '0 3 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-daily2
@@ -102,11 +86,7 @@
       timer:
         - time: '0 18 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-stable1
@@ -118,11 +98,7 @@
       timer:
         - time: '10 21 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-stable2
@@ -134,11 +110,7 @@
       timer:
         - time: '0 18 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-stable3
@@ -150,11 +122,7 @@
       timer:
         - time: '0 12 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-stable4
@@ -166,11 +134,7 @@
       timer:
         - time: '0 9 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-integration-wallaby-centos9-fips
@@ -182,11 +146,7 @@
       timer:
         - time: '0 16 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: periodic-promote-ceph-daemon
@@ -199,11 +159,7 @@
         # Monday, Wednesday and Friday, at 2am UTC
         - time: '0 2 * * 0,2,4'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 # Component pipelines:
 # Note that while these pipelines are kicked on a periodic basis,
@@ -221,11 +177,7 @@
       timer:
         - time: '0 0 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-cinder
@@ -237,11 +189,7 @@
       timer:
         - time: '30 1 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-clients
@@ -253,11 +201,7 @@
       timer:
         - time: '0 3 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-cloudops
@@ -269,11 +213,7 @@
       timer:
         - time: '30 4 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-common
@@ -285,11 +225,7 @@
       timer:
         - time: '0 6 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-compute
@@ -301,11 +237,7 @@
       timer:
         - time: '30 7 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-glance
@@ -317,11 +249,7 @@
       timer:
         - time: '0 9 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-manila
@@ -333,11 +261,7 @@
       timer:
         - time: '30 10 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-network
@@ -349,11 +273,7 @@
       timer:
         - time: '0 12 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-octavia
@@ -365,11 +285,7 @@
       timer:
         - time: '30 13 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-security
@@ -381,11 +297,7 @@
       timer:
         - time: '0 15 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-swift
@@ -397,11 +309,7 @@
       timer:
         - time: '30 16 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-tempest
@@ -413,11 +321,7 @@
       timer:
         - time: '0 18 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-tripleo
@@ -429,11 +333,7 @@
       timer:
         - time: '30 19 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-ui
@@ -445,11 +345,7 @@
       timer:
         - time: '0 21 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-component-validation
@@ -461,11 +357,7 @@
       timer:
         - time: '30 22 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-promote-component
@@ -477,11 +369,7 @@
       timer:
         - time: '0 */2 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-periodic-weekend
@@ -493,11 +381,7 @@
       timer:
         - time: '0 12 * * 6'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: openstack-post
@@ -510,11 +394,7 @@
         - event: ref-updated
           ref: ^refs/heads/.*$
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: periodic-ci-config-molecule-python
@@ -526,8 +406,4 @@
       timer:
         - time: '0 2,14 * * *'
     success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
