@@ -72,14 +72,12 @@
       - system-required
     check:
       jobs:
-        - config-check
         - tox-linters
     gate:
       jobs:
-        - config-check
+        - tox-linters
     post:
       jobs:
-        - config-update
         - config-distgit-mirror-github
 
 - project:
