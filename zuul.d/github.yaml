@@ -29,17 +29,14 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
         comment: false
     success:
       github.com:
         status: 'success'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: false
     failure:
       github.com:
         status: 'failure'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: true
 
 - pipeline: &experimental
@@ -65,17 +62,14 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
         comment: false
     success:
       github.com:
         status: 'success'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: false
     failure:
       github.com:
         status: 'failure'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: true
 
 - pipeline:
@@ -149,18 +143,15 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://softwarefactory-project.io/zuul/t/rdoproject.org/status/change/{change.number},{change.patchset}"
         comment: false
     success:
       github.com:
         status: 'success'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         merge: true
         comment: true
     failure:
       github.com:
         status: 'failure'
-        status-url: 'https://softwarefactory-project.io/zuul/t/rdoproject.org/buildset/{buildset.uuid}'
         comment: true
     window-floor: 20
     window-increase-factor: 2
