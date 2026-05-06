@@ -6,7 +6,7 @@
     # instead of ci-framework-data. Something to fix in the future.
     - name: Set vars necessary for other roles
       ansible.builtin.set_fact:
-        cifmw_basedir: "{{ ansible_user_dir }}/ci-framework"
+        cifmw_basedir: "{{ zuul.projects['github.com/openstack-k8s-operators/ci-framework'].src_dir }}/ci-framework"
 
     - name: Clone repos in the job workspace
       ansible.builtin.include_role:

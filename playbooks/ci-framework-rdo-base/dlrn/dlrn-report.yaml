@@ -2,7 +2,7 @@
 - name: Report DLRN results after job run
   hosts: all:!crc:!compute:!computes:!rh-subscription
   vars:
-    cifmw_basedir: "{{ ansible_user_dir }}/ci-framework"
+    cifmw_basedir: "{{ zuul.projects['github.com/openstack-k8s-operators/ci-framework'].src_dir }}/ci-framework"
   tasks:
     - name: Include vars from ci-framework group_vars
       vars:
