@@ -22,6 +22,9 @@
                 url: 'download-logs.sh'
 
 - hosts: a71a93e18f1524007a0994a866a4da93-48298913.us-east-1.elb.amazonaws.com
+  vars:
+    zuul_log_compress: true
+    zuul_log_verbose: true
   gather_facts: False
   roles:
     - role: upload-logs
