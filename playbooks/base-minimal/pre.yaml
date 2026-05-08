@@ -1,9 +1,9 @@
 - hosts: localhost
   roles:
     - role: log-inventory
-      zuul_log_url: "https://logserver.rdoproject.org"
+      zuul_log_url: "https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/logs"
     - role: emit-job-header
-      zuul_log_url: "https://logserver.rdoproject.org"
+      zuul_log_url: "https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/logs"
 
 - hosts: all
   pre_tasks:
