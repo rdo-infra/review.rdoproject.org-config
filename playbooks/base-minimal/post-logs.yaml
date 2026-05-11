@@ -11,7 +11,7 @@
       include_role:
         name: local-log-download
       vars:
-        local_log_download_api: 'https://review.rdoproject.org/zuul/api'
+        local_log_download_api: 'https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/zuul/api'
 
     - name: Register quick-download link
       zuul_return:
@@ -22,13 +22,12 @@
                 url: 'download-logs.sh'
 
 - hosts: a71a93e18f1524007a0994a866a4da93-48298913.us-east-1.elb.amazonaws.com
-  vars:
-    zuul_log_compress: true
-    zuul_log_verbose: true
   gather_facts: False
   roles:
     - role: upload-logs
       zuul_log_url: "{{ site_logs.url }}"
       zuul_logserver_root: "{{ site_logs.path }}"
+      zuul_log_compress: true
+      zuul_log_verbose: true
     - role: buildset-artifacts-location
       zuul_log_url: "{{ site_logs.url }}"
