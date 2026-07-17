@@ -46,6 +46,12 @@
     timeout: 1800
     post-timeout: 5400
     nodeset: rdo-centos-9-stream
+    vars:
+      fetch_output_rsync_human_readable: true
+      fetch_output_rsync_log_file: true
+      fetch_output_rsync_quiet: true
+      fetch_output_rsync_stats: true
+      fetch_output_rsync_timeout: 120
     secrets:
       - secret: site_logserver
         name: site_logs
@@ -69,6 +75,12 @@
     timeout: 1800
     post-timeout: 5400
     nodeset: rdo-centos-9-stream
+    vars:
+      fetch_output_rsync_human_readable: true
+      fetch_output_rsync_log_file: true
+      fetch_output_rsync_quiet: true
+      fetch_output_rsync_stats: true
+      fetch_output_rsync_timeout: 120
     secrets:
       - secret: site_logserver
         name: site_logs
