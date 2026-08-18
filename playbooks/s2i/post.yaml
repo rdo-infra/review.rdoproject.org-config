@@ -1,0 +1,27 @@
+---
+- name: Collect build logs and clean up
+  hosts: builder
+  gather_facts: false
+  vars:
+    s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
+    s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
+
+  tasks:
+    - name: Ensure the container build log directory exists
+      ansible.builtin.file:
+        path: "{{ s2i_ci_log_dir }}"
+        state: directory
+        mode: "0755"
+      failed_when: false
+
+    - name: Collect container logs
+      block:
+        - name: Run the trusted container log collection role
+          ansible.builtin.include_role:
+            name: collect-container-logs
+          vars:
+            container_command: podman
+      rescue:
+        - name: Report non-fatal log collection failure
+          ansible.builtin.debug:
+            msg: Container log collection failed; continuing
