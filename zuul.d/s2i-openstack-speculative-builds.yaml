@@ -1,0 +1,44 @@
+---
+# Speculative s2i container builds for upstream OpenStack projects.
+#
+# When a Gerrit change is proposed on one of these projects, the s2i content
+# provider auto-detects which container images reference the triggering
+# project in their sources.txt and rebuilds only those images with the
+# speculative source.
+#
+# The "auto" mode inspects containers/*/sources.txt for lines matching
+# the zuul.project canonical name and builds the affected targets.
+#
+# Pre-merge jobs use the openstack-check pipeline (opendev.org events).
+# Post-merge quay publish is a separate change (github-post on
+# s2i-openstack-containers).
+#
+# Starting with tempest and watcher to validate the pipeline end-to-end.
+# More projects will be enabled once these are proven stable.
+
+- project-template:
+    name: s2i-speculative-build
+    description: |
+      Run the s2i content provider in auto-detect mode.  Include this
+      template in any upstream OpenStack project whose source is consumed
+      by s2i-openstack-containers images.
+    openstack-check:
+      jobs:
+        - s2i-openstack-container-content-provider:
+            voting: false
+            vars:
+              s2i_ci_images: auto
+
+# -- tempest (build-only) -------------------
+
+- project:
+    name: opendev.org/openstack/tempest
+    templates:
+      - s2i-speculative-build
+
+# -- watcher (build-only; deploy+validate lives in watcher-operator) -----
+
+- project:
+    name: opendev.org/openstack/watcher
+    templates:
+      - s2i-speculative-build
