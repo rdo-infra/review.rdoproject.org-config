@@ -1,0 +1,139 @@
+---
+# Speculative s2i container builds for upstream OpenStack projects.
+#
+# When a Gerrit change is proposed on one of these projects, the s2i content
+# provider auto-detects which container images reference the triggering
+# project in their sources.txt and rebuilds only those images with the
+# speculative source.
+#
+# The "auto" mode inspects containers/*/sources.txt for lines matching
+# the zuul.project canonical name and builds the affected targets.
+#
+# Pre-merge jobs use the openstack-check pipeline (opendev.org events).
+# Post-merge quay pushes are handled by the github-post pipeline on the
+# s2i-openstack-containers repo, triggered after periodic source-pin
+# bump PRs merge.
+
+- project-template:
+    name: s2i-speculative-build
+    description: |
+      Run the s2i content provider in auto-detect mode.  Include this
+      template in any upstream OpenStack project whose source is consumed
+      by s2i-openstack-containers images.
+    openstack-check:
+      jobs:
+        - s2i-openstack-container-content-provider:
+            voting: false
+            vars:
+              s2i_ci_images: auto
+
+# -- tempest (full pipeline: build + consumer validation) ----------------
+
+- project:
+    name: opendev.org/openstack/tempest
+    templates:
+      - s2i-speculative-build
+    openstack-check:
+      jobs:
+        - openstack-k8s-operators-content-provider:
+            vars:
+              cifmw_install_yamls_sdk_version: v1.41.1
+        - test-operator-kuttl-s2i-tempest:
+            voting: false
+            dependencies:
+              - openstack-k8s-operators-content-provider
+              - s2i-openstack-container-content-provider
+        - podified-multinode-edpm-deployment-crc-test-operator-s2i-tempest:
+            voting: false
+            dependencies:
+              - openstack-k8s-operators-content-provider
+              - s2i-openstack-container-content-provider
+
+# -- watcher (build + deploy + validate) --------------------------------
+
+- project:
+    name: opendev.org/openstack/watcher
+    templates:
+      - s2i-speculative-build
+    openstack-check:
+      jobs:
+        - openstack-k8s-operators-content-provider:
+            vars:
+              cifmw_install_yamls_sdk_version: v1.41.1
+        - s2i-speculative-deploy-test-watcher:
+            voting: false
+            dependencies:
+              - openstack-k8s-operators-content-provider
+              - s2i-openstack-container-content-provider
+
+# -- build-only validation (no consumer jobs yet) ------------------------
+
+- project:
+    name: opendev.org/openstack/cinder
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/glance
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/manila
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/nova
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/neutron
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/heat
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/horizon
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/octavia
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/swift
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/aodh
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/cyborg
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/designate
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/heat-dashboard
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/python-tempestconf
+    templates:
+      - s2i-speculative-build
