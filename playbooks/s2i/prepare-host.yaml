@@ -1,0 +1,18 @@
+---
+- name: Prepare the container image build host
+  hosts: builder
+  vars:
+    s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
+    s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
+    s2i_ci_workspace_root: "{{ zuul_user_dir | default(ansible_user_dir) }}"
+
+  tasks:
+    - name: Resolve s2i repo path
+      ansible.builtin.set_fact:
+        _s2i_repo_path: >-
+          {{ s2i_ci_workspace_root }}/{{
+             zuul.projects[s2i_ci_container_project].src_dir }}
+
+    - name: Include host preparation from s2i repo
+      ansible.builtin.include_tasks: >-
+        {{ _s2i_repo_path }}/playbooks/container-ci/shared/prepare-host-tasks.yaml

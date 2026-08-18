@@ -1,0 +1,35 @@
+---
+- name: Build and push S2I images to quay.io
+  hosts: builder
+  vars:
+    s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
+    s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
+    s2i_ci_workspace_root: "{{ zuul_user_dir | default(ansible_user_dir) }}"
+    s2i_quay_registry: "quay.io"
+    s2i_quay_namespace: "openstack-k8s-operators"
+    s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
+    s2i_ci_images: all
+
+  tasks:
+    - name: Log in to quay.io
+      ansible.builtin.command:
+        argv:
+          - buildah
+          - login
+          - --username
+          - "{{ quay_nextgen_zuulgithubci.user }}"
+          - --password-stdin
+          - "{{ s2i_quay_registry }}"
+        stdin: "{{ quay_nextgen_zuulgithubci.password }}"
+      no_log: true
+      changed_when: true
+
+    - name: Resolve s2i repo path for task inclusion
+      ansible.builtin.set_fact:
+        _s2i_repo_path: >-
+          {{ s2i_ci_workspace_root }}/{{
+             zuul.projects[s2i_ci_container_project].src_dir }}
+
+    - name: Include build and push tasks from s2i repo
+      ansible.builtin.include_tasks: >-
+        {{ _s2i_repo_path }}/playbooks/container-ci/zuul/push-to-quay-tasks.yaml
