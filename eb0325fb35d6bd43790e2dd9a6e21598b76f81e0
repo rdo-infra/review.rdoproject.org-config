@@ -16,6 +16,24 @@
       "message": "we have some components/libraries, like os-brick, which are part of more containers. For example os-brick is technically part of the cinder project on opendev.org and it follows the same schedule. Should we need a separate entry for it? But then it is also included in other containers, so it should trigger their rebuilds too?\n\nAnother example are the various python-*client which may be included in multiple containers.",
       "revId": "eb0325fb35d6bd43790e2dd9a6e21598b76f81e0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9fd287_d187460e",
+        "filename": "zuul.d/s2i-openstack-speculative-builds.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 789
+      },
+      "writtenOn": "2026-08-18T14:06:03Z",
+      "side": 1,
+      "message": "Good point. I checked the actual sources.txt files and this is already handled by the current design. Using cinder as an example:\n\nhttps://github.com/openstack-k8s-operators/s2i-openstack-containers/blob/main/containers/cinder/sources.txt only lists two entries:\n\nmaster upper-constraints https://opendev.org/openstack/requirements.git ...\nmaster cinder            https://opendev.org/openstack/cinder.git ...\n\nos-brick is not in any sources.txt -- it arrives as a pip dependency pinned in https://github.com/openstack-k8s-operators/s2i-openstack-containers/blob/main/containers/cinder/requirements.lock.master (e.g., os-brick\u003d\u003d7.1.0) and https://github.com/openstack-k8s-operators/s2i-openstack-containers/blob/main/containers/cinder/upper-constraints.txt.master. The same applies to python-cinderclient and other shared libraries.\n\nauto-detect works by scanning sources.txt manifests, so:\n\n* a patch to openstack/os-brick would not match any container -- no rebuild. This is correct: os-brick changes reach containers through a pip release + constraints update, not a source checkout.\n* a patch to openstack/cinder matches only containers/cinder/sources.txt -- only cinder images are rebuilt. Correct.\n* a patch to openstack/requirements (upper-constraints) matches every container\u0027s sources.txt -- all images are rebuilt. This is also correct, since a constraints bump could pull in a new os-brick release.\n\nFor projects that appear in multiple sources.txt files (e.g., networking-baremetal in both neutron/neutron-server/sources.txt and neutron/ironic-neutron-agent/sources.txt), auto-detect finds and rebuilds all of them.\n\nSo no separate entries are needed for shared libraries. We only need Zuul project stanzas for projects already listed in sources.txt. If we ever want to speculatively test an os-brick patch against the cinder container, the change would be adding os-brick to containers/cinder/sources.txt -- and auto-detect would handle the rest automatically.",
+      "parentUuid": "750ffc83_ee134e18",
+      "revId": "eb0325fb35d6bd43790e2dd9a6e21598b76f81e0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
