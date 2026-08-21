@@ -167,3 +167,19 @@
       github.com:
         - event: push
           ref: ^refs/heads/.*$
+    start:
+      github.com:
+        status: 'pending'
+        comment: false
+    success:
+      github.com:
+        status: 'success'
+        comment: false
+    failure:
+      github.com:
+        status: 'failure'
+        comment: false
+    dequeue:
+      github.com:
+        status: 'failure'
+        comment: false
