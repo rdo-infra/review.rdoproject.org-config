@@ -204,6 +204,10 @@
     default-branch: main
     templates:
       - system-required
+    github-post:
+      jobs:
+        - s2i-openstack-container-build-push:
+            branches: main
 
 - project:
     name: github.com/openstack-k8s-operators/tcib
