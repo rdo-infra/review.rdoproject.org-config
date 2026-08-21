@@ -1,0 +1,40 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad675d58_c919c3de",
+        "filename": "zuul.d/s2i-openstack-speculative-builds.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 789
+      },
+      "writtenOn": "2026-08-21T14:16:00Z",
+      "side": 1,
+      "message": "Yes, and Zuul does merge multiple project stanzas for the same name (templates union, pipeline jobs append).\n\nI did not add the s2i consumer to opendev-watcher-edpm-pipeline: that template is also applied to python-watcherclient and watcher-tempest-plugin, which should not rebuild watcher containers.\n\nPS8 keeps s2i-speculative-build on opendev.org/openstack/watcher (same auto-detect provider as the other OpenStack projects) and attaches a watcher-only template, opendev-watcher-s2i-pipeline, defined in watcher-operator: https://github.com/openstack-k8s-operators/watcher-operator/pull/443",
+      "parentUuid": "e1b54c93_a111e4a3",
+      "revId": "1a6a257d8e49c355fecbf35004d6e825b4d5e83b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2292d20e_4c73c7e2",
+        "filename": "zuul.d/s2i-openstack-speculative-builds.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 789
+      },
+      "writtenOn": "2026-08-21T14:16:00Z",
+      "side": 1,
+      "message": "Yes, Zuul merges. These second stanzas only add the s2i-speculative-build template (content provider in auto-detect). They do not redefine jobs that already exist on those projects, so there is no conflict with the existing zuul.d/projects.yaml entries.",
+      "parentUuid": "ac279922_912ccd0f",
+      "revId": "1a6a257d8e49c355fecbf35004d6e825b4d5e83b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
