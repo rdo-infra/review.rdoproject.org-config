@@ -1,0 +1,29 @@
+---
+# Ensure Quay.io repositories exist before the first push.
+# Requires s2i_quay_image_refs from push-to-quay-build-tasks.yaml.
+
+- name: Derive unique Quay repository names from image refs
+  ansible.builtin.set_fact:
+    s2i_quay_repo_names: >-
+      {{ s2i_quay_image_refs.stdout_lines |
+         reject('equalto', '') |
+         map('regex_replace', '^.*\/([^/:]+):.*$', '\1') |
+         unique |
+         list }}
+
+- name: Ensure Quay repositories exist and are public
+  ansible.builtin.uri:
+    url: "https://{{ s2i_quay_registry }}/api/v1/repository"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ quay_nextgen_zuulgithubci.password }}"
+      Content-Type: application/json
+    body_format: json
+    body:
+      repository: "{{ item }}"
+      namespace: "{{ s2i_quay_namespace }}"
+      description: Created automatically via CI
+      visibility: public
+    status_code: [201, 400]
+  loop: "{{ s2i_quay_repo_names }}"
+  no_log: true
