@@ -18,6 +18,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce92dc7f_cb2524cc",
+        "filename": "playbooks/s2i/push-to-quay.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 789
+      },
+      "writtenOn": "2026-08-21T14:16:10Z",
+      "side": 1,
+      "message": "Thanks, keeping that order: master-\u003csha\u003e first, then master-latest. This wrapper is now on the post-merge publish change (I9b262bc4) rather than this speculative-build change.",
+      "parentUuid": "3b95bd55_a17e654b",
+      "revId": "6be6c702cfb0e391726cd1d9541737eff331b8b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67082f47_fc2588ed",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-21T11:33:44Z",
       "side": 1,
       "message": "FTR, it was tricky for me to make this work in the past. I had to set explicitly REGISTRY_AUTH_FILE . It\u0027s probably worthy to do also here. It needs to also be passed when calling build.sh push",
+      "revId": "6be6c702cfb0e391726cd1d9541737eff331b8b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "148ee66a_f8007e20",
+        "filename": "playbooks/s2i/push-to-quay.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 789
+      },
+      "writtenOn": "2026-08-21T14:16:10Z",
+      "side": 1,
+      "message": "Agreed. On I9b262bc4 the wrapper will write the dockerconfigjson, pass --authfile to both the wrapper and build.sh push, and export REGISTRY_AUTH_FILE to the same path. The post playbook removes the auth file.",
+      "parentUuid": "67082f47_fc2588ed",
       "revId": "6be6c702cfb0e391726cd1d9541737eff331b8b8",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
