@@ -17,6 +17,17 @@
   tags:
     - skip_ansible_lint
 
+- name: Configure podman to use slirp4netns instead of pasta
+  become: true
+  ansible.builtin.blockinfile:
+    path: /etc/containers/containers.conf
+    create: true
+    mode: '0644'
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Podman network backend"
+    block: |
+      [network]
+      network_backend = "slirp4netns"
+
 - name: Inject pull secret into /var/lib/kubelet/config.json
   become: true
   ansible.builtin.copy:
