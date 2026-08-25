@@ -13,8 +13,38 @@
 # Post-merge quay publish is a separate change (github-post on
 # s2i-openstack-containers).
 #
-# Starting with tempest and watcher to validate the pipeline end-to-end.
-# More projects will be enabled once these are proven stable.
+# Which OpenDev projects belong here
+# ----------------------------------
+# Add a project stanza only when all of the following are true:
+# 1. s2i-openstack-containers has a containers/<svc>/sources.txt line
+#    pointing at that OpenDev repo (the service source, not a client).
+# 2. The repo is already a tenant project (see zuul.d/projects.yaml), so
+#    openstack-check events can actually schedule the job.
+# 3. Speculative *builds* for that service are in-scope (operator-onboarding
+#    Phase 2 / this template). Deploy+tempest consumers are a separate
+#    per-operator change and are not attached here.
+#
+# files: is on the template, not on per-project overlays. A template job
+# with no files: still matches docs-only changes even if a project stanza
+# adds files: (Zuul ORs matching variants). Extra tree patterns are
+# harmless: tempest has no nova/ directory and vice versa.
+#
+# Not added on purpose
+# --------------------
+# - python-watcherclient: no sources.txt mapping (would auto-detect nothing).
+# - tempest plugins, python-tempestconf: baked into the tempest image, but
+#   onboarding limits s2i jobs with files: ^watcher/ / ^tempest/ so plugin
+#   and client changes do not rebuild containers.
+# - watcher-dashboard: feeds the horizon image, not watcher; horizon is
+#   not a tenant project here.
+# - cinder, manila, swift, keystone, barbican, designate, aodh, cyborg,
+#   cloudkitty, horizon: have s2i images, but they are not tenant projects
+#   in this config, so a stanza would never run (or would fail tenant
+#   config). Enable them when the tenant lists those repos.
+# - GitHub operator repos: they use github-check, not this file.
+# - kuttl / e2e consumer jobs: not defined on tenant main until
+#   test-operator PR 492 lands. Watcher deploy+validate stays in
+#   watcher-operator.
 
 - project-template:
     name: s2i-speculative-build
@@ -26,19 +56,65 @@
       jobs:
         - s2i-openstack-container-content-provider:
             voting: false
+            files:
+              - ^tempest/
+              - ^watcher/
+              - ^glance/
+              - ^heat/
+              - ^ironic/
+              - ^neutron/
+              - ^nova/
+              - ^octavia/
+            irrelevant-files:
+              - ^.*\.rst$
+              - ^doc/.*$
+              - ^releasenotes/.*$
+              - ^api-ref/.*$
             vars:
               s2i_ci_images: auto
 
-# -- tempest (build-only) -------------------
+# -- tempest (build-only) -----------------------------------------------
 
 - project:
     name: opendev.org/openstack/tempest
     templates:
       - s2i-speculative-build
 
-# -- watcher (build-only; deploy+validate lives in watcher-operator) -----
+# -- watcher (build-only; deploy+validate lives in watcher-operator) ----
 
 - project:
     name: opendev.org/openstack/watcher
+    templates:
+      - s2i-speculative-build
+
+# -- other tenant OpenDev services that already have an s2i image -------
+
+- project:
+    name: opendev.org/openstack/glance
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/heat
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/ironic
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/neutron
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/nova
+    templates:
+      - s2i-speculative-build
+
+- project:
+    name: opendev.org/openstack/octavia
     templates:
       - s2i-speculative-build
