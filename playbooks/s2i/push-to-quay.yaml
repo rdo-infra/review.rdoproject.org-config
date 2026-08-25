@@ -1,17 +1,27 @@
 ---
+# Trusted playbook: login with the Zuul secret, then invoke build.sh
+# from the s2i checkout on the builder. Build/push stay as remote
+# commands so untrusted YAML is never included into this play.
 - name: Build and push S2I images to quay.io
   hosts: builder
   vars:
     s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
-    s2i_ci_workspace_root: "{{ zuul_user_dir | default(ansible_user_dir) }}"
+    s2i_ci_workspace_root: "{{ ansible_user_dir }}"
     s2i_quay_registry: "quay.io"
     s2i_quay_namespace: "openstack-k8s-operators"
     s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
-    s2i_quay_tag_expiration_weeks: 12
-    s2i_ci_images: all
 
   tasks:
+    - name: Resolve build paths and target list
+      ansible.builtin.set_fact:
+        s2i_ci_container_repo: >-
+          {{ s2i_ci_workspace_root }}/{{
+             zuul.projects[s2i_ci_container_project].src_dir }}
+        s2i_ci_target_expression: >-
+          {{ 'all' if s2i_ci_images == 'all'
+             else (s2i_ci_images | join(',')) }}
+
     - name: Log in to quay.io
       ansible.builtin.command:
         argv:
@@ -25,22 +35,56 @@
       no_log: true
       changed_when: true
 
-    - name: Resolve s2i repo path for task inclusion
-      ansible.builtin.set_fact:
-        _s2i_repo_path: >-
-          {{ s2i_ci_workspace_root }}/{{
-             zuul.projects[s2i_ci_container_project].src_dir }}
+    - name: Create log directory
+      ansible.builtin.file:
+        path: "{{ s2i_ci_log_dir }}"
+        state: directory
+        mode: "0755"
 
-    - name: Include build tasks from s2i repo
-      ansible.builtin.include_tasks: >-
-        {{ _s2i_repo_path }}/playbooks/container-ci/zuul/push-to-quay-build-tasks.yaml
+    - name: Build images tagged for quay
+      ansible.builtin.command:
+        argv:
+          - "{{ s2i_ci_container_repo }}/build.sh"
+          - build-parallel
+          - "{{ s2i_ci_target_expression }}"
+        chdir: "{{ s2i_ci_container_repo }}"
+      environment:
+        STREAM: "{{ s2i_ci_stream }}"
+        REGISTRY: "{{ s2i_quay_registry }}"
+        NAMESPACE: "{{ s2i_quay_namespace }}"
+        TAG: "{{ s2i_quay_tag }}"
+        PARALLEL: "{{ ansible_facts.processor_vcpus | default(2) | string }}"
+        BUILD_LOGS_DIR: "{{ s2i_ci_log_dir }}"
+      register: s2i_quay_build
+      changed_when: s2i_quay_build.rc == 0
 
-    - name: Ensure Quay repositories exist before push
-      ansible.builtin.include_tasks: quay-ensure-repos-tasks.yaml
+    - name: Save build output
+      ansible.builtin.copy:
+        dest: "{{ s2i_ci_log_dir }}/quay-build.log"
+        mode: "0644"
+        content: |
+          {{ s2i_quay_build.stdout }}
+          {{ s2i_quay_build.stderr }}
 
-    - name: Include push tasks from s2i repo
-      ansible.builtin.include_tasks: >-
-        {{ _s2i_repo_path }}/playbooks/container-ci/zuul/push-to-quay-push-tasks.yaml
+    - name: Push images to quay
+      ansible.builtin.command:
+        argv:
+          - "{{ s2i_ci_container_repo }}/build.sh"
+          - push
+          - "{{ s2i_ci_target_expression }}"
+        chdir: "{{ s2i_ci_container_repo }}"
+      environment:
+        STREAM: "{{ s2i_ci_stream }}"
+        REGISTRY: "{{ s2i_quay_registry }}"
+        NAMESPACE: "{{ s2i_quay_namespace }}"
+        TAG: "{{ s2i_quay_tag }}"
+      register: s2i_quay_push
+      changed_when: s2i_quay_push.rc == 0
 
-    - name: Set expiration on commit-sha Quay tags
-      ansible.builtin.include_tasks: quay-expire-tags-tasks.yaml
+    - name: Save push output
+      ansible.builtin.copy:
+        dest: "{{ s2i_ci_log_dir }}/quay-push.log"
+        mode: "0644"
+        content: |
+          {{ s2i_quay_push.stdout }}
+          {{ s2i_quay_push.stderr }}

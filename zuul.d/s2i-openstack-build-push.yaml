@@ -1,9 +1,10 @@
 ---
 # Post-merge job that builds S2I container images and pushes them
 # to quay.io.  Defined here (config project) so it can reference
-# the quay_nextgen_zuulgithubci secret.  The actual build/push
-# logic lives in s2i-openstack-containers; the wrapper playbooks
-# in this repo inject the credentials and delegate via include_tasks.
+# the quay_nextgen_zuulgithubci secret.  Playbooks in this repo are
+# trusted: they log in, then call build.sh from the s2i checkout on
+# the builder.  They must not include_tasks YAML from the untrusted
+# s2i repo (that would expose the secret to third-party tasks).
 
 - job:
     name: s2i-openstack-container-build-push
@@ -16,6 +17,7 @@
       Set s2i_ci_images to 'all' (default) to rebuild everything, or
       to a list of targets for selective rebuilds.
     timeout: 7200
+    attempts: 1
     nodeset: s2i-openstack-containers-image-builder
     required-projects:
       - github.com/openstack-k8s-operators/s2i-openstack-containers
@@ -26,9 +28,14 @@
     secrets:
       - name: quay_nextgen_zuulgithubci
         secret: quay_nextgen_zuulgithubci
+    # Honored on change pipelines; github-post (ref-updated) may ignore
+    # this. Matches the GHA build-and-push path filter.
+    files:
+      - ^build\.sh$
+      - ^tox\.ini$
+      - ^containers/.*
     vars:
       s2i_ci_container_project: >-
         github.com/openstack-k8s-operators/s2i-openstack-containers
       s2i_ci_stream: master
       s2i_ci_images: all
-      s2i_quay_tag_expiration_weeks: 12

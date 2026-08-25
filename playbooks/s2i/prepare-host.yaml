@@ -1,18 +1,49 @@
 ---
+# Trusted copy of host prep. Do not include_tasks from the untrusted
+# s2i-openstack-containers repo: that would run third-party YAML in
+# the same context as the Quay secret.
 - name: Prepare the container image build host
   hosts: builder
   vars:
     s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
-    s2i_ci_workspace_root: "{{ zuul_user_dir | default(ansible_user_dir) }}"
 
   tasks:
-    - name: Resolve s2i repo path
-      ansible.builtin.set_fact:
-        _s2i_repo_path: >-
-          {{ s2i_ci_workspace_root }}/{{
-             zuul.projects[s2i_ci_container_project].src_dir }}
+    - name: Ensure the container build log directory exists
+      ansible.builtin.file:
+        path: "{{ s2i_ci_log_dir }}"
+        state: directory
+        mode: "0755"
 
-    - name: Include host preparation from s2i repo
-      ansible.builtin.include_tasks: >-
-        {{ _s2i_repo_path }}/playbooks/container-ci/shared/prepare-host-tasks.yaml
+    - name: Update the apt package cache
+      when:
+        - s2i_ci_install_host_packages | default(true) | bool
+        - ansible_facts.os_family == "Debian"
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install container build host packages
+      when: s2i_ci_install_host_packages | default(true) | bool
+      become: true
+      ansible.builtin.package:
+        name:
+          - buildah
+          - ca-certificates
+          - git
+          - openssl
+        state: present
+
+    - name: Ensure Podman is installed and usable
+      when: s2i_ci_install_host_packages | default(true) | bool
+      ansible.builtin.include_role:
+        name: ensure-podman
+      vars:
+        ensure_podman_rootless: false
+        ensure_podman_validate: true
+
+    - name: Validate Buildah
+      when: s2i_ci_install_host_packages | default(true) | bool
+      ansible.builtin.command: buildah version
+      changed_when: false
