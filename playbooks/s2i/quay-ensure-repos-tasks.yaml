@@ -18,10 +18,11 @@
     s2i_quay_http_prefix: quay-create
     s2i_quay_http_method: POST
     s2i_quay_http_url: "https://{{ s2i_quay_registry }}/api/v1/repository"
-    s2i_quay_http_body: "{{ {'repository': s2i_quay_repo,
-      'namespace': s2i_quay_namespace,
-      'description': 'Created automatically via CI',
-      'visibility': 'public'} | to_json }}"
+    s2i_quay_http_body:
+      repository: "{{ s2i_quay_repo }}"
+      namespace: "{{ s2i_quay_namespace }}"
+      description: Created automatically via CI
+      visibility: public
     s2i_quay_http_ok:
       - "HTTP 201"
       - "HTTP 400"
@@ -48,7 +49,8 @@
         ~ '/permissions/user/'
         ~ (s2i_quay.username | replace('+', '%2B'))
       }}
-    s2i_quay_http_body: "{{ {'role': 'write'} | to_json }}"
+    s2i_quay_http_body:
+      role: write
     s2i_quay_http_ok:
       - "HTTP 200"
       - "HTTP 201"
