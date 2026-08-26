@@ -208,6 +208,16 @@
       jobs:
         - s2i-openstack-container-build-push:
             branches: main
+    # DNM: comment "check-github" on an s2i PR that Depends-On this
+    # change. Config-project check cannot speculatively add jobs to
+    # itself; the proposed layout is used for the dependent s2i PR.
+    github-manual:
+      jobs:
+        - s2i-openstack-container-build-push:
+            vars:
+              s2i_ci_images:
+                - base
+              s2i_quay_tag: "ci-{{ zuul.change }}"
 
 - project:
     name: github.com/openstack-k8s-operators/tcib
