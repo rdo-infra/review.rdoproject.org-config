@@ -1,7 +1,8 @@
 ---
 # Ensure Quay.io repositories exist before the first push.
 # Requires s2i_quay_image_refs from the build play. Auth uses the
-# OAuth token, not the robot password.
+# OAuth token, not the robot password. Same contract as GHA: POST
+# createRepo, treat HTTP 201 and 400 as success.
 - name: Derive unique Quay repository names from image refs
   ansible.builtin.set_fact:
     s2i_quay_repo_names: >-
@@ -12,21 +13,22 @@
          list }}
 
 - name: Ensure Quay repositories exist and are public
-  ansible.builtin.uri:
-    url: "https://{{ s2i_quay_registry }}/api/v1/repository"
-    method: POST
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      repository: "{{ item }}"
-      namespace: "{{ s2i_quay_namespace }}"
-      description: Created automatically via CI
-      visibility: public
-    status_code: [201, 400]
+  ansible.builtin.include_tasks: quay-api-call-tasks.yaml
+  vars:
+    s2i_quay_http_prefix: quay-create
+    s2i_quay_http_method: POST
+    s2i_quay_http_url: "https://{{ s2i_quay_registry }}/api/v1/repository"
+    s2i_quay_http_body: "{{ {'repository': s2i_quay_repo,
+      'namespace': s2i_quay_namespace,
+      'description': 'Created automatically via CI',
+      'visibility': 'public'} | to_json }}"
+    s2i_quay_http_ok:
+      - "HTTP 201"
+      - "HTTP 400"
   loop: "{{ s2i_quay_repo_names }}"
-  no_log: true
+  loop_control:
+    loop_var: s2i_quay_repo
+    label: "{{ s2i_quay_repo }}"
 
 # createRepo has no ACL field. Grant the robot write (includes read)
 # via changeUserPermissions. Robots use the user permission endpoint
@@ -34,18 +36,16 @@
 # Requires OAuth scope repo:admin. Runs even when the repo already
 # existed so a first-time robot grant still applies.
 - name: Grant the Quay robot write on each repository
-  ansible.builtin.uri:
-    url: >-
-      https://{{ s2i_quay_registry }}/api/v1/repository/{{
-      s2i_quay_namespace }}/{{ item }}/permissions/user/{{
-      s2i_quay.username | replace('+', '%2B') }}
-    method: PUT
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      role: write
-    status_code: [200, 201]
+  ansible.builtin.include_tasks: quay-api-call-tasks.yaml
+  vars:
+    s2i_quay_http_prefix: quay-grant
+    s2i_quay_http_method: PUT
+    s2i_quay_http_url: "https://{{ s2i_quay_registry }}/api/v1/repository/{{ s2i_quay_namespace }}/{{ s2i_quay_repo }}/permissions/user/{{ s2i_quay.username | replace('+', '%2B') }}"
+    s2i_quay_http_body: "{{ {'role': 'write'} | to_json }}"
+    s2i_quay_http_ok:
+      - "HTTP 200"
+      - "HTTP 201"
   loop: "{{ s2i_quay_repo_names }}"
-  no_log: true
+  loop_control:
+    loop_var: s2i_quay_repo
+    label: "{{ s2i_quay_repo }}"

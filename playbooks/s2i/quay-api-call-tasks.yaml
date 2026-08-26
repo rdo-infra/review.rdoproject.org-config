@@ -1,0 +1,39 @@
+---
+# One authenticated Quay API request for s2i_quay_repo.
+# Token stays in the curl environment of a no_log task. Status and
+# body are written to files and printed by the follow-up task.
+#
+# Required vars:
+#   s2i_quay_repo: repository name
+#   s2i_quay_http_prefix: filename stem (quay-create, quay-grant, ...)
+#   s2i_quay_http_method: POST/PUT/...
+#   s2i_quay_http_url: full URL
+#   s2i_quay_http_body: JSON string
+#   s2i_quay_http_ok: accepted first lines, e.g. "HTTP 201"
+- name: Call the Quay API
+  ansible.builtin.shell: |
+    curl -sS --max-time 120 \
+      --output "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json" \
+      --write-out "%{http_code}" \
+      -X "{{ s2i_quay_http_method }}" \
+      "{{ s2i_quay_http_url }}" \
+      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
+      -H "Content-Type: application/json" \
+      --data-binary '{{ s2i_quay_http_body }}' \
+      > "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http"
+  environment:
+    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token }}"
+  no_log: true
+  failed_when: false
+  changed_when: false
+
+- name: Check Quay API HTTP status
+  ansible.builtin.shell: |
+    echo "HTTP $(cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http")"
+    cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json"
+  register: s2i_quay_http
+  changed_when: false
+  failed_when: >-
+    s2i_quay_http.rc != 0 or
+    (s2i_quay_http.stdout_lines | default([]) | first | default(''))
+    not in s2i_quay_http_ok
