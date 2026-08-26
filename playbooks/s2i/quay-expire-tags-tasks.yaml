@@ -14,17 +14,17 @@
   changed_when: false
 
 - name: Set expiration on commit-sha Quay tags
-  ansible.builtin.uri:
-    url: >-
+  ansible.builtin.include_tasks: quay-api-call-tasks.yaml
+  vars:
+    s2i_quay_http_prefix: quay-expire
+    s2i_quay_http_method: PUT
+    s2i_quay_http_url: >-
       https://{{ s2i_quay_registry }}/api/v1/repository/{{
       s2i_quay_namespace }}/{{ item }}/tag/{{ s2i_quay_sha_tag }}
-    method: PUT
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      expiration: "{{ s2i_quay_tag_expiration_cmd.stdout | int }}"
-    status_code: [200, 201]
+    s2i_quay_http_body: "{{ {'expiration': s2i_quay_tag_expiration_cmd.stdout | int} | to_json }}"
+    s2i_quay_http_ok:
+      - "HTTP 200"
+      - "HTTP 201"
   loop: "{{ s2i_quay_repo_names }}"
-  no_log: true
+  loop_control:
+    label: "{{ item }}"
