@@ -14,17 +14,30 @@
   changed_when: false
 
 - name: Set expiration on commit-sha Quay tags
-  ansible.builtin.uri:
-    url: >-
-      https://{{ s2i_quay_registry }}/api/v1/repository/{{
-      s2i_quay_namespace }}/{{ item }}/tag/{{ s2i_quay_sha_tag }}
-    method: PUT
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      expiration: "{{ s2i_quay_tag_expiration_cmd.stdout | int }}"
-    status_code: [200, 201]
+  ansible.builtin.shell: |
+    curl -sS --max-time 120 \
+      -o "{{ s2i_ci_log_dir }}/quay-expire-{{ item }}.json" \
+      -w "%{http_code}" \
+      -X PUT "https://{{ s2i_quay_registry }}/api/v1/repository/{{ s2i_quay_namespace }}/{{ item }}/tag/{{ s2i_quay_sha_tag }}" \
+      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{"expiration": {{ s2i_quay_tag_expiration_cmd.stdout | int }}}' \
+      > "{{ s2i_ci_log_dir }}/quay-expire-{{ item }}.http"
+  environment:
+    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token }}"
   loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
   no_log: true
+  changed_when: false
+
+- name: Check Quay tag expiration HTTP status
+  ansible.builtin.shell: |
+    echo "HTTP $(cat "{{ s2i_ci_log_dir }}/quay-expire-{{ item }}.http")"
+    cat "{{ s2i_ci_log_dir }}/quay-expire-{{ item }}.json"
+  register: s2i_quay_expire_http
+  loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: false
+  failed_when: s2i_quay_expire_http.stdout_lines[0] not in ["HTTP 200", "HTTP 201"]

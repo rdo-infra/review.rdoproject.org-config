@@ -1,7 +1,8 @@
 ---
 # Ensure Quay.io repositories exist before the first push.
 # Requires s2i_quay_image_refs from the build play. Auth uses the
-# OAuth token, not the robot password.
+# OAuth token, not the robot password. Same contract as GHA: POST
+# createRepo, treat HTTP 201 and 400 as success.
 - name: Derive unique Quay repository names from image refs
   ansible.builtin.set_fact:
     s2i_quay_repo_names: >-
@@ -12,21 +13,33 @@
          list }}
 
 - name: Ensure Quay repositories exist and are public
-  ansible.builtin.uri:
-    url: "https://{{ s2i_quay_registry }}/api/v1/repository"
-    method: POST
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      repository: "{{ item }}"
-      namespace: "{{ s2i_quay_namespace }}"
-      description: Created automatically via CI
-      visibility: public
-    status_code: [201, 400]
+  ansible.builtin.shell: |
+    curl -sS --max-time 120 \
+      -o "{{ s2i_ci_log_dir }}/quay-create-{{ item }}.json" \
+      -w "%{http_code}" \
+      -X POST "https://{{ s2i_quay_registry }}/api/v1/repository" \
+      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{"repository": "{{ item }}", "namespace": "{{ s2i_quay_namespace }}", "description": "Created automatically via CI", "visibility": "public"}' \
+      > "{{ s2i_ci_log_dir }}/quay-create-{{ item }}.http"
+  environment:
+    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token }}"
   loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
   no_log: true
+  changed_when: false
+
+- name: Check Quay repository create HTTP status
+  ansible.builtin.shell: |
+    echo "HTTP $(cat "{{ s2i_ci_log_dir }}/quay-create-{{ item }}.http")"
+    cat "{{ s2i_ci_log_dir }}/quay-create-{{ item }}.json"
+  register: s2i_quay_create_http
+  loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: false
+  failed_when: s2i_quay_create_http.stdout_lines[0] not in ["HTTP 201", "HTTP 400"]
 
 # createRepo has no ACL field. Grant the robot write (includes read)
 # via changeUserPermissions. Robots use the user permission endpoint
@@ -34,18 +47,30 @@
 # Requires OAuth scope repo:admin. Runs even when the repo already
 # existed so a first-time robot grant still applies.
 - name: Grant the Quay robot write on each repository
-  ansible.builtin.uri:
-    url: >-
-      https://{{ s2i_quay_registry }}/api/v1/repository/{{
-      s2i_quay_namespace }}/{{ item }}/permissions/user/{{
-      s2i_quay.username | replace('+', '%2B') }}
-    method: PUT
-    headers:
-      Authorization: "Bearer {{ s2i_quay.oauth_token }}"
-      Content-Type: application/json
-    body_format: json
-    body:
-      role: write
-    status_code: [200, 201]
+  ansible.builtin.shell: |
+    curl -sS --max-time 120 \
+      -o "{{ s2i_ci_log_dir }}/quay-grant-{{ item }}.json" \
+      -w "%{http_code}" \
+      -X PUT "https://{{ s2i_quay_registry }}/api/v1/repository/{{ s2i_quay_namespace }}/{{ item }}/permissions/user/{{ s2i_quay.username | replace('+', '%2B') }}" \
+      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d '{"role": "write"}' \
+      > "{{ s2i_ci_log_dir }}/quay-grant-{{ item }}.http"
+  environment:
+    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token }}"
   loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
   no_log: true
+  changed_when: false
+
+- name: Check Quay robot grant HTTP status
+  ansible.builtin.shell: |
+    echo "HTTP $(cat "{{ s2i_ci_log_dir }}/quay-grant-{{ item }}.http")"
+    cat "{{ s2i_ci_log_dir }}/quay-grant-{{ item }}.json"
+  register: s2i_quay_grant_http
+  loop: "{{ s2i_quay_repo_names }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: false
+  failed_when: s2i_quay_grant_http.stdout_lines[0] not in ["HTTP 200", "HTTP 201"]
