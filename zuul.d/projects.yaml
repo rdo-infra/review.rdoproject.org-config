@@ -79,6 +79,15 @@
     post:
       jobs:
         - config-distgit-mirror-github
+    # DNM: comment "check experimental" to run the trusted push job
+    # against s2i main without merging s2i. Abandon this change after.
+    experimental:
+      jobs:
+        - s2i-openstack-container-build-push:
+            vars:
+              s2i_ci_images:
+                - base
+              s2i_quay_tag: "ci-{{ zuul.change }}"
 
 - project:
     name: gating_scripts
