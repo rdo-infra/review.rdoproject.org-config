@@ -1,7 +1,7 @@
 ---
-# Trusted playbook: login with the Zuul secret, then invoke build.sh
-# from the s2i checkout on the builder. Build/push stay as remote
-# commands so untrusted YAML is never included into this play.
+# Trusted playbook: robot login, invoke build.sh from the s2i checkout,
+# then Quay API (OAuth) for repo create and sha-tag expiration.
+# Untrusted YAML is never included into this play.
 - name: Build and push S2I images to quay.io
   hosts: builder
   vars:
@@ -9,7 +9,7 @@
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
     s2i_ci_workspace_root: "{{ ansible_user_dir }}"
     s2i_quay_registry: "quay.io"
-    s2i_quay_namespace: "openstack-k8s-operators"
+    s2i_quay_namespace: "openstack-s2i-containers"
     s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
 
   tasks:
@@ -28,10 +28,10 @@
           - buildah
           - login
           - --username
-          - "{{ quay_nextgen_zuulgithubci.user }}"
+          - "{{ s2i_quay.username }}"
           - --password-stdin
           - "{{ s2i_quay_registry }}"
-        stdin: "{{ quay_nextgen_zuulgithubci.password }}"
+        stdin: "{{ s2i_quay.password }}"
       no_log: true
       changed_when: true
 
@@ -66,6 +66,24 @@
           {{ s2i_quay_build.stdout }}
           {{ s2i_quay_build.stderr }}
 
+    - name: Resolve image references to be pushed
+      ansible.builtin.command:
+        argv:
+          - "{{ s2i_ci_container_repo }}/build.sh"
+          - refs
+          - "{{ s2i_ci_target_expression }}"
+        chdir: "{{ s2i_ci_container_repo }}"
+      environment:
+        STREAM: "{{ s2i_ci_stream }}"
+        REGISTRY: "{{ s2i_quay_registry }}"
+        NAMESPACE: "{{ s2i_quay_namespace }}"
+        TAG: "{{ s2i_quay_tag }}"
+      register: s2i_quay_image_refs
+      changed_when: false
+
+    - name: Ensure Quay repositories exist before push
+      ansible.builtin.include_tasks: quay-ensure-repos-tasks.yaml
+
     - name: Push images to quay
       ansible.builtin.command:
         argv:
@@ -88,3 +106,6 @@
         content: |
           {{ s2i_quay_push.stdout }}
           {{ s2i_quay_push.stderr }}
+
+    - name: Set expiration on commit-sha Quay tags
+      ansible.builtin.include_tasks: quay-expire-tags-tasks.yaml
