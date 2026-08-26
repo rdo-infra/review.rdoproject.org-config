@@ -73,6 +73,14 @@
     check:
       jobs:
         - tox-linters
+        # DNM: non-voting so a new patchset runs the trusted push job
+        # against s2i main. Abandon this change after; do not gate on it.
+        - s2i-openstack-container-build-push:
+            voting: false
+            vars:
+              s2i_ci_images:
+                - base
+              s2i_quay_tag: "ci-{{ zuul.change }}"
     gate:
       jobs:
         - tox-linters

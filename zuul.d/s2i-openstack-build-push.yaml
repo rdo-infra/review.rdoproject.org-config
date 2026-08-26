@@ -28,12 +28,13 @@
     secrets:
       - name: s2i_quay
         secret: quay_io_openstack_s2i_containers_robot
-    # Honored on change pipelines; github-post (ref-updated) may ignore
-    # this. Matches the GHA build-and-push path filter.
-    files:
-      - ^build\.sh$
-      - ^tox\.ini$
-      - ^containers/.*
+    # DNM: files: dropped so a config-repo check run is not skipped
+    # (matcher is evaluated against this change, not s2i).
+    # Restore before abandoning:
+    # files:
+    #   - ^build\.sh$
+    #   - ^tox\.ini$
+    #   - ^containers/.*
     vars:
       s2i_ci_container_project: >-
         github.com/openstack-k8s-operators/s2i-openstack-containers
