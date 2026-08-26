@@ -208,6 +208,23 @@
       jobs:
         - s2i-openstack-container-build-push:
             branches: main
+    # DNM: github-manual has no live jobs for this project, so
+    # check-github enqueues nothing. github-check already exists;
+    # this change's layout is used because the s2i PR Depends-On us.
+    github-check:
+      jobs:
+        - s2i-openstack-container-build-push:
+            vars:
+              s2i_ci_images:
+                - base
+              s2i_quay_tag: "ci-{{ zuul.change }}"
+    github-manual:
+      jobs:
+        - s2i-openstack-container-build-push:
+            vars:
+              s2i_ci_images:
+                - base
+              s2i_quay_tag: "ci-{{ zuul.change }}"
 
 - project:
     name: github.com/openstack-k8s-operators/tcib

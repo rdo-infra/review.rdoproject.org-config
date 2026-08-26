@@ -10,7 +10,8 @@
     s2i_ci_workspace_root: "{{ ansible_user_dir }}"
     s2i_quay_registry: "quay.io"
     s2i_quay_namespace: "openstack-s2i-containers"
-    s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
+    # DNM: do not publish master-latest. Play vars can win over job vars.
+    s2i_quay_tag: "ci-{{ zuul.change }}"
 
   tasks:
     - name: Resolve build paths and target list
