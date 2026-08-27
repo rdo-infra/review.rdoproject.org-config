@@ -32,7 +32,7 @@
       > "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http" \
       2> "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.err"
   environment:
-    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token }}"
+    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token | trim }}"
   no_log: true
   failed_when: false
   changed_when: false
