@@ -1,13 +1,10 @@
 ---
 # One authenticated Quay API request for s2i_quay_repo.
+# Same curl pattern as s2i-openstack-containers
+# .github/workflows/build-and-push.yml: -s -o -w -X URL,
+# Authorization Bearer, Content-Type application/json, then -d.
 # Token stays in the curl environment of a no_log task. Status and
 # body are written to files and printed by the follow-up task.
-#
-# --data / --data-binary make curl send Content-Type
-# application/x-www-form-urlencoded. Some curl builds send that in
-# addition to -H Content-Type: application/json; Quay then returns
-# HTTP 415. --json sets only application/json. The body is a file so
-# shell quoting cannot drop the header.
 #
 # Required vars:
 #   s2i_quay_repo: repository name
@@ -24,13 +21,14 @@
 
 - name: Call the Quay API
   ansible.builtin.shell: |
-    curl -sS --max-time 120 \
-      --output "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json" \
-      --write-out "%{http_code}" \
+    curl -s --max-time 120 \
+      -o "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json" \
+      -w "%{http_code}" \
       -X "{{ s2i_quay_http_method }}" \
-      --json "@{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.body" \
-      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
       "{{ s2i_quay_http_url }}" \
+      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
+      -H "Content-Type: application/json" \
+      -d "$(cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.body")" \
       > "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http" \
       2> "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.err"
   environment:
