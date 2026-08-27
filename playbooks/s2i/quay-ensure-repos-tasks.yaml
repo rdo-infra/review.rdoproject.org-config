@@ -24,8 +24,8 @@
       description: Created automatically via CI
       visibility: public
     s2i_quay_http_ok:
-      - "HTTP 201"
-      - "HTTP 400"
+      - 201
+      - 400
   loop: "{{ s2i_quay_repo_names }}"
   loop_control:
     loop_var: s2i_quay_repo
@@ -52,8 +52,8 @@
     s2i_quay_http_body:
       role: write
     s2i_quay_http_ok:
-      - "HTTP 200"
-      - "HTTP 201"
+      - 200
+      - 201
   loop: "{{ s2i_quay_repo_names }}"
   loop_control:
     loop_var: s2i_quay_repo

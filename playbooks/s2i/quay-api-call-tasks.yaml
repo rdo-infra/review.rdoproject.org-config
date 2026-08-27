@@ -1,50 +1,33 @@
 ---
 # One authenticated Quay API request for s2i_quay_repo.
-# Same curl pattern as s2i-openstack-containers
-# .github/workflows/build-and-push.yml: -s -o -w -X URL,
-# Authorization Bearer, Content-Type application/json, then -d.
-# Token stays in the curl environment of a no_log task. Status and
-# body are written to files and printed by the follow-up task.
+# Restored to ansible.builtin.uri after debugging the HTTP 415
+# failures: a trailing newline in the Zuul secret corrupted the
+# Authorization header when passed through shell curl. The uri
+# module sets headers in Python and body_format handles
+# Content-Type, avoiding both issues.
 #
 # Required vars:
 #   s2i_quay_repo: repository name
-#   s2i_quay_http_prefix: filename stem (quay-create, quay-grant, ...)
+#   s2i_quay_http_prefix: filename stem for log context
 #   s2i_quay_http_method: POST/PUT/...
 #   s2i_quay_http_url: full URL
-#   s2i_quay_http_body: mapping serialized with to_json
-#   s2i_quay_http_ok: accepted first lines, e.g. "HTTP 201"
-- name: Write Quay API JSON body
-  ansible.builtin.copy:
-    dest: "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.body"
-    content: "{{ s2i_quay_http_body | to_json }}"
-    mode: "0644"
-
-- name: Call the Quay API
-  ansible.builtin.shell: |
-    curl -s --max-time 120 \
-      -o "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json" \
-      -w "%{http_code}" \
-      -X "{{ s2i_quay_http_method }}" \
-      "{{ s2i_quay_http_url }}" \
-      -H "Authorization: Bearer ${S2I_QUAY_OAUTH_TOKEN}" \
-      -H "Content-Type: application/json" \
-      -d "$(cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.body")" \
-      > "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http" \
-      2> "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.err"
-  environment:
-    S2I_QUAY_OAUTH_TOKEN: "{{ s2i_quay.oauth_token | trim }}"
+#   s2i_quay_http_body: dict (serialized as JSON by body_format)
+#   s2i_quay_http_ok: list of accepted status codes (integers)
+- name: "Quay API {{ s2i_quay_http_prefix }} {{ s2i_quay_repo }}"
+  ansible.builtin.uri:
+    url: "{{ s2i_quay_http_url }}"
+    method: "{{ s2i_quay_http_method }}"
+    headers:
+      Authorization: "Bearer {{ s2i_quay.oauth_token | trim }}"
+    body: "{{ s2i_quay_http_body }}"
+    body_format: json
+    status_code: "{{ s2i_quay_http_ok }}"
+    timeout: 120
+  register: s2i_quay_result
   no_log: true
-  failed_when: false
-  changed_when: false
 
-- name: Check Quay API HTTP status
-  ansible.builtin.shell: |
-    echo "HTTP $(cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.http")"
-    cat "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.err" \
-      "{{ s2i_ci_log_dir }}/{{ s2i_quay_http_prefix }}-{{ s2i_quay_repo }}.json"
-  register: s2i_quay_http
-  changed_when: false
-  failed_when: >-
-    s2i_quay_http.rc != 0 or
-    (s2i_quay_http.stdout_lines | default([]) | first | default(''))
-    not in s2i_quay_http_ok
+- name: "Log Quay API response for {{ s2i_quay_http_prefix }} {{ s2i_quay_repo }}"
+  ansible.builtin.debug:
+    msg: >-
+      HTTP {{ s2i_quay_result.status }}
+      {{ s2i_quay_result.json | default(s2i_quay_result.msg | default('')) }}

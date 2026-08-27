@@ -19,10 +19,11 @@
     s2i_quay_http_prefix: quay-expire
     s2i_quay_http_method: PUT
     s2i_quay_http_url: "https://{{ s2i_quay_registry }}/api/v1/repository/{{ s2i_quay_namespace }}/{{ s2i_quay_repo }}/tag/{{ s2i_quay_sha_tag }}"
-    s2i_quay_http_body: "{{ {'expiration': s2i_quay_tag_expiration_cmd.stdout | int} }}"
+    s2i_quay_http_body:
+      expiration: "{{ s2i_quay_tag_expiration_cmd.stdout | int }}"
     s2i_quay_http_ok:
-      - "HTTP 200"
-      - "HTTP 201"
+      - 200
+      - 201
   loop: "{{ s2i_quay_repo_names }}"
   loop_control:
     loop_var: s2i_quay_repo
