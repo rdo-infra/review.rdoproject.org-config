@@ -1,10 +1,23 @@
 ---
-# Post-merge job that builds S2I container images and pushes them
-# to quay.io.  Defined here (config project) so it can use the
-# quay_io_openstack_s2i_containers_robot secret.  Playbooks in this
-# repo are trusted: they log in with the robot, call build.sh from
-# the s2i checkout, then use the OAuth token for Quay API calls.
-# They must not include_tasks YAML from the untrusted s2i repo.
+# Post-merge job that builds S2I container images and pushes them to
+# quay.io.  Defined in the config project so it can use the
+# quay_io_openstack_s2i_containers_robot secret.
+#
+# SECURITY architecture:
+#   pre-run (build-images.yaml) invokes untrusted build.sh to compile
+#   container images. At this point no buildah login has been called,
+#   so there is no registry auth file on disk for build.sh to use.
+#
+#   The build phase also validates that all image refs produced by
+#   build.sh match the expected registry/namespace prefix, preventing
+#   a compromised build.sh from redirecting pushes.
+#
+#   run (push-images.yaml) performs buildah login and pushes images
+#   directly via trusted Ansible code. Untrusted build.sh is never
+#   invoked after credentials are present on disk.
+#
+# Do NOT add this job to github-check or github-manual pipelines.
+# Those pipelines run on PR code and would expose the push secret.
 
 - job:
     name: s2i-openstack-container-build-push
@@ -22,8 +35,10 @@
     required-projects:
       - github.com/openstack-k8s-operators/s2i-openstack-containers
       - opendev.org/zuul/zuul-jobs
-    pre-run: playbooks/s2i/prepare-host.yaml
-    run: playbooks/s2i/push-to-quay.yaml
+    pre-run:
+      - playbooks/s2i/prepare-host.yaml
+      - playbooks/s2i/build-images.yaml
+    run: playbooks/s2i/push-images.yaml
     post-run: playbooks/s2i/post.yaml
     secrets:
       - name: s2i_quay

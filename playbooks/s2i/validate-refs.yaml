@@ -1,0 +1,23 @@
+---
+# Validate that all image references produced by build.sh point to the
+# expected registry and namespace. Prevents a compromised build.sh from
+# injecting refs that would push to an attacker-controlled registry.
+- name: Fail if no image refs were produced
+  ansible.builtin.assert:
+    that:
+      - (s2i_quay_image_refs.stdout_lines | reject('equalto', '') | list | length) > 0
+    fail_msg: build.sh refs produced no image references
+    quiet: true
+
+- name: Validate all image refs match the allowed registry/namespace
+  ansible.builtin.assert:
+    that:
+      - item is match('^' ~ (s2i_quay_registry | regex_escape) ~ '/' ~ (s2i_quay_namespace | regex_escape) ~ '/')
+    fail_msg: >-
+      Image ref '{{ item }}' does not match the allowed prefix
+      {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/. Aborting to
+      prevent a potential supply-chain attack.
+    quiet: true
+  loop: "{{ s2i_quay_image_refs.stdout_lines | reject('equalto', '') | list }}"
+  loop_control:
+    label: "{{ item }}"
