@@ -22,7 +22,9 @@
     required-projects:
       - github.com/openstack-k8s-operators/s2i-openstack-containers
       - opendev.org/zuul/zuul-jobs
-    pre-run: playbooks/s2i/prepare-host.yaml
+    pre-run:
+      - playbooks/ci-framework-rdo-base/pre.yaml
+      - playbooks/s2i/prepare-host.yaml
     run: playbooks/s2i/push-to-quay.yaml
     post-run: playbooks/s2i/post.yaml
     secrets:

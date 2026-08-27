@@ -1,0 +1,24 @@
+---
+# Append team SSH keys for autohold debugging on s2i-openstack-containers
+# jobs defined in the s2i-openstack-containers repo. Zuul merges these
+# pre-run playbooks with the job definitions from that project.
+#
+# s2i-openstack-container-build-push is defined in
+# zuul.d/s2i-openstack-build-push.yaml (keys added there directly).
+# s2i-openstack-deploy-validation inherits base-crc-cloud and already
+# runs playbooks/ci-framework-rdo-base/pre.yaml.
+
+- job:
+    name: s2i-openstack-containers-molecule
+    pre-run:
+      - playbooks/ci-framework-rdo-base/pre.yaml
+
+- job:
+    name: s2i-openstack-container-content-provider
+    pre-run:
+      - playbooks/ci-framework-rdo-base/pre.yaml
+
+- job:
+    name: s2i-openstack-container-consumer-smoke
+    pre-run:
+      - playbooks/ci-framework-rdo-base/pre.yaml
