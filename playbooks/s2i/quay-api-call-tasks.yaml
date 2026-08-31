@@ -25,9 +25,14 @@
     timeout: 120
   register: s2i_quay_result
   no_log: true
+  failed_when: false
 
 - name: "Log Quay API response for {{ s2i_quay_http_prefix }} {{ s2i_quay_repo }}"
   ansible.builtin.debug:
-    msg: >-
-      HTTP {{ s2i_quay_result.status }}
-      {{ s2i_quay_result.json | default(s2i_quay_result.msg | default('')) }}
+    msg: "HTTP {{ s2i_quay_result.status | default('N/A') }} {{ s2i_quay_result.json | default(s2i_quay_result.msg | default('')) }}"
+
+- name: "Assert Quay API {{ s2i_quay_http_prefix }} {{ s2i_quay_repo }} succeeded"
+  ansible.builtin.assert:
+    that:
+      - s2i_quay_result.status | default(-1) | int in s2i_quay_http_ok
+    fail_msg: "Quay API returned HTTP {{ s2i_quay_result.status | default('N/A') }}: {{ s2i_quay_result.json | default(s2i_quay_result.msg | default('unknown error')) }}"
