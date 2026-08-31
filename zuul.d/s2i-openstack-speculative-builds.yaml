@@ -1,16 +1,17 @@
 ---
-# Speculative s2i container builds for upstream OpenStack projects.
+# Post-merge s2i container builds for upstream OpenStack projects.
 #
-# When a Gerrit change is proposed on one of these projects, the s2i content
+# When a change lands on master in one of these projects, the s2i content
 # provider auto-detects which container images reference the triggering
 # project in their sources.txt and rebuilds only those images with the
-# speculative source.
+# merged source.
 #
 # The "auto" mode inspects containers/*/sources.txt for lines matching
 # the zuul.project canonical name and builds the affected targets.
 #
-# Pre-merge jobs use the openstack-check pipeline (opendev.org events).
-# Post-merge quay publish is a separate change (github-post on
+# Jobs use the openstack-post pipeline (opendev.org ref-updated events).
+# Pre-merge review runs are intentionally not scheduled here.
+# Post-merge quay publish is a separate job (github-post on
 # s2i-openstack-containers).
 #
 # Which OpenDev projects belong here
@@ -19,8 +20,8 @@
 # 1. s2i-openstack-containers has a containers/<svc>/sources.txt line
 #    pointing at that OpenDev repo (the service source, not a client).
 # 2. The repo is already a tenant project (see zuul.d/projects.yaml), so
-#    openstack-check events can actually schedule the job.
-# 3. Speculative *builds* for that service are in-scope (operator-onboarding
+#    openstack-post events can actually schedule the job.
+# 3. Post-merge builds for that service are in-scope (operator-onboarding
 #    Phase 2 / this template). Deploy+tempest consumers are a separate
 #    per-operator change and are not attached here.
 #
@@ -49,13 +50,13 @@
 - project-template:
     name: s2i-speculative-build
     description: |
-      Run the s2i content provider in auto-detect mode.  Include this
-      template in any upstream OpenStack project whose source is consumed
-      by s2i-openstack-containers images.
-    openstack-check:
+      Run the s2i content provider in auto-detect mode after merge to
+      master.  Include this template in any upstream OpenStack project
+      whose source is consumed by s2i-openstack-containers images.
+    openstack-post:
       jobs:
         - s2i-openstack-container-content-provider:
-            voting: false
+            branches: master
             files:
               - ^tempest/
               - ^watcher/
