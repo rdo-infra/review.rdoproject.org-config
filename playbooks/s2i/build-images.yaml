@@ -30,6 +30,10 @@
         state: directory
         mode: "0755"
 
+    - name: Stage Zuul source checkouts before build
+      ansible.builtin.include_tasks: >-
+        {{ s2i_ci_container_repo }}/playbooks/container-ci/shared/prepare-build-sources.yaml
+
     - name: Build images tagged for quay
       ansible.builtin.command:
         argv:
