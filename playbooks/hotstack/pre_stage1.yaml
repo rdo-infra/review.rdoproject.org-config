@@ -4,7 +4,6 @@
   vars:
     hotstack_work_dir: "{{ ansible_user_dir }}/hotstack"
   roles:
-    - role: prepare-workspace
     - role: add-authorized-keys
       public_keys:
         # Harald Jensås (hjensas)
@@ -15,6 +14,9 @@
             ib+d8/IrgNsLB/sCazqD+9/COI6AHqzTDS1aU9/gMQrUN1ronzMEQhzzOuoI8WeLqU++\
             j+0dT2UWVPlQqoln+RYu7dUn/DSZDrsYenudT5+P"
   tasks:
+    - block:
+        - include_role: name=prepare-workspace
+      when: "ansible_connection != 'kubectl'"
     - name: Assert cloud name and cloud secret
       no_log: true
       ansible.builtin.assert:
