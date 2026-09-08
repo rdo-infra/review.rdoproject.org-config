@@ -44,6 +44,7 @@
         TAG: "{{ s2i_quay_tag }}"
         PARALLEL: "{{ ansible_facts.processor_vcpus | default(2) | string }}"
         BUILD_LOGS_DIR: "{{ s2i_ci_log_dir }}"
+        GIT_REVISION: "{{ zuul.newrev | default('') }}"
       register: s2i_quay_build
       changed_when: s2i_quay_build.rc == 0
 

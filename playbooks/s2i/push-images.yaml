@@ -8,6 +8,10 @@
   vars:
     s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
+    s2i_ci_workspace_root: "{{ ansible_user_dir }}"
+    s2i_ci_stream: master
+    s2i_ci_container_project: >-
+      github.com/openstack-k8s-operators/s2i-openstack-containers
     s2i_quay_registry: "quay.io"
     s2i_quay_namespace: "openstack-s2i-containers"
     s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
@@ -48,11 +52,21 @@
         - name: Ensure Quay repositories exist before push
           ansible.builtin.include_tasks: quay-ensure-repos-tasks.yaml
 
+        - name: Ensure digest output directory exists
+          ansible.builtin.file:
+            path: "{{ s2i_ci_log_dir }}/digests"
+            state: directory
+            mode: "0755"
+
         - name: Push each validated image ref
+          vars:
+            s2i_quay_digest_name: "{{ item.split('/')[-1].split(':')[0] }}"
           ansible.builtin.command:
             argv:
               - buildah
               - push
+              - --digestfile
+              - "{{ s2i_ci_log_dir }}/digests/{{ s2i_quay_digest_name }}.digest"
               - "{{ item }}"
           loop: "{{ s2i_quay_image_refs_list }}"
           loop_control:
@@ -73,6 +87,9 @@
 
         - name: Set expiration on commit-sha Quay tags
           ansible.builtin.include_tasks: quay-expire-tags-tasks.yaml
+
+        - name: Generate digest catalog for the pushed set
+          ansible.builtin.include_tasks: generate-content-set-tasks.yaml
       always:
         - name: Log out of quay.io
           ansible.builtin.command:
