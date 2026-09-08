@@ -1,0 +1,39 @@
+---
+schemaVersion: 1
+stream: {{ s2i_ci_stream }}
+s2iCommit: "{{ s2i_ci_s2i_commit }}"
+tag: "{{ s2i_ci_stream }}-{{ s2i_ci_s2i_commit }}"
+registry: {{ s2i_quay_registry }}
+namespace: {{ s2i_quay_namespace }}
+created: "{{ ansible_date_time.iso8601 }}"
+images:
+{% for item in s2i_ci_mapping_entries %}
+{% set iname = 'openstack-' ~ item.key.split('/')[-1] %}
+{% if iname in s2i_ci_image_digests %}
+  {{ item.key }}: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/{{ iname }}@{{ s2i_ci_image_digests[iname] }}
+{% endif %}
+{% endfor %}
+{% if 'openstack-cinder-volume' in s2i_ci_image_digests %}
+  cinder/cinder-volume: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/openstack-cinder-volume@{{ s2i_ci_image_digests['openstack-cinder-volume'] }}
+{% endif %}
+{% if 'openstack-manila-share' in s2i_ci_image_digests %}
+  manila/manila-share: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/openstack-manila-share@{{ s2i_ci_image_digests['openstack-manila-share'] }}
+{% endif %}
+openstackVersion:
+  customContainerImages:
+{% for item in s2i_ci_mapping_entries %}
+{% set iname = 'openstack-' ~ item.key.split('/')[-1] %}
+{% if iname in s2i_ci_image_digests %}
+{% for field in item.value %}
+    {{ field }}: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/{{ iname }}@{{ s2i_ci_image_digests[iname] }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% if 'openstack-cinder-volume' in s2i_ci_image_digests %}
+    cinderVolumeImages:
+      volume1: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/openstack-cinder-volume@{{ s2i_ci_image_digests['openstack-cinder-volume'] }}
+{% endif %}
+{% if 'openstack-manila-share' in s2i_ci_image_digests %}
+    manilaShareImages:
+      share1: {{ s2i_quay_registry }}/{{ s2i_quay_namespace }}/openstack-manila-share@{{ s2i_ci_image_digests['openstack-manila-share'] }}
+{% endif %}

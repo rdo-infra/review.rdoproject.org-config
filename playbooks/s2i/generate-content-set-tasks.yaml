@@ -1,0 +1,50 @@
+---
+# Build content-set.yaml from local digest files and image-mappings.yaml.
+# Reads the s2i checkout as data only; does not execute untrusted scripts.
+- name: Resolve s2i checkout path
+  ansible.builtin.set_fact:
+    s2i_ci_container_repo: >-
+      {{ s2i_ci_workspace_root }}/{{
+         zuul.projects[s2i_ci_container_project].src_dir }}
+    s2i_ci_s2i_commit: "{{ zuul.newrev | default('') }}"
+
+- name: Load image mappings from the s2i checkout
+  ansible.builtin.include_vars:
+    file: "{{ s2i_ci_container_repo }}/containers/image-mappings.yaml"
+    name: s2i_ci_image_mappings
+
+- name: Find digest files from the push
+  ansible.builtin.find:
+    paths: "{{ s2i_ci_log_dir }}/digests"
+    patterns: "*.digest"
+  register: s2i_ci_digest_files
+
+- name: Fail when no digest files were produced
+  when: s2i_ci_digest_files.files | length == 0
+  ansible.builtin.fail:
+    msg: No digest files under {{ s2i_ci_log_dir }}/digests after push
+
+- name: Read digest files
+  ansible.builtin.slurp:
+    src: "{{ item.path }}"
+  loop: "{{ s2i_ci_digest_files.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+  register: s2i_ci_digest_contents
+
+- name: Build image-name to digest map
+  ansible.builtin.set_fact:
+    s2i_ci_image_digests: "{{ s2i_ci_image_digests | default({}) | combine({item.item.path | basename | regex_replace('\\.digest$', ''): (item.content | b64decode | trim)}) }}"
+  loop: "{{ s2i_ci_digest_contents.results }}"
+  loop_control:
+    label: "{{ item.item.path | basename }}"
+
+- name: Flatten mapping targets
+  ansible.builtin.set_fact:
+    s2i_ci_mapping_entries: "{{ s2i_ci_image_mappings.openstack_version.custom_container_images | dict2items }}"
+
+- name: Write content-set.yaml
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/content-set.yaml.j2"
+    dest: "{{ s2i_ci_log_dir }}/content-set.yaml"
+    mode: "0644"
