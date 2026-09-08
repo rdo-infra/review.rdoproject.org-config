@@ -81,7 +81,9 @@
           loop: "{{ query('dict', container_registry_logins) }}"
 
         - name: Set Insecure registry for content provider
-          when: content_provider_registry_ip is defined
+          when:
+            - content_provider_registry_ip is defined
+            - ansible_distribution_major_version != '10'
           become: true
           ansible.builtin.blockinfile:
             state: present
@@ -91,3 +93,28 @@
               [[registry]]
               location = "{{ content_provider_registry_ip }}:5001"
               insecure = true
+
+        - name: Set insecure registries for CS10
+          when:
+            - content_provider_registry_ip is defined
+            - ansible_distribution_major_version == '10'
+          block:
+            - name: Ensure registries.conf.d exists
+              become: true
+              ansible.builtin.file:
+                path: /etc/containers/registries.conf.d
+                state: directory
+                mode: "0755"
+
+            - name: Add the local registry to unqualified-search-registries
+              become: true
+              ansible.builtin.blockinfile:
+                state: present
+                insertafter: EOF
+                dest: /etc/containers/registries.conf.d/99-local-registry.conf
+                create: true
+                content: |-
+                  [[registry]]
+                  location = "{{ cifmw_rp_registry_ip }}:{{ cifmw_rp_registry_port }}"
+                  insecure = true
+                mode: "0644"
