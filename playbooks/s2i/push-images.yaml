@@ -9,12 +9,9 @@
     s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
     s2i_ci_workspace_root: "{{ ansible_user_dir }}"
-    s2i_ci_stream: master
-    s2i_ci_container_project: >-
-      github.com/openstack-k8s-operators/s2i-openstack-containers
-    s2i_quay_registry: "quay.io"
-    s2i_quay_namespace: "openstack-s2i-containers"
-    s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
+    s2i_quay_registry: quay.io
+    s2i_quay_tag: >-
+      {{ s2i_ci_stream }}-{{ zuul.newrev | default(zuul.change | default('dev')) }},{{ s2i_ci_stream }}-latest
 
   tasks:
     - name: Read validated image refs from build phase
@@ -87,9 +84,6 @@
 
         - name: Set expiration on commit-sha Quay tags
           ansible.builtin.include_tasks: quay-expire-tags-tasks.yaml
-
-        - name: Generate digest catalog for the pushed set
-          ansible.builtin.include_tasks: generate-content-set-tasks.yaml
       always:
         - name: Log out of quay.io
           ansible.builtin.command:
@@ -99,3 +93,20 @@
               - "{{ s2i_quay_registry }}"
           changed_when: true
           failed_when: false
+
+    # Catalog only needs local digest files and image-mappings.yaml.
+    # Run it after logout so a mapping/schema failure cannot leave a
+    # Quay auth file on disk, and so a failed catalog is not mixed
+    # into the push block (images may already be on Quay).
+    - name: Generate digest catalog for the pushed set
+      block:
+        - name: Build content-set.yaml from digests and image mappings
+          ansible.builtin.include_tasks: generate-content-set-tasks.yaml
+      rescue:
+        - name: Report that push succeeded but the catalog did not
+          ansible.builtin.fail:
+            msg: >-
+              Images were pushed to quay.io, but content-set.yaml was
+              not written. The catalog step failed; re-run after
+              fixing generate-content-set-tasks.yaml or
+              containers/image-mappings.yaml.

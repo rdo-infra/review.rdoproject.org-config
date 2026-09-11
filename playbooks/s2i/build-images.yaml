@@ -10,9 +10,9 @@
     s2i_ci_output_dir: "{{ ansible_user_dir }}/zuul-output"
     s2i_ci_log_dir: "{{ s2i_ci_output_dir }}/logs/container-build"
     s2i_ci_workspace_root: "{{ ansible_user_dir }}"
-    s2i_quay_registry: "quay.io"
-    s2i_quay_namespace: "openstack-s2i-containers"
-    s2i_quay_tag: "master-{{ zuul.newrev | default(zuul.change | default('dev')) }},master-latest"
+    s2i_quay_registry: quay.io
+    s2i_quay_tag: >-
+      {{ s2i_ci_stream }}-{{ zuul.newrev | default(zuul.change | default('dev')) }},{{ s2i_ci_stream }}-latest
 
   tasks:
     - name: Resolve build paths and target list

@@ -8,10 +8,25 @@
          zuul.projects[s2i_ci_container_project].src_dir }}
     s2i_ci_s2i_commit: "{{ zuul.newrev | default('') }}"
 
-- name: Load image mappings from the s2i checkout
-  ansible.builtin.include_vars:
-    file: "{{ s2i_ci_container_repo }}/containers/image-mappings.yaml"
-    name: s2i_ci_image_mappings
+# include_vars reads on the executor. The s2i checkout lives on the
+# builder, so slurp it like image-refs.txt in push-images.yaml.
+- name: Read image mappings from the s2i checkout
+  ansible.builtin.slurp:
+    src: "{{ s2i_ci_container_repo }}/containers/image-mappings.yaml"
+  register: s2i_ci_image_mappings_slurp
+
+- name: Parse image mappings
+  ansible.builtin.set_fact:
+    s2i_ci_image_mappings: "{{ s2i_ci_image_mappings_slurp.content | b64decode | from_yaml }}"
+
+- name: Validate image mapping schema
+  ansible.builtin.assert:
+    that:
+      - s2i_ci_image_mappings is mapping
+      - s2i_ci_image_mappings.openstack_version is mapping
+      - s2i_ci_image_mappings.openstack_version.custom_container_images is mapping
+    fail_msg: Malformed containers/image-mappings.yaml
+    quiet: true
 
 - name: Find digest files from the push
   ansible.builtin.find:

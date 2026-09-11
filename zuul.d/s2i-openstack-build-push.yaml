@@ -43,10 +43,10 @@
     secrets:
       - name: s2i_quay
         secret: quay_io_openstack_s2i_containers_robot
-    # Do not set files: here. github-post is a ref-updated pipeline;
-    # skipping a push (for example a zuul.d-only merge) leaves the
-    # merger unable to process later matching pushes (SKIPPED /
-    # Unable to merge). Path filtering stays on the GHA workflow.
+    # Do not set files: here. github-post should publish LKG images
+    # for every push to main. A path filter would skip zuul.d-only
+    # merges and leave Quay stale. Path filtering stays on the GHA
+    # workflow.
     vars:
       s2i_ci_container_project: >-
         github.com/openstack-k8s-operators/s2i-openstack-containers
