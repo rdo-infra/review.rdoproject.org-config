@@ -19,6 +19,16 @@
       ansible.builtin.pip:
         name: python-openstackclient
 
+    # NOTE: when python-openstackclient-10.3.0, openstacksdk-4.1.0 is
+    # installed, causing openstack cli to fail with
+    # AttributeError: module 'openstack.compute.v2' has no attribute 'Proxy'.
+    # Did you mean: '_proxy'?, Updating to latest openstacksdk fixes it.
+    - name: Update openstacksdk for cs10
+      become: true
+      ansible.builtin.pip:
+        name: openstacksdk
+        state: latest
+
     - name: Create openstack config dir
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/openstack/"
