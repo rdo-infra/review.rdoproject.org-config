@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a0bb85_4df0a8fc",
+        "filename": "zuul.d/github.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 687
+      },
+      "writtenOn": "2026-09-16T09:34:58Z",
+      "side": 1,
+      "message": "Hmm, after some thinking... this pipeline is quite generic actually and could be used by other projects that may have similar needs or plans – maybe actually it would be worth naming it more universally, like `github-check-post-review` (matching with existing `github-check` that runs without additional restrictions right now) – what do you think?",
+      "revId": "e441752e18db5196163f4f0d1a86b2d550255798",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b19840d1_877d85a1",
+        "filename": "zuul.d/github.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 687
+      },
+      "writtenOn": "2026-09-16T09:34:58Z",
+      "side": 1,
+      "message": "I think I would be worth adding here `recheck-post-review` or something like that – to have a way to re-run this pipeline exclusively (i.e. `recheck` would retrigger ALL the jobs always, both from this pipeline and `github-check` right now, which is also useful, but having an additional option to run only this pipeline would be probably welcome)\n\nMaybe add both `recheck-post` and `check-rdo-post` to this list simply?",
+      "revId": "e441752e18db5196163f4f0d1a86b2d550255798",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
