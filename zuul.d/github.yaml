@@ -183,3 +183,29 @@
       github.com:
         status: 'failure'
         comment: false
+
+# Secure post-review pipeline for lightspeed-operator
+# This pipeline runs ONLY when the 'ok-to-test' label is added by a trusted reviewer
+- pipeline:
+    name: lightspeed-post-review
+    description: |
+      Post-review (trusted) pipeline for lightspeed-operator that runs jobs
+      with secrets. Triggered only when the 'ok-to-test' label is added. Who
+      may apply that label is enforced by the repository access.
+    manager: independent
+    post-review: true
+    trigger:
+      github.com:
+        - event: pull_request
+          action: labeled
+          label:
+            - ok-to-test
+    start:
+      github.com:
+        status: pending
+    success:
+      github.com:
+        status: success
+    failure:
+      github.com:
+        status: failure
