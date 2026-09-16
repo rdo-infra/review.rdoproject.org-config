@@ -210,6 +210,10 @@
         - event: pull_request
           action: comment
           comment: (?i)^\s*(recheck|check-rdo|recheck-post|check-rdo-post|\/test all)
+        - event: pull_request
+          action: labeled
+          label:
+            - ok-to-test
     start:
       github.com:
         status: 'pending'
