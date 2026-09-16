@@ -20,11 +20,18 @@
       ansible.builtin.pip:
         name: python-openstackclient
 
+    # Note: Current version of python-openstackclient is hitting
+    # AttributeError: module 'openstack.compute.v2' has no attribute 'Proxy'.
+    # Did you mean: '_proxy'?
+    # at /usr/local/lib/python3.12/site-packages/openstackclient/common/clientmanager.py",
+    # line 58, in ClientManager. It is not reproducuable in normal cs10 env with
+    # python 3.12. One fix was to add from __future__ import annotations
+    # in  /usr/local/lib/python3.12/site-packages/openstackclient/common/clientmanager.py
+    # or install lower version of that
     - name: install python-openstackclient for cs10
       when: ansible_distribution_major_version|int == 10
       ansible.builtin.pip:
-        name: python-openstackclient
-        state: latest
+        name: python-openstackclient==10.1.0
 
     - name: Create openstack config dir
       ansible.builtin.file:
