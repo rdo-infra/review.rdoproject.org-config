@@ -183,3 +183,42 @@
       github.com:
         status: 'failure'
         comment: false
+
+# Secure post-review pipeline. This pipeline runs ONLY while the 'ok-to-test'
+# label is present, which a trusted reviewer must apply.
+- pipeline:
+    name: github-check-post-review
+    description: |
+      Post-review (trusted) pipeline that runs jobs with secrets. Jobs run only
+      while the 'ok-to-test' label is present on the pull request. Who may apply
+      that label is enforced by the repository access.
+    manager: independent
+    post-review: true
+    require:
+      github.com:
+        label:
+          - ok-to-test
+        open: True
+        current-patchset: True
+    trigger:
+      github.com:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*(recheck|check-rdo|recheck-post|check-rdo-post|\/test all)
+    start:
+      github.com:
+        status: 'pending'
+        comment: false
+    success:
+      github.com:
+        status: 'success'
+        comment: false
+    failure:
+      github.com:
+        status: 'failure'
+        comment: true
