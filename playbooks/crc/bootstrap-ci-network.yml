@@ -27,13 +27,14 @@
     # line 58, in ClientManager. It is not reproducuable in normal cs10 env with
     # python 3.12. One fix was to add from __future__ import annotations
     # in  /usr/local/lib/python3.12/site-packages/openstackclient/common/clientmanager.py
-    # or install lower version of that
+    # or install openstacksdk==4.1.0 and python-openstackclient==8.0.0 based on
+    # https://github.com/openstack/python-openstackclient/blob/10.0.0/requirements.txt#L8
     - name: install python-openstackclient for cs10
       when: ansible_distribution_major_version|int == 10
       ansible.builtin.pip:
         name:
-          - python-openstackclient==10.1.0
-          - openstacksdk==4.20.0
+          - python-openstackclient==8.0.0
+          - openstacksdk==4.1.0
 
     - name: Create openstack config dir
       ansible.builtin.file:
