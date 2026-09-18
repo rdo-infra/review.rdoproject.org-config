@@ -82,8 +82,19 @@
               {{ result.stderr | default('') }}
               {% endfor %}
 
-        - name: Set expiration on commit-sha Quay tags
-          ansible.builtin.include_tasks: quay-expire-tags-tasks.yaml
+        - name: Derive unique repository bases for digest tagging
+          ansible.builtin.set_fact:
+            s2i_quay_repo_bases: "{{ s2i_quay_image_refs_list | map('regex_replace', ':[^:]+$', '') | unique | list }}"
+
+        - name: Tag images by manifest digest
+          ansible.builtin.include_tasks: quay-digest-tags-tasks.yaml
+          vars:
+            s2i_quay_sha_ref: "{{ item }}:{{ s2i_quay_tag.split(',')[0] }}"
+            s2i_quay_latest_ref: "{{ item }}:{{ s2i_quay_tag.split(',')[1] }}"
+            s2i_quay_repo_base: "{{ item }}"
+          loop: "{{ s2i_quay_repo_bases }}"
+          loop_control:
+            label: "{{ item }}"
       always:
         - name: Log out of quay.io
           ansible.builtin.command:

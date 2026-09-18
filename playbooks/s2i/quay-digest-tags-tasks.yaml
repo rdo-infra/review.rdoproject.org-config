@@ -1,0 +1,71 @@
+---
+# Tag s2i_quay_sha_ref with its immutable manifest digest in addition to
+# the rolling and commit-SHA tags. Retains manifests and layers after the
+# rolling tag advances, replacing the expiring commit-SHA tag policy.
+#
+# Required vars:
+#   s2i_quay_sha_ref:    full image ref with commit-sha tag
+#   s2i_quay_latest_ref: full image ref with rolling latest tag
+#   s2i_quay_repo_base:  image ref without tag (copy destination base)
+- name: "Inspect manifest digest for {{ s2i_quay_sha_ref }}"
+  ansible.builtin.command:
+    argv:
+      - skopeo
+      - inspect
+      - --no-tags
+      - --format
+      - !unsafe "{{.Digest}}"
+      - "docker://{{ s2i_quay_sha_ref }}"
+  register: s2i_quay_digest_result
+  changed_when: false
+
+- name: "Copy {{ s2i_quay_sha_ref }} to digest tag"
+  ansible.builtin.command:
+    argv:
+      - skopeo
+      - copy
+      - --all
+      - --preserve-digests
+      - "docker://{{ s2i_quay_sha_ref }}"
+      - "docker://{{ s2i_quay_repo_base }}:{{ s2i_quay_digest_result.stdout | replace(':', '-') }}"
+  changed_when: true
+
+- name: "Verify digest tag for {{ s2i_quay_repo_base }}"
+  ansible.builtin.command:
+    argv:
+      - skopeo
+      - inspect
+      - --no-tags
+      - --format
+      - !unsafe "{{.Digest}}"
+      - "docker://{{ s2i_quay_repo_base }}:{{ s2i_quay_digest_result.stdout | replace(':', '-') }}"
+  register: s2i_quay_digest_verify
+  changed_when: false
+
+- name: "Assert digest integrity for {{ s2i_quay_repo_base }}"
+  ansible.builtin.assert:
+    that:
+      - s2i_quay_digest_verify.stdout == s2i_quay_digest_result.stdout
+    fail_msg: >-
+      Digest tag {{ s2i_quay_repo_base }}:{{ s2i_quay_digest_result.stdout | replace(':', '-') }}
+      resolved to {{ s2i_quay_digest_verify.stdout }},
+      expected {{ s2i_quay_digest_result.stdout }}
+
+- name: "Inspect latest tag digest for {{ s2i_quay_repo_base }}"
+  ansible.builtin.command:
+    argv:
+      - skopeo
+      - inspect
+      - --no-tags
+      - --format
+      - !unsafe "{{.Digest}}"
+      - "docker://{{ s2i_quay_latest_ref }}"
+  register: s2i_quay_latest_digest
+  changed_when: false
+
+- name: "Warn if latest tag has advanced beyond this build for {{ s2i_quay_repo_base }}"
+  ansible.builtin.debug:
+    msg: >-
+      Warning: {{ s2i_quay_latest_ref }} advanced to {{ s2i_quay_latest_digest.stdout }};
+      this build is {{ s2i_quay_digest_result.stdout }}
+  when: s2i_quay_latest_digest.stdout != s2i_quay_digest_result.stdout
