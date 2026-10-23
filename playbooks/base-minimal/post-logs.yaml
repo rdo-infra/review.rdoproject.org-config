@@ -4,6 +4,11 @@
     - role: generate-zuul-manifest
     - role: add-fileserver
       fileserver: "{{ site_logs }}"
+  post_tasks:
+    - name: Clean up stray ssh known_hosts backup
+      ansible.builtin.file:
+        path: "~/.ssh/known_hosts.old"
+        state: absent
 
 - hosts: localhost
   tasks:
