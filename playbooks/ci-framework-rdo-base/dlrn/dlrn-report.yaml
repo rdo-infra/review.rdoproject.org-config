@@ -15,3 +15,10 @@
     - name: Report job status to DLRN
       ansible.builtin.include_role:
         name: dlrn_report
+
+    - name: Clean up stray local ansible tmp directories
+      delegate_to: localhost
+      run_once: true
+      ansible.builtin.file:
+        path: "~/ansible/tmp"
+        state: absent
