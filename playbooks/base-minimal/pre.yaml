@@ -24,6 +24,20 @@
     - block:
         - include_role: name=prepare-workspace-openshift
         - include_role: name=remove-zuul-sshkey
+        # prepare-workspace-openshift runs `oc exec`/`oc rsync` as plain
+        # command tasks (opendev.org/zuul/zuul-jobs), bypassing the
+        # kubectl connection plugin entirely, so ansible_kubectl_extra_args
+        # never reaches them and they write their cache under the real
+        # build home. Clean up here, last in this block, so Zuul's
+        # home-dir scan (which runs between playbooks) never sees it.
+        - name: Clean up oc/kubectl cache left by prepare-workspace-openshift
+          delegate_to: localhost
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - "~/.kube/http-cache"
+            - "~/.kube/cache"
       run_once: true
       when: "ansible_connection == 'kubectl'"
     - import_role: name=ensure-output-dirs
