@@ -19,3 +19,10 @@
   ignore_errors: yes
   roles:
     - remove-build-sshkey
+  tasks:
+    - name: Clean up stray ssh known_hosts backup
+      delegate_to: localhost
+      run_once: true
+      ansible.builtin.file:
+        path: "~/.ssh/known_hosts.old"
+        state: absent
