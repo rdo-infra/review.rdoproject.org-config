@@ -426,24 +426,6 @@
     secrets:
       - rdo_release_bot_ubuntuone
 
-- job:
-    name: devstack-platform-centos-10-stream
-    # move to devstack-platform-centos-10-stream or drop job if not needed once
-    # https://review.opendev.org/c/openstack/devstack/+/937251 merges
-    parent: devstack-platform-centos-9-stream
-    branches: ^master$
-    vars:
-      devstack_localrc:
-        PYTHON3_VERSION: 3.12
-    nodeset:
-      nodes:
-        - name: controller
-          label: cloud-centos-10-stream
-      groups:
-        - name: tempest
-          nodes:
-            - controller
-
 # copy/pasted from https://github.com/openstack/tempest/blob/15f50013abd4bcebb5ef54378fa003b80f4cac85/zuul.d/integrated-gate.yaml#L64
 # Zuul cannot find it when including it from upstream/tempest project so we have to copy/paste it.
 - job:
