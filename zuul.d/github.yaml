@@ -59,9 +59,8 @@
     trigger:
       github.com:
         - event: pull_request
-          action: labeled
-          label:
-            - github-experimental
+          action: comment
+          comment: '(?i)^\s*(?:re)?check[ \-]experimental'
     start:
       github.com:
         status: 'pending'
@@ -69,7 +68,7 @@
     success:
       github.com:
         status: 'success'
-        comment: false
+        comment: true
     failure:
       github.com:
         status: 'failure'
