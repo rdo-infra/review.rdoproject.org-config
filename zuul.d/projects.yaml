@@ -208,6 +208,10 @@
       jobs:
         - s2i-openstack-container-build-push:
             branches: main
+        - s2i-openstack-container-build-push:
+            branches: 19.0-beta
+            vars:
+              s2i_ci_stream: 19.0-beta
 
 - project:
     name: github.com/openstack-k8s-operators/tcib
