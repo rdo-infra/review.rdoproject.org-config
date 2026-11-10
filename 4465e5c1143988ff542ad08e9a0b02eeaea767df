@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3673f2ed_825bd01e",
+        "filename": "zuul.d/projects.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2026-11-10T15:00:53Z",
+      "side": 1,
+      "message": "Actually, we need to maintain s2i_ci_stream to master as it\u0027s also used in:\n\nhttps://review.rdoproject.org/r/plugins/gitiles/config/+/refs/heads/master/playbooks/s2i/build-images.yaml#41\n\nAnd that value need to be the stream name \"master\" in both main an 19.0-beta branch. I think we will need a new variable, `s21_quay_tag_prefix` or something similar and do:\n\n```\ns2i_quay_tag: \u003e-\n      {{ s2i_quay_tag_prefix }}-{{ zuul.newrev | default(zuul.change | default(\u0027dev\u0027)) }},{{ s2i_quay_tag_prefix }}-latest\n      ```\n\nThen we need to set that variable in one of two ways:\n\n1. add logic in the playbooks to dynamically set s2i_quay_tag_prefix depending on the branch name (\u003d\u003d master for main branch, \u003d\u003d branch_name for the rest). The job has the branch name in some zuul variable.\n2. Set it statically for each branch.\n\nI like 1, as it\u0027s more ready for future branches, but 2 would also work with some further branching automation.",
+      "revId": "4465e5c1143988ff542ad08e9a0b02eeaea767df",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
