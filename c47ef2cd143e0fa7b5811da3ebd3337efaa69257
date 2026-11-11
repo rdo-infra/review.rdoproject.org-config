@@ -1,0 +1,30 @@
+{
+  "comments": [],
+  "submitRequirementResults": [
+    {
+      "submitRequirement": {
+        "name": "Workflow",
+        "description": {
+          "value": "A maximum vote from a non-uploader is required for the \t              \u0027Workflow\u0027 label. A minimum vote is blocking."
+        },
+        "applicabilityExpression": {},
+        "submittabilityExpression": {
+          "expressionString": "label:Workflow\u003dMAX,user\u003dnon_uploader AND -label:Workflow\u003dMIN"
+        },
+        "overrideExpression": {},
+        "allowOverrideInChildProjects": true
+      },
+      "applicabilityExpressionResult": {},
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Workflow=MAX,user=non_uploader AND -label:Workflow=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Workflow=MAX,user=non_uploader","label:Workflow=MIN"]}
+      },
+      "overrideExpressionResult": {},
+      "patchSetCommitId": "c47ef2cd143e0fa7b5811da3ebd3337efaa69257",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
+    }
+  ]
+}
