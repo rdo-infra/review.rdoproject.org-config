@@ -1,0 +1,9 @@
+---
+- name: Enable access via build key on all nodes
+  ansible.posix.authorized_key:
+    user: "{{ ansible_ssh_user }}"
+    state: present
+    key: "{{ zj_public_key.public_key }}"
+  loop: "{{ public_keys }}"
+  loop_control:
+    loop_var: zj_public_key
