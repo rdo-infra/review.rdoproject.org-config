@@ -291,3 +291,54 @@
         secret: dpa_registry_user
       - name: dpa_registry_pass
         secret: dpa_registry_pass
+
+- job:
+    name: base-crc-cloud-wo-networks
+    parent: base-minimal
+    abstract: true
+    description: |
+      A base job that starts CRC environment by using crc-cloud script,
+      without calling any OpenStack-specific multinode networking playbooks
+    pre-run:
+      # Playbook to add podified-ci team ssh keys to the node
+      - playbooks/ci-framework-rdo-base/pre.yaml
+      - playbooks/crc/prepare-crc.yaml
+      # Playbooks for podman
+      - playbooks/crc/podman.yaml
+      - playbooks/data_plane_adoption/dpa_RH_subscription_registry_login.yaml
+    post-run:
+      - playbooks/crc/print-machineconfigpool.yaml
+      - playbooks/crc/compress-crc-cloud-logs.yaml
+      - playbooks/crc/compress-logs.yaml
+      - playbooks/ci-framework-rdo-base/dlrn/dlrn-report.yaml
+    required-projects:
+      - opendev.org/zuul/zuul-jobs
+      - config
+      - name: github.com/openstack-k8s-operators/ci-framework
+        override-checkout: main
+      - name: github.com/crc-org/crc-cloud
+        override-checkout: main
+    roles:
+      - zuul: github.com/openstack-k8s-operators/ci-framework
+    attempts: 3
+    vars:
+      crc_ci_bootstrap_cloud_name: vexxhost
+      cifmw_dlrn_report_result: false
+      # More info: https://github.com/crc-org/crc-cloud/pull/214
+      ca_cert_approver: true
+      max_retries: 60
+      retry_delay: 15
+    secrets:
+      - name: quay_login_secret_name
+        secret: quay_nextgen_zuulgithubci
+      - dlrnapi
+      - name: crc_secret_pabrodri
+        secret: crc_secret_pabrodri
+      - name: dpa_sub_man_orgid
+        secret: dpa_sub_man_orgid
+      - name: dpa_sub_man_key
+        secret: dpa_sub_man_key
+      - name: dpa_registry_user
+        secret: dpa_registry_user
+      - name: dpa_registry_pass
+        secret: dpa_registry_pass
