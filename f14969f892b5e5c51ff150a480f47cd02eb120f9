@@ -50,6 +50,24 @@
       "message": "@eduardo can you also share the failure link which shows compatibility issue? because my understanding was since we pinned whitebox in antelope, we should be good. \nBut seems it\u0027s not honoring ntp in review changes, if yes that makes sense to not run these jobs",
       "revId": "f14969f892b5e5c51ff150a480f47cd02eb120f9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14ab074b_fab90ff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 768
+      },
+      "writtenOn": "2026-11-18T11:14:18Z",
+      "side": 1,
+      "message": "I see. I think you are right. I thought this job failed due to WNTP, but it failed earlier and due to something different:\nhttps://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/zuul/t/rdoproject.org/build/80b3d0aa97a44d5ea96ec85428396c25\n\nLogs:\nhttps://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/logs//80b/rdoproject.org/80b3d0aa97a44d5ea96ec85428396c25/controller/ci-framework-data/logs/openstack-must-gather/quay-io-openstack-k8s-operators-openstack-must-gather-sha256-494d177d14b3e4d329a480e65d5d58c50f96795b714ec0d55662a48b7d30533d/namespaces/openstack/pods/configure-network-edpm-deployment-openstack-edpm-ipam-fv2hf/logs/configure-network-edpm-deployment-openstack-edpm-ipam.log\n```\nTASK [osp.edpm.edpm_network_config : Re-raise nmstate apply failure msg\u003dnmstate network configuration failed; see tasks above.] ***\n\u001b[1;30mtask path: /usr/share/ansible/collections/ansible_collections/osp/edpm/roles/edpm_network_config/tasks/nmstate_tool.yml:208\u001b[0m\nWednesday 18 November 2026  05:53:37 +0000 (0:00:01.108)       0:00:55.890 **** \n\u001b[0;31m[ERROR]: Task failed: Action failed: nmstate network configuration failed; see tasks above.\u001b[0m\n\u001b[0;31mOrigin: /usr/share/ansible/collections/ansible_collections/osp/edpm/roles/edpm_network_config/tasks/nmstate_tool.yml:208:7\u001b[0m\n\u001b[0;31m\u001b[0m\n\u001b[0;31m206         mode: \"0644\"\u001b[0m\n\u001b[0;31m207\u001b[0m\n\u001b[0;31m208     - name: Re-raise nmstate apply failure\u001b[0m\n\u001b[0;31m          ^ column 7\u001b[0m\n\u001b[0;31m\u001b[0m\n\u001b[0;31mfatal: [compute-0]: FAILED! \u003d\u003e \u001b[0m\n\u001b[0;31m    changed: false\u001b[0m\n\u001b[0;31m    msg: nmstate network configuration failed; see tasks above.\u001b[0m\n\u001b[0;31mfatal: [compute-1]: FAILED! \u003d\u003e \u001b[0m\n\u001b[0;31m    changed: false\u001b[0m\n\u001b[0;31m    msg: nmstate network configuration failed; see tasks above.\u001b[0m\n```",
+      "parentUuid": "a9a63a0d_d590cedc",
+      "revId": "f14969f892b5e5c51ff150a480f47cd02eb120f9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
