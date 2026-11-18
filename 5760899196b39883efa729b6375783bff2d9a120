@@ -17,5 +17,32 @@
       "revId": "5760899196b39883efa729b6375783bff2d9a120",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
+  ],
+  "submitRequirementResults": [
+    {
+      "submitRequirement": {
+        "name": "Workflow",
+        "description": {
+          "value": "A maximum vote from a non-uploader is required for the \t              \u0027Workflow\u0027 label. A minimum vote is blocking."
+        },
+        "applicabilityExpression": {},
+        "submittabilityExpression": {
+          "expressionString": "label:Workflow\u003dMAX,user\u003dnon_uploader AND -label:Workflow\u003dMIN"
+        },
+        "overrideExpression": {},
+        "allowOverrideInChildProjects": true
+      },
+      "applicabilityExpressionResult": {},
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Workflow=MAX,user=non_uploader AND -label:Workflow=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Workflow=MAX,user=non_uploader"],"failingAtoms":["label:Workflow=MIN"]}
+      },
+      "overrideExpressionResult": {},
+      "patchSetCommitId": "5760899196b39883efa729b6375783bff2d9a120",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
+    }
   ]
 }
