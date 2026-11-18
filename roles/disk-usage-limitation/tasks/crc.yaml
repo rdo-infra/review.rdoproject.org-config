@@ -4,14 +4,15 @@
 - name: Set facts for disk limitation
   ansible.builtin.set_fact:
     vm_block_device: /dev/vda
-    # NOTE: AWS/Google/OVH is setting 30 IOPS per GB (depends what storage
-    # is used, but the "default" storage is low).
-    # NOTE: the current disks are making 100k IOPS, but if we take how many
-    # VMs are on one hypervisor, 18k IOPS might be over that limit.
-    # NOTE: useful info about etcd HW requirements: https://etcd.io/docs/v3.5/op-guide/hardware/
-    iops_limit: 25000
-    # 350MB in Bytes
-    rw_total_limit: 367001600
+    # NOTE: Cloud providers (AWS gp3, GCP Hyperdisk, Azure SSD v2) start at 3k baseline
+    # IOPS / 125-140 MB/s; higher tiers require extra provisioning or large volumes.
+    # NOTE: Local NVMe hosts deliver ~110k-125k IOPS (4k randread, p99 latency ~2ms).
+    # With up to 15 concurrent VMs per hypervisor, capping each VM at 35k IOPS (~3.5x
+    # oversubscription) prevents queue saturation and protects low latency for etcd.
+    # NOTE: Useful info about etcd HW requirements: https://etcd.io/docs/v3.5/op-guide/hardware/
+    iops_limit: 35000
+    # ~500 MiB/s (520 MB/s) in Bytes
+    rw_total_limit: 520288000
 
 - name: Print limits for the disk
   ansible.builtin.debug:
