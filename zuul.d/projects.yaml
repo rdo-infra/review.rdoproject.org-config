@@ -341,13 +341,6 @@
               # Additional irrelevant files
               - ^devstack/.*$
               - ^zuul.d/.*$
-        - whitebox-neutron-tempest-plugin-podified-multinode-edpm-deployment-crc-2comp:
-            override-checkout: main
-            branches: ^(stable|unmaintained)/2023.1$
-            voting: false
-            irrelevant-files: *irrelevant_files_neutron_trigger_whitebox
-            dependencies:
-              - openstack-meta-content-provider
 
 - project:
     name: opendev.org/openstack/neutron-tempest-plugin
@@ -355,12 +348,7 @@
       - system-required
     openstack-check:
       jobs:
-        - openstack-meta-content-provider:
-            override-checkout: main
-        - whitebox-neutron-tempest-plugin-podified-multinode-edpm-deployment-crc-2comp:
-            override-checkout: main
-            dependencies:
-              - openstack-meta-content-provider
+        - noop
 
 - project:
     name: opendev.org/openstack/nova
